@@ -1359,7 +1359,8 @@ function registerHandlers(io) {
         solo: !!mods.solo,
         usedDisciplines: (state.disciplineUsage || []).map(function (u) { return { discipline: u.discipline, charId: u.charId, beat: u.beat }; }),
         charModifiers: state.charModifiers || {},
-        adaptationBoost: state.adaptationBoost || 0
+        adaptationBoost: state.adaptationBoost || 0,
+        pendingBuffs: state.pendingBuffs || {}
       };
     }
 
@@ -1392,7 +1393,8 @@ function registerHandlers(io) {
         disciplineUsage: [],
         charModifiers: {},
         adaptationBoost: 0,
-        contributedCharIds: []
+        contributedCharIds: [],
+        pendingBuffs: {}
       };
       const modState = _gcBuildModifierState(_groupChallengeState);
       io.to('players').emit('groupChallenge:announce', {
@@ -1444,7 +1446,7 @@ function registerHandlers(io) {
         socket.emit('groupChallenge:submitError', { message: 'Already submitted for this beat.' });
         return;
       }
-      const { discipline, tier, mastery } = payload || {};
+      const { discipline, tier, mastery, buffType, targetCharId } = payload || {};
       if (!discipline || !tier) {
         socket.emit('groupChallenge:submitError', { message: 'Discipline and tier are required.' });
         return;
@@ -1467,34 +1469,87 @@ function registerHandlers(io) {
         return;
       }
 
+      const eligibleEntry = (gcs.challengeData.eligibleDisciplines || []).find(function (d) { return d.discipline === discipline; });
+      const isSecondary = eligibleEntry && eligibleEntry.role === 'secondary';
+
+      if (isSecondary) {
+        if (!buffType || (buffType !== 'optimized' && buffType !== 'empowered')) {
+          socket.emit('groupChallenge:submitError', { message: 'Secondary approach requires a buff type (optimized or empowered).' });
+          return;
+        }
+        if (!targetCharId || String(targetCharId) === charId) {
+          socket.emit('groupChallenge:submitError', { message: 'Secondary approach requires a valid ally target (not yourself).' });
+          return;
+        }
+        const targetIdStr = String(targetCharId);
+        const validTarget = Array.from(io.of('/').sockets.values()).some(function (s) {
+          return s.data.role === 'player' && String(s.data.characterId) === targetIdStr;
+        });
+        if (!validTarget) {
+          socket.emit('groupChallenge:submitError', { message: 'Target ally is not connected.' });
+          return;
+        }
+        if (!gcs.pendingBuffs) gcs.pendingBuffs = {};
+        if (gcs.pendingBuffs[targetIdStr]) {
+          socket.emit('groupChallenge:submitError', { message: 'That ally already has a pending buff. Wait until they use it.' });
+          return;
+        }
+      }
+
       const scoring = gcs.challengeData.vpScoring || {};
       let effectivePower = _gcEffectivePower(gcs);
       const charMods = (gcs.charModifiers || {})[charId] || {};
       if (charMods.controlStepDown) effectivePower += charMods.controlStepDown;
       if (charMods.powerStepUp) effectivePower = Math.max(0, effectivePower - charMods.powerStepUp);
+      if (!isSecondary && gcs.pendingBuffs && gcs.pendingBuffs[charId] && gcs.pendingBuffs[charId].type === 'optimized') {
+        effectivePower = Math.max(0, effectivePower - 1);
+      }
       const reachableTiers = _gcGetReachableTiers(effectivePower, scoring);
       if (reachableTiers.indexOf(tier) === -1 || typeof scoring[tier] !== 'number') {
         socket.emit('groupChallenge:submitError', { message: 'Invalid or unreachable result tier for this challenge.' });
         return;
       }
 
-      let vpEarned = scoring[tier];
-      const isMastery = !!mastery;
-      if (isMastery && scoring.masteryBonus) {
-        vpEarned += scoring.masteryBonus;
-      }
-
       const isFailure = tier === 'failure';
       const isCost = tier.indexOf('Cost') !== -1;
       const isCleanSuccess = !isFailure && !isCost;
 
-      if (isFailure && mods.failurePenalty) {
-        const penalty = mods.failurePenalty.value || 1;
-        const floor = _gcCheckpointFloor(gcs);
-        gcs.totalVP = Math.max(floor, gcs.totalVP - penalty);
-        vpEarned = -penalty;
+      let vpEarned = 0;
+      let consumedBuff = null;
+
+      if (isSecondary) {
+        vpEarned = 0;
+        if (!isFailure) {
+          gcs.pendingBuffs[String(targetCharId)] = {
+            type: buffType,
+            fromCharId: charId,
+            fromCharName: socket.data.characterName || 'Unknown',
+            beat: beat
+          };
+        }
       } else {
-        gcs.totalVP += vpEarned;
+        vpEarned = scoring[tier];
+        const isMastery = !!mastery;
+        if (isMastery && scoring.masteryBonus) {
+          vpEarned += scoring.masteryBonus;
+        }
+
+        if (gcs.pendingBuffs && gcs.pendingBuffs[charId]) {
+          consumedBuff = gcs.pendingBuffs[charId];
+          delete gcs.pendingBuffs[charId];
+          if (!isFailure && consumedBuff.type === 'empowered') {
+            vpEarned += 1;
+          }
+        }
+
+        if (isFailure && mods.failurePenalty) {
+          const penalty = mods.failurePenalty.value || 1;
+          const floor = _gcCheckpointFloor(gcs);
+          gcs.totalVP = Math.max(floor, gcs.totalVP - penalty);
+          vpEarned = -penalty;
+        } else {
+          gcs.totalVP += vpEarned;
+        }
       }
 
       gcs.beatSubmissions[charId + ':' + beat] = true;
@@ -1504,7 +1559,7 @@ function registerHandlers(io) {
         gcs.contributedCharIds.push(charId);
       }
 
-      if (mods.adaptation && !isFailure) {
+      if (mods.adaptation && !isFailure && !isSecondary) {
         gcs.adaptationBoost = (gcs.adaptationBoost || 0) + (mods.adaptation.increment || 1);
       }
 
@@ -1535,8 +1590,13 @@ function registerHandlers(io) {
         discipline: discipline,
         tier: tier,
         vp: vpEarned,
-        mastery: isMastery,
-        beat: beat
+        mastery: !isSecondary && !!mastery,
+        beat: beat,
+        role: isSecondary ? 'secondary' : 'primary',
+        buffType: isSecondary && !isFailure ? buffType : null,
+        buffTargetCharId: isSecondary && !isFailure ? String(targetCharId) : null,
+        consumedBuff: consumedBuff ? consumedBuff.type : null,
+        consumedBuffFrom: consumedBuff ? consumedBuff.fromCharName : null
       };
       gcs.rollLog.push(entry);
 
@@ -1561,7 +1621,10 @@ function registerHandlers(io) {
         revealedThresholds: gcs.revealedThresholds,
         modifierState: modState
       });
-      console.log('[socket] ' + (socket.data.characterName || charId) + ' group challenge: ' + discipline + ' ' + tier + ' (' + vpEarned + ' VP)');
+      var roleLabel = isSecondary ? 'SECONDARY' : 'PRIMARY';
+      var buffLabel = isSecondary && !isFailure ? ' [' + buffType + ' \u2192 ' + String(targetCharId) + ']' : '';
+      var consumedLabel = consumedBuff ? ' [consumed ' + consumedBuff.type + ' from ' + consumedBuff.fromCharName + ']' : '';
+      console.log('[socket] ' + (socket.data.characterName || charId) + ' group challenge (' + roleLabel + '): ' + discipline + ' ' + tier + ' (' + vpEarned + ' VP)' + buffLabel + consumedLabel);
     });
 
     socket.on('groupChallenge:advanceBeat', () => {

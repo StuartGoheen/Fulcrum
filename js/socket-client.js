@@ -184,12 +184,14 @@
         connectedPlayers.push({ characterId, name });
       }
       updateCrewList(connectedPlayers);
+      _gcConnectedPlayers = connectedPlayers.slice();
     });
 
     socket.on('player:disconnected', ({ characterId, name }) => {
       const idx = connectedPlayers.findIndex((p) => p.characterId === characterId);
       if (idx !== -1) connectedPlayers.splice(idx, 1);
       updateCrewList(connectedPlayers);
+      _gcConnectedPlayers = connectedPlayers.slice();
     });
 
     socket.on('error', ({ message }) => {
@@ -1179,6 +1181,7 @@
   var _gcSubmitted = false;
   var _gcCollapsed = false;
   var _gcDrag = { active: false, startX: 0, startY: 0, x: 0, y: 0 };
+  var _gcConnectedPlayers = [];
 
   var _ALL_DISCIPLINES = [
     'athletics', 'brawl', 'endure', 'melee', 'heavy_weapons',
@@ -1360,16 +1363,68 @@
         return false;
       }
 
+      var pendingBuffs = (modState.pendingBuffs && Object.keys(modState.pendingBuffs).length > 0) ? modState.pendingBuffs : null;
+      var myBuff = pendingBuffs && pendingBuffs[charId] ? pendingBuffs[charId] : null;
+      if (myBuff) {
+        var myBuffColor = myBuff.type === 'optimized' ? '#3b82f6' : '#22c55e';
+        var myBuffLabel = myBuff.type === 'optimized' ? 'OPTIMIZED (Power -1 on your next roll)' : 'EMPOWERED (+1 VP on your next roll)';
+        html += '<div class="pgc-buff-active" style="background:rgba(0,0,0,0.3);border:1px solid ' + myBuffColor + ';border-radius:4px;padding:0.3rem 0.4rem;margin:0.3rem 0;font-size:0.6rem;">';
+        html += '<span style="color:' + myBuffColor + ';font-weight:600;">\u2728 ' + myBuffLabel + '</span>';
+        html += '<div style="opacity:0.7;margin-top:0.1rem;">from ' + _escHtml(myBuff.fromCharName) + '</div>';
+        html += '</div>';
+      }
+
       if (!_gcSubmitted) {
         var eligibleIds = (gc.eligibleDisciplines || []).map(function (d) { return d.discipline; });
+        var primaryEligible = (gc.eligibleDisciplines || []).filter(function (d) { return d.role !== 'secondary'; });
+        var secondaryEligible = (gc.eligibleDisciplines || []).filter(function (d) { return d.role === 'secondary'; });
+        var hasRoles = primaryEligible.length > 0 && secondaryEligible.length > 0;
+
         html += '<div class="pgc-submit-section">';
-        html += '<div class="pgc-section-label">Suggested Approaches</div>';
-        html += '<div class="pgc-disc-buttons">';
-        (gc.eligibleDisciplines || []).forEach(function (d) {
-          var restricted = _isDisciplineRestricted(d.discipline);
-          html += '<button class="pgc-disc-btn pgc-disc-btn--primary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" title="' + _escHtml(d.approach) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
-        });
-        html += '</div>';
+
+        if (hasRoles) {
+          html += '<div class="pgc-section-label">Primary Approaches <span style="font-weight:400;opacity:0.6;">(earns VP)</span></div>';
+          html += '<div class="pgc-disc-buttons">';
+          primaryEligible.forEach(function (d) {
+            var restricted = _isDisciplineRestricted(d.discipline);
+            html += '<button class="pgc-disc-btn pgc-disc-btn--primary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" data-gc-role="primary" title="' + _escHtml(d.approach) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
+          });
+          html += '</div>';
+
+          html += '<div class="pgc-section-label" style="margin-top:0.3rem;">Secondary Approaches <span style="font-weight:400;opacity:0.6;">(buff an ally)</span></div>';
+          html += '<div class="pgc-disc-buttons">';
+          secondaryEligible.forEach(function (d) {
+            var restricted = _isDisciplineRestricted(d.discipline);
+            html += '<button class="pgc-disc-btn pgc-disc-btn--secondary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" data-gc-role="secondary" title="' + _escHtml(d.approach) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
+          });
+          html += '</div>';
+
+          html += '<div id="pgc-secondary-options" style="display:none;margin-top:0.3rem;">';
+          html += '<div class="pgc-section-label">Buff Type</div>';
+          html += '<div class="pgc-disc-buttons">';
+          html += '<button class="pgc-buff-type-btn" data-buff-type="optimized" title="Reduce the challenge Power by 1 for your target\'s next roll" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#3b82f6;font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:3px;cursor:pointer;">Optimized <span style="opacity:0.7;">(Power -1)</span></button>';
+          html += '<button class="pgc-buff-type-btn" data-buff-type="empowered" title="Add +1 VP to your target\'s next roll result" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#22c55e;font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:3px;cursor:pointer;">Empowered <span style="opacity:0.7;">(+1 VP)</span></button>';
+          html += '</div>';
+          html += '<div class="pgc-section-label">Target Ally</div>';
+          html += '<select class="pgc-disc-select" id="pgc-target-select">';
+          html += '<option value="">Select ally\u2026</option>';
+          _gcConnectedPlayers.forEach(function (p) {
+            if (String(p.characterId) !== String(charId)) {
+              html += '<option value="' + _escHtml(p.characterId) + '">' + _escHtml(p.name) + '</option>';
+            }
+          });
+          html += '</select>';
+          html += '</div>';
+        } else {
+          html += '<div class="pgc-section-label">Suggested Approaches</div>';
+          html += '<div class="pgc-disc-buttons">';
+          (gc.eligibleDisciplines || []).forEach(function (d) {
+            var restricted = _isDisciplineRestricted(d.discipline);
+            html += '<button class="pgc-disc-btn pgc-disc-btn--primary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" data-gc-role="primary" title="' + _escHtml(d.approach) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
+          });
+          html += '</div>';
+        }
+
         html += '<div class="pgc-section-label">Or Choose Any Discipline</div>';
         html += '<select class="pgc-disc-select" id="pgc-disc-select">';
         html += '<option value="">Select discipline\u2026</option>';
@@ -1380,7 +1435,7 @@
         });
         html += '</select>';
         html += '<div class="pgc-section-label">Result Tier</div>';
-        html += '<div class="pgc-tier-buttons">';
+        html += '<div class="pgc-tier-buttons" id="pgc-tier-buttons">';
         var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
         var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
         var reachable = _getReachableTiers(effectivePower, gc.vpScoring);
@@ -1390,10 +1445,11 @@
           var vpVal = gc.vpScoring[t];
           if (t === 'failure' && mods.failurePenalty) vpVal = -mods.failurePenalty.value;
           var vpLabel = vpVal > 0 ? '+' + vpVal : String(vpVal);
-          html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
+          html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '" data-vp-primary="' + vpLabel + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
         });
         html += '</div>';
-        html += '<label class="pgc-mastery-label"><input type="checkbox" id="pgc-mastery-cb" /> Mastery (Control 8+)' + (gc.vpScoring.masteryBonus ? ' +' + gc.vpScoring.masteryBonus + ' VP' : '') + '</label>';
+        html += '<div id="pgc-secondary-vp-note" style="display:none;font-size:0.55rem;color:#22c55e;opacity:0.8;margin-top:0.15rem;">Secondary: 0 VP (buff placed on success)</div>';
+        html += '<label class="pgc-mastery-label" id="pgc-mastery-row"><input type="checkbox" id="pgc-mastery-cb" /> Mastery (Control 8+)' + (gc.vpScoring.masteryBonus ? ' +' + gc.vpScoring.masteryBonus + ' VP' : '') + '</label>';
         html += '<button class="pgc-submit-btn" id="pgc-submit-btn" disabled>Submit Roll</button>';
         html += '</div>';
       } else {
@@ -1419,7 +1475,11 @@
       } else {
         var recentLogs = gc.rollLog.slice(-8);
         recentLogs.forEach(function (r) {
-          html += '<div class="pgc-log-entry">B' + r.beat + ': <strong>' + _escHtml(r.characterName) + '</strong> \u2014 ' + _escHtml(r.discipline) + ' (' + _escHtml(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +M' : '') + '</div>';
+          var roleTag = r.role === 'secondary' ? ' <span style="color:#22c55e;font-size:0.5rem;">[SUPPORT]</span>' : '';
+          var buffTag = '';
+          if (r.buffType) buffTag = ' <span style="color:' + (r.buffType === 'optimized' ? '#3b82f6' : '#22c55e') + ';font-size:0.5rem;">\u2192' + _escHtml(r.buffType) + '</span>';
+          if (r.consumedBuff) buffTag += ' <span style="color:#eab308;font-size:0.5rem;">[' + _escHtml(r.consumedBuff) + ']</span>';
+          html += '<div class="pgc-log-entry">B' + r.beat + ': <strong>' + _escHtml(r.characterName) + '</strong>' + roleTag + ' \u2014 ' + _escHtml(r.discipline) + ' (' + _escHtml(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +M' : '') + buffTag + '</div>';
         });
       }
       html += '</div>';
@@ -1438,14 +1498,45 @@
 
     var selectedDisc = null;
     var selectedTier = null;
+    var selectedRole = 'primary';
+    var selectedBuffType = null;
+    var selectedTarget = null;
     var discSelect = document.getElementById('pgc-disc-select');
+    var secondaryOpts = document.getElementById('pgc-secondary-options');
+    var targetSelect = document.getElementById('pgc-target-select');
+
+    function _showSecondaryOptions(show) {
+      if (secondaryOpts) secondaryOpts.style.display = show ? 'block' : 'none';
+      var vpNote = document.getElementById('pgc-secondary-vp-note');
+      if (vpNote) vpNote.style.display = show ? 'block' : 'none';
+      var masteryRow = document.getElementById('pgc-mastery-row');
+      if (masteryRow) masteryRow.style.display = show ? 'none' : '';
+      panel.querySelectorAll('.pgc-tier-btn').forEach(function (btn) {
+        var vpSpan = btn.querySelector('.pgc-tier-vp');
+        if (vpSpan) {
+          if (show) {
+            vpSpan.textContent = '(0)';
+          } else {
+            vpSpan.textContent = '(' + (btn.dataset.vpPrimary || '0') + ')';
+          }
+        }
+      });
+    }
 
     panel.querySelectorAll('.pgc-disc-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         panel.querySelectorAll('.pgc-disc-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
         btn.classList.add('pgc-selected');
         selectedDisc = btn.dataset.gcDisc;
+        selectedRole = btn.dataset.gcRole || 'primary';
         if (discSelect) discSelect.value = selectedDisc;
+        _showSecondaryOptions(selectedRole === 'secondary');
+        if (selectedRole !== 'secondary') {
+          selectedBuffType = null;
+          selectedTarget = null;
+          panel.querySelectorAll('.pgc-buff-type-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
+          if (targetSelect) targetSelect.value = '';
+        }
         _updateGcSubmitState();
       });
     });
@@ -1453,9 +1544,35 @@
     if (discSelect) {
       discSelect.addEventListener('change', function () {
         selectedDisc = discSelect.value || null;
+        var eligEntry = null;
+        if (selectedDisc && _gcData) {
+          eligEntry = (_gcData.eligibleDisciplines || []).find(function (d) { return d.discipline === selectedDisc; });
+        }
+        selectedRole = (eligEntry && eligEntry.role === 'secondary') ? 'secondary' : 'primary';
         panel.querySelectorAll('.pgc-disc-btn').forEach(function (b) {
           b.classList.toggle('pgc-selected', b.dataset.gcDisc === selectedDisc);
         });
+        _showSecondaryOptions(selectedRole === 'secondary');
+        if (selectedRole !== 'secondary') {
+          selectedBuffType = null;
+          selectedTarget = null;
+        }
+        _updateGcSubmitState();
+      });
+    }
+
+    panel.querySelectorAll('.pgc-buff-type-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        panel.querySelectorAll('.pgc-buff-type-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
+        btn.classList.add('pgc-selected');
+        selectedBuffType = btn.dataset.buffType;
+        _updateGcSubmitState();
+      });
+    });
+
+    if (targetSelect) {
+      targetSelect.addEventListener('change', function () {
+        selectedTarget = targetSelect.value || null;
         _updateGcSubmitState();
       });
     }
@@ -1471,7 +1588,12 @@
 
     function _updateGcSubmitState() {
       var submitBtn = document.getElementById('pgc-submit-btn');
-      if (submitBtn) submitBtn.disabled = !(selectedDisc && selectedTier);
+      if (!submitBtn) return;
+      if (selectedRole === 'secondary') {
+        submitBtn.disabled = !(selectedDisc && selectedTier && selectedBuffType && selectedTarget);
+      } else {
+        submitBtn.disabled = !(selectedDisc && selectedTier);
+      }
     }
 
     var submitBtn = document.getElementById('pgc-submit-btn');
@@ -1480,11 +1602,16 @@
         if (!selectedDisc || !selectedTier || !_currentSocket) return;
         var masteryEl = document.getElementById('pgc-mastery-cb');
         var mastery = masteryEl ? masteryEl.checked : false;
-        _currentSocket.emit('groupChallenge:submit', {
+        var submitPayload = {
           discipline: selectedDisc,
           tier: selectedTier,
           mastery: mastery
-        });
+        };
+        if (selectedRole === 'secondary') {
+          submitPayload.buffType = selectedBuffType;
+          submitPayload.targetCharId = selectedTarget;
+        }
+        _currentSocket.emit('groupChallenge:submit', submitPayload);
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting\u2026';
       });

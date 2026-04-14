@@ -608,27 +608,33 @@
             "eligibleDisciplines": [
               {
                 "discipline": "investigation",
-                "approach": "Methodical questioning, cross-referencing stories, following physical trail signs through the market."
+                "approach": "Methodical questioning, cross-referencing stories, following physical trail signs through the market.",
+                "role": "primary"
               },
               {
                 "discipline": "charm",
-                "approach": "Buying someone a drink, earning trust from a refugee or trader who saw something."
+                "approach": "Buying someone a drink, earning trust from a refugee or trader who saw something.",
+                "role": "primary"
               },
               {
                 "discipline": "deception",
-                "approach": "Posing as someone with business for Raden, getting criminals to talk without realizing they're being pumped."
-              },
-              {
-                "discipline": "insight",
-                "approach": "Reading body language in the crowd, spotting who gets nervous when the Devaronian is mentioned."
-              },
-              {
-                "discipline": "intimidate",
-                "approach": "Leaning on a local who clearly knows something but won't talk."
+                "approach": "Posing as someone with business for Raden, getting criminals to talk without realizing they're being pumped.",
+                "role": "primary"
               },
               {
                 "discipline": "skulduggery",
-                "approach": "Working the underworld channels, trading favors for information, speaking the right language."
+                "approach": "Working the underworld channels, trading favors for information, speaking the right language.",
+                "role": "primary"
+              },
+              {
+                "discipline": "insight",
+                "approach": "Reading body language in the crowd, spotting who gets nervous when the Devaronian is mentioned, and tipping off an ally to press harder.",
+                "role": "secondary"
+              },
+              {
+                "discipline": "intimidate",
+                "approach": "Leaning on a local who clearly knows something, making them nervous enough that the next questioner gets answers easily.",
+                "role": "secondary"
               }
             ],
             "vpBase": 2,

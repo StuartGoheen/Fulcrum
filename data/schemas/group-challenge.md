@@ -12,7 +12,7 @@ A `groupChallenge` object lives on a scene and describes a multi-beat VP accumul
 | `power` | number | Base opposition power. Determines reachable result tiers: maxResult = 12 - power. |
 | `vpBase` | number | VP per player. Server calculates `vpThreshold = (vpBase + sum of modifier vpAdjust) × crewSize` at runtime. |
 | `vpScoring` | object | VP values per result tier (see below) |
-| `eligibleDisciplines` | array | Suggested approaches (players may use any discipline unless `exclusive` modifier is active) |
+| `eligibleDisciplines` | array | Suggested approaches with role assignments (see below) |
 
 ## Standard vpScoring
 
@@ -102,6 +102,17 @@ Result tiers are gated by the current effective power (base power + escalation):
 |-------|------|-------------|
 | `discipline` | string | Canonical Discipline ID from the system's 25 disciplines. **Physique**: athletics, brawl, endure, melee, heavy_weapons. **Reflex**: evasion, piloting, ranged, skulduggery, stealth. **Grit**: beast_handling, intimidate, resolve, survival, control_spark. **Wits**: investigation, medicine, tactics, tech, sense_spark. **Presence**: charm, deception, insight, persuasion, alter_spark. |
 | `approach` | string | Narrative description of how this discipline applies |
+| `role` | string | `"primary"` or `"secondary"`. Primary disciplines earn VP normally. Secondary disciplines earn 0 VP but allow the character to place a one-shot buff on an ally. |
+
+### Primary vs Secondary Roles
+
+- **Primary**: The character rolls and earns VP based on the standard scoring table. If a pending buff from an ally is available, the primary roll consumes it automatically.
+- **Secondary**: The character rolls but earns 0 VP regardless of result tier. Instead, they choose a `buffType` and a `targetCharId`:
+  - `"optimized"` — The target's next primary roll has the challenge's effective Power reduced by 1 (easier to reach higher tiers).
+  - `"empowered"` — The target's next primary roll gains +1 VP to the result.
+- Buffs are one-shot: consumed on the target's next primary submission. Only one buff can be pending per target character at a time.
+- A character using a secondary discipline still counts for `allHands` participation and still records discipline usage for `disciplineLimit` checks.
+- Secondary rolls still trigger `pressure`/`fatigue`/`momentum` modifiers based on the tier result (failure, cost, clean success).
 
 ## Example
 
@@ -139,9 +150,11 @@ Result tiers are gated by the current effective power (base power + escalation):
       { "at": 1.0, "intel": "Ghost run. Perfect infiltration.", "checkpoint": false }
     ],
     "eligibleDisciplines": [
-      { "discipline": "stealth", "approach": "Moving through blind spots..." },
-      { "discipline": "deception", "approach": "Impersonating Imperial crew..." },
-      { "discipline": "tech", "approach": "Slicing security cameras..." }
+      { "discipline": "stealth", "approach": "Moving through blind spots...", "role": "primary" },
+      { "discipline": "tech", "approach": "Slicing security cameras...", "role": "primary" },
+      { "discipline": "skulduggery", "approach": "Picking locks on gates...", "role": "primary" },
+      { "discipline": "investigation", "approach": "Studying patrol patterns...", "role": "secondary" },
+      { "discipline": "charm", "approach": "Chatting up off-duty personnel...", "role": "secondary" }
     ]
   }
 }

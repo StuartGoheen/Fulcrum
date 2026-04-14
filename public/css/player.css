@@ -890,11 +890,28 @@ body.player-body {
 .pgc-disc-btn--primary {
   border-color: rgba(192,132,252,0.35);
 }
+.pgc-disc-btn--secondary {
+  background: rgba(34,197,94,0.08);
+  border-color: rgba(34,197,94,0.25);
+}
+.pgc-disc-btn--secondary:hover {
+  border-color: #22c55e;
+  background: rgba(34,197,94,0.15);
+}
 .pgc-disc-btn.pgc-selected {
   background: rgba(192,132,252,0.2);
   border-color: #c084fc;
   color: #c084fc;
   font-weight: 600;
+}
+.pgc-disc-btn--secondary.pgc-selected {
+  background: rgba(34,197,94,0.2);
+  border-color: #22c55e;
+  color: #22c55e;
+}
+.pgc-buff-type-btn.pgc-selected {
+  font-weight: 700;
+  box-shadow: 0 0 0 1px currentColor;
 }
 .pgc-disc-btn--restricted,
 .pgc-disc-btn--restricted:hover {

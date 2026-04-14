@@ -6661,31 +6661,38 @@
             "eligibleDisciplines": [
               {
                 "discipline": "stealth",
-                "approach": "Moving through blind spots, using terrain cover and cargo containers to reach the shuttle unseen."
-              },
-              {
-                "discipline": "deception",
-                "approach": "Impersonating Imperial maintenance crew or authorized personnel to bluff past checkpoints."
+                "approach": "Moving through blind spots, using terrain cover and cargo containers to reach the shuttle unseen.",
+                "role": "primary"
               },
               {
                 "discipline": "tech",
-                "approach": "Slicing security cameras, spoofing comm chatter, or bypassing electronic locks on access gates."
-              },
-              {
-                "discipline": "investigation",
-                "approach": "Studying patrol patterns from a distance, identifying guard rotation gaps and security blind spots."
-              },
-              {
-                "discipline": "piloting",
-                "approach": "Coordinating vehicle movement on the tarmac to create cover, or prepping the Banshee for a hot extraction."
+                "approach": "Slicing security cameras, spoofing comm chatter, or bypassing electronic locks on access gates.",
+                "role": "primary"
               },
               {
                 "discipline": "skulduggery",
-                "approach": "Picking locks on maintenance gates, disabling physical security mechanisms, palming keycards from distracted guards."
+                "approach": "Picking locks on maintenance gates, disabling physical security mechanisms, palming keycards from distracted guards.",
+                "role": "primary"
+              },
+              {
+                "discipline": "piloting",
+                "approach": "Coordinating vehicle movement on the tarmac to create cover, or prepping the Banshee for a hot extraction.",
+                "role": "primary"
+              },
+              {
+                "discipline": "deception",
+                "approach": "Impersonating Imperial maintenance crew or bluffing past checkpoints to create openings for the infiltration team.",
+                "role": "secondary"
+              },
+              {
+                "discipline": "investigation",
+                "approach": "Studying patrol patterns from a distance, identifying guard rotation gaps and relaying timing windows to the team.",
+                "role": "secondary"
               },
               {
                 "discipline": "charm",
-                "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules and access codes."
+                "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules, creating distractions that benefit the lead operators.",
+                "role": "secondary"
               }
             ],
             "vpBase": 3,
@@ -7799,31 +7806,38 @@
             "eligibleDisciplines": [
               {
                 "discipline": "survival",
-                "approach": "Reading the terrain for safe paths, identifying edible plants, finding clean water sources, and navigating by jungle landmarks."
+                "approach": "Reading the terrain for safe paths, identifying edible plants, finding clean water sources, and navigating by jungle landmarks.",
+                "role": "primary"
               },
               {
                 "discipline": "athletics",
-                "approach": "Climbing over root systems, crossing ravines, hauling gear through mudslides, and maintaining pace through exhausting terrain."
+                "approach": "Climbing over root systems, crossing ravines, hauling gear through mudslides, and maintaining pace through exhausting terrain.",
+                "role": "primary"
               },
               {
                 "discipline": "stealth",
-                "approach": "Moving quietly through predator territory, avoiding fauna triggers, and keeping the group's noise profile low enough to slip past territorial wildlife."
+                "approach": "Moving quietly through predator territory, avoiding fauna triggers, and keeping the group's noise profile low enough to slip past territorial wildlife.",
+                "role": "primary"
               },
               {
                 "discipline": "medicine",
-                "approach": "Treating acid burns, neutralizing spore exposure, managing fatigue, and keeping everyone combat-ready despite the jungle's toll."
+                "approach": "Treating acid burns, neutralizing spore exposure, managing fatigue, and keeping everyone combat-ready despite the jungle's toll.",
+                "role": "primary"
               },
               {
                 "discipline": "investigation",
-                "approach": "Spotting acid pool indicators, reading fungal bloom patterns, identifying safe corridors through hazard clusters."
+                "approach": "Spotting acid pool indicators and reading fungal bloom patterns, relaying hazard locations to the point crew.",
+                "role": "secondary"
               },
               {
                 "discipline": "beast_handling",
-                "approach": "Redirecting territorial predators away from the group's path, calming agitated wildlife, reading animal signs for safe routes."
+                "approach": "Redirecting territorial predators away from the group's path, calming agitated wildlife so the lead navigator can move freely.",
+                "role": "secondary"
               },
               {
                 "discipline": "insight",
-                "approach": "Reading animal behavior for early warning of predators, sensing changes in the jungle's mood that signal danger ahead."
+                "approach": "Reading animal behavior for early warning of predators, sensing shifts in the jungle's mood and alerting the crew before danger materializes.",
+                "role": "secondary"
               }
             ],
             "vpBase": 3,

@@ -2617,7 +2617,16 @@
     var modState = _gcModifierState || {};
     var effectivePower = modState.effectivePower != null ? modState.effectivePower : gc.power;
     var effectiveTier = modState.effectiveTier != null ? modState.effectiveTier : gc.tier;
-    var vpT = _gcVpThreshold || gc.vpThreshold || gc.vpBase || 0;
+    var vpT = _gcVpThreshold;
+    if (!vpT) {
+      var previewCrewSize = Math.max(1, (partyCache || []).filter(function(p) { return p.connected; }).length);
+      var vpBase = Number(gc.vpBase) || 3;
+      var gcVpAdj = 0;
+      var gcMods2 = gc.modifiers || {};
+      if (gcMods2.escalating && typeof gcMods2.escalating.vpAdjust === 'number') gcVpAdj += gcMods2.escalating.vpAdjust;
+      if (gcMods2.failurePenalty && typeof gcMods2.failurePenalty.vpAdjust === 'number') gcVpAdj += gcMods2.failurePenalty.vpAdjust;
+      vpT = Math.max(1, (vpBase + gcVpAdj) * previewCrewSize);
+    }
     var html = '<div class="gc-panel">';
     html += '<div class="gc-header-info">';
     html += '<div class="gc-name">' + esc(gc.name) + '</div>';
@@ -2679,10 +2688,38 @@
     html += '<div class="gc-beat-label">' + beatLabel + '</div>';
     html += '</div>';
     html += '<div class="gc-disciplines">';
-    html += '<div class="gc-section-label">Eligible Approaches</div>';
-    (gc.eligibleDisciplines || []).forEach(function (d) {
-      html += '<div class="gc-disc-chip"><strong>' + esc(d.discipline) + '</strong> \u2014 ' + esc(d.approach) + '</div>';
-    });
+    var primaryDiscs = (gc.eligibleDisciplines || []).filter(function (d) { return d.role !== 'secondary'; });
+    var secondaryDiscs = (gc.eligibleDisciplines || []).filter(function (d) { return d.role === 'secondary'; });
+    if (primaryDiscs.length > 0) {
+      html += '<div class="gc-section-label">Primary Approaches <span style="font-weight:400;font-size:0.55rem;opacity:0.7;">(earns VP)</span></div>';
+      primaryDiscs.forEach(function (d) {
+        html += '<div class="gc-disc-chip gc-disc--primary"><strong>' + esc(d.discipline) + '</strong> \u2014 ' + esc(d.approach) + '</div>';
+      });
+    }
+    if (secondaryDiscs.length > 0) {
+      html += '<div class="gc-section-label" style="margin-top:0.4rem;">Secondary Approaches <span style="font-weight:400;font-size:0.55rem;opacity:0.7;">(buffs ally)</span></div>';
+      secondaryDiscs.forEach(function (d) {
+        html += '<div class="gc-disc-chip gc-disc--secondary" style="border-left:2px solid rgba(34,197,94,0.4);"><strong>' + esc(d.discipline) + '</strong> \u2014 ' + esc(d.approach) + '</div>';
+      });
+    }
+    if (primaryDiscs.length === 0 && secondaryDiscs.length === 0) {
+      html += '<div class="gc-section-label">Eligible Approaches</div>';
+      (gc.eligibleDisciplines || []).forEach(function (d) {
+        html += '<div class="gc-disc-chip"><strong>' + esc(d.discipline) + '</strong> \u2014 ' + esc(d.approach) + '</div>';
+      });
+    }
+    var pendingBuffs = (modState.pendingBuffs && Object.keys(modState.pendingBuffs).length > 0) ? modState.pendingBuffs : null;
+    if (pendingBuffs) {
+      html += '<div class="gc-section-label" style="margin-top:0.4rem;">Active Buffs</div>';
+      Object.keys(pendingBuffs).forEach(function (tgtId) {
+        var b = pendingBuffs[tgtId];
+        var buffColor = b.type === 'optimized' ? '#3b82f6' : '#22c55e';
+        var buffLabel = b.type === 'optimized' ? 'OPTIMIZED (Power -1)' : 'EMPOWERED (+1 VP)';
+        html += '<div style="font-size:0.6rem;padding:0.15rem 0.3rem;margin-bottom:0.15rem;background:rgba(0,0,0,0.2);border-radius:3px;border-left:2px solid ' + buffColor + ';">';
+        html += '<span style="color:' + buffColor + ';">' + buffLabel + '</span> on <strong>' + esc(tgtId) + '</strong> from ' + esc(b.fromCharName);
+        html += '</div>';
+      });
+    }
     html += '</div>';
     var scoring = gc.vpScoring || {};
     html += '<div class="gc-scoring">';
@@ -2726,7 +2763,11 @@
       html += '<div class="gc-roll-empty">No rolls yet</div>';
     } else {
       _gcRollLog.forEach(function (r) {
-        html += '<div class="gc-roll-entry">B' + r.beat + ': <strong>' + esc(r.characterName) + '</strong> \u2014 ' + esc(r.discipline) + ' (' + esc(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' <span class="gc-mastery-tag">+M</span>' : '') + '</div>';
+        var roleTag = r.role === 'secondary' ? ' <span style="color:#22c55e;font-size:0.55rem;">[SUPPORT]</span>' : '';
+        var buffTag = '';
+        if (r.buffType) buffTag = ' <span style="color:' + (r.buffType === 'optimized' ? '#3b82f6' : '#22c55e') + ';font-size:0.55rem;">\u2192 ' + r.buffType + '</span>';
+        if (r.consumedBuff) buffTag += ' <span style="color:#eab308;font-size:0.55rem;">[' + r.consumedBuff + ' from ' + esc(r.consumedBuffFrom || '?') + ']</span>';
+        html += '<div class="gc-roll-entry">B' + r.beat + ': <strong>' + esc(r.characterName) + '</strong>' + roleTag + ' \u2014 ' + esc(r.discipline) + ' (' + esc(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' <span class="gc-mastery-tag">+M</span>' : '') + buffTag + '</div>';
       });
     }
     html += '</div></div>';
