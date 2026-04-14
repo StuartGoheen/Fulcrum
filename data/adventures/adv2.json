@@ -231,7 +231,7 @@
               "name": "The Vipers",
               "type": "Swoop Gang Members",
               "count": 6,
-              "notes": "Armed with blasters and vibro-blades. Intimidation over combat skill.",
+              "notes": "Armed with blasters and vibro-blades. Intimidate over combat skill.",
               "threatBuild": {
                 "role": "harrier",
                 "tier": 0,
@@ -378,7 +378,7 @@
               "type": "social",
               "trigger": "On arrival at Blackwind Point",
               "description": "Kessra and 6 Vipers demand 500 credits. Social challenge with combat fallback. If fighting starts, Kessra fights from her swoop while Vipers fan out for hit-and-run.",
-              "tactics": "Kessra leads verbally — she wants money, not blood. Vipers fan out to cut off exits. If a hero draws a weapon, that's leverage for an Intimidation check, not a trigger for combat. If fighting starts, swoops use hit-and-run in the mud. If Kessra falls, the Vipers scatter."
+              "tactics": "Kessra leads verbally — she wants money, not blood. Vipers fan out to cut off exits. If a hero draws a weapon, that's leverage for an Intimidate check, not a trigger for combat. If fighting starts, swoops use hit-and-run in the mud. If Kessra falls, the Vipers scatter."
             }
           ],
           "environmentMechanics": [
@@ -397,7 +397,7 @@
           },
           "pacing": {
             "openingBeat": "The Vipers circle the landing pad. Engines cut. Kessra makes her demand.",
-            "risingAction": "Negotiation, intimidation, or blasters drawn. The crew makes their choice.",
+            "risingAction": "Negotiation, intimidate, or blasters drawn. The crew makes their choice.",
             "climax": "The moment the crew pays, talks down, or fights Kessra. One confrontation, one decision.",
             "resolution": "The Vipers leave or scatter. Blackwind Point stretches out before the crew. Time to find Raden.",
             "estimatedMinutes": 20
@@ -458,7 +458,7 @@
               "type": "Toydarian Parts Dealer",
               "count": 1,
               "notes": "Runs a stall near the east market. Sold Raden ration packs and a portable charge cell three days ago. Knows Raden was stocking up to hide.",
-              "behaviour": "Shrewd and unhelpful unless given a reason to talk. Credits loosen his tongue. Responds well to Charm. Clams up under Intimidation — he's been shaken down too many times.",
+              "behaviour": "Shrewd and unhelpful unless given a reason to talk. Credits loosen his tongue. Responds well to Charm. Clams up under Intimidate — he's been shaken down too many times.",
               "dialogue": [
                 "\"A Devaronian? I see a lot of Devaronians. What's in it for me?\"",
                 "\"He bought survival supplies. Ration packs, charge cell, water tabs. Paid in cash — Imperial credits, not Hutt scrip. That's unusual around here.\"",
@@ -631,7 +631,7 @@
               "name": "Encampment Noise",
               "trigger": "Each failed Control roll",
               "effect": "Word spreads that outsiders are asking about a Devaronian. Varga's informants may pick up the trail. The Trandoshan hit squad may accelerate their timeline.",
-              "mitigation": "Succeed on checks. Use disciplines that draw less attention (Insight, Investigation) over loud approaches (Intimidation)."
+              "mitigation": "Succeed on checks. Use disciplines that draw less attention (Insight, Investigation) over loud approaches (Intimidate)."
             }
           ],
           "rewards": {
