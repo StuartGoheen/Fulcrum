@@ -1187,16 +1187,17 @@
     'survival', 'tactics', 'tech'
   ];
 
-  function _getReachableTiers(power) {
+  function _getReachableTiers(power, vpScoring) {
     var p = Number(power) || 0;
     var maxResult = 12 - p;
+    var scoring = vpScoring || {};
     var tiers = ['failure'];
     if (maxResult >= 0) { tiers.push('fleeting'); tiers.push('fleetingCost'); }
     if (maxResult >= 4) { tiers.push('masterful'); tiers.push('masterfulCost'); }
     if (maxResult >= 8) { tiers.push('legendary'); tiers.push('legendaryCost'); }
-    tiers.push('unleashedI');
-    tiers.push('unleashedII');
-    tiers.push('unleashedIII');
+    if (typeof scoring.unleashedI === 'number') tiers.push('unleashedI');
+    if (typeof scoring.unleashedII === 'number') tiers.push('unleashedII');
+    if (typeof scoring.unleashedIII === 'number') tiers.push('unleashedIII');
     return tiers;
   }
 
@@ -1282,6 +1283,7 @@
     if (!_gcCollapsed) {
       html += '<div class="pgc-body">';
       html += '<div class="pgc-challenge-name">' + _escHtml(gc.name) + '</div>';
+      html += '<div class="pgc-challenge-meta">Tier ' + gc.tier + ' \u2022 Power ' + gc.power + '</div>';
       html += '<div class="pgc-challenge-desc">' + _escHtml(gc.description) + '</div>';
       html += '<div class="pgc-vp-row">';
       html += '<div class="pgc-vp-bar"><div class="pgc-vp-fill" style="width:' + pct + '%"></div></div>';
@@ -1309,7 +1311,7 @@
         html += '<div class="pgc-tier-buttons">';
         var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
         var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
-        var reachable = _getReachableTiers(gc.power);
+        var reachable = _getReachableTiers(gc.power, gc.vpScoring);
         tierOrder.forEach(function (t) {
           if (typeof gc.vpScoring[t] !== 'number') return;
           if (reachable.indexOf(t) === -1) return;

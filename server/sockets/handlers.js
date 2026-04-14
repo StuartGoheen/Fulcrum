@@ -1303,7 +1303,9 @@ function registerHandlers(io) {
       if (maxResult >= 0) { reachableTiers.push('fleeting', 'fleetingCost'); }
       if (maxResult >= 4) { reachableTiers.push('masterful', 'masterfulCost'); }
       if (maxResult >= 8) { reachableTiers.push('legendary', 'legendaryCost'); }
-      reachableTiers.push('unleashedI', 'unleashedII', 'unleashedIII');
+      if (typeof scoring.unleashedI === 'number') reachableTiers.push('unleashedI');
+      if (typeof scoring.unleashedII === 'number') reachableTiers.push('unleashedII');
+      if (typeof scoring.unleashedIII === 'number') reachableTiers.push('unleashedIII');
       if (reachableTiers.indexOf(tier) === -1 || typeof scoring[tier] !== 'number') {
         socket.emit('groupChallenge:submitError', { message: 'Invalid or unreachable result tier for this challenge.' });
         return;
@@ -1381,6 +1383,8 @@ function registerHandlers(io) {
           return 'Beat ' + r.beat + ': ' + r.characterName + ' \u2014 ' + r.discipline + ' (' + r.tier + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +mastery' : '');
         }).join('\n');
         const body = 'Group Challenge: ' + gcState.challengeData.name + '\n' +
+          (gcState.challengeData.description ? gcState.challengeData.description + '\n\n' : '') +
+          'Tier ' + (gcState.challengeData.tier || '?') + ' / Power ' + (gcState.challengeData.power || '?') + '\n' +
           'Result: ' + (success ? 'SUCCESS' : 'FAILURE') + ' (' + gcState.totalVP + '/' + gcState.challengeData.vpThreshold + ' VP)\n' +
           'Beats: ' + gcState.currentBeat + '\n\n' +
           'Roll Log:\n' + rollSummary + '\n\n' +

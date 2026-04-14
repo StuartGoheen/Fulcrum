@@ -818,6 +818,11 @@ body.player-body {
   font-size: 0.75rem;
   color: var(--color-accent, #c8a44e);
 }
+.pgc-challenge-meta {
+  font-size: 0.6rem;
+  color: rgba(192,132,252,0.7);
+  letter-spacing: 0.06em;
+}
 .pgc-challenge-desc {
   font-size: 0.7rem;
   color: var(--color-text-primary, #d4c5a0);
