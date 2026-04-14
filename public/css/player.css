@@ -933,10 +933,6 @@ body.player-body {
   color: #818cf8;
   font-weight: 600;
 }
-.pgc-tier-btn--unreachable {
-  opacity: 0.4;
-  border-style: dashed;
-}
 .pgc-tier-vp {
   font-family: 'Audiowide', sans-serif;
   font-size: 0.5rem;

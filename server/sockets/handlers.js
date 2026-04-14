@@ -1297,9 +1297,15 @@ function registerHandlers(io) {
         return;
       }
       const scoring = _groupChallengeState.challengeData.vpScoring || {};
-      const allowedTiers = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
-      if (allowedTiers.indexOf(tier) === -1 || typeof scoring[tier] !== 'number') {
-        socket.emit('groupChallenge:submitError', { message: 'Invalid result tier.' });
+      const challengePower = Number(_groupChallengeState.challengeData.power) || 0;
+      const maxResult = 12 - challengePower;
+      const reachableTiers = ['failure'];
+      if (maxResult >= 0) { reachableTiers.push('fleeting', 'fleetingCost'); }
+      if (maxResult >= 4) { reachableTiers.push('masterful', 'masterfulCost'); }
+      if (maxResult >= 8) { reachableTiers.push('legendary', 'legendaryCost'); }
+      reachableTiers.push('unleashedI', 'unleashedII', 'unleashedIII');
+      if (reachableTiers.indexOf(tier) === -1 || typeof scoring[tier] !== 'number') {
+        socket.emit('groupChallenge:submitError', { message: 'Invalid or unreachable result tier for this challenge.' });
         return;
       }
       let vpEarned = scoring[tier];

@@ -1189,14 +1189,11 @@
 
   function _getReachableTiers(power) {
     var p = Number(power) || 0;
-    var maxNormal = 12 - p;
+    var maxResult = 12 - p;
     var tiers = ['failure'];
-    if (maxNormal >= -3) tiers.push('fleetingCost');
-    if (maxNormal >= -3) tiers.push('masterfulCost');
-    if (maxNormal >= -3) tiers.push('legendaryCost');
-    if (maxNormal >= 0) tiers.push('fleeting');
-    if (maxNormal >= 4) tiers.push('masterful');
-    if (maxNormal >= 8) tiers.push('legendary');
+    if (maxResult >= 0) { tiers.push('fleeting'); tiers.push('fleetingCost'); }
+    if (maxResult >= 4) { tiers.push('masterful'); tiers.push('masterfulCost'); }
+    if (maxResult >= 8) { tiers.push('legendary'); tiers.push('legendaryCost'); }
     tiers.push('unleashedI');
     tiers.push('unleashedII');
     tiers.push('unleashedIII');
@@ -1315,9 +1312,9 @@
         var reachable = _getReachableTiers(gc.power);
         tierOrder.forEach(function (t) {
           if (typeof gc.vpScoring[t] !== 'number') return;
-          var isReachable = reachable.indexOf(t) !== -1;
+          if (reachable.indexOf(t) === -1) return;
           var vpLabel = gc.vpScoring[t] > 0 ? '+' + gc.vpScoring[t] : gc.vpScoring[t];
-          html += '<button class="pgc-tier-btn' + (isReachable ? '' : ' pgc-tier-btn--unreachable') + '" data-gc-tier="' + t + '"' + (isReachable ? '' : ' title="Requires favored discipline or stacked modifiers"') + '>' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
+          html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
         });
         html += '</div>';
         html += '<label class="pgc-mastery-label"><input type="checkbox" id="pgc-mastery-cb" /> Mastery (Control 8+)' + (gc.vpScoring.masteryBonus ? ' +' + gc.vpScoring.masteryBonus + ' VP' : '') + '</label>';
