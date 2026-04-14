@@ -882,12 +882,31 @@ body.player-body {
   border-color: #c084fc;
   background: rgba(192,132,252,0.15);
 }
+.pgc-disc-btn--primary {
+  border-color: rgba(192,132,252,0.35);
+}
 .pgc-disc-btn.pgc-selected {
   background: rgba(192,132,252,0.2);
   border-color: #c084fc;
   color: #c084fc;
   font-weight: 600;
 }
+.pgc-disc-select {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(192,132,252,0.2);
+  color: var(--color-text-primary, #d4c5a0);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 3px;
+  text-transform: capitalize;
+}
+.pgc-disc-select:focus {
+  outline: none;
+  border-color: #c084fc;
+}
+.pgc-disc-select option { background: #1a1a1e; }
 .pgc-tier-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -913,6 +932,10 @@ body.player-body {
   border-color: #818cf8;
   color: #818cf8;
   font-weight: 600;
+}
+.pgc-tier-btn--unreachable {
+  opacity: 0.4;
+  border-style: dashed;
 }
 .pgc-tier-vp {
   font-family: 'Audiowide', sans-serif;

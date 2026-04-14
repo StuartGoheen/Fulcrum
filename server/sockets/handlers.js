@@ -1286,10 +1286,14 @@ function registerHandlers(io) {
         socket.emit('groupChallenge:submitError', { message: 'Discipline and tier are required.' });
         return;
       }
-      const eligibleDiscs = _groupChallengeState.challengeData.eligibleDisciplines || [];
-      const discValid = eligibleDiscs.some(function (d) { return d.discipline === discipline; });
-      if (!discValid) {
-        socket.emit('groupChallenge:submitError', { message: 'Invalid discipline.' });
+      const ALL_DISCIPLINES = [
+        'athletics', 'charm', 'command', 'deception', 'heavy_weapons',
+        'insight', 'intimidation', 'investigation', 'medicine', 'negotiate',
+        'persuasion', 'piloting', 'sense', 'stealth', 'streetwise',
+        'survival', 'tactics', 'tech'
+      ];
+      if (ALL_DISCIPLINES.indexOf(discipline) === -1) {
+        socket.emit('groupChallenge:submitError', { message: 'Unknown discipline.' });
         return;
       }
       const scoring = _groupChallengeState.challengeData.vpScoring || {};

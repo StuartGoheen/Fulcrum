@@ -1180,6 +1180,29 @@
   var _gcCollapsed = false;
   var _gcDrag = { active: false, startX: 0, startY: 0, x: 0, y: 0 };
 
+  var _ALL_DISCIPLINES = [
+    'athletics', 'charm', 'command', 'deception', 'heavy_weapons',
+    'insight', 'intimidation', 'investigation', 'medicine', 'negotiate',
+    'persuasion', 'piloting', 'sense', 'stealth', 'streetwise',
+    'survival', 'tactics', 'tech'
+  ];
+
+  function _getReachableTiers(power) {
+    var p = Number(power) || 0;
+    var maxNormal = 12 - p;
+    var tiers = ['failure'];
+    if (maxNormal >= -3) tiers.push('fleetingCost');
+    if (maxNormal >= -3) tiers.push('masterfulCost');
+    if (maxNormal >= -3) tiers.push('legendaryCost');
+    if (maxNormal >= 0) tiers.push('fleeting');
+    if (maxNormal >= 4) tiers.push('masterful');
+    if (maxNormal >= 8) tiers.push('legendary');
+    tiers.push('unleashedI');
+    tiers.push('unleashedII');
+    tiers.push('unleashedIII');
+    return tiers;
+  }
+
   function _showGroupChallengePanel(data) {
     _gcData = {
       name: data.name,
@@ -1269,22 +1292,32 @@
       html += '</div>';
 
       if (!_gcSubmitted) {
+        var eligibleIds = (gc.eligibleDisciplines || []).map(function (d) { return d.discipline; });
         html += '<div class="pgc-submit-section">';
-        html += '<div class="pgc-section-label">Your Approach</div>';
+        html += '<div class="pgc-section-label">Suggested Approaches</div>';
         html += '<div class="pgc-disc-buttons">';
-        (gc.eligibleDisciplines || []).forEach(function (d, i) {
-          html += '<button class="pgc-disc-btn" data-gc-disc="' + _escHtml(d.discipline) + '" title="' + _escHtml(d.approach) + '">' + _escHtml(d.discipline) + '</button>';
+        (gc.eligibleDisciplines || []).forEach(function (d) {
+          html += '<button class="pgc-disc-btn pgc-disc-btn--primary" data-gc-disc="' + _escHtml(d.discipline) + '" title="' + _escHtml(d.approach) + '">' + _escHtml(d.discipline) + '</button>';
         });
         html += '</div>';
+        html += '<div class="pgc-section-label">Or Choose Any Discipline</div>';
+        html += '<select class="pgc-disc-select" id="pgc-disc-select">';
+        html += '<option value="">Select discipline\u2026</option>';
+        _ALL_DISCIPLINES.forEach(function (d) {
+          var isPrimary = eligibleIds.indexOf(d) !== -1;
+          html += '<option value="' + _escHtml(d) + '"' + (isPrimary ? ' class="pgc-primary-opt"' : '') + '>' + d.charAt(0).toUpperCase() + d.slice(1).replace(/_/g, ' ') + (isPrimary ? ' \u2605' : '') + '</option>';
+        });
+        html += '</select>';
         html += '<div class="pgc-section-label">Result Tier</div>';
         html += '<div class="pgc-tier-buttons">';
         var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
         var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
+        var reachable = _getReachableTiers(gc.power);
         tierOrder.forEach(function (t) {
-          if (typeof gc.vpScoring[t] === 'number') {
-            var vpLabel = gc.vpScoring[t] > 0 ? '+' + gc.vpScoring[t] : gc.vpScoring[t];
-            html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
-          }
+          if (typeof gc.vpScoring[t] !== 'number') return;
+          var isReachable = reachable.indexOf(t) !== -1;
+          var vpLabel = gc.vpScoring[t] > 0 ? '+' + gc.vpScoring[t] : gc.vpScoring[t];
+          html += '<button class="pgc-tier-btn' + (isReachable ? '' : ' pgc-tier-btn--unreachable') + '" data-gc-tier="' + t + '"' + (isReachable ? '' : ' title="Requires favored discipline or stacked modifiers"') + '>' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
         });
         html += '</div>';
         html += '<label class="pgc-mastery-label"><input type="checkbox" id="pgc-mastery-cb" /> Mastery (Control 8+)' + (gc.vpScoring.masteryBonus ? ' +' + gc.vpScoring.masteryBonus + ' VP' : '') + '</label>';
@@ -1332,15 +1365,27 @@
 
     var selectedDisc = null;
     var selectedTier = null;
+    var discSelect = document.getElementById('pgc-disc-select');
 
     panel.querySelectorAll('.pgc-disc-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         panel.querySelectorAll('.pgc-disc-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
         btn.classList.add('pgc-selected');
         selectedDisc = btn.dataset.gcDisc;
+        if (discSelect) discSelect.value = selectedDisc;
         _updateGcSubmitState();
       });
     });
+
+    if (discSelect) {
+      discSelect.addEventListener('change', function () {
+        selectedDisc = discSelect.value || null;
+        panel.querySelectorAll('.pgc-disc-btn').forEach(function (b) {
+          b.classList.toggle('pgc-selected', b.dataset.gcDisc === selectedDisc);
+        });
+        _updateGcSubmitState();
+      });
+    }
 
     panel.querySelectorAll('.pgc-tier-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {

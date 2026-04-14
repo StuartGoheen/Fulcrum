@@ -2477,9 +2477,16 @@
 
     socket.on('groupChallenge:completed', function (data) {
       _gcActive = false;
+      _gcRollLog = [];
+      _gcRevealedThresholds = [];
       _refreshGcPanel();
       showToast('Group Challenge ' + (data.success ? 'Succeeded' : 'Failed') + ': ' + data.name + ' (' + data.totalVP + '/' + data.vpThreshold + ' VP)');
       loadCrewJournal();
+      openDecisionModal({
+        choice: 'Group Challenge: ' + data.name + ' \u2014 ' + (data.success ? 'Success' : 'Failure'),
+        consequence: (data.success ? 'Succeeded' : 'Failed') + ' with ' + data.totalVP + '/' + data.vpThreshold + ' VP over ' + (data.totalBeats || 1) + ' beat(s).' + (data.failureConsequence ? ' ' + data.failureConsequence : ''),
+        campaignImpact: data.success ? 'faction_standing' : 'threat_level'
+      });
     });
   }
 
