@@ -26,30 +26,13 @@ async function resolveDecisionState() {
   const state = getImpactDefaults();
   try {
     const result = await pool.query(
-      'SELECT campaign_impact, choice, impact_value FROM campaign_decisions WHERE campaign_impact IS NOT NULL ORDER BY created_at ASC'
+      'SELECT campaign_impact, impact_value FROM campaign_decisions WHERE campaign_impact IS NOT NULL AND impact_value IS NOT NULL ORDER BY created_at ASC'
     );
     for (const row of result.rows) {
       const impact = row.campaign_impact;
       if (!impact) continue;
       if (row.impact_value) {
         state[impact] = row.impact_value;
-      } else {
-        const choice = (row.choice || '').toLowerCase();
-        if (impact === 'maya-fate') {
-          if (choice.includes('dead') || choice.includes('died') || choice.includes('killed') || choice.includes('abandon')) {
-            state['maya-fate'] = 'dead';
-          } else if (choice.includes('alive') || choice.includes('saved') || choice.includes('rescued')) {
-            state['maya-fate'] = 'alive';
-          }
-        } else if (impact === 'denia-fate') {
-          if (choice.includes('abandon') || choice.includes('left') || choice.includes('left behind')) {
-            state['denia-fate'] = 'abandoned';
-          } else if (choice.includes('rescue') || choice.includes('saved') || choice.includes('took')) {
-            state['denia-fate'] = 'rescued';
-          }
-        } else {
-          state[impact] = row.choice;
-        }
       }
     }
   } catch (err) {

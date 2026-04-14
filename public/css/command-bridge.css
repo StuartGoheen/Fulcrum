@@ -4596,25 +4596,6 @@
       background: #232328;
       border: 1px solid #3a3632;
     }
-    .cb-dash-decision-chip {
-      display: flex;
-      align-items: baseline;
-      gap: 0.25rem;
-      font-size: 0.65rem;
-      padding: 0.15rem 0;
-      color: #7a7068;
-      cursor: default;
-      border-bottom: 1px solid rgba(199,146,52,0.06);
-    }
-    .cb-dash-decision-chip:last-child {
-      border-bottom: none;
-    }
-    .cb-dash-decision-chip strong {
-      color: #c084fc;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
     .cb-dash-dp-group {
       margin-bottom: 0.4rem;
       padding: 0.3rem 0;

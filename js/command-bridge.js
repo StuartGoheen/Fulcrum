@@ -1561,7 +1561,6 @@
     var hasEnvironment = !!(scene.hazards || (scene.environmentMechanics && scene.environmentMechanics.length));
     var hasRewards = !!(scene.rewards && (scene.rewards.credits || (scene.rewards.items && scene.rewards.items.length) || (scene.rewards.intel && scene.rewards.intel.length) || (scene.rewards.connections && scene.rewards.connections.length)));
     var hasPacing = !!scene.pacing;
-    var hasDecisions = !!(scene.decisions && scene.decisions.length);
     var hasDecisionPoints = !!(scene.decisionPoints && scene.decisionPoints.length);
     var hasLoreTags = !!(scene.loreTags && scene.loreTags.length);
     var hasNarrativeLinks = !!(scene.narrativeLinks && scene.narrativeLinks.length);
@@ -1640,13 +1639,6 @@
         html += '</div>';
       });
       html += '</div>';
-    } else if (hasDecisions) {
-      html += '<div class="cb-dash-decisions">';
-      html += '<div class="cb-dash-section-label">Decision Points</div>';
-      scene.decisions.forEach(function (d) {
-        html += '<div class="cb-dash-decision-chip" data-dec-choice="' + esc(d.choice) + '"><strong>' + esc(d.choice) + '</strong> <span>&rarr; ' + esc(d.consequence) + '</span></div>';
-      });
-      html += '</div>';
     }
 
     if (hasLoreTags) {
@@ -1709,7 +1701,7 @@
     container.querySelectorAll('.cb-dash-dp-option').forEach(function (opt) {
       opt.style.cursor = 'pointer';
       opt.addEventListener('click', function () {
-        openDecisionModal(null, {
+        openDecisionModal({
           decisionPointId: opt.dataset.dpId,
           optionKey: opt.dataset.optKey,
           campaignImpact: opt.dataset.dpImpact || null,
@@ -1717,12 +1709,6 @@
           choice: opt.dataset.optLabel,
           consequence: opt.dataset.optConsequence || ''
         });
-      });
-    });
-    container.querySelectorAll('.cb-dash-decision-chip').forEach(function (chip) {
-      chip.style.cursor = 'pointer';
-      chip.addEventListener('click', function () {
-        openDecisionModal([chip.dataset.decChoice]);
       });
     });
     container.querySelectorAll('.cb-lore-tag').forEach(function (el) {
@@ -3397,30 +3383,24 @@
     var adv = getAdventure(currentAdventure);
     var part = adv ? getPart(adv, currentPart) : null;
     var scene = part ? getScene(part, sceneId) : null;
-    if (!scene) return;
-    var hasDp = scene.decisionPoints && scene.decisionPoints.length > 0;
-    var hasDec = scene.decisions && scene.decisions.length > 0;
-    if (!hasDp && !hasDec) return;
+    if (!scene || !scene.decisionPoints || scene.decisionPoints.length === 0) return;
     var alreadyLogged = _decisionCache.some(function (d) {
       return d.scene_id === sceneId && d.adventure_id === currentAdventure;
     });
     if (alreadyLogged) return;
-    var count = hasDp ? scene.decisionPoints.length : scene.decisions.length;
-    if (confirm('Scene "' + (scene.title || sceneId) + '" has ' + count + ' decision point(s). Log decisions now?')) {
+    if (confirm('Scene "' + (scene.title || sceneId) + '" has ' + scene.decisionPoints.length + ' decision point(s). Log decisions now?')) {
       openDecisionModal();
     }
   }
 
-  function openDecisionModal(presetChoices, structuredOpt) {
+  function openDecisionModal(structuredOpt) {
     var existing = document.getElementById('cb-decision-modal-overlay');
     if (existing) existing.remove();
 
     var adv = getAdventure(currentAdventure);
     var part = adv ? getPart(adv, currentPart) : null;
     var scene = part ? getScene(part, currentScene) : null;
-    var sceneDecisions = (scene && scene.decisions) ? scene.decisions : [];
     var sceneDecisionPoints = (scene && scene.decisionPoints) ? scene.decisionPoints : [];
-    var _selectedDecIdx = -1;
     var _structuredData = structuredOpt || null;
 
     var overlay = document.createElement('div');
@@ -3437,9 +3417,7 @@
       if (_structuredData.consequence) html += '<div class="cb-dec-selected-consequence">' + esc(_structuredData.consequence) + '</div>';
       if (_structuredData.campaignImpact) html += '<div class="cb-dec-selected-impact">Impact: <span class="cb-dash-dp-impact">' + esc(_structuredData.campaignImpact) + '</span> &rarr; ' + esc(_structuredData.impactValue || '') + '</div>';
       html += '</div>';
-    }
-
-    if (!_structuredData && sceneDecisionPoints.length > 0) {
+    } else if (sceneDecisionPoints.length > 0) {
       html += '<label>Decision Points</label>';
       sceneDecisionPoints.forEach(function (dp, dpi) {
         html += '<div class="cb-dec-dp-group-modal">';
@@ -3449,13 +3427,6 @@
         });
         html += '</div>';
       });
-    } else if (!_structuredData && sceneDecisions.length > 0) {
-      html += '<label>Scene Decision Points</label>';
-      html += '<div class="cb-decision-scene-chips">';
-      sceneDecisions.forEach(function (d, i) {
-        html += '<div class="cb-decision-scene-chip" data-scene-dec-idx="' + i + '">' + esc(d.choice) + '</div>';
-      });
-      html += '</div>';
     }
 
     html += '<label>Choice</label>';
@@ -3519,24 +3490,6 @@
       });
     });
 
-    overlay.querySelectorAll('.cb-decision-scene-chip:not(.cb-dec-dp-opt-chip)').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (c) { c.classList.remove('selected'); });
-        chip.classList.add('selected');
-        var idx = parseInt(chip.dataset.sceneDecIdx, 10);
-        _selectedDecIdx = idx;
-        var sd = sceneDecisions[idx];
-        if (sd) {
-          choiceInput.value = sd.choice;
-          outcomeInput.value = sd.consequence || '';
-        }
-      });
-    });
-
-    if (presetChoices && presetChoices.length > 0) {
-      choiceInput.value = presetChoices[0];
-    }
-
     document.getElementById('cb-decision-modal-close').addEventListener('click', function () { closeDecisionModal(); });
     document.getElementById('dec-cancel').addEventListener('click', function () { closeDecisionModal(); });
 
@@ -3548,8 +3501,6 @@
           if (sceneDecisionPoints[i].id === _structuredData.decisionPointId) { dp = sceneDecisionPoints[i]; break; }
         }
         if (dp) dp.options.forEach(function (o) { choices.push(o.label); });
-      } else if (sceneDecisions.length > 0) {
-        sceneDecisions.forEach(function (d) { choices.push(d.choice); });
       }
       if (choiceInput.value.trim() && choices.indexOf(choiceInput.value.trim()) === -1) {
         choices.push(choiceInput.value.trim());
@@ -3557,7 +3508,7 @@
       if (choices.length === 0) return;
       _pollVotes = {};
       if (socket) {
-        var decKey = _structuredData ? _structuredData.decisionPointId : (currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom');
+        var decKey = _structuredData ? _structuredData.decisionPointId : 'custom';
         socket.emit('decision:poll', {
           sceneId: currentScene,
           adventureId: currentAdventure,
@@ -3574,7 +3525,7 @@
       if (!choice) return;
       var impactVal = impactSelect.value || null;
       var gmNotes = gmNotesInput.value.trim() || null;
-      var decKey = _structuredData ? _structuredData.decisionPointId : (currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom');
+      var decKey = _structuredData ? _structuredData.decisionPointId : 'custom';
       var resolvePayload = {
         choice: choice,
         outcome: outcomeInput.value.trim() || null,

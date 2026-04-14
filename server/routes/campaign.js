@@ -1089,7 +1089,7 @@ async function assembleMissionContext(adventureId, partIds) {
         completed: !!isComplete,
         gmNotes: combinedNotes,
         npcs: (scene.npcs || []).map(n => n.name).filter(Boolean),
-        decisions: (scene.decisions || []).map(d => d.choice + ' -> ' + d.consequence)
+        decisionPoints: (scene.decisionPoints || []).map(dp => dp.prompt + ': ' + dp.options.map(o => o.label).join(' / '))
       });
     }
   }
