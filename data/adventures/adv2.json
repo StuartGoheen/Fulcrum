@@ -3,7 +3,7 @@
   "number": 2,
   "title": "A Wretched Hive",
   "act": 1,
-  "summary": "The heroes travel to Takodana to infiltrate Varga Besadii Drokko's fortress, posing as entertainment to steal the encryption keys to Varth's fortune. Over several days in the Hutt's court, they navigate gladiatorial spectacle, slave traders, an ISB double agent, and a nighttime assassination attempt — only to discover a captive Jedi Master in the dungeons. The escape costs lives: Demos dies fighting, Varga flees to Bespin, and Varth executes the man the heroes just rescued.",
+  "summary": "The heroes travel to Takodana to infiltrate Varga Besadii Drokko's fortress, posing as entertainment to discover where Varth's skimmed fortune is hidden. Over several days in the Hutt's court, they navigate gladiatorial spectacle, slave traders, an ISB double agent, and a nighttime assassination attempt — slowly uncovering that the account location is stored in a Cybot Galactica Model VII courier cybernetic surgically embedded in Varga's skull. The crew never extracts the data; an assassination attempt triggers a cascade — Denia is discovered in the dungeons, Demos betrays Varga, and Varga flees to Bespin. The escape costs lives: Demos dies fighting, Varth executes Raden, and the crew escapes with Cloud City intel, Figg & Associates, and the implant specs from TC-663 — but not the account data itself.",
   "marks": [
     {
       "id": "adv2_blackwind",
@@ -20,7 +20,7 @@
     {
       "id": "adv2_court_favor",
       "label": "Currying Favor",
-      "desc": "Navigate the court's politics — gladiators, slavers, and Imperial delegations. Build enough reputation to get close.",
+      "desc": "Navigate the court's politics — gladiators, slavers, and Imperial delegations. Piece together how Varga keeps his secrets.",
       "hidden": true
     },
     {
@@ -50,7 +50,7 @@
     {
       "id": "adv2_crucible",
       "label": "The Crucible",
-      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "desc": "The assassination attempt shatters everything. Denia, Demos, the implant — it all cascades at once. Improvise under fire to survive.",
       "hidden": false
     }
   ],
@@ -61,9 +61,9 @@
       "reason": "Varth coaches the heroes over encrypted comms from outside Varga's palace. Open comlinks in a Hutt fortress means blown cover. Hard permission gate for the entire court sequence."
     },
     {
-      "item": "Datapad (Slicer Config)",
+      "item": "Recording Rod",
       "category": "needed",
-      "reason": "The entire mission objective is slicing Varga's datapad to extract the encryption keys. Without a proper slicing interface, the core technical challenge is stepped down or impossible."
+      "reason": "Capturing Varga's holographic ledger projection during the Iron Ring scene. Without a recording device, the crew cannot preserve evidence of the courier cybernetic's output for later analysis."
     },
     {
       "item": "Security Kit",
@@ -88,7 +88,7 @@
     {
       "item": "EAR Eavesdropping Unit",
       "category": "good",
-      "reason": "Plant bugs near the Iron Ring delegation or Lady Sinde's private meetings. The intel from these events reveals Project Leviathan's slave labor connection."
+      "reason": "Plant bugs near the Iron Ring delegation or Lady Sinde's private meetings. The intel from these events reveals the Tibanna gas pipeline and Imperial audit pressure."
     },
     {
       "item": "Comm Scanner",
@@ -994,7 +994,7 @@
               "effect": {
                 "fleeting": "Raden lowers the blaster a few inches. Still breathing hard, still scared, but he's listening. He needs more convincing before he trusts you.",
                 "masterful": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive. He'll cooperate — tells you about the fortress layout and his falling out with Varga.",
-                "legendary": "Raden breaks down with relief. Blaster clatters to the floor. He tells you everything — Varga's security, the court dynamics, the encrypted datapad location, and what Demos is really up to."
+                "legendary": "Raden breaks down with relief. Blaster clatters to the floor. He tells you everything — Varga's security, the court dynamics, the cybernetic implant he's seen Varga use, and what Demos is really up to."
               },
               "power": 4,
               "tier": 1
@@ -1279,8 +1279,8 @@
           "number": 5,
           "title": "The Court of Varga",
           "subtitle": "The Throne Room",
-          "readAloud": "The skiff glides across Nymeve Lake through hanging curtains of mist. The fortress materializes ahead — a moss-covered stone ruin retrofitted with gaudy tech, blaster turrets, and gaudy banners bearing Varga's sigil. You dock at a landing platform ringed by Gamorrean guards.\n\nDamp, torch-lit corridors smell of mold and roasting meat. The guards escort you deeper until you emerge into Varga's Throne Room — a sensory assault of thick smoke, frantic jizz-wailer music, and a crowd of sycophants, thieves, and scavengers.\n\nAt the far end, resting on a massive reinforced hover-sled, sits Varga the Hutt. He is bloated, scarred, and flanked by a polished silver protocol droid. Varga barks in Huttese, his deep voice shaking the room. The droid translates:\n\n\"The Mighty Varga is bored with beggars. Prove you are worth his air.\"",
-          "gmNotes": "THIS SCENE HAS TWO ENTRY PATHS based on the heroes' choice regarding Raden in Scenes 3-4.\n\nENTRY PATH A — COVER IDENTITY (Raden stayed behind): The heroes arrive at the fortress dock on their own, presenting themselves using the cover identity Raden helped them build. They claim to be mercenaries, gladiators, or entertainers looking for work in Varga's court. Gate guards bring them before Varga for evaluation.\n\nVarga demands an immediate demonstration. Each hero must prove their value:\n- The Muscle gets a fight against a Gamorrean in the pit.\n- The Face gets a battle of wits with courtiers.\n- The Tech is ordered to fix Varga's hover-sled with a blaster at their head.\n- Other specialists demonstrate as appropriate.\n\nIf heroes succeed, Varga welcomes them as 'guests' (prisoners with privileges). Without Raden as a gift, the heroes must earn trust purely on merit — which is harder but morally clean. Varga remains suspicious and Demos watches them closely.\n\nENTRY PATH B — RADEN IN CHAINS (Dark path): The heroes arrive with Raden bound and gagged. When the guards see the Devaronian, recognition flashes across their faces. The crew is fast-tracked past normal screening and brought directly before Varga.\n\nVarga's reaction is dramatic — genuine delight. He laughs, a deep rumbling that shakes the room. 'You bring me a gift! The thief who stole from Besadii, delivered to my feet!' The Hutt immediately accepts the heroes into his court. No audition needed — delivering a fugitive proves they understand how business works.\n\nThis triggers the EXECUTION OF RADEN event (Part 2, Event 1). Varga keeps Raden in the gladiator pit cells until he decides on a suitably public punishment. The heroes are given guest quarters and treated well — but they now carry the weight of what they've done. Raden's eyes follow them as the Gamorreans drag him away.\n\nDEMOS VARIANT: If Raden is delivered, Demos is visibly unsettled. He recognizes that these newcomers are pragmatic and dangerous — not the usual desperate chancers who wash up at court. He accelerates his own timeline, which affects later scenes.\n\nTC-663 INTRODUCTION: During the audience, the silver protocol droid (TC-663 / 'Six-Six') translates for Varga. If the heroes use Switch's code phrase from Adventure 1, TC-663's photoreceptors flash recognition. He begins covertly assisting them — providing palace maps, guard rotations, and the location of Varga's encrypted datapad. Without the code phrase, TC-663 remains cautious and provides only partial assistance. NOTE: If the heroes delivered Raden (dark path), TC-663 is visibly disturbed but still responds to Switch's code phrase. However, his trust in the heroes is diminished — he provides intel but watches them warily.\n\nNARRATIVE FUNCTION: This scene establishes the heroes inside the fortress and introduces the key NPCs they'll interact with during the court phase. The tone varies dramatically based on their entry path — Path A feels like infiltrators walking a tightrope; Path B feels like predators who've already made their first kill.",
+          "readAloud": "The skiff glides across Nymeve Lake through hanging curtains of mist. The fortress materializes ahead — a moss-covered stone ruin retrofitted with gaudy tech, blaster turrets, and gaudy banners bearing Varga's sigil. You dock at a landing platform ringed by Gamorrean guards.\n\nDamp, torch-lit corridors smell of mold and roasting meat. The guards escort you deeper until you emerge into Varga's Throne Room — a sensory assault of thick smoke, frantic jizz-wailer music, and a crowd of sycophants, thieves, and scavengers.\n\nAt the far end, resting on a massive reinforced hover-sled, sits Varga the Hutt. He is bloated, scarred, and flanked by a polished silver protocol droid. Varga barks in Huttese, his deep voice shaking the room. The droid translates:\n\n\"The Mighty Varga is bored with beggars. Prove you are worth his air.\"\n\nAs Varga shifts on his hover-sled, you catch something — a faint blue flicker near his right temple, gone before you can focus on it. Probably a reflection off the protocol droid's chassis. Probably.",
+          "gmNotes": "THIS SCENE HAS TWO ENTRY PATHS based on the heroes' choice regarding Raden in Scenes 3-4.\n\nENTRY PATH A — COVER IDENTITY (Raden stayed behind): The heroes arrive at the fortress dock on their own, presenting themselves using the cover identity Raden helped them build. They claim to be mercenaries, gladiators, or entertainers looking for work in Varga's court. Gate guards bring them before Varga for evaluation.\n\nVarga demands an immediate demonstration. Each hero must prove their value:\n- The Muscle gets a fight against a Gamorrean in the pit.\n- The Face gets a battle of wits with courtiers.\n- The Tech is ordered to fix Varga's hover-sled with a blaster at their head.\n- Other specialists demonstrate as appropriate.\n\nIf heroes succeed, Varga welcomes them as 'guests' (prisoners with privileges). Without Raden as a gift, the heroes must earn trust purely on merit — which is harder but morally clean. Varga remains suspicious and Demos watches them closely.\n\nENTRY PATH B — RADEN IN CHAINS (Dark path): The heroes arrive with Raden bound and gagged. When the guards see the Devaronian, recognition flashes across their faces. The crew is fast-tracked past normal screening and brought directly before Varga.\n\nVarga's reaction is dramatic — genuine delight. He laughs, a deep rumbling that shakes the room. 'You bring me a gift! The thief who stole from Besadii, delivered to my feet!' The Hutt immediately accepts the heroes into his court. No audition needed — delivering a fugitive proves they understand how business works.\n\nThis triggers the EXECUTION OF RADEN event (Part 2, Event 1). Varga keeps Raden in the gladiator pit cells until he decides on a suitably public punishment. The heroes are given guest quarters and treated well — but they now carry the weight of what they've done. Raden's eyes follow them as the Gamorreans drag him away.\n\nCYBERNETIC BREADCRUMB #1: When Varga shifts on his hover-sled, observant heroes may notice a faint blue holographic flicker near his right temple — gone in an instant. This is the Cybot Galactica Model VII courier cybernetic's passive standby indicator, barely visible through Hutt skin. It looks like a light reflection. It is not. At this stage, there is nothing to act on — it's a planted detail for players to recall later when the implant is revealed in the Iron Ring scene. If a hero specifically asks about the flicker, a simple Insight check (Resist 3) confirms it didn't come from TC-663 or any external light source. That's all they get — the source is unknown.\n\nDEMOS VARIANT: If Raden is delivered, Demos is visibly unsettled. He recognizes that these newcomers are pragmatic and dangerous — not the usual desperate chancers who wash up at court. He accelerates his own timeline, which affects later scenes.\n\nTC-663 INTRODUCTION: During the audience, the silver protocol droid (TC-663 / 'Six-Six') translates for Varga. If the heroes use Switch's code phrase from Adventure 1, TC-663's photoreceptors flash recognition. He begins covertly assisting them — providing palace maps, guard rotations, and intelligence on Varga's operations. Without the code phrase, TC-663 remains cautious and provides only partial assistance. NOTE: If the heroes delivered Raden (dark path), TC-663 is visibly disturbed but still responds to Switch's code phrase. However, his trust in the heroes is diminished — he provides intel but watches them warily.\n\nNARRATIVE FUNCTION: This scene establishes the heroes inside the fortress and introduces the key NPCs they'll interact with during the court phase. The tone varies dramatically based on their entry path — Path A feels like infiltrators walking a tightrope; Path B feels like predators who've already made their first kill.",
           "npcs": [
             {
               "name": "Varga the Hutt",
@@ -1403,7 +1403,7 @@
                 "roleKit": {
                   "passive": {
                     "name": "Double Agent",
-                    "description": "TC-663 serves Switch. If heroes use Switch's code phrase, he provides palace maps, datapad location, and guard rotations."
+                    "description": "TC-663 serves Switch. If heroes use Switch's code phrase, he provides palace maps, guard rotations, and (in Working the Court) the courier cybernetic's model and diagnostic port location."
                   },
                   "gambit": null,
                   "exploit": null
@@ -1763,8 +1763,8 @@
           "number": 1,
           "title": "The Gladiator Arena",
           "subtitle": "Day One — Blood Sport",
-          "readAloud": "The fortress shakes with the roar of a thousand voices. Varga's gladiator arena is carved into the rock beneath the main hall — a natural cavern expanded with durasteel walls and repulsor barriers. Torchlight and glow-rods throw shifting shadows across the sand floor.\n\nVarga the Hutt watches from a hovering observation platform, attended by servants and sycophants. His enormous eyes glitter with anticipation.\n\n\"Our new arrivals,\" he rumbles in Huttese, his booming voice filling the cavern. \"Let us see what they are worth.\"\n\nThe arena gate opposite you grinds open. Out steps a massive Trandoshan — scarred, muscled, and grinning with far too many teeth. His name, chanted by the crowd, is Gorrak.\n\nHe cracks his knuckles. The crowd screams louder.",
-          "gmNotes": "This is the heroes' first test in Varga's court — a gladiatorial exhibition match. Varga uses these fights to evaluate newcomers and entertain his guests. Winning earns respect and access; losing earns contempt (but not death — Varga doesn't waste useful assets).\n\nGORRAK is Varga's champion — a Trandoshan pit fighter who has survived 47 arena bouts. He fights with controlled brutality. He's dangerous but not trying to kill — this is sport, not war. If the heroes win, Gorrak nods respect and becomes a neutral contact in the fortress. If they lose, he offers a hand up. Either way, Varga is watching.\n\nTACTICAL MAP ZONES: The pit has 16 distinct zones. Key tactical features: the Fallen Columns (west) are the only hard cover. The Trophy Stakes (east of center) and Chain Mounts (west wall) offer improvised weapons. The Bone Pit (southwest) is hazardous difficult terrain. The Sand Hollow (southeast) slows movement but offers concealment. The Cargo Lift (southeast corner) is Varga's surprise tool — he can raise a second opponent or a beast mid-fight. The Judgment Stone (south-center) is where defeated fighters kneel — dragging Gorrak there is a crowd-pleasing finish. The Control Station (south wall) lets a Tech-skilled hero manipulate the environment. Gorrak knows this terrain intimately — the heroes do not.\n\nCROWD DYNAMICS: The crowd's reaction matters. A spectacular fight (high-tier results on combat checks) earns Varga's personal attention. A boring fight earns indifference. The court is watching to decide if these newcomers are worth cultivating. Using the environment creatively — grabbing trophy weapons, fighting around the columns, forcing an opponent onto the Judgment Stone — earns crowd approval.\n\nSCENE PURPOSE: Establish the heroes' reputation in Varga's court. The gladiator fight is a set-piece combat encounter — the main event — surrounded by simple social checks for reading the crowd and impressing the right people. This scene sets up everything that follows: better performance here means easier access to NPCs, intel, and opportunities in later scenes.\n\nCHALLENGE COMPLEXITY:\n- Arena fight vs Gorrak: SET-PIECE (full combat encounter, environment mechanics, crowd factor)\n- Reading the crowd: SIMPLE (single Insight check, flavor + minor advantage)\n- Impressing Varga: SIMPLE (single Charm/Deception check, reputation modifier)",
+          "readAloud": "The fortress shakes with the roar of a thousand voices. Varga's gladiator arena is carved into the rock beneath the main hall — a natural cavern expanded with durasteel walls and repulsor barriers. Torchlight and glow-rods throw shifting shadows across the sand floor.\n\nVarga the Hutt watches from a hovering observation platform, attended by servants and sycophants. His enormous eyes glitter with anticipation.\n\nAs the fighters below warm up, Varga rumbles to a courtier beside him — rattling off credit figures with impossible precision. 'Forty-seven thousand, two hundred and fourteen credits on the Trandoshan. Twelve thousand, nine hundred and eighty-one against. The margin is unacceptable.' No datapad. No ledger. The numbers pour from memory like he's reading a display you can't see.\n\n\"Our new arrivals,\" he announces in Huttese, his booming voice filling the cavern. \"Let us see what they are worth.\"\n\nThe arena gate opposite you grinds open. Out steps a massive Trandoshan — scarred, muscled, and grinning with far too many teeth. His name, chanted by the crowd, is Gorrak.\n\nHe cracks his knuckles. The crowd screams louder.",
+          "gmNotes": "This is the heroes' first test in Varga's court — a gladiatorial exhibition match. Varga uses these fights to evaluate newcomers and entertain his guests. Winning earns respect and access; losing earns contempt (but not death — Varga doesn't waste useful assets).\n\nGORRAK is Varga's champion — a Trandoshan pit fighter who has survived 47 arena bouts. He fights with controlled brutality. He's dangerous but not trying to kill — this is sport, not war. If the heroes win, Gorrak nods respect and becomes a neutral contact in the fortress. If they lose, he offers a hand up. Either way, Varga is watching.\n\nTACTICAL MAP ZONES: The pit has 16 distinct zones. Key tactical features: the Fallen Columns (west) are the only hard cover. The Trophy Stakes (east of center) and Chain Mounts (west wall) offer improvised weapons. The Bone Pit (southwest) is hazardous difficult terrain. The Sand Hollow (southeast) slows movement but offers concealment. The Cargo Lift (southeast corner) is Varga's surprise tool — he can raise a second opponent or a beast mid-fight. The Judgment Stone (south-center) is where defeated fighters kneel — dragging Gorrak there is a crowd-pleasing finish. The Control Station (south wall) lets a Tech-skilled hero manipulate the environment. Gorrak knows this terrain intimately — the heroes do not.\n\nCYBERNETIC BREADCRUMB #2: Before the fight begins, Varga rattles off exact credit figures for the wagering pool — precise to the individual credit — without consulting any external device or ledger. This is the courier cybernetic's financial recall function at work. Varga accesses the implant's data unconsciously at this point, the way someone checks a mental note. An Insight or Investigation check (Resist 3) reveals that this level of recall is abnormal — Hutts have excellent memories but not eidetic financial precision across multiple accounts. Something is augmenting him. This is the second planted breadcrumb; combined with the flicker from the throne room, attentive players should start forming questions.\n\nCROWD DYNAMICS: The crowd's reaction matters. A spectacular fight (high-tier results on combat checks) earns Varga's personal attention. A boring fight earns indifference. The court is watching to decide if these newcomers are worth cultivating. Using the environment creatively — grabbing trophy weapons, fighting around the columns, forcing an opponent onto the Judgment Stone — earns crowd approval.\n\nSCENE PURPOSE: Establish the heroes' reputation in Varga's court. The gladiator fight is a set-piece combat encounter — the main event — surrounded by simple social checks for reading the crowd and impressing the right people. This scene sets up everything that follows: better performance here means easier access to NPCs, intel, and opportunities in later scenes.\n\nCHALLENGE COMPLEXITY:\n- Arena fight vs Gorrak: SET-PIECE (full combat encounter, environment mechanics, crowd factor)\n- Reading the crowd: SIMPLE (single Insight check, flavor + minor advantage)\n- Impressing Varga: SIMPLE (single Charm/Deception check, reputation modifier)",
           "npcs": [
             {
               "name": "Gorrak",
@@ -2195,6 +2195,29 @@
               "tier": 1
             },
             {
+              "id": "sc-a2s1-investigation-recall",
+              "discipline": "investigation",
+              "complexity": "simple",
+              "context": "Noticing Varga's impossible financial recall during the wagering.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Hutts are famously good with money. Nothing seems unusual.",
+                "success": "Refer to effect tiers.",
+                "mastery": "That level of precision isn't biological — not even for a Hutt. Something is feeding him data. Combined with the temple flicker from the throne room, you're looking at augmented cognition. Cybernetic, maybe."
+              },
+              "target": "Varga's financial recall",
+              "resist": 3,
+              "effect": {
+                "fleeting": "Impressive memory. Hutts are known for being sharp with credits, but this feels... exact. Suspiciously exact.",
+                "masterful": "No organic brain produces that kind of precision across multiple account pools simultaneously. He's accessing something — but there's no external device, no earpiece, no visible tech.",
+                "legendary": "Augmented recall. Definitive. Whatever is feeding him data, it's internal — embedded. The flicker you saw in the throne room wasn't a reflection. It was an output indicator."
+              },
+              "power": 1,
+              "tier": 1
+            },
+            {
               "id": "sc-a2s1-charm-varga",
               "discipline": "charm",
               "complexity": "simple",
@@ -2245,8 +2268,8 @@
           "number": 2,
           "title": "The Iron Ring",
           "subtitle": "Day Two — Slavers and Poison",
-          "readAloud": "The fortress mood shifts on the second day. A delegation arrives from the Iron Ring — a slave-trading syndicate that operates across the Outer Rim. Their leader is a tattooed Zabrak named Vel Crekk, flanked by Trandoshan enforcers and a shuffling line of chained captives.\n\nVarga receives them in the great hall, the air thick with incense and tension. The Iron Ring wants exclusive slaving rights in Varga's territory. Varga wants a percentage he hasn't earned.\n\nAmong the delegation, you notice two figures of interest. A towering Wookiee named Grakkus — Iron Ring muscle, standing with arms folded and rage barely contained behind flat black eyes. And a thin, quiet human named Narek who moves with the servants, carrying a tray of drinks. He makes eye contact with you once. Just once.\n\nSomething is wrong with those drinks.",
-          "gmNotes": "The Iron Ring delegation is a political event with a hidden subplot: assassination by poison.\n\nTHE SURFACE: Vel Crekk and the Iron Ring are negotiating slaving rights with Varga. The heroes are expected to attend as part of Varga's court. The negotiation itself is background texture — the heroes aren't involved in the deal. But they're watching, and they can learn.\n\nTHE POISON: Narek is a former slave who has infiltrated the delegation. He has laced Varga's drinks with a slow-acting neurotoxin. His plan: kill the Hutt and free the captives in the chaos. It's desperate, it's doomed (Hutts are resistant to most poisons), and it puts the heroes in a moral bind.\n\nIF DETECTED: The heroes spot the poison via Insight. They must choose:\n- Warn Varga → earns enormous trust but condemns Narek to death\n- Warn Narek → saves him but the assassination attempt may still trigger, blowing the heroes' cover\n- Do nothing → the poison fails (Hutt biology), Varga gets sick but survives, and the investigation afterward threatens everyone's cover\n- Swap the drinks → requires Skulduggery, prevents the attempt entirely, Narek is confused but alive\n\nGRAKKUS: The Wookiee enforcer is watching everything. He's not Iron Ring leadership — he's muscle. But he's smart muscle. He notices things. He'll reappear in Scene 5 (Knife in the Dark) as one of the assassins sent after the heroes.\n\nMORAL WEIGHT: Narek is sympathetic — he's a freed slave trying to kill a slaver. But his plan endangers the heroes' mission. This is the first moral gray area the heroes face in Varga's court.\n\nCHALLENGE COMPLEXITY:\n- Poison detection: COMPLEX (Insight check with escalating consequences based on timing)\n- Reading Vel Crekk: SIMPLE (single Insight check, intel gathering)\n- Intervening with Narek: COMPLEX (multi-step social challenge depending on chosen approach)\n- Swapping drinks: SIMPLE (single Skulduggery check if chosen)\n- Reading Grakkus: SIMPLE (single Insight check, threat assessment)",
+          "readAloud": "The fortress mood shifts on the second day. A delegation arrives from the Iron Ring — a slave-trading syndicate that operates across the Outer Rim. Their leader is a tattooed Zabrak named Vel Crekk, flanked by Trandoshan enforcers and a shuffling line of chained captives.\n\nVarga receives them in the great hall, the air thick with incense and tension. The Iron Ring wants exclusive slaving rights in Varga's territory. Varga wants a percentage he hasn't earned.\n\nThen it happens. Mid-negotiation, Vel Crekk disputes a supply figure. Varga makes an annoyed sound — and presses two thick fingers behind his right ear. A holographic ledger blooms from the side of his skull. Blue light, sharp lines, scrolling columns of numbers projected from inside his head. He scrolls through it with a flick of his fingers, stabs at a figure, and barks a correction at Vel Crekk. Then he releases the pressure and the hologram winks out. No one in the court reacts. They've seen this before.\n\nYou have not.\n\nAmong the delegation, you notice two figures of interest. A towering Wookiee named Grakkus — Iron Ring muscle, standing with arms folded and rage barely contained behind flat black eyes. And a thin, quiet human named Narek who moves with the servants, carrying a tray of drinks. He makes eye contact with you once. Just once.\n\nSomething is wrong with those drinks.",
+          "gmNotes": "The Iron Ring delegation is a political event with a hidden subplot: assassination by poison.\n\nTHE SURFACE: Vel Crekk and the Iron Ring are negotiating slaving rights with Varga. The heroes are expected to attend as part of Varga's court. The negotiation itself is background texture — the heroes aren't involved in the deal. But they're watching, and they can learn.\n\nTHE POISON: Narek is a former slave who has infiltrated the delegation. He has laced Varga's drinks with a slow-acting neurotoxin. His plan: kill the Hutt and free the captives in the chaos. It's desperate, it's doomed (Hutts are resistant to most poisons), and it puts the heroes in a moral bind.\n\nIF DETECTED: The heroes spot the poison via Insight. They must choose:\n- Warn Varga → earns enormous trust but condemns Narek to death\n- Warn Narek → saves him but the assassination attempt may still trigger, blowing the heroes' cover\n- Do nothing → the poison fails (Hutt biology), Varga gets sick but survives, and the investigation afterward threatens everyone's cover\n- Swap the drinks → requires Skulduggery, prevents the attempt entirely, Narek is confused but alive\n\nCYBERNETIC BREADCRUMB #3 — THE KEY REVEAL: During the negotiation with Vel Crekk, Varga activates his courier cybernetic openly for the first time. He presses two fingers behind his right ear and a holographic ledger projects from the side of his skull — blue light, scrolling financial columns, projected from an embedded device. This is a Cybot Galactica Model VII courier cybernetic, surgically implanted behind his right ear with a maintenance diagnostic port accessible externally. The court doesn't react because they've seen it before. The heroes should be stunned.\n\nThis is the 'oh no' moment. The account location data isn't stored externally — it's inside Varga's head. The crew cannot steal a device. They need to understand what this implant is, what it contains, and how to access the data. This fundamentally changes the mission from 'steal a thing' to 'investigate a person.'\n\nIF HEROES HAVE A RECORDING ROD: They can capture the holographic projection. This preserved evidence becomes critical intelligence for TC-663 and Gome conversations in Working the Court. Without a recording, they must describe what they saw from memory.\n\nDISCIPLINE CHECK: An Investigation or Tech check (Resist 3) can identify the device type. Masterful+ identifies it as a courier-class cybernetic — designed for secure data transport, military-grade encryption, built to survive the carrier's death. The data doesn't just live in Varga's head — it IS the secure vault.\n\nGRAKKUS: The Wookiee enforcer is watching everything. He's not Iron Ring leadership — he's muscle. But he's smart muscle. He notices things. He'll reappear in Scene 5 (Knife in the Dark) as one of the assassins sent after the heroes.\n\nMORAL WEIGHT: Narek is sympathetic — he's a freed slave trying to kill a slaver. But his plan endangers the heroes' mission. This is the first moral gray area the heroes face in Varga's court.\n\nCHALLENGE COMPLEXITY:\n- Poison detection: COMPLEX (Insight check with escalating consequences based on timing)\n- Reading Vel Crekk: SIMPLE (single Insight check, intel gathering)\n- Intervening with Narek: COMPLEX (multi-step social challenge depending on chosen approach)\n- Swapping drinks: SIMPLE (single Skulduggery check if chosen)\n- Reading Grakkus: SIMPLE (single Insight check, threat assessment)",
           "npcs": [
             {
               "name": "Iron Ring Slavers",
@@ -2680,6 +2703,28 @@
               },
               "power": 3,
               "tier": 1
+            },
+            {
+              "id": "sc-a2s2-tech-cybernetic",
+              "discipline": "tech",
+              "complexity": "simple",
+              "context": "Identifying the holographic device projecting from Varga's skull during the Iron Ring negotiation.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Some kind of embedded holo-projector. Could be cosmetic. Hutts are vain enough for decorative implants.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cybot Galactica Model VII courier cybernetic — military-grade encrypted data module designed for secure transport of classified information. The projection came from a maintenance diagnostic port behind the right ear. That port is how you'd interface with it externally."
+              },
+              "target": "Varga's skull projection",
+              "resist": 3,
+              "effect": {
+                "fleeting": "Not cosmetic. The projection displayed structured financial data — ledger entries, account routing. This is a data storage device, surgically embedded.",
+                "masterful": "Courier-class cybernetic implant. Designed for secure data transport — military-grade encryption, built to survive the carrier's death. The data inside is the vault, not a copy of one.",
+                "legendary": "Cybot Galactica Model VII. Specific model identification. These were manufactured for Republic Intelligence during the Clone Wars, then discontinued. Encrypted partition architecture — multiple data vaults per implant, each independently locked. Whatever Varga has in there, it's behind serious encryption."
+              },
+              "power": 2,
+              "tier": 1
             }
           ]
         },
@@ -2688,8 +2733,8 @@
           "number": 3,
           "title": "Working the Court",
           "subtitle": "Between Events — The Long Game",
-          "readAloud": "Between the spectacles and delegations, the fortress settles into its rhythms. Servants carry trays through torchlit corridors. Guards change shifts at predictable intervals. Courtiers gossip in alcoves, trade favors over sabacc tables, and jockey for Varga's attention.\n\nThis is the quiet work — the real work. While the court is distracted, you can move. Explore the fortress. Build relationships. Gather the intelligence you need.\n\nThe protocol droid TC-663 passes you in the corridor. His photoreceptors linger a moment longer than necessary. He knows why you're here.\n\nIn the accounting wing, the Muun named Gome pores over financial ledgers, muttering about exchange rates. He likes to talk. About everything.\n\nSomewhere in this fortress is Varga's encrypted datapad — and on it, the financial records that connect Admiral Varth to the Leviathan pipeline. Finding it is your mission. Getting to it will take patience, contacts, and timing.",
-          "gmNotes": "This is the investigation and relationship-building scene — the connective tissue between the set-piece court events. The heroes have downtime between Days 1-4 to explore, cultivate contacts, and prepare for the datapad heist.\n\nSTRUCTURE: This scene is a sandbox with structured simple checks. The GM runs it as freeform exploration punctuated by the specific challenges listed below. It can be interleaved with Scenes 1, 2, and 4 — exploration happens in the gaps between events.\n\nKEY OBJECTIVES:\n1. ACTIVATE TC-663: If the heroes have Switch's code phrase from Adventure 1, this is trivially easy (T0/P0). If not, it's a complex Charm challenge. TC-663 provides palace maps, guard rotations, and the location of Varga's datapad.\n2. CULTIVATE GOME: The Muun accountant loves to talk about money. Charming him reveals Varga's Bespin escape route, Cloud City banking connections, and the name 'Figg & Associates.' Critical intel for Adventure 3.\n3. FORTRESS RECONNAISSANCE: Stealth checks to map guard patrols, identify restricted areas, and find the datapad's location independently (if TC-663 hasn't been activated).\n4. COVER MAINTENANCE: Ongoing Deception checks to maintain cover identity under increasing scrutiny.\n\nCONDITIONAL: KESSRA'S AVIARY AMBUSH — If the heroes investigated the Vipers' camp too aggressively in Part 1 Scene 1, Kessra (the Vipers' Zygerrian leader) may have followed them to the fortress. She has released her trained Takodana Raptors in the aviary garden as an ambush. This is a conditional combat encounter that only triggers if the GM determines Kessra has cause for revenge.\n\nCHALLENGE COMPLEXITY:\n- TC-663 activation (with code phrase): SIMPLE (auto-success or trivial check)\n- TC-663 activation (without code phrase): COMPLEX (multi-step Charm with trust-building)\n- Gome cultivation: COMPLEX (extended social challenge with escalating intel)\n- Fortress recon: SIMPLE (single Stealth check per area)\n- Cover maintenance: SIMPLE (single Deception check per day)\n- Kessra ambush: SET-PIECE (full combat encounter, conditional)",
+          "readAloud": "Between the spectacles and delegations, the fortress settles into its rhythms. Servants carry trays through torchlit corridors. Guards change shifts at predictable intervals. Courtiers gossip in alcoves, trade favors over sabacc tables, and jockey for Varga's attention.\n\nThis is the quiet work — the real work. While the court is distracted, you can move. Explore the fortress. Build relationships. Gather the intelligence you need.\n\nThe protocol droid TC-663 passes you in the corridor. His photoreceptors linger a moment longer than necessary. He knows why you're here.\n\nIn the accounting wing, the Muun named Gome pores over financial ledgers, muttering about exchange rates. He likes to talk. About everything.\n\nYou saw what came out of Varga's skull during the Iron Ring negotiation. A holographic ledger, projected from inside his head. Whatever data Varth needs — the account locations, the financial pipeline — it's locked inside a cybernetic implant embedded in a Hutt's skull. You can't steal it. You can't slice it remotely. You need to understand what it is, what it contains, and whether there's any way to access it. TC-663 and Gome are your best leads.",
+          "gmNotes": "This is the investigation and relationship-building scene — the connective tissue between the set-piece court events. The heroes have downtime between Days 1-4 to explore, cultivate contacts, and investigate the courier cybernetic they witnessed in the Iron Ring scene.\n\nSTRUCTURE: This scene is a sandbox with structured simple checks. The GM runs it as freeform exploration punctuated by the specific challenges listed below. It can be interleaved with Scenes 1, 2, and 4 — exploration happens in the gaps between events.\n\nKEY OBJECTIVES:\n1. ACTIVATE TC-663: If the heroes have Switch's code phrase from Adventure 1, this is trivially easy (T0/P0). If not, it's a complex Charm challenge. TC-663 provides palace maps, guard rotations, AND — critically — identifies the implant as a Cybot Galactica Model VII courier cybernetic with a maintenance diagnostic port behind the right ear. He knows the model because he maintains Varga's medical records.\n2. CULTIVATE GOME: The Muun accountant loves to talk about money. Charming him reveals Varga's Bespin escape route, Cloud City banking connections, and the name 'Figg & Associates.' Critical for Adventure 3. KEY INSIGHT: Gome also confirms that Varga's external accounts don't contain the data the heroes are looking for — 'Those accounts aren't on my systems. Whatever the boss keeps in that thing in his head, it's not mirrored anywhere I can see.' This confirms the implant is the sole repository.\n3. FORTRESS RECONNAISSANCE: Stealth checks to map guard patrols, identify restricted areas, and scout the fortress layout for the eventual escape.\n4. COVER MAINTENANCE: Ongoing Deception checks to maintain cover identity under increasing scrutiny.\n\nCONDITIONAL: KESSRA'S AVIARY AMBUSH — If the heroes investigated the Vipers' camp too aggressively in Part 1 Scene 1, Kessra (the Vipers' Zygerrian leader) may have followed them to the fortress. She has released her trained Takodana Raptors in the aviary garden as an ambush. This is a conditional combat encounter that only triggers if the GM determines Kessra has cause for revenge.\n\nCHALLENGE COMPLEXITY:\n- TC-663 activation (with code phrase): SIMPLE (auto-success or trivial check)\n- TC-663 activation (without code phrase): COMPLEX (multi-step Charm with trust-building)\n- Gome cultivation: COMPLEX (extended social challenge with escalating intel)\n- Fortress recon: SIMPLE (single Stealth check per area)\n- Cover maintenance: SIMPLE (single Deception check per day)\n- Kessra ambush: SET-PIECE (full combat encounter, conditional)",
           "npcs": [
             {
               "name": "Gome",
@@ -2829,7 +2874,7 @@
           "decisions": [
             {
               "choice": "Focus on TC-663 first",
-              "consequence": "Fastest path to the datapad location and palace intelligence. But requires either the code phrase or a risky Charm approach."
+              "consequence": "Fastest path to implant identification and palace intelligence. But requires either the code phrase or a risky Charm approach."
             },
             {
               "choice": "Cultivate Gome for financial intel",
@@ -2837,7 +2882,7 @@
             },
             {
               "choice": "Solo reconnaissance of the fortress",
-              "consequence": "Direct but dangerous. Stealth checks with high risk if caught in restricted areas. Can locate the datapad independently."
+              "consequence": "Direct but dangerous. Stealth checks with high risk if caught in restricted areas. Maps escape routes and identifies restricted areas for when things go sideways."
             }
           ],
           "decisionPoints": [
@@ -2877,7 +2922,8 @@
             "TC-663",
             "Switch",
             "Gome",
-            "Varga's Datapad",
+            "Courier Cybernetic",
+            "Cybot Galactica Model VII",
             "Cloud City",
             "Bespin",
             "Figg & Associates"
@@ -2885,11 +2931,11 @@
           "narrativeLinks": [
             {
               "targetScene": "adv2-p2-s6",
-              "note": "Intelligence gathered here directly determines the difficulty and approach of the Heist scene."
+              "note": "Intelligence gathered here feeds into the crew's extraction planning in The Best Laid Plans — TC-663's implant specs and Gome's confirmation that the data isn't mirrored."
             },
             {
               "targetScene": "adv3-p1-s1",
-              "note": "Gome's Bespin intel (Cloud City banking, Figg & Associates) sets up the entire Adventure 3 pursuit."
+              "note": "Gome's Bespin intel (Cloud City banking, Figg & Associates) sets up the entire Adventure 3 pursuit. The implant specs from TC-663 become critical for accessing Varga's data on Bespin."
             }
           ],
           "challengeType": "investigation",
@@ -2944,7 +2990,7 @@
             {
               "name": "Guard Patrol Patterns",
               "trigger": "During fortress reconnaissance",
-              "effect": "Guards patrol on 15-minute rotations. Restricted areas are checked twice per hour. The datapad location (Varga's throne room) has constant guard presence.",
+              "effect": "Guards patrol on 15-minute rotations. Restricted areas are checked twice per hour. Varga's private wing has constant guard presence.",
               "mitigation": "TC-663 or successful recon provides the exact timing windows."
             }
           ],
@@ -2952,13 +2998,13 @@
             "credits": 0,
             "xp": "Investigation milestones",
             "items": [],
-            "narrative": "TC-663 activated (or not). Gome's financial intel acquired (or not). Fortress mapped. Datapad location identified. Groundwork laid for the Heist."
+            "narrative": "TC-663 activated (or not). Gome's financial intel acquired (or not). Fortress mapped. Courier cybernetic identified and understood. Groundwork laid for the extraction plan."
           },
           "pacing": {
             "openingBeat": "The quiet between events. The fortress relaxes. This is your window.",
-            "risingAction": "Contact by contact, piece by piece. TC-663's recognition. Gome's ramblings. The restricted corridors.",
-            "climax": "The intelligence picture comes together — or doesn't. The datapad location is confirmed. The heist window identified.",
-            "resolution": "Transition to the next court event or directly to the Heist, depending on timing.",
+            "risingAction": "Contact by contact, piece by piece. TC-663's recognition. Gome's ramblings. The restricted corridors. The implant's model number clicks into place.",
+            "climax": "The intelligence picture comes together — or doesn't. The implant is identified. Gome confirms the data isn't mirrored. The crew knows what they're dealing with.",
+            "resolution": "Transition to the next court event. The crew begins formulating an extraction plan around the cybernetic.",
             "estimatedMinutes": 30
           },
           "disciplineChallenges": [
@@ -2973,14 +3019,14 @@
               "control": {
                 "failure": "TC-663 is cautious. Provides partial information only. He doesn't trust you enough for full commitment.",
                 "success": "Refer to effect tiers.",
-                "mastery": "TC-663 goes all in. He provides everything he has: palace maps, guard rotations, Demos's encrypted comms, AND the location of Varga's encrypted datapad — it's in the throne room, locked in the arm of the hover-sled."
+                "mastery": "TC-663 goes all in. He provides everything he has: palace maps, guard rotations, Demos's encrypted comms, AND identifies Varga's implant — Cybot Galactica Model VII courier cybernetic, maintenance diagnostic port behind the right ear. He knows because he filed the surgical records."
               },
               "target": "TC-663",
               "resist": 2,
               "effect": {
                 "fleeting": "TC-663's photoreceptors flash recognition. He nods subtly and provides the location of the restricted dungeon entrance. Minimal risk to himself.",
-                "masterful": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner' and basic guard rotation data.",
-                "legendary": "Full asset activation. TC-663 provides palace maps, guard rotations, Demos's comms, datapad location, AND offers to create a diversion when the heroes need to move on the dungeon."
+                "masterful": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner,' basic guard rotation data, and confirms the implant is a courier cybernetic — 'Model VII, Cybot Galactica. Maintenance port behind the right ear.'",
+                "legendary": "Full asset activation. TC-663 provides palace maps, guard rotations, Demos's comms, full implant specs (Model VII, diagnostic port location, encrypted partition architecture), AND offers to create a diversion when the heroes need to move."
               },
               "power": 2,
               "tier": 1
@@ -2995,7 +3041,7 @@
               "control": {
                 "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel. He's boring, not guarded.",
                 "success": "Refer to effect tiers.",
-                "mastery": "Gome accidentally reveals the specific banking institution on Bespin: Figg & Associates. He also mentions 'the Cloud City account' has a biometric lock — Varga's voiceprint."
+                "mastery": "Gome accidentally reveals the specific banking institution on Bespin: Figg & Associates. He also lets slip: 'Those accounts aren't on my systems. Whatever the boss keeps in that thing in his head, it's not mirrored anywhere I can see.' The implant is the sole repository."
               },
               "target": "Gome",
               "resist": 2,
@@ -3104,7 +3150,7 @@
           "title": "The Imperial Shadow",
           "subtitle": "Day Three — Lady Sinde",
           "readAloud": "A shuttle descends through the canopy — Imperial design, unmarked. The ramp lowers and a woman steps out, flanked by four Stormtroopers in standard white armor. She wears a crisp Imperial uniform, rank insignia identifying her as a logistics officer.\n\nVarga receives her in the throne room with unusual formality. She introduces herself as Lady Sinde, representing the Imperial Logistics Corps, here to discuss 'supply chain efficiencies' with Varga's operation.\n\nEverything about her is wrong. Her boots are military issue — not logistics corps. Her eyes scan the room like a threat assessment, not a supply audit. The Stormtroopers with her don't behave like an honor guard. They behave like operators.\n\nShe glances at you once. Catalogues you. Moves on.\n\nLater that evening, you notice her slipping away from the feast toward Varga's private wing. Alone.",
-          "gmNotes": "Lady Sinde is ISB — Imperial Security Bureau, embedded in the logistics corps as cover. She is here investigating Project Leviathan's supply chain, specifically the Tibanna gas pipeline between Varga and an Imperial source. She is NOT here for the heroes.\n\nSINDE'S AGENDA: She suspects Imperial corruption — someone in the military hierarchy is siphoning resources through Varga's network. She doesn't know who (it's Varth). She is dangerous, competent, and not an enemy unless the heroes make her one. In fact, her investigation parallels theirs. She's a potential ally — or a catastrophic threat to their cover.\n\nTHE PRIVATE MEETING: Sinde meets with Varga privately to apply pressure. The heroes can eavesdrop (Stealth check) to learn critical intel: shipment coordinates, payment terms, mentions of 'the Accountant' (Varth's codename in Varga's records), and Sinde's veiled threats about Imperial audits.\n\nSCENE PURPOSE: This scene introduces the Imperial dimension of the conspiracy. Until now, the heroes have been operating in the criminal underworld. Sinde represents the Empire's own interest in the same pipeline — and her presence means the heroes' window is closing. If the ISB finds what the heroes are looking for first, the evidence disappears into Imperial classified files forever.\n\nCHALLENGE COMPLEXITY:\n- Investigating Sinde's identity: COMPLEX (multi-step investigation with escalating revelations)\n- Eavesdropping on the private meeting: COMPLEX (Stealth with significant consequences for failure)\n- Avoiding Stormtrooper detection: SIMPLE (single check when entering restricted areas)\n- Reading Sinde's body language at the feast: SIMPLE (single Insight check, threat assessment)",
+          "gmNotes": "Lady Sinde is ISB — Imperial Security Bureau, embedded in the logistics corps as cover. She is here investigating Project Leviathan's supply chain, specifically the Tibanna gas pipeline between Varga and an Imperial source. She is NOT here for the heroes.\n\nSINDE'S AGENDA: She suspects Imperial corruption — someone in the military hierarchy is siphoning resources through Varga's network. She doesn't know who (it's Varth). She is dangerous, competent, and not an enemy unless the heroes make her one. In fact, her investigation parallels theirs. She's a potential ally — or a catastrophic threat to their cover.\n\nTHE PRIVATE MEETING: Sinde meets with Varga privately to apply pressure. The heroes can eavesdrop (Stealth check) to learn critical intel: shipment coordinates, payment terms, mentions of 'the Accountant' (Varth's codename in Varga's records), and Sinde's veiled threats about Imperial audits.\n\nSCENE PURPOSE: This scene introduces the Imperial dimension of the conspiracy. Until now, the heroes have been operating in the criminal underworld. Sinde represents the Empire's own interest in the same pipeline — and her presence means the heroes' window is closing. If the ISB finds what the heroes are looking for first, the evidence disappears into Imperial classified files forever.\n\nCYBERNETIC URGENCY THREAD: Sinde's arrival accelerates Varga's paranoia. During the eavesdropped meeting, Varga mentions preparing to 'move operations to the contingency location' — Bespin. He's not just nervous about the audit; he's preparing to flee. The heroes realize their window to investigate the implant further is closing. Once Varga leaves Takodana, the cybernetic data goes with him. This urgency feeds into The Best Laid Plans (Scene 6) where the crew finalizes their extraction plan under time pressure.\n\nCHALLENGE COMPLEXITY:\n- Investigating Sinde's identity: COMPLEX (multi-step investigation with escalating revelations)\n- Eavesdropping on the private meeting: COMPLEX (Stealth with significant consequences for failure)\n- Avoiding Stormtrooper detection: SIMPLE (single check when entering restricted areas)\n- Reading Sinde's body language at the feast: SIMPLE (single Insight check, threat assessment)",
           "npcs": [
             {
               "name": "Lady Sinde",
@@ -3334,7 +3380,7 @@
             "credits": 0,
             "xp": "Investigation milestone",
             "items": [],
-            "narrative": "Sinde identified as ISB (or not). Private meeting intel acquired (or not). The Imperial dimension of the conspiracy revealed. Window for the heroes' operation is closing."
+            "narrative": "Sinde identified as ISB (or not). Private meeting intel acquired (or not). The Imperial dimension of the conspiracy revealed. Varga's flight preparations detected — the window is closing. The cybernetic and its data are leaving Takodana."
           },
           "pacing": {
             "openingBeat": "The Imperial shuttle descends. Sinde steps out. Everything about her is wrong.",
@@ -3382,8 +3428,8 @@
               "resist": 3,
               "effect": {
                 "fleeting": "Partial audio through the door. You catch the words 'next shipment' and 'the Accountant' but miss the details.",
-                "masterful": "Full conversation: next Tibanna shipment coordinates, payment terms, mention of 'the Accountant's records.' Solid intel.",
-                "legendary": "Crystal clear. You hear everything — shipment coordinates, payment routing through Bespin, Sinde's veiled threat about Imperial audits, and Varga's nervous response. You also catch a data frequency you can track later."
+                "masterful": "Full conversation: next Tibanna shipment coordinates, payment terms, mention of 'the Accountant's records.' Varga sounds nervous — mentions 'contingency preparations' and 'moving operations.' He's preparing to run.",
+                "legendary": "Crystal clear. You hear everything — shipment coordinates, payment routing through Bespin, Sinde's veiled threat about Imperial audits, and Varga's panicked response. He's already contacted his Bespin contacts. He mentions preparing the Glorious Chariot for departure. Your window is measured in hours, not days."
               },
               "power": 4,
               "tier": 1
@@ -3698,8 +3744,8 @@
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv2-p2-s6",
-              "note": "The assassination attempt accelerates the timeline — the heroes must move on the datapad NOW before the situation deteriorates further."
+              "targetScene": "adv2-p2-s7",
+              "note": "After surviving the assassination, the crew must move to the dungeon — TC-663's intercepted comms reference 'the prisoner.' The extraction plan from Scene 6 is shattered; everything after this is escape."
             }
           ],
           "challengeType": "combat",
@@ -3765,7 +3811,7 @@
                 "note": "Light ranged weapon. Modded with a silencer barrel."
               }
             ],
-            "narrative": "Assassination attempt survived. Timeline accelerated — must move on the datapad now. If an assassin is captured, Demos is implicated as the contract source."
+            "narrative": "Assassination attempt survived. The extraction plan is shattered — the crew must pivot to escape. If an assassin is captured, Demos is implicated as the contract source."
           },
           "pacing": {
             "openingBeat": "Silence. The wrong kind of silence. The lock clicks open.",
@@ -3890,299 +3936,83 @@
           ]
         },
         {
-          "id": "adv2-p2-s6",
-          "number": 6,
-          "title": "The Heist",
-          "subtitle": "The Datapad — Mission Objective",
-          "readAloud": "The time has come. Everything you've built — the contacts, the reconnaissance, the cover — comes down to this.\n\nVarga's encrypted datapad sits in the arm of his hover-sled in the throne room. On it: financial records, communication logs, and the encryption keys that prove Admiral Varth's connection to the Leviathan pipeline. Without it, this mission was for nothing.\n\nThe window is narrow. Varga is hosting a late-night feast in the great hall. The throne room is temporarily empty — but not unguarded. Two sentries at the main entrance. Camera coverage on the approach corridors. And the datapad itself is biometrically locked to the hover-sled's systems.\n\nYou have the intelligence. You have the tools. You have one shot.\n\nGo.",
-          "gmNotes": "This is the mission's critical objective — everything in the court phase has been building to this moment. The heroes must extract the encryption keys from Varga's datapad.\n\nTHE APPROACH: The heroes need a window (Varga at the feast), a way past the guards (stealth, distraction, or violence), and the technical ability to slice the datapad (Tech check). The quality of intelligence gathered in previous scenes directly affects difficulty:\n\n- TC-663 activated: Provides exact guard schedules, camera blind spots, and an offer to create a diversion. Reduces Stealth resist by 1.\n- Fortress recon completed: Provides alternate approach routes. Reduces Stealth resist by 1.\n- Gome's intel: Confirms the datapad's biometric lock — Varga's voiceprint. Tech check is stepped up unless the heroes have a recorded sample or TC-663's override.\n\nTHE SLICE: The datapad extraction is the scene's central complex challenge. It's a multi-step Tech sequence:\n1. Bypass the hover-sled's biometric lock\n2. Access the encrypted filesystem\n3. Extract the encryption keys\n4. Cover your tracks (or not — failure here triggers the alarm)\n\nTHE DISTRACTION: Someone needs to keep Varga occupied at the feast. Charm or Performance check to hold his attention. Simple check — the distraction just needs to buy time.\n\nALARM CONDITIONS: If the silent alarm triggers (failed Tech or Stealth check), the fortress begins lockdown procedures. This accelerates the transition to Scene 7 (Discovering Denia) — the heroes must move to the dungeon NOW, before security finds them.\n\nTC-663'S DIVERSION: If activated in Scene 3, TC-663 creates a staged malfunction in the east wing — fire suppression activation, droid chaos. This gives the heroes an additional 5 minutes of unmonitored access to the throne room.\n\nCHALLENGE COMPLEXITY:\n- Datapad slice: COMPLEX (multi-step Tech sequence, the scene's central challenge)\n- Bypassing guards: SIMPLE (single Stealth check, modified by prior recon)\n- Creating a feast distraction: SIMPLE (single Charm/Performance check)\n- Covering tracks after extraction: SIMPLE (single Tech check, prevents alarm)\n- Emergency escape if alarm triggers: COMPLEX (multi-check sequence under time pressure)",
-          "npcs": [
-            {
-              "name": "Throne Room Sentries",
-              "type": "Palace Guards",
-              "count": 2,
-              "notes": "Standard Gamorrean guards posted at the throne room entrance. Not the most observant but lethal if alerted.",
-              "threatBuild": {
-                "role": "anchor",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 4,
-                  "reflex": 1,
-                  "grit": 3,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "weaponChassis": "medium",
-                "traits": [
-                  "tough"
-                ],
-                "tags": [
-                  "Gamorrean",
-                  "Guard"
-                ],
-                "computed": {
-                  "power": 3,
-                  "defense": 3,
-                  "evasion": 1,
-                  "resist": 2,
-                  "vitality": 7,
-                  "initiative": 2,
-                  "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "medium",
-                    "label": "Medium",
-                    "fleeting": 2,
-                    "masterful": 4,
-                    "legendary": 6
-                  }
-                },
-                "roleKit": {
-                  "roleName": "Anchor / Martial",
-                  "action": {
-                    "name": "Vibro-Axe Swing",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Staggered]",
-                      "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    },
-                    "isAttack": true,
-                    "arena": "physique"
-                  },
-                  "maneuver": {
-                    "name": "Hold Position",
-                    "modifies": "Guard",
-                    "description": "Modifies Guard. The Anchor gains +2 Defense until end of next round. Cannot move."
-                  },
-                  "gambit": {
-                    "name": "Brutal Chop",
-                    "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
-                    "rider": "[Staggered]"
-                  },
-                  "exploit": {
-                    "name": "Alarm Squeal",
-                    "trigger": "The Anchor takes damage for the first time.",
-                    "description": "Lets out a piercing alarm squeal. All guards within 3 zones are alerted. Reinforcements arrive in 2 rounds."
-                  },
-                  "powerSource": "martial"
-                },
-                "notes": "Gamorrean palace guards. Tough but slow. Evasion 1 — easy to sneak past. If alarmed, their squealing alerts the entire wing.",
-                "powerSource": "martial"
-              }
-            }
-          ],
-          "hazards": "Camera surveillance. Biometric lock on the datapad. Silent alarm system. Guard reinforcements if alarm triggers. Limited time window.",
-          "decisions": [
-            {
-              "choice": "Stealth approach — bypass guards silently",
-              "consequence": "Lowest risk, highest skill requirement. Perfect for Ghost/Slicer builds."
-            },
-            {
-              "choice": "Distraction approach — draw guards away",
-              "consequence": "Requires coordination. One team at the feast, one at the throne room. Charm + Stealth combination."
-            },
-            {
-              "choice": "TC-663's diversion — staged malfunction",
-              "consequence": "Only available if TC-663 was activated. Creates a 5-minute window. Safest approach but burns the asset."
-            },
-            {
-              "choice": "Violence — neutralize the guards",
-              "consequence": "Fast but loud. Gamorrean alarm squeals alert the wing. Must extract the data before reinforcements arrive."
-            }
-          ],
-          "loreTags": [
-            "Varga's Datapad",
-            "Encryption Keys",
-            "Project Leviathan",
-            "The Accountant",
-            "Admiral Varth"
-          ],
-          "narrativeLinks": [
-            {
-              "targetScene": "adv2-p2-s7",
-              "note": "Whether the heist succeeds cleanly or triggers an alarm, the heroes must move to the dungeon next — TC-663's comms reference 'the prisoner.'"
-            }
-          ],
-          "challengeType": "infiltration",
-          "destinyTags": [
-            "cunning",
-            "discovery"
-          ],
-          "vocationTags": [
-            "voc_slicer",
-            "voc_ghost",
-            "voc_ace",
-            "voc_noble"
-          ],
-          "disciplineTags": [
-            "tech",
-            "stealth",
-            "skulduggery",
-            "charm",
-            "deception"
-          ],
-          "gearFlags": [
-            "Slicer"
-          ],
-          "encounters": [],
-          "environmentMechanics": [
-            {
-              "name": "Biometric Lock",
-              "trigger": "When accessing the datapad",
-              "effect": "Varga's voiceprint required. Tech check is stepped up in difficulty unless the heroes have a voiceprint recording or TC-663's override code.",
-              "mitigation": "Record Varga's voice during the feast (Stealth + Tech combination). TC-663's override bypasses the biometric entirely."
-            },
-            {
-              "name": "Camera Coverage",
-              "trigger": "Active on approach corridors",
-              "effect": "Camera feeds are monitored by a security droid. Being spotted triggers a 2-minute investigation before alarm.",
-              "mitigation": "Camera blind spots (from recon). Tech check to loop the feed. TC-663's diversion diverts the monitoring droid."
-            },
-            {
-              "name": "Silent Alarm",
-              "trigger": "If the datapad is tampered with incorrectly",
-              "effect": "No visible response but the security system logs the intrusion. Lockdown begins in 5 minutes. Demos is alerted.",
-              "mitigation": "Successful 'cover tracks' Tech check erases the log. Or move fast enough that the alarm doesn't matter."
-            }
-          ],
-          "rewards": {
-            "credits": 0,
-            "xp": "Mission objective",
-            "items": [
+            "id": "adv2-p2-s6",
+            "number": 6,
+            "title": "The Best Laid Plans",
+            "subtitle": "Night Four — The Extraction Plan",
+            "readAloud": "Night four. The fortress corridors are quiet — the late feast winding down, servants clearing plates, guards settling into the graveyard shift.\n\nYour crew gathers in your quarters. The door is locked. The Recording Rod plays back the Iron Ring hologram — Varga's skull projecting a ledger of accounts, routing numbers, financial infrastructure. A courier cybernetic embedded in a Hutt's skull.\n\nTC-663's intel is spread across the table: implant model, diagnostic port location, guard rotations, escape routes. Gome's ramblings have been distilled into three words: Figg & Associates, Bespin.\n\nThe picture is clear. The data is inside Varga's head — literally. It can't be sliced remotely. It can't be copied without physical access to the diagnostic port. And Varga is preparing to flee to Cloud City.\n\nYou're laying out the approach — access routes, timing windows, contingencies — when Varth's voice cuts through the comlink:\n\n\"Movement in the corridor outside your quarters. Three contacts. Armed. This isn't a patrol.\"\n\nThe lock clicks. Not forced — opened with a code.\n\nYou're out of time.",
+            "gmNotes": "This scene replaces the former datapad heist. There is NO standalone heist — the crew never gets a clean shot at Varga's implant. Instead, this scene serves two purposes:\n\n1. PLANNING CONSOLIDATION: The crew reviews everything they've gathered — the Iron Ring hologram recording, TC-663's implant identification (Cybot Galactica Model VII, diagnostic port behind right ear), Gome's Bespin/Cloud City/Figg & Associates intel, and the urgency created by Sinde's ISB audit accelerating Varga's departure. This is the moment the crew synthesizes their investigation into a plan.\n\n2. INTERRUPTED BY KNIFE IN THE DARK: The planning session is cut short by the assassination attempt (Scene 5). The crew never gets to execute their extraction plan because violence erupts first. This is deliberate — the narrative intention is that the crew escapes Takodana with intelligence ABOUT the cybernetic, not data FROM it. The actual data extraction happens on Bespin in Adventure 3.\n\nNO STANDALONE ENCOUNTERS OR DISCIPLINE CHECKS: This scene has no mechanical challenges of its own. It is a narrative bridge — the crew reviews their intel, begins formulating a plan, and is interrupted by the Scene 5 assassination attempt. The GM should use this scene to:\n- Confirm what the crew knows (implant model, diagnostic port, Bespin escape route)\n- Let them debate approaches (physical access vs. convincing Varga vs. intercepting on Bespin)\n- Establish the time pressure (Varga is leaving SOON)\n- Then slam the door open with assassins\n\nVARTH'S ROLE: Varth provides tactical awareness via comlink — he warns the crew about the assassins approaching. This reinforces his competence and makes his later betrayal more painful. He's genuinely useful here.\n\nWHAT THE CREW ESCAPES WITH: NOT the account data. They escape with:\n- TC-663's implant specs (Model VII, diagnostic port location)\n- Gome's Bespin intel (Cloud City, Figg & Associates)\n- The Recording Rod capture of the Iron Ring hologram\n- Varga's escape trajectory (from Scene 9)\n- The knowledge that the data is ONLY in Varga's head\n\nTRANSITION: This scene flows directly into Scene 5 (Knife in the Dark). The assassination erupts before the extraction plan can be executed. From there, the cascade is: assassination → dungeon → escape → hangar.",
+            "npcs": [],
+            "hazards": "None — the scene is interrupted before hazards become relevant.",
+            "decisions": [
               {
-                "name": "Encryption Keys (partial or full)",
-                "note": "Financial pipeline evidence linking Varth to Leviathan. Quality depends on the Tech check result."
+                "choice": "Prioritize physical access to the diagnostic port",
+                "consequence": "Requires getting close to Varga and interfacing with the implant directly. High risk, high reward — but the plan never executes."
+              },
+              {
+                "choice": "Intercept the data on Bespin instead",
+                "consequence": "Wait for Varga to reach Cloud City where his banking infrastructure is accessible. Safer but requires following him. This becomes the actual path forward."
+              },
+              {
+                "choice": "Convince Varga to provide access willingly",
+                "consequence": "A long shot — but if anyone could charm a Hutt, this crew might. The plan never gets tested."
               }
             ],
-            "narrative": "The mission's primary objective: encryption keys extracted from Varga's datapad. The evidence connecting Varth to the Leviathan pipeline. Everything that follows — the dungeon, the escape — is the extraction."
+            "loreTags": [
+              "Courier Cybernetic",
+              "Cybot Galactica Model VII",
+              "Cloud City",
+              "Bespin",
+              "Figg & Associates",
+              "TC-663",
+              "Project Leviathan"
+            ],
+            "narrativeLinks": [
+              {
+                "targetScene": "adv2-p2-s5",
+                "note": "The assassination attempt (Knife in the Dark) erupts during this planning session, interrupting the extraction plan before it can be executed."
+              },
+              {
+                "targetScene": "adv2-p2-s7",
+                "note": "After the assassination is dealt with, TC-663's intercepted comms reference 'the prisoner' — the crew must move to the dungeon before the fortress locks down."
+              },
+              {
+                "targetScene": "adv3-p1-s1",
+                "note": "The intel consolidated here — implant specs, Bespin destination, Figg & Associates — becomes the foundation for the Adventure 3 pursuit."
+              }
+            ],
+            "challengeType": "narrative",
+            "destinyTags": [
+              "cunning",
+              "discovery"
+            ],
+            "vocationTags": [
+              "voc_investigator",
+              "voc_noble",
+              "voc_slicer",
+              "voc_ghost"
+            ],
+            "disciplineTags": [],
+            "gearFlags": [
+              "Recording Rod"
+            ],
+            "encounters": [],
+            "environmentMechanics": [],
+            "rewards": {
+              "credits": 0,
+              "xp": "Investigation milestone",
+              "items": [],
+              "narrative": "Intel consolidated: courier cybernetic identified (Model VII, diagnostic port behind right ear), Bespin escape route confirmed (Cloud City, Figg & Associates), implant confirmed as sole data repository. The extraction plan is interrupted — but the intelligence picture is complete."
+            },
+            "pacing": {
+              "openingBeat": "Night four. Quiet corridors. Locked door. The crew gathers to plan.",
+              "risingAction": "Intel review. The hologram replay. TC-663's specs. Gome's Bespin lead. The pieces click together.",
+              "climax": "The plan takes shape — and Varth's warning cuts through. Assassins at the door.",
+              "resolution": "The planning session is shattered. Knife in the Dark erupts. Everything after this is survival and escape.",
+              "estimatedMinutes": 10
+            },
+            "disciplineChallenges": []
           },
-          "pacing": {
-            "openingBeat": "The plan. The window. The objective. Everything converges.",
-            "risingAction": "Bypassing guards, navigating cameras, reaching the throne room. The tension of the approach.",
-            "climax": "The slice. Fingers on the datapad. The seconds stretching as the extraction bar fills. Every sound in the corridor is a potential alarm.",
-            "resolution": "Data extracted — or alarm triggered. Either way, TC-663's intercepted comms mention 'the prisoner.' The dungeon is next.",
-            "estimatedMinutes": 25
-          },
-          "disciplineChallenges": [
-            {
-              "id": "sc-a2s6-tech-slice",
-              "discipline": "tech",
-              "complexity": "complex",
-              "context": "Slicing Varga's datapad to extract the encryption keys — the mission's primary objective.",
-              "narrativePacing": "This is the scene's central challenge. Multi-step sequence: bypass biometric, access filesystem, extract keys, cover tracks.",
-              "arena": "wits",
-              "actionType": "interact",
-              "control": {
-                "failure": "Partial extraction. Silent alarm triggers. Lockdown in 5 rounds — the heroes must move NOW.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Clean extraction AND you discover a secondary encrypted partition — Varga's private ledger showing payments from an Imperial source codenamed 'The Accountant.' Direct evidence linking Varth."
-              },
-              "target": "Varga's datapad",
-              "resist": 4,
-              "effect": {
-                "fleeting": "Partial encryption key extracted before the window closes. Enough to decode some of Varth's financial records, but not all.",
-                "masterful": "Encryption keys extracted cleanly. No trace left. Full access to Varth's financial pipeline through Varga's network.",
-                "legendary": "Complete extraction — encryption keys, routing tables, and a backup of Varga's entire financial database. Evidence that could bring down the Besadii cartel's banking infrastructure."
-              },
-              "power": 5,
-              "tier": 1
-            },
-            {
-              "id": "sc-a2s6-stealth-approach",
-              "discipline": "stealth",
-              "complexity": "simple",
-              "context": "Bypassing the throne room sentries to reach the datapad.",
-              "arena": "reflex",
-              "actionType": "interact",
-              "control": {
-                "failure": "A guard turns at the wrong moment. Must deal with it — silently or loudly.",
-                "success": "Refer to effect tiers.",
-                "mastery": "You pass within arm's reach of the Gamorrean and he doesn't twitch. Ghost movement. You could have stolen his axe."
-              },
-              "target": "Throne room sentries",
-              "resist": 2,
-              "effect": {
-                "fleeting": "You wait for the guard to scratch his ear and slip past during the distraction. Tight margins but clean.",
-                "masterful": "Smooth bypass. The guards are oblivious. You're inside the throne room with time to work.",
-                "legendary": "You bypass the guards, lock the throne room door behind you from the inside, and verify that the camera feed in this room is already on TC-663's loop. Perfect conditions."
-              },
-              "power": 3,
-              "tier": 1
-            },
-            {
-              "id": "sc-a2s6-charm-distraction",
-              "discipline": "charm",
-              "complexity": "simple",
-              "context": "Keeping Varga entertained at the feast while the heist team works.",
-              "isOptional": true,
-              "arena": "presence",
-              "actionType": "interact",
-              "control": {
-                "failure": "Varga grows bored and begins to leave. The window is closing faster than planned.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Varga is so entertained that he orders another round of drinks and declares the feast will continue until dawn. The heist team has all the time they need."
-              },
-              "target": "Varga the Hutt",
-              "resist": 3,
-              "effect": {
-                "fleeting": "You hold his attention for the minimum time needed. He's not riveted but he's not leaving.",
-                "masterful": "You've got him. A story about a podrace, a joke about Neimoidians — Varga is laughing and calling for more wine. The feast continues.",
-                "legendary": "Varga declares you the most entertaining guest he's had in years. He insists you sit beside him. The feast extends by hours — the heist team could redecorate the throne room and no one would notice."
-              },
-              "power": 2,
-              "tier": 1
-            },
-            {
-              "id": "sc-a2s6-tech-cover",
-              "discipline": "tech",
-              "complexity": "simple",
-              "context": "Covering your tracks after the extraction — erasing the access log.",
-              "arena": "wits",
-              "actionType": "interact",
-              "control": {
-                "failure": "The access log remains. The silent alarm triggers. 5 minutes before lockdown begins.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Log erased AND you plant a false access record — it shows maintenance droid TC-663 performed a routine diagnostic. Even a forensic review will blame the droid."
-              },
-              "target": "Datapad security log",
-              "resist": 3,
-              "effect": {
-                "fleeting": "Partial wipe. The log is corrupted — not clean but not readable either. It'll take hours to reconstruct.",
-                "masterful": "Clean wipe. No access record. The datapad looks untouched.",
-                "legendary": "Perfect forensic countermeasures. False log planted. Timestamps adjusted. Even an ISB slicer would need days to detect the intrusion."
-              },
-              "power": 4,
-              "tier": 1
-            },
-            {
-              "id": "sc-a2s6-skulduggery-voiceprint",
-              "discipline": "skulduggery",
-              "complexity": "simple",
-              "context": "Recording Varga's voiceprint during the feast to bypass the biometric lock.",
-              "isOptional": true,
-              "arena": "reflex",
-              "actionType": "interact",
-              "control": {
-                "failure": "Too much background noise. The recording is unusable. Must rely on TC-663's override or a harder Tech check.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Crystal clear recording of Varga's full vocal range. The biometric lock doesn't just open — it thinks Varga is operating it personally."
-              },
-              "target": "Varga's voice",
-              "resist": 2,
-              "effect": {
-                "fleeting": "Partial recording — enough for a basic voiceprint match. Reduces the biometric difficulty by 1 tier.",
-                "masterful": "Clean voiceprint. The biometric lock will accept this as authentic. Full bypass.",
-                "legendary": "Perfect recording with multiple vocal samples. Not only bypasses the biometric but could be used to access any voiceprint-locked system Varga owns — including the Cloud City accounts."
-              },
-              "power": 2,
-              "tier": 1
-            }
-          ]
-        },
         {
           "id": "adv2-p2-s7",
           "number": 7,
@@ -4967,7 +4797,7 @@
           "title": "The Hangar Bay",
           "subtitle": "Climax",
           "readAloud": "You burst through the blast doors into the humid, open-air hangar. You're too late — Varga's massive luxury yacht, the Glorious Chariot, is already hovering on repulsors, engines flaring blue-white. The boarding ramp retracts as the gold-and-purple hull begins to rise.\n\nBut it's not just Varga. Lady Sinde has ordered her Stormtrooper escort to secure the hangar and eliminate all witnesses.\n\nBlaster fire erupts from behind crates of Tibanna gas as white-armored figures take firing positions.\n\nWarrick Raden stumbles onto the ship's ramp behind you, blinking in the harsh light. For the first time since the dungeon, he looks hopeful.\n\nThen Admiral Varth steps forward. He looks at Raden. Almost warmly.\n\n\"Hello, Warrick.\" A pause. \"I told you the next time I saw you, I would kill you.\"\n\nThe blaster shot echoes across the hangar. Raden drops. Varth doesn't break stride.",
-          "gmNotes": "This is the climax of Adventure 2 — three things happen simultaneously:\n\n1. VARGA ESCAPES: The Glorious Chariot lifts off. Varga is fleeing to his fallback on Bespin (Cloud City). The heroes cannot stop him here — his escape is narratively required. He collapses part of the ceiling with the yacht's exhaust to discourage pursuit.\n\n2. SINDE'S STORMTROOPERS: Lady Sinde has ordered her 4-Stormtrooper escort to eliminate all witnesses. She is protecting Project Leviathan's secrecy. The heroes must fight across the hangar using crates and equipment for cover. Tibanna gas crates are explosive if hit by blaster fire — area denial that works both ways.\n\n3. VARTH EXECUTES RADEN: This is the second red flag — and far worse than the first. The heroes just rescued Raden from the dungeons. They've been protecting him since Scene 1. He's walking toward freedom on the ship's ramp. Varth greets him, then draws and shoots him between the eyes. 'I told you the next time I saw you, I would kill you.' The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline. Varth does not explain or apologize. He checks the body once and moves to the ship.\n\nTRAJECTORY LOCK: If the heroes get to their ship fast enough, a Tactics check gets a partial trajectory lock on Varga's escape vector. The vector aligns with the Anoat Sector. Bespin. Cloud City. This connects to Gome's intel from Scene 3.\n\nENDING: The adventure ends on the ship, in hyperspace. Raden is dead. Varth is analyzing the trajectory data. The heroes have partial encryption keys (or not), a trajectory to Bespin, and two disturbing memories of the man they're working for.",
+          "gmNotes": "This is the climax of Adventure 2 — three things happen simultaneously:\n\n1. VARGA ESCAPES: The Glorious Chariot lifts off. Varga is fleeing to his fallback on Bespin (Cloud City). The heroes cannot stop him here — his escape is narratively required. He collapses part of the ceiling with the yacht's exhaust to discourage pursuit.\n\n2. SINDE'S STORMTROOPERS: Lady Sinde has ordered her 4-Stormtrooper escort to eliminate all witnesses. She is protecting Project Leviathan's secrecy. The heroes must fight across the hangar using crates and equipment for cover. Tibanna gas crates are explosive if hit by blaster fire — area denial that works both ways.\n\n3. VARTH EXECUTES RADEN: This is the second red flag — and far worse than the first. The heroes just rescued Raden from the dungeons. They've been protecting him since Scene 1. He's walking toward freedom on the ship's ramp. Varth greets him, then draws and shoots him between the eyes. 'I told you the next time I saw you, I would kill you.' The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline. Varth does not explain or apologize. He checks the body once and moves to the ship.\n\nTRAJECTORY LOCK: If the heroes get to their ship fast enough, a Tactics check gets a partial trajectory lock on Varga's escape vector. The vector aligns with the Anoat Sector. Bespin. Cloud City. This connects to Gome's intel from Scene 3.\n\nENDING: The adventure ends on the ship, in hyperspace. Raden is dead. Varth is analyzing the trajectory data. The heroes have implant specs from TC-663, Gome's Bespin intel, the Recording Rod capture of the Iron Ring hologram, a trajectory to Cloud City, and two disturbing memories of the man they're working for. They do NOT have the account data — that's still locked inside a Hutt's skull, en route to Bespin.",
           "npcs": [
             {
               "name": "Lady Sinde",
@@ -5207,7 +5037,7 @@
             "credits": 0,
             "xp": "Adventure completion",
             "items": [],
-            "narrative": "Escape from Varga's fortress. Trajectory to Bespin/Cloud City. Raden executed by Varth. The adventure ends in hyperspace with two red flags and a dead man's memory."
+            "narrative": "Escape from Varga's fortress. Trajectory to Bespin/Cloud City. Raden executed by Varth. The crew escapes with implant specs, Bespin intel, and the Recording Rod hologram — but NOT the account data. The adventure ends in hyperspace with two red flags, a dead man's memory, and the knowledge that Varga's cybernetic is heading to Cloud City."
           },
           "pacing": {
             "openingBeat": "Burst through blast doors into the hangar. Varga's yacht is already lifting off.",
