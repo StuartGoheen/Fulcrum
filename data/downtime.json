@@ -1,0 +1,232 @@
+{
+  "id": "downtime-system",
+  "name": "Downtime & Interludes",
+  "summary": "Downtime is structured free time between adventure scenes — hyperspace travel, shore leave, recovery periods. The GM curates a menu of available activities from two sources: system-level activities (always available when feasible) and adventure-specific interlude activities (authored for a particular narrative moment). Players choose how to spend their time. Entanglements interrupt or complicate downtime with consequences from past decisions or situational dangers.",
+  "gmWorkflow": {
+    "step1": "Determine the downtime window — how long do the characters have, and where are they? Duration and setting constrain which activities are feasible.",
+    "step2": "Select system activities that fit the setting. Rest is almost always available. Shopping requires a port or settlement. Training requires space and safety. Tinkering requires tools and a workspace.",
+    "step3": "Add any adventure-specific interlude activities. These are authored scenes or prompts tied to the current narrative moment — co-piloting a specific route, debriefing a specific NPC, exploring a specific location.",
+    "step4": "Select or roll entanglements. Some are auto-triggered by decision-registry flags (baggage). Others are rolled or chosen from the travel table based on transit type. The GM can also choose 'clean downtime' — no entanglements.",
+    "step5": "Present the menu to the players. Each character picks one activity per downtime period (or two if the window is long enough for multiple rest cycles). Run the activities, then spring any entanglements.",
+    "note": "Not every downtime needs to be played out. Short rests between scenes can be handwaved. Interludes are for the gaps that matter — the ones where the crew has time to breathe, bond, and make choices that aren't about the mission."
+  },
+  "downtimePeriods": {
+    "shortRest": {
+      "duration": "~1 hour",
+      "safeLocation": true,
+      "recovery": "Recover 1 Trauma. No Vitality recovery.",
+      "activitiesAllowed": 0,
+      "note": "Short rests are tactical pauses, not downtime. No activities — just recovery."
+    },
+    "longRest": {
+      "duration": "~8 hours",
+      "safeLocation": true,
+      "recovery": "Recover 2 Trauma. Recover 1 Vitality. Clear [Stimmed] fully.",
+      "activitiesAllowed": 1,
+      "note": "One activity can be performed alongside a long rest — tinkering while the ship flies itself, studying intel before sleeping, a conversation over a meal."
+    },
+    "extendedDowntime": {
+      "duration": "Multiple days",
+      "safeLocation": true,
+      "recovery": "Full recovery (all Trauma, all Vitality, clear all rest-clearable conditions). Multiple long rests.",
+      "activitiesAllowed": "GM determines based on duration — typically 1 per 2-3 days of safe time",
+      "note": "Extended downtime covers multi-day gaps — hyperspace transits, shore leave, garrison time. A 1-2 week hyperspace transit might offer 4-5 activity slots. A 3-day shore leave might offer 1-2."
+    }
+  },
+  "activities": [
+    {
+      "id": "dt-rest-recovery",
+      "name": "Rest & Recovery",
+      "type": "rest",
+      "description": "Dedicated medical treatment during a rest period. Beyond the baseline recovery that any rest provides, a character with medical training can treat injuries, set bones, flush toxins, or properly dress wounds. This enhances the natural recovery rates.",
+      "requirements": {
+        "setting": ["any"],
+        "gear": ["Medpac"],
+        "note": "Baseline rest recovery (2 Trauma + 1 Vitality per long rest, clear [Stimmed]) happens automatically with no check. This activity represents active medical treatment ON TOP of natural recovery."
+      },
+      "discipline": "medicine",
+      "arena": "wits",
+      "actionType": "interact",
+      "resist": 2,
+      "target": "Injured character",
+      "outcomes": {
+        "failure": "Treatment is ineffective. The patient recovers only the baseline rest amount. Medpac supplies are consumed regardless.",
+        "fleeting": "Minor improvement. Recover 1 additional Trauma beyond the baseline rest recovery.",
+        "masterful": "Effective treatment. Recover 1 additional Trauma and 1 additional Vitality beyond baseline. If treating a specific condition (broken bone, infection, toxin), it is stabilized — no longer worsening, but not yet cleared.",
+        "legendary": "Exceptional care. Recover 2 additional Trauma and 1 additional Vitality beyond baseline. One rest-clearable condition is fully removed (GM discretion on which conditions qualify). The patient wakes feeling better than they have in weeks."
+      },
+      "markOpportunity": null,
+      "note": "[Stimmed X] applies. Each prior medpac/stim use steps down the Medicine Power die. A heavily stimmed character may be better served by resting without treatment and clearing [Stimmed] naturally."
+    },
+    {
+      "id": "dt-tinkering",
+      "name": "Tinkering",
+      "type": "tinkering",
+      "description": "Hands-on work with gear, weapons, armor, or ship systems. Tinkering covers field modifications, repairs, jury-rigging, and the kind of obsessive maintenance that keeps equipment running in the Outer Rim. This is a single check with a narrative outcome — not a crafting system.",
+      "requirements": {
+        "setting": ["ship", "workshop", "settlement"],
+        "gear": ["Field Toolkit"],
+        "note": "Requires access to tools and a workspace. Cannot tinker in the field during a jungle march or in a firefight. Ship systems require the ship."
+      },
+      "discipline": "tech",
+      "arena": "wits",
+      "actionType": "interact",
+      "resist": 3,
+      "target": "Equipment or ship system",
+      "outcomes": {
+        "failure": "The modification doesn't take, or worse — something breaks. The item functions but has a cosmetic flaw or minor quirk. No mechanical change. Components are consumed.",
+        "fleeting": "Minor improvement. The item is cleaned, maintained, and reliable. Remove any 'worn' or 'unreliable' narrative tags. No mechanical bonus, but the GM should note the item is in good condition.",
+        "masterful": "Successful modification. One of: improve a weapon's damage by +1 for one scene, add a narrative feature (scope, silencer, glow-rod mount), repair a damaged item to full function, or tune a ship system to grant [Optimized] on the next check using that system.",
+        "legendary": "Exceptional work. The modification is permanent until the item is damaged again. The Tech can describe the custom work — etched grips, rebalanced power cells, rewired targeting array. The item gains a name if it doesn't have one."
+      },
+      "markOpportunity": "edge-gear-solved-it",
+      "note": "Tinkering is one item per downtime period. The Tech chooses what to work on. Ship-scale modifications (hull, engines, weapons) require extended downtime, not a single long rest."
+    },
+    {
+      "id": "dt-research",
+      "name": "Research & Analysis",
+      "type": "research",
+      "description": "Studying available intelligence, cross-referencing data, analyzing recordings, or piecing together a puzzle from scattered clues. This covers everything from reading intercepted transmissions to studying a planet's terrain before landing to reviewing a target's known associates.",
+      "requirements": {
+        "setting": ["ship", "settlement", "station"],
+        "gear": [],
+        "note": "Requires access to a datapad, ship's computer, or information source. The GM determines what intel is available to research — you can't study what you don't have access to."
+      },
+      "discipline": "investigation",
+      "arena": "wits",
+      "actionType": "assess",
+      "resist": 3,
+      "target": "Available intelligence",
+      "outcomes": {
+        "failure": "The data doesn't connect. Either the intel is too fragmentary or the analyst draws an incorrect conclusion. The GM may provide a misleading detail or simply confirm what the crew already knows with no new insight.",
+        "fleeting": "One useful detail surfaces — a name, a location, a pattern. It confirms something the crew suspected but didn't know for certain.",
+        "masterful": "Meaningful breakthrough. The research reveals a tactical advantage, a hidden connection, or a vulnerability in the next objective. The GM provides a concrete benefit: a map detail, an NPC weakness, a schedule gap, or a piece of context that changes how the crew approaches the next scene.",
+        "legendary": "The analysis reveals something the crew didn't know to look for. A hidden layer — a secondary objective, a betrayal signal, a resource cache, or a connection between two seemingly unrelated threads. This is the kind of insight that reframes the mission."
+      },
+      "markOpportunity": "destiny-tier1",
+      "note": "Research quality depends on what raw intel the crew has gathered. A Recording Rod capture gives better material than a verbal description from memory. The GM should tailor the available insights to what the crew actually collected."
+    },
+    {
+      "id": "dt-shopping",
+      "name": "Requisition & Resupply",
+      "type": "shopping",
+      "description": "Acquiring gear, supplies, and equipment. On lawless worlds and shadow ports, this means black-market bazaars, back-alley dealers, and knowing the right people. On civilized worlds, it means navigating Imperial trade restrictions and inflated prices. Either way, the crew is restocking for whatever comes next.",
+      "requirements": {
+        "setting": ["settlement", "station"],
+        "gear": [],
+        "note": "Requires a port, settlement, or market. Cannot shop in hyperspace or wilderness. Prices and availability depend on the location — Ord Mantell's bazaars have everything but it's all stolen; Coruscant has quality but Imperial scrutiny."
+      },
+      "discipline": "skulduggery",
+      "arena": "reflex",
+      "actionType": "interact",
+      "resist": 2,
+      "target": "Local market or contacts",
+      "alternateApproaches": [
+        {
+          "discipline": "charm",
+          "arena": "presence",
+          "context": "Talking a vendor down, leveraging personal magnetism to get a better deal or access restricted inventory."
+        },
+        {
+          "discipline": "deception",
+          "arena": "presence",
+          "context": "Passing off fake credentials, claiming Imperial authority, or running a con to acquire gear without paying full price."
+        }
+      ],
+      "outcomes": {
+        "failure": "The crew pays full price and gets standard inventory only. No rare items, no discounts, no special finds. On a hostile world, they may also attract unwanted attention — a vendor who reports offworlders to local authorities or a pickpocket who targets them.",
+        "fleeting": "Standard resupply at fair prices. The crew can buy any common gear from the equipment list. One piece of uncommon gear is available if they're looking for it.",
+        "masterful": "Good haul. The crew finds uncommon gear at reasonable prices, or common gear at a discount. The vendor also has information — rumors, local news, or a tip about something the crew is looking for. One rare item is available at market price.",
+        "legendary": "Exceptional find. A rare or unique item surfaces — something the vendor 'acquired' from a previous customer, a military prototype, or a piece of gear perfectly suited to the crew's needs. The vendor also becomes a contact for future transactions."
+      },
+      "markOpportunity": null,
+      "note": "Shopping is per-crew, not per-character. One check covers the group's resupply effort. Individual characters can specify what they're looking for, but the roll determines overall quality and availability."
+    },
+    {
+      "id": "dt-training",
+      "name": "Training & Drill",
+      "type": "training",
+      "description": "Focused practice on a specific skill or technique. Sparring, target practice, slicing exercises, language study, meditation, or running combat drills. Training doesn't produce immediate power — it produces readiness. The mechanical benefit is a temporary edge on the next use of the trained discipline.",
+      "requirements": {
+        "setting": ["ship", "settlement", "station", "wilderness"],
+        "gear": [],
+        "note": "Training requires space appropriate to the discipline. Ranged practice needs a firing range or cargo hold. Melee sparring needs an open area. Slicing practice needs a terminal. The GM determines whether the setting supports the chosen discipline."
+      },
+      "discipline": "any",
+      "arena": "any",
+      "actionType": "interact",
+      "resist": "self",
+      "target": "Self",
+      "outcomes": {
+        "noCheck": "Training does not require a discipline check. The character declares what they practice and narrates a brief training scene. The benefit is automatic.",
+        "benefit": "The character gains [Drilled] in the trained discipline. [Drilled] grants Step Up Control Die on the NEXT check using that discipline, then clears. One use only. Does not stack with other [Drilled] instances on the same discipline.",
+        "limitation": "One discipline per downtime period. [Drilled] persists until used — it does not expire at the end of the interlude. But only one [Drilled] tag can be active at a time; training a new discipline replaces the old one."
+      },
+      "markOpportunity": null,
+      "note": "Training is low-drama by design. It's a free benefit for investing downtime. The narrative value is in what the training scene reveals about the character — what do they practice? Who do they practice with? What does it say about what they're afraid of?"
+    },
+    {
+      "id": "dt-personal-scene",
+      "name": "Personal Scene",
+      "type": "personal",
+      "description": "A one-on-one character moment. A conversation with an NPC, a private ritual, writing in a journal, calling someone on a scrambled channel, meditating, praying, or simply sitting alone with a drink and the weight of recent events. These scenes are unstructured — the GM offers a prompt or the player volunteers a direction.",
+      "requirements": {
+        "setting": ["any"],
+        "gear": [],
+        "note": "Personal scenes can happen anywhere — the cockpit, a cantina booth, the cargo hold at 0300. The only requirement is a moment of relative privacy or intimacy."
+      },
+      "discipline": "varies",
+      "arena": "varies",
+      "actionType": "freeform",
+      "resist": null,
+      "target": "NPC or self",
+      "outcomes": {
+        "noCheck": "Personal scenes do not require a discipline check by default. They are narrative. However, the GM may call for a check if the scene involves persuasion, deception, insight, or another active interaction with an NPC.",
+        "benefit": "If the scene involves meaningful engagement with an NPC (not just small talk), the relationship deepens. The GM tracks NPC disposition shifts narratively — no mechanical scale, just notes on trust, tension, or loyalty.",
+        "markOpportunity": "Personal scenes are the primary opportunity for earning Destiny Marks during downtime. If the scene touches on a character's destiny theme (discovery, atonement, liberation, etc.), the GM may award a Tier 1 destiny mark."
+      },
+      "prompts": [
+        "What does your character do when no one is watching?",
+        "Who do they think about when they can't sleep?",
+        "What's the one thing from before this mission they wish they could go back to?",
+        "What are they afraid this mission will cost them?",
+        "If they could send one message to anyone in the galaxy right now, who would it be and what would it say?"
+      ],
+      "note": "Personal scenes are where characters become people. They don't advance the plot — they advance the players' investment in their characters. The GM should offer these sparingly and make them feel earned, not obligatory."
+    },
+    {
+      "id": "dt-crew-bonding",
+      "name": "Crew Bonding",
+      "type": "social",
+      "description": "Shared downtime as a group. A meal together, a sabacc game, telling stories from before, running a ship drill, arguing about music, or just existing in the same space without anyone shooting at you. These moments are where a collection of strangers becomes a crew.",
+      "requirements": {
+        "setting": ["ship", "settlement", "station"],
+        "gear": [],
+        "note": "Requires the crew to be together in a shared space. The galley, a cantina, a campfire — somewhere they're all present and not on watch."
+      },
+      "discipline": null,
+      "arena": null,
+      "actionType": "freeform",
+      "resist": null,
+      "target": "The crew",
+      "outcomes": {
+        "noCheck": "No mechanical check. Crew bonding is pure narrative. The GM sets a scene — maybe Maya is cooking something terrible, maybe the Tech has a bottle of something expensive — and lets the players riff.",
+        "benefit": "If the scene lands, the GM notes it as a 'Crew Moment.' Accumulated Crew Moments don't have a mechanical threshold, but they inform how NPCs react to the group and how betrayals land later. A crew that has shared meals and bad jokes feels different when one of them disappears.",
+        "suggestion": "Ask each player to contribute one detail: what does their character bring to the table (literally or figuratively)? What habit do they have that the others would notice after a week together?"
+      },
+      "markOpportunity": null,
+      "note": "Crew bonding is the cheapest activity in terms of rules and the most expensive in terms of narrative payoff. It costs nothing mechanically and buys everything emotionally. Use it before the campaign gets dark."
+    }
+  ],
+  "conditions": {
+    "drilled": {
+      "name": "[Drilled]",
+      "type": "buff",
+      "source": "Training activity during downtime",
+      "effect": "Step Up Control Die on the next check using the drilled discipline.",
+      "duration": "Until used (one check), then clears.",
+      "stacking": "Does not stack. Training a new discipline replaces any existing [Drilled] tag.",
+      "note": "This is a downtime-only condition. It cannot be gained during structured play."
+    }
+  }
+}

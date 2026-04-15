@@ -1,0 +1,163 @@
+{
+  "id": "entanglement-tables",
+  "name": "Entanglement Tables",
+  "summary": "Entanglements are complications that arise during downtime — consequences of past decisions catching up, or situational dangers triggered by travel and circumstance. The GM selects, rolls, or auto-triggers entanglements based on the crew's history and current situation. Some entanglements are system-level (reusable across any adventure), others are adventure-specific (authored for a particular interlude).",
+  "gmGuidance": {
+    "selection": "The GM chooses entanglements, not dice. Rolling is an option for GMs who want surprise, but curation is preferred. Pick entanglements that connect to what the crew has done and what's coming next.",
+    "frequency": "Not every downtime needs an entanglement. Clean downtime is fine — sometimes the crew just rests. Use entanglements when the narrative needs tension, when a past decision should have consequences, or when the crew is getting too comfortable.",
+    "severity": "Entanglements have severity ratings. Low-severity entanglements are inconveniences — they cost time, credits, or patience. High-severity entanglements can reshape the downtime entirely — combat, moral dilemmas, or revelations that change the mission.",
+    "resolution": "Entanglements provide the situation and stakes. The GM narrates outcomes based on crew decisions and any checks called for. The system does not prescribe resolution mechanics — entanglements are narrative prompts with teeth."
+  },
+  "baggage": [
+    {
+      "id": "ent-bag-debt-collector",
+      "name": "The Collector Calls",
+      "severity": "medium",
+      "trigger": {
+        "type": "condition",
+        "note": "Any crew member has an outstanding debt — financial, favor, or obligation. The GM determines which debt and which creditor based on character backgrounds and campaign state."
+      },
+      "description": "A message arrives on a scrambled frequency. Someone the crew owes — credits, a favor, a promise — has found them. The tone isn't threatening. It's worse: it's reasonable. 'You said you'd handle this. It's been long enough. I need an answer.'",
+      "stakes": "Ignore it and the debt compounds — the next time this entanglement triggers, the creditor is less polite. Pay it and you're out resources. Negotiate and you owe a different kind of favor.",
+      "suggestedResolution": "Social encounter. Charm or Deception to renegotiate terms. Skulduggery to arrange payment through unconventional means. Or just pay up.",
+      "markOpportunity": "edge-debt-collector"
+    },
+    {
+      "id": "ent-bag-switch-favor",
+      "name": "Switch Calls It In",
+      "severity": "medium",
+      "trigger": {
+        "type": "decision-registry",
+        "impact": "switch-deal",
+        "is": "accepted",
+        "note": "The crew accepted Switch's deal to become information assets. Switch now has a standing claim on their services."
+      },
+      "description": "TC-663 — or whatever comm unit the crew uses — lights up with a coded transmission. Switch's synthesized voice, calm as ever: 'I have a request. Small. Minimal risk. Consider it an investment in our continued partnership.' The request is never small.",
+      "stakes": "Refuse and Switch's information pipeline dries up — no more free intel drops, no more warning pings about Imperial patrols. Accept and the crew is diverted into a side job that eats time and possibly attracts attention.",
+      "suggestedResolution": "Negotiation or compliance. The GM designs a small side objective appropriate to the current setting — deliver a package, collect a data chip from a dead drop, observe and report on a specific ship at the next port."
+    },
+    {
+      "id": "ent-bag-bounty-posted",
+      "name": "Someone's Asking About You",
+      "severity": "high",
+      "trigger": {
+        "type": "condition",
+        "note": "The crew has made enemies — Varga's network, Imperial attention from Jakku, or anyone they've humiliated, robbed, or betrayed. Triggers after any adventure where the crew left witnesses."
+      },
+      "description": "At a port or settlement, the crew notices someone asking questions. A Rodian nursing a drink at the bar, showing a holo to the bartender. A message board posting with a vague description that matches one of them. A dock worker who stares a beat too long and then speaks into a wrist comm.",
+      "stakes": "The crew has been flagged. If they stay, the interested party finds them. If they run, they lose whatever they came for (fuel, nav data, supplies). If they investigate, they might find out who's looking — and why.",
+      "suggestedResolution": "Investigation to identify the hunter. Stealth to avoid detection. Deception to plant false leads. Or a direct confrontation if the crew is feeling bold. The GM determines who's asking based on campaign history."
+    },
+    {
+      "id": "ent-bag-nightmares",
+      "name": "The Weight of It",
+      "severity": "low",
+      "trigger": {
+        "type": "condition",
+        "note": "Any character has killed, witnessed death, made a morally compromising choice, or suffered significant trauma in the previous adventure. This is a character-specific entanglement."
+      },
+      "description": "Sleep doesn't come easy. Or it comes too easy — and brings things with it. A crew member wakes in the dark cycle, sweat-soaked, the echo of something they'd rather forget still ringing. Maybe they talk about it. Maybe they don't.",
+      "stakes": "No mechanical penalty. This is a narrative prompt for a personal scene. The character's response — whether they talk to someone, drink alone, train obsessively, or pretend it didn't happen — tells the table who this person is becoming.",
+      "suggestedResolution": "No check required. The GM offers this as a private scene to one player. If the character seeks help from a crewmate, it becomes a personal scene or crew bonding moment. If a character has Force sensitivity, the nightmares may carry visions — fragmentary, unreliable, but real."
+    },
+    {
+      "id": "ent-bag-reputation-precedes",
+      "name": "Your Reputation Precedes You",
+      "severity": "low",
+      "trigger": {
+        "type": "condition",
+        "note": "The crew has done something notable — good or bad — in a previous adventure. Word travels in the underworld. This triggers at ports and settlements where criminals, smugglers, or information brokers operate."
+      },
+      "description": "A stranger approaches one of the crew at the bar, in the market, or on the docking platform. 'You're the ones who [did the thing], aren't you?' The tone depends on what the crew did — admiration, suspicion, opportunism, or fear.",
+      "stakes": "Reputation is currency. If the crew's reputation is positive, doors open — discounts, tips, offered jobs. If negative, doors close — vendors refuse service, security is alerted, or someone tries to collect.",
+      "suggestedResolution": "Social interaction. The crew decides whether to confirm, deny, or lean into their reputation. The GM adjusts NPC reactions at the current location based on the response."
+    },
+    {
+      "id": "ent-bag-varth-agenda",
+      "name": "Varth Has Questions",
+      "severity": "medium",
+      "trigger": {
+        "type": "condition",
+        "note": "Admiral Varth is traveling with the crew. This entanglement represents Varth subtly probing the crew's capabilities, loyalties, and vulnerabilities — not out of friendship, but operational assessment."
+      },
+      "description": "Varth finds a moment alone with one crew member. The conversation feels natural — professional interest, shared experience, tactical analysis. But the questions have edges. 'What's your read on [crew member X]? Can they handle pressure, or will they fold?' He's mapping the crew's fault lines. He calls it leadership. It's something else.",
+      "stakes": "Every answer gives Varth information he'll use later. Honest answers help him calibrate his manipulation. Evasive answers tell him who's guarded. The crew member doesn't know they're being profiled — unless they pass an Insight check.",
+      "suggestedResolution": "Roleplay encounter. If a player suspects Varth's motives, they can make an Insight check (Resist 4 — Varth is very good at this). Success reveals that the questions are too structured to be casual. Failure reads Varth as genuinely interested in crew cohesion.",
+      "markOpportunity": "destiny-tier1"
+    }
+  ],
+  "travel": [
+    {
+      "id": "ent-trv-distress-signal",
+      "name": "Distress Signal",
+      "severity": "medium",
+      "travelType": ["hyperspace", "planetary"],
+      "description": "The ship picks up a distress signal — automated beacon, repeating coordinates, standard emergency frequency. It could be genuine: a freighter with engine failure, an escape pod, a mining crew trapped by a cave-in. It could also be a trap — pirates use distress beacons as bait across the Outer Rim.",
+      "stakes": "Investigate and lose time (potentially a lot of time if it's complicated). Ignore and live with the silence — knowing someone might be dying while you fly past. If it's a trap, the crew is walking into an ambush with no intel.",
+      "suggestedResolution": "Investigation or Tech to analyze the signal before committing (genuine vs. trap). If genuine: rescue scenario (Medicine, Tech, or combat depending on the situation). If trap: combat or escape. The moral weight lands either way — heroes who ignore distress signals stop being heroes."
+    },
+    {
+      "id": "ent-trv-mechanical-failure",
+      "name": "Something's Not Right",
+      "severity": "medium",
+      "travelType": ["hyperspace"],
+      "description": "An alarm. A shudder in the deck plates. A readout that shouldn't be red but is. Something in the ship's systems has failed, is failing, or is about to fail. In hyperspace, this is not an inconvenience — it's a crisis. A hyperdrive malfunction at lightspeed can scatter atoms across a parsec.",
+      "stakes": "The crew must diagnose and repair the fault before it becomes catastrophic. Dropping out of hyperspace buys time but strands them in empty space — or worse, in an Imperial patrol corridor.",
+      "suggestedResolution": "Tech check to diagnose. A second Tech check to repair. Failure on diagnosis means the crew doesn't know what's wrong — they can drop out of hyperspace (safe but stranded) or push through (risky). Failure on repair means improvised solutions with consequences."
+    },
+    {
+      "id": "ent-trv-imperial-checkpoint",
+      "name": "Imperial Checkpoint",
+      "severity": "high",
+      "travelType": ["hyperspace", "planetary", "station"],
+      "description": "An Imperial patrol — a customs frigate, a planetary garrison checkpoint, or a station security sweep. They want identification, cargo manifests, and a reason for being here. In 15 BBY, this is routine. The Empire's bureaucratic normalization means checkpoints are everywhere and resistance is 'unreasonable.'",
+      "stakes": "The crew's cover identity and cargo hold need to survive scrutiny. Forged identchips help. A clean cargo hold helps more. If the crew is carrying contraband, stolen goods, or a wanted person, this becomes a crisis.",
+      "suggestedResolution": "Deception to maintain cover. Tech to forge or scrub records. Skulduggery to hide contraband. Piloting to run (but running from the Empire has long-term consequences — their transponder is now flagged). The GM determines checkpoint intensity based on location and narrative needs."
+    },
+    {
+      "id": "ent-trv-stowaway",
+      "name": "Extra Passenger",
+      "severity": "low",
+      "travelType": ["hyperspace", "station"],
+      "description": "Someone is on the ship who shouldn't be. A refugee who slipped aboard at the last port. A street kid hiding in the cargo hold. A small animal that got into the ventilation. Possibly something more dangerous — but usually, it's just someone desperate enough to hide in a stranger's ship.",
+      "stakes": "The stowaway needs to be dealt with — and 'dealt with' reveals character. Do they help? Interrogate? Space the intruder? The stowaway may have information, skills, or problems that become the crew's problems.",
+      "suggestedResolution": "Investigation to find them. Insight to read their intentions. Social interaction to determine what happens next. If the stowaway is hostile, combat in the cramped corridors of a freighter is its own kind of problem."
+    },
+    {
+      "id": "ent-trv-shadow-port-trouble",
+      "name": "Port Complications",
+      "severity": "medium",
+      "travelType": ["station", "planetary"],
+      "description": "The port isn't safe. Maybe it's a protection racket — pay the local crew or your ship gets 'maintenance issues.' Maybe a fight breaks out in the cantina that the crew gets pulled into. Maybe the fuel is contaminated and the vendor denies it. Outer Rim ports are not civilized places.",
+      "stakes": "Lose credits, lose time, or lose patience. Port complications are rarely lethal but they're always expensive — in credits, goodwill, or cover integrity.",
+      "suggestedResolution": "Varies by complication. Intimidate to back down the racket. Investigation to catch the contaminated fuel. Brawl to survive the cantina fight. Skulduggery to slip away without paying."
+    },
+    {
+      "id": "ent-trv-sensor-ghost",
+      "name": "Sensor Ghost",
+      "severity": "low",
+      "travelType": ["hyperspace"],
+      "description": "Something on the long-range sensors. A blip that shouldn't be there — too fast for a freighter, too small for a warship, matching the crew's course changes with a ten-second delay. It could be a sensor echo, a navigational buoy, or something tracking them.",
+      "stakes": "Paranoia is the real cost. The blip never resolves into a clear contact. The crew can't confirm pursuit and can't rule it out. If they drop out of hyperspace to investigate, they find nothing — but the blip reappears when they jump again. It stops after 1-2 jumps. Probably a sensor echo. Probably.",
+      "suggestedResolution": "Tech check to analyze the sensor data. High success confirms it's a navigational echo or reflection. Failure leaves it unresolved. The GM can use this as pure atmosphere or as foreshadowing for a later pursuit that IS real."
+    },
+    {
+      "id": "ent-trv-uncharted-dropout",
+      "name": "Off the Charts",
+      "severity": "high",
+      "travelType": ["hyperspace"],
+      "description": "The nav computer drops the ship out of hyperspace in the wrong place. The star charts are outdated, corrupted, or simply wrong — the mass shadow that should be here isn't, and the one that shouldn't be is. The crew is in uncharted space with no immediate reference points and a nav computer that needs recalculation from scratch.",
+      "stakes": "Stranded until the crew can recalculate a jump. Time is the enemy — every hour in unknown space is an hour where anything could happen. Fuel is finite. If the crew bought bad nav data, this is the consequence.",
+      "suggestedResolution": "Piloting or Tech to recalculate from star positions (time-consuming but reliable). Investigation to cross-reference known stellar patterns. If the crew has an astromech or nav droid, the difficulty drops significantly. A legendary result finds a shortcut — the dropout point connects to an unmapped lane."
+    },
+    {
+      "id": "ent-trv-debris-field",
+      "name": "Wreckage",
+      "severity": "medium",
+      "travelType": ["hyperspace", "planetary"],
+      "description": "The crew drops out near — or flies into — wreckage. A destroyed freighter, the remains of a battle, or the scattered hull of something that didn't survive the journey. Debris fields are navigation hazards, but they're also salvage opportunities. And sometimes, the wreck isn't as dead as it looks.",
+      "stakes": "Navigate through or around (Piloting check, with consequences for failure). Salvage for parts or cargo (Tech check, takes time). Investigate what happened (Investigation, may reveal danger or opportunity). Or leave it — wreckage in the Outer Rim usually has a story, and stories attract attention.",
+      "suggestedResolution": "Piloting to navigate safely. Tech to salvage usable parts. Investigation to determine cause of destruction. If the wreckage is recent, the thing that destroyed it may still be nearby."
+    }
+  ]
+}
