@@ -101,6 +101,11 @@
       "reason": "Recording evidence of slave trade and Imperial deals. Leverage material for later adventures."
     },
     {
+      "item": "Medical Scanner",
+      "category": "good",
+      "reason": "Identifying and assessing Varga's courier cybernetic implant. A medical scanner provides detailed biometric data that supports the Tech check to identify the Cybot Galactica Model VII — grants +1 tier on the sc-a2s2-tech-cybernetic discipline check."
+    },
+    {
       "item": "Ion Grenade",
       "category": "good",
       "reason": "Elite security droids in the dungeon. Ion damage is the purpose-built counter. (Raden's sentry droid at the filtration plant is destroyed by the Trandoshans before the crew fights — but the dungeon droids in Part 2 are the real Ion targets.)"
@@ -630,13 +635,21 @@
                 "discipline": "insight",
                 "approach": "Reading body language in the crowd, spotting who gets nervous when the Devaronian is mentioned, and tipping off an ally to press harder.",
                 "role": "secondary",
-                "support": { "type": "optimized", "targetDiscipline": "investigation", "description": "Step up Control die on ally's next Investigation roll" }
+                "support": {
+                  "type": "optimized",
+                  "targetDiscipline": "investigation",
+                  "description": "Step up Control die on ally's next Investigation roll"
+                }
               },
               {
                 "discipline": "intimidate",
                 "approach": "Leaning on a local who clearly knows something, making them nervous enough that the next questioner gets answers easily.",
                 "role": "secondary",
-                "support": { "type": "empowered", "targetDiscipline": "charm", "description": "Step up Power die on ally's next Charm roll" }
+                "support": {
+                  "type": "empowered",
+                  "targetDiscipline": "charm",
+                  "description": "Step up Power die on ally's next Charm roll"
+                }
               }
             ],
             "vpBase": 2,
@@ -2515,7 +2528,7 @@
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv2-p2-s5",
+              "targetScene": "adv2-p2-s6",
               "note": "Grakkus reappears as one of the assassins in Knife in the Dark. How the heroes handled the poison subplot affects his hostility."
             }
           ],
@@ -2930,7 +2943,7 @@
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv2-p2-s6",
+              "targetScene": "adv2-p2-s5",
               "note": "Intelligence gathered here feeds into the crew's extraction planning in The Best Laid Plans — TC-663's implant specs and Gome's confirmation that the data isn't mirrored."
             },
             {
@@ -3483,10 +3496,88 @@
         {
           "id": "adv2-p2-s5",
           "number": 5,
+          "title": "The Best Laid Plans",
+          "subtitle": "Night Four — The Extraction Plan",
+          "readAloud": "Night four. The fortress corridors are quiet — the late feast winding down, servants clearing plates, guards settling into the graveyard shift.\n\nYour crew gathers in your quarters. The door is locked. The Recording Rod plays back the Iron Ring hologram — Varga's skull projecting a ledger of accounts, routing numbers, financial infrastructure. A courier cybernetic embedded in a Hutt's skull.\n\nTC-663's intel is spread across the table: implant model, diagnostic port location, guard rotations, escape routes. Gome's ramblings have been distilled into three words: Figg & Associates, Bespin.\n\nThe picture is clear. The data is inside Varga's head — literally. It can't be sliced remotely. It can't be copied without physical access to the diagnostic port. And Varga is preparing to flee to Cloud City.\n\nYou're laying out the approach — access routes, timing windows, contingencies — when Varth's voice cuts through the comlink:\n\n\"Movement in the corridor outside your quarters. Three contacts. Armed. This isn't a patrol.\"\n\nThe lock clicks. Not forced — opened with a code.\n\nYou're out of time.",
+          "gmNotes": "This scene replaces the former datapad heist. There is NO standalone heist — the crew never gets a clean shot at Varga's implant. Instead, this scene serves two purposes:\n\n1. PLANNING CONSOLIDATION: The crew reviews everything they've gathered — the Iron Ring hologram recording, TC-663's implant identification (Cybot Galactica Model VII, diagnostic port behind right ear), Gome's Bespin/Cloud City/Figg & Associates intel, and the urgency created by Sinde's ISB audit accelerating Varga's departure. This is the moment the crew synthesizes their investigation into a plan.\n\n2. INTERRUPTED BY KNIFE IN THE DARK: The planning session is cut short by the assassination attempt (Scene 5). The crew never gets to execute their extraction plan because violence erupts first. This is deliberate — the narrative intention is that the crew escapes Takodana with intelligence ABOUT the cybernetic, not data FROM it. The actual data extraction happens on Bespin in Adventure 3.\n\nNO STANDALONE ENCOUNTERS OR DISCIPLINE CHECKS: This scene has no mechanical challenges of its own. It is a narrative bridge — the crew reviews their intel, begins formulating a plan, and is interrupted by the Scene 5 assassination attempt. The GM should use this scene to:\n- Confirm what the crew knows (implant model, diagnostic port, Bespin escape route)\n- Let them debate approaches (physical access vs. convincing Varga vs. intercepting on Bespin)\n- Establish the time pressure (Varga is leaving SOON)\n- Then slam the door open with assassins\n\nVARTH'S ROLE: Varth provides tactical awareness via comlink — he warns the crew about the assassins approaching. This reinforces his competence and makes his later betrayal more painful. He's genuinely useful here.\n\nWHAT THE CREW ESCAPES WITH: NOT the account data. They escape with:\n- TC-663's implant specs (Model VII, diagnostic port location)\n- Gome's Bespin intel (Cloud City, Figg & Associates)\n- The Recording Rod capture of the Iron Ring hologram\n- Varga's escape trajectory (from Scene 9)\n- The knowledge that the data is ONLY in Varga's head\n\nTRANSITION: This scene flows directly into Scene 5 (Knife in the Dark). The assassination erupts before the extraction plan can be executed. From there, the cascade is: assassination → dungeon → escape → hangar.",
+          "npcs": [],
+          "hazards": "None — the scene is interrupted before hazards become relevant.",
+          "decisions": [
+            {
+              "choice": "Prioritize physical access to the diagnostic port",
+              "consequence": "Requires getting close to Varga and interfacing with the implant directly. High risk, high reward — but the plan never executes."
+            },
+            {
+              "choice": "Intercept the data on Bespin instead",
+              "consequence": "Wait for Varga to reach Cloud City where his banking infrastructure is accessible. Safer but requires following him. This becomes the actual path forward."
+            },
+            {
+              "choice": "Convince Varga to provide access willingly",
+              "consequence": "A long shot — but if anyone could charm a Hutt, this crew might. The plan never gets tested."
+            }
+          ],
+          "loreTags": [
+            "Courier Cybernetic",
+            "Cybot Galactica Model VII",
+            "Cloud City",
+            "Bespin",
+            "Figg & Associates",
+            "TC-663",
+            "Project Leviathan"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s6",
+              "note": "The assassination attempt (Knife in the Dark) erupts during this planning session, interrupting the extraction plan before it can be executed."
+            },
+            {
+              "targetScene": "adv2-p2-s7",
+              "note": "After the assassination is dealt with, TC-663's intercepted comms reference 'the prisoner' — the crew must move to the dungeon before the fortress locks down."
+            },
+            {
+              "targetScene": "adv3-p1-s1",
+              "note": "The intel consolidated here — implant specs, Bespin destination, Figg & Associates — becomes the foundation for the Adventure 3 pursuit."
+            }
+          ],
+          "challengeType": "narrative",
+          "destinyTags": [
+            "cunning",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_investigator",
+            "voc_noble",
+            "voc_slicer",
+            "voc_ghost"
+          ],
+          "disciplineTags": [],
+          "gearFlags": [
+            "Recording Rod"
+          ],
+          "encounters": [],
+          "environmentMechanics": [],
+          "rewards": {
+            "credits": 0,
+            "xp": "Investigation milestone",
+            "items": [],
+            "narrative": "Intel consolidated: courier cybernetic identified (Model VII, diagnostic port behind right ear), Bespin escape route confirmed (Cloud City, Figg & Associates), implant confirmed as sole data repository. The extraction plan is interrupted — but the intelligence picture is complete."
+          },
+          "pacing": {
+            "openingBeat": "Night four. Quiet corridors. Locked door. The crew gathers to plan.",
+            "risingAction": "Intel review. The hologram replay. TC-663's specs. Gome's Bespin lead. The pieces click together.",
+            "climax": "The plan takes shape — and Varth's warning cuts through. Assassins at the door.",
+            "resolution": "The planning session is shattered. Knife in the Dark erupts. Everything after this is survival and escape.",
+            "estimatedMinutes": 10
+          },
+          "disciplineChallenges": []
+        },
+        {
+          "id": "adv2-p2-s6",
+          "number": 6,
           "title": "Knife in the Dark",
           "subtitle": "Night — Assassination Attempt",
           "readAloud": "You wake to the sound of something wrong.\n\nNot a noise — the absence of noise. The fortress hum is still there, the distant rumble of generators and the drip of jungle condensation. But the corridor outside your quarters has gone silent. No guard footsteps. No droid patrol.\n\nThen: a shadow moves at the edge of your door. Too low for a guard. Too fast for a servant.\n\nThe lock clicks. Not forced — opened with a code.\n\nThree figures slide into the room. The first is massive — a Wookiee, moving with terrifying silence for something that size. Grakkus. Behind him, lean and quiet, is Skreev — the Rodian bounty hunter from the Vipers. And behind both of them, face hidden in shadow, is Narek.\n\nThey're here to kill you.",
-          "gmNotes": "This is a nighttime assassination attempt — a combat ambush in the heroes' quarters. The attackers are a coalition of threats the heroes have accumulated during their time in the court.\n\nATTACKER COMPOSITION:\n- GRAKKUS (Wookiee enforcer): He flagged the heroes as threats during the Iron Ring delegation. Overwhelming close combat specialist — Wookiee strength in confined quarters. The muscle.\n- SKREEV (Rodian bounty hunter): From the Vipers in Part 1. Has been tracking the heroes since they entered the fortress. The professional.\n- NAREK (conditional): Only present if the heroes exposed or humiliated him during the poison subplot. If the heroes helped him or he escaped cleanly, Narek is NOT among the assassins. Replace with an additional Iron Ring enforcer.\n\nAMBUSH CONDITIONS: The heroes are in their quarters. Weapons may not be immediately accessible (Skulduggery check to have stashed weapons within reach). Armor is not worn. Lighting is minimal. The attackers have surprise unless the heroes succeed on an Awareness check.\n\nSCENE PURPOSE: This is the consequence scene — the court's dangers catching up. It also serves as a dramatic combat set-piece that breaks the investigation rhythm and reminds the heroes that Varga's court is lethal.\n\nIF THE HEROES CAPTURE AN ASSASSIN: Interrogation reveals that the hit was contracted by someone inside the court — not Varga himself. The contract came through Demos. This is Demos testing the heroes (if he's suspicious) or removing potential rivals (if the heroes are too successful).\n\nCHALLENGE COMPLEXITY:\n- Waking up in time: SIMPLE (single Awareness check, determines surprise)\n- The fight itself: SET-PIECE (full combat encounter, environment mechanics, multiple enemies)\n- Stashed weapons: SIMPLE (single Skulduggery check, retroactive preparation)\n- Interrogation afterward: COMPLEX (if an assassin is captured alive)",
+          "gmNotes": "This is a nighttime assassination attempt — a combat ambush in the heroes' quarters. The attackers are a coalition of threats the heroes have accumulated during their time in the court.\n\nATTACKER COMPOSITION:\n- GRAKKUS (Wookiee enforcer): He flagged the heroes as threats during the Iron Ring delegation. Overwhelming close combat specialist — Wookiee strength in confined quarters. The muscle.\n- SKREEV (Rodian bounty hunter): From the Vipers in Part 1. Has been tracking the heroes since they entered the fortress. The professional.\n- NAREK (conditional): Only present if the heroes exposed or humiliated him during the poison subplot. If the heroes helped him or he escaped cleanly, Narek is NOT among the assassins. Replace with an additional Iron Ring enforcer.\n\nAMBUSH CONDITIONS: The heroes are in their quarters. Weapons may not be immediately accessible (Skulduggery check to have stashed weapons within reach). Armor is not worn. Lighting is minimal. The attackers have surprise unless the heroes succeed on an Awareness check.\n\nSCENE PURPOSE: This is the consequence scene — the court's dangers catching up. The assassination interrupts the crew's extraction planning from Scene 5 (The Best Laid Plans). They were laying out an approach to Varga's courier cybernetic when the door opened. After this fight, the investigation phase is over — everything that follows is survival, rescue, and escape. The crew leaves Takodana with intelligence about the implant, not data from it.\n\nIF THE HEROES CAPTURE AN ASSASSIN: Interrogation reveals that the hit was contracted by someone inside the court — not Varga himself. The contract came through Demos. This is Demos testing the heroes (if he's suspicious) or removing potential rivals (if the heroes are too successful).\n\nCHALLENGE COMPLEXITY:\n- Waking up in time: SIMPLE (single Awareness check, determines surprise)\n- The fight itself: SET-PIECE (full combat encounter, environment mechanics, multiple enemies)\n- Stashed weapons: SIMPLE (single Skulduggery check, retroactive preparation)\n- Interrogation afterward: COMPLEX (if an assassin is captured alive)",
           "npcs": [
             {
               "name": "Grakkus",
@@ -3936,90 +4027,12 @@
           ]
         },
         {
-            "id": "adv2-p2-s6",
-            "number": 6,
-            "title": "The Best Laid Plans",
-            "subtitle": "Night Four — The Extraction Plan",
-            "readAloud": "Night four. The fortress corridors are quiet — the late feast winding down, servants clearing plates, guards settling into the graveyard shift.\n\nYour crew gathers in your quarters. The door is locked. The Recording Rod plays back the Iron Ring hologram — Varga's skull projecting a ledger of accounts, routing numbers, financial infrastructure. A courier cybernetic embedded in a Hutt's skull.\n\nTC-663's intel is spread across the table: implant model, diagnostic port location, guard rotations, escape routes. Gome's ramblings have been distilled into three words: Figg & Associates, Bespin.\n\nThe picture is clear. The data is inside Varga's head — literally. It can't be sliced remotely. It can't be copied without physical access to the diagnostic port. And Varga is preparing to flee to Cloud City.\n\nYou're laying out the approach — access routes, timing windows, contingencies — when Varth's voice cuts through the comlink:\n\n\"Movement in the corridor outside your quarters. Three contacts. Armed. This isn't a patrol.\"\n\nThe lock clicks. Not forced — opened with a code.\n\nYou're out of time.",
-            "gmNotes": "This scene replaces the former datapad heist. There is NO standalone heist — the crew never gets a clean shot at Varga's implant. Instead, this scene serves two purposes:\n\n1. PLANNING CONSOLIDATION: The crew reviews everything they've gathered — the Iron Ring hologram recording, TC-663's implant identification (Cybot Galactica Model VII, diagnostic port behind right ear), Gome's Bespin/Cloud City/Figg & Associates intel, and the urgency created by Sinde's ISB audit accelerating Varga's departure. This is the moment the crew synthesizes their investigation into a plan.\n\n2. INTERRUPTED BY KNIFE IN THE DARK: The planning session is cut short by the assassination attempt (Scene 5). The crew never gets to execute their extraction plan because violence erupts first. This is deliberate — the narrative intention is that the crew escapes Takodana with intelligence ABOUT the cybernetic, not data FROM it. The actual data extraction happens on Bespin in Adventure 3.\n\nNO STANDALONE ENCOUNTERS OR DISCIPLINE CHECKS: This scene has no mechanical challenges of its own. It is a narrative bridge — the crew reviews their intel, begins formulating a plan, and is interrupted by the Scene 5 assassination attempt. The GM should use this scene to:\n- Confirm what the crew knows (implant model, diagnostic port, Bespin escape route)\n- Let them debate approaches (physical access vs. convincing Varga vs. intercepting on Bespin)\n- Establish the time pressure (Varga is leaving SOON)\n- Then slam the door open with assassins\n\nVARTH'S ROLE: Varth provides tactical awareness via comlink — he warns the crew about the assassins approaching. This reinforces his competence and makes his later betrayal more painful. He's genuinely useful here.\n\nWHAT THE CREW ESCAPES WITH: NOT the account data. They escape with:\n- TC-663's implant specs (Model VII, diagnostic port location)\n- Gome's Bespin intel (Cloud City, Figg & Associates)\n- The Recording Rod capture of the Iron Ring hologram\n- Varga's escape trajectory (from Scene 9)\n- The knowledge that the data is ONLY in Varga's head\n\nTRANSITION: This scene flows directly into Scene 5 (Knife in the Dark). The assassination erupts before the extraction plan can be executed. From there, the cascade is: assassination → dungeon → escape → hangar.",
-            "npcs": [],
-            "hazards": "None — the scene is interrupted before hazards become relevant.",
-            "decisions": [
-              {
-                "choice": "Prioritize physical access to the diagnostic port",
-                "consequence": "Requires getting close to Varga and interfacing with the implant directly. High risk, high reward — but the plan never executes."
-              },
-              {
-                "choice": "Intercept the data on Bespin instead",
-                "consequence": "Wait for Varga to reach Cloud City where his banking infrastructure is accessible. Safer but requires following him. This becomes the actual path forward."
-              },
-              {
-                "choice": "Convince Varga to provide access willingly",
-                "consequence": "A long shot — but if anyone could charm a Hutt, this crew might. The plan never gets tested."
-              }
-            ],
-            "loreTags": [
-              "Courier Cybernetic",
-              "Cybot Galactica Model VII",
-              "Cloud City",
-              "Bespin",
-              "Figg & Associates",
-              "TC-663",
-              "Project Leviathan"
-            ],
-            "narrativeLinks": [
-              {
-                "targetScene": "adv2-p2-s5",
-                "note": "The assassination attempt (Knife in the Dark) erupts during this planning session, interrupting the extraction plan before it can be executed."
-              },
-              {
-                "targetScene": "adv2-p2-s7",
-                "note": "After the assassination is dealt with, TC-663's intercepted comms reference 'the prisoner' — the crew must move to the dungeon before the fortress locks down."
-              },
-              {
-                "targetScene": "adv3-p1-s1",
-                "note": "The intel consolidated here — implant specs, Bespin destination, Figg & Associates — becomes the foundation for the Adventure 3 pursuit."
-              }
-            ],
-            "challengeType": "narrative",
-            "destinyTags": [
-              "cunning",
-              "discovery"
-            ],
-            "vocationTags": [
-              "voc_investigator",
-              "voc_noble",
-              "voc_slicer",
-              "voc_ghost"
-            ],
-            "disciplineTags": [],
-            "gearFlags": [
-              "Recording Rod"
-            ],
-            "encounters": [],
-            "environmentMechanics": [],
-            "rewards": {
-              "credits": 0,
-              "xp": "Investigation milestone",
-              "items": [],
-              "narrative": "Intel consolidated: courier cybernetic identified (Model VII, diagnostic port behind right ear), Bespin escape route confirmed (Cloud City, Figg & Associates), implant confirmed as sole data repository. The extraction plan is interrupted — but the intelligence picture is complete."
-            },
-            "pacing": {
-              "openingBeat": "Night four. Quiet corridors. Locked door. The crew gathers to plan.",
-              "risingAction": "Intel review. The hologram replay. TC-663's specs. Gome's Bespin lead. The pieces click together.",
-              "climax": "The plan takes shape — and Varth's warning cuts through. Assassins at the door.",
-              "resolution": "The planning session is shattered. Knife in the Dark erupts. Everything after this is survival and escape.",
-              "estimatedMinutes": 10
-            },
-            "disciplineChallenges": []
-          },
-        {
           "id": "adv2-p2-s7",
           "number": 7,
           "title": "Discovering Denia",
           "subtitle": "The Dungeon",
           "readAloud": "TC-663's intercepted comms mentioned 'the prisoner' — someone hidden in the dungeon that Demos wants to sell to the Inquisitorius. You descend into the restricted lower levels, past sealed blast doors and silent guard droids.\n\nThe detention block is cold and humming with machinery. In the deepest cell, a stasis pod is hooked to life-support systems. Through the frost-covered viewport, you see a human woman in tattered Jedi robes, suspended in a Force-induced coma.\n\nHer eyes are closed. But you feel something — a whisper at the edge of your consciousness. Not words. A feeling. Like drowning in slow motion.\n\nIn the adjacent cell, Warrick Raden huddles in the corner. Beaten, bruised, but alive. He looks up with hollow eyes.\n\nAdmiral Varth's voice comes over the encrypted comlink. The same voice as always. Calm. Efficient.\n\n\"Leave her. She's a liability. We don't have time for dead weight.\"\n\nA pause. You can hear him thinking.\n\n\"Your call. But she slows us down and we're on a clock.\"",
-          "gmNotes": "This is the campaign's first major pivot. Two discoveries in one scene:\n\n1. JEDI MASTER DENIA: Found in stasis since shortly after Order 66. Kept by Varga as a trophy to auction to the Inquisitorius. She's weak, barely alive, and telepathically reaching out. Varth advises abandonment: 'Leave her. She's a liability. We don't have time for dead weight.' The heroes must decide whether to rescue Denia against Varth's advice. This is the campaign's first major branch point — not a continuity-locked rescue. If rescued, she becomes a mentor and Varth's unwitting instrument. If abandoned, Varth secretly tips off Draco after the escape; Draco recovers her from the dungeon off-camera. The heroes never learn she survived until the Adv10 showdown. Either way, Varth gets what he needs.\n\n2. WARRICK RADEN: Found beaten in the adjacent cell. The heroes rescued him from the hit squad, he got them inside, and Varga threw him in the dungeon. He's alive and can walk, but he's broken. The heroes will rescue him here — and Varth will execute him at the hangar in Scene 6.\n\nEAVESDROP ON DEMOS/DRACO HOLO-CALL: While in the dungeon area, the heroes can overhear (or TC-663 alerts them to) a holo-call between Igren Demos and Inquisitor Draco. Demos is reporting that the prisoner is still viable. Draco's response: 'I am on my way, with the Assiduous.' This starts the DEATH CLOCK — Draco's Star Destroyer is inbound. The heroes must escape before it arrives.\n\nVARTH'S RED FLAG #1: His voice doesn't change. That's what makes it chilling. He sounds the same as always — pragmatic, efficient, reasonable. 'Leave her. She's a liability.' He's not being cruel. He's being operational. And that's worse. If the heroes push back — 'She's a person, not dead weight' — Varth shrugs: 'Your call. But she slows us down.' He won't fight them on it. He doesn't need to. If they take her, he adapts. If they leave her, he gets what he wants through Draco. Either outcome serves him. Players should feel uncomfortable either way — whether they followed his advice or defied it.",
+          "gmNotes": "This is the campaign's first major pivot. Two discoveries in one scene:\n\n1. JEDI MASTER DENIA: Found in stasis since shortly after Order 66. Kept by Varga as a trophy to auction to the Inquisitorius. She's weak, barely alive, and telepathically reaching out. Varth advises abandonment: 'Leave her. She's a liability. We don't have time for dead weight.' The heroes must decide whether to rescue Denia against Varth's advice. This is the campaign's first major branch point — not a continuity-locked rescue. If rescued, she becomes a mentor and Varth's unwitting instrument. If abandoned, Varth secretly tips off Draco after the escape; Draco recovers her from the dungeon off-camera. The heroes never learn she survived until the Adv10 showdown. Either way, Varth gets what he needs.\n\n2. WARRICK RADEN: Found beaten in the adjacent cell. The heroes rescued him from the hit squad, he got them inside, and Varga threw him in the dungeon. He's alive and can walk, but he's broken. The heroes will rescue him here — and Varth will execute him at the hangar in Scene 6.\n\nEAVESDROP ON DEMOS/DRACO HOLO-CALL: While in the dungeon area, the heroes can overhear (or TC-663 alerts them to) a holo-call between Igren Demos and Inquisitor Draco. Demos is reporting that the prisoner is still viable. Draco's response: 'I am on my way, with the Assiduous.' This starts the DEATH CLOCK — Draco's Star Destroyer is inbound. The heroes must escape before it arrives.\n\nCYBERNETIC THREAD — WHAT THE CREW CARRIES FORWARD: By this point in the adventure, the crew should know (depending on investigation success): the implant is a Cybot Galactica Model VII, it has a maintenance diagnostic port behind Varga's right ear, the financial data is stored solely in the implant (Gome confirmed no external mirrors), and Varga is fleeing to Bespin. They do NOT have the account data itself. The dungeon rescue and escape sequence that follows means they leave Takodana with intelligence about the cybernetic, not data extracted from it. The actual data extraction becomes the objective for Adventure 3 on Bespin.\n\nVARTH'S RED FLAG #1: His voice doesn't change. That's what makes it chilling. He sounds the same as always — pragmatic, efficient, reasonable. 'Leave her. She's a liability.' He's not being cruel. He's being operational. And that's worse. If the heroes push back — 'She's a person, not dead weight' — Varth shrugs: 'Your call. But she slows us down.' He won't fight them on it. He doesn't need to. If they take her, he adapts. If they leave her, he gets what he wants through Draco. Either outcome serves him. Players should feel uncomfortable either way — whether they followed his advice or defied it.",
           "npcs": [
             {
               "name": "Jedi Master Denia",
@@ -4430,7 +4443,7 @@
           "title": "The Escape",
           "subtitle": "The Majordomo's Stand",
           "readAloud": "Klaxons scream through the stone corridors. The fortress goes into lockdown — blast doors grinding shut, red emergency lighting flooding every hall.\n\nBlocking your path stands Igren Demos, the Neimoidian Majordomo. He is no longer simpering. He holds a vibro-staff with lethal confidence, flanked by his elite Trandoshan bodyguards.\n\nHis red eyes widen as he senses the Jedi behind you. \"The Jedi... she's awake. Give her to me. I will take her to the Inquisitorius myself and claim what Varga never could.\"",
-          "gmNotes": "Demos is the mini-boss of Adventure 2. He reveals his Force-sensitivity (untrained) and uses minor Force powers — Force Slam to separate heroes, Force Pull to yank objects or people. His elite Trandoshan bodyguards provide additional threat.\n\nDEMOS'S MOTIVATION: He wants Denia for himself. He plans to turn her over to the Inquisitorius and buy his way into Imperial favor. He's deluding himself — the Empire is deeply speciesist and doesn't trust Neimoidians (associated with the Separatist cause). They would take Denia and discard Demos. He dies chasing a reward he'd never receive — which quietly mirrors what the heroes are doing by chasing Varth's payday.\n\nPERSUASION OPTION: A Tier 2 Persuasion check can convince Demos to stand down by pointing out that Varga has already fled without him — Demos has been abandoned. If successful, Demos hesitates, realizes the truth, and steps aside in bitter rage. If failed, he fights to the death.\n\nDENIA'S MOMENT (if rescued): When Demos falls (or stands down), Denia senses his untrained Force sensitivity. 'He was touched by the Force... untrained, but there.' This humanizes the kill and establishes Denia's sensitivity. IF DENIA WAS ABANDONED: Demos still fights to block the escape (he doesn't know the heroes left Denia). His death plays the same, but without Denia's moment of empathy. The kill is just a kill — no one to sense what he was.\n\nRunning battle through sealed corridors. Gamorreans and Trandoshans converge. Speed is more valuable than kills. Every round spent fighting is a round Varga gains toward escape.",
+          "gmNotes": "Demos is the mini-boss of Adventure 2. He reveals his Force-sensitivity (untrained) and uses minor Force powers — Force Slam to separate heroes, Force Pull to yank objects or people. His elite Trandoshan bodyguards provide additional threat.\n\nDEMOS'S MOTIVATION: He wants Denia for himself. He plans to turn her over to the Inquisitorius and buy his way into Imperial favor. He's deluding himself — the Empire is deeply speciesist and doesn't trust Neimoidians (associated with the Separatist cause). They would take Denia and discard Demos. He dies chasing a reward he'd never receive — which quietly mirrors what the heroes are doing by chasing Varth's payday.\n\nPERSUASION OPTION: A Tier 2 Persuasion check can convince Demos to stand down by pointing out that Varga has already fled without him — Demos has been abandoned. If successful, Demos hesitates, realizes the truth, and steps aside in bitter rage. If failed, he fights to the death.\n\nDENIA'S MOMENT (if rescued): When Demos falls (or stands down), Denia senses his untrained Force sensitivity. 'He was touched by the Force... untrained, but there.' This humanizes the kill and establishes Denia's sensitivity. IF DENIA WAS ABANDONED: Demos still fights to block the escape (he doesn't know the heroes left Denia). His death plays the same, but without Denia's moment of empathy. The kill is just a kill — no one to sense what he was.\n\nCYBERNETIC THREAD: The crew is escaping with TC-663's implant specs, Gome's Bespin intel, and the Recording Rod hologram — but NOT the account data. The data is still locked in Varga's skull, and Varga is fleeing to Cloud City. Everything the crew has gathered points to Bespin as the next destination. This realization should crystallize during the escape: they didn't get the data, but they know where the data is going.\n\nRunning battle through sealed corridors. Gamorreans and Trandoshans converge. Speed is more valuable than kills. Every round spent fighting is a round Varga gains toward escape.",
           "npcs": [
             {
               "name": "Igren Demos",
