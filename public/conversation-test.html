@@ -91,7 +91,7 @@
       overflow-y: auto;
       padding: 24px;
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
       gap: 16px;
     }
 
@@ -526,7 +526,7 @@
       resetState();
       renderComfort();
       addReadAloud(data.readAloud);
-      addGmNote(data.gmNotes);
+      addGmNote(data.gmNotes, true);
       renderQuestions();
     }
 
@@ -581,11 +581,15 @@
       prependToLog(el);
     }
 
-    function addGmNote(text) {
+    function addGmNote(text, append) {
       const el = document.createElement('div');
       el.className = 'log-entry gm-note';
       el.innerHTML = `<div class="label">GM Note</div>${text}`;
-      prependToLog(el);
+      if (append) {
+        document.getElementById('log').appendChild(el);
+      } else {
+        prependToLog(el);
+      }
     }
 
     function addMaya(text) {
@@ -875,7 +879,7 @@
       resetState();
       renderComfort();
       addReadAloud(data.readAloud);
-      addGmNote(data.gmNotes);
+      addGmNote(data.gmNotes, true);
       renderQuestions();
     });
 
