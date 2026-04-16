@@ -91,7 +91,7 @@
       overflow-y: auto;
       padding: 24px;
       display: flex;
-      flex-direction: column;
+      flex-direction: column-reverse;
       gap: 16px;
     }
 
@@ -571,40 +571,35 @@
       const el = document.createElement('div');
       el.className = 'log-entry question';
       el.innerHTML = `<span class="question-speaker">Crew</span><span class="question-text">"${text}"</span>`;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function addResponse(text) {
       const el = document.createElement('div');
       el.className = 'log-entry response';
       el.innerHTML = `<div class="speaker">Admiral Varth</div>${text}`;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function addGmNote(text) {
       const el = document.createElement('div');
       el.className = 'log-entry gm-note';
       el.innerHTML = `<div class="label">GM Note</div>${text}`;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function addMaya(text) {
       const el = document.createElement('div');
       el.className = 'log-entry maya';
       el.innerHTML = `<div class="speaker">Maya</div>${text}`;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function addSystem(text) {
       const el = document.createElement('div');
       el.className = 'log-entry system';
       el.textContent = text;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function addComfortChange(from, to) {
@@ -612,21 +607,25 @@
       el.className = 'log-entry comfort-change';
       const arrow = to < from ? '\u2193' : '\u2191';
       el.textContent = `Comfort ${from} ${arrow} ${to}`;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function addEnding(text) {
       const el = document.createElement('div');
       el.className = 'log-entry ending';
       el.textContent = text;
-      document.getElementById('log').appendChild(el);
-      scrollLog();
+      prependToLog(el);
     }
 
     function scrollLog() {
       const log = document.getElementById('log');
-      setTimeout(() => log.scrollTop = log.scrollHeight, 50);
+      setTimeout(() => log.scrollTop = 0, 50);
+    }
+
+    function prependToLog(el) {
+      const log = document.getElementById('log');
+      log.prepend(el);
+      scrollLog();
     }
 
     function findQuestion(id) {
