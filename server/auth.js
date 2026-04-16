@@ -47,7 +47,7 @@ function roleFromCookie(req) {
 function gate(req, res, next) {
   if (!GM_CODE && !PLAYER_CODE) return next();
 
-  const publicPaths = ['/login', '/login/', '/api/auth/login', '/api/auth/logout'];
+  const publicPaths = ['/login', '/login/', '/api/auth/login', '/api/auth/logout', '/conversation-test.html'];
   if (publicPaths.includes(req.path)) return next();
 
   if (req.path.startsWith('/css/')    ||
