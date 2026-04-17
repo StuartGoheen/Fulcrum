@@ -133,6 +133,7 @@ router.get('/journal/entries', async (req, res) => {
   //   `viewer` is the requesting character_name (player UI passes it).
   const isGm = req.userRole === 'gm';
   const viewerName = (viewer || '').toString().trim();
+  console.log('[journal/entries] role=', req.userRole, 'isGm=', isGm, 'viewer=', JSON.stringify(viewerName), 'scene_id=', scene_id, 'tag=', tag);
   // For private entries, require viewer == author (not just viewer == visibility),
   // so a player can't read another player's private entries by guessing their name.
   function appendVisFilter(params, prefix) {
