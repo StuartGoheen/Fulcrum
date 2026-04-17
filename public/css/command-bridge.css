@@ -6497,6 +6497,53 @@
   margin-left: 0.3rem;
 }
 .ct-gmlog-caret { color: #94a3b8; font-size: 0.7rem; }
+.ct-gmlog-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(15, 23, 42, 0.45);
+}
+.ct-gmlog-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+}
+.ct-gmlog-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.6);
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.ct-gmlog-chip:hover { border-color: rgba(203, 213, 225, 0.55); color: #cbd5e1; }
+.ct-gmlog-chip.is-active { font-weight: 600; }
+.ct-gmlog-search {
+  flex: 1 1 120px;
+  min-width: 100px;
+  padding: 0.22rem 0.45rem;
+  font-size: 0.7rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 4px;
+  color: #e2e8f0;
+  font-family: inherit;
+}
+.ct-gmlog-search:focus {
+  outline: none;
+  border-color: #60a5fa;
+  background: rgba(15, 23, 42, 0.95);
+}
+.ct-gmlog-search::placeholder { color: #64748b; }
 .ct-gmlog-body {
   max-height: 220px;
   overflow-y: auto;

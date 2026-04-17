@@ -953,22 +953,65 @@
     return colors[type] || '#cbd5e1';
   }
 
+  var LOG_FILTER_CHIPS = [
+    { id: 'escalation', label: 'Escalations', types: ['escalation'] },
+    { id: 'condition', label: 'Conditions', types: ['condition'] },
+    { id: 'vitality', label: 'Vitality', types: ['vitality'] },
+    { id: 'ko', label: 'KOs', types: ['ko'] },
+    { id: 'round', label: 'Rounds', types: ['round', 'start', 'end'] }
+  ];
+
+  function getLogFilterState() {
+    if (!combatState.logFilters) {
+      combatState.logFilters = { escalation: true, condition: true, vitality: true, ko: true, round: true };
+    }
+    if (typeof combatState.logSearch !== 'string') combatState.logSearch = '';
+    return combatState.logFilters;
+  }
+
+  function logEntryMatchesFilters(entry) {
+    var filters = getLogFilterState();
+    var chip = LOG_FILTER_CHIPS.find(function (c) { return c.types.indexOf(entry.type) !== -1; });
+    if (chip && filters[chip.id] === false) return false;
+    var search = (combatState.logSearch || '').trim().toLowerCase();
+    if (search && (entry.text || '').toLowerCase().indexOf(search) === -1) return false;
+    return true;
+  }
+
   function renderCombatLogPanel() {
     if (!combatState) return '';
     var log = combatState.combatLog || [];
     var collapsed = !!combatState.combatLogCollapsed;
+    var filters = getLogFilterState();
+    var search = combatState.logSearch || '';
+    var visible = log.filter(logEntryMatchesFilters);
     var html = '<div class="ct-gmlog-panel">';
     html += '<div class="ct-gmlog-header" id="ct-gmlog-toggle" role="button" aria-expanded="' + (!collapsed) + '">';
-    html += '<span class="ct-gmlog-title">GM LOG <span class="ct-gmlog-count">(' + log.length + ')</span></span>';
+    html += '<span class="ct-gmlog-title">GM LOG <span class="ct-gmlog-count">(' + visible.length + (visible.length !== log.length ? '/' + log.length : '') + ')</span></span>';
     html += '<span class="ct-gmlog-caret">' + (collapsed ? '▸' : '▾') + '</span>';
     html += '</div>';
     if (!collapsed) {
+      html += '<div class="ct-gmlog-controls">';
+      html += '<div class="ct-gmlog-chips">';
+      LOG_FILTER_CHIPS.forEach(function (chip) {
+        var active = filters[chip.id] !== false;
+        var color = logTypeColor(chip.types[0]);
+        var style = active
+          ? 'border-color:' + color + ';color:' + color + ';background:' + color + '22;'
+          : '';
+        html += '<button type="button" class="ct-gmlog-chip' + (active ? ' is-active' : '') + '" data-log-chip="' + chip.id + '" aria-pressed="' + active + '" style="' + style + '">' + esc(chip.label) + '</button>';
+      });
+      html += '</div>';
+      html += '<input type="search" class="ct-gmlog-search" id="ct-gmlog-search" placeholder="Filter log&hellip;" value="' + esc(search) + '" autocomplete="off" />';
+      html += '</div>';
       html += '<div class="ct-gmlog-body">';
       if (log.length === 0) {
         html += '<div class="ct-gmlog-empty">No events logged yet.</div>';
+      } else if (visible.length === 0) {
+        html += '<div class="ct-gmlog-empty">No events match the current filters.</div>';
       } else {
-        for (var i = log.length - 1; i >= 0; i--) {
-          var e = log[i];
+        for (var i = visible.length - 1; i >= 0; i--) {
+          var e = visible[i];
           var color = logTypeColor(e.type);
           html += '<div class="ct-gmlog-entry ct-gmlog-entry--' + esc(e.type) + '" style="border-left-color:' + color + ';">';
           html += '<span class="ct-gmlog-round">R' + (e.round || 1) + '</span>';
@@ -2340,6 +2383,31 @@
       renderCombatTracker();
     });
 
+    container.querySelectorAll('[data-log-chip]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var id = btn.dataset.logChip;
+        var filters = getLogFilterState();
+        filters[id] = filters[id] === false ? true : false;
+        renderCombatTracker();
+      });
+    });
+
+    var logSearch = container.querySelector('#ct-gmlog-search');
+    if (logSearch) {
+      logSearch.addEventListener('input', function () {
+        combatState.logSearch = logSearch.value;
+        var caret = logSearch.selectionStart;
+        renderCombatTracker();
+        var refreshed = document.querySelector('#ct-gmlog-search');
+        if (refreshed) {
+          refreshed.focus();
+          try { refreshed.setSelectionRange(caret, caret); } catch (err) {}
+        }
+      });
+      logSearch.addEventListener('click', function (e) { e.stopPropagation(); });
+    }
+
     var jbBtn = container.querySelector('#ct-trigger-jb');
     if (jbBtn) jbBtn.addEventListener('click', triggerJoinBattle);
 
@@ -2703,7 +2771,9 @@
       scriptedEscalation: (combatState.encounter && combatState.encounter.scriptedEscalation) || null,
       lastEscalation: combatState.lastEscalation || null,
       combatLog: combatState.combatLog || [],
-      combatLogCollapsed: !!combatState.combatLogCollapsed
+      combatLogCollapsed: !!combatState.combatLogCollapsed,
+      logFilters: combatState.logFilters || null,
+      logSearch: combatState.logSearch || ''
     });
   }
 
@@ -2738,7 +2808,9 @@
       joinBattleSent: serverState.joinBattleSent !== false,
       pcResponses: serverState.responses || {},
       combatLog: Array.isArray(serverState.combatLog) ? serverState.combatLog.slice() : [],
-      combatLogCollapsed: !!serverState.combatLogCollapsed
+      combatLogCollapsed: !!serverState.combatLogCollapsed,
+      logFilters: serverState.logFilters || null,
+      logSearch: typeof serverState.logSearch === 'string' ? serverState.logSearch : ''
     };
 
     if (restoredMapKey) {
