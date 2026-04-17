@@ -54,53 +54,168 @@
   function injectGmStyles() {
     if (document.getElementById(GM_STYLE_ID)) return;
     var css = `
-.conv-gm-overlay { position: fixed; inset: 0; background: rgba(5,5,12,0.92); z-index: 9000; display: flex; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #e8e8f0; }
-.conv-gm-shell { flex: 1; display: flex; flex-direction: column; max-height: 100vh; }
-.conv-gm-header { display: flex; align-items: center; gap: 16px; padding: 14px 22px; background: linear-gradient(180deg, #15151f, #0c0c14); border-bottom: 1px solid #2a2a3a; }
-.conv-gm-header .h-title { font-weight: 600; font-size: 17px; letter-spacing: 0.4px; }
-.conv-gm-header .h-sub { font-size: 12px; color: #8a8aa0; }
+/* ===== Conversation GM Console — Black Ledger floating window ===== */
+.conv-gm-window {
+  position: fixed; z-index: 9100;
+  left: 50%; top: 50px; transform: translateX(-50%);
+  width: 980px; height: 640px;
+  background: linear-gradient(180deg, #2e2e32 0%, #2a2a2e 100%);
+  border: 1px solid rgba(200,164,78,0.3);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,164,78,0.08), inset 0 1px 0 rgba(200,164,78,0.18);
+  display: flex; flex-direction: column;
+  color: #d8d4cc;
+  font-family: 'Exo 2', -apple-system, sans-serif;
+  overflow: hidden;
+  min-width: 560px; min-height: 360px;
+  max-width: calc(100vw - 12px); max-height: calc(100vh - 12px);
+}
+.conv-gm-window.dragging, .conv-gm-window.resizing { user-select: none; }
+
+.conv-gm-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #34342f 0%, #2c2c28 100%);
+  border-bottom: 1px solid rgba(200,164,78,0.25);
+  box-shadow: inset 0 -1px 0 rgba(200,164,78,0.12);
+  cursor: grab; touch-action: none; flex-shrink: 0;
+}
+.conv-gm-header.dragging, .conv-gm-header:active { cursor: grabbing; }
+.conv-gm-header .h-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #c8a44e;
+}
+.conv-gm-header .h-sub { font-size: 0.7rem; color: #8a8378; margin-top: 2px; }
 .conv-gm-header .h-spacer { flex: 1; }
-.conv-pip { width: 11px; height: 11px; border-radius: 50%; background: #1f1f2c; border: 1px solid #2f2f40; }
-.conv-pip.active { background: #4a90e2; border-color: #4a90e2; }
-.conv-pip.warn { background: #d4a574; border-color: #d4a574; }
-.conv-pip.danger { background: #d65a5a; border-color: #d65a5a; }
 .conv-comfort-pips { display: inline-flex; gap: 4px; align-items: center; }
-.conv-beat { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 10px; background: #1a1a26; border-radius: 4px; }
-.conv-gm-close { background: transparent; color: #888; border: 1px solid #333; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-.conv-gm-close:hover { color: #fff; border-color: #555; }
-.conv-gm-body { flex: 1; display: grid; grid-template-columns: 1fr 380px; min-height: 0; }
-.conv-gm-log { overflow-y: auto; padding: 22px 28px; background: #0a0a12; }
-.conv-gm-log-entry { margin-bottom: 16px; }
-.conv-gm-readaloud { background: rgba(212,165,116,0.06); border-left: 3px solid #d4a574; padding: 14px 18px; font-style: italic; line-height: 1.6; color: #c9c9d8; white-space: pre-wrap; border-radius: 0 6px 6px 0; }
-.conv-gm-qa { background: #11111c; border: 1px solid #20202c; border-radius: 8px; padding: 14px 18px; }
-.conv-gm-qa .who { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-.conv-gm-qa .q { color: #6fb1ff; margin-bottom: 12px; font-size: 15px; }
-.conv-gm-qa .a-speaker { font-size: 11px; color: #d4a574; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.conv-gm-qa .a { color: #e8e8f0; line-height: 1.55; white-space: pre-wrap; }
-.conv-gm-qa .gm-note { margin-top: 12px; padding: 10px 12px; background: rgba(99,102,241,0.08); border-left: 2px solid #6366f1; font-size: 12px; color: #c7c7e0; line-height: 1.5; border-radius: 0 4px 4px 0; }
-.conv-gm-pass { background: rgba(120,120,140,0.08); border-left: 2px solid #555; padding: 8px 14px; font-size: 12px; color: #888; border-radius: 0 4px 4px 0; }
-.conv-gm-maya { background: rgba(143,107,178,0.08); border-left: 3px solid #8f6bb2; padding: 12px 16px; border-radius: 0 6px 6px 0; }
-.conv-gm-maya .speaker { font-size: 11px; color: #b89cd6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.conv-gm-ended { text-align: center; padding: 30px; color: #888; font-style: italic; line-height: 1.6; border: 1px dashed #333; border-radius: 8px; background: rgba(0,0,0,0.3); }
-.conv-gm-side { background: #10101a; border-left: 1px solid #2a2a3a; display: flex; flex-direction: column; min-height: 0; }
-.conv-gm-side-header { padding: 12px 16px; border-bottom: 1px solid #2a2a3a; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; }
-.conv-gm-side-body { flex: 1; overflow-y: auto; padding: 0; }
-.gm-participants { padding: 10px 14px; font-size: 11px; color: #888; border-bottom: 1px solid #2a2a3a; line-height: 1.6; }
-.gm-participants .pname { display: inline-block; padding: 2px 8px; background: #1a1a26; border-radius: 3px; margin: 0 4px 4px 0; }
-.gm-participants .pname.acted { color: #4a90e2; border: 1px solid #4a90e2; }
-.gm-queue { padding: 12px; }
-.gm-queue-item { background: #161622; border: 1px solid #262636; border-radius: 6px; padding: 12px; margin-bottom: 10px; }
-.gm-queue-item.passed { opacity: 0.6; border-style: dashed; }
-.gm-queue-item .who { font-size: 11px; color: #b89cd6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.gm-queue-item .q { color: #6fb1ff; font-size: 13px; margin-bottom: 8px; }
-.gm-queue-item .preview { background: #0a0a12; border-left: 2px solid #d4a574; padding: 8px 10px; font-size: 12px; color: #c7c7d6; line-height: 1.5; max-height: 220px; overflow-y: auto; margin-bottom: 8px; white-space: pre-wrap; }
-.gm-queue-item .gm-note-prev { background: rgba(99,102,241,0.08); border-left: 2px solid #6366f1; padding: 6px 10px; font-size: 11px; color: #b8b8d6; margin-bottom: 8px; line-height: 1.5; }
-.gm-queue-item .deliver-btn { width: 100%; padding: 8px; background: #4a90e2; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; }
-.gm-queue-item .deliver-btn:hover { background: #5aa0f2; }
-.gm-empty { padding: 30px 20px; text-align: center; color: #666; font-style: italic; font-size: 13px; }
-.gm-actions { padding: 10px; border-top: 1px solid #2a2a3a; }
-.gm-actions button { width: 100%; padding: 8px; background: #2a1a1a; color: #d65a5a; border: 1px solid #3a2a2a; border-radius: 4px; cursor: pointer; font-size: 12px; }
-.gm-actions button:hover { background: #3a2222; }
+.conv-pip { width: 10px; height: 10px; border-radius: 50%; background: #1d1d20; border: 1px solid #3a3833; }
+.conv-pip.active { background: #c8a44e; border-color: #c8a44e; }
+.conv-pip.warn { background: #d4a574; border-color: #d4a574; }
+.conv-pip.danger { background: #c46a4a; border-color: #c46a4a; }
+.conv-beat {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.6rem; color: #c8a44e; text-transform: uppercase; letter-spacing: 0.12em;
+  padding: 3px 9px; background: #1d1d20; border: 1px solid rgba(200,164,78,0.3); border-radius: 2px;
+}
+.conv-gm-close {
+  background: transparent; border: 1px solid #3a3632; color: #8a8378;
+  padding: 3px 10px; cursor: pointer; font-size: 0.65rem;
+  font-family: 'Audiowide', sans-serif; text-transform: uppercase; letter-spacing: 0.1em;
+  transition: all 0.15s;
+}
+.conv-gm-close:hover { border-color: #c8a44e; color: #c8a44e; }
+
+.conv-gm-body {
+  flex: 1; display: grid; grid-template-columns: 1fr 360px;
+  min-height: 0; background: #232325;
+}
+
+/* Left: Notes + Log */
+.conv-gm-left { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid rgba(200,164,78,0.15); }
+.conv-gm-section { border-bottom: 1px solid rgba(200,164,78,0.12); }
+.conv-gm-section:last-child { border-bottom: none; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.conv-gm-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 12px; background: rgba(200,164,78,0.05);
+  font-family: 'Audiowide', sans-serif; font-size: 0.62rem;
+  color: #c8a44e; text-transform: uppercase; letter-spacing: 0.12em;
+  cursor: pointer; user-select: none;
+}
+.conv-gm-section-head .chev { transition: transform 0.18s; display: inline-block; color: #8a7a4a; }
+.conv-gm-section.collapsed .chev { transform: rotate(-90deg); }
+.conv-gm-section.collapsed .conv-gm-section-body { display: none; }
+.conv-gm-section-body {
+  padding: 10px 14px; overflow-y: auto; min-height: 0;
+  scrollbar-width: thin; scrollbar-color: #c8a44e #232328;
+}
+.conv-gm-section.notes .conv-gm-section-body { max-height: 200px; font-size: 0.78rem; line-height: 1.55; color: #c4bfb5; white-space: pre-wrap; }
+.conv-gm-section.log .conv-gm-section-body { flex: 1; }
+
+.conv-gm-log-entry { margin-bottom: 10px; }
+.conv-gm-readaloud { background: rgba(200,164,78,0.06); border-left: 3px solid #c8a44e; padding: 10px 14px; font-style: italic; line-height: 1.55; color: #c4bfb5; white-space: pre-wrap; }
+.conv-gm-qa { background: #1c1c1e; border: 1px solid #353330; border-radius: 3px; padding: 10px 14px; }
+.conv-gm-qa .who { font-family: 'Audiowide', sans-serif; font-size: 0.6rem; color: #8a7a4a; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; }
+.conv-gm-qa .q { color: #d8d4cc; margin-bottom: 8px; font-size: 0.85rem; font-style: italic; }
+.conv-gm-qa .a-speaker { font-family: 'Audiowide', sans-serif; font-size: 0.6rem; color: #c8a44e; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; }
+.conv-gm-qa .a { color: #e8e4d8; line-height: 1.55; white-space: pre-wrap; font-size: 0.83rem; }
+.conv-gm-qa .gm-note { margin-top: 10px; padding: 8px 10px; background: rgba(99,102,241,0.08); border-left: 2px solid #6366f1; font-size: 0.72rem; color: #b8b8d6; line-height: 1.5; }
+.conv-gm-pass { background: rgba(120,120,110,0.08); border-left: 2px solid #4a4640; padding: 6px 12px; font-size: 0.72rem; color: #8a8378; font-style: italic; }
+.conv-gm-maya { background: rgba(143,107,178,0.08); border-left: 3px solid #8f6bb2; padding: 10px 14px; }
+.conv-gm-maya .speaker { font-family: 'Audiowide', sans-serif; font-size: 0.6rem; color: #b89cd6; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; }
+.conv-gm-ended { text-align: center; padding: 22px; color: #8a8378; font-style: italic; line-height: 1.6; border: 1px dashed #3a3833; background: rgba(0,0,0,0.2); }
+
+/* Right: Console */
+.conv-gm-side { background: #1d1d1f; display: flex; flex-direction: column; min-height: 0; }
+.gm-participants {
+  padding: 8px 12px; font-size: 0.7rem; color: #8a8378; line-height: 1.7;
+  border-bottom: 1px solid rgba(200,164,78,0.12);
+}
+.gm-participants strong {
+  display: block; font-family: 'Audiowide', sans-serif; font-size: 0.6rem;
+  color: #c8a44e; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px;
+}
+.gm-participants .pname { display: inline-block; padding: 2px 8px; background: #2a2a2c; border: 1px solid #3a3833; border-radius: 2px; margin: 0 4px 4px 0; font-size: 0.7rem; color: #8a8378; }
+.gm-participants .pname.acted { color: #c8a44e; border-color: #c8a44e; background: rgba(200,164,78,0.08); }
+
+.conv-gm-side-body { flex: 1; overflow-y: auto; min-height: 0; scrollbar-width: thin; scrollbar-color: #c8a44e #232328; }
+.gm-queue-head {
+  padding: 6px 12px; font-family: 'Audiowide', sans-serif; font-size: 0.62rem;
+  color: #c8a44e; text-transform: uppercase; letter-spacing: 0.12em;
+  background: rgba(200,164,78,0.05); border-bottom: 1px solid rgba(200,164,78,0.12);
+}
+.gm-queue { padding: 10px; }
+.gm-queue-item {
+  background: #232325; border: 1px solid #3a3833; border-radius: 3px;
+  padding: 10px; margin-bottom: 8px;
+}
+.gm-queue-item.passed { opacity: 0.55; border-style: dashed; }
+.gm-queue-item .who { font-family: 'Audiowide', sans-serif; font-size: 0.6rem; color: #b89cd6; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; }
+.gm-queue-item .q { color: #d8d4cc; font-size: 0.78rem; margin-bottom: 6px; font-style: italic; }
+.gm-queue-item .preview { background: #1a1a1c; border-left: 2px solid #c8a44e; padding: 8px 10px; font-size: 0.75rem; color: #c4bfb5; line-height: 1.5; max-height: 180px; overflow-y: auto; margin-bottom: 6px; white-space: pre-wrap; }
+.gm-queue-item .gm-note-prev { background: rgba(99,102,241,0.08); border-left: 2px solid #6366f1; padding: 6px 10px; font-size: 0.7rem; color: #b8b8d6; margin-bottom: 6px; line-height: 1.5; }
+.gm-queue-item .deliver-btn {
+  width: 100%; padding: 6px 10px; background: #c8a44e; color: #1a1a1c;
+  border: none; border-radius: 2px; cursor: pointer;
+  font-family: 'Audiowide', sans-serif; font-size: 0.65rem;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  transition: background 0.15s;
+}
+.gm-queue-item .deliver-btn:hover { background: #d8b45e; }
+.gm-queue-item .delivered-tag { font-family: 'Audiowide', sans-serif; font-size: 0.6rem; color: #6a9c4a; text-transform: uppercase; letter-spacing: 0.12em; padding: 4px 0; }
+.gm-empty { padding: 22px 16px; text-align: center; color: #6a655c; font-style: italic; font-size: 0.78rem; }
+.gm-actions { padding: 10px; border-top: 1px solid rgba(200,164,78,0.15); flex-shrink: 0; }
+.gm-actions button {
+  width: 100%; padding: 8px; background: rgba(196,106,74,0.1); color: #c46a4a;
+  border: 1px solid rgba(196,106,74,0.4); border-radius: 2px; cursor: pointer;
+  font-family: 'Audiowide', sans-serif; font-size: 0.65rem;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  transition: all 0.15s;
+}
+.gm-actions button:hover { background: rgba(196,106,74,0.2); border-color: #c46a4a; }
+
+.conv-gm-resize {
+  position: absolute; right: 0; bottom: 0; width: 18px; height: 18px;
+  cursor: nwse-resize; touch-action: none;
+  background: linear-gradient(135deg, transparent 50%, rgba(200,164,78,0.5) 50%, rgba(200,164,78,0.5) 60%, transparent 60%, transparent 70%, rgba(200,164,78,0.5) 70%, rgba(200,164,78,0.5) 80%, transparent 80%);
+  z-index: 2;
+}
+
+.conv-gm-peek {
+  position: fixed; bottom: 1rem; right: 1rem; z-index: 9050;
+  background: linear-gradient(180deg, #34342f 0%, #2c2c28 100%);
+  border: 1px solid rgba(200,164,78,0.4); color: #c8a44e;
+  font-family: 'Audiowide', sans-serif; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 14px; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+.conv-gm-peek:hover { border-color: #c8a44e; }
+
+@media (max-width: 768px) {
+  .conv-gm-window { width: calc(100vw - 12px); left: 6px; transform: none; }
+  .conv-gm-body { grid-template-columns: 1fr; }
+  .conv-gm-side { border-top: 1px solid rgba(200,164,78,0.15); }
+}
 `;
     var s = document.createElement('style');
     s.id = GM_STYLE_ID;
@@ -440,42 +555,156 @@
     document.body.appendChild(btn);
   }
 
-  // ====== GM full-screen workspace ======
+  // ====== GM Console — Black Ledger floating window ======
+  var gmGeom = { left: null, top: null, width: null, height: null };
+  var gmNotesCollapsed = false;
+
   function renderGmShell() {
     var existing = document.getElementById('conv-overlay');
     if (existing) existing.remove();
-    var overlay = document.createElement('div');
-    overlay.id = 'conv-overlay';
-    overlay.className = 'conv-gm-overlay';
-    overlay.innerHTML =
-      '<div class="conv-gm-shell">' +
-        '<div class="conv-gm-header">' +
-          '<div>' +
-            '<div class="h-title" id="conv-h-title">Conversation</div>' +
-            '<div class="h-sub" id="conv-h-sub"></div>' +
+    var win = document.createElement('div');
+    win.id = 'conv-overlay';
+    win.className = 'conv-gm-window';
+
+    if (gmGeom.left != null) {
+      win.style.left = gmGeom.left + 'px';
+      win.style.top = gmGeom.top + 'px';
+      win.style.transform = 'none';
+    }
+    if (gmGeom.width != null) win.style.width = gmGeom.width + 'px';
+    if (gmGeom.height != null) win.style.height = gmGeom.height + 'px';
+
+    win.innerHTML =
+      '<div class="conv-gm-header" id="conv-gm-header">' +
+        '<div>' +
+          '<div class="h-title" id="conv-h-title">Conversation</div>' +
+          '<div class="h-sub" id="conv-h-sub"></div>' +
+        '</div>' +
+        '<div class="h-spacer"></div>' +
+        '<div class="conv-beat" id="conv-h-beat">Beat 1</div>' +
+        '<div class="conv-comfort-pips" id="conv-h-pips" title="Comfort"></div>' +
+        '<button class="conv-gm-close" id="conv-h-close">Hide</button>' +
+      '</div>' +
+      '<div class="conv-gm-body">' +
+        '<div class="conv-gm-left">' +
+          '<div class="conv-gm-section notes' + (gmNotesCollapsed ? ' collapsed' : '') + '" id="conv-notes-sec">' +
+            '<div class="conv-gm-section-head" id="conv-notes-head">' +
+              '<span>GM Notes</span><span class="chev">\u25BE</span>' +
+            '</div>' +
+            '<div class="conv-gm-section-body" id="conv-notes-body"></div>' +
           '</div>' +
-          '<div class="h-spacer"></div>' +
-          '<div class="conv-beat" id="conv-h-beat">Beat 1</div>' +
-          '<div class="conv-comfort-pips" id="conv-h-pips"></div>' +
-          '<button class="conv-gm-close" id="conv-h-close">Hide</button>' +
+          '<div class="conv-gm-section log">' +
+            '<div class="conv-gm-section-head"><span>Scene Log</span></div>' +
+            '<div class="conv-gm-section-body" id="conv-log"></div>' +
+          '</div>' +
         '</div>' +
-        '<div class="conv-gm-body">' +
-          '<div class="conv-gm-log" id="conv-log"></div>' +
-          '<div class="conv-gm-side" id="conv-side"></div>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(overlay);
-    state.overlay = overlay;
+        '<div class="conv-gm-side" id="conv-side"></div>' +
+      '</div>' +
+      '<div class="conv-gm-resize" id="conv-gm-resize"></div>';
+
+    document.body.appendChild(win);
+    state.overlay = win;
+
     document.getElementById('conv-h-close').addEventListener('click', function () {
-      overlay.style.display = 'none';
+      win.remove();
+      state.overlay = null;
+      showGmPeekButton();
     });
+
+    var notesHead = document.getElementById('conv-notes-head');
+    notesHead.addEventListener('click', function () {
+      gmNotesCollapsed = !gmNotesCollapsed;
+      document.getElementById('conv-notes-sec').classList.toggle('collapsed', gmNotesCollapsed);
+    });
+
+    enableGmDrag(win, document.getElementById('conv-gm-header'));
+    enableGmResize(win, document.getElementById('conv-gm-resize'));
+  }
+
+  function enableGmDrag(win, handle) {
+    var startX = 0, startY = 0, startLeft = 0, startTop = 0, dragging = false;
+    handle.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      dragging = true;
+      var rect = win.getBoundingClientRect();
+      win.style.left = rect.left + 'px';
+      win.style.top = rect.top + 'px';
+      win.style.transform = 'none';
+      startX = e.clientX; startY = e.clientY;
+      startLeft = rect.left; startTop = rect.top;
+      win.classList.add('dragging');
+      handle.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    handle.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var nx = startLeft + (e.clientX - startX);
+      var ny = startTop + (e.clientY - startY);
+      nx = Math.max(-(win.offsetWidth - 100), Math.min(window.innerWidth - 100, nx));
+      ny = Math.max(0, Math.min(window.innerHeight - 40, ny));
+      win.style.left = nx + 'px';
+      win.style.top = ny + 'px';
+    });
+    function stop(e) {
+      if (!dragging) return;
+      dragging = false;
+      win.classList.remove('dragging');
+      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      var rect = win.getBoundingClientRect();
+      gmGeom.left = rect.left; gmGeom.top = rect.top;
+    }
+    handle.addEventListener('pointerup', stop);
+    handle.addEventListener('pointercancel', stop);
+  }
+
+  function enableGmResize(win, handle) {
+    var startX = 0, startY = 0, startW = 0, startH = 0, resizing = false;
+    handle.addEventListener('pointerdown', function (e) {
+      resizing = true;
+      var rect = win.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      startW = rect.width; startH = rect.height;
+      win.classList.add('resizing');
+      handle.setPointerCapture(e.pointerId);
+      e.preventDefault(); e.stopPropagation();
+    });
+    handle.addEventListener('pointermove', function (e) {
+      if (!resizing) return;
+      var nw = Math.max(560, Math.min(window.innerWidth - 12, startW + (e.clientX - startX)));
+      var nh = Math.max(360, Math.min(window.innerHeight - 12, startH + (e.clientY - startY)));
+      win.style.width = nw + 'px';
+      win.style.height = nh + 'px';
+    });
+    function stop(e) {
+      if (!resizing) return;
+      resizing = false;
+      win.classList.remove('resizing');
+      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      gmGeom.width = win.offsetWidth; gmGeom.height = win.offsetHeight;
+    }
+    handle.addEventListener('pointerup', stop);
+    handle.addEventListener('pointercancel', stop);
+  }
+
+  function showGmPeekButton() {
+    var existing = document.getElementById('conv-gm-peek-btn');
+    if (existing) existing.remove();
+    if (!state.active) return;
+    var def = state.active.definition || {};
+    var btn = document.createElement('button');
+    btn.id = 'conv-gm-peek-btn';
+    btn.className = 'conv-gm-peek';
+    btn.textContent = 'GM \u25B8 ' + (def.title || 'Conversation');
+    btn.addEventListener('click', function () { btn.remove(); renderAll(); });
+    document.body.appendChild(btn);
   }
 
   function renderGmHeader() {
     var a = state.active; if (!a) return;
     var def = a.definition || {};
+    var npcName = (def.npc && def.npc.name) || '';
     document.getElementById('conv-h-title').textContent = def.title || 'Conversation';
-    document.getElementById('conv-h-sub').textContent = def.subtitle || '';
+    document.getElementById('conv-h-sub').textContent = def.subtitle || npcName || '';
     document.getElementById('conv-h-beat').textContent = a.status === 'ended' ? 'Ended' : ('Beat ' + a.beat);
     var pipsEl = document.getElementById('conv-h-pips');
     pipsEl.innerHTML = '';
@@ -489,6 +718,17 @@
         if (a.comfort <= 1) pip.classList.add('danger');
       }
       pipsEl.appendChild(pip);
+    }
+
+    // Populate GM Notes body
+    var notesBody = document.getElementById('conv-notes-body');
+    if (notesBody) {
+      var notesText = def.gmNotes || '';
+      if (notesText) {
+        notesBody.textContent = notesText;
+      } else {
+        notesBody.innerHTML = '<div style="color:#6a655c;font-style:italic;">No GM notes for this scene.</div>';
+      }
     }
   }
 
@@ -546,19 +786,23 @@
     var st = a.state || {};
     var def = a.definition || {};
 
-    sideEl.innerHTML =
-      '<div class="conv-gm-side-header"><span>GM Console</span></div>';
+    sideEl.innerHTML = '';
 
     var partsBlock = document.createElement('div');
     partsBlock.className = 'gm-participants';
     var parts = a.participants || [];
     var actedSet = new Set((st.actedThisBeat || []).map(String));
-    partsBlock.innerHTML = '<strong>Participants ' + actedSet.size + '/' + parts.length + ' acted this beat:</strong> ' +
+    partsBlock.innerHTML = '<strong>Participants &mdash; ' + actedSet.size + '/' + parts.length + ' acted this beat</strong>' +
       parts.map(function (p) {
         var cls = actedSet.has(String(p.characterId)) ? 'pname acted' : 'pname';
         return '<span class="' + cls + '">' + escHtml(p.characterName) + '</span>';
       }).join('');
     sideEl.appendChild(partsBlock);
+
+    var queueHead = document.createElement('div');
+    queueHead.className = 'gm-queue-head';
+    queueHead.textContent = 'Question Queue';
+    sideEl.appendChild(queueHead);
 
     var sideBody = document.createElement('div');
     sideBody.className = 'conv-gm-side-body';
@@ -585,7 +829,7 @@
           var q = findQ(def, item.questionId);
           var response = (q && q.response) || '(no response defined)';
           var gmNote = q && q.gmNote ? '<div class="gm-note-prev"><strong>GM Note:</strong> ' + q.gmNote + '</div>' : '';
-          var deliveredTag = item.status === 'delivered' ? '<div style="font-size:10px;color:#4a9c4a;text-transform:uppercase;letter-spacing:1px;">Delivered</div>' : '';
+          var deliveredTag = item.status === 'delivered' ? '<div class="delivered-tag">\u2713 Delivered</div>' : '';
           card.innerHTML =
             '<div class="who">' + escHtml(item.characterName) + '</div>' +
             '<div class="q">"' + escHtml(item.questionText) + '"</div>' +
@@ -623,7 +867,7 @@
     if (!state.active) return;
     if (isGm()) {
       injectGmStyles();
-      if (!state.overlay || !state.overlay.classList.contains('conv-gm-overlay')) {
+      if (!state.overlay || !state.overlay.classList.contains('conv-gm-window')) {
         renderGmShell();
       } else {
         state.overlay.style.display = '';
