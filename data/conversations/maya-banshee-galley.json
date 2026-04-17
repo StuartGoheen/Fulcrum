@@ -1,0 +1,301 @@
+{
+  "id": "maya-banshee-galley",
+  "title": "Galley Talk",
+  "subtitle": "Mid-Transit on the Smuggler's Path",
+  "setting": "The Banshee's Galley — second dropout on the Smuggler's Path, somewhere coreward of the Trax Tube",
+  "context": "Hours into the run. The Banshee is coasting in dead space between recalculations, the recalc clock counting down on the cockpit nav board. Maya has handed the stick off to autopilot and come aft to make caf. The Ace co-pilot — and anyone else not bolted to a station — drifts into the galley behind her. There is nothing to do but wait. The hyperspace transit lights pulse soft amber through the porthole. The caf maker gurgles. Maya leans against the counter with her hands wrapped around a mug, and for the first time on this trip she is not actively flying anything.",
+  "readAloud": "The galley smells like burnt caf and someone's old ration heater that nobody has cleaned in a while. Maya is leaning against the counter, mug in hand, jacket unzipped, hair pulled back rough with a length of wire. She looks tired in the way pilots get tired — not sleepy, just stripped down to the part of themselves that actually flies the ship.\n\nShe nods at the second pot on the burner. \"Pour yourself one. It's not good. It's just hot.\"\n\nShe takes a long pull from her mug, watching you over the rim. The hyperspace transit lights pulse amber through the porthole behind her — soft, slow, hypnotic. The recalc clock on the bulkhead reads 00:11:43. Eleven minutes and change before she has to be back in the seat.\n\n\"So.\" She sets the mug down on the counter. The clink is loud in the quiet. \"You all are about to fly into a moon I haven't been to in a long time, to break out a man I haven't seen in longer, to steal money I don't actually want a cut of. And you don't really know me yet. So if you've got questions — now's the time. I won't be in a talking mood once we drop out at Aldhani.\"\n\nA half-smile. Not warm. Honest.\n\n\"Ask what you're going to ask.\"",
+  "gmNotes": "This is a structured social scene using a conversation tree, modeled on Varth's debrief. The crew asks questions; Maya answers — as much as she'll answer. No dice unless a player calls for an Insight check (Maya's Resist is 3 — readable, but she'll know she was read).\n\nMaya starts at Comfort 4 (guarded but cooperative — she chose this table, she's here on purpose, but she doesn't owe anyone her life story). Story topics about flying, the ship, and the Outer Rim hold or raise comfort. Business topics are neutral. Probe topics about her past, Varth, or what she actually wants cost 1 comfort each. At Comfort 2, the deeper Varth and personal-history follow-ups lock out. At Comfort 1, Maya finishes her caf and goes back to the cockpit early.\n\nThe crew does NOT see the comfort meter. The GM signals it through Maya's tone: her sentences get shorter, the half-smile fades, she starts looking at the recalc clock more often.\n\nVOICE: Maya is terse, dry, and observational. She does not perform. She gives short answers and lets silence do work. When she does open up, it's brief and precise — one anecdote, then she's done. She is not Varth. She does not enjoy being asked about herself.\n\nTHE WIRE TELL: When a topic gets too close to something she doesn't want to talk about, Maya tugs on the wire holding her hair back. Recurring across the campaign. Note it but don't draw attention.\n\nVARTH HISTORY: Maya knew Gilder Varth before his arrest. She ran cargo for the Hutt-side of his skim operation — she was a courier, not a partner. He paid well, on time, and never asked her to do anything she couldn't walk away from. That's why she's here. Not loyalty. Professional respect, plus a debt she's calling in on her own terms.\n\nENDING: The scene ends when (a) the recalc clock hits zero and Maya goes forward (the GM should call this out at 00:02:00 — 'Two minutes. Last one.'), (b) the crew runs out of accessible topics, or (c) comfort hits 1 and Maya exits early. Either way, she rinses her mug, sets it upside down on the rack, and heads forward to the cockpit. The conversation does not get a second take.",
+  "comfort": {
+    "starting": 4,
+    "max": 5,
+    "exitThreshold": 1,
+    "exitLine": "Maya sets her mug down. Half-full. She tugs once at the wire holding her hair back, then looks past you at the porthole. 'Yeah. I'm done.' She doesn't sound angry. She sounds finished. 'Recalc's coming up anyway. Get some rest if you can — Aldhani is going to be tight.' She rinses the mug, sets it upside down on the rack, and walks forward to the cockpit. The galley feels colder when she's gone.",
+    "dryLine": "Maya looks at the recalc clock — 00:02:11. 'That's about all I've got.' She drains the mug, rinses it, sets it on the rack. 'You've asked good questions. Save the rest for after we're on the ground.' She pauses at the hatch. 'And — thanks for the company. It's been a long time since this galley felt like one.' Then she's forward, and the recalc tone is already starting up."
+  },
+  "roots": [
+    {
+      "id": "maya-who-are-you",
+      "text": "Who are you, exactly?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "She thinks about it. Doesn't answer right away.\n\n\"Maya Vex. Independent freight. Owner-operator of the Banshee — registered out of Nar Shaddaa, flagged for general cargo, which is a lie that nobody enforces because everybody's lying about something.\"\n\nShe sips the caf. Makes a face.\n\n\"Born on Christophsis. Left when I was fourteen because there was nothing left to leave for — the war put a glassed crater where my street used to be. Got off-world on a refugee transport, ended up on Nar Shaddaa, taught myself to fly because the alternative was working a glitterstim den. Bought the Banshee at a bonded auction six years ago. She was a wreck. I'm still paying her off in pieces.\"\n\nA shrug. \"That's the whole tour. There's not much more to it.\"",
+      "gmNote": "This is the version of her story Maya tells strangers at a bar. It's all true — and all surface. She's leaving out everything that matters. The Christophsis line is the only piece with real weight, and she delivers it flat on purpose.",
+      "unlocks": [
+        "maya-christophsis",
+        "maya-banshee-history",
+        "maya-nar-shaddaa"
+      ],
+      "tags": [
+        "backstory",
+        "guarded"
+      ]
+    },
+    {
+      "id": "maya-knew-varth",
+      "text": "How did you know Varth?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "She huffs once. Almost a laugh.\n\n\"Knew is a strong word. I ran cargo for him. About three years before the Empire grabbed him. I was hauling bonded freight on a route that crossed Hutt space, and somebody put my name in front of somebody who put it in front of him. He needed couriers who could move sealed crates between specific drop points without asking what was inside. I needed the credits.\"\n\nShe sets the mug down.\n\n\"He paid in advance. Always. He paid more than the work was worth. He never asked me to do anything I couldn't say no to — and the one time I did say no, he just — paid me kill fee and found someone else. No threats, no pressure, no follow-up. That's not normal in this line of work.\"\n\nA beat.\n\n\"I didn't know what I was carrying until later. I figured it out from context. I never said anything. I never had to.\"",
+      "gmNote": "This is the honest version. Maya is calibrating the crew's expectations of Varth — he's not a friend, but he's also not a monster. The 'one time I said no' is real and she's not going to elaborate unless they probe.",
+      "unlocks": [
+        "maya-the-no",
+        "maya-what-was-cargo",
+        "maya-trust-varth"
+      ],
+      "tags": [
+        "varth",
+        "history"
+      ]
+    },
+    {
+      "id": "maya-why-you-here",
+      "text": "Why are you doing this job?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "She tugs once at the wire in her hair. Looks at the porthole.\n\n\"Couple reasons. First one — I owe him. Not the kind of debt that gets written down. The kind where he was decent to me when he didn't have to be, and I noticed.\"\n\nShe taps the mug on the counter. Once.\n\n\"Second — the woman who put this team together is paying me a flat fee that gets the Banshee out of debt. That's not nothing. That's the difference between owning my ship and owing my ship.\"\n\nA half-smile.\n\n\"Third one — I picked this table. I read the dossiers. Some operators looked sharper on paper. None of them looked like they'd actually pull this off without somebody dying. You're — different. Different the right way. I wanted to see if I was right.\"\n\nShe shrugs. \"Still finding out.\"",
+      "gmNote": "Maya volunteering the third reason is a small comfort gain — it's the closest thing to a compliment the crew will get from her in Adventure 1. Note: she will NOT take a cut of Varth's money. Mention this if asked. She wants the contract fee. She does not want the score.",
+      "unlocks": [
+        "maya-the-debt",
+        "maya-the-fee",
+        "maya-why-us"
+      ],
+      "tags": [
+        "motivation",
+        "professional-respect"
+      ]
+    },
+    {
+      "id": "maya-banshee",
+      "text": "Tell me about the ship.",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "Her face changes. The first real warmth of the night.\n\n\"Barloz-class medium freighter. Off the line in 18 BBY, original configuration was bonded transport with a passenger module nobody ever used. I bought her at auction in 4 BBY — previous owner skipped a debt with a Black Sun lieutenant and the lieutenant skipped town a week later, so the bond auctioneers couldn't move her. I got her for less than the engines were worth.\"\n\nShe gestures at the bulkhead with the mug.\n\n\"Stripped the passenger module. Doubled up the shield generators. Replaced the hyperdrive with a Class 1.5 someone pulled out of a corellian gunship — don't ask. Reinforced the ventral hull because the original armor was a joke. The turret down in the gunwell was added two years ago after a bad week near Bestine.\"\n\nA real smile this time, small but present.\n\n\"She's not pretty. She's not fast in atmosphere. She rattles in the upper bulkhead aft of the galley and I have not figured out why in three years of looking. But she's mine, and she gets where she's going, and she has never quit on me. Even when I deserved it.\"",
+      "gmNote": "This is Maya's heart — the ship. Comfort gains here are real. If a player follows up with technical curiosity (Tech or Piloting background), she lights up further and offers them a tour of the engineering section after the mission. Note the ventral hull reinforcement and turret — both mentioned as Chekhov's loadout for later scenes.",
+      "unlocks": [
+        "maya-bestine-week",
+        "maya-the-rattle",
+        "maya-tour-engineering"
+      ],
+      "tags": [
+        "ship",
+        "warmth"
+      ]
+    },
+    {
+      "id": "maya-fortress-plan",
+      "text": "What's your read on the extraction?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "Her posture shifts. Not as far as Varth's officer-mode but the same direction.\n\n\"Ajan Kloss is bad ground for a ship like mine. Jungle moon, no traffic control, which sounds good — but the gas giant it orbits has a magnetosphere that makes long-range sensors lie to you. Imperial patrols in-system are random. You can't predict them, only react.\"\n\nShe taps the counter, ticking points off.\n\n\"My plan: drop out hot at the edge of the system mass shadow. Burn dark on residual momentum into the canyon I scouted on the run-in. Set the Banshee down under canopy, kill all signatures, wait for your signal. When you're clear of the fortress and you've got Varth, I burn vertical, scoop you, punch out before the Star Destroyer in orbit can get a firing solution.\"\n\nA flat look.\n\n\"That plan assumes nothing surprising happens between now and pickup. Things are going to surprise us. They always do. So when they do — keep your comlinks live and tell me what's happening. I can't fly you out of trouble I don't know about.\"",
+      "gmNote": "Maya's tactical briefing — efficient and competent. This sets expectations for the Crash scene next: she does HAVE a plan, the canyon approach is real and scouted, but the perimeter turret defenses on the fortress are about to be the surprise. Players should leave this conversation feeling like Maya knows what she's doing — which makes the turret gauntlet next scene hit harder.",
+      "unlocks": [
+        "maya-canopy-landing",
+        "maya-comm-discipline",
+        "maya-if-it-goes-wrong"
+      ],
+      "tags": [
+        "tactics",
+        "extraction"
+      ]
+    },
+    {
+      "id": "maya-trust-us",
+      "text": "Do you trust us?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "Long pause. She does not look away.\n\n\"No. Not yet. Trust is a thing I extend after I've watched somebody under fire — the actual kind, not the Imperial drill kind. I've watched you in a cantina brawl on Jakku and that was something, but it wasn't this.\"\n\nShe picks the mug back up. Looks down into it.\n\n\"What I have is — a working theory. The theory is that you're competent, that you don't lie to each other, and that when somebody on this crew goes down, the rest of you go back for them instead of running. If that theory holds when we land on Ajan Kloss, then we'll see.\"\n\nA glance up.\n\n\"You don't need my trust to do this job. You need my flying. The trust comes after. Or it doesn't.\"",
+      "gmNote": "Honest answer. Maya respects that they asked. Comfort drops by 1 because the topic is uncomfortable — but she didn't deflect. If the crew performs well in the Crash and the Vanishing Place, this 'theory' converts to actual trust by the start of Adventure 2. Note for ongoing campaign: this is the line that earns the conversion.",
+      "unlocks": [
+        "maya-after-jakku",
+        "maya-going-back-for-people"
+      ],
+      "tags": [
+        "probe",
+        "trust"
+      ]
+    },
+    {
+      "id": "maya-real-name",
+      "text": "Is Maya Vex your real name?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "She tugs the wire in her hair. Hard, this time. Doesn't answer for a long moment.\n\n\"It's the name that owns the ship. It's the name on every transponder code, every bonded permit, every credit account I touch. It's the name the Banshee answers to.\"\n\nShe meets your eyes.\n\n\"That's the only answer you're getting tonight. If we're still alive in a month, ask me again.\"\n\nShe looks at the recalc clock. Doesn't say anything else about it. The matter is closed.",
+      "gmNote": "Hard probe. Maya does not flinch but she does not answer either. The implication — that 'Maya Vex' is a constructed identity — is intentional. She has a real name. She had a life on Christophsis before the war. The crew may earn the truth across the campaign through long-term play. For now, leave the door closed.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "identity",
+        "long-thread"
+      ]
+    }
+  ],
+  "followUps": {
+    "maya-christophsis": {
+      "text": "What was Christophsis like?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "She is quiet for a while. The hyperspace lights pulse on her face.\n\n\"Blue. The whole planet was blue — these crystal formations everywhere, these cities built into them, light coming through the walls in the morning like you were inside a sunrise. It was the most beautiful place I will ever live.\"\n\nA breath.\n\n\"Then the Separatists landed, and the Republic landed on top of them, and they fought for it for two months, and when it was over there was nothing left to fight for. The crystals don't grow back. The cities don't come back. The street I lived on isn't a street anymore. It's a glass plain.\"\n\nShe looks at you, level.\n\n\"That's why I fly cargo and not weapons. Anybody who tells you a war was worth it never lived through one as a kid.\"",
+      "gmNote": "Real and raw. This is the truest Maya gets. After this, no further Christophsis follow-ups available — she's said what she needs to say. Comfort drops because the topic costs her, but she trusts the crew slightly more for asking honestly. Note: this informs her later refusals to take Rebellion-aligned contracts in subsequent adventures — she will not pick a side that involves planetary bombardment.",
+      "tags": ["probe", "backstory", "true"]
+    },
+    "maya-banshee-history": {
+      "text": "Where'd you fly her first?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "\"Smuggler runs out of Nar Shaddaa to the Outer Rim. Spice when I had to. Medical supplies when I could. Refugees twice — never again, the math doesn't work. Then I started doing bonded contract work for whoever paid honest. That's most of the last three years.\"\n\nShe shrugs.\n\n\"The Banshee's been to maybe forty worlds. Twelve of them I'd go back to. The rest taught me something.\"",
+      "tags": ["ship", "career"]
+    },
+    "maya-nar-shaddaa": {
+      "text": "Why Nar Shaddaa?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "\"Because nobody asks where you came from on Nar Shaddaa. They ask what you can do, and if the answer is yes they pay you, and if the answer is no they forget your name in an hour. For a fourteen-year-old kid with no documentation and no family, that's the whole pitch.\"\n\nA pause.\n\n\"It's a terrible place. I won't pretend otherwise. But it's a terrible place that took me in, and I'm not going to talk down on it now that I've got somewhere else to be.\"",
+      "tags": ["backstory"]
+    },
+    "maya-the-no": {
+      "text": "What did you say no to?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "She thinks about whether to answer.\n\n\"He had a job that involved a sealed crate going to a Hutt enforcer on Nal Hutta. The crate had air holes. I'm not stupid. I told him no — he could find someone else, but it wasn't going to be me.\"\n\nShe taps the counter.\n\n\"He paid the kill fee, didn't argue, didn't ask why. The crate went on someone else's ship. I don't know what happened to whatever was in it. I think about it sometimes.\"\n\nA flat look.\n\n\"That's the part of Varth I want you to know about. He's not clean. He's just — selective about which dirt sticks.\"",
+      "gmNote": "This is the calibration. Varth is not a hero. Maya wants the crew to know going in that he made compromises she would not. Important seed for Adventure 2 onward.",
+      "tags": ["probe", "varth", "moral-cost"]
+    },
+    "maya-what-was-cargo": {
+      "text": "What were you actually carrying for him?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "\"Mostly? Datacores. Sealed, encrypted, addressed to specific people in specific places. I think now they were authentication keys and routing data for the skim operation. At the time I didn't know — and I didn't ask, because the not-asking was what he was paying for.\"\n\nA shrug.\n\n\"Sometimes credit chits in volumes that didn't make sense for legitimate business. Once a body, but I didn't know that until after. He apologized when I figured it out and gave me a bonus. I kept the bonus and stopped working that route.\"",
+      "gmNote": "Maya's drawing a line for the crew: she is willing to work with Varth, but she is also clear-eyed about who he is. The 'body' line is meant to land. She is not endorsing him.",
+      "tags": ["probe", "varth"]
+    },
+    "maya-trust-varth": {
+      "text": "Do YOU trust him?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "\"I trust him to be Varth. Which means I trust him to do exactly what serves Varth's interests, with the smallest possible amount of harm to the people he likes, with maximum politeness throughout.\"\n\nShe sets the mug down.\n\n\"He likes me. I'm reasonably confident he won't burn me. He doesn't know any of you yet. Don't assume the same protection applies. Watch him. Be polite back. Don't take anything he says at face value the first time.\"\n\nA beat.\n\n\"He's worth the rescue. He's not worth your lives. Remember which is which.\"",
+      "gmNote": "This is the single most important line in the conversation for setting up Adventure 2. Maya is telling the crew, in plain terms, how to handle Varth. They should listen.",
+      "tags": ["probe", "varth", "warning"]
+    },
+    "maya-the-debt": {
+      "text": "What kind of debt?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "She is quiet a moment.\n\n\"Two years ago I got into trouble on a job that wasn't his. Imperials seized the Banshee in a customs sweep on Bestine. I was in a holding cell, the ship was about to be auctioned, and I had nobody who'd answer a comm.\"\n\nShe taps the counter once.\n\n\"Varth heard about it. I don't know how. He paid the customs fine, paid off the warden, got me out, and got the ship released — through a third party so nobody traced it back to him. I didn't even know it was him until eight months later when I ran into someone who knew. He never asked for anything in return.\"\n\nShe shrugs.\n\n\"So now he needs out of a cell. Math is math.\"",
+      "gmNote": "The real reason she's here. Not romantic, not loyalty, not greed — a settled account between two professionals. This is also when the Bestine connection becomes meaningful for the Banshee's ventral turret, which she added after this incident.",
+      "tags": ["probe", "varth", "debt", "true"]
+    },
+    "maya-the-fee": {
+      "text": "How much is Cassian paying you?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Forty thousand for the run. Half on departure, half on extraction. Plus fuel and consumables.\"\n\nShe sips the caf.\n\n\"It's enough to clear what I owe on the Banshee, with a small reserve for repairs. It's not retirement money. I don't want retirement money. Retirement money is a noose with extra steps.\"",
+      "gmNote": "Plain numbers. Maya is not in this for the score. She wants out of debt, period.",
+      "tags": ["business"]
+    },
+    "maya-why-us": {
+      "text": "What did you read in our dossiers?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "She looks each of you over. Brief. Specific. She has thought about this.\n\n\"I'm not going to do the round-the-table. I will say — the thing I read in all of you is that none of you got into this for the credits. Every one of you has a thing that brought you here, and the thing isn't money. That matters more than people think.\"\n\nA half-smile.\n\n\"Crews that work for money fall apart the first time the math gets bad. Crews that work for reasons survive the math. I'm betting on reasons.\"",
+      "gmNote": "Maya signaling that she sees them. This is the moment that lands a comfort gain even though probe — she's earnest. If GM wants, mentally bump comfort back up by 1 here. Use to seed long-term party loyalty arc.",
+      "tags": ["probe", "professional-respect"]
+    },
+    "maya-bestine-week": {
+      "text": "What happened near Bestine?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "\"Pirate cutter dropped out of hyperspace on top of me three jumps from port. Old YT-1300 with a turret bolted on the dorsal hull and a captain who thought he was clever. Cargo hold full of medical supplies bound for a clinic that needed them.\"\n\nShe shrugs.\n\n\"I didn't have a turret then. I had a ventral hull that could take exactly one hit before failing. He hit me twice. I got down in a moisture farmer's field on Tatooine with the cargo hold half-vented and a hairline fracture across the keel that took two months to weld out.\"\n\nA dry look.\n\n\"I bought a turret. Welded the gunwell in myself. Never going to be in that situation again — at least not without shooting back.\"",
+      "gmNote": "Sets up the ventral turret as a story object, not just a stat block. Players who care about the ship now have a reason to volunteer for gunner duty.",
+      "tags": ["ship", "career"]
+    },
+    "maya-the-rattle": {
+      "text": "Have you ever found that rattle?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "She actually laughs. Once. Short.\n\n\"No. Three years. I have pulled every panel in that section of bulkhead. I have replaced the conduit clamps. I have shimmed the support frame. I have sat in the corridor with a stethoscope at three in the morning trying to chase it. It rattles when we hit hyperspace and it stops when we drop out, and it has not killed us yet.\"\n\nShe shakes her head.\n\n\"Some ships have ghosts. Mine has a rattle. I've made peace.\"",
+      "gmNote": "Pure character moment. No mechanical weight — just warmth. Use as a small comfort gain.",
+      "tags": ["ship", "warmth"]
+    },
+    "maya-tour-engineering": {
+      "text": "Will you show me the engineering section sometime?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "A proper smile this time.\n\n\"Yeah. After we're back. I'll walk you through the whole thing — reactor, sublight assembly, the modifications. You're welcome to put hands on anything you want, as long as you ask first and put it back the way you found it.\"\n\nA beat.\n\n\"That's not a small offer, by the way. There aren't many people I let into engineering.\"",
+      "gmNote": "Character bond moment for tech-curious PCs. Note this — earned engineering tour, redeemable in any downtime scene from Adventure 2 onward. Possibly unlocks small mechanical bonus on Banshee repair/modification checks for that PC at GM discretion.",
+      "tags": ["ship", "bond"]
+    },
+    "maya-canopy-landing": {
+      "text": "Can the Banshee actually land under jungle canopy?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Yes. Not gracefully. There's a clearing in the canyon I scouted on the inbound — wide enough for the Banshee with maybe a meter to spare on either side. I'll come in slow on residual thrust, drop her vertical at the last second, and let the gear take it.\"\n\nA shrug.\n\n\"It will be loud and it will look ugly. But she'll be on the ground, signatures cold, and the canopy overhead will hide us from anything orbiting unless they're actively scanning that grid square.\"",
+      "tags": ["tactics"]
+    },
+    "maya-comm-discipline": {
+      "text": "What's the comm protocol if things go wrong?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Three channels, rotating. Primary is encrypted long-range — that's for status updates and check-ins, every ninety minutes minimum. Secondary is short-range tactical — that's for active operations, full chatter okay. Tertiary is emergency burst — one transmission, one keyword, I'm in the air thirty seconds later.\"\n\nShe taps the counter.\n\n\"The keyword is 'banshee.' Don't use it casually. If I hear 'banshee' over tertiary, I'm coming in hot regardless of what's between me and you. Make sure that's worth what it costs.\"",
+      "gmNote": "Real operational setup. The 'banshee' panic word is a campaign tool — let players know it exists. Use sparingly. Maya WILL come in hot if it's used, even into a tactical situation that's against her interests.",
+      "tags": ["tactics", "comms"]
+    },
+    "maya-if-it-goes-wrong": {
+      "text": "What if you get hit on the ground?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Then I fix what I can fix. The Banshee has the starship tool kit in the machine shop and I know every system on her by feel. If I'm grounded, I'm working. If I can't fly, I'll comm you and you'll know — and then you'll make the call about extraction by other means.\"\n\nA flat look.\n\n\"I don't bluff about the ship's status. If she can fly, she flies. If she can't, I tell you. Don't waste a rescue plan on a ship that won't lift.\"",
+      "gmNote": "Maya's promise of operational honesty. This is also priming the players for the Crash next scene — she WILL be grounded, she WILL stay with the ship, and she WILL call straight about the turret problem.",
+      "tags": ["tactics", "extraction"]
+    },
+    "maya-after-jakku": {
+      "text": "What did you read in us in the cantina?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "\"That none of you panicked. That you took care of each other while the shooting happened — I watched. That when it was over you didn't celebrate, you checked the perimeter and got moving. That's not common. Most fresh crews celebrate. Then they get killed celebrating.\"\n\nShe shrugs.\n\n\"It's a small data point. It moved the working theory in the right direction.\"",
+      "tags": ["probe", "professional-respect"]
+    },
+    "maya-going-back-for-people": {
+      "text": "Have you ever had a crew that didn't go back?",
+      "type": "probe",
+      "comfortCost": 1,
+      "response": "Long pause.\n\n\"Once. Long time ago. I was the one who didn't go back. Person I left didn't make it.\"\n\nShe sets the mug down. Carefully.\n\n\"I don't fly with crews like that anymore. I don't fly as a crew like that anymore. That's the rule. So when I say I'm watching whether you go back for each other — it's not abstract. It's the only thing I'm actually watching for.\"",
+      "gmNote": "Most personal Maya gets in this conversation. Real grief, briefly shown, then closed. Comfort cost is real. Do NOT push for more on this thread — let the door close. Long-term campaign thread.",
+      "tags": ["probe", "true", "long-thread"]
+    }
+  },
+  "mayaInterjections": [
+    {
+      "trigger": "comfort_4",
+      "line": "Maya pours herself a second cup of caf. Doesn't offer. Listens."
+    },
+    {
+      "trigger": "comfort_3",
+      "line": "Maya glances at the recalc clock. 00:07:22. She doesn't say anything but the next answer is shorter."
+    },
+    {
+      "trigger": "comfort_2",
+      "line": "Maya sets the mug down a little harder than she needs to. Tugs at the wire in her hair."
+    },
+    {
+      "trigger": "comfort_1",
+      "line": "Maya looks past you at the porthole. The amber lights pulse on her face. She's already mostly back in the cockpit in her head."
+    }
+  ],
+  "insightCheck": {
+    "discipline": "insight",
+    "arena": "wits",
+    "target": "Maya",
+    "resist": 3,
+    "control": {
+      "failure": "You can't read her. She's not performing — she's just not showing the part she's not showing.",
+      "success": "Refer to effect tiers."
+    },
+    "effect": {
+      "fleeting": "Maya is being honest with you. The reservations are real. She's calibrating, not concealing.",
+      "masterful": "There is a deeper grief in her than she's letting on — recent enough that it shapes how she's running this job. You can't tell what it is, but it's there.",
+      "legendary": "'Maya Vex' is not the name she was born with. The Christophsis story is true, but the name and the identity around it were rebuilt afterward. She knows you noticed. She'll know forever that you noticed."
+    },
+    "gmNote": "Players who push the Insight check are taking a real risk. Maya's Resist 3 is beatable — and she'll know they checked. On Legendary, the player KNOWS the secret but should be advised that Maya now treats them differently for the rest of the campaign — not hostile, but watchful. This is a trade. Make sure the player wants it before resolving."
+  }
+}
