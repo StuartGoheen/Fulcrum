@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Protocol Droid — Test Bench</title>
+<style>
+  :root {
+    --bg: #0b0f14;
+    --panel: #121821;
+    --panel-2: #1a2230;
+    --line: #2a3445;
+    --ink: #d8e2f0;
+    --ink-dim: #93a2b8;
+    --gold: #c8a44e;
+    --accent: #6cc6ff;
+    --crew: #6cc6ff;
+    --rule: #c8a44e;
+    --bad: #ff6b6b;
+    --good: #5fd07a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: linear-gradient(180deg, #0a0e13 0%, #0b1119 100%);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  header .sub { color: var(--ink-dim); font-size: 12px; }
+  main { display: grid; grid-template-columns: 360px 1fr; gap: 0; height: calc(100vh - 60px); }
+  .controls {
+    padding: 20px;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+    overflow-y: auto;
+  }
+  .output {
+    padding: 24px 28px;
+    overflow-y: auto;
+  }
+  label { display: block; font-size: 11px; text-transform: uppercase; color: var(--ink-dim); letter-spacing: 1px; margin-bottom: 6px; }
+  select, textarea, input[type=text] {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 9px 10px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+  }
+  select:focus, textarea:focus, input:focus { border-color: var(--gold); }
+  textarea { resize: vertical; min-height: 110px; }
+  .field { margin-bottom: 16px; }
+  .scope-row { display: flex; gap: 6px; }
+  .scope-btn {
+    flex: 1;
+    padding: 9px 6px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all .15s;
+  }
+  .scope-btn:hover { color: var(--ink); }
+  .scope-btn.active {
+    background: rgba(200,164,78,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .ask-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--gold);
+    color: #1a1206;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .ask-btn:hover { background: #d8b75e; }
+  .ask-btn:disabled { background: #5a4d2a; color: #9a8a5e; cursor: not-allowed; }
+  .hint { font-size: 11px; color: var(--ink-dim); margin-top: 6px; }
+  .answer-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .answer-card.error { border-color: var(--bad); }
+  .answer-q {
+    font-size: 12px;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .answer-q-text {
+    color: var(--ink);
+    font-style: italic;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .answer-body { white-space: pre-wrap; line-height: 1.6; }
+  .answer-meta {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-size: 11px;
+    color: var(--ink-dim);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .sources { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .src-chip {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    border: 1px solid;
+  }
+  .src-chip.journal { color: var(--crew); border-color: rgba(108,198,255,0.4); background: rgba(108,198,255,0.08); }
+  .src-chip.rules   { color: var(--rule); border-color: rgba(200,164,78,0.4); background: rgba(200,164,78,0.08); }
+  .empty {
+    color: var(--ink-dim);
+    text-align: center;
+    padding: 60px 20px;
+    font-style: italic;
+  }
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(200,164,78,0.3);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .err-text { color: var(--bad); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>◈ Protocol Droid — Test Bench</h1>
+  <span class="sub">Standalone harness · GEMINI · gemini-2.5-flash</span>
+</header>
+
+<main>
+  <aside class="controls">
+    <div class="field">
+      <label for="characterSelect">Operator (Character)</label>
+      <select id="characterSelect">
+        <option value="">— loading —</option>
+      </select>
+      <div class="hint">Used as the journal viewer (privacy filter).</div>
+    </div>
+
+    <div class="field">
+      <label>Scope</label>
+      <div class="scope-row" id="scopeRow">
+        <button type="button" class="scope-btn" data-scope="crew">Crew Logs</button>
+        <button type="button" class="scope-btn" data-scope="rules">Rules</button>
+        <button type="button" class="scope-btn active" data-scope="both">Both</button>
+      </div>
+      <div class="hint">Crew Logs = personal journal · Rules = game system &amp; lore.</div>
+    </div>
+
+    <div class="field">
+      <label for="questionBox">Question</label>
+      <textarea id="questionBox" placeholder="What do we know about Varth?"></textarea>
+    </div>
+
+    <button class="ask-btn" id="askBtn" type="button">Consult the Droid</button>
+
+    <div class="hint" style="margin-top:14px;">
+      Try:<br>
+      • What do we know about Varth?<br>
+      • Where did we first encounter Draco?<br>
+      • How does the Fulcrum / Net Result work?<br>
+      • What does the Aim maneuver do?<br>
+      • Compare a DC-15s and a Westar-34.
+    </div>
+  </aside>
+
+  <section class="output" id="output">
+    <div class="empty">Pick a character, type a question, consult the droid.</div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var charSelect = document.getElementById('characterSelect');
+  var questionBox = document.getElementById('questionBox');
+  var askBtn = document.getElementById('askBtn');
+  var output = document.getElementById('output');
+  var scopeRow = document.getElementById('scopeRow');
+  var currentScope = 'both';
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  scopeRow.addEventListener('click', function (e) {
+    var b = e.target.closest('.scope-btn');
+    if (!b) return;
+    currentScope = b.dataset.scope;
+    Array.prototype.forEach.call(scopeRow.querySelectorAll('.scope-btn'), function (x) {
+      x.classList.toggle('active', x === b);
+    });
+  });
+
+  fetch('/api/protocol-droid/characters')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var chars = data.characters || [];
+      charSelect.innerHTML = '<option value="">(no character — rules only)</option>' +
+        chars.map(function (c) {
+          return '<option value="' + esc(c.name) + '">' + esc(c.name) + '</option>';
+        }).join('');
+    })
+    .catch(function () {
+      charSelect.innerHTML = '<option value="">(failed to load characters)</option>';
+    });
+
+  function renderError(msg) {
+    var card = document.createElement('div');
+    card.className = 'answer-card error';
+    card.innerHTML = '<div class="err-text">' + esc(msg) + '</div>';
+    if (output.querySelector('.empty')) output.innerHTML = '';
+    output.insertBefore(card, output.firstChild);
+  }
+
+  function renderAnswer(question, scope, character, data) {
+    var srcHtml = '';
+    var sources = data.sources || [];
+    if (sources.length) {
+      srcHtml = '<div class="sources">' + sources.map(function (s) {
+        var cls = (s.type === 'rules') ? 'rules' : 'journal';
+        var icon = (s.type === 'rules') ? '📘' : '📓';
+        var label = s.label || s.refId || 'source';
+        var ref = s.refId != null ? (' #' + s.refId) : '';
+        return '<span class="src-chip ' + cls + '">' + icon + ' ' + esc(label) + esc(ref) + '</span>';
+      }).join('') + '</div>';
+    }
+
+    var meta = data.meta || {};
+    var metaHtml = '<div class="answer-meta">' +
+      '<span>scope: ' + esc(scope) + '</span>' +
+      '<span>operator: ' + esc(character || '—') + '</span>' +
+      '<span>journal entries: ' + (meta.journalEntryCount || 0) + '</span>' +
+      '<span>rules sections: ' + (meta.rulesSectionCount || 0) + '</span>' +
+      '<span>prompt: ' + (meta.promptChars || 0).toLocaleString() + ' chars</span>' +
+      '<span>' + (meta.elapsedMs || 0) + ' ms</span>' +
+      '</div>';
+
+    var card = document.createElement('div');
+    card.className = 'answer-card';
+    card.innerHTML =
+      '<div class="answer-q">Question</div>' +
+      '<div class="answer-q-text">' + esc(question) + '</div>' +
+      '<div class="answer-body">' + esc(data.answer || '') + '</div>' +
+      srcHtml + metaHtml;
+
+    if (output.querySelector('.empty')) output.innerHTML = '';
+    output.insertBefore(card, output.firstChild);
+  }
+
+  askBtn.addEventListener('click', function () {
+    var q = questionBox.value.trim();
+    if (!q) { questionBox.focus(); return; }
+    var character = charSelect.value;
+    var scope = currentScope;
+
+    askBtn.disabled = true;
+    var orig = askBtn.innerHTML;
+    askBtn.innerHTML = '<span class="spinner"></span>Consulting…';
+
+    fetch('/api/protocol-droid/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ characterName: character, scope: scope, question: q }),
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          renderError(res.body && res.body.error ? res.body.error : 'Request failed.');
+        } else {
+          renderAnswer(q, scope, character, res.body);
+          questionBox.value = '';
+        }
+      })
+      .catch(function (e) {
+        renderError('Network error: ' + e.message);
+      })
+      .finally(function () {
+        askBtn.disabled = false;
+        askBtn.innerHTML = orig;
+      });
+  });
+
+  questionBox.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') askBtn.click();
+  });
+})();
+</script>
+</body>
+</html>
