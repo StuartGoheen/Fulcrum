@@ -351,13 +351,23 @@
   var _journalExpandedEntry = null;
 
   function _detectCharacterName() {
-    var el = document.querySelector('.char-name');
-    if (el && el.textContent) _characterName = el.textContent.trim();
+    _characterName = '';
+    try {
+      var raw = sessionStorage.getItem('eote-session');
+      if (raw) {
+        var s = JSON.parse(raw);
+        if (s && s.characterName) _characterName = String(s.characterName).trim();
+      }
+    } catch (e) {}
+    if (!_characterName) {
+      var el = document.querySelector('.char-name');
+      if (el && el.textContent) _characterName = el.textContent.trim();
+    }
     if (!_characterName) {
       try {
         var stored = sessionStorage.getItem('eote-character-name');
         if (stored) _characterName = stored;
-      } catch (e) {}
+      } catch (e2) {}
     }
   }
 
@@ -2025,6 +2035,7 @@
   }
 
   function _loadSceneEntries() {
+    _detectCharacterName();
     var sceneId = _journalNav.sceneId || _journalNav.advId;
     if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
       fetch('/api/journal/entries?scene_id=' + encodeURIComponent(_journalNav.sceneId) + '&viewer=' + encodeURIComponent(_characterName || ''))
