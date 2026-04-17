@@ -167,9 +167,11 @@ async function loadJournalCorpus(viewerName) {
     LEFT JOIN journal_tags t ON t.id = et.tag_id
     WHERE e.visibility = 'crew' OR (e.visibility = $1 AND e.author_character_name = $1)
     GROUP BY e.id
-    ORDER BY e.created_at ASC
+    ORDER BY e.created_at DESC
+    LIMIT 60
   `, [v]);
-  return r.rows;
+  // Reverse so the prompt sees them in chronological order (oldest first).
+  return r.rows.slice().reverse();
 }
 
 function formatDate(d) {

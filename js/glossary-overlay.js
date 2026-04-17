@@ -447,6 +447,7 @@
         '<button class="handbook-tab-btn is-active" data-hb-tab="handbook">Handbook</button>' +
         '<button class="handbook-tab-btn" data-hb-tab="journal">Journal</button>' +
         '<button class="handbook-tab-btn" data-hb-tab="dramatis">Dramatis Personae</button>' +
+        '<button class="handbook-tab-btn" data-hb-tab="droid">\u{1F916} Protocol Droid</button>' +
       '</div>' +
       '<div class="handbook-tab-content is-active" data-hb-tab-content="handbook">' +
         '<div class="handbook-sidebar">' +
@@ -489,6 +490,9 @@
         '<div class="dramatis-tab-wrap" id="dramatis-tab-wrap">' +
           '<div class="dp-player-empty">Loading dossiers\u2026</div>' +
         '</div>' +
+      '</div>' +
+      '<div class="handbook-tab-content" data-hb-tab-content="droid">' +
+        '<div class="droid-tab-wrap" id="droid-tab-wrap"></div>' +
       '</div>';
     return el;
   }
@@ -2151,6 +2155,9 @@
     if (tabName === 'dramatis') {
       _loadDramatisData();
     }
+    if (tabName === 'droid') {
+      _loadDroidTab();
+    }
   }
 
   function _open(id) {
@@ -2942,6 +2949,334 @@
         }
         if (_activeTab === 'dramatis') _renderDramatisTab();
       }
+    });
+  })();
+
+  // ───────────────────────── Protocol Droid tab ─────────────────────────
+  var _droidPins = [];
+  var _droidLive = [];   // last few in-session asks (newest first)
+  var _droidCooldownEndsAt = 0;
+  var _droidCooldownTimer = null;
+  var _droidBusy = false;
+
+  function _droidEsc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function _droidRenderMarkdown(s) {
+    var safe = _droidEsc(s || '');
+    safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    safe = safe.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+    safe = safe.replace(/\n/g, '<br>');
+    return safe;
+  }
+
+  function _droidShellHtml() {
+    var name = _characterName || 'unknown operator';
+    return ''
+      + '<div class="droid-pane">'
+      +   '<div class="droid-header">'
+      +     '<div class="droid-header-icon">\u{1F916}</div>'
+      +     '<div class="droid-header-text">'
+      +       '<div class="droid-header-title">Protocol Droid</div>'
+      +       '<div class="droid-header-sub">Standing by for ' + _droidEsc(name) + '. Memory banks online.</div>'
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="droid-ask-row">'
+      +     '<textarea class="droid-question" id="droid-question" rows="2" placeholder="Ask the droid a question, ' + _droidEsc(name) + '\u2026"></textarea>'
+      +     '<button class="droid-ask-btn" id="droid-ask-btn" type="button">Consult</button>'
+      +   '</div>'
+      +   '<div class="droid-cooldown" id="droid-cooldown" style="display:none;"></div>'
+      +   '<div class="droid-status" id="droid-status"></div>'
+      +   '<div class="droid-section-label">This consultation</div>'
+      +   '<div class="droid-live" id="droid-live"></div>'
+      +   '<div class="droid-section-label">Pinned answers <span class="droid-pin-count" id="droid-pin-count">0</span> / 10</div>'
+      +   '<div class="droid-pins" id="droid-pins"></div>'
+      + '</div>';
+  }
+
+  var _droidWrapBound = false;
+  var _droidKeyHandler = function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') _droidAsk();
+  };
+  function _droidRenderShell() {
+    var wrap = document.getElementById('droid-tab-wrap');
+    if (!wrap) return;
+    wrap.innerHTML = _droidShellHtml();
+    var qBox  = document.getElementById('droid-question');
+    var askBtn = document.getElementById('droid-ask-btn');
+    if (askBtn) askBtn.addEventListener('click', _droidAsk);
+    if (qBox) qBox.addEventListener('keydown', _droidKeyHandler);
+    if (!_droidWrapBound) {
+      wrap.addEventListener('click', _droidOnClick);
+      _droidWrapBound = true;
+    }
+  }
+
+  function _droidLoadTab() { _loadDroidTab(); }
+
+  function _loadDroidTab() {
+    _detectCharacterName();
+    _droidRenderShell();
+    _droidRenderLive();
+    _droidRenderPins();
+    if (!_characterName) {
+      var st = document.getElementById('droid-status');
+      if (st) st.innerHTML = '<div class="droid-error">No character session detected. Please log in as a character first.</div>';
+      var ab = document.getElementById('droid-ask-btn');
+      if (ab) ab.disabled = true;
+      return;
+    }
+    _droidRefreshCooldown();
+    _droidRefreshPins();
+  }
+
+  function _droidRefreshCooldown() {
+    if (!_characterName) return;
+    fetch('/api/protocol-droid/cooldown?characterName=' + encodeURIComponent(_characterName))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.remainingMs > 0) _droidStartCooldown(j.remainingMs, j.cooldownMs);
+        else { _droidCooldownEndsAt = 0; _droidTickCooldown(); }
+      })
+      .catch(function () {});
+  }
+
+  function _droidStartCooldown(remainingMs, totalMs) {
+    _droidCooldownEndsAt = Date.now() + remainingMs;
+    if (_droidCooldownTimer) clearInterval(_droidCooldownTimer);
+    _droidCooldownTimer = setInterval(_droidTickCooldown, 500);
+    _droidTickCooldown();
+  }
+
+  function _droidTickCooldown() {
+    var bar = document.getElementById('droid-cooldown');
+    var btn = document.getElementById('droid-ask-btn');
+    if (!bar) return;
+    var rem = _droidCooldownEndsAt - Date.now();
+    if (rem <= 0) {
+      bar.style.display = 'none';
+      if (btn && !_droidBusy && _characterName) btn.disabled = false;
+      if (_droidCooldownTimer) { clearInterval(_droidCooldownTimer); _droidCooldownTimer = null; }
+      return;
+    }
+    var sec = Math.ceil(rem / 1000);
+    bar.style.display = 'block';
+    bar.innerHTML = 'The droid is processing the previous query. Standby for <strong>' + sec + 's</strong>.';
+    if (btn) btn.disabled = true;
+  }
+
+  function _droidRefreshPins() {
+    if (!_characterName) return;
+    fetch('/api/protocol-droid/pins?characterName=' + encodeURIComponent(_characterName))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        _droidPins = j.pins || [];
+        _droidRenderPins();
+      })
+      .catch(function () {});
+  }
+
+  function _droidRenderPins() {
+    var holder = document.getElementById('droid-pins');
+    var count = document.getElementById('droid-pin-count');
+    if (count) count.textContent = String(_droidPins.length);
+    if (!holder) return;
+    if (!_droidPins.length) {
+      holder.innerHTML = '<div class="droid-empty">No pinned answers yet. Pin a consultation to keep it on hand or send it to your journal for the long voyage.</div>';
+      return;
+    }
+    holder.innerHTML = _droidPins.map(function (p) {
+      return _droidCardHtml({
+        question: p.question,
+        answer: p.answer,
+        sources: p.sources || [],
+        pinned: true,
+        pinId: p.id,
+      });
+    }).join('');
+  }
+
+  function _droidRenderLive() {
+    var holder = document.getElementById('droid-live');
+    if (!holder) return;
+    if (!_droidLive.length) {
+      holder.innerHTML = '<div class="droid-empty droid-empty-live">Standing by, ' + _droidEsc(_characterName || 'operator') + '. Pose a question and I shall consult the archives.</div>';
+      return;
+    }
+    holder.innerHTML = _droidLive.map(function (a) {
+      return _droidCardHtml({
+        question: a.question,
+        answer: a.answer,
+        sources: a.sources || [],
+        pinned: false,
+      });
+    }).join('');
+  }
+
+  function _droidCardHtml(o) {
+    var sources = (o.sources || []).map(function (s) {
+      return '<span class="droid-src droid-src-' + _droidEsc(s.type || 'src') + '">' + _droidEsc(s.label || s.refId || s.type || '') + '</span>';
+    }).join('');
+    var actions = o.pinned
+      ? '<div class="droid-card-actions">'
+        + '<button class="droid-mini-btn" data-droid-act="to-journal" data-vis="private" data-pin-id="' + o.pinId + '">\u{1F4D6} Save to Journal (Private)</button>'
+        + '<button class="droid-mini-btn" data-droid-act="to-journal" data-vis="crew" data-pin-id="' + o.pinId + '">\u{1F4D6} Save to Crew Journal</button>'
+        + '<button class="droid-mini-btn droid-mini-btn-danger" data-droid-act="unpin" data-pin-id="' + o.pinId + '">\u2715 Unpin</button>'
+      + '</div>'
+      : '<div class="droid-card-actions">'
+        + '<button class="droid-mini-btn" data-droid-act="pin" data-q="' + _droidEsc(o.question) + '">\u{1F4CC} Pin Answer</button>'
+      + '</div>';
+    return ''
+      + '<div class="droid-card' + (o.pinned ? ' droid-card-pinned' : '') + '">'
+      +   '<div class="droid-card-q">' + (o.pinned ? '\u{1F4CC} ' : '') + _droidEsc(o.question) + '</div>'
+      +   '<div class="droid-card-a">' + _droidRenderMarkdown(o.answer || '') + '</div>'
+      +   (sources ? '<div class="droid-card-sources">' + sources + '</div>' : '')
+      +   actions
+      + '</div>';
+  }
+
+  function _droidFriendlyError(status, body) {
+    if (status === 503) return body && body.error ? String(body.error) : 'The droid is offline by order of the GM.';
+    if (status === 429) {
+      var s = body && body.remainingMs ? Math.ceil(body.remainingMs / 1000) + 's' : 'a moment';
+      return 'My circuits require ' + s + ' to recover, please wait.';
+    }
+    if (status === 409) return body && body.error ? String(body.error) : 'Pin memory full (10 max). Send one to your journal first.';
+    if (status === 400) return body && body.error ? String(body.error) : 'I do not comprehend the request.';
+    return body && body.error ? String(body.error) : 'Communications interference. Try again in a moment.';
+  }
+
+  function _droidShowStatus(html, kind) {
+    var st = document.getElementById('droid-status');
+    if (!st) return;
+    st.innerHTML = html ? '<div class="droid-' + (kind || 'note') + '">' + html + '</div>' : '';
+  }
+
+  function _droidAsk() {
+    if (_droidBusy) return;
+    if (!_characterName) return;
+    var qBox = document.getElementById('droid-question');
+    var btn = document.getElementById('droid-ask-btn');
+    if (!qBox || !btn) return;
+    var q = qBox.value.trim();
+    if (!q) { qBox.focus(); return; }
+
+    _droidBusy = true;
+    btn.disabled = true;
+    var orig = btn.textContent;
+    btn.textContent = 'Consulting\u2026';
+    _droidShowStatus('');
+
+    fetch('/api/protocol-droid/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ characterName: _characterName, scope: 'private', question: q })
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          _droidShowStatus(_droidEsc(_droidFriendlyError(res.status, res.body)), 'error');
+          if (res.body && res.body.cooldown && res.body.cooldown.remainingMs) {
+            _droidStartCooldown(res.body.cooldown.remainingMs, res.body.cooldown.cooldownMs);
+          } else if (res.body && res.body.remainingMs) {
+            _droidStartCooldown(res.body.remainingMs, res.body.cooldownMs);
+          }
+          return;
+        }
+        _droidLive.unshift({ question: q, answer: res.body.answer, sources: res.body.sources || [] });
+        if (_droidLive.length > 5) _droidLive = _droidLive.slice(0, 5);
+        qBox.value = '';
+        _droidRenderLive();
+        if (res.body.cooldown && res.body.cooldown.remainingMs) {
+          _droidStartCooldown(res.body.cooldown.remainingMs, res.body.cooldown.cooldownMs);
+        }
+      })
+      .catch(function (e) {
+        _droidShowStatus('Network interference: ' + _droidEsc(e.message), 'error');
+      })
+      .finally(function () {
+        _droidBusy = false;
+        btn.textContent = orig;
+        if (_droidCooldownEndsAt - Date.now() <= 0) btn.disabled = false;
+      });
+  }
+
+  function _droidOnClick(e) {
+    var btn = e.target.closest('[data-droid-act]');
+    if (!btn) return;
+    var act = btn.getAttribute('data-droid-act');
+    if (act === 'pin') {
+      var q = btn.getAttribute('data-q');
+      var live = _droidLive.find(function (l) { return l.question === q; });
+      if (!live) return;
+      btn.disabled = true;
+      fetch('/api/protocol-droid/pins', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          characterName: _characterName,
+          scope: 'private',
+          question: live.question,
+          answer: live.answer,
+          sources: live.sources,
+          meta: {}
+        })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); })
+        .then(function (res) {
+          if (!res.ok) {
+            btn.disabled = false;
+            _droidShowStatus(_droidEsc(_droidFriendlyError(res.status, res.body)), 'error');
+            return;
+          }
+          btn.textContent = '\u{1F4CC} Pinned';
+          _droidRefreshPins();
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          _droidShowStatus('Pin failed: ' + _droidEsc(err.message), 'error');
+        });
+    } else if (act === 'unpin') {
+      if (!confirm('Unpin this answer?')) return;
+      var id = btn.getAttribute('data-pin-id');
+      fetch('/api/protocol-droid/pins/' + id, { method: 'DELETE' })
+        .then(function () { _droidRefreshPins(); })
+        .catch(function () {});
+    } else if (act === 'to-journal') {
+      var id2 = btn.getAttribute('data-pin-id');
+      var vis = btn.getAttribute('data-vis') === 'crew' ? 'crew' : 'private';
+      btn.disabled = true;
+      fetch('/api/protocol-droid/pins/' + id2 + '/to-journal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visibility: vis })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); })
+        .then(function (res) {
+          if (!res.ok) {
+            btn.disabled = false;
+            _droidShowStatus(_droidEsc(_droidFriendlyError(res.status, res.body)), 'error');
+            return;
+          }
+          _droidShowStatus('Saved to ' + (vis === 'crew' ? 'the crew journal' : 'your private journal') + '.', 'note');
+          _droidRefreshPins();
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          _droidShowStatus('Save failed: ' + _droidEsc(err.message), 'error');
+        });
+    }
+  }
+
+  (function _listenDroidSocket() {
+    var sock = window._socket;
+    if (!sock) { setTimeout(_listenDroidSocket, 2000); return; }
+    sock.on('protocol-droid:disabled-changed', function () {
+      if (_activeTab === 'droid') _droidShowStatus('GM has changed the droid availability. Refreshing\u2026', 'note');
     });
   })();
 
