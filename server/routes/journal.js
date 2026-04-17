@@ -127,18 +127,16 @@ router.post('/journal/tags', async (req, res) => {
 
 router.get('/journal/entries', async (req, res) => {
   const { tag, scene_id, viewer } = req.query;
-  // Visibility filter:
-  //   GM sees everything.
-  //   Players see crew entries plus any private entries authored by their character.
-  //   `viewer` is the requesting character_name (player UI passes it).
-  const isGm = req.userRole === 'gm';
   const viewerName = (viewer || '').toString().trim();
-  console.log('[journal/entries] role=', req.userRole, 'isGm=', isGm, 'viewer=', JSON.stringify(viewerName), 'scene_id=', scene_id, 'tag=', tag);
-  // For private entries, require viewer == author (not just viewer == visibility),
-  // so a player can't read another player's private entries by guessing their name.
+  // Intent-driven filter:
+  //   If `viewer` is provided, this is a per-character view (player UI). Always apply
+  //   the privacy filter regardless of the auth cookie role, because GMs and players
+  //   share the same passcode-based cookie at the table — the cookie cannot tell us
+  //   which character is currently looking. If `viewer` is omitted, the caller is
+  //   asking for the unfiltered view (GM crew journal, scene aggregator, etc).
   function appendVisFilter(params, prefix) {
-    if (isGm) return '';
-    params.push(viewerName || '');
+    if (!viewerName) return '';
+    params.push(viewerName);
     const v = '$' + params.length;
     return ` ${prefix} (e.visibility = 'crew' OR (e.visibility = ${v} AND e.author_character_name = ${v}))`;
   }
