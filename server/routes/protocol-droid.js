@@ -571,7 +571,7 @@ router.post('/protocol-droid/pins/:id/to-journal', async (req, res) => {
 
     const entryR = await client.query(
       `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id, visibility)
-       VALUES ($1, $2, $3, NULL, $4)
+       VALUES ($1, $2, $3, 'protocol-droid', $4)
        RETURNING id`,
       [title, body, pin.character_name, vis]
     );
