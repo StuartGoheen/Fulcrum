@@ -5395,32 +5395,32 @@
               "composition": {
                 "enemies": [
                   {
-                    "name": "Switch's Thugs",
-                    "classification": "minion",
+                    "type": "Switch's Thugs",
                     "count": 4,
-                    "role": "threat",
-                    "threatCategory": "character"
-                  },
-                  {
-                    "name": "Ganga Thug",
+                    "threat": "minion",
                     "classification": "minion",
+                    "role": "threat"
+                  },
+                  {
+                    "type": "Ganga Thug",
                     "count": 5,
-                    "role": "anchor",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "anchor"
                   },
                   {
-                    "name": "Switch",
-                    "classification": "elite",
+                    "type": "Switch",
                     "count": 1,
-                    "role": "support",
-                    "threatCategory": "character"
+                    "threat": "elite",
+                    "classification": "elite",
+                    "role": "support"
                   },
                   {
-                    "name": "Ganga Lor",
-                    "classification": "elite",
+                    "type": "Ganga Lor",
                     "count": 1,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "elite",
+                    "classification": "elite",
+                    "role": "threat"
                   }
                 ]
               }
@@ -6629,39 +6629,39 @@
               "composition": {
                 "enemies": [
                   {
-                    "name": "Warlord's Guard",
-                    "classification": "minion",
+                    "type": "Warlord's Guard",
                     "count": 1,
-                    "role": "anchor",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "anchor"
                   },
                   {
-                    "name": "Stormtrooper Sergeant",
+                    "type": "Stormtrooper Sergeant",
+                    "count": 1,
+                    "threat": "standard",
                     "classification": "standard",
-                    "count": 1,
-                    "role": "harrier",
-                    "threatCategory": "character"
+                    "role": "harrier"
                   },
                   {
-                    "name": "Stormtrooper",
-                    "classification": "minion",
+                    "type": "Stormtrooper",
                     "count": 1,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "threat"
                   },
                   {
-                    "name": "Stormtrooper Rifleman",
-                    "classification": "minion",
+                    "type": "Stormtrooper Rifleman",
                     "count": 3,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "threat"
                   },
                   {
-                    "name": "Stormtrooper COMS",
-                    "classification": "minion",
+                    "type": "Stormtrooper COMS",
                     "count": 1,
-                    "role": "support",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "support"
                   }
                 ]
               }
@@ -6676,39 +6676,39 @@
               "composition": {
                 "enemies": [
                   {
-                    "name": "Warlord's Guard",
-                    "classification": "minion",
+                    "type": "Warlord's Guard",
                     "count": 1,
-                    "role": "anchor",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "anchor"
                   },
                   {
-                    "name": "Stormtrooper Sergeant",
+                    "type": "Stormtrooper Sergeant",
+                    "count": 1,
+                    "threat": "standard",
                     "classification": "standard",
-                    "count": 1,
-                    "role": "harrier",
-                    "threatCategory": "character"
+                    "role": "harrier"
                   },
                   {
-                    "name": "Stormtrooper",
-                    "classification": "minion",
+                    "type": "Stormtrooper",
                     "count": 1,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "threat"
                   },
                   {
-                    "name": "Stormtrooper Rifleman",
-                    "classification": "minion",
+                    "type": "Stormtrooper Rifleman",
                     "count": 3,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "threat"
                   },
                   {
-                    "name": "Stormtrooper COMS",
-                    "classification": "minion",
+                    "type": "Stormtrooper COMS",
                     "count": 1,
-                    "role": "support",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "support"
                   }
                 ]
               }
@@ -6723,39 +6723,39 @@
               "composition": {
                 "enemies": [
                   {
-                    "name": "Warlord's Guard",
-                    "classification": "minion",
+                    "type": "Warlord's Guard",
                     "count": 1,
-                    "role": "anchor",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "anchor"
                   },
                   {
-                    "name": "Stormtrooper Sergeant",
+                    "type": "Stormtrooper Sergeant",
+                    "count": 1,
+                    "threat": "standard",
                     "classification": "standard",
-                    "count": 1,
-                    "role": "harrier",
-                    "threatCategory": "character"
+                    "role": "harrier"
                   },
                   {
-                    "name": "Stormtrooper",
-                    "classification": "minion",
+                    "type": "Stormtrooper",
                     "count": 1,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "threat"
                   },
                   {
-                    "name": "Stormtrooper Rifleman",
-                    "classification": "minion",
+                    "type": "Stormtrooper Rifleman",
                     "count": 3,
-                    "role": "threat",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "threat"
                   },
                   {
-                    "name": "Stormtrooper COMS",
-                    "classification": "minion",
+                    "type": "Stormtrooper COMS",
                     "count": 1,
-                    "role": "support",
-                    "threatCategory": "character"
+                    "threat": "minion",
+                    "classification": "minion",
+                    "role": "support"
                   }
                 ]
               }
@@ -7856,19 +7856,19 @@
               "composition": {
                 "enemies": [
                   {
-                    "threat": "rival",
                     "type": "Defense Turret T1",
-                    "count": 1
+                    "count": 1,
+                    "threat": "rival"
                   },
                   {
-                    "threat": "rival",
                     "type": "Defense Turret T2",
-                    "count": 1
+                    "count": 1,
+                    "threat": "rival"
                   },
                   {
-                    "threat": "rival",
                     "type": "Defense Turret T3",
-                    "count": 1
+                    "count": 1,
+                    "threat": "rival"
                   }
                 ],
                 "terrain": "Canyon descent, jungle canopy below, ridge above. Banshee is single ship descending; T1/T2/T3 are dug-in emplacements on the ridge.",

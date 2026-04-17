@@ -92,7 +92,8 @@
       "unlocks": [
         "maya-canopy-landing",
         "maya-comm-discipline",
-        "maya-if-it-goes-wrong"
+        "maya-if-it-goes-wrong",
+        "maya-the-cylinder"
       ],
       "tags": [
         "tactics",
@@ -153,7 +154,8 @@
         "ship",
         "career"
       ],
-      "id": "maya-banshee-history"
+      "id": "maya-banshee-history",
+      "gmNote": "The Banshee is older than the Empire — Maya's affection for the ship is real and uncalculated. This is the easiest place for the crew to win comfort: ask about the ship, listen to the answer, don't try to be clever. Players who care about the Banshee earn Maya's trust faster than players who care about the score."
     },
     "maya-nar-shaddaa": {
       "text": "Why Nar Shaddaa?",
@@ -163,7 +165,8 @@
       "tags": [
         "backstory"
       ],
-      "id": "maya-nar-shaddaa"
+      "id": "maya-nar-shaddaa",
+      "gmNote": "Nar Shaddaa is Maya's anchor — registered home port, the bar she drinks at, the mechanic who knows the Banshee's quirks. If the campaign ever needs a safe-house for the crew, Nar Shaddaa is the answer Maya will offer. Note this for Adventures 4-6."
     },
     "maya-the-no": {
       "text": "What did you say no to?",
@@ -284,7 +287,8 @@
       "tags": [
         "tactics"
       ],
-      "id": "maya-canopy-landing"
+      "id": "maya-canopy-landing",
+      "gmNote": "Maya is talking shop — describing the actual approach she plans for Ajan Kloss. Any Ace at the table should be leaning forward. This is also a setup for The Crash: when the turrets open up and the canyon descent goes wrong, the players should remember Maya described THIS as the routine version."
     },
     "maya-comm-discipline": {
       "text": "What's the comm protocol if things go wrong?",
@@ -319,7 +323,8 @@
         "probe",
         "professional-respect"
       ],
-      "id": "maya-after-jakku"
+      "id": "maya-after-jakku",
+      "gmNote": "This is the question Maya hopes nobody asks tonight. She'll answer — she committed to honesty — but the answer is shorter and quieter than her others. The 'I don't know yet' is true. Maya's arc through Adventures 2 and 3 is figuring this out. Don't rush her to a clean answer."
     },
     "maya-going-back-for-people": {
       "text": "Have you ever had a crew that didn't go back?",
@@ -333,24 +338,34 @@
         "long-thread"
       ],
       "id": "maya-going-back-for-people"
+    },
+    "maya-the-cylinder": {
+      "id": "maya-the-cylinder",
+      "text": "What's your read on the cylinder we're carrying?",
+      "type": "business",
+      "comfortCost": -1,
+      "parentId": "maya-fortress-plan",
+      "response": "Maya doesn't look at the cargo locker, but you can tell she's aware of where it is in the ship. That's the tell.\n\n\"Varth's data cylinder. He hasn't shown me what's on it. I haven't asked. That's the deal — I move the cargo, I don't audit the cargo. You learn that posture early or you don't last in this work.\"\n\nShe sets the mug down.\n\n\"But here's what I will say. I've moved a lot of things in twenty years. Spice. Weapons. People. Documents. There's a weight a piece of cargo has that has nothing to do with mass. The cylinder has weight. Whatever's on it, somebody is going to come looking for it, and they're going to be willing to do bad things to get it.\"\n\nShort pause.\n\n\"Varth knows that. That's why he's hiring crews. Not because he can't carry a cylinder — because he needs people between him and whoever shows up. That's the whole job description, and you should know it before we touch dirt on Ajan Kloss.\"",
+      "gmNote": "This is Maya naming the elephant in the cargo hold. She's not betraying Varth — she's leveling with the crew about what kind of mission they're actually on: human shields for a piece of intel. Players who hear this should recalibrate their expectations for The Crash, the fortress raid, and especially the post-extraction beats in Adventures 2 and 3. The 'somebody coming looking' is a direct seed for the Inquisitor in Part 3.",
+      "unlocks": [],
+      "tags": [
+        "cargo",
+        "varth",
+        "warning",
+        "foreshadow"
+      ]
     }
   },
   "mayaInterjections": [
     {
-      "trigger": "comfort_4",
-      "line": "Maya pours herself a second cup of caf. Doesn't offer. Listens."
+      "trigger": "After any 3 questions have been answered",
+      "text": "Maya pours herself a second cup of caf and doesn't offer one to anybody. She listens for a beat, then murmurs — half to the cup — \"You all ask better questions than the last crew Varth flew with. They asked exactly two: how much, and when do we get paid. Keep going. I'll tell you when to stop.\"",
+      "gmNote": "Maya is signaling tacit approval — the crew is doing it right by probing instead of just transacting. She's also subtly seeding that there WAS a last crew, and they're not on this ship. Players who notice the past tense should file it away."
     },
     {
-      "trigger": "comfort_3",
-      "line": "Maya glances at the recalc clock. 00:07:22. She doesn't say anything but the next answer is shorter."
-    },
-    {
-      "trigger": "comfort_2",
-      "line": "Maya sets the mug down a little harder than she needs to. Tugs at the wire in her hair."
-    },
-    {
-      "trigger": "comfort_1",
-      "line": "Maya looks past you at the porthole. The amber lights pulse on her face. She's already mostly back in the cockpit in her head."
+      "trigger": "If comfort drops to 2",
+      "text": "Maya glances at the recalc clock — it reads 00:07:22 — and then around the table. She reads the room. \"Save some questions for the second jump. We've got time, and you've got one more in you before I need to be back on the bridge.\" It's not a command. It's a lifeline.",
+      "gmNote": "Maya has better social instincts than Varth and uses them to protect her own scene. The GM should treat this as a soft warning that one more question at THIS comfort level will trip the dryLine and end the conversation. Players who want more should pull back, change topic, or pass to let her recover."
     }
   ],
   "insightCheck": {
