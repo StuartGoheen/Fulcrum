@@ -267,6 +267,19 @@ async function initSchema() {
         )`);
     } catch (e) {}
     try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS entry_comments (
+          id                    SERIAL PRIMARY KEY,
+          parent_type           TEXT NOT NULL,
+          parent_id             TEXT NOT NULL,
+          author_character_name TEXT NOT NULL,
+          body                  TEXT NOT NULL,
+          created_at            TIMESTAMP DEFAULT NOW(),
+          updated_at            TIMESTAMP DEFAULT NOW()
+        )`);
+      await client.query(`CREATE INDEX IF NOT EXISTS idx_entry_comments_parent ON entry_comments (parent_type, parent_id, created_at)`);
+    } catch (e) {}
+    try {
       await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
     } catch (e) {}
     try {
