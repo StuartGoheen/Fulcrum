@@ -260,6 +260,13 @@ async function initSchema() {
       await client.query(`CREATE INDEX IF NOT EXISTS idx_protocol_pins_char ON protocol_droid_pins (character_name, created_at DESC)`);
     } catch (e) {}
     try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS app_settings (
+          key   TEXT PRIMARY KEY,
+          value TEXT
+        )`);
+    } catch (e) {}
+    try {
       await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
     } catch (e) {}
     try {

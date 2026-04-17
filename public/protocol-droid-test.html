@@ -529,6 +529,8 @@
 
     var actionsHtml = '<div class="answer-actions">';
     if (pinned) {
+      actionsHtml += '<button class="pin-btn" data-action="to-journal" data-pin-id="' + pinId + '" data-vis="private" title="Save to your private journal">📖 Send to Journal (private)</button>';
+      actionsHtml += '<button class="pin-btn" data-action="to-journal" data-pin-id="' + pinId + '" data-vis="crew" title="Save to the crew journal so everyone sees it">📖 Send to Crew</button>';
       actionsHtml += '<button class="pin-btn unpin" data-action="unpin" data-pin-id="' + pinId + '">✕ Unpin</button>';
     } else {
       actionsHtml += '<button class="pin-btn" data-action="pin">📌 Pin to memory</button>';
@@ -578,6 +580,21 @@
         fetch('/api/protocol-droid/pins/' + id, { method: 'DELETE' })
           .then(function () { refreshPins(); })
           .catch(function () {});
+      } else if (action === 'to-journal') {
+        var id2 = btn.dataset.pinId;
+        var vis = btn.dataset.vis === 'crew' ? 'crew' : 'private';
+        btn.disabled = true;
+        fetch('/api/protocol-droid/pins/' + id2 + '/to-journal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visibility: vis })
+        })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+          .then(function (res) {
+            if (!res.ok) { btn.disabled = false; alert('Send failed: ' + (res.body.error || 'unknown')); return; }
+            refreshPins();
+          })
+          .catch(function (err) { btn.disabled = false; alert('Send failed: ' + err.message); });
       }
     });
 

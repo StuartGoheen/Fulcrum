@@ -337,9 +337,44 @@ router.get('/protocol-droid/cooldown', (req, res) => {
   res.json({ remainingMs, cooldownMs: COOLDOWN_MS });
 });
 
+// --- Settings (kill switch) ---
+async function isDroidDisabled() {
+  try {
+    const r = await pool.query(`SELECT value FROM app_settings WHERE key = 'protocol_droid_disabled'`);
+    return r.rows.length && r.rows[0].value === 'true';
+  } catch (_e) { return false; }
+}
+
+router.get('/protocol-droid/admin/state', async (req, res) => {
+  try {
+    const disabled = await isDroidDisabled();
+    const cnt = await pool.query(`SELECT COUNT(*)::int AS n FROM protocol_droid_pins`);
+    res.json({ disabled, totalPins: cnt.rows[0].n });
+  } catch (e) {
+    res.status(500).json({ error: 'Failed to read state.' });
+  }
+});
+
+router.post('/protocol-droid/admin/disable', async (req, res) => {
+  try {
+    const disabled = !!(req.body && req.body.disabled);
+    await pool.query(`
+      INSERT INTO app_settings (key, value) VALUES ('protocol_droid_disabled', $1)
+      ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value
+    `, [disabled ? 'true' : 'false']);
+    res.json({ ok: true, disabled });
+  } catch (e) {
+    console.error('[protocol-droid/admin/disable]', e);
+    res.status(500).json({ error: 'Failed to update.' });
+  }
+});
+
 router.post('/protocol-droid/ask', async (req, res) => {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'GEMINI_API_KEY not configured.' });
+  if (await isDroidDisabled()) {
+    return res.status(503).json({ error: 'The droid is offline by order of the GM.', disabled: true });
+  }
 
   const { characterName, scope, question } = req.body || {};
   const q = (question || '').toString().trim();
@@ -461,6 +496,9 @@ router.get('/protocol-droid/pins', async (req, res) => {
   }
 });
 
+const PIN_CAP_PER_CHARACTER = 10;
+const PIN_ANSWER_MAX = 16000;
+
 router.post('/protocol-droid/pins', async (req, res) => {
   try {
     const { characterName, scope, question, answer, sources, meta } = req.body || {};
@@ -469,16 +507,118 @@ router.post('/protocol-droid/pins', async (req, res) => {
     const a = (answer || '').toString();
     if (!name) return res.status(400).json({ error: 'characterName is required.' });
     if (!q || !a) return res.status(400).json({ error: 'question and answer are required.' });
+    if (a.length > PIN_ANSWER_MAX) return res.status(400).json({ error: 'Answer too large to pin.' });
     const sc = ['crew', 'rules', 'both'].includes(scope) ? scope : 'both';
+
+    // Pin cap.
+    const cnt = await pool.query(
+      `SELECT COUNT(*)::int AS n FROM protocol_droid_pins WHERE character_name = $1`,
+      [name]
+    );
+    if (cnt.rows[0].n >= PIN_CAP_PER_CHARACTER) {
+      return res.status(409).json({
+        error: 'Pin memory full (' + PIN_CAP_PER_CHARACTER + ' max). Unpin or send one to your journal first.',
+        cap: PIN_CAP_PER_CHARACTER,
+        current: cnt.rows[0].n,
+      });
+    }
+
     const r = await pool.query(`
       INSERT INTO protocol_droid_pins (character_name, scope, question, answer, sources, meta)
       VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb)
       RETURNING id, created_at
     `, [name, sc, q, a, JSON.stringify(sources || []), JSON.stringify(meta || {})]);
-    res.json({ ok: true, id: r.rows[0].id, created_at: r.rows[0].created_at });
+    res.json({
+      ok: true,
+      id: r.rows[0].id,
+      created_at: r.rows[0].created_at,
+      remainingSlots: PIN_CAP_PER_CHARACTER - (cnt.rows[0].n + 1),
+    });
   } catch (e) {
     console.error('[protocol-droid/pins:create]', e);
     res.status(500).json({ error: 'Failed to pin answer.' });
+  }
+});
+
+// Promote a pinned answer to a journal entry. Auto-tags using sources + journal_tags lookup.
+router.post('/protocol-droid/pins/:id/to-journal', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!Number.isFinite(id)) return res.status(400).json({ error: 'invalid id.' });
+  const visibility = (req.body && req.body.visibility === 'crew') ? 'crew' : null;
+  const client = await pool.connect();
+  try {
+    const pinR = await client.query(
+      `SELECT character_name, scope, question, answer, sources FROM protocol_droid_pins WHERE id = $1`,
+      [id]
+    );
+    if (!pinR.rows.length) return res.status(404).json({ error: 'Pin not found.' });
+    const pin = pinR.rows[0];
+    const vis = visibility || pin.character_name; // default: private to author
+
+    // Build entry body.
+    const titleBase = pin.question.length > 70 ? pin.question.slice(0, 67) + '…' : pin.question;
+    const title = 'Droid: ' + titleBase;
+    const sourceLines = (Array.isArray(pin.sources) ? pin.sources : []).map(function (s) {
+      return '• [' + (s.type || 'src') + '] ' + (s.label || s.refId || '');
+    });
+    const body =
+      'Question: ' + pin.question + '\n\n' +
+      pin.answer +
+      (sourceLines.length ? '\n\n— Sources —\n' + sourceLines.join('\n') : '') +
+      '\n\n(Saved from Protocol Droid)';
+
+    await client.query('BEGIN');
+
+    const entryR = await client.query(
+      `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id, visibility)
+       VALUES ($1, $2, $3, NULL, $4)
+       RETURNING id`,
+      [title, body, pin.character_name, vis]
+    );
+    const entryId = entryR.rows[0].id;
+
+    // Auto-tag: ensure a 'protocol-droid' custom tag and attach.
+    const protoTagR = await client.query(
+      `INSERT INTO journal_tags (name, category, is_custom)
+       VALUES ('protocol-droid', 'custom', true)
+       ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name
+       RETURNING id`
+    );
+    await client.query(
+      `INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+      [entryId, protoTagR.rows[0].id]
+    );
+
+    // Auto-tag: any existing journal_tag whose name appears in question or answer (NPCs, locations, lore).
+    const haystack = (pin.question + '\n' + pin.answer).toLowerCase();
+    const tagsR = await client.query(`SELECT id, name FROM journal_tags WHERE category IN ('npc','location','lore','item')`);
+    for (const t of tagsR.rows) {
+      if (!t.name) continue;
+      const needle = String(t.name).toLowerCase();
+      if (needle.length < 3) continue;
+      if (haystack.indexOf(needle) >= 0) {
+        await client.query(
+          `INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+          [entryId, t.id]
+        );
+      }
+    }
+
+    // Remove the pin (it now lives in the journal).
+    await client.query(`DELETE FROM protocol_droid_pins WHERE id = $1`, [id]);
+
+    await client.query('COMMIT');
+
+    const io = req.app.get('io');
+    if (io) io.emit('journal:updated', { entryId });
+
+    res.json({ ok: true, entryId, visibility: vis });
+  } catch (e) {
+    await client.query('ROLLBACK');
+    console.error('[protocol-droid/pins:to-journal]', e);
+    res.status(500).json({ error: 'Failed to send to journal.' });
+  } finally {
+    client.release();
   }
 });
 

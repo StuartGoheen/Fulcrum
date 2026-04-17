@@ -5279,6 +5279,156 @@
     });
   })();
 
+  (function initFullJournal() {
+    var btn = document.getElementById('cb-open-full-journal');
+    if (!btn) return;
+
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:10000;align-items:center;justify-content:center;';
+    var dialog = document.createElement('div');
+    dialog.style.cssText = 'background:#0e0e0e;border:1px solid rgba(200,164,78,0.4);border-radius:8px;width:min(900px,92vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.6);';
+    dialog.innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(200,164,78,0.25);">' +
+        '<div><div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#c8a44e;">Full Crew Journal</div>' +
+        '<div style="font-size:10px;opacity:0.6;margin-top:2px;">All entries — crew &amp; private — across every character.</div></div>' +
+        '<button id="fj-close" style="background:transparent;border:1px solid rgba(200,164,78,0.4);color:#c8a44e;padding:4px 10px;font-size:11px;cursor:pointer;border-radius:4px;">Close</button>' +
+      '</div>' +
+      '<div style="padding:10px 18px;display:flex;gap:8px;align-items:center;border-bottom:1px solid rgba(200,164,78,0.15);">' +
+        '<input id="fj-search" type="text" placeholder="filter by author / title / body" style="flex:1;background:#1a1a1a;border:1px solid rgba(200,164,78,0.3);color:#e6dcc4;padding:6px 10px;border-radius:4px;font-size:12px;">' +
+        '<span id="fj-count" style="font-size:11px;opacity:0.6;"></span>' +
+      '</div>' +
+      '<div id="fj-list" style="flex:1;overflow-y:auto;padding:10px 18px;"></div>';
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    var searchEl = dialog.querySelector('#fj-search');
+    var listEl = dialog.querySelector('#fj-list');
+    var countEl = dialog.querySelector('#fj-count');
+    var _entries = [];
+    var _editing = {};
+
+    function escHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+    function fmtDate(d) {
+      try { var dt = new Date(d); return dt.toLocaleString(); } catch (e) { return ''; }
+    }
+    function visBadge(v) {
+      if (!v || v === 'crew') return '<span style="background:rgba(120,180,140,0.18);color:#9ad7a8;padding:1px 7px;border-radius:8px;font-size:10px;letter-spacing:0.5px;">CREW</span>';
+      return '<span style="background:rgba(200,140,120,0.18);color:#e6a48a;padding:1px 7px;border-radius:8px;font-size:10px;letter-spacing:0.5px;">PRIVATE · ' + escHtml(v) + '</span>';
+    }
+
+    function render() {
+      var q = (searchEl.value || '').toLowerCase().trim();
+      var filtered = !q ? _entries : _entries.filter(function (e) {
+        return (e.title && e.title.toLowerCase().indexOf(q) >= 0) ||
+               (e.body && e.body.toLowerCase().indexOf(q) >= 0) ||
+               (e.author_character_name && e.author_character_name.toLowerCase().indexOf(q) >= 0);
+      });
+      countEl.textContent = filtered.length + ' / ' + _entries.length + ' entries';
+      if (!filtered.length) {
+        listEl.innerHTML = '<div style="text-align:center;opacity:0.5;padding:30px;font-size:12px;">No entries.</div>';
+        return;
+      }
+      var html = filtered.map(function (e) {
+        var tags = (e.tags || []).map(function (t) {
+          return '<span style="background:rgba(200,164,78,0.12);color:#c8a44e;padding:1px 6px;border-radius:8px;font-size:10px;margin-right:4px;">' + escHtml(t.name) + '</span>';
+        }).join('');
+        if (_editing[e.id]) {
+          return '<div data-entry-id="' + e.id + '" style="border:1px solid rgba(200,164,78,0.5);border-radius:6px;padding:12px;margin-bottom:10px;background:#141414;">' +
+            '<input data-field="title" value="' + escHtml(e.title) + '" style="width:100%;background:#1a1a1a;border:1px solid rgba(200,164,78,0.3);color:#e6dcc4;padding:6px 10px;border-radius:4px;font-size:13px;margin-bottom:8px;">' +
+            '<textarea data-field="body" style="width:100%;min-height:140px;background:#1a1a1a;border:1px solid rgba(200,164,78,0.3);color:#e6dcc4;padding:8px 10px;border-radius:4px;font-size:12px;font-family:inherit;line-height:1.5;">' + escHtml(e.body) + '</textarea>' +
+            '<div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end;">' +
+              '<button data-act="cancel" style="background:transparent;border:1px solid rgba(200,200,200,0.3);color:#aaa;padding:4px 12px;font-size:11px;cursor:pointer;border-radius:4px;">Cancel</button>' +
+              '<button data-act="save" style="background:#c8a44e;border:none;color:#1a1a1a;padding:4px 14px;font-size:11px;cursor:pointer;border-radius:4px;font-weight:600;">Save</button>' +
+            '</div>' +
+          '</div>';
+        }
+        var bodyPreview = (e.body || '').replace(/\n/g, '<br>');
+        return '<div data-entry-id="' + e.id + '" style="border:1px solid rgba(200,164,78,0.18);border-radius:6px;padding:12px;margin-bottom:10px;background:#141414;">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;">' +
+            '<div style="font-size:13px;color:#e6dcc4;font-weight:600;">' + escHtml(e.title) + '</div>' +
+            visBadge(e.visibility) +
+          '</div>' +
+          '<div style="font-size:10px;opacity:0.55;margin-bottom:8px;">' + escHtml(e.author_character_name || '?') + ' · ' + fmtDate(e.created_at) + (e.updated_at && e.updated_at !== e.created_at ? ' · edited ' + fmtDate(e.updated_at) : '') + '</div>' +
+          (tags ? '<div style="margin-bottom:8px;">' + tags + '</div>' : '') +
+          '<div style="font-size:12px;color:#c9bfa6;line-height:1.5;white-space:pre-wrap;max-height:200px;overflow-y:auto;">' + escHtml(e.body || '').replace(/\n/g,'<br>') + '</div>' +
+          '<div style="display:flex;gap:8px;margin-top:8px;justify-content:flex-end;">' +
+            '<button data-act="edit" style="background:transparent;border:1px solid rgba(200,164,78,0.3);color:#c8a44e;padding:3px 10px;font-size:10px;cursor:pointer;border-radius:4px;text-transform:uppercase;letter-spacing:1px;">Edit</button>' +
+            '<button data-act="delete" style="background:transparent;border:1px solid rgba(220,140,140,0.4);color:#e6a48a;padding:3px 10px;font-size:10px;cursor:pointer;border-radius:4px;text-transform:uppercase;letter-spacing:1px;">Delete</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      listEl.innerHTML = html;
+    }
+
+    listEl.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('button[data-act]');
+      if (!btn) return;
+      var card = btn.closest('[data-entry-id]');
+      if (!card) return;
+      var id = parseInt(card.dataset.entryId, 10);
+      var act = btn.dataset.act;
+      if (act === 'edit') {
+        _editing[id] = true; render();
+      } else if (act === 'cancel') {
+        delete _editing[id]; render();
+      } else if (act === 'save') {
+        var title = card.querySelector('[data-field="title"]').value.trim();
+        var body = card.querySelector('[data-field="body"]').value;
+        if (!title) { alert('Title cannot be empty.'); return; }
+        fetch('/api/journal/entries/' + id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: title, body: body })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (j.entry) {
+              for (var i = 0; i < _entries.length; i++) {
+                if (_entries[i].id === id) { _entries[i] = Object.assign(_entries[i], j.entry); break; }
+              }
+            }
+            delete _editing[id]; render();
+          })
+          .catch(function () { alert('Save failed.'); });
+      } else if (act === 'delete') {
+        if (!confirm('Delete this journal entry permanently?')) return;
+        fetch('/api/journal/entries/' + id, { method: 'DELETE' })
+          .then(function () {
+            _entries = _entries.filter(function (e) { return e.id !== id; });
+            render();
+          })
+          .catch(function () { alert('Delete failed.'); });
+      }
+    });
+
+    searchEl.addEventListener('input', render);
+
+    function load() {
+      listEl.innerHTML = '<div style="text-align:center;opacity:0.5;padding:30px;font-size:12px;">Loading…</div>';
+      fetch('/api/journal/entries')
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          _entries = j.entries || [];
+          _editing = {};
+          render();
+        })
+        .catch(function () {
+          listEl.innerHTML = '<div style="text-align:center;color:#e6a48a;padding:30px;font-size:12px;">Failed to load.</div>';
+        });
+    }
+
+    btn.addEventListener('click', function () {
+      overlay.style.display = 'flex';
+      load();
+    });
+    dialog.querySelector('#fj-close').addEventListener('click', function () { overlay.style.display = 'none'; });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.style.display = 'none'; });
+  })();
+
   (function initOrbitalStrike() {
     var logo = document.querySelector('.cb-header-logo');
     if (!logo) return;
@@ -5289,7 +5439,8 @@
       { key: 'decisions', icon: '\u2696',     label: 'Purge Decision Points',        confirmTitle: 'Rewrite History',           confirmMsg: 'Every decision the crew ever made — undone. The fork points vanish from the timeline.' },
       { key: 'progress',  icon: '\u{1F5FA}',  label: 'Reset Scene Progress',         confirmTitle: 'Reset the Campaign Clock',  confirmMsg: 'Scene completion marks and campaign progress will reset to the beginning.' },
       { key: 'npcs',      icon: '\u{1F464}',  label: 'Reset NPC Profiles & Timeline', confirmTitle: 'Memory Wipe — NPC Cortex', confirmMsg: 'All NPC profiles and timeline events will be wiped and re-seeded from factory defaults.' },
-      { key: 'items',     icon: '\u{1F4E6}',  label: 'Purge Items & Equipment',      confirmTitle: 'Jettison the Cargo',        confirmMsg: 'All item requests and equipment status records will be jettisoned into the void.' }
+      { key: 'items',     icon: '\u{1F4E6}',  label: 'Purge Items & Equipment',      confirmTitle: 'Jettison the Cargo',        confirmMsg: 'All item requests and equipment status records will be jettisoned into the void.' },
+      { key: 'protocol_pins', icon: '\u{1F916}', label: 'Purge Protocol Droid Pins', confirmTitle: 'Wipe the Droid\'s Pins',  confirmMsg: 'Every player-pinned answer the Protocol Droid has stored will be deleted.' }
     ];
 
     var overlay = document.createElement('div');
@@ -5356,6 +5507,59 @@
     });
     body.appendChild(fullBtn);
 
+    // --- Protocol Droid kill switch ---
+    var sep2 = document.createElement('div');
+    sep2.className = 'os-sep';
+    body.appendChild(sep2);
+
+    var droidRow = document.createElement('div');
+    droidRow.className = 'os-toggle-row';
+    droidRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid rgba(200,164,78,0.25);border-radius:6px;margin-top:4px;';
+    var droidLbl = document.createElement('div');
+    droidLbl.style.cssText = 'display:flex;align-items:center;gap:10px;';
+    droidLbl.innerHTML = '<span style="font-size:18px;">\u{1F916}</span><span><div style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#c8a44e;">Protocol Droid</div><div style="font-size:11px;opacity:0.7;" id="os-droid-state">Loading…</div></span>';
+    var droidBtn = document.createElement('button');
+    droidBtn.id = 'os-droid-toggle';
+    droidBtn.className = 'os-btn';
+    droidBtn.style.cssText = 'min-width:120px;padding:8px 14px;font-size:11px;';
+    droidBtn.textContent = '…';
+    droidRow.appendChild(droidLbl);
+    droidRow.appendChild(droidBtn);
+    body.appendChild(droidRow);
+
+    function refreshDroidState() {
+      fetch('/api/protocol-droid/admin/state')
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          var stateEl = document.getElementById('os-droid-state');
+          if (j.disabled) {
+            droidBtn.textContent = 'Re-enable';
+            if (stateEl) stateEl.textContent = 'OFFLINE — players see "droid is offline." (' + (j.totalPins || 0) + ' pins stored)';
+            droidBtn.style.background = '#5a3a3a';
+            droidBtn.style.color = '#ffb3b3';
+          } else {
+            droidBtn.textContent = 'Disable';
+            if (stateEl) stateEl.textContent = 'Online. ' + (j.totalPins || 0) + ' pins stored across all players.';
+            droidBtn.style.background = '';
+            droidBtn.style.color = '';
+          }
+        })
+        .catch(function () {
+          var stateEl = document.getElementById('os-droid-state');
+          if (stateEl) stateEl.textContent = 'Unable to read state.';
+        });
+    }
+    droidBtn.addEventListener('click', function () {
+      var goingOff = (droidBtn.textContent === 'Disable');
+      fetch('/api/protocol-droid/admin/disable', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ disabled: goingOff })
+      })
+        .then(function () { refreshDroidState(); })
+        .catch(function () { refreshDroidState(); });
+    });
+
     var status = document.createElement('div');
     status.className = 'os-status';
     body.appendChild(status);
@@ -5364,7 +5568,7 @@
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
 
-    function openOs() { overlay.classList.add('os-visible'); status.textContent = ''; status.className = 'os-status'; }
+    function openOs() { overlay.classList.add('os-visible'); status.textContent = ''; status.className = 'os-status'; refreshDroidState(); }
     function closeOs() { overlay.classList.remove('os-visible'); }
 
     logo.addEventListener('click', openOs);
