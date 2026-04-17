@@ -107,6 +107,70 @@
   .ask-btn:hover { background: #d8b75e; }
   .ask-btn:disabled { background: #5a4d2a; color: #9a8a5e; cursor: not-allowed; }
   .hint { font-size: 11px; color: var(--ink-dim); margin-top: 6px; }
+  .cooldown {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--ink-dim);
+    text-align: center;
+  }
+  .cooldown.active { color: var(--gold); }
+  .cooldown-bar {
+    margin-top: 4px;
+    height: 3px;
+    background: rgba(200,164,78,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .cooldown-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.5s linear;
+  }
+  .answer-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .pin-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all .15s;
+  }
+  .pin-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .pin-btn.pinned { background: rgba(200,164,78,0.15); border-color: var(--gold); color: var(--gold); cursor: default; }
+  .pin-btn.unpin:hover { border-color: var(--bad); color: var(--bad); }
+  .pins-section {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .pins-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pins-header .count {
+    background: rgba(200,164,78,0.15);
+    color: var(--gold);
+    padding: 1px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+  }
+  .answer-card.pin-card { border-color: rgba(200,164,78,0.35); }
   .answer-card {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -224,6 +288,8 @@
     </div>
 
     <button class="ask-btn" id="askBtn" type="button">Consult the Droid</button>
+    <div class="cooldown" id="cooldown">Ready.</div>
+    <div class="cooldown-bar"><div class="cooldown-bar-fill" id="cooldownBar"></div></div>
 
     <div class="hint" style="margin-top:14px;">
       Try:<br>
@@ -236,7 +302,13 @@
   </aside>
 
   <section class="output" id="output">
-    <div class="empty">Pick a character, type a question, consult the droid.</div>
+    <div class="pins-section" id="pinsSection" style="display:none;">
+      <div class="pins-header">📌 Pinned <span class="count" id="pinsCount">0</span></div>
+      <div id="pinsList"></div>
+    </div>
+    <div id="liveList">
+      <div class="empty">Pick a character, type a question, consult the droid.</div>
+    </div>
   </section>
 </main>
 
@@ -246,8 +318,17 @@
   var questionBox = document.getElementById('questionBox');
   var askBtn = document.getElementById('askBtn');
   var output = document.getElementById('output');
+  var liveList = document.getElementById('liveList');
+  var pinsSection = document.getElementById('pinsSection');
+  var pinsList = document.getElementById('pinsList');
+  var pinsCount = document.getElementById('pinsCount');
+  var cooldownEl = document.getElementById('cooldown');
+  var cooldownBar = document.getElementById('cooldownBar');
   var scopeRow = document.getElementById('scopeRow');
   var currentScope = 'both';
+  var cooldownEndsAt = 0;
+  var cooldownTotalMs = 180000;
+  var cooldownTimer = null;
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -313,20 +394,110 @@
         chars.map(function (c) {
           return '<option value="' + esc(c.name) + '">' + esc(c.name) + '</option>';
         }).join('');
+      refreshPins();
+      refreshCooldown();
     })
     .catch(function () {
       charSelect.innerHTML = '<option value="">(failed to load characters)</option>';
     });
 
+  charSelect.addEventListener('change', function () {
+    refreshPins();
+    refreshCooldown();
+  });
+
+  function tickCooldown() {
+    var rem = Math.max(0, cooldownEndsAt - Date.now());
+    if (rem <= 0) {
+      cooldownEl.textContent = 'Ready.';
+      cooldownEl.classList.remove('active');
+      cooldownBar.style.width = '0%';
+      askBtn.disabled = false;
+      if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
+      return;
+    }
+    var s = Math.ceil(rem / 1000);
+    var mm = Math.floor(s / 60);
+    var ss = s % 60;
+    cooldownEl.textContent = 'Droid focused on the scene. Ready in ' + mm + ':' + (ss < 10 ? '0' + ss : ss);
+    cooldownEl.classList.add('active');
+    cooldownBar.style.width = (100 * (1 - rem / cooldownTotalMs)).toFixed(1) + '%';
+    askBtn.disabled = true;
+  }
+
+  function startCooldown(remainingMs, totalMs) {
+    cooldownTotalMs = totalMs || 180000;
+    cooldownEndsAt = Date.now() + remainingMs;
+    if (cooldownTimer) clearInterval(cooldownTimer);
+    cooldownTimer = setInterval(tickCooldown, 500);
+    tickCooldown();
+  }
+
+  function refreshCooldown() {
+    var name = charSelect.value;
+    if (!name) {
+      cooldownEndsAt = 0; tickCooldown();
+      return;
+    }
+    fetch('/api/protocol-droid/cooldown?characterName=' + encodeURIComponent(name))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.remainingMs > 0) startCooldown(j.remainingMs, j.cooldownMs);
+        else { cooldownEndsAt = 0; tickCooldown(); }
+      })
+      .catch(function () {});
+  }
+
+  function refreshPins() {
+    var name = charSelect.value;
+    if (!name) {
+      pinsSection.style.display = 'none';
+      pinsList.innerHTML = '';
+      return;
+    }
+    fetch('/api/protocol-droid/pins?characterName=' + encodeURIComponent(name))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var pins = j.pins || [];
+        pinsCount.textContent = pins.length;
+        if (!pins.length) {
+          pinsSection.style.display = 'none';
+          pinsList.innerHTML = '';
+          return;
+        }
+        pinsSection.style.display = 'block';
+        pinsList.innerHTML = '';
+        pins.forEach(function (p) {
+          var card = buildCard({
+            question: p.question,
+            scope: p.scope,
+            character: p.character_name,
+            data: { answer: p.answer, sources: p.sources || [], meta: p.meta || {} },
+            pinned: true,
+            pinId: p.id,
+          });
+          pinsList.appendChild(card);
+        });
+      })
+      .catch(function () {});
+  }
+
   function renderError(msg) {
     var card = document.createElement('div');
     card.className = 'answer-card error';
     card.innerHTML = '<div class="err-text">' + esc(msg) + '</div>';
-    if (output.querySelector('.empty')) output.innerHTML = '';
-    output.insertBefore(card, output.firstChild);
+    if (liveList.querySelector('.empty')) liveList.innerHTML = '';
+    liveList.insertBefore(card, liveList.firstChild);
   }
 
-  function renderAnswer(question, scope, character, data) {
+  function buildCard(opts) {
+    var question = opts.question;
+    var scope = opts.scope;
+    var character = opts.character;
+    var data = opts.data || {};
+    var pinned = !!opts.pinned;
+    var pinId = opts.pinId || null;
+
     var srcHtml = '';
     var sources = data.sources || [];
     if (sources.length) {
@@ -356,16 +527,67 @@
       '<span>' + (meta.elapsedMs || 0) + ' ms</span>' +
       '</div>';
 
+    var actionsHtml = '<div class="answer-actions">';
+    if (pinned) {
+      actionsHtml += '<button class="pin-btn unpin" data-action="unpin" data-pin-id="' + pinId + '">✕ Unpin</button>';
+    } else {
+      actionsHtml += '<button class="pin-btn" data-action="pin">📌 Pin to memory</button>';
+    }
+    actionsHtml += '</div>';
+
     var card = document.createElement('div');
-    card.className = 'answer-card';
+    card.className = 'answer-card' + (pinned ? ' pin-card' : '');
     card.innerHTML =
-      '<div class="answer-q">Question</div>' +
+      '<div class="answer-q">Question' + (pinned ? ' · Pinned' : '') + '</div>' +
       '<div class="answer-q-text">' + esc(question) + '</div>' +
       '<div class="answer-body">' + renderMarkdown(data.answer || '') + '</div>' +
-      srcHtml + metaHtml;
+      srcHtml + metaHtml + actionsHtml;
 
-    if (output.querySelector('.empty')) output.innerHTML = '';
-    output.insertBefore(card, output.firstChild);
+    // Wire pin/unpin buttons.
+    card.addEventListener('click', function (e) {
+      var btn = e.target.closest('.pin-btn');
+      if (!btn) return;
+      var action = btn.dataset.action;
+      if (action === 'pin') {
+        btn.disabled = true;
+        var name = charSelect.value;
+        if (!name) { btn.disabled = false; alert('Pick a character first.'); return; }
+        fetch('/api/protocol-droid/pins', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            characterName: name,
+            scope: scope,
+            question: question,
+            answer: data.answer,
+            sources: sources,
+            meta: data.meta || {},
+          }),
+        })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+          .then(function (res) {
+            if (!res.ok) { btn.disabled = false; alert('Pin failed: ' + (res.body.error || 'unknown')); return; }
+            btn.classList.add('pinned');
+            btn.textContent = '📌 Pinned';
+            refreshPins();
+          })
+          .catch(function (err) { btn.disabled = false; alert('Pin failed: ' + err.message); });
+      } else if (action === 'unpin') {
+        if (!confirm('Remove this pinned answer?')) return;
+        var id = btn.dataset.pinId;
+        fetch('/api/protocol-droid/pins/' + id, { method: 'DELETE' })
+          .then(function () { refreshPins(); })
+          .catch(function () {});
+      }
+    });
+
+    return card;
+  }
+
+  function renderAnswer(question, scope, character, data) {
+    var card = buildCard({ question: question, scope: scope, character: character, data: data, pinned: false });
+    if (liveList.querySelector('.empty')) liveList.innerHTML = '';
+    liveList.insertBefore(card, liveList.firstChild);
   }
 
   askBtn.addEventListener('click', function () {
@@ -386,10 +608,16 @@
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
       .then(function (res) {
         if (!res.ok) {
+          if (res.body && res.body.cooldown && res.body.remainingMs) {
+            startCooldown(res.body.remainingMs, res.body.cooldownMs);
+          }
           renderError(res.body && res.body.error ? res.body.error : 'Request failed.');
         } else {
           renderAnswer(q, scope, character, res.body);
           questionBox.value = '';
+          if (res.body.cooldown && res.body.cooldown.remainingMs) {
+            startCooldown(res.body.cooldown.remainingMs, res.body.cooldown.cooldownMs);
+          }
         }
       })
       .catch(function (e) {

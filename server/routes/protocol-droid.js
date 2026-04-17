@@ -317,6 +317,26 @@ router.get('/protocol-droid/characters', async (_req, res) => {
   }
 });
 
+// --- Per-character cooldown (3 min) ---
+const COOLDOWN_MS = 3 * 60 * 1000;
+const _lastAskAt = new Map(); // characterName(lc) -> ms
+
+function cooldownKey(name) {
+  return String(name || '').trim().toLowerCase() || '__anon__';
+}
+function cooldownRemainingMs(name) {
+  const last = _lastAskAt.get(cooldownKey(name));
+  if (!last) return 0;
+  const rem = COOLDOWN_MS - (Date.now() - last);
+  return rem > 0 ? rem : 0;
+}
+
+router.get('/protocol-droid/cooldown', (req, res) => {
+  const name = req.query.characterName;
+  const remainingMs = cooldownRemainingMs(name);
+  res.json({ remainingMs, cooldownMs: COOLDOWN_MS });
+});
+
 router.post('/protocol-droid/ask', async (req, res) => {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'GEMINI_API_KEY not configured.' });
@@ -328,6 +348,19 @@ router.post('/protocol-droid/ask', async (req, res) => {
   if (q.length > 1000) return res.status(400).json({ error: 'question too long (max 1000 chars).' });
 
   const isGmCaller = (req.cookies && req.cookies.eote_role === 'gm');
+
+  // Cooldown enforcement (GM bypass for testing).
+  if (!isGmCaller) {
+    const remainingMs = cooldownRemainingMs(characterName);
+    if (remainingMs > 0) {
+      return res.status(429).json({
+        error: 'The droid is still processing your prior request. Stay focused on the scene.',
+        cooldown: true,
+        remainingMs,
+        cooldownMs: COOLDOWN_MS,
+      });
+    }
+  }
 
   try {
     const wantCrew = (sc === 'crew' || sc === 'both');
@@ -364,6 +397,9 @@ router.post('/protocol-droid/ask', async (req, res) => {
     const text = result.response.text();
     const elapsedMs = Date.now() - t0;
 
+    // Stamp the cooldown only on a successful generation (errors don't burn the user's window).
+    if (!isGmCaller) _lastAskAt.set(cooldownKey(characterName), Date.now());
+
     let parsed;
     try { parsed = JSON.parse(text); }
     catch (_e) {
@@ -390,6 +426,10 @@ router.post('/protocol-droid/ask', async (req, res) => {
         promptChars: prompt.length,
         elapsedMs,
       },
+      cooldown: {
+        cooldownMs: COOLDOWN_MS,
+        remainingMs: isGmCaller ? 0 : COOLDOWN_MS,
+      },
     });
   } catch (e) {
     console.error('[protocol-droid/ask]', e);
@@ -397,6 +437,60 @@ router.post('/protocol-droid/ask', async (req, res) => {
       return res.status(504).json({ error: 'The droid is still processing. Please try again.' });
     }
     res.status(500).json({ error: 'Droid malfunction: ' + e.message });
+  }
+});
+
+// --- Pinned answers (persistent) ---
+router.get('/protocol-droid/pins', async (req, res) => {
+  try {
+    const name = (req.query.characterName || '').toString().trim();
+    const params = [];
+    let where = '';
+    if (name) { where = 'WHERE character_name = $1'; params.push(name); }
+    const r = await pool.query(`
+      SELECT id, character_name, scope, question, answer, sources, meta, created_at
+      FROM protocol_droid_pins
+      ${where}
+      ORDER BY created_at DESC
+      LIMIT 200
+    `, params);
+    res.json({ pins: r.rows });
+  } catch (e) {
+    console.error('[protocol-droid/pins:list]', e);
+    res.status(500).json({ error: 'Failed to load pins.' });
+  }
+});
+
+router.post('/protocol-droid/pins', async (req, res) => {
+  try {
+    const { characterName, scope, question, answer, sources, meta } = req.body || {};
+    const name = (characterName || '').toString().trim();
+    const q = (question || '').toString().trim();
+    const a = (answer || '').toString();
+    if (!name) return res.status(400).json({ error: 'characterName is required.' });
+    if (!q || !a) return res.status(400).json({ error: 'question and answer are required.' });
+    const sc = ['crew', 'rules', 'both'].includes(scope) ? scope : 'both';
+    const r = await pool.query(`
+      INSERT INTO protocol_droid_pins (character_name, scope, question, answer, sources, meta)
+      VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb)
+      RETURNING id, created_at
+    `, [name, sc, q, a, JSON.stringify(sources || []), JSON.stringify(meta || {})]);
+    res.json({ ok: true, id: r.rows[0].id, created_at: r.rows[0].created_at });
+  } catch (e) {
+    console.error('[protocol-droid/pins:create]', e);
+    res.status(500).json({ error: 'Failed to pin answer.' });
+  }
+});
+
+router.delete('/protocol-droid/pins/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isFinite(id)) return res.status(400).json({ error: 'invalid id.' });
+    await pool.query('DELETE FROM protocol_droid_pins WHERE id = $1', [id]);
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('[protocol-droid/pins:delete]', e);
+    res.status(500).json({ error: 'Failed to delete pin.' });
   }
 });
 

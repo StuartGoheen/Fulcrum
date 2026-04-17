@@ -246,6 +246,20 @@ async function initSchema() {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS visibility TEXT NOT NULL DEFAULT 'crew'`);
     } catch (e) {}
     try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS protocol_droid_pins (
+          id              SERIAL PRIMARY KEY,
+          character_name  TEXT NOT NULL,
+          scope           TEXT NOT NULL,
+          question        TEXT NOT NULL,
+          answer          TEXT NOT NULL,
+          sources         JSONB NOT NULL DEFAULT '[]',
+          meta            JSONB NOT NULL DEFAULT '{}',
+          created_at      TIMESTAMP DEFAULT NOW()
+        )`);
+      await client.query(`CREATE INDEX IF NOT EXISTS idx_protocol_pins_char ON protocol_droid_pins (character_name, created_at DESC)`);
+    } catch (e) {}
+    try {
       await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
     } catch (e) {}
     try {
