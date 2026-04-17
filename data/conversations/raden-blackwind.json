@@ -1,0 +1,334 @@
+{
+  "id": "raden-blackwind",
+  "title": "The Man in the Shed",
+  "subtitle": "Warrick Raden — Filtration Plant Maintenance Shed",
+  "setting": "The maintenance shed on the west side of the abandoned filtration plant — swamp's edge, Blackwind Point. A single charge lamp on the floor. Crates pulled across the door as a barricade. Trip-wires outside.",
+  "context": "The crew has just talked Raden into lowering the blaster — barely. He hasn't slept in three days. He hasn't eaten a real meal in longer. There are Trandoshans somewhere out in the swamp hunting him and he knows it. He has no reason to trust the people who just walked through his door, except that one of them said the name 'Varth' and Varth was supposed to be dead. The blaster is on the workbench within reach. Raden is sitting on an overturned cargo crate with his back to the wall and his eyes on the door.",
+  "readAloud": "Up close Raden looks worse than he sounded through the shutter. Devaronian, mid-forties, red skin gone dull and gray with sleep deprivation. His horns are nicked. There is a three-day beard coming in along his jaw and dried blood on the cuff of his coat that he hasn't bothered to wash off. The shed smells like sweat and ration-pack grease and the swamp leaking in through the seams in the wall.\n\nHe sits on a cargo crate with his back to the wall. The blaster is on the workbench within easy reach of his right hand. He has not put it away. He will not put it away.\n\n\"You said his name,\" he says. The voice is hoarse from disuse. \"You said Varth's name. So either you know him or somebody told you to say it to get me to open this door. Which is it?\"\n\nA pause. A swallow. The eyes flick to the blaster, then back.\n\n\"I'm going to listen to whatever you've got. But I want you to understand the situation. There are four Trandoshans somewhere within a kilometer of this building who are paid to put a bolt through my skull. I have been awake for three days. If anything you tell me sounds wrong — if I think for one second this is a setup — I am going to take my chances with the swamp instead of with you. So make it count.\"",
+  "gmNotes": "This is a structured social scene using a conversation tree, modeled on Maya's galley conversation. The crew asks questions; Raden answers — as much as a terrified man with a blaster on the table will answer. No dice unless a player calls for an Insight check (Raden's Resist is 0 — he is wide open, but he doesn't believe what he reads in himself anyway).\n\nRaden starts at Comfort 2 (terrified, suspicious, one wrong word from bolting). Story topics that build credibility — proof Varth is alive, proof the Trandoshans are real and the crew knows it, demonstrating the cover identity Varth pitched — hold or raise comfort. Business topics about the fortress, Varga, and TC-663 are neutral. Probe topics about Raden's own crimes, his time in Varga's network, or his guilt cost 1 comfort each. At Comfort 2, the deeper personal-history follow-ups lock out. At Comfort 1, Raden grabs the blaster and exits — he'll still flee with the crew when the Trandoshans arrive in s4, but the cover-story workshop beat is gutted and he gives them maps only.\n\nThe crew does NOT see the comfort meter. The GM signals it through Raden's body language — his hand drifts toward the blaster when comfort drops, away from it when it rises. His sentences get shorter. He starts looking at the door more often.\n\nCOMFORT TRACKING NOTE: The conversation engine auto-applies negative comfortCost values, but positive comfort gains called out below (e.g., proof of Varth lifts comfort +1 immediately) are GM-enforced — manually nudge the comfort tracker up at the moments flagged in the per-response gmNote fields. Until engine support exists for positive shifts, treat these as authoritative GM instructions.\n\nVOICE: Raden is brittle and tired and surprisingly precise when he's talking about Varga's operation. He was a good middleman before he started skimming. The professional comes back when he's discussing logistics — guard rotations, routing data, who hates whom in the court. The man falls back into the role like putting on a coat that still fits.\n\nVARTH PROOF: The fastest comfort gain available is hard evidence Varth is alive and on this job. If the crew showed him a written note, a signal phrase Varth gave them on the Banshee, or even just specific true details about Varth (the temple tap, the 64-character authentication string, the Anaxes upbringing), Raden's shoulders drop by a visible inch. Comfort +1 immediately.\n\nTHE HORN-RUB TELL: When a topic gets too close to something he is ashamed of — the bodies, the Hutt enforcer drop on Nal Hutta, what he actually skimmed and from whom — Raden rubs the base of his left horn with his thumb. It's a self-soothing gesture. Recurring across the campaign if he survives. Note it but don't draw attention.\n\nCAMPAIGN CONTINUITY: Raden's intel is the foundation of the cover-story workshop beat (adv2-p1-s3 Beat 4) and the entire Court of Varga sequence (adv2-p1-s5). Comfort at end of conversation determines how rich the cover identities are when the workshop beat begins:\n  • Comfort 4-5: full intel + Raden personally roleplays each cover identity through with the crew. Step up Power on cover-story Deception checks in s5.\n  • Comfort 3: full intel, no roleplay. Standard.\n  • Comfort 2: maps and TC-663 only. No coaching on Varga's court politics.\n  • Comfort 1 (he bolted): maps only, drawn fast and bitter while he packs. No TC-663 details, no Demos warning.\n\nENDING: The scene ends when (a) the Trandoshan boots are heard outside (GM hard-cuts to s4 — 'You hear it now. Heavy boots in the swamp.'), (b) the crew runs out of accessible topics, or (c) comfort hits 1 and Raden grabs the blaster and bolts for the back door (GM transitions to s4 with the crew now chasing both the Trandoshans AND Raden).",
+  "comfort": {
+    "starting": 2,
+    "max": 5,
+    "exitThreshold": 1,
+    "exitLine": "Raden's hand closes on the blaster. He stands up too fast — the cargo crate scrapes across the floor. 'No. No, I am done. Whatever this is — I am done.' He rubs the base of his left horn once, hard. 'Tell Varth I said sorry. Tell him I tried.' He kicks the back-wall panel out — a hidden bolt-hole he'd already prepped — and is gone into the swamp before anyone can grab him. The Trandoshans are still out there. So is he. The conversation is over. Not hostile — just broken.",
+    "dryLine": "Raden looks at the door. Then at the workbench. Then at the crew. 'Okay. Okay.' He lets out a long breath. 'That's everything I know that's worth saying. The rest is just me being scared at you, and you don't need to hear it.' He picks up the blaster — slowly, no threat — and slides it into the holster on his hip. 'Whatever you're going to do with this — do it fast. Those Trandoshans are not going to wait.' The professional briefer is back. The terrified man is still there underneath, but he's pulled himself together long enough to finish the job."
+  },
+  "roots": [
+    {
+      "id": "raden-prove-varth",
+      "text": "Varth is alive. Here is the proof.",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "He is silent for a long moment. The hand near the blaster relaxes — just a fraction. He looks at whatever you've offered — a written note, the signal phrase, a specific true thing about Varth that nobody else would know.\n\n\"Stars.\" The word comes out like he's been holding it in for two years. \"He's alive. He's actually — \"\n\nHe rubs the base of his left horn with his thumb. The breath he lets out shakes more than he wants it to.\n\n\"I told myself he was dead. It was easier that way. If he was dead the skim was just numbers. If he was alive — \"\n\nHe stops. Doesn't finish that sentence. Pulls himself together.\n\n\"Okay. Okay. If he sent you, then this is real. Ask me what you came to ask. I'll tell you what I know.\"",
+      "gmNote": "FAST COMFORT GAIN: This root is the credibility unlock. If the crew leads with proof, Raden's comfort jumps from 2 to 3 immediately — the unfinished sentence is real, and the horn-rub is the tell that they hit something. If the crew DOESN'T have proof and leads with this anyway, Raden cocks his head, says 'Prove it,' and waits — comfort drops to 1 if they can't deliver. This is the most important question to ask first.",
+      "unlocks": [
+        "raden-varth-history",
+        "raden-the-skim",
+        "raden-the-debt"
+      ],
+      "tags": [
+        "varth",
+        "credibility",
+        "comfort-gain"
+      ]
+    },
+    {
+      "id": "raden-fortress-intel",
+      "text": "Tell us about Varga's fortress.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "His face changes. The terrified man in the shed steps aside, just for a moment, and the middleman who used to manage Varga's payroll comes forward.\n\n\"Old stone fortress on the far shore of Nymeve Lake. Republic-era ruin retrofitted into a Hutt court — moss on the walls, blaster turrets in the moss, gaudy banners over the turrets. Three floors above ground, two below. The dungeons are below. The throne room is on the ground floor. The guest quarters and the gambling halls are above.\"\n\nHe pulls a folded sheaf of flimsi out of his coat — hand-drawn maps, smudged from being slept on.\n\n\"I drew these from memory while I was waiting for somebody to find me. They're not perfect. The dungeon corridor on the lower right may have been re-walled since I last went down there — Varga rebuilds the cells when he's bored. But the throne room layout, the guard posts, the kitchen approach, the aviary — those are accurate.\"\n\nHe spreads the flimsi on the workbench.\n\n\"Two ways in if you can't use the dock. A sewer outflow on the lake side — narrow, but it skips the gate. And a kitchen delivery hatch on the south wall that the Gamorreans don't watch because nobody respects the kitchen. I'd take the dock. Bring entertainment papers. Look like you belong.\"",
+      "gmNote": "Raden lights up here — this is what he's good at. Maps appear physically on the table. The GM should treat the maps as props the players can reference for the rest of the adventure. Mention the aviary (sets up the Kessra grudge payoff in p2-s3). The two alternate entries are real and usable if the cover identity blows up later.",
+      "unlocks": [
+        "raden-tc663",
+        "raden-varga-paranoia",
+        "raden-aviary",
+        "raden-demos"
+      ],
+      "tags": [
+        "intel",
+        "fortress",
+        "professional"
+      ]
+    },
+    {
+      "id": "raden-cover-pitch",
+      "text": "Varth wants us to walk in as entertainment. Sell us on it.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "He nods. He has clearly thought about this.\n\n\"It's the right move. Varga's hosting constantly — gladiators, jizz-wailers, dancers, gamblers, mercenaries looking for a contract. He brings new faces in every week and most of them never see a second week. You arrive, you audition, you're either entertaining enough to keep around or you're entertaining enough to feed to the pit. Either way you're inside.\"\n\nHe taps the maps.\n\n\"What you need is a pitch per person that survives Varga's first question. He always asks the same first question — 'What can you do for me?' — and he doesn't want a resume. He wants a story. Three sentences. A hook, a brag, a price. Get those three sentences right per crew member and he'll wave you in.\"\n\nHe looks up at you.\n\n\"I can help with that. If you want. I know what he likes — what he laughs at, what bores him, what makes him paranoid. Spend an hour with me before you walk in there and your covers will hold under the first round of questions. Maybe the second.\"",
+      "gmNote": "This is the explicit handoff into the Cover-Story Workshop beat (adv2-p1-s3 Beat 4). Raden offering to coach is comfort-dependent: at Comfort 3+ he volunteers it (this response). At Comfort 2 he says 'Maps will have to be enough — I'm not staying.' At Comfort 1 he's already gone. The 'three sentences — hook, brag, price' framing is the actual mechanic the workshop beat uses.",
+      "unlocks": [
+        "raden-varga-likes",
+        "raden-court-politics",
+        "raden-bring-me"
+      ],
+      "tags": [
+        "cover-story",
+        "workshop",
+        "handoff"
+      ]
+    },
+    {
+      "id": "raden-trandoshans",
+      "text": "How long until the Trandoshans get here?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "His eyes flick to the door.\n\n\"Soon. I don't know. Hours, maybe. Less if they had a tracker on Mekka — Mekka sold me supplies and Mekka would sell his own teeth if you offered enough.\"\n\nHe rubs the base of his left horn.\n\n\"There's four of them. I counted from the tree line two days ago. They were tracking Sergeant Yax — old Imperial scout, used to run Varga's protection details before he went freelance. Yax knows scent-tracking and he knows how to flush a runner toward a kill team. If they catch the smoke from this lamp, or pick up my trail through the swamp, they'll move on us in less than an hour.\"\n\nA hard look.\n\n\"Whatever you're going to ask me, ask it now. I want to be elsewhere by sundown. Preferably with you. Preferably not in a body bag.\"",
+      "gmNote": "TIMING PRESSURE: This is the GM's clean exit lever — Raden himself flags that the Trandoshan attack is imminent. Use this response to start the countdown if the players are dawdling. After this answer, the GM can hard-cut to s4 (Hit Squad) at any time without it feeling abrupt. The 'four of them' detail seeds the s4 enemy count. Yax is unnamed elsewhere — flavor only.",
+      "unlocks": [
+        "raden-yax",
+        "raden-getting-out"
+      ],
+      "tags": [
+        "threat",
+        "pacing",
+        "exit-lever"
+      ]
+    },
+    {
+      "id": "raden-why-hiding",
+      "text": "Why is Varga hunting you?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "He looks at the floor.\n\n\"Because I stole from him.\"\n\nHe rubs the base of his left horn — hard, this time.\n\n\"After Varth was taken — after everyone said Varth was dead — I was the only one left who knew how the skim worked. I had the routing protocols memorized. I had the access codes. I told myself I was protecting the network. What I was actually doing was running a smaller version of Varth's operation for myself, through Varga's same infrastructure, taking eight percent off the top of credits that were already stolen.\"\n\nA bitter half-laugh.\n\n\"I made it six weeks. Varga has an internal audit clan he uses for exactly this kind of thing. Six weeks. Varth made it eighteen months. I am not Varth.\"\n\nHe looks at you.\n\n\"Varga doesn't kill thieves. He puts them in the pit. He lets a rancor or a krayt or whatever he's fattening up that month do it in front of his court while the band plays. That's the show. That's what's waiting for me if you put me on a skiff back to that fortress.\"",
+      "gmNote": "Comfort drops by 1 — but Raden answered honestly, and the players now have the moral weight of the dark-path option (delivering Raden to Varga as a gift). The 'six weeks vs eighteen months' line is Raden's self-assessment — he respects Varth professionally, knows he's not in Varth's class, and is ashamed of both facts. If a PC follows up with kindness here, comfort gain. If they follow up with pressure, comfort drops further toward exit.",
+      "unlocks": [
+        "raden-the-pit",
+        "raden-the-debt"
+      ],
+      "tags": [
+        "probe",
+        "shame",
+        "dark-path-weight"
+      ]
+    },
+    {
+      "id": "raden-why-trust-you",
+      "text": "Why should we trust you with our cover?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "A long beat. He doesn't try to sell it.\n\n\"You shouldn't.\"\n\nHe lets that land.\n\n\"I am a thief who got caught and spent the last six weeks running through a swamp. I am sleep-deprived. I am scared. I am going to flinch at the wrong moment when this gets hard, because that's what tired terrified people do.\"\n\nHe meets your eyes.\n\n\"What I have is the maps and the names and the routines and a working knowledge of how Varga's court breathes in and out. That's worth something. It's worth my place on the skiff out of here. It is not worth your trust. Use what I tell you. Verify what you can verify. Don't let me near anything that matters once you're inside the fortress.\"\n\nA short, tired exhale.\n\n\"That's the honest pitch. Take it or don't.\"",
+      "gmNote": "Direct echo of Varth's 'You shouldn't' answer to the same probe — intentional. Raden learned this kind of pitch from working under Varth. The cleanness of the answer is itself a small comfort gain (the players can SEE he's not lying), but the topic still costs 1. Net: comfort drops by 1, but the crew now has a clear-eyed assessment of what Raden is and isn't worth.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "honest",
+        "deflection"
+      ]
+    },
+    {
+      "id": "raden-what-you-want",
+      "text": "What do you want out of this?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "He thinks about it longer than the question deserves.\n\n\"A seat on whatever ship you brought. A jump out of this system to somewhere Varga's reach doesn't extend. The Outer Rim, the Corporate Sector, anywhere with crowds. I'll pay my own way once I'm clear — I have a credit cache on Bonadan I can reach if I'm alive in a month.\"\n\nA pause.\n\n\"I don't want a cut of whatever Varth is paying you. I'm not going to ask for one. The intel is the price of the ride. If Varth wants to settle accounts with me later — \" the horn-rub again \" — that is between him and me. I owe him. I know I owe him. I'm not going to pretend the math is anything other than what it is.\"\n\nHe looks down at the workbench.\n\n\"That's what I want. A jump. A second chance to be a less stupid version of myself. That's the whole list.\"",
+      "gmNote": "Real and small. Raden is not asking for much — and he knows he doesn't deserve much. The Bonadan cache is real and may seed a future scene if Raden survives Adventure 2. The 'I owe him' line is the player-facing setup for Varth's eventual decision to execute Raden in p2 — Raden himself acknowledges Varth has the right to make that call. Comfort drops by 1 but Raden is more honest with the crew than he's been with himself in two years.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "personal",
+        "true"
+      ]
+    }
+  ],
+  "followUps": {
+    "raden-varth-history": {
+      "id": "raden-varth-history",
+      "parentId": "raden-prove-varth",
+      "text": "How did you end up working for Varth?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "\"Same way most middlemen end up working for anyone. He needed a Devaronian who could move between Hutt-controlled systems and Imperial customs without being asked twice. I needed steady work that didn't involve me getting shot at. We were introduced through a mutual contact on Nar Shaddaa — a smuggler I'd done two clean runs for who told Varth I could keep my mouth shut.\"\n\nA small, almost-smile.\n\n\"He paid me on time, every time, in whatever currency I asked for. He never asked me to carry anything I couldn't walk away from. The one job I refused — a sealed crate to a Hutt enforcer on Nal Hutta — he paid the kill fee and found someone else. No threats, no follow-up.\"\n\nThe smile fades.\n\n\"That's why I told myself it was okay to skim. He'd been decent to me. I'd been decent to him. The math felt like it balanced. It didn't.\"",
+      "gmNote": "The 'sealed crate to a Hutt enforcer on Nal Hutta' line is a deliberate echo of Maya's same anecdote in maya-banshee-galley — they were BOTH offered that job and BOTH refused it. The job got done by someone else. This is a small piece of cross-character continuity for players who run both conversations. Maya never met Raden, but they share a moral coordinate.",
+      "unlocks": [],
+      "tags": [
+        "varth",
+        "history",
+        "continuity-maya"
+      ]
+    },
+    "raden-the-skim": {
+      "id": "raden-the-skim",
+      "parentId": "raden-prove-varth",
+      "text": "How did Varth's skim actually work?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "He almost laughs.\n\n\"Beautifully. It was beautiful. Every tenth shipment in the Empire's Outer Rim materiel pipeline — fuel, durasteel, tibanna gas — got a duplicate requisition generated inside Varga's Besadii logistics system. The Empire paid for one shipment. Varga's books showed two. The delta was credits flowing through Varga's network into an encrypted account that only Varth could open.\"\n\nHe shakes his head.\n\n\"I moved the routing data between drop points. I never knew the contents of what I was carrying — the data was sealed, encrypted, addressed to specific officers in specific places. I figured out what it was after about a year, from context. By then I was too deep to ask questions.\"\n\nA pause.\n\n\"He made it look like he was paying Varga's clan in full. Varga thought he had a profitable Imperial contract. The Empire thought they had a tightly-managed supply chain. Varth was eating both sides for eighteen months. I have never seen anything that elegant before or since.\"",
+      "gmNote": "Background context for players who didn't run varth-first-supper. Raden's admiration is professional and real — he respects Varth the way a journeyman respects a master. The 'I figured out what it was after about a year' is true and not a lie like Varth's 'I never asked' framing. Raden was the one actually moving the goods. He knew.",
+      "unlocks": [],
+      "tags": [
+        "varth",
+        "skim",
+        "background"
+      ]
+    },
+    "raden-the-debt": {
+      "id": "raden-the-debt",
+      "parentId": "raden-prove-varth",
+      "text": "What do you owe Varth?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "He is quiet for a long moment.\n\n\"Two years ago — before he was taken — I got into trouble on a job that wasn't his. I owed a Black Sun lieutenant fifteen thousand credits I didn't have. He was about to put me in a hole on Nar Shaddaa and Varth heard about it. Varth paid the debt. Through a third party so it didn't trace back. I didn't know it was him until eight months later when the Black Sun lieutenant got drunk and bragged about who'd paid me out.\"\n\nThe horn-rub.\n\n\"He never asked me for anything. Never collected. Then he got captured and I — \" he stops. Restarts. \"I told myself he was dead and I started skimming his network. The man who'd paid off my debt without ever mentioning it. That is what I did.\"\n\nHe looks at you.\n\n\"So when you ask what I owe him — I owe him my life and I owe him an apology I am not going to get a chance to make. If he wants my head when this is done, he is welcome to it. I am not going to pretend I don't deserve it.\"",
+      "gmNote": "DEEP CONTINUITY with Maya: she received the SAME favor from Varth (Banshee out of bonded auction on Bestine), through a third party, never knew until later. Maya repaid by joining this crew. Raden repaid by stealing from him. The parallel is the point — Varth invests in people he thinks he can use, and the people respond differently. This response is the moral foundation for Varth's execution of Raden in p2-s7. Raden has now told the crew, in plain words, that he expects it.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "debt",
+        "varth",
+        "continuity-maya",
+        "true"
+      ]
+    },
+    "raden-tc663": {
+      "id": "raden-tc663",
+      "parentId": "raden-fortress-intel",
+      "text": "Tell us about TC-663.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Silver protocol droid. Translates for Varga because Varga refuses to speak Basic in public — Varga thinks Huttese is a power move and he's not wrong. TC-663 has been at Varga's side for about four years. He's polished, he's polite, he's apparently loyal.\"\n\nA small look.\n\n\"He is also reporting to someone outside the fortress. I don't know who. I never asked, because the not-asking was the smartest thing I ever did with TC-663. But I know the signs. There's a tone he uses when he's translating that means he's editing what Varga said. There's a pause he takes when he's about to be asked something he doesn't want to answer truthfully.\"\n\nHe taps the workbench.\n\n\"If you have a code phrase from someone he might trust — anyone in the slicing community, anyone with a serious reputation — try it on him. Privately. If he responds, you have an asset inside Varga's throne room. If he doesn't, you've lost nothing because he won't blow you in to Varga either. He doesn't betray people just for the practice.\"",
+      "gmNote": "This is the explicit setup for the Switch code phrase (carried over from Adv1). Raden doesn't know about Switch specifically — he's just observed TC-663 long enough to know the droid is on someone's payroll. If the crew has the Switch code phrase from Adv1, this conversation primes them to use it correctly in s5. If they don't, Raden's instructions still work for any other slicer credential they might have.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "tc663",
+        "switch"
+      ]
+    },
+    "raden-varga-paranoia": {
+      "id": "raden-varga-paranoia",
+      "parentId": "raden-fortress-intel",
+      "text": "What's Varga's paranoia look like up close?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"It looks like a man who doesn't trust technology he didn't watch get assembled. All his critical financial data is stored in a system with no external network access — you have to be physically inside the fortress to touch it. He moves the routing data manually, on physical chips, in his own hand, twice a year. He sleeps with a vibroblade in reach. He has the skiff dock guarded by a relative because he doesn't trust hired help to control his only escape route.\"\n\nHe leans forward.\n\n\"The most useful piece of intel I can give you about Varga is this — he is smart enough to be paranoid AND smart enough to know when his paranoia is making him miss things. So he overcompensates by hosting court. He brings strangers into his home constantly because he believes that watching them up close is safer than letting them operate at a distance. That's the door you walk through. He thinks he's controlling the risk by watching you. He isn't.\"\n\nA short pause.\n\n\"There's also something behind his right temple I never figured out. A cybernetic of some kind — the Bothans who installed it were paid to forget. I saw it flicker once when he was excited. Don't ask him about it. Ask whoever installed it, if you can find them.\"",
+      "gmNote": "CRITICAL BREADCRUMB: The cybernetic implant detail is the engine of Adventure 2's plot — the Cybot Galactica Model VII courier that holds the routing data is surgically embedded in Varga's skull. Raden saw it once and never put it together. The crew now has explicit foreshadowing for the Iron Ring scene (p2-s2) and the implant identification in p2-s3. This is the most important business beat in the conversation.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "varga",
+        "implant-foreshadow"
+      ]
+    },
+    "raden-aviary": {
+      "id": "raden-aviary",
+      "parentId": "raden-fortress-intel",
+      "text": "What's the aviary?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Old Republic-era observation tower on the east side of the fortress. Varga converted it into a raptor hall — vesper-hawks, mostly, plus a few imported Corellian striker-eagles. He bets on them in private matches against visiting nobles and crime lords. The birds are aggressive, half-starved, and trained to attack on a hand signal.\"\n\nA flat look.\n\n\"It is the worst place in the fortress to be ambushed. The catwalks are narrow, the cages can be opened from a control panel on the upper level, and once the birds are out they don't distinguish between targets. If somebody at court has a grudge against you and they want to do it quiet, they take you to the aviary. Avoid that room unless you are the one bringing the trap.\"",
+      "gmNote": "Explicit setup for the Kessra aviary ambush in p2-s3 (only triggered if the crew humiliated Kessra in p1-s1). If the crew picked up that decision-point flag, Raden's warning here is doubly useful. If they didn't trigger the Kessra grudge, the aviary intel is still flavor that justifies why the crew should NEVER agree to a private meeting in the aviary.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "aviary",
+        "kessra-payoff"
+      ]
+    },
+    "raden-demos": {
+      "id": "raden-demos",
+      "parentId": "raden-fortress-intel",
+      "text": "Who's the Neimoidian at Varga's right hand?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Igren Demos. Majordomo. Officially he runs the household — staff, payroll, contracts, supply lines. Unofficially he is the person Varga trusts most and the person most likely to put a knife in him.\"\n\nA pause.\n\n\"Demos is something else. I don't know what. There is a — quality — to the way he reads a room that I have only seen in two other people in my life and both of them turned out to be Force-sensitive. I am not saying he is. I am saying watch him. He notices things he shouldn't notice. He answers questions that haven't been asked. He is plotting something against Varga and he has been plotting it since at least the year before I left.\"\n\nA hard look.\n\n\"If your job goes wrong inside that fortress, Demos is the person who will see it first. Plan accordingly.\"",
+      "gmNote": "Foreshadowing for Demos's reveal in p2 as untrained Force-sensitive AND active conspirator. Raden's professional read is accurate. The crew now has a name and a warning before they walk into court — they should be primed to watch Demos, which makes his eventual betrayal of Varga in p2-s8 land as confirmation rather than surprise.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "demos",
+        "force-foreshadow"
+      ]
+    },
+    "raden-varga-likes": {
+      "id": "raden-varga-likes",
+      "parentId": "raden-cover-pitch",
+      "text": "What does Varga laugh at?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Cruelty performed with style. Casual competence — the Tech who fixes his hover-sled in under a minute will get more genuine pleasure out of him than the gladiator who wins a thirty-minute fight. Stories where the storyteller comes off slightly worse than the villain. Anyone who insults a Hutt rival of his by name, especially the Desilijic clan.\"\n\nHe ticks them off.\n\n\"What he does NOT laugh at — politeness, deference for its own sake, anyone who tries to flatter him. He's been flattered by professionals for forty years. He sees through it before you finish the sentence. Be sharp. Be a little disrespectful. Be willing to put yourself down before you put him up. He responds to people who seem to be themselves.\"",
+      "gmNote": "Practical coaching for the Charm/Deception checks in s5. The 'casual competence over flashy effort' note is mechanically true — Varga's Charm/Deception/Tech audition resists are all 4, but mastery on a Tech check unlocks more than mastery on a Charm check. The 'insult the Desilijic' line is real and gives a free shortcut for any PC who knows Hutt clan politics.",
+      "unlocks": [],
+      "tags": [
+        "cover-story",
+        "varga",
+        "coaching"
+      ]
+    },
+    "raden-court-politics": {
+      "id": "raden-court-politics",
+      "parentId": "raden-cover-pitch",
+      "text": "Walk us through the court factions.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Three groups you need to know. The Iron Ring is a rotating delegation of slavers and arms dealers — they buy, sell, and broker, and they're in court roughly half the time. They tip well, they talk too much, and they will sell out anyone for a percentage. Useful and dangerous.\"\n\n\"The Imperial liaisons are quieter. There's usually one or two — current rotation includes a 'Lady Sinde' who is almost certainly ISB under a cover identity. Treat her as the most dangerous person in the room at all times. She is not a guest. She is a measurement.\"\n\nA breath.\n\n\"And then there is the household — Demos, the senior Gamorreans, TC-663, Varga's two body-cousins. They've all been there for years. They watch each other more than they watch the visitors. Anything that disturbs the household balance gets reported up. Don't try to flip a household member directly. Work around them.\"",
+      "gmNote": "Sets up Iron Ring (p2-s2) and Lady Sinde (p2-s4) by name and faction before the players meet them. Crews who run this conversation will arrive at the throne room with a working political map of the court — which is exactly what the crew of Adventure 2 is supposed to have.",
+      "unlocks": [],
+      "tags": [
+        "cover-story",
+        "court-politics",
+        "foreshadow"
+      ]
+    },
+    "raden-bring-me": {
+      "id": "raden-bring-me",
+      "parentId": "raden-cover-pitch",
+      "text": "Should we bring you with us into the fortress?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "He goes very still.\n\nThe hand drifts toward the blaster — not aggressive, just a tired man's reflex when he's reminded what's at stake.\n\n\"No.\"\n\nA breath.\n\n\"If you walk me onto Varga's dock, I am dead inside an hour. Public execution. Probably the pit. Probably while you watch from the gallery. There is no version of this where I survive going back to that fortress, and there is also no version where my dying entertainment doesn't make Varga MORE paranoid and harder to work, not less. Delivering me as a gift is a story you can tell yourselves. It is not a strategy.\"\n\nHe looks at you steady.\n\n\"If Varth told you to bring me in chains, that is Varth being Varth. He's testing whether you'll do it. He doesn't actually need me dead to get paid. He needs the routing data, and the routing data is in Varga's skull, not mine. Make your own call. But make it knowing what you'd be choosing.\"",
+      "gmNote": "DARK PATH GATE: This is the moment the crew has to make the moral choice consciously. Raden has now told them, plainly, that delivering him is a tactical waste AND a choice they have to live with. If they proceed with the dark path option from the existing decisionPoints, they cannot claim later they didn't know. Comfort drops by 1 — but Raden has earned the right to make this case directly. The 'Varth being Varth' read is accurate and primes the crew to push back on Varth's later betrayals.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "dark-path",
+        "moral-weight"
+      ]
+    },
+    "raden-yax": {
+      "id": "raden-yax",
+      "parentId": "raden-trandoshans",
+      "text": "Sergeant Yax — anything we should know?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Old. Patient. Fifteen years in the Imperial Army before he washed out for being too willing to enjoy the work. Varga hired him three years ago to run protection for high-value caravans and he was good at it — too good. Eventually he wanted his own contracts. Went freelance. Now he runs hit packages for whoever pays the rate.\"\n\nA flat look.\n\n\"He doesn't lead from the front. He sets the trap and makes the Trandoshans flush the target into it. If you hear blaster fire and you can't see Yax, you are about to walk into the kill zone. Find him before you commit. He'll be high ground, downwind, with a long-barrel rifle and a spotter.\"",
+      "gmNote": "Optional intel that buffs the s4 fight — if a player remembers and acts on it, the GM can add a sniper position to s4 for the crew to clear (which removes a Trandoshan harassment effect) OR keep the standard four-Trandoshan fight as written. Raden's read is professional and bitter. He's been hunted by this man for three days and he's noticed.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "yax",
+        "s4-buff"
+      ]
+    },
+    "raden-getting-out": {
+      "id": "raden-getting-out",
+      "parentId": "raden-trandoshans",
+      "text": "How do we get you off this moon alive?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "\"Through the swamp on foot to a clearing about three klicks west of here. There's a service trail the old plant operators used — overgrown but passable. From the clearing your pilot can pick me up without coming near Blackwind Point. I've been mapping the route for two days; I know where the soft ground is and where the old conduit lines are buried.\"\n\nHe nods to a folded map on the workbench — different from the fortress maps.\n\n\"If we move tonight after the Trandoshans, I can be at the clearing before sunrise. Tell your pilot to come in low along the lake. Anyone watching from the fortress will think she's a smuggler running spice into the encampment.\"\n\nA tired half-smile.\n\n\"It's not a great plan. It's the plan I have. After two years of Varth's plans I am willing to accept that mine are smaller.\"",
+      "gmNote": "Practical exit route for Raden if the crew chooses to extract him after s4. Maya can run the pickup off-screen during the transit to the fortress. If the crew chooses the dark path (deliver him), this conversation never happens — they take a different route. The 'after Varth's plans I am willing to accept that mine are smaller' line is Raden's final emotional honest moment in the conversation.",
+      "unlocks": [],
+      "tags": [
+        "exfil",
+        "logistics"
+      ]
+    },
+    "raden-the-pit": {
+      "id": "raden-the-pit",
+      "parentId": "raden-why-hiding",
+      "text": "Why does Varga use the pit?",
+      "type": "probe",
+      "comfortCost": -1,
+      "minComfort": 3,
+      "response": "He looks at the floor for a long time.\n\n\"Because he learned thirty years ago that the worst punishment for betrayal is to make the betrayer perform their own death for an audience. Hutts pass that lesson down generation to generation. Varga's grandfather used to feed embezzlers to a sarlacc on Tatooine — same logic. The slow death tells the rest of the household what happens to people who skim.\"\n\nThe horn-rub. Slow.\n\n\"I have watched four executions in that pit. I am not going to describe them to you. Suffice it to say — when you walk into Varga's court, the people standing closest to him have all watched at least one. That is what holds the household together. Not loyalty. Witnessed cruelty.\"",
+      "gmNote": "Heavy follow-up — only available at Comfort 3+ because it requires Raden trusting the crew enough to talk about something that will haunt him. The 'I am not going to describe them' is a hard line he's drawing. Respect it. If a player pushes for graphic detail, the GM should narrate Raden's eyes welling up and his refusal to continue — comfort drops by 2. Some things are not for the table.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "varga",
+        "trauma"
+      ]
+    }
+  }
+}
