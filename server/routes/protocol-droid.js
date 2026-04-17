@@ -46,6 +46,39 @@ function loadRulesCorpus() {
   return _rulesCache;
 }
 
+async function loadDramatisCorpus(isGmCaller) {
+  // Players only see revealed NPCs and never gm_notes; GM sees everything.
+  const where = isGmCaller ? '' : 'WHERE revealed = true';
+  const r = await pool.query(`
+    SELECT id, npc_key, name, species, role, status, player_bio, ${isGmCaller ? 'gm_notes,' : ''} traits, connections, revealed
+    FROM npc_profiles
+    ${where}
+    ORDER BY sort_order ASC, id ASC
+  `);
+  const profiles = r.rows;
+  if (!profiles.length) return [];
+
+  const keys = profiles.map(p => p.npc_key);
+  const tlWhere = isGmCaller ? '' : 'AND revealed = true';
+  const tl = await pool.query(`
+    SELECT npc_key, adventure_ref, scene_ref, event_text, revealed, created_at
+    FROM npc_timeline
+    WHERE npc_key = ANY($1::text[]) ${tlWhere}
+    ORDER BY npc_key ASC, id ASC
+  `, [keys]);
+
+  const byKey = {};
+  for (const e of tl.rows) {
+    (byKey[e.npc_key] = byKey[e.npc_key] || []).push(e);
+  }
+  for (const p of profiles) {
+    p.timeline = byKey[p.npc_key] || [];
+    try { p.traits = typeof p.traits === 'string' ? JSON.parse(p.traits) : (p.traits || []); } catch (_) { p.traits = []; }
+    try { p.connections = typeof p.connections === 'string' ? JSON.parse(p.connections) : (p.connections || []); } catch (_) { p.connections = []; }
+  }
+  return profiles;
+}
+
 async function loadJournalCorpus(viewerName) {
   const v = (viewerName || '').toString().trim();
   if (!v) return [];
@@ -103,14 +136,52 @@ function buildRulesSection(sections) {
   ).join('\n');
 }
 
-function buildPrompt({ characterName, scope, question, journalEntries, rulesSections }) {
+function buildDramatisSection(profiles, isGmCaller) {
+  if (!profiles.length) return '(No revealed dossiers available.)';
+  const lines = [];
+  for (const p of profiles) {
+    lines.push(`--- DOSSIER key=${p.npc_key} ---`);
+    lines.push(`Name: ${p.name}` + (p.species ? `  |  Species: ${p.species}` : '') + (p.role ? `  |  Role: ${p.role}` : ''));
+    lines.push(`Status: ${p.status || 'unknown'}`);
+    if (Array.isArray(p.traits) && p.traits.length) {
+      lines.push(`Known Traits: ${p.traits.join(', ')}`);
+    }
+    if (Array.isArray(p.connections) && p.connections.length) {
+      lines.push(`Affiliations: ${p.connections.join(', ')}`);
+    }
+    if (p.player_bio) {
+      lines.push('');
+      lines.push('Bio (player-visible):');
+      lines.push(String(p.player_bio).trim());
+    }
+    if (isGmCaller && p.gm_notes) {
+      lines.push('');
+      lines.push('GM Notes (private):');
+      lines.push(String(p.gm_notes).trim());
+    }
+    if (p.timeline && p.timeline.length) {
+      lines.push('');
+      lines.push('Timeline:');
+      for (const t of p.timeline) {
+        const ref = [t.adventure_ref, t.scene_ref].filter(Boolean).join(' / ');
+        lines.push(`  - ${ref ? '[' + ref + '] ' : ''}${t.event_text}`);
+      }
+    }
+    lines.push('');
+  }
+  return lines.join('\n');
+}
+
+function buildPrompt({ characterName, scope, question, journalEntries, rulesSections, dramatisProfiles, isGmCaller }) {
   const useJournal = scope === 'crew' || scope === 'both';
   const useRules   = scope === 'rules' || scope === 'both';
+  const useDramatis = scope === 'crew' || scope === 'both';
 
   const persona = `You are a Protocol Droid serving the crew. You speak in-character: courteous, slightly formal, with a touch of dry wit. You address ${characterName || 'the operator'} respectfully.`;
 
   const rules = [
-    'You have two memory banks: CREW LOGS (the character\'s personal journal — private + crew entries they can see) and STANDARD PROTOCOL (the official rules, lore, gear, weapons, maneuvers, NPC archetypes for the Fulcrum / Edge of the Empire game system).',
+    'You have three memory banks: CREW LOGS (the character\'s personal journal — private + crew entries they can see), DRAMATIS PERSONAE (curated dossiers on known NPCs the crew has encountered — these are authoritative for who an NPC is, their species, role, status, traits, affiliations, and timeline of encounters), and STANDARD PROTOCOL (the official rules, lore, gear, weapons, maneuvers, NPC archetypes for the Fulcrum / Edge of the Empire game system).',
+    'For questions about a specific NPC, prefer the DRAMATIS dossier as the canonical fact source, then enrich with relevant CREW LOGS for the crew\'s direct experience and quotes.',
     'Answer ONLY using information found in the provided memory banks.',
     'If the answer is not in the available memory, say so plainly and offer what is available adjacent. Do NOT invent facts, NPCs, dates, locations, or rules.',
     '',
@@ -118,8 +189,9 @@ function buildPrompt({ characterName, scope, question, journalEntries, rulesSect
     '',
     'CITATIONS: Cite ONLY the entries or rules sources whose content materially appears in your answer. Do not list everything you skimmed. Aim for 1-5 sources unless the question genuinely spans more.',
     'Each citation goes in the "sources" array as one of:',
-    '  { "type": "journal", "refId": <entry id from CREW LOGS>, "label": "<2-6 word topic, NOT the verbatim entry title>" }',
-    '  { "type": "rules",   "refId": "<rules source id, e.g. gamesystem>", "label": "<2-6 word reference, e.g. Symmetric Resolution>" }',
+    '  { "type": "journal",  "refId": <entry id from CREW LOGS>, "label": "<2-6 word topic, NOT the verbatim entry title>" }',
+    '  { "type": "dramatis", "refId": "<npc_key from DRAMATIS, e.g. varth>", "label": "<2-6 word topic, e.g. Varth dossier — bio>" }',
+    '  { "type": "rules",    "refId": "<rules source id, e.g. gamesystem>", "label": "<2-6 word reference, e.g. Symmetric Resolution>" }',
     'The label is what the player sees on a chip — make it a useful summary of WHY this source supports your answer (e.g. "Varth\'s prison survival", "Trust pitch — routing data", "Aim maneuver bonuses"). Never copy the full entry title.',
     '',
     'Keep answers concise (3-8 sentences for factual recall, up to ~12 sentences when an Assessment is required). Use plain prose, no markdown headers.',
@@ -127,6 +199,10 @@ function buildPrompt({ characterName, scope, question, journalEntries, rulesSect
   ].join('\n');
 
   const banks = [];
+  if (useDramatis) {
+    banks.push('===== MEMORY BANK: DRAMATIS PERSONAE =====');
+    banks.push(buildDramatisSection(dramatisProfiles || [], !!isGmCaller));
+  }
   if (useJournal) {
     banks.push('===== MEMORY BANK: CREW LOGS =====');
     banks.push(buildJournalSection(journalEntries));
@@ -175,15 +251,22 @@ router.post('/protocol-droid/ask', async (req, res) => {
   if (!q) return res.status(400).json({ error: 'question is required.' });
   if (q.length > 1000) return res.status(400).json({ error: 'question too long (max 1000 chars).' });
 
+  const isGmCaller = (req.cookies && req.cookies.eote_role === 'gm');
+
   try {
-    const journalEntries = (sc === 'crew' || sc === 'both')
-      ? await loadJournalCorpus(characterName)
-      : [];
+    const wantCrew = (sc === 'crew' || sc === 'both');
+    const [journalEntries, dramatisProfiles] = await Promise.all([
+      wantCrew ? loadJournalCorpus(characterName) : Promise.resolve([]),
+      wantCrew ? loadDramatisCorpus(isGmCaller)   : Promise.resolve([]),
+    ]);
     const rulesSections = (sc === 'rules' || sc === 'both')
       ? loadRulesCorpus()
       : [];
 
-    const prompt = buildPrompt({ characterName, scope: sc, question: q, journalEntries, rulesSections });
+    const prompt = buildPrompt({
+      characterName, scope: sc, question: q,
+      journalEntries, rulesSections, dramatisProfiles, isGmCaller,
+    });
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
