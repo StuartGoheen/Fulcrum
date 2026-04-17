@@ -1694,12 +1694,44 @@
           "gearFlags": [],
           "encounters": [
             {
-              "id": "enc-a2s2-audition",
-              "name": "The Audition",
+              "id": "enc-a2s5-beat1-skiff",
+              "name": "Beat 1 — Skiff Across the Mist",
+              "type": "narrative",
+              "trigger": "Crew leaves Blackwind Point bound for the fortress dock",
+              "description": "The skiff glides out across Nymeve Lake through low banks of mist that wet the deck and cling to coats. The fortress materializes a piece at a time — a moss-eaten Republic-era ruin retrofitted with blaster turrets, gaudy banners bearing Varga's sigil, and a torch-lit landing platform ringed by a half-dozen Gamorrean dock guards. The skiff captain — a sullen Quarren — does not speak the entire crossing. He has done this run a thousand times and watched a fair number of his passengers come back in pieces.\n\nThis is the last quiet moment before the heroes are inside Varga's house. Use it. Whatever cover identities Raden and Varth coached them on in s3 Beat 4, this is when each PC walks themselves through the three-sentence pitch one more time. Path B (Raden delivered) crews spend the crossing watching their gift sit in the bow with a bag over his head and his hands behind his back. Nobody talks. The Quarren glances at the bag once and then forces himself to stop looking.",
+              "tactics": "NO DICE BEAT — atmosphere and re-anchoring. The GM should describe the fortress assembling out of the mist in three passes: first the silhouette, then the turrets, then the guards. Use this beat to surface any cover-identity work the players want to revisit before they walk through the door. If the crew has the [Switch's code phrase] from Adventure 1, this is the right moment to remind them — TC-663 is going to be on the dais and they only get one chance to use it cleanly. WEAPON CONFISCATION: Gamorreans at the dock will pat the crew down at Beat 2's threshold. Anyone planning to keep a hold-out blaster declares it now — the Skulduggery / Conceal check happens in Beat 2 and is gated on having flagged the intent here. Path B variant: when the bag-and-bound prisoner is offloaded, one of the dock Gamorreans looks at the bag, looks at the crew, and grunts a Huttese laugh. He recognizes the silhouette already."
+            },
+            {
+              "id": "enc-a2s5-beat2-throne-presentation",
+              "name": "Beat 2 — Through the Dock and Into the Throne Room",
               "type": "social",
-              "trigger": "On presentation to Varga",
-              "description": "Each PC must prove their worth to Varga in their specialty. Muscle fights, Face talks, Tech fixes.",
-              "tactics": "Varga is bored and jaded. Only genuine skill or entertainment impresses him."
+              "trigger": "Crew is escorted off the skiff and through the lower corridors",
+              "description": "Damp, torch-lit corridors smelling of mold and roasting meat. Gamorrean tusks scrape stone overhead. A Twi'lek attendant in worn-out finery confiscates weapons at the threshold — anyone trying to keep something hidden rolls now. Then the doors open and the heroes are spilled into Varga's Throne Room: a sensory assault of thick spice smoke, frantic jizz-wailer music, and a crowd of sycophants, thieves, and scavengers parting to either side of a long carpeted approach.\n\nAt the far end, on a massive electrum-plated hover-sled, sits Varga the Hutt — bloated, scarred, flanked on his right by the silver protocol droid TC-663 and on his left by Igren Demos, the Neimoidian majordomo. Varga barks in Huttese without looking up from the platter in front of him. TC-663 translates with exaggerated courtesy.\n\n**PATH FORK lands here.** Path A: 'The Mighty Varga is bored with beggars. Prove you are worth his air.' (continues to Beat 3 — auditions). Path B: 'You bring me a GIFT — the thief who stole from Besadii, delivered to my feet like a wrapped present!' (skips Beat 3 entirely, goes straight to Beat 4 — Raden recognized).\n\nAs Varga shifts his weight to look at the crew properly, the heroes catch it — a faint blue flicker near his right temple, gone before anyone can focus on it. Probably a reflection off TC-663's chassis. Probably.",
+              "tactics": "PATH FORK BEAT. The GM resolves the path here based on the s3 / s4 decision-point flag (`raden-fate`):\n  • `light` or `threaten` → Path A → continue to Beat 3.\n  • `dark` → Path B → skip Beat 3 entirely and resolve Beat 4's dark-path branch immediately.\n\nWEAPON CONCEALMENT (optional, only if flagged in Beat 1): Skulduggery vs Resist 4. Mastery means a hold-out blaster makes it past the pat-down. Failure means the Twi'lek attendant pulls the weapon out, holds it up theatrically, and Varga laughs — no immediate consequence other than a -1 to that PC's audition resist (Varga is amused, not insulted), but the crew has now established that they tried to smuggle a weapon and Demos files it.\n\nCYBERNETIC BREADCRUMB #1: The blue flicker at Varga's right temple. Do NOT explain. If a player passes Insight at Resist 4, they confirm it wasn't a reflection — something is implanted in his skull. This breadcrumb pays off in p2-s2 (Iron Ring) and p2-s3 (implant identification). If Beat 5's TC-663 conversation runs and the courier-implant topic surfaces, this is the breadcrumb that connects.\n\nTC-663 RECOGNITION: If the crew has the Switch code phrase from Adv1 and uses it now — directly to TC-663 in front of Varga — it is a disaster. The phrase is meant for a private moment. Demos will hear it, file it, and the entire infiltration is on a clock. Steer players toward saving the phrase for Beat 5. If they insist, Demos's Insight against the speaker is at Resist 4 — failure means the phrase is overheard and Demos starts watching that PC for the rest of the court phase (+1 resist on all that PC's social checks until end of part 1)."
+            },
+            {
+              "id": "enc-a2s5-beat3-auditions",
+              "name": "Beat 3 — The Auditions (Path A only)",
+              "type": "social",
+              "trigger": "Path A — Varga demands a demonstration of worth from each PC",
+              "description": "Varga waves the heroes forward one at a time. He has a different test for each archetype and the court watches closely — courtiers placing side-bets in Huttese while TC-663 translates the patter dryly.\n\n**The Muscle** is sent into the side pit against a Gamorrean (smaller cousin of Gorrak — non-lethal exhibition). **The Face** is set against a circle of Varga's courtiers in a battle of wits — a fast-cutting verbal joust where the courtiers try to make the PC look provincial. **The Tech** is handed a multi-tool and ordered to fix Varga's hover-sled with a Gamorrean's blaster pressed gently behind the ear. **All other PCs** make a Deception check to maintain the cover identity they workshopped in s3 Beat 4 — Varga's eyes linger on anyone who isn't actively performing.\n\nThe four discipline checks for this scene (`sc-a2s2-melee`, `sc-a2s2-charm`, `sc-a2s2-tech`, `sc-a2s2-deception`) all live in this beat. Resolve them in the order Varga calls each PC up — typically loudest specialty first, deception last as the residual scrutiny check.",
+              "tactics": "PRIMARY MECHANICAL BEAT (Path A only). Run the existing four discipline challenges here.\n\nCOVER-STORY WORKSHOP WIRING: Apply the per-PC resist modifiers from s3 Beat 4 to the Deception check (`sc-a2s2-deception` — see its `resistModifiers` field). The base resist is 4; modify per PC based on the quality of their workshopped pitch:\n  • Strong, in-voice pitch (hook/brag/price matched the sheet): -1 resist.\n  • Adequate pitch: standard resist (4).\n  • Vague or off-tone pitch: +1 resist.\n  • Workshop didn't happen because Raden bolted (Comfort 1) or refused to coach (Comfort 2): ALL pitches at +1 resist.\n\nCOVER WEAPON FUMBLE (from Beat 2): If a PC was caught smuggling a weapon during the pat-down, that PC's audition resist is reduced by 1 (Varga is entertained by the audacity).\n\nCOURT TONE: Varga wants spectacle, not competence. Reward narrative flair. The GM should prompt players to describe HOW they pass the test, not just IF — the court reaction (cheers, bored silence, scattered laughter) shapes Beat 5 access. Adequate performances earn 'guest' status. Spectacular performances earn run-of-the-court invitations from specific courtiers (which become hooks for p2 court scenes).\n\nFAILURE CONSEQUENCES: A failed audition does NOT end the scene. Varga is amused either way — the crew is entertainment regardless. But each failed audition adds +1 resist to Igren Demos's Insight watch on that PC for the duration of the court phase, AND (per `sc-a2s2-deception` failure text) a deception failure puts Demos on direct observation duty (+1 resist on all subsequent court-phase checks for that PC). Stack these effects."
+            },
+            {
+              "id": "enc-a2s5-beat4-raden-recognized",
+              "name": "Beat 4 — Raden Recognized / Dark-Path Fork",
+              "type": "social",
+              "trigger": "Path A: between auditions, a courtier makes a passing reference to 'the Devaronian thief'. Path B: Varga calls for the gift to be unwrapped.",
+              "description": "**PATH A variant — Whispered Recognition.** Mid-audition, a courtier near the back of the room — one of the Iron Ring delegates Raden warned about — leans to a neighbor and asks, in carrying Huttese, whether anyone has heard from 'that Devaronian, the one who skimmed Besadii — Raden? Raden, was it?' The conversation drifts. TC-663's silver head turns a fraction, then turns back. Varga's eyes flick — for a single heartbeat — to the dungeon corridor, then back to the floor show. The crew now knows that Raden's name is alive in this room. If they kept Raden alive, they have to keep him alive, and they have to keep the connection between Raden and themselves invisible. Nobody is allowed to mention how the crew came to be standing here.\n\n**PATH B variant — The Gift Unwrapped.** Varga gestures at the bag. Two Gamorreans yank it off Raden's head. The Devaronian blinks in the smoke and torchlight. The court goes quiet. Raden looks once at the heroes — recognition, betrayal, a kind of tired understanding. Then his eyes drop. Varga laughs, deep and rolling. 'Take the thief to the cells beneath the pit. I will decide his fate when I am entertained enough to think about it.' (via TC-663). Gamorreans drag Raden away. He does not struggle. He does not look back. The entire audition is skipped. The crew is welcomed with magnanimous warmth — they understand business. The execution clock has now started. (Triggers Part 2, Event 1 — Execution of Raden.)",
+              "tactics": "MORAL-WEIGHT BEAT. This is the scene's emotional climax regardless of which path the crew chose. Run it slow. Let the silence breathe.\n\nPATH A handling: The Iron Ring courtier's mention is roleplay only — no dice. The GM should narrate Varga's micro-glance at the dungeon corridor. If a PC succeeds an Insight check (Resist 3) on Varga, they read 'unfinished business — he expected to have the Devaronian by now.' This primes Beat 5 conversations: TC-663 (if turned) will confirm Varga has been waiting on a Trandoshan delivery that never came. Players who hear that have explicit foreshadowing that hiding Raden is going to get harder, not easier.\n\nPATH B handling: NO DICE — narrative beat. Set the destiny tag flag and move on. If any PC plays a destiny that interacts with corruption / dark side moments, this is when the GM should call out the destiny pip swap. Raden's quiet acceptance is the hard bit — the GM should resist any urge to let him beg. He told the crew in s3 conversation Beat 2 that he expected this. He meant it.\n\nINTERVENTION ATTEMPT (Path B only): If a player tries to stop the Gamorreans, this is the existing decision-point — extremely dangerous, blows cover instantly. Per the scene's `decisions` block, violence in the throne room equals instant death. The GM should give one warning beat (TC-663 hisses 'Do NOT' under his breath as the Gamorreans pass) and then resolve the consequences as written if the player commits.\n\nEND-OF-BEAT FLAGS: Set `raden-status-court-phase` based on path:\n  • Path A: 'hidden-asset' — Raden is alive and useful but his name is now in play.\n  • Path B: 'condemned' — Raden is in the cells, execution clock running, p2-event-1 triggered."
+            },
+            {
+              "id": "enc-a2s5-beat5-settling-tc663",
+              "name": "Beat 5 — Settling Into Court (TC-663 Aside)",
+              "type": "social",
+              "trigger": "After the auditions resolve and Varga waves the heroes off to guest quarters",
+              "description": "Servants — most of them indentured, all of them watching from under their lashes — escort the crew through a stone corridor toward the guest wing. The throne room music fades. Torch sconces give way to badly-rewired glow strips bolted into the ceiling.\n\nHalfway down the corridor, the silver protocol droid catches up. TC-663 walks at a precisely respectful three paces behind the lead servant, and at the next junction he murmurs — politely, in Basic, just loud enough — 'If the honored guests would care to inspect the household's wine inventory, I am authorized to provide a brief survey.' It is a nonsense errand. It is also a way to peel one or two heroes off the escort group for a private moment in a service alcove off the corridor.\n\nWHETHER TC-663 OPENS UP DEPENDS ON THE SWITCH CODE PHRASE. If the crew uses the Switch code phrase from Adventure 1 — privately, here in the alcove, NOT in the throne room — TC-663 visibly relaxes a millimeter and says: 'Master Switch sends his regards.' The conversation overlay opens. If the crew has no code phrase, or wastes the chance by using it in front of Demos in Beat 2, TC-663's aside is a flat-voiced inventory of the wine cellar with one half-veiled hint about the eastern corridor patrol pattern, and the crew settles into their rooms without an inside asset.",
+              "tactics": "GM ACTION (if Switch code phrase is used cleanly): Open the Conversation panel in the Command Bridge and launch [tc663-turned]. Players ask questions through the player overlay; GM delivers TC-663's responses one beat at a time. TC-663 starts at Comfort 3 — better than Raden (Comfort 2), worse than Maya (Comfort 4), reflecting that the droid has chosen this conversation but is genuinely worried about a Gamorrean shift change cutting it short.\n\nThe droid's exit lever is a footstep in the corridor — Demos doing a casual sweep, or a Gamorrean rounding the corner with a tray. The GM should drop one of these in the moment the conversation feels done OR the moment comfort drops to 1.\n\nNO CODE PHRASE FALLBACK: If the crew has nothing to offer, TC-663 says quietly: 'The eastern corridor is less frequently patrolled after the third watch.' That single sentence — flavor only — and then he excuses himself. The crew goes to their rooms with a working palace but no inside asset. They can still recruit TC-663 in p2 if they identify themselves to him through other channels (e.g., showing him slicing credentials he recognizes), but it costs an in-fiction day and blows the timing on at least one p2 scene.\n\nDARK-PATH VARIANT (Path B only): If the crew delivered Raden, TC-663 still meets them in the alcove if they have the code phrase, but the conversation opens with him grimmer than usual. The droid's first volunteered line — before the players ask anything — is: 'I observed the Devaronian's escort to the cells. Master Switch will be informed of the choice you made.' This does NOT change Switch's willingness to help (he is a slicer, not a moralist), but TC-663's `darkPathOpener` line in the conversation file colors the rest of the conversation. Players running the dark path will feel the room change.\n\nEND OF SCENE: Once the conversation closes (whether or not it ran), the crew is shown to guest quarters. Doors lock from the outside. The court phase has begun. Hand off to Part 2."
             }
           ],
           "environmentMechanics": [
@@ -1796,7 +1828,7 @@
             {
               "id": "sc-a2s2-deception",
               "discipline": "deception",
-              "context": "Maintaining cover identity under Varga's scrutiny.",
+              "context": "Maintaining cover identity under Varga's scrutiny. The base resist is 4 — modify per PC using `resistModifiers` based on the quality of the cover-story workshop pitch from s3 Beat 4.",
               "arena": "presence",
               "actionType": "interact",
               "control": {
@@ -1806,6 +1838,38 @@
               },
               "target": "Varga the Hutt",
               "resist": 4,
+              "resistModifiers": [
+                {
+                  "source": "adv2-p1-s3 Beat 4 — Cover-Story Workshop",
+                  "condition": "Strong, in-voice pitch (hook/brag/price matched the PC's actual sheet)",
+                  "modifier": -1,
+                  "appliesTo": "per-PC"
+                },
+                {
+                  "source": "adv2-p1-s3 Beat 4 — Cover-Story Workshop",
+                  "condition": "Adequate pitch",
+                  "modifier": 0,
+                  "appliesTo": "per-PC"
+                },
+                {
+                  "source": "adv2-p1-s3 Beat 4 — Cover-Story Workshop",
+                  "condition": "Vague or off-tone pitch",
+                  "modifier": 1,
+                  "appliesTo": "per-PC"
+                },
+                {
+                  "source": "adv2-p1-s3 Beat 4 — Cover-Story Workshop",
+                  "condition": "Workshop didn't happen — Raden bolted (Comfort 1) or refused to coach (Comfort 2). Varth ran the workshop alone over comlink without Raden's lived knowledge of Varga's tells.",
+                  "modifier": 1,
+                  "appliesTo": "all-PCs"
+                },
+                {
+                  "source": "adv2-p1-s5 Beat 2 — Weapon Concealment Fumble",
+                  "condition": "PC was caught trying to smuggle a hold-out weapon past the dock pat-down. Varga was entertained by the audacity.",
+                  "modifier": -1,
+                  "appliesTo": "per-PC"
+                }
+              ],
               "effect": {
                 "fleeting": "Varga accepts the surface story but his eyes linger. He's not convinced, but he's not alarmed. You're on probation.",
                 "masterful": "Varga buys it completely. No further questions. Standard court access granted.",

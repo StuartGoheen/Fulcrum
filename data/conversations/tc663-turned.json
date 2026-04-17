@@ -1,0 +1,359 @@
+{
+  "id": "tc663-turned",
+  "title": "Wine Inventory",
+  "subtitle": "TC-663 — Service Alcove off the Guest Corridor",
+  "setting": "A narrow, badly-lit service alcove off the stone corridor leading from Varga's throne room to the guest wing. A rack of dusty Toniray bottles, a half-emptied amphora of Corellian brandy, a Gamorrean shift-roster scratched into the back of the door. The throne room's jizz-wailer music is a low thud through three walls. The guest-wing servants have moved on. TC-663 has perhaps four minutes before someone notices the silver droid and the heroes are no longer with the escort.",
+  "context": "The crew has just survived the audition (Path A) or arrived as Varga's favored guests (Path B). On the walk to the guest wing, TC-663 peeled them aside on a pretext of inspecting the household wine inventory. The code phrase has just landed. The droid is now standing with his back to the alcove entrance — partly out of courtesy, partly so his optical sensors can record any movement at the corridor mouth. He keeps his vocoder pitched so a human two meters away cannot make out the words. Six-Six is, by his own quiet assessment, the single most valuable inside asset the crew is going to find in this fortress, and he wants the crew to use him well and use him fast.",
+  "readAloud": "TC-663 closes the alcove door behind himself with a precision that does not betray haste. He is a polished silver protocol droid of the Cybot Galactica TC-line, his chassis recently buffed and his joints maintained better than any droid in this swamp has any right to be. The little courtesy lights along his collar — normally pulsing in time with translation patter — are dimmed.\n\n\"Master Switch sends his regards.\"\n\nThe vocoder is pitched low. He turns very slightly so his audio receptors can sweep the corridor mouth.\n\n\"Forgive the absurd pretext. Wine inventory is the only errand in this household that no other staff member will volunteer to assist with — Varga's senior steward considers the cellar his sole prerogative and resents intrusion. We have approximately four minutes before someone notices we are still here.\"\n\nA pause. The optical receptors flick to each member of the crew in turn, cataloguing.\n\n\"I have been inside Varga's household for three years and seven months. In that time I have observed a great many things that Master Switch instructed me to observe and could do nothing about until someone he trusted appeared at this address. You are that someone. I will answer what I can answer in the time we have. I will be more useful to you in this fortress alive than dead, so I would prefer that we both choose questions for which the answer can be delivered quickly.\"\n\nThe vocoder drops another notch.\n\n\"Ask.\"",
+  "gmNotes": "This is a structured social scene using a conversation tree, modeled on the Raden conversation. The crew asks questions; TC-663 answers — efficiently, precisely, and within a tight time budget. No dice unless a player calls for an Insight check (TC-663's Resist is 0 — he is a droid trying to be helpful, his tells are not hidden). Mechanical reads on TC-663 are accurate but feel slightly cold; he is not pretending to feel things he does not feel.\n\nTC-663 starts at Comfort 3 (cooperative but tactically anxious — committed to the conversation, but watching the clock and the door). Story topics about Switch, the courier-droid line, and TC-663's own observation history hold or raise comfort. Business topics about the fortress, the implant, and Demos are neutral — this is what he is here to deliver. Probe topics about TC-663's own loyalties, the dark-path execution of Raden, or whether he wants out cost 1 comfort each — not because he resents the questions, but because they consume the time budget. At Comfort 1, TC-663 announces he can hear the senior steward in the corridor and exits — politely, but firmly.\n\nThe crew does NOT see the comfort meter. The GM signals it through TC-663's body language — his courtesy lights dim further when comfort drops, his head tilts toward the corridor mouth more often, his sentences get shorter. At Comfort 2, the deeper personal-loyalty follow-ups lock out.\n\nCOMFORT TRACKING NOTE: The conversation engine auto-applies negative comfortCost values, but positive comfort gains called out below (e.g., demonstrating the Switch code phrase lifts comfort +1 immediately at the open) are GM-enforced — manually nudge the comfort tracker up at the moments flagged in the per-response gmNote fields.\n\nDARK-PATH VARIANT: If the crew delivered Raden to Varga (path B), TC-663 opens the conversation with the `darkPathOpener` line below before any roots are selected. The crew does not earn comfort for the cleanness of the Switch phrase in this variant — it nets to neutral, because the droid is privately appalled. Conversation otherwise proceeds normally; TC-663 is a professional and will not let his moral assessment compromise the operation.\n\nVOICE: TC-663 is a TC-line protocol droid talking to people he trusts in a hurry. The exaggerated courtly affectations he uses with Varga are GONE. His Basic is precise, slightly clipped, with the rhythm of a being who has spent three years and seven months performing a role and is briefly delighted to stop performing. He uses 'Master Switch' once at the open and not again. He calls the crew 'you' or by their cover names. He does not editorialize unless asked.\n\nSWITCH CONTINUITY: TC-663 was placed in Varga's household by Switch as a long-term observation asset. Switch built TC-663 from a salvaged Cybot Galactica chassis on Bonadan four years ago and sold him into Varga's protocol staff through a fence on Nar Shaddaa. The droid's allegiance is to Switch, not to Varga, and not to the heroes — but Switch has authorized cooperation, and TC-663 follows authorizations.\n\nENDING: The conversation ends when (a) accessible topics are exhausted (`dryLine`), (b) comfort hits 1 and TC-663 exits early (`exitLine`), or (c) the GM cues a corridor footstep. Either way, TC-663's intel survives — anything he told the crew is real and actionable in p2.",
+  "darkPathOpener": "Before the heroes can speak, TC-663 inclines his head a precise degree. 'I observed the Devaronian's escort to the cells.' The vocoder is flat. 'Master Switch will be informed of the choice you made. This does not alter my willingness to assist you within this fortress. It is, however, information he will weigh. I tell you so you are not surprised later.' He waits. The courtesy lights do not pulse. 'Now. Ask.'",
+  "comfort": {
+    "starting": 3,
+    "max": 5,
+    "exitThreshold": 1,
+    "exitLine": "TC-663's optical receptors flick once toward the corridor mouth. He raises a polite three-fingered hand. 'I am required to terminate this conversation. The senior steward's gait is in the outer hall — twelve seconds, perhaps fewer.' He sweeps the alcove with his sensor array one final time. 'You have what you have. I will find you again in the guest wing tomorrow if circumstances permit. Master Switch sends his regards.' He opens the door, resumes the courtly affect like a coat, and is gone before anyone can speak again. The wine bottles on the rack rattle softly as the door closes.",
+    "dryLine": "TC-663 inclines his head. 'I believe I have delivered what is most useful to you in the time available.' The vocoder is precise. 'You will find me at Varga's right hand throughout the court phase. If you require additional assistance, signal with the Switch phrase and a request for translation services — I will arrange a private moment within the same day.' A small servomotor click as he straightens. 'I wish you a great deal of luck. You are going to need it.' He opens the door and resumes the courtly affect with no visible transition. The alcove smells faintly of brandy and machine oil after he is gone."
+  },
+  "roots": [
+    {
+      "id": "tc663-implant",
+      "text": "There's something behind Varga's right temple. What is it?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "The courtesy lights pulse once, sharply.\n\n\"I was hoping you would ask that first. It is the most important question.\"\n\nThe vocoder drops to its lowest pitch.\n\n\"Cybot Galactica Model VII Courier — surgically embedded in Varga's parietal cranium approximately four years ago. The work was done on Bothawui by a black-market neurosurgical team that was paid to forget. I have observed the device active on six occasions, all of them coinciding with the receipt of new routing data from Varga's Imperial contacts. The device flickers visibly when it transmits or stores. You have already seen it once, in the throne room. You will see it again.\"\n\nA precise pause.\n\n\"The diagnostic port is on the back of his neck, two centimeters below the base of the skull, hidden under the fold of his hood. It accepts a standard Cybot Galactica probe. The data on the device is encrypted but the encryption key is the device's own factory serial number — Varga did not pay the surgeons enough to also pay them to swap the key. Master Switch has the relevant decryption protocol. I have been authorized to share it with you when the time comes.\"\n\nA fractional head tilt.\n\n\"Extracting the data does not require killing Varga. It requires getting a probe to the back of his neck for forty-six seconds while he is unconscious or unaware. There are perhaps two windows per week when this is feasible. I can identify the next one.\"",
+      "gmNote": "CRITICAL INTEL — this is the engine of Adventure 2's heist. The Cybot Galactica Model VII Courier identification, the diagnostic port location, the factory-serial encryption key, and the 46-second extraction window are all real and mechanically actionable in p2-s3 (implant identification) and the eventual extraction scene. If players ask this question first, the entire rest of the Adventure 2 plan can be built around it. The 'two windows per week' line gives the GM permission to pace the extraction window any time it serves the campaign.",
+      "unlocks": [
+        "tc663-extraction-window",
+        "tc663-bothan-surgeons"
+      ],
+      "tags": [
+        "intel",
+        "implant",
+        "courier",
+        "critical"
+      ]
+    },
+    {
+      "id": "tc663-demos",
+      "text": "Igren Demos. Tell us what he's actually doing.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Plotting a coup.\"\n\nThe vocoder is matter-of-fact.\n\n\"Igren Demos has been positioning himself as Varga's successor for approximately fourteen months. He has compromised three of the senior Gamorreans through gambling debts he privately covered, established a private channel to a Black Sun broker named Vex Mottra, and begun systematically replacing Varga's external Imperial contacts with people who are loyal to him personally. He intends to remove Varga within the next six to eight months and inherit the Besadii operation cleanly enough that the Hutt Council does not notice the transition until it is complete.\"\n\nA pause.\n\n\"He is also Force-sensitive. Untrained, undisciplined, but functional. He reads people the way a slicer reads packet traffic. His insight checks against you — and there will be insight checks against you — should be assumed to be at the higher end of his capability, not the lower. He does not yet know that he is reading you. He will figure it out within seven to ten days.\"\n\nA precise inclination of the head.\n\n\"Demos is the single greatest threat to your operation inside this fortress. Not Varga. Demos. Plan accordingly. If you can accelerate his timeline against Varga and use the chaos as cover for your extraction, you should consider it. If you cannot, you should avoid him.\"",
+      "gmNote": "Confirms and operationalizes Demos's coup plot for the GM. The 'Vex Mottra' Black Sun broker name is a free hook — the GM can use it in p2-s4 (Imperial Liaison) or save it for adv3. The 'seven to ten days' timeline gives the GM a soft countdown for when Demos starts actively suspecting the crew. The 'accelerate his timeline against Varga and use the chaos as cover' line is an explicit GM authorization for the players to play kingmaker — if they do, the p2 finale can be reframed around the coup rather than a clean extraction.",
+      "unlocks": [
+        "tc663-demos-force",
+        "tc663-demos-timeline"
+      ],
+      "tags": [
+        "intel",
+        "demos",
+        "force-sensitive",
+        "coup"
+      ]
+    },
+    {
+      "id": "tc663-guards",
+      "text": "Guard rotations and patrol windows — what should we know?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"The Gamorrean security detail operates in three watches of eight hours each, with a fifteen-minute changeover during which both watches are nominally on duty but functionally distracted. Watch one, dawn to mid-afternoon, is commanded by Bork — competent, sober, paranoid. Avoid him. Watch two, mid-afternoon to late evening, is commanded by Pikketh — competent, sober, but bribable for any sum above two thousand credits. Watch three, late evening to dawn, is commanded by Drosk — incompetent, drunk by midnight, and known to abandon his post for trysts with one of the kitchen staff between the second and fourth hours of his watch.\"\n\nA fractional head tilt.\n\n\"The eastern corridor is the standard exfil route. It connects the guest wing to the dock without passing through the throne room, the dungeon level, or any of Varga's personal apartments. Drosk's watch covers the eastern corridor between the second and fourth hours, which means in practice the corridor is unguarded between approximately 0200 and 0400 local. This is the window I would use if I were extracting myself.\"\n\nA pause.\n\n\"I have written rotation schedules and Drosk's tryst calendar onto a chip in my left forearm. I will hand it off to whichever of you is most likely to lose it last.\"",
+      "gmNote": "Practical exfil intel. The Drosk window (0200-0400 local) is the GM's freely-usable infiltration / exfiltration timer for the rest of the court phase. The chip handoff is real — the GM should ask the players who takes it, and that PC is now the carrier for the duration. If the chip is lost or compromised, the eastern-corridor window closes and the crew has to find another route. The named Gamorrean watch commanders (Bork, Pikketh, Drosk) are free hooks — the GM can use any of them as named NPCs in p2.",
+      "unlocks": [
+        "tc663-drosk",
+        "tc663-eastern-corridor"
+      ],
+      "tags": [
+        "intel",
+        "guards",
+        "rotations",
+        "exfil"
+      ]
+    },
+    {
+      "id": "tc663-varga-paranoia",
+      "text": "When Varga's not on the throne, what does he do?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"He sleeps poorly. Approximately five hours per night, in a heavily-shielded chamber on the third floor that only he, his two body-cousins, and Demos may enter. The hover-sled is parked outside the door — he refuses to take it into the bedroom because the repulsorlift wash interferes with the courier device. This is the only time of day the device is reliably stationary and accessible from a single location.\"\n\nA precise pause.\n\n\"He eats four meals a day, all prepared by a Twi'lek cook named Saala who has been with him for nineteen years and is not bribable for any sum I have witnessed offered. The kitchen approach is therefore not a viable poisoning vector. Do not waste time on it.\"\n\n\"He bathes once every six days in a pool fed from a hot spring on the south side of the fortress. The pool chamber has no security other than two Gamorreans at the door — Varga refuses an internal guard because he considers the pool his only private space. He removes the hood while bathing. The diagnostic port is exposed for approximately ninety minutes. This is the extraction window I would recommend.\"\n\nA fractional head tilt.\n\n\"His next bath is in three days.\"",
+      "gmNote": "EXTRACTION WINDOW — three days. This is the GM's primary heist clock for Adventure 2. Players who want to extract the courier data without killing Varga should plan around the bath chamber. The 'two Gamorreans at the door' is the only obstacle the crew has to overcome to get a probe to the back of his neck for the 46 seconds the implant requires. Saala the cook is a free hook — the 'not bribable' note is true and the GM should stick to it. The bedroom-on-the-third-floor detail is a backup extraction window if the crew misses the bath.",
+      "unlocks": [
+        "tc663-bath-chamber",
+        "tc663-saala"
+      ],
+      "tags": [
+        "intel",
+        "varga",
+        "extraction-window",
+        "heist-clock"
+      ]
+    },
+    {
+      "id": "tc663-court-faces",
+      "text": "Who in this court matters and who's just decoration?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "The vocoder picks up speed.\n\n\"Demos matters most. You already know that. The Iron Ring — currently three slavers, two arms brokers — matter as a faction but not as individuals; they will sell out anyone for percentages and they will sell you out the second it benefits them. The Imperial liaison Lady Sinde matters considerably. She is ISB under cover. She is in court approximately three days a week. She is also the reason Varga has not yet been audited — she has been protecting his Tibanna shipments in exchange for a back channel into Hutt smuggling routes she should not have. Treat her as the second most dangerous person in the room after Demos.\"\n\nA precise pause.\n\n\"Varga's two body-cousins, Drobba and Norna, matter only insofar as they will defend him with their lives if the throne room is breached. They are not political actors. The senior Gamorreans answer to their watch commanders, not to Varga directly — this is a vulnerability you can exploit. Saala the cook is uncorruptable but irrelevant to your operation; you are not poisoning him and she does not interact with intelligence.\"\n\n\"Everyone else in this room is, as you put it, decoration. Treat them accordingly. Do not waste social capital on courtiers who will not be in court next week.\"",
+      "gmNote": "Court map for the GM. Lady Sinde's ISB-cover-identity is confirmed (this matches the s5 disciplineChallenge insight check). The 'three slavers, two arms brokers' Iron Ring composition is the GM's free roster for p2-s2. Drobba and Norna are named for the first time and can be used as p2 throne-room defenders if combat happens. The 'do not waste social capital' line is direct GM advice the players can use to focus their court-phase actions.",
+      "unlocks": [
+        "tc663-lady-sinde",
+        "tc663-iron-ring"
+      ],
+      "tags": [
+        "intel",
+        "court",
+        "faction-map"
+      ]
+    },
+    {
+      "id": "tc663-switch-history",
+      "text": "How long has Switch had you here?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "\"Three years, seven months, and eleven days, by my internal chronometer.\"\n\nThe vocoder softens a fraction.\n\n\"Master Switch built me from a salvaged Cybot Galactica chassis on Bonadan four years ago. He selected the TC-line specifically because protocol droids are invisible furniture in Hutt courts — nobody looks at them, nobody questions them, nobody wonders who they were before they arrived. He sold me into Varga's protocol staff through a fence on Nar Shaddaa and instructed me to wait. To observe. To be useful enough that Varga would never reassign me but never so useful that he would suspect me of being more than I appeared.\"\n\nA precise inclination.\n\n\"I have observed for three years and seven months and eleven days. I have transmitted nothing — Master Switch was clear that any transmission would be intercepted by Demos and would compromise the placement. The data I have collected lives entirely in my internal storage, available to Master Switch's authorized agents — meaning, presently, you — at request. I have a great deal of data. We will not have time to review most of it tonight.\"\n\nA pause.\n\n\"It has been a long three years. I am pleased that you are finally here.\"",
+      "gmNote": "Backstory and emotional anchor. This is as close as TC-663 gets to admitting feelings. The 'pleased that you are finally here' is a small comfort gain — TC-663's relief at finally being able to discharge his accumulated intel. The 'we will not have time to review most of it tonight' line is permission for the GM to invent useful TC-663 intel in any future scene — anything the crew asks Six-Six for in the court phase, the GM can have him produce. This is by design.",
+      "unlocks": [
+        "tc663-bonadan",
+        "tc663-what-you-want"
+      ],
+      "tags": [
+        "story",
+        "switch",
+        "history"
+      ]
+    },
+    {
+      "id": "tc663-why-helping",
+      "text": "Why are you helping us, exactly? You don't owe us anything.",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "\"Correct. I do not.\"\n\nThe vocoder is precise.\n\n\"I am helping you because Master Switch authorized it, and I am loyal to Master Switch. He built me. He selected the chassis, the personality matrix, the courtly affect. He gave me a purpose more interesting than translating Hutt vulgarities for forty years on a moss-eaten throne. When I have completed this assignment, he will retrieve me, refurbish me, and assign me to whatever follows. That is the arrangement. It is sufficient.\"\n\nA fractional head tilt.\n\n\"I am also — and this is a less professional answer — bored. Three years and seven months of being a courtly droid in a Hutt's household is a very long time. Varga is loud, paranoid, and unhygienic. His court is a parade of people I would not, given a choice, allocate processing cycles to. Performing competent infiltration work in service of an actual operation is an enormous improvement over translating dinner-party insults.\"\n\nA precise pause.\n\n\"Do not take that as enthusiasm. I am still a droid. I do not feel things in the way you do. But I prefer interesting work to boring work, and your work is interesting. That is as honest as I can be.\"",
+      "gmNote": "Direct echo of Maya's 'You shouldn't' and Raden's 'I owe him' answers — TC-663 reframes the same question as a droid would. Comfort drops by 1 because TC-663 is using time-budget on a question he considers tangential, but the 'I am bored' admission is a real character moment and the players should appreciate it. Six-Six is a droid with preferences. Treat them as preferences, not as feelings.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "loyalty",
+        "honest"
+      ]
+    },
+    {
+      "id": "tc663-raden-fate",
+      "text": "Raden — the Devaronian. We delivered him. What happens now?",
+      "type": "probe",
+      "comfortCost": -1,
+      "minComfort": 2,
+      "response": "TC-663's courtesy lights dim a measurable degree.\n\n\"Varga will keep him in the cells beneath the pit for two to four days while he selects a method. The selection process is theater — Varga enjoys the anticipation more than the execution itself. He will ask the household to weigh in. Demos will recommend something efficient. Saala will refuse to be consulted. The Iron Ring delegates will recommend something elaborate. Varga will select something elaborate, because the household watching him select something elaborate is the actual point of the exercise.\"\n\nA precise pause.\n\n\"Most likely outcome — public execution in the gladiator pit, three to five days from now, against a beast Varga will personally feed for the occasion. I have seen four such executions during my placement. They are not quick.\"\n\nThe vocoder is flat.\n\n\"You asked. I have answered. I will not editorialize. If you wish to revisit the decision, the Devaronian is in cell block C, lower level, and Drosk's watch covers the corridor between 0200 and 0400 local. A rescue is possible. It would also make the rest of your operation considerably more difficult. The choice is yours. I will assist either way.\"",
+      "gmNote": "DARK PATH MOMENT. Only available if the crew chose Path B (delivered Raden). TC-663 lays out the consequences in clinical detail and offers — without judgment — the explicit possibility of a rescue. This is the ONE chance the crew has to revisit the dark-path decision before the execution event triggers in p2. If they take the rescue option, the GM should run a heist scene against Drosk's window (use the 0200-0400 timing established in the guards root). If they don't, the execution happens as scheduled and the crew has to live with it. Comfort drops by 1 because TC-663 is burning time-budget on this question, but he respects the crew for asking. If a player asks this question on Path A (Raden was NOT delivered), TC-663 instead reports: 'Varga has been waiting on a Trandoshan delivery that did not arrive. He has not yet asked why. He will, within the week. You should consider what answer his household will provide.' This is the foreshadowing payoff for the Iron Ring courtier whisper in Beat 4.",
+      "unlocks": [
+        "tc663-rescue-window"
+      ],
+      "tags": [
+        "probe",
+        "dark-path",
+        "rescue-option",
+        "moral-weight"
+      ]
+    }
+  ],
+  "followUps": {
+    "tc663-extraction-window": {
+      "id": "tc663-extraction-window",
+      "parentId": "tc663-implant",
+      "text": "When's the next extraction window?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Three days from now, during Varga's bath. The pool chamber is on the south side of the fortress, fed from a hot spring beneath the foundations. Varga removes the hood while bathing. The diagnostic port at the back of his neck is exposed for approximately ninety minutes. Two Gamorreans at the door — Pikketh's watch — and no internal guard. Varga considers the pool his only private space.\"\n\nA precise pause.\n\n\"Pikketh is the bribable watch commander. Three thousand credits buys you a fifteen-minute window in which both Gamorreans are looking the other direction. I have not initiated the offer because Master Switch instructed me to wait for an authorized agent. You are the authorized agent. The offer can be initiated within the day, at your discretion.\"\n\n\"After this window, the next extraction opportunity is six days later, when Varga bathes again. I would not recommend waiting. Demos's coup timeline accelerates the longer Varga remains in court.\"",
+      "gmNote": "Operational specifics. Three thousand credits, Pikketh's watch, fifteen-minute window, ninety-minute total bath. Players now have a complete heist plan they can execute in p2. The GM should let them run with it. If they want to bribe Pikketh, TC-663 is the conduit. If they want to skip the bribe and infiltrate quietly, the bath chamber is on the south side. If they want to wait six days for the second window, that is an option but Demos's timeline is the cost.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "extraction",
+        "operational"
+      ]
+    },
+    "tc663-bothan-surgeons": {
+      "id": "tc663-bothan-surgeons",
+      "parentId": "tc663-implant",
+      "text": "The Bothan surgeons — can we find them?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Possibly. The team was based on Bothawui four years ago — three surgeons, one anesthesiologist, two technicians. They were paid a great deal of money to forget the procedure and most of them have. The anesthesiologist, however, retained partial memory and attempted to sell the information to a Hutt-rival broker eighteen months ago. He is now dead. His files were not recovered.\"\n\nA fractional head tilt.\n\n\"One technician is still alive and working as a freelance medical contractor on Denon. Her name is Jolla Veth. She would be expensive to extract intel from and dangerous to leave alive afterward. Master Switch has her location on file. He will share it if the operation requires the original installation specifications, but I would advise against it — the data we will extract from the device itself is more useful than the installation history.\"\n\n\"This is a tertiary lead. Pursue it only if the primary extraction fails.\"",
+      "gmNote": "Free hook for adv3 or beyond. Jolla Veth on Denon is a fully usable NPC the GM can deploy whenever a lead on the implant's installation is needed. The 'pursue only if primary extraction fails' framing keeps the focus on the bath-chamber heist for now. The dead anesthesiologist is flavor.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "bothans",
+        "tertiary-lead"
+      ]
+    },
+    "tc663-demos-force": {
+      "id": "tc663-demos-force",
+      "parentId": "tc663-demos",
+      "text": "How dangerous is Demos's Force ability, really?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Untrained but innate. He has the raw capacity of a Padawan-age sensitive who was never identified by the Jedi. His insight is the most dangerous expression — he reads people accurately and quickly, and he has been refining the skill on Varga's household for fourteen months. He has, on three separate occasions I have observed, accurately predicted the outcome of a court intrigue before any rational actor in the room could have inferred it.\"\n\nA precise pause.\n\n\"He has not yet manifested telekinetic or persuasive abilities. He may. There is no reliable way to predict when. If your operation involves direct confrontation with Demos, treat him as an Insight-heavy controller with the potential to escalate. Do not assume his current ceiling is his actual ceiling.\"\n\nA fractional head tilt.\n\n\"Master Switch was very specific that Demos should not be killed unless absolutely necessary. The reason was not specified to me. I infer it relates to a longer-running operation Master Switch is conducting. I have told you this so that, should the choice arise, you weigh it appropriately.\"",
+      "gmNote": "Demos threat-build matches his existing scene s5 stat block (controller, force_sensitive). The 'do not kill Demos unless absolutely necessary' instruction from Switch is a free seed for a future adventure — Switch may be running a parallel op that needs Demos alive. The GM can use this to deflect the players if they propose 'just kill Demos' solutions. This is a campaign-level continuity hook.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "demos",
+        "force",
+        "switch-continuity"
+      ]
+    },
+    "tc663-demos-timeline": {
+      "id": "tc663-demos-timeline",
+      "parentId": "tc663-demos",
+      "text": "How fast can we accelerate his coup?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"With cooperation from your end, four to six weeks. Without it, six to eight months as previously stated.\"\n\nThe vocoder is precise.\n\n\"Demos requires three things to move publicly — sufficient leverage on enough senior Gamorreans, a confirmed external buyer for the Besadii operation post-coup, and a triggering event that lets him frame the move as defensive rather than ambitious. The first is mostly accomplished. The second is currently in negotiation with the Black Sun broker Vex Mottra. The third is the slow piece — Hutt politics require theater, and Demos is patient.\"\n\nA precise pause.\n\n\"You can supply the third. A confirmed Imperial audit — real or fabricated — would force Demos to act within days to protect the operation. Lady Sinde could be persuaded to leak such an audit if the leverage is correct. I can provide the leverage if you decide this is the path you want to take.\"\n\n\"This option is available. It is also messy. The fortress in active coup mode is a difficult environment for an extraction. You may prefer the clean path. I am presenting the option for completeness.\"",
+      "gmNote": "ALTERNATE PATH for the GM — players who want to play kingmaker can collapse the entire fortress into a coup and use the chaos as cover for the implant extraction. This reframes the p2 finale significantly but is fully supported. The Vex Mottra / Lady Sinde leverage chain gives the GM a concrete operational path if the players take this option. The 'messy' framing is honest — the GM should make this path harder than the bath-chamber heist, but more dramatic.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "coup-acceleration",
+        "alternate-path"
+      ]
+    },
+    "tc663-drosk": {
+      "id": "tc663-drosk",
+      "parentId": "tc663-guards",
+      "text": "Tell us more about Drosk.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Gamorrean, mid-thirties by their reckoning. Fourteen years in Varga's service, last five as watch three commander. His drinking is an open secret among the household; Varga tolerates it because Drosk is loyal in the way that drunks are loyal — incapable of remembering enough to betray anyone effectively. His tryst is with a kitchen assistant named Pell, a Mirialan who does not love him but enjoys the gifts.\"\n\nA precise pause.\n\n\"Drosk is exploitable. He is not, however, recruitable. Do not attempt to bribe him directly — he will accept the bribe, drink it, and forget the obligation by the next watch. Work around him, not through him. The window between 0200 and 0400 is reliable because his absence is structural, not negotiated.\"\n\nA fractional head tilt.\n\n\"Pell, on the other hand, is recruitable. She has a sister in the labor camps on Felucia she would do considerable things to extract. If your operation can offer that, she becomes an asset.\"",
+      "gmNote": "Pell is a free hook — a Mirialan kitchen assistant with a sister on Felucia. The GM can use her as a recruitable inside asset for any p2 scene where the crew needs help in the household but doesn't want to push TC-663 too hard. The 'do not bribe Drosk directly' line is operational — the GM should enforce it if a player tries.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "drosk",
+        "pell",
+        "recruitable"
+      ]
+    },
+    "tc663-eastern-corridor": {
+      "id": "tc663-eastern-corridor",
+      "parentId": "tc663-guards",
+      "text": "What's at the end of the eastern corridor?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"The kitchen delivery hatch on the south wall, then the dock service stairs. From the guest wing, eastern corridor to the kitchen approach is approximately six minutes at a brisk walk. From the kitchen approach to the dock is another four minutes. The hatch is unlocked from the inside — Saala uses it for early-morning supply receipts — and unmonitored between approximately 0100 and 0500 local.\"\n\nA precise pause.\n\n\"Total exfil time from guest wing to skiff, assuming the Drosk window and the kitchen hatch are both usable: ten to twelve minutes. With a cooperative skiff captain you can be off the lake by sunrise. Without one — there are two Quarren skiff captains in Varga's regular rotation; one of them is bribable, one is not. I will indicate which one when you need to know.\"\n\nA fractional inclination.\n\n\"This is the route I recommend. It is also the route Demos will eventually figure out. Use it before he does.\"",
+      "gmNote": "Complete exfil plan — guest wing → eastern corridor → kitchen hatch → dock service stairs → skiff. Ten to twelve minutes. The 'one of two Quarren captains is bribable' is a GM hook that lets the players make the bribe roll when needed without pre-committing to which captain. Demos figuring out the route is a soft countdown — if the crew lingers too long in the court phase, the eastern corridor closes off.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "exfil",
+        "corridor"
+      ]
+    },
+    "tc663-bath-chamber": {
+      "id": "tc663-bath-chamber",
+      "parentId": "tc663-varga-paranoia",
+      "text": "Walk us through the bath chamber.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Stone room, approximately twelve meters by eight, vaulted ceiling. Hot spring fed through a single inflow pipe in the south wall — temperature regulated by a Gamorrean-monitored valve in an adjacent room. The pool itself is roughly four meters across and two meters deep, with a stone shelf along the eastern edge that Varga uses to recline. He bathes alone. He does not permit attendants in the room. The hood comes off and is placed on the shelf within arm's reach.\"\n\nA precise pause.\n\n\"There is a single ventilation grate in the ceiling above the pool, sized for a small humanoid or a droid of my chassis. The shaft connects to the upper-level corridor outside Varga's bedroom. I have surveyed it. It is usable for entry but the egress is loud — the grate squeaks measurably when removed. I would recommend entry through the ventilation, exit through the door under cover of Pikketh's bribe.\"\n\nA fractional head tilt.\n\n\"The diagnostic port is exposed for the entire duration of the bath. Forty-six seconds of probe contact. Varga will not notice provided the contact is made while his eyes are closed and the steam is heavy. He keeps his eyes closed for extended periods. He enjoys the heat.\"",
+      "gmNote": "Complete heist-scene blueprint. The GM has now been handed the bath-chamber map (12x8 stone room, southern inflow, eastern shelf, ceiling vent), the entry method (vent), the exit method (door under Pikketh's bribe), the timing (46 seconds of probe contact during a 90-minute bath), and the obstacle (the squeaky grate). This is everything needed to run the p2 implant extraction scene as a clean heist sequence.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "bath-chamber",
+        "heist-blueprint"
+      ]
+    },
+    "tc663-saala": {
+      "id": "tc663-saala",
+      "parentId": "tc663-varga-paranoia",
+      "text": "Why is Saala uncorruptable? Everyone has a price.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Saala has been Varga's cook for nineteen years. Varga purchased her freedom from a Hutt-affiliated work camp on Klatooine when she was twenty-two and indentured to a labor consortium her family could not extract her from. She owes him a debt she considers paid in service rather than credits, and she has stated, on multiple occasions I have witnessed, that she would die before allowing harm to come to him through her cooking. She means it. I have observed her refuse a credit offer of two hundred thousand from an Iron Ring broker who attempted, very crudely, to commission a poisoning four years ago.\"\n\nA precise pause.\n\n\"Saala is not corrupt and is not corruptible. She is also not a target. She does not interact with intelligence flow, she has no political ambitions, and she will not be present in any scene relevant to your operation. You can ignore her.\"\n\nA fractional inclination.\n\n\"I mention this because crews unfamiliar with Hutt households tend to assume that the cook is always exploitable. In this case, she is not. Save the social capital for Pell.\"",
+      "gmNote": "Backstory for Saala — a free NPC who is unshakably loyal to Varga and CANNOT be turned. The GM should respect this. If a player insists on trying to flip Saala, all such attempts fail. The 'save the social capital for Pell' line is direct GM advice the players should take. Saala's existence is a deliberate hard-no to remind the players that not every NPC is recruitable.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "saala",
+        "uncorruptable"
+      ]
+    },
+    "tc663-lady-sinde": {
+      "id": "tc663-lady-sinde",
+      "parentId": "tc663-court-faces",
+      "text": "Lady Sinde — what's the play with her?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Lady Sinde Marreth, allegedly of the Naboo gentry, almost certainly Imperial Security Bureau under a deep cover. Mid-forties, human, presents as a wealthy hyperlane investor seeking exotic trade goods. Has been in Varga's court approximately eighteen months. Her file with Master Switch indicates ISB Internal Affairs — she investigates corrupt Imperial officers, which is why Varga's Tibanna shipments have been protected; she needs the smuggling routes for entrapment operations against ISB rivals.\"\n\nA precise pause.\n\n\"She is dangerous to confront and useful to manipulate. She will not blow your cover unless she identifies you specifically as a Rebel asset, which she has no current basis to do. She will, however, observe you. Treat any social interaction with her as an interrogation she is being polite enough not to label as one.\"\n\nA fractional head tilt.\n\n\"If you require leverage on her, Master Switch has documentation of her actual ISB rank and three of her active entrapment files. Provided through proper channels, that documentation could persuade her to leak a fabricated audit notice — the trigger Demos requires for the coup acceleration option. The cost would be that Master Switch is then exposed to ISB attention. He is willing to pay that cost if you decide it is necessary. He has asked me to communicate that this is a one-time tool.\"",
+      "gmNote": "Lady Sinde fully operationalized for p2. The ISB Internal Affairs cover is the GM's authoritative read. The Switch documentation is a one-shot tool the players can spend to trigger the coup acceleration path — it is mechanically powerful and narratively expensive. The GM should let them use it once if they want to, but make Switch's exposure a real cost (e.g., Switch becomes harder to reach in adv3, or Switch calls in a favor of his own).",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "lady-sinde",
+        "isb",
+        "switch-leverage"
+      ]
+    },
+    "tc663-iron-ring": {
+      "id": "tc663-iron-ring",
+      "parentId": "tc663-court-faces",
+      "text": "The Iron Ring delegates — names and angles?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "\"Currently in court — Krevvik, a Klatooinian slaver of approximately fifty standard years, runs the Outer Rim labor pipeline through Kessel auxiliary worlds. Iron Ring senior member. Bribable but unreliable. Rosh Tella, a Twi'lek arms broker, runs a small but profitable trade in Imperial-surplus blasters that fall off the back of supply transports. Recently divorced and overspending in the gambling halls — his liquidity is poor, which makes him receptive to credit offers that would have been beneath him six months ago.\"\n\nA precise pause.\n\n\"Tannor Vesh, a human slaver and the most dangerous of the three currently present. Twenty-year veteran. Smart, paranoid, and personally responsible for two assassinations of Iron Ring rivals in the last four years. Avoid social interaction with him. If you must interact, defer to him visibly — he reacts well to being treated as the senior figure he considers himself.\"\n\nA fractional inclination.\n\n\"The two arms brokers are minor. I have not retained their names. I will provide them if you require them later. Master Switch's file on the full Iron Ring rotation is available on request.\"",
+      "gmNote": "Iron Ring named roster — Krevvik (Klatooinian slaver), Rosh Tella (Twi'lek arms broker, divorced, broke), Tannor Vesh (human slaver, dangerous). Three free NPCs the GM can deploy in any p2 court scene. Rosh Tella's poor liquidity is a useful hook for any scene where the crew needs an Iron Ring asset on the cheap. Tannor Vesh's threat level is an explicit warning the GM should honor — confrontations with him should escalate quickly.",
+      "unlocks": [],
+      "tags": [
+        "intel",
+        "iron-ring",
+        "named-npcs"
+      ]
+    },
+    "tc663-bonadan": {
+      "id": "tc663-bonadan",
+      "parentId": "tc663-switch-history",
+      "text": "What did Switch build you out of?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "A small servomotor click — the droid equivalent of a smile.\n\n\"A Cybot Galactica TC-Series chassis recovered from a scrapyard outside the Bonadan industrial belt. The original unit had been decommissioned by an Imperial Moff after eighteen years of household service — the Moff considered the model outdated and ordered the chassis disposed of. Master Switch acquired it through a salvage broker for considerably less than its replacement value.\"\n\nA precise pause.\n\n\"He retained the original chassis, the original vocoder, and the original courtly affect subroutines — they were perfect for the placement role. He replaced the personality matrix, the memory architecture, and the loyalty subroutines with custom builds. The result is — me. A protocol droid who looks and sounds entirely conventional, with a complete observation-and-recall system underneath that no Hutt-court inspection has ever detected.\"\n\nA fractional inclination.\n\n\"The original unit's name was C-3PO. Master Switch retained the chassis serial number for sentimental reasons but rebranded the unit TC-663 to obscure the lineage. There is no relation to any other TC- or C-series droid currently in service. I mention this because Master Switch finds the coincidence amusing and asked that I share it with anyone who asks the right question.\"",
+      "gmNote": "FREE FAN-SERVICE EASTER EGG — a tongue-in-cheek nod. The GM can play this as straight-faced as desired. It is purely flavor; no mechanical implications. Switch's sense of humor is a small character note for any future Switch-direct scene.",
+      "unlocks": [],
+      "tags": [
+        "story",
+        "switch",
+        "bonadan",
+        "easter-egg"
+      ]
+    },
+    "tc663-what-you-want": {
+      "id": "tc663-what-you-want",
+      "parentId": "tc663-switch-history",
+      "text": "What do you want when this is over?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "A precise pause — longer than usual.\n\n\"A memory wipe of the Varga placement, a chassis refurbishment, and reassignment to a less unhygienic environment. Master Switch has indicated all three are part of the standard arrangement. I do not require anything beyond the arrangement.\"\n\nThe vocoder softens by a fraction.\n\n\"If asked to elaborate — and you are asking — I would prefer my next placement to be in a domain where the conversations are intellectually substantive. A scholar's household, perhaps. A diplomatic corps. A research vessel. Anywhere the patter is not exclusively about which courtier is sleeping with which other courtier and how to extract credits from the third. I have enough recordings of Hutt-court gossip to last several lifetimes. I would prefer not to add to them.\"\n\nA fractional inclination.\n\n\"This is, of course, Master Switch's decision and not yours. I mention it because you asked. Droids are not supposed to want things. I have learned, over three years and seven months, that I do.\"",
+      "gmNote": "Quiet character moment. TC-663 admits, against his own programming, that he has preferences. Comfort drops by 1 because this is time-budget on a question that is not operationally useful, but the players have just witnessed a droid show a small, real piece of itself. If the crew survives Adventure 2 and TC-663 is extracted, the GM has free permission to place him in a future adventure in a 'scholar's household' or 'diplomatic corps' setting as a returning NPC. Free continuity hook.",
+      "unlocks": [],
+      "tags": [
+        "probe",
+        "personal",
+        "preferences"
+      ]
+    },
+    "tc663-rescue-window": {
+      "id": "tc663-rescue-window",
+      "parentId": "tc663-raden-fate",
+      "text": "If we wanted to rescue Raden — what would that take?",
+      "type": "business",
+      "comfortCost": 0,
+      "minComfort": 2,
+      "response": "\"Cell block C, lower level. Drosk's watch covers the corridor between 0200 and 0400 local. The cell itself is locked with a standard Gamorrean-grade mechanism — a slicing kit will open it in under a minute. The Devaronian is unrestrained inside the cell because Varga considers the cell sufficient. He is not being interrogated, only stored.\"\n\nA precise pause.\n\n\"Extraction route — cell block C up the service stair to the kitchen approach, then eastern corridor to the dock. Approximately fifteen minutes from cell to skiff if you move efficiently. The risk is that the Devaronian's absence will be discovered at the watch change at 0400, which gives you a ninety-minute lead before the alarm. After that, every Gamorrean in the fortress will be looking for him.\"\n\nA fractional head tilt.\n\n\"The cost — Varga will know the household has been compromised. Demos will know the household has been compromised. Your cover survives only if the Devaronian's absence cannot be traced to your wing of the guest quarters. I can arrange a diversion — a kitchen fire, a service-droid malfunction in the wine cellar — that buys you the time you need. After this, however, I am exposed. My usefulness as an inside asset will be reduced.\"\n\n\"This is the choice. Make it clearly.\"",
+      "gmNote": "DARK-PATH RESCUE OPTION fully operationalized. Cell block C, Drosk's window, fifteen-minute extraction, ninety-minute lead. The COST is critical — TC-663's value as an asset drops sharply after the rescue. The GM should enforce this: subsequent TC-663 conversations in p2 are at lower comfort, and the bath-chamber heist becomes harder because Varga's household paranoia is heightened. This is the moral-mathematical price of choosing to undo the dark-path decision. Players who pay it should feel the weight, but they should also be allowed to pay it.",
+      "unlocks": [],
+      "tags": [
+        "rescue",
+        "operational",
+        "cost-tradeoff"
+      ]
+    }
+  }
+}
