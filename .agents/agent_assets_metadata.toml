@@ -234,6 +234,12 @@ uri = "file://attached_assets/generated_images/switch_droid.png"
 type = "image"
 title = "switch robot droid portrait"
 
+[[generated]]
+id = "ZygnvosteggpM5iKEaSQ7"
+uri = "file://public/maps/varga-fortress.png"
+type = "image"
+title = "varga fortress players map"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"

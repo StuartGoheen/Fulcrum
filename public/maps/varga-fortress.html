@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varga's Fortress — Players' Map</title>
+<link rel="stylesheet" href="/css/map-standalone.css" />
+</head>
+<body class="map-varga-fortress">
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="varga-fortress.png" alt="Varga's Fortress — Hand-drawn players' map">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 896" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="80" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="40" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="78" y="285" width="220" height="135" rx="3" class="hitbox"
+      data-room="Dock &amp; Skiff Landing"
+      data-desc="The main entrance to the fortress. A stone landing platform on the lake side, ringed by Gamorrean guards and watched by a relative of Varga's — Varga doesn't trust hired help with his only escape route. Skiffs from Blackwind Point and the encampment dock here. Visitors are screened at the head of the gangway. RADEN'S NOTE: 'Bring entertainment papers. Look like you belong. The dock is the front door — they expect you to walk through it.'"/>
+
+    <rect x="32" y="395" width="210" height="100" rx="3" class="hitbox"
+      data-room="Sewer Outflow (Lake Side)"
+      data-desc="A narrow stone tunnel discharging into the lake on the west side, half-submerged at the waterline. One of the two unguarded entries Raden marked. Single file, low ceiling, foul water — but it skips the gate entirely. RADEN'S NOTE: 'Narrow but it skips the gate. You'll come up inside the lower service runs underneath the kitchen.'"/>
+
+    <rect x="222" y="335" width="115" height="115" rx="3" class="hitbox"
+      data-room="Dock Guard Posts"
+      data-desc="Two Gamorrean guard posts flanking the dock approach. Marked with X's on Raden's map. Rotation changes every six hours; the shift change at dusk is the sloppiest — Raden circled it. They check papers, not faces. They are looking for trouble, not infiltrators."/>
+
+    <rect x="338" y="160" width="240" height="135" rx="3" class="hitbox"
+      data-room="Gambling Halls (Upper Floor)"
+      data-desc="The upstairs gambling halls and guest quarters — sabacc tables, lounges, private rooms for high rollers. This is where the visiting delegation will be entertained between audiences with Varga. The crew's guest quarters will be assigned somewhere in this wing if they pass the audition. Stairs from the throne room lead up here."/>
+
+    <rect x="445" y="280" width="280" height="180" rx="3" class="hitbox"
+      data-room="Throne Room"
+      data-desc="The heart of the fortress. Varga the Hutt holds court here on a massive reinforced hover-sled. Thick smoke, jizz-wailer music, sycophants and thieves and scavengers crowded along the walls. TC-663 — Varga's silver protocol droid — stands at his side and translates from Huttese. The audition happens here. So does every public spectacle, every announcement, every execution Varga wants the court to witness."/>
+
+    <rect x="710" y="290" width="120" height="155" rx="3" class="hitbox"
+      data-room="East Tower &amp; Stairs"
+      data-desc="A stone tower on the east side of the fortress containing the staircase up to the aviary and gambling levels, and a service stair down toward the kitchens and the dungeon corridor. A guard post sits at the base. The east tower is the main vertical artery of the building."/>
+
+    <rect x="775" y="125" width="280" height="175" rx="3" class="hitbox"
+      data-room="Aviary"
+      data-desc="An old Republic-era observation tower on the east side, converted by Varga into a raptor hall — vesper-hawks and a few Corellian striker-eagles. Used for private wagered fights against visiting nobles. Narrow catwalks, cages openable from an upper control panel, half-starved birds trained to attack on a hand signal. RADEN'S WARNING: 'It is the worst place in the fortress to be ambushed. If somebody at court has a grudge and they want to do it quiet, they take you to the aviary. Avoid it unless you are the one bringing the trap.'"/>
+
+    <rect x="690" y="420" width="170" height="100" rx="3" class="hitbox"
+      data-room="Kitchens"
+      data-desc="Varga's kitchens — staff quarters, cold storage, prep tables, butchery for the rancor pit feedings. The kitchen runs around the clock and the staff are the only people in the fortress who routinely move through every level. The Gamorreans don't watch the kitchens because they don't respect the kitchens."/>
+
+    <rect x="135" y="510" width="240" height="80" rx="3" class="hitbox"
+      data-room="Kitchen Approach (South Wall)"
+      data-desc="A service path along the south wall used by deliveries and kitchen staff. Lit only by a single torch over the hatch. Foot traffic is irregular — staff comings and goings, no patrol assigned. The approach itself is unwatched, but anyone visible in this corridor for too long will be noticed by the Gambling Halls windows above."/>
+
+    <rect x="135" y="588" width="245" height="85" rx="3" class="hitbox"
+      data-room="Kitchen Delivery Hatch"
+      data-desc="A small reinforced hatch in the south wall used to receive supply skiffs from the lake side. The second of Raden's two unguarded entries. RADEN'S NOTE: 'Gamorreans don't watch it because nobody respects the kitchen. Knock with the supply rhythm — three short, two long — and the kitchen master will open it without a question.'"/>
+
+    <rect x="385" y="600" width="155" height="80" rx="3" class="hitbox"
+      data-room="South Lake Landing"
+      data-desc="A small auxiliary landing on the south lake side — used for supply runs and trash skiffs hauling out the day's pit refuse. Not a passenger dock. No guard post, but the kitchen staff will see anyone who ties up here. Useful as an extraction point if the front dock is burning."/>
+
+    <rect x="850" y="510" width="270" height="220" rx="3" class="hitbox"
+      data-room="Dungeon Corridor (Lower Right)"
+      data-desc="The descending corridor that runs down from the kitchens and east tower into the lower detention block. Old Neimoidian architecture with deep-cut geometric inscriptions on the walls. Sealed blast doors and silent guard droids gate the descent. RADEN'S CAVEAT: 'I drew this from memory. The dungeon corridor on the lower right may have been re-walled since I last went down there — Varga rebuilds the cells when he's bored. The throne room layout, the guard posts, the kitchen approach, the aviary — those are accurate. The dungeon, treat as suggestion.'"/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Players' Map — Varga's Fortress</h2>
+  <p><em>Hand-drawn flimsi. Smudged from being slept on. Drawn by Warrick Raden from memory while he was waiting for somebody to find him in the filtration plant. Republic-era ruin retrofitted into a Hutt court — three floors above ground, two below. The dungeons are below. The throne room is on the ground floor. The guest quarters and the gambling halls are above. <strong>Hover any labeled area for Raden's notes.</strong></em></p>
+
+  <h3>Raden's Briefing</h3>
+  <div class="read-aloud">
+    "Old stone fortress on the far shore of Nymeve Lake. Republic-era ruin retrofitted into a Hutt court — moss on the walls, blaster turrets in the moss, gaudy banners over the turrets. Three floors above ground, two below.
+
+    "I drew these from memory while I was waiting for somebody to find me. They're not perfect. The dungeon corridor on the lower right may have been re-walled since I last went down there — Varga rebuilds the cells when he's bored. But the throne room layout, the guard posts, the kitchen approach, the aviary — those are accurate.
+
+    "Two ways in if you can't use the dock. A sewer outflow on the lake side — narrow, but it skips the gate. And a kitchen delivery hatch on the south wall that the Gamorreans don't watch because nobody respects the kitchen. I'd take the dock. Bring entertainment papers. Look like you belong."
+  </div>
+
+  <h3>The Three Approaches</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Front Door — The Dock</h4>
+      <p>Walk in as guests. Entertainment papers, cover identities, audition before Varga. Highest visibility, fastest path to the throne room, best access to court intel — but every step is observed. Raden's recommended approach.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Side Door — Sewer Outflow</h4>
+      <p>Wade in through the lake-side outflow tunnel. Comes up inside the lower service runs beneath the kitchens. Bypasses the dock and the audition entirely, but puts the crew in the bowels of the fortress with no cover and no excuse if found.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Back Door — Kitchen Delivery Hatch</h4>
+      <p>Knock at the south wall hatch with the supply rhythm. The kitchen master opens it without questions because the Gamorreans don't watch the kitchen. Lands the crew in the staff workflow, where they can move freely between levels — if they look like they belong on staff.</p>
+    </div>
+  </div>
+
+  <h3>The Layout</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Throne Room (Ground Floor)</h4>
+      <p>Varga's court. Hover-sled throne, TC-663 at his side, the audition, the public spectacles. The center of every social scene in the court phase.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Gambling Halls (Upstairs)</h4>
+      <p>Sabacc tables, guest quarters, private rooms for high rollers. Where the crew will be quartered if they pass the audition, and where most court-political scenes happen.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Aviary (East Tower)</h4>
+      <p>Converted Republic observation tower. Vesper-hawks and Corellian striker-eagles. Narrow catwalks, openable cages. The worst place in the fortress to be ambushed.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Kitchens &amp; South Wall</h4>
+      <p>Kitchen, prep, cold storage, and the south wall delivery hatch. The unwatched artery of the fortress. Staff move freely between levels.</p>
+    </div>
+    <div class="detail-card">
+      <h4>East Tower &amp; Stairs</h4>
+      <p>The vertical spine. Stairs up to the aviary and gambling halls, stairs down to the kitchens and the dungeon corridor. Guard post at the base.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Dungeon Corridor (Lower Right)</h4>
+      <p>Descent into the old Neimoidian detention block — sealed blast doors, silent guard droids. Raden warns the layout below may have been re-walled. Treat as suggestion only.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Annotation Gating:</strong> The richness of this delivery is gated on Raden's Comfort score at the end of the conversation overlay (adv2-p1-s3 Beat 2):
+    <br>• <strong>Comfort 4–5:</strong> Hand the players the full map. Raden personally annotates every business topic the conversation surfaced — TC-663 protocol, Demos warning, Iron Ring/Lady Sinde context, Varga implant breadcrumb, aviary warning. Read every hover note aloud as Raden speaks.
+    <br>• <strong>Comfort 3:</strong> Full map. Read aloud only the hover notes for areas the players actually asked about during the conversation.
+    <br>• <strong>Comfort 2:</strong> Maps only, no annotation. Players see the layout but get none of the politics.
+    <br>• <strong>Comfort 1 (Raden bolted):</strong> The crew finds the map abandoned on the workbench. Layout only. No TC-663, no Demos, no implant warning, no aviary warning.
+    <br><br>This is the asset Raden hands the crew. It carries forward into adv2 Part 2 — Iron Ring, Court of Varga, infiltration routes, aviary ambush, dungeon descent. Keep it pinned for the rest of the adventure.
+  </div>
+
+</div>
+
+<script src="/js/map-tooltip.js"></script>
+</body>
+</html>
