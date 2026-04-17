@@ -103,7 +103,7 @@
       "id": "maya-trust-us",
       "text": "Do you trust us?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "Long pause. She does not look away.\n\n\"No. Not yet. Trust is a thing I extend after I've watched somebody under fire — the actual kind, not the Imperial drill kind. I've watched you in a cantina brawl on Jakku and that was something, but it wasn't this.\"\n\nShe picks the mug back up. Looks down into it.\n\n\"What I have is — a working theory. The theory is that you're competent, that you don't lie to each other, and that when somebody on this crew goes down, the rest of you go back for them instead of running. If that theory holds when we land on Ajan Kloss, then we'll see.\"\n\nA glance up.\n\n\"You don't need my trust to do this job. You need my flying. The trust comes after. Or it doesn't.\"",
       "gmNote": "Honest answer. Maya respects that they asked. Comfort drops by 1 because the topic is uncomfortable — but she didn't deflect. If the crew performs well in the Crash and the Vanishing Place, this 'theory' converts to actual trust by the start of Adventure 2. Note for ongoing campaign: this is the line that earns the conversion.",
       "unlocks": [
@@ -119,7 +119,7 @@
       "id": "maya-real-name",
       "text": "Is Maya Vex your real name?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "She tugs the wire in her hair. Hard, this time. Doesn't answer for a long moment.\n\n\"It's the name that owns the ship. It's the name on every transponder code, every bonded permit, every credit account I touch. It's the name the Banshee answers to.\"\n\nShe meets your eyes.\n\n\"That's the only answer you're getting tonight. If we're still alive in a month, ask me again.\"\n\nShe looks at the recalc clock. Doesn't say anything else about it. The matter is closed.",
       "gmNote": "Hard probe. Maya does not flinch but she does not answer either. The implication — that 'Maya Vex' is a constructed identity — is intentional. She has a real name. She had a life on Christophsis before the war. The crew may earn the truth across the campaign through long-term play. For now, leave the door closed.",
       "unlocks": [],
@@ -134,56 +134,88 @@
     "maya-christophsis": {
       "text": "What was Christophsis like?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "She is quiet for a while. The hyperspace lights pulse on her face.\n\n\"Blue. The whole planet was blue — these crystal formations everywhere, these cities built into them, light coming through the walls in the morning like you were inside a sunrise. It was the most beautiful place I will ever live.\"\n\nA breath.\n\n\"Then the Separatists landed, and the Republic landed on top of them, and they fought for it for two months, and when it was over there was nothing left to fight for. The crystals don't grow back. The cities don't come back. The street I lived on isn't a street anymore. It's a glass plain.\"\n\nShe looks at you, level.\n\n\"That's why I fly cargo and not weapons. Anybody who tells you a war was worth it never lived through one as a kid.\"",
       "gmNote": "Real and raw. This is the truest Maya gets. After this, no further Christophsis follow-ups available — she's said what she needs to say. Comfort drops because the topic costs her, but she trusts the crew slightly more for asking honestly. Note: this informs her later refusals to take Rebellion-aligned contracts in subsequent adventures — she will not pick a side that involves planetary bombardment.",
-      "tags": ["probe", "backstory", "true"]
+      "tags": [
+        "probe",
+        "backstory",
+        "true"
+      ],
+      "id": "maya-christophsis"
     },
     "maya-banshee-history": {
       "text": "Where'd you fly her first?",
       "type": "story",
       "comfortCost": 0,
       "response": "\"Smuggler runs out of Nar Shaddaa to the Outer Rim. Spice when I had to. Medical supplies when I could. Refugees twice — never again, the math doesn't work. Then I started doing bonded contract work for whoever paid honest. That's most of the last three years.\"\n\nShe shrugs.\n\n\"The Banshee's been to maybe forty worlds. Twelve of them I'd go back to. The rest taught me something.\"",
-      "tags": ["ship", "career"]
+      "tags": [
+        "ship",
+        "career"
+      ],
+      "id": "maya-banshee-history"
     },
     "maya-nar-shaddaa": {
       "text": "Why Nar Shaddaa?",
       "type": "story",
       "comfortCost": 0,
       "response": "\"Because nobody asks where you came from on Nar Shaddaa. They ask what you can do, and if the answer is yes they pay you, and if the answer is no they forget your name in an hour. For a fourteen-year-old kid with no documentation and no family, that's the whole pitch.\"\n\nA pause.\n\n\"It's a terrible place. I won't pretend otherwise. But it's a terrible place that took me in, and I'm not going to talk down on it now that I've got somewhere else to be.\"",
-      "tags": ["backstory"]
+      "tags": [
+        "backstory"
+      ],
+      "id": "maya-nar-shaddaa"
     },
     "maya-the-no": {
       "text": "What did you say no to?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "She thinks about whether to answer.\n\n\"He had a job that involved a sealed crate going to a Hutt enforcer on Nal Hutta. The crate had air holes. I'm not stupid. I told him no — he could find someone else, but it wasn't going to be me.\"\n\nShe taps the counter.\n\n\"He paid the kill fee, didn't argue, didn't ask why. The crate went on someone else's ship. I don't know what happened to whatever was in it. I think about it sometimes.\"\n\nA flat look.\n\n\"That's the part of Varth I want you to know about. He's not clean. He's just — selective about which dirt sticks.\"",
       "gmNote": "This is the calibration. Varth is not a hero. Maya wants the crew to know going in that he made compromises she would not. Important seed for Adventure 2 onward.",
-      "tags": ["probe", "varth", "moral-cost"]
+      "tags": [
+        "probe",
+        "varth",
+        "moral-cost"
+      ],
+      "id": "maya-the-no"
     },
     "maya-what-was-cargo": {
       "text": "What were you actually carrying for him?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "\"Mostly? Datacores. Sealed, encrypted, addressed to specific people in specific places. I think now they were authentication keys and routing data for the skim operation. At the time I didn't know — and I didn't ask, because the not-asking was what he was paying for.\"\n\nA shrug.\n\n\"Sometimes credit chits in volumes that didn't make sense for legitimate business. Once a body, but I didn't know that until after. He apologized when I figured it out and gave me a bonus. I kept the bonus and stopped working that route.\"",
       "gmNote": "Maya's drawing a line for the crew: she is willing to work with Varth, but she is also clear-eyed about who he is. The 'body' line is meant to land. She is not endorsing him.",
-      "tags": ["probe", "varth"]
+      "tags": [
+        "probe",
+        "varth"
+      ],
+      "id": "maya-what-was-cargo"
     },
     "maya-trust-varth": {
       "text": "Do YOU trust him?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "\"I trust him to be Varth. Which means I trust him to do exactly what serves Varth's interests, with the smallest possible amount of harm to the people he likes, with maximum politeness throughout.\"\n\nShe sets the mug down.\n\n\"He likes me. I'm reasonably confident he won't burn me. He doesn't know any of you yet. Don't assume the same protection applies. Watch him. Be polite back. Don't take anything he says at face value the first time.\"\n\nA beat.\n\n\"He's worth the rescue. He's not worth your lives. Remember which is which.\"",
       "gmNote": "This is the single most important line in the conversation for setting up Adventure 2. Maya is telling the crew, in plain terms, how to handle Varth. They should listen.",
-      "tags": ["probe", "varth", "warning"]
+      "tags": [
+        "probe",
+        "varth",
+        "warning"
+      ],
+      "id": "maya-trust-varth"
     },
     "maya-the-debt": {
       "text": "What kind of debt?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "She is quiet a moment.\n\n\"Two years ago I got into trouble on a job that wasn't his. Imperials seized the Banshee in a customs sweep on Bestine. I was in a holding cell, the ship was about to be auctioned, and I had nobody who'd answer a comm.\"\n\nShe taps the counter once.\n\n\"Varth heard about it. I don't know how. He paid the customs fine, paid off the warden, got me out, and got the ship released — through a third party so nobody traced it back to him. I didn't even know it was him until eight months later when I ran into someone who knew. He never asked for anything in return.\"\n\nShe shrugs.\n\n\"So now he needs out of a cell. Math is math.\"",
       "gmNote": "The real reason she's here. Not romantic, not loyalty, not greed — a settled account between two professionals. This is also when the Bestine connection becomes meaningful for the Banshee's ventral turret, which she added after this incident.",
-      "tags": ["probe", "varth", "debt", "true"]
+      "tags": [
+        "probe",
+        "varth",
+        "debt",
+        "true"
+      ],
+      "id": "maya-the-debt"
     },
     "maya-the-fee": {
       "text": "How much is Cassian paying you?",
@@ -191,15 +223,22 @@
       "comfortCost": 0,
       "response": "\"Forty thousand for the run. Half on departure, half on extraction. Plus fuel and consumables.\"\n\nShe sips the caf.\n\n\"It's enough to clear what I owe on the Banshee, with a small reserve for repairs. It's not retirement money. I don't want retirement money. Retirement money is a noose with extra steps.\"",
       "gmNote": "Plain numbers. Maya is not in this for the score. She wants out of debt, period.",
-      "tags": ["business"]
+      "tags": [
+        "business"
+      ],
+      "id": "maya-the-fee"
     },
     "maya-why-us": {
       "text": "What did you read in our dossiers?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "She looks each of you over. Brief. Specific. She has thought about this.\n\n\"I'm not going to do the round-the-table. I will say — the thing I read in all of you is that none of you got into this for the credits. Every one of you has a thing that brought you here, and the thing isn't money. That matters more than people think.\"\n\nA half-smile.\n\n\"Crews that work for money fall apart the first time the math gets bad. Crews that work for reasons survive the math. I'm betting on reasons.\"",
       "gmNote": "Maya signaling that she sees them. This is the moment that lands a comfort gain even though probe — she's earnest. If GM wants, mentally bump comfort back up by 1 here. Use to seed long-term party loyalty arc.",
-      "tags": ["probe", "professional-respect"]
+      "tags": [
+        "probe",
+        "professional-respect"
+      ],
+      "id": "maya-why-us"
     },
     "maya-bestine-week": {
       "text": "What happened near Bestine?",
@@ -207,7 +246,11 @@
       "comfortCost": 0,
       "response": "\"Pirate cutter dropped out of hyperspace on top of me three jumps from port. Old YT-1300 with a turret bolted on the dorsal hull and a captain who thought he was clever. Cargo hold full of medical supplies bound for a clinic that needed them.\"\n\nShe shrugs.\n\n\"I didn't have a turret then. I had a ventral hull that could take exactly one hit before failing. He hit me twice. I got down in a moisture farmer's field on Tatooine with the cargo hold half-vented and a hairline fracture across the keel that took two months to weld out.\"\n\nA dry look.\n\n\"I bought a turret. Welded the gunwell in myself. Never going to be in that situation again — at least not without shooting back.\"",
       "gmNote": "Sets up the ventral turret as a story object, not just a stat block. Players who care about the ship now have a reason to volunteer for gunner duty.",
-      "tags": ["ship", "career"]
+      "tags": [
+        "ship",
+        "career"
+      ],
+      "id": "maya-bestine-week"
     },
     "maya-the-rattle": {
       "text": "Have you ever found that rattle?",
@@ -215,7 +258,11 @@
       "comfortCost": 0,
       "response": "She actually laughs. Once. Short.\n\n\"No. Three years. I have pulled every panel in that section of bulkhead. I have replaced the conduit clamps. I have shimmed the support frame. I have sat in the corridor with a stethoscope at three in the morning trying to chase it. It rattles when we hit hyperspace and it stops when we drop out, and it has not killed us yet.\"\n\nShe shakes her head.\n\n\"Some ships have ghosts. Mine has a rattle. I've made peace.\"",
       "gmNote": "Pure character moment. No mechanical weight — just warmth. Use as a small comfort gain.",
-      "tags": ["ship", "warmth"]
+      "tags": [
+        "ship",
+        "warmth"
+      ],
+      "id": "maya-the-rattle"
     },
     "maya-tour-engineering": {
       "text": "Will you show me the engineering section sometime?",
@@ -223,14 +270,21 @@
       "comfortCost": 0,
       "response": "A proper smile this time.\n\n\"Yeah. After we're back. I'll walk you through the whole thing — reactor, sublight assembly, the modifications. You're welcome to put hands on anything you want, as long as you ask first and put it back the way you found it.\"\n\nA beat.\n\n\"That's not a small offer, by the way. There aren't many people I let into engineering.\"",
       "gmNote": "Character bond moment for tech-curious PCs. Note this — earned engineering tour, redeemable in any downtime scene from Adventure 2 onward. Possibly unlocks small mechanical bonus on Banshee repair/modification checks for that PC at GM discretion.",
-      "tags": ["ship", "bond"]
+      "tags": [
+        "ship",
+        "bond"
+      ],
+      "id": "maya-tour-engineering"
     },
     "maya-canopy-landing": {
       "text": "Can the Banshee actually land under jungle canopy?",
       "type": "business",
       "comfortCost": 0,
       "response": "\"Yes. Not gracefully. There's a clearing in the canyon I scouted on the inbound — wide enough for the Banshee with maybe a meter to spare on either side. I'll come in slow on residual thrust, drop her vertical at the last second, and let the gear take it.\"\n\nA shrug.\n\n\"It will be loud and it will look ugly. But she'll be on the ground, signatures cold, and the canopy overhead will hide us from anything orbiting unless they're actively scanning that grid square.\"",
-      "tags": ["tactics"]
+      "tags": [
+        "tactics"
+      ],
+      "id": "maya-canopy-landing"
     },
     "maya-comm-discipline": {
       "text": "What's the comm protocol if things go wrong?",
@@ -238,7 +292,11 @@
       "comfortCost": 0,
       "response": "\"Three channels, rotating. Primary is encrypted long-range — that's for status updates and check-ins, every ninety minutes minimum. Secondary is short-range tactical — that's for active operations, full chatter okay. Tertiary is emergency burst — one transmission, one keyword, I'm in the air thirty seconds later.\"\n\nShe taps the counter.\n\n\"The keyword is 'banshee.' Don't use it casually. If I hear 'banshee' over tertiary, I'm coming in hot regardless of what's between me and you. Make sure that's worth what it costs.\"",
       "gmNote": "Real operational setup. The 'banshee' panic word is a campaign tool — let players know it exists. Use sparingly. Maya WILL come in hot if it's used, even into a tactical situation that's against her interests.",
-      "tags": ["tactics", "comms"]
+      "tags": [
+        "tactics",
+        "comms"
+      ],
+      "id": "maya-comm-discipline"
     },
     "maya-if-it-goes-wrong": {
       "text": "What if you get hit on the ground?",
@@ -246,22 +304,35 @@
       "comfortCost": 0,
       "response": "\"Then I fix what I can fix. The Banshee has the starship tool kit in the machine shop and I know every system on her by feel. If I'm grounded, I'm working. If I can't fly, I'll comm you and you'll know — and then you'll make the call about extraction by other means.\"\n\nA flat look.\n\n\"I don't bluff about the ship's status. If she can fly, she flies. If she can't, I tell you. Don't waste a rescue plan on a ship that won't lift.\"",
       "gmNote": "Maya's promise of operational honesty. This is also priming the players for the Crash next scene — she WILL be grounded, she WILL stay with the ship, and she WILL call straight about the turret problem.",
-      "tags": ["tactics", "extraction"]
+      "tags": [
+        "tactics",
+        "extraction"
+      ],
+      "id": "maya-if-it-goes-wrong"
     },
     "maya-after-jakku": {
       "text": "What did you read in us in the cantina?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "\"That none of you panicked. That you took care of each other while the shooting happened — I watched. That when it was over you didn't celebrate, you checked the perimeter and got moving. That's not common. Most fresh crews celebrate. Then they get killed celebrating.\"\n\nShe shrugs.\n\n\"It's a small data point. It moved the working theory in the right direction.\"",
-      "tags": ["probe", "professional-respect"]
+      "tags": [
+        "probe",
+        "professional-respect"
+      ],
+      "id": "maya-after-jakku"
     },
     "maya-going-back-for-people": {
       "text": "Have you ever had a crew that didn't go back?",
       "type": "probe",
-      "comfortCost": 1,
+      "comfortCost": -1,
       "response": "Long pause.\n\n\"Once. Long time ago. I was the one who didn't go back. Person I left didn't make it.\"\n\nShe sets the mug down. Carefully.\n\n\"I don't fly with crews like that anymore. I don't fly as a crew like that anymore. That's the rule. So when I say I'm watching whether you go back for each other — it's not abstract. It's the only thing I'm actually watching for.\"",
       "gmNote": "Most personal Maya gets in this conversation. Real grief, briefly shown, then closed. Comfort cost is real. Do NOT push for more on this thread — let the door close. Long-term campaign thread.",
-      "tags": ["probe", "true", "long-thread"]
+      "tags": [
+        "probe",
+        "true",
+        "long-thread"
+      ],
+      "id": "maya-going-back-for-people"
     }
   },
   "mayaInterjections": [

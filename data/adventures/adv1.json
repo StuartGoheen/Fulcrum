@@ -5391,7 +5391,39 @@
               "type": "combat",
               "trigger": "Ganga Lor breaches the bunker",
               "description": "Ganga Lor and his enforcers assault Switch's bunker. Cramped quarters, environmental hazards. Ganga Lor is killed in the fight — mandatory outcome. His enforcers flee or are defeated after he falls.",
-              "tactics": "Ganga Lor uses his size and heavy weapons in the tight space. Enforcers cover flanks. Switch's security turrets activate against the intruders if the heroes struck a deal."
+              "tactics": "Ganga Lor uses his size and heavy weapons in the tight space. Enforcers cover flanks. Switch's security turrets activate against the intruders if the heroes struck a deal.",
+              "composition": {
+                "enemies": [
+                  {
+                    "name": "Switch's Thugs",
+                    "classification": "minion",
+                    "count": 4,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Ganga Thug",
+                    "classification": "minion",
+                    "count": 5,
+                    "role": "anchor",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Switch",
+                    "classification": "elite",
+                    "count": 1,
+                    "role": "support",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Ganga Lor",
+                    "classification": "elite",
+                    "count": 1,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  }
+                ]
+              }
             }
           ],
           "environmentMechanics": [
@@ -6593,7 +6625,46 @@
               "type": "infiltration",
               "trigger": "Heroes begin their approach to the shuttle",
               "description": "Multiple approach vectors to the Lambda shuttle. Stormtroopers patrol the perimeter. Warlord's guards control the outer fence. The heroes need to reach the shuttle's cockpit to access the nav computer.",
-              "tactics": "Stormtroopers are disciplined but bored. Warlord's guards are sloppy. Exploit the jurisdictional friction between Imperial and local forces."
+              "tactics": "Stormtroopers are disciplined but bored. Warlord's guards are sloppy. Exploit the jurisdictional friction between Imperial and local forces.",
+              "composition": {
+                "enemies": [
+                  {
+                    "name": "Warlord's Guard",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "anchor",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper Sergeant",
+                    "classification": "standard",
+                    "count": 1,
+                    "role": "harrier",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper Rifleman",
+                    "classification": "minion",
+                    "count": 3,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper COMS",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "support",
+                    "threatCategory": "character"
+                  }
+                ]
+              }
             },
             {
               "id": "enc-s5-extraction",
@@ -6601,7 +6672,46 @@
               "type": "technical",
               "trigger": "Heroes reach the shuttle nav computer",
               "description": "Use the code cylinder to authenticate into the flight computer. Download the nav logs. The coordinates reveal the Vanishing Place on Ajan Kloss. Time-limited — the download takes several rounds, during which discovery is possible.",
-              "tactics": "Tech check with the cylinder is Easy. Without it, Moderate and takes longer. Investigation check reveals Project Leviathan references in the metadata."
+              "tactics": "Tech check with the cylinder is Easy. Without it, Moderate and takes longer. Investigation check reveals Project Leviathan references in the metadata.",
+              "composition": {
+                "enemies": [
+                  {
+                    "name": "Warlord's Guard",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "anchor",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper Sergeant",
+                    "classification": "standard",
+                    "count": 1,
+                    "role": "harrier",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper Rifleman",
+                    "classification": "minion",
+                    "count": 3,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper COMS",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "support",
+                    "threatCategory": "character"
+                  }
+                ]
+              }
             },
             {
               "id": "enc-s5-escape",
@@ -6609,7 +6719,46 @@
               "type": "combat",
               "trigger": "Alarm raised or download complete",
               "description": "Heroes must escape the landing field and reach Maya at the Banshee. Stormtroopers pursue. The escape from Jakku transitions into Part 2.",
-              "tactics": "Running firefight across the landing field. Maya has the Banshee prepped at a secondary pad. Once aboard, they break atmosphere and jump."
+              "tactics": "Running firefight across the landing field. Maya has the Banshee prepped at a secondary pad. Once aboard, they break atmosphere and jump.",
+              "composition": {
+                "enemies": [
+                  {
+                    "name": "Warlord's Guard",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "anchor",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper Sergeant",
+                    "classification": "standard",
+                    "count": 1,
+                    "role": "harrier",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper Rifleman",
+                    "classification": "minion",
+                    "count": 3,
+                    "role": "threat",
+                    "threatCategory": "character"
+                  },
+                  {
+                    "name": "Stormtrooper COMS",
+                    "classification": "minion",
+                    "count": 1,
+                    "role": "support",
+                    "threatCategory": "character"
+                  }
+                ]
+              }
             }
           ],
           "groupChallenge": {
