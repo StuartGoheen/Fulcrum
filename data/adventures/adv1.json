@@ -7858,17 +7858,26 @@
                   {
                     "type": "Defense Turret T1",
                     "count": 1,
-                    "threat": "rival"
+                    "threat": "rival",
+                    "classification": "rival",
+                    "role": "anchor",
+                    "tier": 2
                   },
                   {
                     "type": "Defense Turret T2",
                     "count": 1,
-                    "threat": "rival"
+                    "threat": "rival",
+                    "classification": "rival",
+                    "role": "anchor",
+                    "tier": 2
                   },
                   {
                     "type": "Defense Turret T3",
                     "count": 1,
-                    "threat": "rival"
+                    "threat": "rival",
+                    "classification": "rival",
+                    "role": "anchor",
+                    "tier": 2
                   }
                 ],
                 "terrain": "Canyon descent, jungle canopy below, ridge above. Banshee is single ship descending; T1/T2/T3 are dug-in emplacements on the ridge.",
