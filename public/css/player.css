@@ -1604,3 +1604,105 @@ body.player-body {
 .droid-mini-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .droid-mini-btn-danger { color: #ff6b6b; border-color: rgba(255,107,107,0.4); background: rgba(255,107,107,0.08); }
 .droid-mini-btn-danger:hover:not(:disabled) { background: rgba(255,107,107,0.18); }
+
+/* ───────── Comments (Journal + Dramatis) ───────── */
+.entry-comments {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(200,164,78,0.18);
+}
+.entry-comments-loading,
+.entry-comments-empty {
+  font-size: 0.82rem;
+  color: rgba(220,210,180,0.55);
+  font-style: italic;
+  padding: 4px 0;
+}
+.entry-comments-header {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(200,164,78,0.85);
+  margin-bottom: 6px;
+}
+.entry-comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.entry-comment {
+  background: rgba(20,18,12,0.45);
+  border: 1px solid rgba(200,164,78,0.14);
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+.entry-comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: rgba(220,210,180,0.6);
+  margin-bottom: 4px;
+}
+.entry-comment-author {
+  color: #c8a44e;
+  font-weight: 600;
+}
+.entry-comment-date { font-style: italic; }
+.entry-comment-delete {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: rgba(255,107,107,0.7);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0 4px;
+  line-height: 1;
+}
+.entry-comment-delete:hover { color: #ff6b6b; }
+.entry-comment-body {
+  font-size: 0.88rem;
+  color: #e8e2cf;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.entry-comment-form {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+.entry-comment-input {
+  flex: 1;
+  background: rgba(15,13,8,0.7);
+  border: 1px solid rgba(200,164,78,0.25);
+  color: #e8e2cf;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  resize: vertical;
+  min-height: 36px;
+}
+.entry-comment-input:focus {
+  outline: none;
+  border-color: rgba(200,164,78,0.6);
+}
+.entry-comment-submit {
+  background: rgba(200,164,78,0.18);
+  color: #c8a44e;
+  border: 1px solid rgba(200,164,78,0.4);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.entry-comment-submit:hover:not(:disabled) {
+  background: rgba(200,164,78,0.3);
+}
+.entry-comment-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

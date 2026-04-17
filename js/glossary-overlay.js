@@ -1604,6 +1604,7 @@
             }
             html += '</div>';
             html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+            html += _commentsPlaceholder('journal', entry.id);
             html += '</div>';
           } else {
             html += '<div class="journal-entry-meta-inline">';
@@ -1656,6 +1657,7 @@
             }
             html += '</div>';
             html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+            html += _commentsPlaceholder('journal', entry.id);
             html += '</div>';
           } else {
             html += '<div class="journal-entry-meta-inline">';
@@ -1707,6 +1709,7 @@
             }
             html += '</div>';
             html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+            html += _commentsPlaceholder('journal', entry.id);
             html += '</div>';
           } else {
             html += '<div class="journal-entry-meta-inline">';
@@ -1863,6 +1866,7 @@
           }
           html += '</div>';
           html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+          html += _commentsPlaceholder('journal', entry.id);
           html += '</div>';
         } else {
           html += '<div class="journal-entry-meta-inline">';
@@ -1940,6 +1944,7 @@
           html += '<div class="journal-entry-actions">';
           html += '<button class="journal-edit-btn" data-journal-edit="' + entry.id + '">Edit</button>';
           html += '</div>';
+          html += _commentsPlaceholder('journal', entry.id);
           html += '</div>';
         } else {
           html += '<div class="journal-entry-meta-inline">';
@@ -1952,6 +1957,208 @@
 
     return html;
   }
+
+  // ───────────────────────── Comments (Journal + Dramatis) ─────────────────────────
+  var _commentsCache = {};
+  var _commentsBound = false;
+
+  function _commentsKey(type, id) { return type + ':' + String(id); }
+
+  function _commentsSession() {
+    try {
+      var raw = sessionStorage.getItem('eote-session');
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      if (!s) return null;
+      return {
+        token: s.token || '',
+        characterId: s.characterId || null,
+        characterName: s.characterName || ''
+      };
+    } catch (e) { return null; }
+  }
+
+  function _commentsPlaceholder(parentType, parentId) {
+    return '<div class="entry-comments" data-comments-parent-type="' + parentType +
+           '" data-comments-parent-id="' + _esc(String(parentId)) + '">' +
+           '<div class="entry-comments-loading">Loading comments\u2026</div>' +
+           '</div>';
+  }
+
+  function _renderCommentsThread(parentType, parentId, comments) {
+    var who = _characterName || '';
+    var html = '';
+    html += '<div class="entry-comments-header">Comments' +
+            (comments.length ? ' (' + comments.length + ')' : '') + '</div>';
+    if (!comments.length) {
+      html += '<div class="entry-comments-empty">No comments yet.</div>';
+    } else {
+      html += '<div class="entry-comments-list">';
+      comments.forEach(function (c) {
+        var canDelete = who && c.author_character_name === who;
+        html += '<div class="entry-comment" data-comment-id="' + c.id + '">';
+        html += '<div class="entry-comment-meta">';
+        html += '<span class="entry-comment-author">' + _esc(c.author_character_name) + '</span>';
+        html += '<span class="entry-comment-date">' + _formatDate(c.created_at) + '</span>';
+        if (canDelete) {
+          html += '<button class="entry-comment-delete" data-comment-delete="' + c.id + '" title="Delete comment">\u2715</button>';
+        }
+        html += '</div>';
+        html += '<div class="entry-comment-body">' + _esc(c.body || '').replace(/\n/g, '<br>') + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    if (who) {
+      html += '<form class="entry-comment-form" data-comment-form="' + parentType + ':' + _esc(String(parentId)) + '">';
+      html += '<textarea class="entry-comment-input" placeholder="Add a comment as ' + _esc(who) + '\u2026" rows="2" maxlength="4000"></textarea>';
+      html += '<button type="submit" class="entry-comment-submit">Post</button>';
+      html += '</form>';
+    } else {
+      html += '<div class="entry-comments-empty">Sign in as a character to comment.</div>';
+    }
+    return html;
+  }
+
+  function _hydrateComments(rootEl) {
+    if (!rootEl) return;
+    var nodes = rootEl.querySelectorAll('.entry-comments[data-comments-parent-id]');
+    nodes.forEach(function (node) {
+      if (node.dataset.commentsHydrated === '1') return;
+      node.dataset.commentsHydrated = '1';
+      var parentType = node.dataset.commentsParentType;
+      var parentId   = node.dataset.commentsParentId;
+      var key = _commentsKey(parentType, parentId);
+
+      function paint(comments) {
+        _commentsCache[key] = comments;
+        node.innerHTML = _renderCommentsThread(parentType, parentId, comments);
+      }
+
+      if (_commentsCache[key]) {
+        paint(_commentsCache[key]);
+      }
+
+      var sess = _commentsSession();
+      var url = '/api/comments?parent_type=' + encodeURIComponent(parentType) +
+                '&parent_id=' + encodeURIComponent(parentId);
+      if (sess && sess.token && sess.characterId) {
+        url += '&player_token=' + encodeURIComponent(sess.token) +
+               '&character_id=' + encodeURIComponent(sess.characterId);
+      }
+      fetch(url, { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { paint(data.comments || []); })
+        .catch(function () {
+          if (!_commentsCache[key]) {
+            node.innerHTML = '<div class="entry-comments-empty">Could not load comments.</div>';
+          }
+        });
+    });
+
+    if (_commentsBound) return;
+    _commentsBound = true;
+    document.addEventListener('submit', function (e) {
+      var form = e.target.closest && e.target.closest('[data-comment-form]');
+      if (!form) return;
+      e.preventDefault();
+      var parts = form.getAttribute('data-comment-form').split(':');
+      var parentType = parts.shift();
+      var parentId   = parts.join(':');
+      var ta = form.querySelector('.entry-comment-input');
+      var body = (ta.value || '').trim();
+      if (!body) return;
+      var btn = form.querySelector('.entry-comment-submit');
+      if (btn) btn.disabled = true;
+      var sess = _commentsSession();
+      fetch('/api/comments', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parent_type: parentType,
+          parent_id: parentId,
+          player_token: sess ? sess.token : '',
+          character_id: sess ? sess.characterId : null,
+          body: body
+        })
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (btn) btn.disabled = false;
+          if (!res.ok) {
+            alert((res.data && res.data.error) || 'Could not post comment.');
+            return;
+          }
+          ta.value = '';
+          var key = _commentsKey(parentType, parentId);
+          var list = _commentsCache[key] || [];
+          list.push(res.data.comment);
+          _commentsCache[key] = list;
+          var node = form.closest('.entry-comments');
+          if (node) node.innerHTML = _renderCommentsThread(parentType, parentId, list);
+        })
+        .catch(function () {
+          if (btn) btn.disabled = false;
+          alert('Network error posting comment.');
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('[data-comment-delete]');
+      if (!btn) return;
+      e.preventDefault();
+      var id = btn.getAttribute('data-comment-delete');
+      if (!confirm('Delete this comment?')) return;
+      var sessD = _commentsSession();
+      var qs = '';
+      if (sessD && sessD.token && sessD.characterId) {
+        qs = '?player_token=' + encodeURIComponent(sessD.token) +
+             '&character_id=' + encodeURIComponent(sessD.characterId);
+      }
+      fetch('/api/comments/' + encodeURIComponent(id) + qs, {
+        method: 'DELETE',
+        credentials: 'same-origin'
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (!res.ok) {
+            alert((res.data && res.data.error) || 'Could not delete.');
+            return;
+          }
+          var node = btn.closest('.entry-comments');
+          if (!node) return;
+          var parentType = node.dataset.commentsParentType;
+          var parentId   = node.dataset.commentsParentId;
+          var key = _commentsKey(parentType, parentId);
+          var list = (_commentsCache[key] || []).filter(function (c) { return String(c.id) !== String(id); });
+          _commentsCache[key] = list;
+          node.innerHTML = _renderCommentsThread(parentType, parentId, list);
+        });
+    });
+  }
+
+  // Real-time updates from other clients
+  (function _listenCommentsSocket() {
+    var sock = window._socket;
+    if (!sock) { setTimeout(_listenCommentsSocket, 2000); return; }
+    function refresh(parentType, parentId) {
+      var key = _commentsKey(parentType, parentId);
+      delete _commentsCache[key];
+      var sel = '.entry-comments[data-comments-parent-type="' + parentType +
+                '"][data-comments-parent-id="' + String(parentId).replace(/"/g, '\\"') + '"]';
+      document.querySelectorAll(sel).forEach(function (n) {
+        n.dataset.commentsHydrated = '';
+      });
+      var root = document.body;
+      _hydrateComments(root);
+    }
+    sock.on('comment:added',   function (d) { refresh(d.parentType, d.parentId); });
+    sock.on('comment:deleted', function (d) { refresh(d.parentType, d.parentId); });
+    sock.on('comment:updated', function (d) {
+      if (d) refresh(d.parentType, d.parentId);
+    });
+  })();
 
   function _renderJournal() {
     var wrap = document.getElementById('journal-tab-wrap');
@@ -1970,6 +2177,7 @@
     html += '</div>';
 
     wrap.innerHTML = html;
+    _hydrateComments(wrap);
 
     wrap.querySelectorAll('[data-jnav-to]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -2845,12 +3053,14 @@
             html += '</div>';
           });
         }
+        html += _commentsPlaceholder('dramatis', p.npc_key);
         html += '</div>';
       }
       html += '</div>';
     });
 
     wrap.innerHTML = html;
+    _hydrateComments(wrap);
 
     wrap.querySelectorAll('[data-dramatis-toggle]').forEach(function (card) {
       card.addEventListener('click', function (e) {
