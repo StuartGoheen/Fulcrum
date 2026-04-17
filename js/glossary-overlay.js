@@ -2039,13 +2039,9 @@
         paint(_commentsCache[key]);
       }
 
-      var sess = _commentsSession();
       var url = '/api/comments?parent_type=' + encodeURIComponent(parentType) +
-                '&parent_id=' + encodeURIComponent(parentId);
-      if (sess && sess.token && sess.characterId) {
-        url += '&player_token=' + encodeURIComponent(sess.token) +
-               '&character_id=' + encodeURIComponent(sess.characterId);
-      }
+                '&parent_id=' + encodeURIComponent(parentId) +
+                '&character_name=' + encodeURIComponent(_characterName || '');
       fetch(url, { credentials: 'same-origin' })
         .then(function (r) { return r.json(); })
         .then(function (data) { paint(data.comments || []); })
@@ -2070,7 +2066,6 @@
       if (!body) return;
       var btn = form.querySelector('.entry-comment-submit');
       if (btn) btn.disabled = true;
-      var sess = _commentsSession();
       fetch('/api/comments', {
         method: 'POST',
         credentials: 'same-origin',
@@ -2078,8 +2073,7 @@
         body: JSON.stringify({
           parent_type: parentType,
           parent_id: parentId,
-          player_token: sess ? sess.token : '',
-          character_id: sess ? sess.characterId : null,
+          character_name: _characterName || '',
           body: body
         })
       })
@@ -2110,13 +2104,8 @@
       e.preventDefault();
       var id = btn.getAttribute('data-comment-delete');
       if (!confirm('Delete this comment?')) return;
-      var sessD = _commentsSession();
-      var qs = '';
-      if (sessD && sessD.token && sessD.characterId) {
-        qs = '?player_token=' + encodeURIComponent(sessD.token) +
-             '&character_id=' + encodeURIComponent(sessD.characterId);
-      }
-      fetch('/api/comments/' + encodeURIComponent(id) + qs, {
+      fetch('/api/comments/' + encodeURIComponent(id) +
+            '?character_name=' + encodeURIComponent(_characterName || ''), {
         method: 'DELETE',
         credentials: 'same-origin'
       })

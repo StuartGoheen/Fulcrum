@@ -5,32 +5,27 @@ const { pool } = require('../db');
 const VALID_PARENTS = ['journal', 'dramatis'];
 const MAX_BODY_LEN = 4000;
 
-// Resolve the authoritative character name for the requesting player.
-// GM is trusted by role and may pass an explicit `as_character` to act as one.
-// Players MUST supply player_token + character_id; we validate against sessions.
+// Resolve the acting character name. The app sits behind a shared passcode and
+// is not publicly searchable; we trust the character name the client provides.
+// GM is trusted by role and may pass character_name to act as a player.
 async function resolveActor(req, opts) {
   opts = opts || {};
-  const isGm = req.userRole === 'gm';
-  if (isGm) {
-    const asChar = String((opts.source && opts.source.as_character) || '').trim();
-    return { isGm: true, characterName: asChar || null };
-  }
   const src = opts.source || {};
-  const playerToken = String(src.player_token || '').trim();
-  const characterId = parseInt(src.character_id, 10);
-  if (!playerToken || !Number.isFinite(characterId)) {
-    return { isGm: false, characterName: null, error: 'player_token and character_id required' };
+  const isGm = req.userRole === 'gm';
+  let name = String(src.character_name || src.author_character_name || '').trim();
+
+  // If only character_id was sent, look it up.
+  if (!name && src.character_id != null) {
+    const cid = parseInt(src.character_id, 10);
+    if (Number.isFinite(cid)) {
+      try {
+        const r = await pool.query('SELECT name FROM characters WHERE id = $1', [cid]);
+        if (r.rows.length) name = r.rows[0].name;
+      } catch (e) {}
+    }
   }
-  const r = await pool.query(
-    `SELECT c.name FROM sessions s
-     JOIN characters c ON c.id = s.character_id
-     WHERE s.player_token = $1 AND s.character_id = $2`,
-    [playerToken, characterId]
-  );
-  if (!r.rows.length) {
-    return { isGm: false, characterName: null, error: 'invalid player_token for this character' };
-  }
-  return { isGm: false, characterName: r.rows[0].name };
+
+  return { isGm: isGm, characterName: name || null };
 }
 
 // Returns null if visible, otherwise an HTTP-style {status, error}.
@@ -64,11 +59,6 @@ router.get('/comments', async (req, res) => {
     const actor = await resolveActor(req, { source: req.query });
 
     if (parentType === 'journal') {
-      // Journal reads must be authenticated as the author for private entries
-      if (!actor.isGm && actor.error) {
-        // For private entries this is required; for crew entries it is fine.
-        // Do the visibility check first to decide.
-      }
       const vis = await checkJournalVisibility(parentId, actor);
       if (vis) return res.status(vis.status).json({ error: vis.error });
     }
@@ -100,8 +90,7 @@ router.post('/comments', async (req, res) => {
 
   try {
     const actor = await resolveActor(req, { source: body });
-    if (!actor.isGm && actor.error) return res.status(403).json({ error: actor.error });
-    if (!actor.characterName) return res.status(400).json({ error: 'GM must specify as_character to comment' });
+    if (!actor.characterName) return res.status(400).json({ error: 'character_name required to post a comment' });
 
     if (parentType === 'journal') {
       const vis = await checkJournalVisibility(parentId, actor);
@@ -137,8 +126,7 @@ router.delete('/comments/:id', async (req, res) => {
     if (!r.rows.length) return res.status(404).json({ error: 'comment not found' });
     const c = r.rows[0];
     if (!actor.isGm) {
-      if (actor.error) return res.status(403).json({ error: actor.error });
-      if (actor.characterName !== c.author_character_name) {
+      if (!actor.characterName || actor.characterName !== c.author_character_name) {
         return res.status(403).json({ error: 'only the author can delete this comment' });
       }
     }
@@ -166,8 +154,7 @@ router.put('/comments/:id', async (req, res) => {
     if (!r.rows.length) return res.status(404).json({ error: 'comment not found' });
     const existing = r.rows[0];
     if (!actor.isGm) {
-      if (actor.error) return res.status(403).json({ error: actor.error });
-      if (actor.characterName !== existing.author_character_name) {
+      if (!actor.characterName || actor.characterName !== existing.author_character_name) {
         return res.status(403).json({ error: 'only the author can edit this comment' });
       }
     }
