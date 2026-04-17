@@ -19,12 +19,13 @@
       "text": "Who are you, exactly?",
       "type": "story",
       "comfortCost": 0,
-      "response": "She thinks about it. Doesn't answer right away.\n\n\"Maya Vex. Independent freight. Owner-operator of the Banshee — registered out of Nar Shaddaa, flagged for general cargo, which is a lie that nobody enforces because everybody's lying about something.\"\n\nShe sips the caf. Makes a face.\n\n\"Born on Christophsis. Left when I was fourteen because there was nothing left to leave for — the war put a glassed crater where my street used to be. Got off-world on a refugee transport, ended up on Nar Shaddaa, taught myself to fly because the alternative was working a glitterstim den. Bought the Banshee at a bonded auction six years ago. She was a wreck. I'm still paying her off in pieces.\"\n\nA shrug. \"That's the whole tour. There's not much more to it.\"",
-      "gmNote": "This is the version of her story Maya tells strangers at a bar. It's all true — and all surface. She's leaving out everything that matters. The Christophsis line is the only piece with real weight, and she delivers it flat on purpose.",
+      "response": "She thinks about it. Doesn't answer right away.\n\n\"Maya Vex. Independent freight, owner-operator of the Banshee. She's been in my family longer than I've been alive — my father bought her secondhand the year before I was born and I have been on this ship since I was old enough to be set down on the deck plates without rolling off. Learned to fly her sitting in his lap, then sitting on a crate so I could reach the yoke, then in the seat. There was never a question what I was going to do for a living.\"\n\nShe sips the caf. Makes a face.\n\n\"My father ran freight. Honest contracts when he could find them, smuggler's runs when he couldn't, like everybody who flew the Outer Rim back then. He kept it small and he kept it clean — never moved spice, never moved slaves, never moved weapons aimed at people who couldn't shoot back. I was raised on those rules and I still fly by them.\"\n\nA beat.\n\n\"He was killed near the end of the Clone Wars. Caught in a crossfire on Saleucami — wrong sky lane, wrong ten minutes, Republic and Sep armor shooting at each other through a freight corridor that was supposed to be neutral. I was twenty-three. I took the next contract on his dispatch board, and the one after that, and I have been doing this alone for fourteen years.\"\n\nShe looks at you, level.\n\n\"That's who I am. The rest is detail.\"",
+      "gmNote": "This is Maya's real origin story — quieter and steadier than Varth's polished performance two scenes from now. The key facts to seed: (1) the Banshee has been hers and her father's the entire time, no auction, no skipped debt, just a small freighter family business; (2) her father Daro Vex was a small-time smuggler-freighter killed on Saleucami in the late Clone Wars (~19 BBY) in a Republic-vs-CIS crossfire — not a glorious death, just the wrong sky at the wrong moment; (3) Maya is ~37 now, has been solo for 14 years. The 'never moved spice, slaves, or weapons' line is her CODE — it will matter in Adventures 2 and 3 when Varth's contracts start drifting toward all three.",
       "unlocks": [
         "maya-christophsis",
         "maya-banshee-history",
-        "maya-nar-shaddaa"
+        "maya-nar-shaddaa",
+        "maya-father"
       ],
       "tags": [
         "backstory",
@@ -70,12 +71,14 @@
       "text": "Tell me about the ship.",
       "type": "story",
       "comfortCost": 0,
-      "response": "Her face changes. The first real warmth of the night.\n\n\"Barloz-class medium freighter. Off the line in 18 BBY, original configuration was bonded transport with a passenger module nobody ever used. I bought her at auction in 4 BBY — previous owner skipped a debt with a Black Sun lieutenant and the lieutenant skipped town a week later, so the bond auctioneers couldn't move her. I got her for less than the engines were worth.\"\n\nShe gestures at the bulkhead with the mug.\n\n\"Stripped the passenger module. Doubled up the shield generators. Replaced the hyperdrive with a Class 1.5 someone pulled out of a corellian gunship — don't ask. Reinforced the ventral hull because the original armor was a joke. The turret down in the gunwell was added two years ago after a bad week near Bestine.\"\n\nA real smile this time, small but present.\n\n\"She's not pretty. She's not fast in atmosphere. She rattles in the upper bulkhead aft of the galley and I have not figured out why in three years of looking. But she's mine, and she gets where she's going, and she has never quit on me. Even when I deserved it.\"",
-      "gmNote": "This is Maya's heart — the ship. Comfort gains here are real. If a player follows up with technical curiosity (Tech or Piloting background), she lights up further and offers them a tour of the engineering section after the mission. Note the ventral hull reinforcement and turret — both mentioned as Chekhov's loadout for later scenes.",
+      "response": "Her face changes. The first real warmth of the night.\n\n\"Barloz-class medium freighter. Off the line in 44 BBY — she's older than I am by a year and a half. My father bought her secondhand from a Sullustan trader in the year before I was born. He picked her because she had a reinforced ventral and a cargo bay you could sleep four in if you had to, and we had to.\"\n\nShe gestures at the bulkhead with the mug.\n\n\"Original configuration was bonded transport with a passenger module nobody ever used. We pulled the module out when I was nine — me handing my father tools, him doing the cutting. Reinforced the deck where the module had been, ran a galley up where the comm relay used to be. The Class 1.5 hyperdrive came out of a Corellian gunship two systems over from Saleucami a couple years before he died — don't ask me how he got it, he never told me and now I can't ask. Doubled-up shield generators are mine, post-Bestine. Ventral armor patch is mine. The turret in the gunwell is mine. The rattle in the upper bulkhead aft of the galley — that one's been with us since I was a kid, my father couldn't find it either, and I have made my peace.\"\n\nA real smile this time, small but present.\n\n\"She's not pretty. She's not fast in atmosphere. But she's been my home longer than any building has, and she has never quit on me. Even when I deserved it.\"",
+      "gmNote": "This is Maya's heart — the ship. Comfort gains here are real. If a player follows up with technical curiosity (Tech or Piloting background), she lights up further and offers them a tour of the engineering section after the mission. Note the ventral hull reinforcement and turret — both mentioned as Chekhov's loadout for later scenes. Updated to reflect Maya's true origin: the Banshee was her father's ship before it was hers. She did NOT buy it at auction — she inherited and never let go. Her refits (post-Bestine shields, ventral patch, gunwell turret) are explicitly hers; her father's refits (passenger module strip, hyperdrive swap) were done with her at his side. The rattle is the closest thing the ship has to an heirloom — both of them failed to find it.",
       "unlocks": [
         "maya-bestine-week",
         "maya-the-rattle",
-        "maya-tour-engineering"
+        "maya-tour-engineering",
+        "maya-marks-on-the-ship",
+        "maya-father"
       ],
       "tags": [
         "ship",
@@ -136,8 +139,8 @@
       "text": "What was Christophsis like?",
       "type": "probe",
       "comfortCost": -1,
-      "response": "She is quiet for a while. The hyperspace lights pulse on her face.\n\n\"Blue. The whole planet was blue — these crystal formations everywhere, these cities built into them, light coming through the walls in the morning like you were inside a sunrise. It was the most beautiful place I will ever live.\"\n\nA breath.\n\n\"Then the Separatists landed, and the Republic landed on top of them, and they fought for it for two months, and when it was over there was nothing left to fight for. The crystals don't grow back. The cities don't come back. The street I lived on isn't a street anymore. It's a glass plain.\"\n\nShe looks at you, level.\n\n\"That's why I fly cargo and not weapons. Anybody who tells you a war was worth it never lived through one as a kid.\"",
-      "gmNote": "Real and raw. This is the truest Maya gets. After this, no further Christophsis follow-ups available — she's said what she needs to say. Comfort drops because the topic costs her, but she trusts the crew slightly more for asking honestly. Note: this informs her later refusals to take Rebellion-aligned contracts in subsequent adventures — she will not pick a side that involves planetary bombardment.",
+      "response": "She is quiet for a while. The hyperspace lights pulse on her face.\n\n\"Blue. The whole planet was blue — these crystal formations everywhere, these cities built into them, light coming through the walls in the morning like you were inside a sunrise. My father kept a small flat above a chandler's shop in the lower terraces — somewhere to land between contracts, somewhere I could go to school for a few months at a time when the freight board went quiet. It was the closest thing to a home that wasn't the Banshee.\"\n\nA breath.\n\n\"Then the Separatists landed, and the Republic landed on top of them, and they fought for it for two months, and when it was over there was nothing left to fight for. The crystals don't grow back. The cities don't come back. The street the chandler's shop was on isn't a street anymore. It's a glass plain. We were off-world the day it started. We never went back.\"\n\nShe looks at you, level.\n\n\"That's why I fly cargo and not weapons. Anybody who tells you a war was worth it never lived through one as a kid.\"",
+      "gmNote": "Christophsis is Maya's lost childhood home — but not where her father died. Battle of Christophsis (~22 BBY) when Maya was ~8 or 9. She and her father were lucky and off-world that week; they never landed there again. Her father is killed SEVEN YEARS LATER on Saleucami. Players who track timelines should not conflate these two losses — they're separate cuts.",
       "tags": [
         "probe",
         "backstory",
@@ -146,16 +149,16 @@
       "id": "maya-christophsis"
     },
     "maya-banshee-history": {
-      "text": "Where'd you fly her first?",
+      "text": "Where'd you start, after your father?",
       "type": "story",
       "comfortCost": 0,
-      "response": "\"Smuggler runs out of Nar Shaddaa to the Outer Rim. Spice when I had to. Medical supplies when I could. Refugees twice — never again, the math doesn't work. Then I started doing bonded contract work for whoever paid honest. That's most of the last three years.\"\n\nShe shrugs.\n\n\"The Banshee's been to maybe forty worlds. Twelve of them I'd go back to. The rest taught me something.\"",
+      "response": "\"His dispatch board was still open the day after the news caught up to me — three contracts queued, one of them already late. I took the late one first. Honored his rate, didn't renegotiate, didn't tell the broker the man they'd hired was dead. Just delivered the cargo and signed the manifest with my own name.\"\n\nShe shrugs.\n\n\"After that it was whatever came in. Bonded freight when I could get it. Less-bonded freight when I couldn't. Refugees twice in the early Imperial years — never again, the math doesn't work and the grief is bad. The Banshee's been to maybe forty worlds since I took the seat. Twelve of them I'd go back to. The rest taught me something.\"\n\nA pause.\n\n\"I've kept his rules the whole time. No spice. No slaves. No weapons aimed at people who can't shoot back. That's the line. I haven't crossed it yet.\"",
       "tags": [
         "ship",
         "career"
       ],
       "id": "maya-banshee-history",
-      "gmNote": "The Banshee is older than the Empire — Maya's affection for the ship is real and uncalculated. This is the easiest place for the crew to win comfort: ask about the ship, listen to the answer, don't try to be clever. Players who care about the Banshee earn Maya's trust faster than players who care about the score."
+      "gmNote": "Maya's professional code — inherited verbatim from her father — is the spine of her character. The 'I haven't crossed it yet' is honest acknowledgment that the line CAN be crossed, and that the cylinder Varth has hired them to move may be one of the things that tests it. Players who notice this line should file it for Adventure 2 and 3."
     },
     "maya-nar-shaddaa": {
       "text": "Why Nar Shaddaa?",
@@ -353,6 +356,56 @@
         "varth",
         "warning",
         "foreshadow"
+      ]
+    },
+    "maya-father": {
+      "id": "maya-father",
+      "text": "What was your father like?",
+      "type": "story",
+      "comfortCost": 0,
+      "parentId": "maya-who-are-you",
+      "response": "She doesn't answer right away. Looks past you at the porthole. The amber lights pulse.\n\n\"Daro Vex. Quiet man. Not stern — just economical. Said exactly what needed to be said and then went back to whatever he was doing, which was usually fixing something on the ship or arguing with a dispatcher over a rate. He had hands like a mechanic and a head like a navigator and he was kinder than the work he did asked him to be.\"\n\nA small breath.\n\n\"He taught me to fly. He taught me to read a manifest. He taught me which station bosses would short you and which ones would pay honest if you delivered clean. He taught me his rules and he taught me that the rules were the only thing standing between us and the kind of people we hauled past every day. He was right. I have not found a better set of rules since.\"\n\nA pause.\n\n\"He was forty-six when he died on Saleucami. Crossfire — Republic AT-TEs on a ridge, Separatist armor in the riverbed, our flight corridor going right between them. He held the lane because the cargo was medical and he had committed to the delivery. He was a hundred meters from being clear when the fire caught the starboard nacelle. He set the ship down before he died. The ship survived because he flew it down before the systems quit. That is the kind of man he was.\"\n\nA long beat.\n\n\"I was on Nar Shaddaa waiting for him. The news took eleven days to reach me. By the time I got to Saleucami the Republic had recovered the Banshee from a refugee staging field and the local registrar had it logged as 'pilot deceased, vessel intestate.' I had to prove I was his daughter and his sole heir. Took six weeks. They held the ship the whole time. When they finally released her I sat in the pilot's seat and I cried for an hour and then I flew her off-world and I have not stopped flying her since.\"",
+      "gmNote": "This is the most personal beat in the conversation. Costs nothing because Maya WANTS this on the record — her father is the moral anchor of her life and she's offering him to the crew as the explanation for everything else. Players who ask this earn enormous comfort even though the cost is zero. Note: the 'set the ship down before he died' detail is essential — Daro saved the Banshee at the cost of his own life, which is why Maya treats the ship the way she does. It's not just a ship; it's the last thing her father did.",
+      "unlocks": [
+        "maya-marks-on-the-ship",
+        "maya-his-rules"
+      ],
+      "tags": [
+        "father",
+        "origin",
+        "grief",
+        "code"
+      ]
+    },
+    "maya-his-rules": {
+      "id": "maya-his-rules",
+      "text": "What were his rules, exactly?",
+      "type": "story",
+      "comfortCost": 0,
+      "parentId": "maya-father",
+      "response": "She lists them on her fingers. Not theatrically — just precisely. The way you list something you've recited to yourself often enough that the list has its own rhythm.\n\n\"One. No spice. Doesn't matter the rate, doesn't matter who's asking, doesn't matter what they call it on the manifest. The cargo eats people. We don't move it.\n\n\"Two. No slaves. Doesn't matter if the broker calls them indentured, contracted, bonded, whatever. If they can't walk away from the deal, we don't carry them.\n\n\"Three. No weapons aimed at people who can't shoot back. Pistols for a freeport militia, fine. Anti-personnel ordinance bound for a company town, no. The test is whether the people on the receiving end have something to defend with. If they don't, we're not in that business.\"\n\nShe sets the mug down.\n\n\"Four — and this one was his alone, I haven't always lived up to it — never lie to the crew. Even if the truth costs you the contract. Especially then. The crew is the only thing on a ship that thinks back at you. You don't lie to it.\"\n\nA small smile.\n\n\"Three I keep clean. Four I'm working on.\"",
+      "gmNote": "Maya is naming her code AND owning where she falls short of it. Rule Four is the live wire — she's already shading the truth about why she took THIS contract (the Varth job pays more than her usual ceiling and she doesn't fully know why). Players who hear Rule Four and then ask probe questions about Varth or the cargo are doing exactly the right thing. This is also the moment that makes Maya recruitable as a long-term ally: she has named a moral framework, which means the players can hold her to it later.",
+      "unlocks": [],
+      "tags": [
+        "father",
+        "code",
+        "foreshadow"
+      ]
+    },
+    "maya-marks-on-the-ship": {
+      "id": "maya-marks-on-the-ship",
+      "text": "Are there still marks on the ship from when you were a kid?",
+      "type": "story",
+      "comfortCost": 0,
+      "parentId": "maya-banshee",
+      "response": "She actually softens. Sets the mug down.\n\n\"You'd see them if you knew where to look. Come back to the engineering corridor sometime, I'll point them out properly. But yeah — she's covered in me growing up.\"\n\nShe counts them off slowly, like she's walking the ship in her head.\n\n\"There's a height ladder etched into the bulkhead beside the engineering hatch. My father did it with a grease pencil at first and then made it permanent with a laser scribe when he saw I was going to keep growing. The marks go from a hundred and four centimeters up to a hundred and sixty-two. The dates are scratched in next to each one. The last date is a year before he died.\"\n\nA pause.\n\n\"There's a hammock rigged in the access crawl above the galley. Kid-sized. I slept up there until I was nine because I liked the hum of the ventilation. I left it rigged after he died. I don't know why.\"\n\nAnother beat.\n\n\"His tools are still racked the way he left them in the engineering bay. I have a duplicate set I actually use — his I leave in place. The grease pencil is still in the holder by the manifold. It still writes. I haven't used it.\"\n\nShe looks at her hands. Picks at a callus.\n\n\"The cargo hatch has 'D. VEX, OWNER, BANSHEE' stenciled inside on the latch plate where mechanics see it but passengers don't. The local registrar wanted me to scrub it when I retitled. I told them to put the new plate ABOVE it instead. So both of our names are in there now. Mine on top. His underneath, where I can see it every time I close the hatch.\"\n\nA small breath. She picks the mug back up.\n\n\"Anyway. Yeah. There are marks.\"",
+      "gmNote": "This is a deep-comfort emotional payoff for players who go looking. The physical details — height ladder, kid hammock, racked tools, dual nameplate — give Maya a tangible inheritance the players can SEE and reference forever. The earned engineering tour from maya-tour-engineering becomes much more meaningful after this exchange. Use the bulkhead nameplate as a recurring image: any time the players are aboard the Banshee in later adventures, the GM can mention closing a hatch and seeing both names. It's the cheapest character work in the campaign and the most effective.",
+      "unlocks": [],
+      "tags": [
+        "father",
+        "ship",
+        "warmth",
+        "heirloom"
       ]
     }
   },
