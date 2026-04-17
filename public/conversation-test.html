@@ -224,7 +224,11 @@
 
     .tell-me-about {
       padding: 8px;
-      border-top: 1px solid #2a2a3a;
+      border-bottom: 1px solid #2a2a3a;
+      background: #10101a;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
 
     .tell-me-about-btn {
@@ -501,10 +505,10 @@
         <span>Available Questions</span>
         <span class="questions-explored" id="exploredCount">0 explored</span>
       </div>
-      <div class="question-list" id="questionList"></div>
       <div class="tell-me-about" id="tellMeAbout" style="display:none;">
-        <button class="tell-me-about-btn" id="tellMeAboutBtn">"Tell me about..."</button>
+        <button class="tell-me-about-btn" id="tellMeAboutBtn">&larr; "Tell me about..." (back to topics)</button>
       </div>
+      <div class="question-list" id="questionList"></div>
     </div>
   </div>
 
