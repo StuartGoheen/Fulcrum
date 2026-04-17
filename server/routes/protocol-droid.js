@@ -78,10 +78,17 @@ function buildJournalSection(entries) {
   for (const e of entries) {
     const tagStr = (e.tags || []).map(t => t.name).join(', ');
     const scope = e.visibility === 'crew' ? 'Crew' : 'Private';
-    lines.push(`--- ENTRY id=${e.id} ---`);
+    let kind = 'Journal';
+    if (e.source_scene_id) {
+      if (e.source_scene_id.startsWith('conversation:')) kind = 'Conversation clip';
+      else if (e.source_scene_id === 'holonet') kind = 'HoloNet broadcast';
+      else if (e.source_scene_id.startsWith('map-')) kind = 'Map note';
+      else kind = 'Scene log';
+    }
+    lines.push(`--- ENTRY id=${e.id}  (${kind}) ---`);
     lines.push(`Title: ${e.title}`);
     lines.push(`Date: ${formatDate(e.created_at)}  |  Author: ${e.author_character_name}  |  Scope: ${scope}`);
-    if (e.source_scene_id) lines.push(`Scene: ${e.source_scene_id}`);
+    if (e.source_scene_id) lines.push(`Source: ${e.source_scene_id}`);
     if (tagStr) lines.push(`Tags: ${tagStr}`);
     lines.push('');
     lines.push(String(e.body || '').trim());
@@ -106,10 +113,16 @@ function buildPrompt({ characterName, scope, question, journalEntries, rulesSect
     'You have two memory banks: CREW LOGS (the character\'s personal journal — private + crew entries they can see) and STANDARD PROTOCOL (the official rules, lore, gear, weapons, maneuvers, NPC archetypes for the Fulcrum / Edge of the Empire game system).',
     'Answer ONLY using information found in the provided memory banks.',
     'If the answer is not in the available memory, say so plainly and offer what is available adjacent. Do NOT invent facts, NPCs, dates, locations, or rules.',
-    'Cite every fact you use. Each citation goes in the "sources" array as one of:',
-    '  { "type": "journal", "refId": <entry id from CREW LOGS>, "label": "<entry title>" }',
-    '  { "type": "rules",   "refId": "<rules source id, e.g. gamesystem>", "label": "<short reference, e.g. Symmetric Resolution>" }',
-    'Keep answers concise (3-8 sentences) unless the question is genuinely complex. Use plain prose, no markdown headers.',
+    '',
+    'EVALUATIVE QUESTIONS: If the operator asks for an opinion, judgment, recommendation, or assessment (e.g. "can he be trusted?", "is this safe?", "what should we do?", "compare X and Y"), you MUST first state the relevant facts from the cited evidence, then close with a short Assessment paragraph beginning with "Assessment:". The Assessment must reason strictly from the cited evidence — never speculate beyond it. Acknowledge ambiguity where the evidence is thin.',
+    '',
+    'CITATIONS: Cite ONLY the entries or rules sources whose content materially appears in your answer. Do not list everything you skimmed. Aim for 1-5 sources unless the question genuinely spans more.',
+    'Each citation goes in the "sources" array as one of:',
+    '  { "type": "journal", "refId": <entry id from CREW LOGS>, "label": "<2-6 word topic, NOT the verbatim entry title>" }',
+    '  { "type": "rules",   "refId": "<rules source id, e.g. gamesystem>", "label": "<2-6 word reference, e.g. Symmetric Resolution>" }',
+    'The label is what the player sees on a chip — make it a useful summary of WHY this source supports your answer (e.g. "Varth\'s prison survival", "Trust pitch — routing data", "Aim maneuver bonuses"). Never copy the full entry title.',
+    '',
+    'Keep answers concise (3-8 sentences for factual recall, up to ~12 sentences when an Assessment is required). Use plain prose, no markdown headers.',
     'Return ONLY a JSON object with shape: { "answer": string, "sources": [...] }. No other text.',
   ].join('\n');
 
