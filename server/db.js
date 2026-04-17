@@ -229,6 +229,23 @@ async function initSchema() {
       await client.query(`ALTER TABLE narrative_challenge_instances ADD COLUMN IF NOT EXISTS shuffle_seed INTEGER`);
     } catch (e) {}
     try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS conversation_instances (
+          id                 SERIAL PRIMARY KEY,
+          conversation_slug  TEXT NOT NULL,
+          status             TEXT NOT NULL DEFAULT 'active',
+          comfort            INTEGER NOT NULL DEFAULT 5,
+          beat_index         INTEGER NOT NULL DEFAULT 1,
+          participants       JSONB NOT NULL DEFAULT '[]',
+          state              JSONB NOT NULL DEFAULT '{}',
+          created_at         TIMESTAMP DEFAULT NOW(),
+          ended_at           TIMESTAMP
+        )`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS visibility TEXT NOT NULL DEFAULT 'crew'`);
+    } catch (e) {}
+    try {
       await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
     } catch (e) {}
     try {

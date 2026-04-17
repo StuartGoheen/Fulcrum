@@ -62,6 +62,7 @@
   }
 
   var socket = typeof io !== 'undefined' ? io() : null;
+  if (socket) window.__sharedSocket = socket;
 
   var adventuresData = null;
   var progressData = { adventure_id: 'adv1', part_id: 'adv1-p1', scene_id: 'adv1-p1-s1' };
@@ -4644,6 +4645,71 @@
     });
   }
 
+  function initConversationScenes() {
+    var sel = document.getElementById('cb-conv-select');
+    var launchBtn = document.getElementById('cb-conv-launch-btn');
+    var openBtn = document.getElementById('cb-conv-open-btn');
+    var status = document.getElementById('cb-conv-status');
+    if (!sel || !launchBtn) return;
+
+    function refreshStatus() {
+      fetch('/api/conversations/active').then(function (r) { return r.json(); }).then(function (data) {
+        if (data && data.active && data.active.status === 'active') {
+          var def = data.active.definition || {};
+          status.innerHTML = '<span style="color:#4a90e2;">\u25CF Active:</span> ' +
+            (def.title || data.active.slug) + ' \u2014 Beat ' + data.active.beat +
+            ', Comfort ' + data.active.comfort;
+        } else {
+          status.textContent = 'No active conversation.';
+        }
+      }).catch(function () {});
+    }
+
+    function loadLibrary() {
+      fetch('/api/conversations/library').then(function (r) { return r.json(); }).then(function (data) {
+        sel.innerHTML = '';
+        (data.conversations || []).forEach(function (c) {
+          var opt = document.createElement('option');
+          opt.value = c.slug;
+          opt.textContent = c.title || c.slug;
+          sel.appendChild(opt);
+        });
+        if (!sel.options.length) {
+          var opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = '(none available)';
+          sel.appendChild(opt);
+        }
+      });
+    }
+
+    launchBtn.addEventListener('click', function () {
+      var slug = sel.value;
+      if (!slug) return;
+      if (!confirm('Launch "' + sel.options[sel.selectedIndex].text + '"? This will end any active conversation.')) return;
+      if (window.ConversationOverlay) {
+        window.ConversationOverlay.launch(slug).then(function (data) {
+          if (data && data.error) alert(data.error);
+          refreshStatus();
+        });
+      }
+    });
+
+    openBtn.addEventListener('click', function () {
+      if (window.ConversationOverlay) window.ConversationOverlay.open();
+    });
+
+    if (socket) {
+      socket.on('conversation:start', refreshStatus);
+      socket.on('conversation:beat-advanced', refreshStatus);
+      socket.on('conversation:delivered', refreshStatus);
+      socket.on('conversation:ended', refreshStatus);
+    }
+
+    loadLibrary();
+    refreshStatus();
+  }
+
   function initNarrativeChallenges() {
     var launchBtn = document.getElementById('cb-launch-challenge-btn');
     if (launchBtn) {
@@ -5033,6 +5099,7 @@
   loadCrewJournal();
   initDecisionTracker();
   initNarrativeChallenges();
+  initConversationScenes();
   initDramatisPersonae();
 
   var galaxyMapBtn = document.getElementById('cb-galaxy-map-btn');

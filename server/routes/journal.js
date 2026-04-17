@@ -126,48 +126,55 @@ router.post('/journal/tags', async (req, res) => {
 });
 
 router.get('/journal/entries', async (req, res) => {
-  const { tag, scene_id } = req.query;
+  const { tag, scene_id, viewer } = req.query;
+  // Visibility filter:
+  //   GM sees everything.
+  //   Players see crew entries plus any private entries authored by their character.
+  //   `viewer` is the requesting character_name (player UI passes it).
+  const isGm = req.userRole === 'gm';
+  const viewerName = (viewer || '').toString().trim();
+  // For private entries, require viewer == author (not just viewer == visibility),
+  // so a player can't read another player's private entries by guessing their name.
+  function appendVisFilter(params, prefix) {
+    if (isGm) return '';
+    params.push(viewerName || '');
+    const v = '$' + params.length;
+    return ` ${prefix} (e.visibility = 'crew' OR (e.visibility = ${v} AND e.author_character_name = ${v}))`;
+  }
+
   try {
     let query, params;
+    const cols = `
+      e.id, e.title, e.body, e.author_character_name, e.source_scene_id,
+      e.visibility, e.created_at, e.updated_at,
+      COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
+        FILTER (WHERE t.id IS NOT NULL), '[]') AS tags`;
     if (scene_id) {
-      query = `
-        SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
-          COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
-            FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
-        FROM journal_entries e
-        LEFT JOIN journal_entry_tags et ON et.entry_id = e.id
-        LEFT JOIN journal_tags t ON t.id = et.tag_id
-        WHERE e.source_scene_id = $1
-        GROUP BY e.id
-        ORDER BY e.created_at ASC`;
       params = [scene_id];
-    } else if (tag) {
-      query = `
-        SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
-          COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
-            FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
-        FROM journal_entries e
+      const where = `WHERE e.source_scene_id = $1` + appendVisFilter(params, 'AND');
+      query = `SELECT ${cols} FROM journal_entries e
         LEFT JOIN journal_entry_tags et ON et.entry_id = e.id
         LEFT JOIN journal_tags t ON t.id = et.tag_id
-        WHERE e.id IN (
+        ${where} GROUP BY e.id ORDER BY e.created_at ASC`;
+    } else if (tag) {
+      params = [tag];
+      const where = `WHERE e.id IN (
           SELECT et2.entry_id FROM journal_entry_tags et2
           JOIN journal_tags t2 ON t2.id = et2.tag_id
           WHERE t2.name = $1
-        )
-        GROUP BY e.id
-        ORDER BY e.created_at DESC`;
-      params = [tag];
-    } else {
-      query = `
-        SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
-          COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
-            FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
-        FROM journal_entries e
+        )` + appendVisFilter(params, 'AND');
+      query = `SELECT ${cols} FROM journal_entries e
         LEFT JOIN journal_entry_tags et ON et.entry_id = e.id
         LEFT JOIN journal_tags t ON t.id = et.tag_id
-        GROUP BY e.id
-        ORDER BY e.created_at DESC`;
+        ${where} GROUP BY e.id ORDER BY e.created_at DESC`;
+    } else {
       params = [];
+      const visExpr = appendVisFilter(params, '');
+      const where = visExpr ? 'WHERE' + visExpr : '';
+      query = `SELECT ${cols} FROM journal_entries e
+        LEFT JOIN journal_entry_tags et ON et.entry_id = e.id
+        LEFT JOIN journal_tags t ON t.id = et.tag_id
+        ${where} GROUP BY e.id ORDER BY e.created_at DESC`;
     }
     const result = await pool.query(query, params);
     res.json({ entries: result.rows });

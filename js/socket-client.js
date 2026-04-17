@@ -139,7 +139,7 @@
 
     setConnectionIndicator('connecting');
 
-    const socket = io({
+    const socket = window.__sharedSocket = io({
       reconnection:        true,
       reconnectionDelay:   1000,
       reconnectionAttempts: 10,
