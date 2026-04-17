@@ -81,6 +81,28 @@
     });
   }
 
+  function condLabel(cid) {
+    var def = getEffectDef(cid);
+    if (def && def.name) return def.name;
+    return cid.charAt(0).toUpperCase() + cid.slice(1);
+  }
+
+  function logEvent(type, text, meta) {
+    if (!combatState) return;
+    if (!combatState.combatLog) combatState.combatLog = [];
+    combatState.combatLog.push({
+      ts: Date.now(),
+      round: combatState.round || 1,
+      turnIndex: combatState.currentTurnIndex || 0,
+      type: type,
+      text: text,
+      meta: meta || null
+    });
+    if (combatState.combatLog.length > 500) {
+      combatState.combatLog.splice(0, combatState.combatLog.length - 500);
+    }
+  }
+
   function applyScriptedEscalation(round) {
     if (!combatState || !combatState.encounter) return;
     var script = combatState.encounter.scriptedEscalation;
@@ -109,6 +131,12 @@
     });
     if (applied.length) {
       combatState.lastEscalation = { round: round, entries: applied };
+      applied.forEach(function (en) {
+        var condStr = en.conditions.map(function (c) { return '[' + condLabel(c) + ']'; }).join(' ');
+        var msg = condStr + ' → ' + en.targets.join(', ');
+        if (en.note) msg += ' — ' + en.note;
+        logEvent('escalation', msg, { conditions: en.conditions, targets: en.targets, note: en.note });
+      });
     } else if (combatState.lastEscalation && combatState.lastEscalation.round !== round) {
       combatState.lastEscalation = null;
     }
@@ -395,11 +423,14 @@
       tokenPositions: {},
       selectedToken: null,
       joinBattleSent: false,
-      pcResponses: {}
+      pcResponses: {},
+      combatLog: [],
+      combatLogCollapsed: false
     };
 
     rebuildTurnOrder();
 
+    logEvent('start', 'Combat began: ' + (encounter.name || 'Encounter') + ' — Round 1', { encounter: encounter.name });
     applyScriptedEscalation(1);
 
     if (pcSlots.length > 0 && pcTokenZone) {
@@ -543,12 +574,18 @@
   }
 
   function endEncounter() {
+    var summary = null;
+    if (combatState) {
+      logEvent('end', 'Combat ended (' + combatState.round + ' round' + (combatState.round === 1 ? '' : 's') + ')');
+      summary = buildCombatSummary();
+    }
     _cleanupSocketHandlers();
     _placementNpcId = null;
     var sock = getSocket();
     if (sock) {
-      sock.emit('combat:end');
+      sock.emit('combat:end', summary ? { summary: summary } : undefined);
     }
+    if (summary) showCombatSummaryModal(summary);
     combatState = null;
     _conditionPanelState = { targetId: null, targetType: null, sourceLabel: null, selectedCondition: null };
     if (_ctMapViewer) {
@@ -563,6 +600,96 @@
       container.style.display = 'none';
       container.innerHTML = '';
     }
+  }
+
+  function buildCombatSummary() {
+    if (!combatState) return null;
+    var log = (combatState.combatLog || []).slice();
+    var totals = { rounds: combatState.round || 1, escalations: 0, conditions: 0, kos: 0 };
+    var koList = [];
+    log.forEach(function (e) {
+      if (e.type === 'escalation') totals.escalations++;
+      else if (e.type === 'condition') totals.conditions++;
+      else if (e.type === 'ko') {
+        totals.kos++;
+        if (e.text.indexOf('knocked out') !== -1) koList.push(e.text.replace(/^✖\s*/, '').replace(/\s*knocked out$/, ''));
+      }
+    });
+    var standing = (combatState.combatants || []).filter(function (n) { return n.vitalityCurrent > 0; }).map(function (n) { return n.name + ' (' + n.vitalityCurrent + '/' + n.vitalityMax + ')'; });
+    return {
+      encounterName: (combatState.encounter && combatState.encounter.name) || 'Combat',
+      totals: totals,
+      koList: koList,
+      standing: standing,
+      log: log
+    };
+  }
+
+  function showCombatSummaryModal(summary) {
+    if (!summary) return;
+    var existing = document.getElementById('ct-summary-modal');
+    if (existing) existing.remove();
+    var modal = document.createElement('div');
+    modal.id = 'ct-summary-modal';
+    modal.className = 'ct-summary-modal-backdrop';
+    var html = '<div class="ct-summary-modal">';
+    html += '<div class="ct-summary-header">';
+    html += '<div class="ct-summary-title">Combat Summary &mdash; ' + esc(summary.encounterName) + '</div>';
+    html += '<button class="ct-summary-close" id="ct-summary-close">&times;</button>';
+    html += '</div>';
+    html += '<div class="ct-summary-stats">';
+    html += '<div class="ct-summary-stat"><span class="ct-summary-stat-num">' + summary.totals.rounds + '</span><span class="ct-summary-stat-lbl">Rounds</span></div>';
+    html += '<div class="ct-summary-stat"><span class="ct-summary-stat-num">' + summary.totals.escalations + '</span><span class="ct-summary-stat-lbl">Escalations</span></div>';
+    html += '<div class="ct-summary-stat"><span class="ct-summary-stat-num">' + summary.totals.conditions + '</span><span class="ct-summary-stat-lbl">Conditions</span></div>';
+    html += '<div class="ct-summary-stat"><span class="ct-summary-stat-num">' + summary.totals.kos + '</span><span class="ct-summary-stat-lbl">KOs</span></div>';
+    html += '</div>';
+    if (summary.koList.length) {
+      html += '<div class="ct-summary-section"><div class="ct-summary-section-title">Knocked Out</div><div class="ct-summary-list">' + summary.koList.map(function (n) { return '<span class="ct-summary-pill ct-summary-pill--ko">' + esc(n) + '</span>'; }).join('') + '</div></div>';
+    }
+    if (summary.standing.length) {
+      html += '<div class="ct-summary-section"><div class="ct-summary-section-title">Still Standing</div><div class="ct-summary-list">' + summary.standing.map(function (n) { return '<span class="ct-summary-pill ct-summary-pill--ok">' + esc(n) + '</span>'; }).join('') + '</div></div>';
+    }
+    html += '<div class="ct-summary-section"><div class="ct-summary-section-title">Full Log (' + summary.log.length + ' events)</div>';
+    html += '<div class="ct-summary-log">';
+    if (!summary.log.length) {
+      html += '<div class="ct-gmlog-empty">No events recorded.</div>';
+    } else {
+      summary.log.forEach(function (e) {
+        var color = logTypeColor(e.type);
+        html += '<div class="ct-gmlog-entry ct-gmlog-entry--' + esc(e.type) + '" style="border-left-color:' + color + ';">';
+        html += '<span class="ct-gmlog-round">R' + (e.round || 1) + '</span>';
+        html += '<span class="ct-gmlog-text" style="color:' + color + ';">' + esc(e.text) + '</span>';
+        html += '</div>';
+      });
+    }
+    html += '</div></div>';
+    html += '<div class="ct-summary-footer"><button class="ct-summary-btn" id="ct-summary-copy">Copy Log</button><button class="ct-summary-btn ct-summary-btn--primary" id="ct-summary-ok">Close</button></div>';
+    html += '</div>';
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+    function close() { modal.remove(); }
+    modal.querySelector('#ct-summary-close').addEventListener('click', close);
+    modal.querySelector('#ct-summary-ok').addEventListener('click', close);
+    modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+    var copyBtn = modal.querySelector('#ct-summary-copy');
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      var text = 'Combat Summary — ' + summary.encounterName + '\n';
+      text += 'Rounds: ' + summary.totals.rounds + ' | Escalations: ' + summary.totals.escalations + ' | Conditions: ' + summary.totals.conditions + ' | KOs: ' + summary.totals.kos + '\n\n';
+      summary.log.forEach(function (e) { text += '[R' + (e.round || 1) + '] ' + e.text + '\n'; });
+      function onCopyOk() {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(function () { copyBtn.textContent = 'Copy Log'; }, 1500);
+      }
+      function onCopyFail() {
+        copyBtn.textContent = 'Copy failed';
+        setTimeout(function () { copyBtn.textContent = 'Copy Log'; }, 1500);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onCopyOk).catch(onCopyFail);
+      } else {
+        onCopyFail();
+      }
+    });
   }
 
   function triggerJoinBattle() {
@@ -688,6 +815,48 @@
     return stepDie(dieStr, steps);
   }
 
+  function logTypeColor(type) {
+    var colors = {
+      start: '#60a5fa',
+      round: '#f59e0b',
+      escalation: '#fb923c',
+      condition: '#a78bfa',
+      vitality: '#facc15',
+      ko: '#ef4444',
+      end: '#9ca3af'
+    };
+    return colors[type] || '#cbd5e1';
+  }
+
+  function renderCombatLogPanel() {
+    if (!combatState) return '';
+    var log = combatState.combatLog || [];
+    var collapsed = !!combatState.combatLogCollapsed;
+    var html = '<div class="ct-gmlog-panel">';
+    html += '<div class="ct-gmlog-header" id="ct-gmlog-toggle" role="button" aria-expanded="' + (!collapsed) + '">';
+    html += '<span class="ct-gmlog-title">GM LOG <span class="ct-gmlog-count">(' + log.length + ')</span></span>';
+    html += '<span class="ct-gmlog-caret">' + (collapsed ? '▸' : '▾') + '</span>';
+    html += '</div>';
+    if (!collapsed) {
+      html += '<div class="ct-gmlog-body">';
+      if (log.length === 0) {
+        html += '<div class="ct-gmlog-empty">No events logged yet.</div>';
+      } else {
+        for (var i = log.length - 1; i >= 0; i--) {
+          var e = log[i];
+          var color = logTypeColor(e.type);
+          html += '<div class="ct-gmlog-entry ct-gmlog-entry--' + esc(e.type) + '" style="border-left-color:' + color + ';">';
+          html += '<span class="ct-gmlog-round">R' + (e.round || 1) + '</span>';
+          html += '<span class="ct-gmlog-text" style="color:' + color + ';">' + esc(e.text) + '</span>';
+          html += '</div>';
+        }
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
   function renderEscalationBanner() {
     if (!combatState || !combatState.lastEscalation) return '';
     var le = combatState.lastEscalation;
@@ -747,6 +916,8 @@
       html += mapHtml;
       html += renderUnplacedTray();
     }
+
+    html += renderCombatLogPanel();
 
     container.innerHTML = html;
     attachCombatEvents(container);
@@ -1761,10 +1932,17 @@
               duration: duration
             });
           }
+          var pcSlot = combatState.pcSlots.find(function (p) { return p.id === st.targetId; });
+          var pcName = pcSlot ? pcSlot.name : 'PC';
+          var arenaSuffix = arena ? ' (' + arena + ')' : '';
+          logEvent('condition', '+[' + condLabel(condId) + ']' + arenaSuffix + ' → ' + pcName + ' (' + duration + ')', { action: 'apply', target: pcName, conditionId: condId, duration: duration, arena: arena });
+          renderCombatTracker();
         } else if (st.targetType === 'npc') {
           var npc = combatState.combatants.find(function (n) { return n.id === st.targetId; });
           if (npc) {
             npcAddCond(npc, condId, duration, arena);
+            var arenaSuffix2 = arena ? ' (' + arena + ')' : '';
+            logEvent('condition', '+[' + condLabel(condId) + ']' + arenaSuffix2 + ' → ' + npc.name + ' (' + duration + ')', { action: 'apply', target: npc.name, conditionId: condId, duration: duration, arena: arena });
             renderCombatTracker();
           }
         }
@@ -1785,6 +1963,7 @@
           if (npc) {
             npcRemoveCond(npc, condId);
             if (condId === 'surprised') npc.surprised = false;
+            logEvent('condition', '−[' + condLabel(condId) + '] ' + npc.name, { action: 'remove', target: npc.name, conditionId: condId });
             renderCombatTracker();
           }
         } else if (type === 'pc') {
@@ -1796,6 +1975,7 @@
           }
           var pc = combatState.pcSlots.find(function (p) { return p.id === id; });
           if (pc) {
+            logEvent('condition', '−[' + condLabel(condId) + '] ' + pc.name, { action: 'remove', target: pc.name, conditionId: condId });
             if (uid) {
               pc.activeEffects = (pc.activeEffects || []).filter(function (e) { return e.uid !== uid; });
               var stillHas = (pc.activeEffects || []).some(function (e) { return (e.effectId || e) === condId; });
@@ -1806,6 +1986,7 @@
               pc.conditions = (pc.conditions || []).filter(function (c) { return c !== condId; });
               pc.activeEffects = (pc.activeEffects || []).filter(function (e) { return (e.effectId || e) !== condId; });
             }
+            renderCombatTracker();
           }
         }
         renderConditionPanel();
@@ -2018,6 +2199,12 @@
     var endBtn = container.querySelector('#ct-end-encounter');
     if (endBtn) endBtn.addEventListener('click', endEncounter);
 
+    var logToggle = container.querySelector('#ct-gmlog-toggle');
+    if (logToggle) logToggle.addEventListener('click', function () {
+      combatState.combatLogCollapsed = !combatState.combatLogCollapsed;
+      renderCombatTracker();
+    });
+
     var jbBtn = container.querySelector('#ct-trigger-jb');
     if (jbBtn) jbBtn.addEventListener('click', triggerJoinBattle);
 
@@ -2074,6 +2261,7 @@
       combatState.currentTurnIndex = (combatState.currentTurnIndex + 1) % order.length;
       if (combatState.currentTurnIndex === 0) {
         combatState.round++;
+        logEvent('round', '── Round ' + combatState.round + ' begins ──');
         applyScriptedEscalation(combatState.round);
       }
       combatState.selectedId = null;
@@ -2088,6 +2276,7 @@
         if (combatState.round > 1) {
           combatState.round--;
           combatState.currentTurnIndex = order.length - 1;
+          logEvent('round', '↶ Stepped back to Round ' + combatState.round);
         }
       } else {
         combatState.currentTurnIndex--;
@@ -2101,6 +2290,7 @@
       combatState.round++;
       combatState.currentTurnIndex = 0;
       combatState.selectedId = null;
+      logEvent('round', '── Round ' + combatState.round + ' begins ──');
       applyScriptedEscalation(combatState.round);
       renderCombatTracker();
     });
@@ -2111,7 +2301,18 @@
         var delta = parseInt(btn.dataset.delta, 10);
         var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
         if (npc) {
+          var prev = npc.vitalityCurrent;
           npc.vitalityCurrent = Math.max(0, Math.min(npc.vitalityMax, npc.vitalityCurrent + delta));
+          var actual = npc.vitalityCurrent - prev;
+          if (actual !== 0) {
+            var sign = actual > 0 ? '+' : '';
+            logEvent('vitality', npc.name + ' vitality ' + sign + actual + ' (' + npc.vitalityCurrent + '/' + npc.vitalityMax + ')', { npcId: npcId, delta: actual });
+          }
+          if (prev > 0 && npc.vitalityCurrent <= 0) {
+            logEvent('ko', '✖ ' + npc.name + ' knocked out', { npcId: npcId });
+          } else if (prev <= 0 && npc.vitalityCurrent > 0) {
+            logEvent('ko', '↑ ' + npc.name + ' revived', { npcId: npcId });
+          }
           renderCombatTracker();
         }
       });
@@ -2126,6 +2327,7 @@
         if (npc) {
           npcRemoveCond(npc, condId);
           if (condId === 'surprised') npc.surprised = false;
+          logEvent('condition', '−[' + condLabel(condId) + '] ' + npc.name, { action: 'remove', target: npc.name, conditionId: condId });
           renderCombatTracker();
         }
       });
@@ -2364,7 +2566,9 @@
       joinBattleSent: combatState.joinBattleSent,
       tacticalMap: combatState.tacticalMap || null,
       scriptedEscalation: (combatState.encounter && combatState.encounter.scriptedEscalation) || null,
-      lastEscalation: combatState.lastEscalation || null
+      lastEscalation: combatState.lastEscalation || null,
+      combatLog: combatState.combatLog || [],
+      combatLogCollapsed: !!combatState.combatLogCollapsed
     });
   }
 
@@ -2397,7 +2601,9 @@
       objectives: serverState.objectives || {},
       selectedToken: null,
       joinBattleSent: serverState.joinBattleSent !== false,
-      pcResponses: serverState.responses || {}
+      pcResponses: serverState.responses || {},
+      combatLog: Array.isArray(serverState.combatLog) ? serverState.combatLog.slice() : [],
+      combatLogCollapsed: !!serverState.combatLogCollapsed
     };
 
     if (restoredMapKey) {
@@ -2540,6 +2746,7 @@
     if (data.round !== undefined) combatState.round = data.round;
     if (combatState.round > prevRound) {
       for (var r = prevRound + 1; r <= combatState.round; r++) {
+        logEvent('round', '── Round ' + r + ' begins ──');
         applyScriptedEscalation(r);
       }
     }

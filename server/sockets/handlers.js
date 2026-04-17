@@ -662,7 +662,9 @@ function registerHandlers(io) {
         round: 1,
         currentTurnIndex: 0,
         tokenPositions: {},
-        joinBattleSent: true
+        joinBattleSent: true,
+        combatLog: [],
+        combatLogCollapsed: false
       };
       _broadcastedMapKey = null;
       _broadcastedMapPins = [];
@@ -713,6 +715,8 @@ function registerHandlers(io) {
       if (data.highestTier !== undefined) _combatState.highestTier = data.highestTier;
       if (data.joinBattleSent !== undefined) _combatState.joinBattleSent = data.joinBattleSent;
       if (data.tacticalMap !== undefined) _combatState.tacticalMap = data.tacticalMap;
+      if (data.combatLog !== undefined && Array.isArray(data.combatLog)) _combatState.combatLog = data.combatLog;
+      if (data.combatLogCollapsed !== undefined) _combatState.combatLogCollapsed = !!data.combatLogCollapsed;
       io.to('players').emit('combat:state-update', _getPlayerCombatState());
     });
 
@@ -842,17 +846,23 @@ function registerHandlers(io) {
       console.log(`[socket] ${socket.data.characterName} joined battle: control=${control} power=${power} surprised=${surprised} mastery=${mastery}`);
     });
 
-    socket.on('combat:end', () => {
+    socket.on('combat:end', (payload) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can end combat.' });
         return;
+      }
+      const summary = payload && payload.summary ? payload.summary : null;
+      if (summary && summary.totals) {
+        const t = summary.totals;
+        console.log(`[socket] GM ended combat: ${summary.encounterName} — rounds=${t.rounds} escalations=${t.escalations} conditions=${t.conditions} kos=${t.kos} logEntries=${(summary.log || []).length}`);
+      } else {
+        console.log('[socket] GM ended combat');
       }
       _combatState = null;
       _broadcastedMapKey = null;
       _broadcastedMapPins = [];
       _stopCombatHeartbeat();
       io.to('players').emit('combat:ended');
-      console.log('[socket] GM ended combat');
     });
 
     socket.on('combat:request', () => {
