@@ -5,89 +5,89 @@
     try { return JSON.parse(sessionStorage.getItem('eote-session')) || null; }
     catch (_) { return null; }
   }
-
   function isGm() {
     var s = getSession();
     return !!(s && s.role === 'gm');
   }
-
   function escHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
+  function getSocket() { return window.__sharedSocket || null; }
+  function chargeCharacter() {
+    var s = getSession();
+    return {
+      characterId: s && s.characterId ? String(s.characterId) : null,
+      characterName: s && s.characterName ? s.characterName : 'Unknown'
+    };
+  }
 
-  var STYLE_ID = 'conversation-overlay-style';
-  function injectStyles() {
-    if (document.getElementById(STYLE_ID)) return;
+  var state = {
+    overlay: null,
+    active: null,
+    viewingFollowUps: null,
+    hidden: false
+  };
+
+  function findQ(def, id) {
+    var r = (def.roots || []).find(function (x) { return x.id === id; });
+    if (r) return r;
+    return (def.followUps || {})[id] || null;
+  }
+  function isExplored(id) {
+    var st = state.active.state || {};
+    return (st.explored || []).indexOf(id) !== -1;
+  }
+  function isQueued(id) {
+    var st = state.active.state || {};
+    return (st.queue || []).some(function (q) {
+      return q.questionId === id && q.status === 'pending';
+    });
+  }
+  function isLocked(q) {
+    return !!(q.minComfort && state.active.comfort < q.minComfort);
+  }
+
+  // GM-only inline styles (player styles live in player.css under .conv-p-*)
+  var GM_STYLE_ID = 'conv-gm-style';
+  function injectGmStyles() {
+    if (document.getElementById(GM_STYLE_ID)) return;
     var css = `
-.conv-overlay { position: fixed; inset: 0; background: rgba(5,5,12,0.92); z-index: 9000; display: flex; align-items: stretch; justify-content: stretch; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #e8e8f0; }
-.conv-shell { flex: 1; display: flex; flex-direction: column; max-height: 100vh; }
-.conv-header { display: flex; align-items: center; gap: 16px; padding: 14px 22px; background: linear-gradient(180deg, #15151f, #0c0c14); border-bottom: 1px solid #2a2a3a; }
-.conv-header .h-title { font-weight: 600; font-size: 17px; letter-spacing: 0.4px; }
-.conv-header .h-sub { font-size: 12px; color: #8a8aa0; }
-.conv-header .h-spacer { flex: 1; }
-.conv-comfort-pips { display: inline-flex; gap: 4px; align-items: center; }
+.conv-gm-overlay { position: fixed; inset: 0; background: rgba(5,5,12,0.92); z-index: 9000; display: flex; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #e8e8f0; }
+.conv-gm-shell { flex: 1; display: flex; flex-direction: column; max-height: 100vh; }
+.conv-gm-header { display: flex; align-items: center; gap: 16px; padding: 14px 22px; background: linear-gradient(180deg, #15151f, #0c0c14); border-bottom: 1px solid #2a2a3a; }
+.conv-gm-header .h-title { font-weight: 600; font-size: 17px; letter-spacing: 0.4px; }
+.conv-gm-header .h-sub { font-size: 12px; color: #8a8aa0; }
+.conv-gm-header .h-spacer { flex: 1; }
 .conv-pip { width: 11px; height: 11px; border-radius: 50%; background: #1f1f2c; border: 1px solid #2f2f40; }
 .conv-pip.active { background: #4a90e2; border-color: #4a90e2; }
 .conv-pip.warn { background: #d4a574; border-color: #d4a574; }
 .conv-pip.danger { background: #d65a5a; border-color: #d65a5a; }
+.conv-comfort-pips { display: inline-flex; gap: 4px; align-items: center; }
 .conv-beat { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 10px; background: #1a1a26; border-radius: 4px; }
-.conv-close { background: transparent; color: #888; border: 1px solid #333; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-.conv-close:hover { color: #fff; border-color: #555; }
-.conv-body { flex: 1; display: grid; grid-template-columns: 1fr 380px; min-height: 0; }
-.conv-log { overflow-y: auto; padding: 22px 28px; background: #0a0a12; }
-.conv-log-entry { margin-bottom: 16px; animation: convFadeIn 0.4s ease; }
-@keyframes convFadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-.conv-readaloud { background: rgba(212,165,116,0.06); border-left: 3px solid #d4a574; padding: 14px 18px; font-style: italic; line-height: 1.6; color: #c9c9d8; white-space: pre-wrap; border-radius: 0 6px 6px 0; }
-.conv-qa { background: #11111c; border: 1px solid #20202c; border-radius: 8px; padding: 14px 18px; }
-.conv-qa .who { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-.conv-qa .q { color: #6fb1ff; margin-bottom: 12px; font-size: 15px; }
-.conv-qa .a-speaker { font-size: 11px; color: #d4a574; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.conv-qa .a { color: #e8e8f0; line-height: 1.55; white-space: pre-wrap; }
-.conv-qa .gm-note { margin-top: 12px; padding: 10px 12px; background: rgba(99,102,241,0.08); border-left: 2px solid #6366f1; font-size: 12px; color: #c7c7e0; line-height: 1.5; border-radius: 0 4px 4px 0; }
-.conv-clip-row { display: flex; gap: 6px; margin-top: 10px; }
-.conv-clip-btn { background: #1a1a26; color: #d4a574; border: 1px dashed #3a3a4a; padding: 5px 10px; font-size: 11px; border-radius: 4px; cursor: pointer; }
-.conv-clip-btn:hover { background: #222238; border-color: #d4a574; }
-.conv-pass { background: rgba(120,120,140,0.08); border-left: 2px solid #555; padding: 8px 14px; font-size: 12px; color: #888; border-radius: 0 4px 4px 0; }
-.conv-maya { background: rgba(143,107,178,0.08); border-left: 3px solid #8f6bb2; padding: 12px 16px; border-radius: 0 6px 6px 0; }
-.conv-maya .speaker { font-size: 11px; color: #b89cd6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.conv-ended { text-align: center; padding: 30px; color: #888; font-style: italic; line-height: 1.6; border: 1px dashed #333; border-radius: 8px; background: rgba(0,0,0,0.3); }
-.conv-side { background: #10101a; border-left: 1px solid #2a2a3a; display: flex; flex-direction: column; min-height: 0; }
-.conv-side-header { padding: 12px 16px; border-bottom: 1px solid #2a2a3a; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; }
-.conv-side-body { flex: 1; overflow-y: auto; padding: 10px; }
-.conv-back-btn { display: block; width: calc(100% - 16px); margin: 8px; padding: 10px 12px; background: #1a1a26; border: 1px dashed #3a3a4a; border-radius: 6px; color: #d4a574; font-size: 13px; cursor: pointer; }
-.conv-back-btn:hover { background: #222238; border-color: #d4a574; }
-.conv-q-group-label { padding: 12px 8px 6px; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1.5px; }
-.conv-q-btn { display: block; width: 100%; text-align: left; padding: 10px 12px; margin-bottom: 6px; background: #161622; border: 1px solid #262636; color: #d8d8e8; border-radius: 6px; cursor: pointer; font-size: 13px; line-height: 1.4; transition: all .15s; }
-.conv-q-btn:hover { background: #1f1f30; border-color: #4a90e2; }
-.conv-q-btn .type-tag { display: block; margin-top: 6px; font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-.conv-q-btn.story .type-tag { color: #4a90e2; }
-.conv-q-btn.business .type-tag { color: #d4a574; }
-.conv-q-btn.probe .type-tag { color: #d65a5a; }
-.conv-q-btn.explored { opacity: .35; cursor: default; }
-.conv-q-btn.locked { opacity: .35; cursor: default; border-style: dashed; }
-.conv-q-btn.queued { background: #1a2a40; border-color: #4a90e2; cursor: default; }
-.conv-pass-btn { display: block; width: calc(100% - 16px); margin: 12px 8px 8px; padding: 10px 12px; background: #1a1a26; border: 1px solid #444; color: #aaa; border-radius: 6px; cursor: pointer; font-size: 12px; }
-.conv-pass-btn:hover { background: #2a2a3a; border-color: #888; color: #fff; }
-.conv-acted-msg { padding: 14px; text-align: center; color: #888; font-size: 13px; font-style: italic; border: 1px dashed #333; border-radius: 6px; margin: 8px; }
-.conv-clip-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9100; display: flex; align-items: center; justify-content: center; }
-.conv-clip-card { width: min(520px, 92vw); background: #15151f; border: 1px solid #2a2a3a; border-radius: 10px; padding: 22px; }
-.conv-clip-card h3 { margin: 0 0 12px; color: #d4a574; font-size: 15px; letter-spacing: 0.5px; }
-.conv-clip-scope { display: flex; gap: 8px; margin: 12px 0; }
-.conv-clip-scope label { flex: 1; padding: 10px; border: 1px solid #2a2a3a; border-radius: 6px; cursor: pointer; text-align: center; font-size: 13px; }
-.conv-clip-scope input { display: none; }
-.conv-clip-scope input:checked + span { color: #d4a574; font-weight: 600; }
-.conv-clip-scope label:has(input:checked) { border-color: #d4a574; background: rgba(212,165,116,0.08); }
-.conv-clip-card textarea { width: 100%; box-sizing: border-box; padding: 10px; background: #0c0c14; color: #e8e8f0; border: 1px solid #2a2a3a; border-radius: 6px; font-family: inherit; font-size: 13px; resize: vertical; min-height: 90px; margin-top: 8px; }
-.conv-clip-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
-.conv-clip-actions button { padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; border: 1px solid #333; }
-.conv-clip-cancel { background: transparent; color: #aaa; }
-.conv-clip-save { background: #4a90e2; border-color: #4a90e2; color: #fff; }
-.conv-clip-save:hover { background: #5aa0f2; }
-
-/* GM-specific */
-.gm-mode .conv-side-body { padding: 0; }
+.conv-gm-close { background: transparent; color: #888; border: 1px solid #333; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.conv-gm-close:hover { color: #fff; border-color: #555; }
+.conv-gm-body { flex: 1; display: grid; grid-template-columns: 1fr 380px; min-height: 0; }
+.conv-gm-log { overflow-y: auto; padding: 22px 28px; background: #0a0a12; }
+.conv-gm-log-entry { margin-bottom: 16px; }
+.conv-gm-readaloud { background: rgba(212,165,116,0.06); border-left: 3px solid #d4a574; padding: 14px 18px; font-style: italic; line-height: 1.6; color: #c9c9d8; white-space: pre-wrap; border-radius: 0 6px 6px 0; }
+.conv-gm-qa { background: #11111c; border: 1px solid #20202c; border-radius: 8px; padding: 14px 18px; }
+.conv-gm-qa .who { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.conv-gm-qa .q { color: #6fb1ff; margin-bottom: 12px; font-size: 15px; }
+.conv-gm-qa .a-speaker { font-size: 11px; color: #d4a574; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.conv-gm-qa .a { color: #e8e8f0; line-height: 1.55; white-space: pre-wrap; }
+.conv-gm-qa .gm-note { margin-top: 12px; padding: 10px 12px; background: rgba(99,102,241,0.08); border-left: 2px solid #6366f1; font-size: 12px; color: #c7c7e0; line-height: 1.5; border-radius: 0 4px 4px 0; }
+.conv-gm-pass { background: rgba(120,120,140,0.08); border-left: 2px solid #555; padding: 8px 14px; font-size: 12px; color: #888; border-radius: 0 4px 4px 0; }
+.conv-gm-maya { background: rgba(143,107,178,0.08); border-left: 3px solid #8f6bb2; padding: 12px 16px; border-radius: 0 6px 6px 0; }
+.conv-gm-maya .speaker { font-size: 11px; color: #b89cd6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.conv-gm-ended { text-align: center; padding: 30px; color: #888; font-style: italic; line-height: 1.6; border: 1px dashed #333; border-radius: 8px; background: rgba(0,0,0,0.3); }
+.conv-gm-side { background: #10101a; border-left: 1px solid #2a2a3a; display: flex; flex-direction: column; min-height: 0; }
+.conv-gm-side-header { padding: 12px 16px; border-bottom: 1px solid #2a2a3a; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; }
+.conv-gm-side-body { flex: 1; overflow-y: auto; padding: 0; }
+.gm-participants { padding: 10px 14px; font-size: 11px; color: #888; border-bottom: 1px solid #2a2a3a; line-height: 1.6; }
+.gm-participants .pname { display: inline-block; padding: 2px 8px; background: #1a1a26; border-radius: 3px; margin: 0 4px 4px 0; }
+.gm-participants .pname.acted { color: #4a90e2; border: 1px solid #4a90e2; }
 .gm-queue { padding: 12px; }
 .gm-queue-item { background: #161622; border: 1px solid #262636; border-radius: 6px; padding: 12px; margin-bottom: 10px; }
 .gm-queue-item.passed { opacity: 0.6; border-style: dashed; }
@@ -101,46 +101,219 @@
 .gm-actions { padding: 10px; border-top: 1px solid #2a2a3a; }
 .gm-actions button { width: 100%; padding: 8px; background: #2a1a1a; color: #d65a5a; border: 1px solid #3a2a2a; border-radius: 4px; cursor: pointer; font-size: 12px; }
 .gm-actions button:hover { background: #3a2222; }
-.gm-participants { padding: 10px 14px; font-size: 11px; color: #888; border-bottom: 1px solid #2a2a3a; line-height: 1.6; }
-.gm-participants .pname { display: inline-block; padding: 2px 8px; background: #1a1a26; border-radius: 3px; margin: 0 4px 4px 0; }
-.gm-participants .pname.acted { color: #4a90e2; border: 1px solid #4a90e2; }
 `;
     var s = document.createElement('style');
-    s.id = STYLE_ID;
+    s.id = GM_STYLE_ID;
     s.textContent = css;
     document.head.appendChild(s);
   }
 
-  // ====== State ======
-  var state = {
-    overlay: null,
-    active: null,           // server-provided active conversation
-    viewingFollowUps: null  // root id whose follow-ups player is browsing
-  };
-
-  function getSocket() { return window.__sharedSocket || null; }
-
-  function chargeCharacter() {
-    var s = getSession();
-    return {
-      characterId: s && s.characterId ? String(s.characterId) : null,
-      characterName: s && s.characterName ? s.characterName : 'Unknown'
-    };
-  }
-
-  // ====== Rendering ======
-
-  function renderShell() {
+  // ====== Player floating modal ======
+  function renderPlayerModal() {
     var existing = document.getElementById('conv-overlay');
     if (existing) existing.remove();
+    if (!state.active) return;
+
+    var a = state.active;
+    var def = a.definition || {};
+    var st = a.state || {};
+    var ch = chargeCharacter();
+    var npcName = (def.npc && def.npc.name) || '';
 
     var overlay = document.createElement('div');
     overlay.id = 'conv-overlay';
-    overlay.className = 'conv-overlay' + (isGm() ? ' gm-mode' : '');
+    overlay.className = 'conv-p-overlay';
 
+    var modal = document.createElement('div');
+    modal.className = 'conv-p-modal';
+    overlay.appendChild(modal);
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'conv-p-header';
+    header.innerHTML =
+      '<div class="conv-p-header-text">' +
+        '<div class="conv-p-title">' + escHtml(def.title || 'Conversation') + '</div>' +
+        (npcName || def.subtitle ? '<div class="conv-p-subtitle">' + escHtml(def.subtitle || npcName) + '</div>' : '') +
+      '</div>' +
+      '<button class="conv-p-hide-btn" id="conv-p-hide">Hide</button>';
+    modal.appendChild(header);
+
+    // Body
+    var body = document.createElement('div');
+    body.className = 'conv-p-body';
+    modal.appendChild(body);
+
+    if (def.readAloud) {
+      var ra = document.createElement('div');
+      ra.className = 'conv-p-readaloud';
+      ra.textContent = def.readAloud;
+      body.appendChild(ra);
+    }
+
+    // Log
+    var log = document.createElement('div');
+    log.className = 'conv-p-log';
+    (st.log || []).forEach(function (item) {
+      var w = document.createElement('div');
+      w.className = 'conv-p-log-entry';
+      if (item.type === 'qa') {
+        w.innerHTML =
+          '<div class="conv-p-qa">' +
+            '<div class="who">' + escHtml(item.characterName) + ' asked</div>' +
+            '<div class="q">"' + escHtml(item.questionText) + '"</div>' +
+            '<div class="a-speaker">' + escHtml(npcName || 'Reply') + '</div>' +
+            '<div class="a">' + item.response + '</div>' +
+            '<div class="conv-p-clip-row"><button class="conv-p-clip-btn" data-clip-q="' + escHtml(item.questionId) + '">+ Clip to Journal</button></div>' +
+          '</div>';
+      } else if (item.type === 'pass') {
+        w.innerHTML = '<div class="conv-p-pass-log">' + escHtml(item.characterName) + ' passed.</div>';
+      } else if (item.type === 'maya') {
+        w.innerHTML =
+          '<div class="conv-p-maya">' +
+            '<div class="speaker">Maya</div>' +
+            '<div class="text">' + item.text + '</div>' +
+          '</div>';
+      }
+      log.appendChild(w);
+    });
+    body.appendChild(log);
+
+    // Action area: topics OR waiting OR ended
+    if (a.status === 'ended') {
+      var endLine = (def.comfort && (def.comfort.dryLine || def.comfort.exitLine)) || 'The conversation has ended.';
+      var ended = document.createElement('div');
+      ended.className = 'conv-p-ended';
+      ended.textContent = endLine;
+      body.appendChild(ended);
+    } else {
+      var actedThisBeat = (st.actedThisBeat || []).indexOf(String(ch.characterId)) !== -1;
+      if (actedThisBeat) {
+        var myAction = (st.queue || []).find(function (q) {
+          return String(q.characterId) === String(ch.characterId) && q.beat === a.beat;
+        });
+        var msg = 'Waiting for the others...';
+        if (myAction && myAction.action === 'ask' && myAction.status === 'pending') {
+          msg = 'Your question has been heard. Awaiting their reply...';
+        } else if (myAction && myAction.action === 'pass') {
+          msg = 'You said nothing this round. Listening to the others...';
+        }
+        var wait = document.createElement('div');
+        wait.className = 'conv-p-waiting';
+        wait.innerHTML = '<div class="conv-p-waiting-icon">\u25CB</div><div>' + escHtml(msg) + '</div>';
+        body.appendChild(wait);
+      } else {
+        body.appendChild(buildTopicsSection(def, st));
+      }
+    }
+
+    document.body.appendChild(overlay);
+    state.overlay = overlay;
+
+    document.getElementById('conv-p-hide').addEventListener('click', function () {
+      state.hidden = true;
+      overlay.remove();
+      state.overlay = null;
+      showPeekButton();
+    });
+
+    Array.prototype.forEach.call(overlay.querySelectorAll('[data-clip-q]'), function (btn) {
+      btn.addEventListener('click', function () { openClipModal(btn.getAttribute('data-clip-q')); });
+    });
+
+    Array.prototype.forEach.call(overlay.querySelectorAll('[data-ask-q]'), function (btn) {
+      btn.addEventListener('click', function () { askQuestion(btn.getAttribute('data-ask-q')); });
+    });
+
+    var passBtn = overlay.querySelector('#conv-p-pass-btn');
+    if (passBtn) passBtn.addEventListener('click', passBeat);
+
+    var backBtn = overlay.querySelector('#conv-p-back-btn');
+    if (backBtn) backBtn.addEventListener('click', function () {
+      state.viewingFollowUps = null;
+      renderPlayerModal();
+    });
+
+    Array.prototype.forEach.call(overlay.querySelectorAll('[data-followup-root]'), function (btn) {
+      btn.addEventListener('click', function () {
+        state.viewingFollowUps = btn.getAttribute('data-followup-root');
+        renderPlayerModal();
+      });
+    });
+
+    // auto-scroll log
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function buildTopicsSection(def, st) {
+    var topics = document.createElement('div');
+    topics.className = 'conv-p-topics';
+
+    function makeBtn(q) {
+      var explored = isExplored(q.id);
+      var queued = isQueued(q.id);
+      var locked = isLocked(q);
+      var disabled = explored || queued || locked;
+      var tag = (q.type || '');
+      if (queued) tag = 'queued — awaiting reply';
+      else if (locked) tag = 'locked';
+      else if (explored) tag = 'asked';
+      var html = escHtml(q.text) + (tag ? '<span class="tag">' + escHtml(tag) + '</span>' : '');
+      return '<button class="conv-p-choice-btn' + (queued ? ' queued' : '') + '"' +
+        (disabled ? ' disabled' : ' data-ask-q="' + escHtml(q.id) + '"') + '>' + html + '</button>';
+    }
+
+    if (state.viewingFollowUps) {
+      topics.innerHTML += '<button class="conv-p-pass-btn" id="conv-p-back-btn" style="margin-bottom:0.5rem;">\u2190 Back</button>';
+      var followUps = ((findQ(def, state.viewingFollowUps) || {}).unlocks || [])
+        .map(function (uid) { return (def.followUps || {})[uid]; })
+        .filter(function (q) { return q && !isExplored(q.id); });
+      topics.innerHTML += '<div class="conv-p-section-label">Follow-ups</div>';
+      followUps.forEach(function (q) { topics.innerHTML += makeBtn(q); });
+    } else {
+      topics.innerHTML += '<div class="conv-p-section-label">What do you ask?</div>';
+      (def.roots || []).forEach(function (q) { topics.innerHTML += makeBtn(q); });
+
+      var unlocked = (st.unlocked || [])
+        .map(function (uid) { return (def.followUps || {})[uid]; })
+        .filter(function (q) { return q && !isExplored(q.id); });
+      if (unlocked.length) {
+        topics.innerHTML += '<div class="conv-p-section-label">Unlocked</div>';
+        unlocked.forEach(function (q) { topics.innerHTML += makeBtn(q); });
+      }
+    }
+
+    topics.innerHTML += '<button class="conv-p-pass-btn" id="conv-p-pass-btn">Stay quiet this round</button>';
+    return topics;
+  }
+
+  function showPeekButton() {
+    var existing = document.getElementById('conv-peek-btn');
+    if (existing) existing.remove();
+    if (!state.active || state.active.status !== 'active') return;
+    var def = state.active.definition || {};
+    var btn = document.createElement('button');
+    btn.id = 'conv-peek-btn';
+    btn.style.cssText = 'position:fixed;bottom:1rem;right:1rem;z-index:9400;background:var(--color-bg-panel,#1a1a2e);border:2px solid var(--color-accent-primary,#c79234);color:var(--color-accent-primary,#c79234);font-family:Audiowide,sans-serif;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem 0.9rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
+    btn.textContent = '\u270D ' + (def.title || 'Conversation');
+    btn.addEventListener('click', function () {
+      state.hidden = false;
+      btn.remove();
+      renderPlayerModal();
+    });
+    document.body.appendChild(btn);
+  }
+
+  // ====== GM full-screen workspace ======
+  function renderGmShell() {
+    var existing = document.getElementById('conv-overlay');
+    if (existing) existing.remove();
+    var overlay = document.createElement('div');
+    overlay.id = 'conv-overlay';
+    overlay.className = 'conv-gm-overlay';
     overlay.innerHTML =
-      '<div class="conv-shell">' +
-        '<div class="conv-header">' +
+      '<div class="conv-gm-shell">' +
+        '<div class="conv-gm-header">' +
           '<div>' +
             '<div class="h-title" id="conv-h-title">Conversation</div>' +
             '<div class="h-sub" id="conv-h-sub"></div>' +
@@ -148,32 +321,26 @@
           '<div class="h-spacer"></div>' +
           '<div class="conv-beat" id="conv-h-beat">Beat 1</div>' +
           '<div class="conv-comfort-pips" id="conv-h-pips"></div>' +
-          '<button class="conv-close" id="conv-h-close">Hide</button>' +
+          '<button class="conv-gm-close" id="conv-h-close">Hide</button>' +
         '</div>' +
-        '<div class="conv-body">' +
-          '<div class="conv-log" id="conv-log"></div>' +
-          '<div class="conv-side" id="conv-side"></div>' +
+        '<div class="conv-gm-body">' +
+          '<div class="conv-gm-log" id="conv-log"></div>' +
+          '<div class="conv-gm-side" id="conv-side"></div>' +
         '</div>' +
       '</div>';
-
     document.body.appendChild(overlay);
     state.overlay = overlay;
-
     document.getElementById('conv-h-close').addEventListener('click', function () {
       overlay.style.display = 'none';
     });
-
-    return overlay;
   }
 
-  function renderHeader() {
-    var a = state.active;
-    if (!a) return;
+  function renderGmHeader() {
+    var a = state.active; if (!a) return;
     var def = a.definition || {};
     document.getElementById('conv-h-title').textContent = def.title || 'Conversation';
     document.getElementById('conv-h-sub').textContent = def.subtitle || '';
     document.getElementById('conv-h-beat').textContent = a.status === 'ended' ? 'Ended' : ('Beat ' + a.beat);
-
     var pipsEl = document.getElementById('conv-h-pips');
     pipsEl.innerHTML = '';
     var max = (def.comfort && def.comfort.max) || 5;
@@ -189,197 +356,52 @@
     }
   }
 
-  function renderLog() {
+  function renderGmLog() {
     var a = state.active;
+    var def = a.definition || {};
     var logEl = document.getElementById('conv-log');
     logEl.innerHTML = '';
-    var def = a.definition || {};
 
     if (def.readAloud) {
       var ra = document.createElement('div');
-      ra.className = 'conv-log-entry';
-      ra.innerHTML = '<div class="conv-readaloud">' + escHtml(def.readAloud) + '</div>';
+      ra.className = 'conv-gm-log-entry';
+      ra.innerHTML = '<div class="conv-gm-readaloud">' + escHtml(def.readAloud) + '</div>';
       logEl.appendChild(ra);
     }
-
     var st = a.state || {};
-    var entries = st.log || [];
-    entries.forEach(function (item) {
+    (st.log || []).forEach(function (item) {
       var w = document.createElement('div');
-      w.className = 'conv-log-entry';
+      w.className = 'conv-gm-log-entry';
       if (item.type === 'qa') {
         var npcName = (def.npc && def.npc.name) || 'NPC';
-        var canClip = !isGm();
         w.innerHTML =
-          '<div class="conv-qa">' +
+          '<div class="conv-gm-qa">' +
             '<div class="who">Beat ' + item.beat + ' \u2014 ' + escHtml(item.characterName) + ' asked</div>' +
             '<div class="q">"' + escHtml(item.questionText) + '"</div>' +
             '<div class="a-speaker">' + escHtml(npcName) + '</div>' +
             '<div class="a">' + item.response + '</div>' +
-            (item.gmNote && isGm() ? '<div class="gm-note"><strong>GM Note:</strong> ' + item.gmNote + '</div>' : '') +
-            (canClip ? '<div class="conv-clip-row"><button class="conv-clip-btn" data-clip-q="' + escHtml(item.questionId) + '">+ Clip to Journal</button></div>' : '') +
+            (item.gmNote ? '<div class="gm-note"><strong>GM Note:</strong> ' + item.gmNote + '</div>' : '') +
           '</div>';
       } else if (item.type === 'pass') {
-        w.innerHTML = '<div class="conv-pass">Beat ' + item.beat + ' \u2014 ' + escHtml(item.characterName) + ' passed.</div>';
+        w.innerHTML = '<div class="conv-gm-pass">Beat ' + item.beat + ' \u2014 ' + escHtml(item.characterName) + ' passed.</div>';
       } else if (item.type === 'maya') {
         w.innerHTML =
-          '<div class="conv-maya">' +
+          '<div class="conv-gm-maya">' +
             '<div class="speaker">Maya</div>' +
             '<div>' + item.text + '</div>' +
-            (item.gmNote && isGm() ? '<div class="gm-note" style="margin-top:8px;"><strong>GM Note:</strong> ' + item.gmNote + '</div>' : '') +
+            (item.gmNote ? '<div class="gm-note" style="margin-top:8px;"><strong>GM Note:</strong> ' + item.gmNote + '</div>' : '') +
           '</div>';
       }
       logEl.appendChild(w);
     });
-
     if (a.status === 'ended') {
       var end = document.createElement('div');
-      end.className = 'conv-log-entry';
+      end.className = 'conv-gm-log-entry';
       var line = (def.comfort && (def.comfort.dryLine || def.comfort.exitLine)) || 'The conversation has ended.';
-      end.innerHTML = '<div class="conv-ended">' + escHtml(line) + '</div>';
+      end.innerHTML = '<div class="conv-gm-ended">' + escHtml(line) + '</div>';
       logEl.appendChild(end);
     }
-
-    // Wire clip buttons
-    Array.prototype.forEach.call(logEl.querySelectorAll('[data-clip-q]'), function (btn) {
-      btn.addEventListener('click', function () { openClipModal(btn.getAttribute('data-clip-q')); });
-    });
-
     logEl.scrollTop = logEl.scrollHeight;
-  }
-
-  function findQ(def, id) {
-    var r = (def.roots || []).find(function (x) { return x.id === id; });
-    if (r) return r;
-    return (def.followUps || {})[id] || null;
-  }
-
-  function isExplored(id) {
-    var st = state.active.state || {};
-    return (st.explored || []).indexOf(id) !== -1;
-  }
-
-  function isQueued(id, charId) {
-    var st = state.active.state || {};
-    return (st.queue || []).some(function (q) {
-      return q.questionId === id && q.status === 'pending' &&
-        (charId == null || String(q.characterId) === String(charId));
-    });
-  }
-
-  function isLocked(q) {
-    return !!(q.minComfort && state.active.comfort < q.minComfort);
-  }
-
-  function makeQBtn(q) {
-    var btn = document.createElement('button');
-    btn.className = 'conv-q-btn ' + (q.type || '');
-    var costNote = (q.comfortCost && q.comfortCost < 0) ? ' \u2022 costs comfort' : '';
-    btn.innerHTML = escHtml(q.text) + '<span class="type-tag">' + (q.type || '') + costNote + '</span>';
-    if (isExplored(q.id)) {
-      btn.classList.add('explored');
-    } else if (isQueued(q.id)) {
-      btn.classList.add('queued');
-      btn.innerHTML = escHtml(q.text) + '<span class="type-tag">Queued \u2014 awaiting GM</span>';
-    } else if (isLocked(q)) {
-      btn.classList.add('locked');
-    } else {
-      btn.addEventListener('click', function () { askQuestion(q.id); });
-    }
-    return btn;
-  }
-
-  function renderPlayerSide() {
-    var sideEl = document.getElementById('conv-side');
-    var a = state.active;
-    var ch = chargeCharacter();
-    var st = a.state || {};
-    var def = a.definition || {};
-
-    sideEl.innerHTML =
-      '<div class="conv-side-header">' +
-        '<span>Topics</span>' +
-        '<span id="conv-explored-count"></span>' +
-      '</div>';
-
-    var sideBody = document.createElement('div');
-    sideBody.className = 'conv-side-body';
-    sideEl.appendChild(sideBody);
-
-    if (a.status === 'ended') {
-      sideBody.innerHTML = '<div class="conv-acted-msg">The conversation has ended.</div>';
-      updateExploredCount();
-      return;
-    }
-
-    var actedThisBeat = (st.actedThisBeat || []).indexOf(String(ch.characterId)) !== -1;
-    if (actedThisBeat) {
-      var myAction = (st.queue || []).find(function (q) {
-        return String(q.characterId) === String(ch.characterId) && q.beat === a.beat;
-      });
-      var msg = 'Waiting for the GM to deliver responses and advance the beat.';
-      if (myAction && myAction.action === 'ask' && myAction.status === 'pending') {
-        msg = 'Your question is queued. Waiting for the GM to deliver the response.';
-      } else if (myAction && myAction.action === 'pass') {
-        msg = 'You passed this beat. Waiting for the others.';
-      }
-      sideBody.innerHTML = '<div class="conv-acted-msg">' + escHtml(msg) + '</div>';
-      updateExploredCount();
-      return;
-    }
-
-    if (state.viewingFollowUps) {
-      var backBtn = document.createElement('button');
-      backBtn.className = 'conv-back-btn';
-      backBtn.textContent = '\u2190 Back to topics';
-      backBtn.addEventListener('click', function () { state.viewingFollowUps = null; renderPlayerSide(); });
-      sideBody.appendChild(backBtn);
-
-      var followUps = ((findQ(def, state.viewingFollowUps) || {}).unlocks || [])
-        .map(function (uid) { return (def.followUps || {})[uid]; })
-        .filter(function (q) { return q && !isExplored(q.id); });
-      if (followUps.length) {
-        var lbl = document.createElement('div');
-        lbl.className = 'conv-q-group-label';
-        lbl.textContent = 'Follow-up Questions';
-        sideBody.appendChild(lbl);
-        followUps.forEach(function (q) { sideBody.appendChild(makeQBtn(q)); });
-      }
-    } else {
-      var topicsLbl = document.createElement('div');
-      topicsLbl.className = 'conv-q-group-label';
-      topicsLbl.textContent = 'Topics';
-      sideBody.appendChild(topicsLbl);
-      (def.roots || []).forEach(function (q) { sideBody.appendChild(makeQBtn(q)); });
-
-      var unlocked = (st.unlocked || [])
-        .map(function (uid) { return (def.followUps || {})[uid]; })
-        .filter(function (q) { return q && !isExplored(q.id); });
-      if (unlocked.length) {
-        var ulbl = document.createElement('div');
-        ulbl.className = 'conv-q-group-label';
-        ulbl.textContent = 'Unlocked Follow-ups';
-        sideBody.appendChild(ulbl);
-        unlocked.forEach(function (q) { sideBody.appendChild(makeQBtn(q)); });
-      }
-    }
-
-    var passBtn = document.createElement('button');
-    passBtn.className = 'conv-pass-btn';
-    passBtn.textContent = 'Pass this beat';
-    passBtn.addEventListener('click', passBeat);
-    sideBody.appendChild(passBtn);
-
-    updateExploredCount();
-  }
-
-  function updateExploredCount() {
-    var a = state.active; if (!a) return;
-    var def = a.definition || {};
-    var total = (def.roots || []).length + Object.keys(def.followUps || {}).length;
-    var explored = ((a.state || {}).explored || []).length;
-    var el = document.getElementById('conv-explored-count');
-    if (el) el.textContent = explored + ' / ' + total + ' explored';
   }
 
   function renderGmSide() {
@@ -389,10 +411,7 @@
     var def = a.definition || {};
 
     sideEl.innerHTML =
-      '<div class="conv-side-header">' +
-        '<span>GM Console</span>' +
-        '<span id="conv-explored-count"></span>' +
-      '</div>';
+      '<div class="conv-gm-side-header"><span>GM Console</span></div>';
 
     var partsBlock = document.createElement('div');
     partsBlock.className = 'gm-participants';
@@ -402,11 +421,11 @@
       parts.map(function (p) {
         var cls = actedSet.has(String(p.characterId)) ? 'pname acted' : 'pname';
         return '<span class="' + cls + '">' + escHtml(p.characterName) + '</span>';
-      }).join('') ;
+      }).join('');
     sideEl.appendChild(partsBlock);
 
     var sideBody = document.createElement('div');
-    sideBody.className = 'conv-side-body';
+    sideBody.className = 'conv-gm-side-body';
     sideEl.appendChild(sideBody);
 
     var queueBlock = document.createElement('div');
@@ -461,20 +480,29 @@
       actions.appendChild(endBtn);
       sideEl.appendChild(actions);
     }
-
-    updateExploredCount();
   }
 
+  // ====== Top-level render ======
   function renderAll() {
     if (!state.active) return;
-    if (!state.overlay) renderShell();
-    renderHeader();
-    renderLog();
-    if (isGm()) renderGmSide(); else renderPlayerSide();
+    if (isGm()) {
+      injectGmStyles();
+      if (!state.overlay || !state.overlay.classList.contains('conv-gm-overlay')) {
+        renderGmShell();
+      } else {
+        state.overlay.style.display = '';
+      }
+      renderGmHeader();
+      renderGmLog();
+      renderGmSide();
+    } else {
+      // Player floating modal
+      if (state.hidden) { showPeekButton(); return; }
+      renderPlayerModal();
+    }
   }
 
   // ====== Actions ======
-
   function askQuestion(qid) {
     var ch = chargeCharacter();
     fetch('/api/conversations/active/ask', {
@@ -485,7 +513,6 @@
       else if (data && data.error) { alert(data.error); }
     });
   }
-
   function passBeat() {
     var ch = chargeCharacter();
     fetch('/api/conversations/active/pass', {
@@ -495,7 +522,6 @@
       if (data && data.active) { state.active = data.active; renderAll(); }
     });
   }
-
   function deliverResponse(qid, charId) {
     fetch('/api/conversations/active/deliver', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -505,7 +531,6 @@
       else if (data && data.error) { alert(data.error); }
     });
   }
-
   function endConversation() {
     fetch('/api/conversations/active/end', { method: 'POST' })
       .then(function (r) { return r.json(); }).then(function (data) {
@@ -519,24 +544,24 @@
     if (existing) existing.remove();
     var modal = document.createElement('div');
     modal.id = 'conv-clip-modal';
-    modal.className = 'conv-clip-modal';
+    modal.className = 'conv-p-clip-modal';
     modal.innerHTML =
-      '<div class="conv-clip-card">' +
+      '<div class="conv-p-clip-card">' +
         '<h3>Clip to Journal</h3>' +
-        '<div style="font-size:12px;color:#888;">Save this question and the response to your journal.</div>' +
-        '<div class="conv-clip-scope">' +
-          '<label><input type="radio" name="clip-scope" value="private" checked><span>Private (just me)</span></label>' +
-          '<label><input type="radio" name="clip-scope" value="crew"><span>Crew Journal (everyone)</span></label>' +
+        '<div style="font-size:0.65rem;color:var(--color-text-secondary,#9ca3af);">Save this question and reply to your journal.</div>' +
+        '<div class="conv-p-clip-scope">' +
+          '<label><input type="radio" name="clip-scope" value="private" checked><span>Private</span></label>' +
+          '<label><input type="radio" name="clip-scope" value="crew"><span>Crew Journal</span></label>' +
         '</div>' +
         '<textarea id="conv-clip-notes" placeholder="Optional notes..."></textarea>' +
-        '<div class="conv-clip-actions">' +
-          '<button class="conv-clip-cancel">Cancel</button>' +
-          '<button class="conv-clip-save">Save</button>' +
+        '<div class="conv-p-clip-actions">' +
+          '<button class="cancel">Cancel</button>' +
+          '<button class="save">Save</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(modal);
-    modal.querySelector('.conv-clip-cancel').addEventListener('click', function () { modal.remove(); });
-    modal.querySelector('.conv-clip-save').addEventListener('click', function () {
+    modal.querySelector('.cancel').addEventListener('click', function () { modal.remove(); });
+    modal.querySelector('.save').addEventListener('click', function () {
       var scope = (modal.querySelector('input[name="clip-scope"]:checked') || {}).value || 'private';
       var notes = modal.querySelector('#conv-clip-notes').value;
       var ch = chargeCharacter();
@@ -547,7 +572,7 @@
         if (data && data.entry) {
           modal.remove();
           var toast = document.createElement('div');
-          toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#4a9c4a;color:#fff;padding:10px 18px;border-radius:6px;z-index:9200;font-size:13px;';
+          toast.className = 'nc-player-resolution-toast';
           toast.textContent = 'Clipped to ' + (scope === 'private' ? 'private' : 'crew') + ' journal.';
           document.body.appendChild(toast);
           setTimeout(function () { toast.remove(); }, 2400);
@@ -558,7 +583,7 @@
     });
   }
 
-  // ====== Socket wiring ======
+  // ====== Sockets ======
   function wireSockets() {
     var sock = getSocket();
     if (!sock) { setTimeout(wireSockets, 500); return; }
@@ -566,37 +591,31 @@
     function update(d) {
       if (!d || !d.active) return;
       state.active = d.active;
-      if (state.overlay) {
-        state.overlay.style.display = '';
-      } else {
-        renderShell();
-      }
       renderAll();
     }
-
-    sock.on('conversation:start', function (d) { update(d); });
-    sock.on('conversation:queued', function (d) { update(d); });
-    sock.on('conversation:passed', function (d) { update(d); });
-    sock.on('conversation:delivered', function (d) { update(d); });
-    sock.on('conversation:beat-advanced', function (d) { update(d); });
-    sock.on('conversation:ended', function (d) { update(d); });
+    sock.on('conversation:start', function (d) { state.hidden = false; update(d); });
+    sock.on('conversation:queued', update);
+    sock.on('conversation:passed', update);
+    sock.on('conversation:delivered', update);
+    sock.on('conversation:beat-advanced', update);
+    sock.on('conversation:ended', update);
   }
 
   function checkActiveOnLoad() {
     fetch('/api/conversations/active').then(function (r) { return r.json(); }).then(function (data) {
       if (data && data.active && data.active.status === 'active') {
         state.active = data.active;
-        renderShell();
         renderAll();
       }
     }).catch(function () {});
   }
 
-  // ====== Public API ======
   window.ConversationOverlay = {
     open: function () {
-      if (state.overlay) state.overlay.style.display = '';
-      else if (state.active) { renderShell(); renderAll(); }
+      state.hidden = false;
+      var peek = document.getElementById('conv-peek-btn');
+      if (peek) peek.remove();
+      if (state.active) renderAll();
       else checkActiveOnLoad();
     },
     isActive: function () { return state.active && state.active.status === 'active'; },
@@ -605,7 +624,7 @@
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug: slug })
       }).then(function (r) { return r.json(); }).then(function (data) {
-        if (data && data.active) { state.active = data.active; renderShell(); renderAll(); }
+        if (data && data.active) { state.active = data.active; renderAll(); }
         return data;
       });
     },
@@ -614,13 +633,10 @@
     }
   };
 
-  // ====== Init ======
   function init() {
-    injectStyles();
     wireSockets();
     checkActiveOnLoad();
   }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
