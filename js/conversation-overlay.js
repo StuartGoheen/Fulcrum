@@ -109,9 +109,19 @@
   }
 
   // ====== Player floating modal ======
+  // Persisted window geometry across re-renders
+  var winGeom = { left: null, top: null, width: null, height: null };
+  // Per-question expanded state (key = questionId, true = expanded)
+  var expandedMap = Object.create(null);
+
   function renderPlayerModal() {
     var existing = document.getElementById('conv-overlay');
-    if (existing) existing.remove();
+    var prevScroll = 0;
+    if (existing) {
+      var prevLog = existing.querySelector('#conv-p-log-col');
+      if (prevLog) prevScroll = prevLog.scrollTop;
+      existing.remove();
+    }
     if (!state.active) return;
 
     var a = state.active;
@@ -120,15 +130,19 @@
     var ch = chargeCharacter();
     var npcName = (def.npc && def.npc.name) || '';
 
-    var overlay = document.createElement('div');
-    overlay.id = 'conv-overlay';
-    overlay.className = 'conv-p-overlay';
+    var win = document.createElement('div');
+    win.id = 'conv-overlay';
+    win.className = 'conv-p-window';
 
-    var modal = document.createElement('div');
-    modal.className = 'conv-p-modal';
-    overlay.appendChild(modal);
+    if (winGeom.left != null) {
+      win.style.left = winGeom.left + 'px';
+      win.style.top = winGeom.top + 'px';
+      win.style.transform = 'none';
+    }
+    if (winGeom.width != null) win.style.width = winGeom.width + 'px';
+    if (winGeom.height != null) win.style.height = winGeom.height + 'px';
 
-    // Header
+    // ===== Header (drag handle) =====
     var header = document.createElement('div');
     header.className = 'conv-p-header';
     header.innerHTML =
@@ -136,56 +150,38 @@
         '<div class="conv-p-title">' + escHtml(def.title || 'Conversation') + '</div>' +
         (npcName || def.subtitle ? '<div class="conv-p-subtitle">' + escHtml(def.subtitle || npcName) + '</div>' : '') +
       '</div>' +
-      '<button class="conv-p-hide-btn" id="conv-p-hide">Hide</button>';
-    modal.appendChild(header);
+      '<div class="conv-p-header-btns">' +
+        '<button class="conv-p-icon-btn" id="conv-p-hide" title="Hide window">Hide</button>' +
+      '</div>';
+    win.appendChild(header);
 
-    // Body
+    // ===== Body: two columns =====
     var body = document.createElement('div');
     body.className = 'conv-p-body';
-    modal.appendChild(body);
+    win.appendChild(body);
+
+    // -- Left column: topics + actions --
+    var leftCol = document.createElement('div');
+    leftCol.className = 'conv-p-col conv-p-col-left';
+    leftCol.innerHTML = '<div class="conv-p-col-header">Questions</div>';
+    var leftBody = document.createElement('div');
+    leftBody.className = 'conv-p-col-body';
+    leftCol.appendChild(leftBody);
+    body.appendChild(leftCol);
 
     if (def.readAloud) {
       var ra = document.createElement('div');
       ra.className = 'conv-p-readaloud';
       ra.textContent = def.readAloud;
-      body.appendChild(ra);
+      leftBody.appendChild(ra);
     }
 
-    // Log
-    var log = document.createElement('div');
-    log.className = 'conv-p-log';
-    (st.log || []).forEach(function (item) {
-      var w = document.createElement('div');
-      w.className = 'conv-p-log-entry';
-      if (item.type === 'qa') {
-        w.innerHTML =
-          '<div class="conv-p-qa">' +
-            '<div class="who">' + escHtml(item.characterName) + ' asked</div>' +
-            '<div class="q">"' + escHtml(item.questionText) + '"</div>' +
-            '<div class="a-speaker">' + escHtml(npcName || 'Reply') + '</div>' +
-            '<div class="a">' + item.response + '</div>' +
-            '<div class="conv-p-clip-row"><button class="conv-p-clip-btn" data-clip-q="' + escHtml(item.questionId) + '">+ Clip to Journal</button></div>' +
-          '</div>';
-      } else if (item.type === 'pass') {
-        w.innerHTML = '<div class="conv-p-pass-log">' + escHtml(item.characterName) + ' passed.</div>';
-      } else if (item.type === 'maya') {
-        w.innerHTML =
-          '<div class="conv-p-maya">' +
-            '<div class="speaker">Maya</div>' +
-            '<div class="text">' + item.text + '</div>' +
-          '</div>';
-      }
-      log.appendChild(w);
-    });
-    body.appendChild(log);
-
-    // Action area: topics OR waiting OR ended
     if (a.status === 'ended') {
       var endLine = (def.comfort && (def.comfort.dryLine || def.comfort.exitLine)) || 'The conversation has ended.';
       var ended = document.createElement('div');
-      ended.className = 'conv-p-ended';
+      ended.className = 'conv-p-status';
       ended.textContent = endLine;
-      body.appendChild(ended);
+      leftBody.appendChild(ended);
     } else {
       var actedThisBeat = (st.actedThisBeat || []).indexOf(String(ch.characterId)) !== -1;
       if (actedThisBeat) {
@@ -199,55 +195,124 @@
           msg = 'You said nothing this round. Listening to the others...';
         }
         var wait = document.createElement('div');
-        wait.className = 'conv-p-waiting';
-        wait.innerHTML = '<div class="conv-p-waiting-icon">\u25CB</div><div>' + escHtml(msg) + '</div>';
-        body.appendChild(wait);
+        wait.className = 'conv-p-status';
+        wait.textContent = msg;
+        leftBody.appendChild(wait);
       } else {
-        body.appendChild(buildTopicsSection(def, st));
+        leftBody.appendChild(buildTopicsSection(def, st));
       }
     }
 
-    document.body.appendChild(overlay);
-    state.overlay = overlay;
+    // -- Right column: collapsible Q&A log, newest first --
+    var rightCol = document.createElement('div');
+    rightCol.className = 'conv-p-col conv-p-col-right';
+    rightCol.innerHTML = '<div class="conv-p-col-header">Responses (newest first)</div>';
+    var logEl = document.createElement('div');
+    logEl.className = 'conv-p-col-body';
+    logEl.id = 'conv-p-log-col';
+    rightCol.appendChild(logEl);
+    body.appendChild(rightCol);
 
+    // Build log items reversed (newest first)
+    var logItems = (st.log || []).slice().reverse();
+    var qaItems = logItems.filter(function (i) { return i.type === 'qa'; });
+    var newestQaId = qaItems.length ? qaItems[0].questionId : null;
+    // Auto-expand newest if user hasn't touched anything yet
+    if (newestQaId && !(newestQaId in expandedMap)) {
+      expandedMap[newestQaId] = true;
+    }
+
+    if (!logItems.length) {
+      logEl.innerHTML = '<div class="conv-p-empty">No responses yet. Pick a question to get the conversation started.</div>';
+    } else {
+      logItems.forEach(function (item) {
+        if (item.type === 'qa') {
+          var expanded = !!expandedMap[item.questionId];
+          var card = document.createElement('div');
+          card.className = 'conv-p-qa-card' + (expanded ? ' expanded' : '') +
+            (item.questionId === newestQaId ? ' newest' : '');
+          card.innerHTML =
+            '<button class="conv-p-qa-toggle" data-toggle-q="' + escHtml(item.questionId) + '">' +
+              '<span class="chev">\u25B8</span>' +
+              '<span class="qtext">' + escHtml(item.questionText) +
+                '<span class="qmeta">' + escHtml(item.characterName) + '</span>' +
+              '</span>' +
+            '</button>' +
+            '<div class="conv-p-qa-content">' +
+              '<div class="a-speaker">' + escHtml(npcName || 'Reply') + '</div>' +
+              '<div class="a">' + item.response + '</div>' +
+              '<div class="conv-p-clip-row"><button class="conv-p-clip-btn" data-clip-q="' + escHtml(item.questionId) + '">+ Clip to Journal</button></div>' +
+            '</div>';
+          logEl.appendChild(card);
+        } else if (item.type === 'pass') {
+          var pl = document.createElement('div');
+          pl.className = 'conv-p-pass-log';
+          pl.textContent = item.characterName + ' said nothing this round.';
+          logEl.appendChild(pl);
+        } else if (item.type === 'maya') {
+          var ml = document.createElement('div');
+          ml.className = 'conv-p-maya';
+          ml.innerHTML = '<div class="speaker">Maya</div><div class="text">' + item.text + '</div>';
+          logEl.appendChild(ml);
+        }
+      });
+    }
+
+    // ===== Resize handle =====
+    var resize = document.createElement('div');
+    resize.className = 'conv-p-resize';
+    win.appendChild(resize);
+
+    document.body.appendChild(win);
+    state.overlay = win;
+
+    // Restore log scroll position so re-renders don't jump
+    if (prevScroll) logEl.scrollTop = prevScroll;
+
+    // ===== Wire interactions =====
     document.getElementById('conv-p-hide').addEventListener('click', function () {
       state.hidden = true;
-      overlay.remove();
+      win.remove();
       state.overlay = null;
       showPeekButton();
     });
 
-    Array.prototype.forEach.call(overlay.querySelectorAll('[data-clip-q]'), function (btn) {
-      btn.addEventListener('click', function () { openClipModal(btn.getAttribute('data-clip-q')); });
+    Array.prototype.forEach.call(win.querySelectorAll('[data-toggle-q]'), function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var qid = btn.getAttribute('data-toggle-q');
+        expandedMap[qid] = !expandedMap[qid];
+        var card = btn.closest('.conv-p-qa-card');
+        if (card) card.classList.toggle('expanded', expandedMap[qid]);
+      });
     });
 
-    Array.prototype.forEach.call(overlay.querySelectorAll('[data-ask-q]'), function (btn) {
+    Array.prototype.forEach.call(win.querySelectorAll('[data-clip-q]'), function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openClipModal(btn.getAttribute('data-clip-q'));
+      });
+    });
+
+    Array.prototype.forEach.call(win.querySelectorAll('[data-ask-q]'), function (btn) {
       btn.addEventListener('click', function () { askQuestion(btn.getAttribute('data-ask-q')); });
     });
 
-    var passBtn = overlay.querySelector('#conv-p-pass-btn');
+    var passBtn = win.querySelector('#conv-p-pass-btn');
     if (passBtn) passBtn.addEventListener('click', passBeat);
 
-    var backBtn = overlay.querySelector('#conv-p-back-btn');
+    var backBtn = win.querySelector('#conv-p-back-btn');
     if (backBtn) backBtn.addEventListener('click', function () {
       state.viewingFollowUps = null;
       renderPlayerModal();
     });
 
-    Array.prototype.forEach.call(overlay.querySelectorAll('[data-followup-root]'), function (btn) {
-      btn.addEventListener('click', function () {
-        state.viewingFollowUps = btn.getAttribute('data-followup-root');
-        renderPlayerModal();
-      });
-    });
-
-    // auto-scroll log
-    log.scrollTop = log.scrollHeight;
+    enableDrag(win, header);
+    enableResize(win, resize);
   }
 
   function buildTopicsSection(def, st) {
     var topics = document.createElement('div');
-    topics.className = 'conv-p-topics';
 
     function makeBtn(q) {
       var explored = isExplored(q.id);
@@ -264,7 +329,7 @@
     }
 
     if (state.viewingFollowUps) {
-      topics.innerHTML += '<button class="conv-p-pass-btn" id="conv-p-back-btn" style="margin-bottom:0.5rem;">\u2190 Back</button>';
+      topics.innerHTML += '<button class="conv-p-pass-btn" id="conv-p-back-btn" style="margin-bottom:0.4rem;">\u2190 Back</button>';
       var followUps = ((findQ(def, state.viewingFollowUps) || {}).unlocks || [])
         .map(function (uid) { return (def.followUps || {})[uid]; })
         .filter(function (q) { return q && !isExplored(q.id); });
@@ -287,6 +352,77 @@
     return topics;
   }
 
+  // ====== Drag & resize (pointer events: mouse + touch) ======
+  function enableDrag(win, handle) {
+    var startX = 0, startY = 0, startLeft = 0, startTop = 0, dragging = false;
+    handle.addEventListener('pointerdown', function (e) {
+      // Don't start drag from buttons
+      if (e.target.closest('button')) return;
+      dragging = true;
+      var rect = win.getBoundingClientRect();
+      win.style.left = rect.left + 'px';
+      win.style.top = rect.top + 'px';
+      win.style.transform = 'none';
+      startX = e.clientX; startY = e.clientY;
+      startLeft = rect.left; startTop = rect.top;
+      win.classList.add('dragging');
+      handle.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    handle.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var nx = startLeft + (e.clientX - startX);
+      var ny = startTop + (e.clientY - startY);
+      // Clamp into viewport (keep at least 60px visible)
+      nx = Math.max(-(win.offsetWidth - 80), Math.min(window.innerWidth - 80, nx));
+      ny = Math.max(0, Math.min(window.innerHeight - 40, ny));
+      win.style.left = nx + 'px';
+      win.style.top = ny + 'px';
+    });
+    function stop(e) {
+      if (!dragging) return;
+      dragging = false;
+      win.classList.remove('dragging');
+      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      var rect = win.getBoundingClientRect();
+      winGeom.left = rect.left;
+      winGeom.top = rect.top;
+    }
+    handle.addEventListener('pointerup', stop);
+    handle.addEventListener('pointercancel', stop);
+  }
+
+  function enableResize(win, handle) {
+    var startX = 0, startY = 0, startW = 0, startH = 0, resizing = false;
+    handle.addEventListener('pointerdown', function (e) {
+      resizing = true;
+      var rect = win.getBoundingClientRect();
+      startX = e.clientX; startY = e.clientY;
+      startW = rect.width; startH = rect.height;
+      win.classList.add('resizing');
+      handle.setPointerCapture(e.pointerId);
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    handle.addEventListener('pointermove', function (e) {
+      if (!resizing) return;
+      var nw = Math.max(320, Math.min(window.innerWidth - 20, startW + (e.clientX - startX)));
+      var nh = Math.max(280, Math.min(window.innerHeight - 20, startH + (e.clientY - startY)));
+      win.style.width = nw + 'px';
+      win.style.height = nh + 'px';
+    });
+    function stop(e) {
+      if (!resizing) return;
+      resizing = false;
+      win.classList.remove('resizing');
+      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      winGeom.width = win.offsetWidth;
+      winGeom.height = win.offsetHeight;
+    }
+    handle.addEventListener('pointerup', stop);
+    handle.addEventListener('pointercancel', stop);
+  }
+
   function showPeekButton() {
     var existing = document.getElementById('conv-peek-btn');
     if (existing) existing.remove();
@@ -294,7 +430,7 @@
     var def = state.active.definition || {};
     var btn = document.createElement('button');
     btn.id = 'conv-peek-btn';
-    btn.style.cssText = 'position:fixed;bottom:1rem;right:1rem;z-index:9400;background:var(--color-bg-panel,#1a1a2e);border:2px solid var(--color-accent-primary,#c79234);color:var(--color-accent-primary,#c79234);font-family:Audiowide,sans-serif;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem 0.9rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
+    btn.className = 'conv-p-peek';
     btn.textContent = '\u270D ' + (def.title || 'Conversation');
     btn.addEventListener('click', function () {
       state.hidden = false;
