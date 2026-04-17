@@ -1879,7 +1879,7 @@
         _journalNav = { level: 'tag-search', actNum: null, advId: null, sceneId: null, searchTag: tagName };
         _journalExpandedEntry = null;
         _journalFormMode = null;
-        fetch('/api/journal/entries?tag=' + encodeURIComponent(tagName))
+        fetch('/api/journal/entries?tag=' + encodeURIComponent(tagName) + '&viewer=' + encodeURIComponent(_characterName || ''))
           .then(function (r) { return r.json(); })
           .then(function (data) {
             _journalEntries = data.entries || [];
@@ -1971,14 +1971,14 @@
   function _loadSceneEntries() {
     var sceneId = _journalNav.sceneId || _journalNav.advId;
     if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
-      fetch('/api/journal/entries?scene_id=' + encodeURIComponent(_journalNav.sceneId))
+      fetch('/api/journal/entries?scene_id=' + encodeURIComponent(_journalNav.sceneId) + '&viewer=' + encodeURIComponent(_characterName || ''))
         .then(function (r) { return r.json(); })
         .then(function (data) {
           _journalEntries = data.entries || [];
           _renderJournal();
         }).catch(function () { _renderJournal(); });
     } else if (_journalNav.level === 'scenes' && _journalNav.advId) {
-      fetch('/api/journal/entries')
+      fetch('/api/journal/entries?viewer=' + encodeURIComponent(_characterName || ''))
         .then(function (r) { return r.json(); })
         .then(function (data) {
           _journalEntries = data.entries || [];
@@ -1994,7 +1994,7 @@
     Promise.all([
       fetch('/api/campaign/adventures').then(function (r) { return r.json(); }),
       fetch('/api/campaign/progress').then(function (r) { return r.json(); }),
-      fetch('/api/journal/entries').then(function (r) { return r.json(); }),
+      fetch('/api/journal/entries?viewer=' + encodeURIComponent(_characterName || '')).then(function (r) { return r.json(); }),
       fetch('/api/journal/tags').then(function (r) { return r.json(); })
     ]).then(function (results) {
       _journalAdventures = results[0].adventures || [];
