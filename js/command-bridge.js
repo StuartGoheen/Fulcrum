@@ -743,11 +743,37 @@
         h += '<div style="font-size:0.65rem;margin-top:0.25rem;padding:0.25rem 0.35rem;background:rgba(245,158,11,0.08);border-left:2px solid #f59e0b;border-radius:0 3px 3px 0;">';
         h += '<div style="color:#f59e0b;font-family:Audiowide,sans-serif;font-size:0.55rem;letter-spacing:0.05em;margin-bottom:0.15rem;">SCRIPTED ESCALATION (AUTO)</div>';
         enc.scriptedEscalation.forEach(function (se) {
-          var conds = (se.conditions || []).map(function (c) { return '[' + c.charAt(0).toUpperCase() + c.slice(1) + ']'; }).join(' ');
-          var tgts = (se.targets || []).join(', ');
-          h += '<div style="color:#fbbf24;">R' + se.round + ': ' + esc(conds) + ' &rarr; <span style="color:#d4c5a0;">' + esc(tgts) + '</span>';
-          if (se.note) h += ' <span style="color:#7a7068;font-style:italic;">&mdash; ' + esc(se.note) + '</span>';
-          h += '</div>';
+          var actions = (Array.isArray(se.actions) && se.actions.length) ? se.actions : null;
+          if (!actions) {
+            var lt = Array.isArray(se.targets) ? se.targets : [];
+            var lc = Array.isArray(se.conditions) ? se.conditions : [];
+            if (lt.length && lc.length) {
+              actions = [{ type: 'applyCondition', targets: lt, conditions: lc, note: se.note || '' }];
+            } else {
+              actions = [];
+            }
+          }
+          actions.forEach(function (act) {
+            if (!act || !act.type) return;
+            var line = '';
+            if (act.type === 'applyCondition' || act.type === 'removeCondition') {
+              var conds = (act.conditions || []).map(function (c) { return '[' + c.charAt(0).toUpperCase() + c.slice(1) + ']'; }).join(' ');
+              var tgts = (act.targets || []).join(', ');
+              var verb = act.type === 'applyCondition' ? '&rarr;' : '&times;';
+              line = esc(conds) + ' ' + verb + ' <span style="color:#d4c5a0;">' + esc(tgts) + '</span>';
+            } else if (act.type === 'damage') {
+              line = '<span style="color:#ef4444;">&#9888; ' + (parseInt(act.amount, 10) || 0) + ' dmg</span> &rarr; <span style="color:#d4c5a0;">' + esc((act.targets || []).join(', ')) + '</span>';
+            } else if (act.type === 'spawn') {
+              line = '<span style="color:#a855f7;">&#10010; spawn</span> <span style="color:#d4c5a0;">' + esc(act.npc || act.template || '') + (act.count ? ' x' + act.count : '') + '</span>' + (act.zone ? ' <span style="color:#7a7068;">@' + esc(act.zone) + '</span>' : '');
+            } else if (act.type === 'narrate') {
+              line = '<span style="color:#c084fc;">&#9836; narrate:</span> <em style="color:#d4c5a0;">' + esc(act.text || act.note || '') + '</em>';
+            } else {
+              return;
+            }
+            h += '<div style="color:#fbbf24;">R' + se.round + ': ' + line;
+            if (act.note && act.type !== 'narrate') h += ' <span style="color:#7a7068;font-style:italic;">&mdash; ' + esc(act.note) + '</span>';
+            h += '</div>';
+          });
         });
         h += '</div>';
       }

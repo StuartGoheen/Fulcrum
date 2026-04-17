@@ -1275,7 +1275,62 @@
               "type": "combat",
               "trigger": "After meeting Raden at the filtration plant",
               "description": "4 Trandoshan Mercenaries breach from multiple entry points. Raden's jury-rigged sentry droid is destroyed at the southern gate in seconds — its wreckage creates brief difficult terrain. Protect Raden at all costs.",
-              "tactics": "Trandoshans use scent-tracking to navigate steam concealment. They work in pairs — one pins with suppressive fire, one flanks. They push through the sentry wreckage at the gate and breach from the jungle edges. The crew must use chokepoints, steam pipes, and collapsing catwalks to hold them off."
+              "tactics": "Trandoshans use scent-tracking to navigate steam concealment. They work in pairs — one pins with suppressive fire, one flanks. They push through the sentry wreckage at the gate and breach from the jungle edges. The crew must use chokepoints, steam pipes, and collapsing catwalks to hold them off.",
+              "scriptedEscalation": [
+                {
+                  "round": 1,
+                  "actions": [
+                    {
+                      "type": "narrate",
+                      "text": "The sentry droid's cutting torch sparks one last time before a Trandoshan blade severs its power coupling. Wreckage chokes the southern gate — difficult terrain for one round."
+                    }
+                  ]
+                },
+                {
+                  "round": 2,
+                  "actions": [
+                    {
+                      "type": "damage",
+                      "targets": ["Trandoshan Mercenaries"],
+                      "amount": 2,
+                      "note": "Stray blaster fire ruptures a steam main — scalding vapor washes the breach team."
+                    },
+                    {
+                      "type": "applyCondition",
+                      "targets": ["Trandoshan Mercenaries"],
+                      "conditions": ["disoriented"],
+                      "note": "Steam blinds their scent-tracking momentarily."
+                    },
+                    {
+                      "type": "narrate",
+                      "text": "PCs in the steam zone take 1 hazard damage unless they hold their breath or wear a breath mask — adjudicate per PC."
+                    }
+                  ]
+                },
+                {
+                  "round": 3,
+                  "actions": [
+                    {
+                      "type": "spawn",
+                      "npc": "Trandoshan Mercenaries",
+                      "count": 1,
+                      "note": "A second wave breaches from the rear maintenance hatch — Varga sent a reserve pair."
+                    },
+                    {
+                      "type": "removeCondition",
+                      "targets": ["Trandoshan Mercenaries"],
+                      "conditions": ["disoriented"],
+                      "note": "The steam clears. Scent-tracking is back online."
+                    },
+                    {
+                      "type": "applyCondition",
+                      "targets": ["Trandoshan Mercenaries"],
+                      "conditions": ["empowered"],
+                      "note": "The reinforcements rally the squad — focus-fire on Raden."
+                    }
+                  ]
+                }
+              ]
             }
           ],
           "environmentMechanics": [

@@ -103,39 +103,156 @@
     }
   }
 
+  function _entryActions(entry) {
+    if (!entry) return [];
+    if (Array.isArray(entry.actions) && entry.actions.length) return entry.actions;
+    var legacyTargets = Array.isArray(entry.targets) ? entry.targets : [];
+    var legacyConds = Array.isArray(entry.conditions) ? entry.conditions : [];
+    if (legacyTargets.length && legacyConds.length) {
+      return [{
+        type: 'applyCondition',
+        targets: legacyTargets,
+        conditions: legacyConds,
+        note: entry.note || ''
+      }];
+    }
+    return [];
+  }
+
+  function _spawnNpcFromScene(template, count, zone) {
+    if (!combatState) return [];
+    var sceneNpcs = (combatState.scene && Array.isArray(combatState.scene.npcs)) ? combatState.scene.npcs : [];
+    var name = String(template || '').trim();
+    if (!name) return [];
+    var nLower = name.toLowerCase();
+    var match = null;
+    for (var i = 0; i < sceneNpcs.length; i++) {
+      var n = sceneNpcs[i];
+      if (!n || !n.threatBuild) continue;
+      var nm = String(n.name || n.type || '').toLowerCase();
+      if (nm === nLower || nm.indexOf(nLower) !== -1 || nLower.indexOf(nm) !== -1) {
+        match = n;
+        break;
+      }
+    }
+    if (!match) {
+      if (window.console && console.warn) {
+        console.warn('[scriptedEscalation] spawn action could not resolve NPC template:', name);
+      }
+      return [];
+    }
+    var spawned = [];
+    var num = Math.max(1, parseInt(count, 10) || 1);
+    for (var c = 0; c < num; c++) {
+      var build = JSON.parse(JSON.stringify(match.threatBuild));
+      build.name = match.name || match.type || 'NPC';
+      if (window.NpcBuilder && window.NpcBuilder.calcStats) {
+        var stats = window.NpcBuilder.calcStats(build);
+        build.computed = stats;
+      }
+      var beforeIds = combatState.combatants.map(function (n2) { return n2.id; });
+      addNpcToCombat(build);
+      var added = combatState.combatants.find(function (n2) { return beforeIds.indexOf(n2.id) === -1; });
+      if (added) {
+        if (zone) {
+          added.zone = zone;
+          combatState.tokenPositions[added.id] = zone;
+        }
+        spawned.push(added.name);
+      }
+    }
+    return spawned;
+  }
+
   function applyScriptedEscalation(round) {
     if (!combatState || !combatState.encounter) return;
     var script = combatState.encounter.scriptedEscalation;
     if (!Array.isArray(script) || !script.length) return;
-    var applied = [];
+    var resolved = [];
     script.forEach(function (entry) {
       if (!entry || entry.round !== round) return;
-      var targets = Array.isArray(entry.targets) ? entry.targets : [];
-      var conditions = Array.isArray(entry.conditions) ? entry.conditions : [];
-      if (!targets.length || !conditions.length) return;
-      var matched = [];
-      targets.forEach(function (tgt) {
-        findCombatantsByTarget(tgt).forEach(function (npc) {
-          if (matched.indexOf(npc) === -1) matched.push(npc);
+      var actions = _entryActions(entry);
+      actions.forEach(function (act) {
+        if (!act || !act.type) return;
+        var targets = Array.isArray(act.targets) ? act.targets : [];
+        var matched = [];
+        targets.forEach(function (tgt) {
+          findCombatantsByTarget(tgt).forEach(function (npc) {
+            if (matched.indexOf(npc) === -1) matched.push(npc);
+          });
         });
-      });
-      if (!matched.length) return;
-      matched.forEach(function (npc) {
-        conditions.forEach(function (cid) { npcAddCond(npc, cid); });
-      });
-      applied.push({
-        conditions: conditions.slice(),
-        targets: matched.map(function (n) { return n.name; }),
-        note: entry.note || ''
+        var record = { type: act.type, note: act.note || '' };
+        if (act.type === 'applyCondition') {
+          var conds = Array.isArray(act.conditions) ? act.conditions : [];
+          if (!matched.length || !conds.length) return;
+          matched.forEach(function (npc) {
+            conds.forEach(function (cid) { npcAddCond(npc, cid, act.duration, act.arena); });
+          });
+          record.conditions = conds.slice();
+          record.targets = matched.map(function (n) { return n.name; });
+        } else if (act.type === 'removeCondition') {
+          var rconds = Array.isArray(act.conditions) ? act.conditions : [];
+          if (!matched.length || !rconds.length) return;
+          matched.forEach(function (npc) {
+            rconds.forEach(function (cid) { npcRemoveCond(npc, cid); });
+          });
+          record.conditions = rconds.slice();
+          record.targets = matched.map(function (n) { return n.name; });
+        } else if (act.type === 'damage') {
+          var amt = Math.max(0, parseInt(act.amount, 10) || 0);
+          if (!amt) return;
+          var hitNpcs = [];
+          matched.forEach(function (npc) {
+            npc.vitalityCurrent = Math.max(0, npc.vitalityCurrent - amt);
+            hitNpcs.push(npc.name);
+          });
+          var pcLabels = [];
+          targets.forEach(function (tgt) {
+            var t = String(tgt || '').trim().toLowerCase();
+            if (t === 'pcs' || t === 'players' || t === 'party' || t === 'all pcs') {
+              pcLabels.push('All PCs');
+            }
+          });
+          if (!hitNpcs.length && !pcLabels.length) return;
+          record.amount = amt;
+          record.targets = hitNpcs.concat(pcLabels);
+          record.pcsAffected = pcLabels.length > 0;
+        } else if (act.type === 'spawn') {
+          var spawned = _spawnNpcFromScene(act.npc || act.template || act.type, act.count, act.zone);
+          if (!spawned.length) return;
+          record.spawned = spawned;
+          record.zone = act.zone || '';
+        } else if (act.type === 'narrate') {
+          var text = String(act.text || act.note || '').trim();
+          if (!text) return;
+          record.text = text;
+        } else {
+          return;
+        }
+        resolved.push(record);
       });
     });
-    if (applied.length) {
-      combatState.lastEscalation = { round: round, entries: applied };
-      applied.forEach(function (en) {
-        var condStr = en.conditions.map(function (c) { return '[' + condLabel(c) + ']'; }).join(' ');
-        var msg = condStr + ' → ' + en.targets.join(', ');
-        if (en.note) msg += ' — ' + en.note;
-        logEvent('escalation', msg, { conditions: en.conditions, targets: en.targets, note: en.note });
+    if (resolved.length) {
+      combatState.lastEscalation = { round: round, entries: resolved };
+      resolved.forEach(function (en) {
+        var msg = '';
+        if (en.type === 'applyCondition') {
+          var condStr = (en.conditions || []).map(function (c) { return '[' + condLabel(c) + ']'; }).join(' ');
+          msg = condStr + ' → ' + (en.targets || []).join(', ');
+        } else if (en.type === 'removeCondition') {
+          var rcondStr = (en.conditions || []).map(function (c) { return '[' + condLabel(c) + ']'; }).join(' ');
+          msg = rcondStr + ' × ' + (en.targets || []).join(', ');
+        } else if (en.type === 'damage') {
+          msg = '⚠ ' + en.amount + ' damage → ' + (en.targets || []).join(', ');
+          if (en.pcsAffected) msg += ' (GM applies to PC sheets)';
+        } else if (en.type === 'spawn') {
+          msg = '✚ Reinforcements: ' + (en.spawned || []).join(', ');
+          if (en.zone) msg += ' @ ' + en.zone;
+        } else if (en.type === 'narrate') {
+          msg = '♪ ' + en.text;
+        }
+        if (en.note && en.type !== 'narrate') msg += ' — ' + en.note;
+        if (msg) logEvent('escalation', msg, en);
       });
     } else if (combatState.lastEscalation && combatState.lastEscalation.round !== round) {
       combatState.lastEscalation = null;
@@ -815,6 +932,14 @@
     return stepDie(dieStr, steps);
   }
 
+  function _condLabels(ids) {
+    return (ids || []).map(function (c) {
+      var def = getEffectDef(c);
+      var label = (def && def.name) ? def.name : c.charAt(0).toUpperCase() + c.slice(1);
+      return '[' + label + ']';
+    }).join(' ');
+  }
+
   function logTypeColor(type) {
     var colors = {
       start: '#60a5fa',
@@ -865,14 +990,24 @@
     var html = '<div class="ct-escalation-banner" style="margin:0.4rem 0;padding:0.4rem 0.6rem;border-left:3px solid #f59e0b;background:rgba(245,158,11,0.12);border-radius:0 4px 4px 0;color:#fbbf24;font-size:0.75rem;">';
     html += '<strong style="font-family:Audiowide,sans-serif;font-size:0.65rem;letter-spacing:0.06em;color:#f59e0b;">SCRIPTED ESCALATION &mdash; ROUND ' + le.round + '</strong>';
     le.entries.forEach(function (en) {
-      var condStr = en.conditions.map(function (c) {
-        var def = getEffectDef(c);
-        var label = (def && def.name) ? def.name : c.charAt(0).toUpperCase() + c.slice(1);
-        return '[' + label + ']';
-      }).join(' ');
-      var tgtStr = en.targets.join(', ');
-      html += '<div style="margin-top:0.15rem;">' + esc(condStr) + ' applied to <strong>' + esc(tgtStr) + '</strong>';
-      if (en.note) html += ' &mdash; <em>' + esc(en.note) + '</em>';
+      var line = '';
+      if (en.type === 'applyCondition') {
+        line = esc(_condLabels(en.conditions)) + ' applied to <strong>' + esc((en.targets || []).join(', ')) + '</strong>';
+      } else if (en.type === 'removeCondition') {
+        line = esc(_condLabels(en.conditions)) + ' removed from <strong>' + esc((en.targets || []).join(', ')) + '</strong>';
+      } else if (en.type === 'damage') {
+        line = '<span style="color:#ef4444;">&#9888; ' + en.amount + ' damage</span> to <strong>' + esc((en.targets || []).join(', ')) + '</strong>';
+        if (en.pcsAffected) line += ' <span style="color:#7a7068;font-style:italic;">(GM: apply to PC sheets)</span>';
+      } else if (en.type === 'spawn') {
+        line = '<span style="color:#a855f7;">&#10010; Reinforcements:</span> <strong>' + esc((en.spawned || []).join(', ')) + '</strong>';
+        if (en.zone) line += ' <span style="color:#7a7068;">@ ' + esc(en.zone) + '</span>';
+      } else if (en.type === 'narrate') {
+        line = '<span style="color:#c084fc;">&#9836;</span> <em>' + esc(en.text) + '</em>';
+      } else {
+        return;
+      }
+      html += '<div style="margin-top:0.15rem;">' + line;
+      if (en.note && en.type !== 'narrate') html += ' &mdash; <em>' + esc(en.note) + '</em>';
       html += '</div>';
     });
     html += '</div>';
