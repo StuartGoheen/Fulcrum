@@ -106,7 +106,41 @@
           "number": 1,
           "title": "Planetfall on Malpaz",
           "subtitle": "Under the Boot",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a5-p1-s1-beat1-approach",
+              "name": "Beat 1 — Banshee Approach to Malpaz",
+              "type": "social",
+              "trigger": "Crew drops out of hyperspace at Malpaz",
+              "description": "SCAFFOLD: Banshee approach beat. Establish the contested system, Imperial customs corvettes in slow-orbit patrol, civilian traffic dropping off the closer to surface the crew gets. Maya threads the approach lane on credentials Varth supplied. Full readAloud and gmNotes to be authored when adv5 is built out (see project follow-up #144).",
+              "tactics": "NO DICE — atmospheric arrival scaffold. To be expanded with full sensory and intel detail in the adv5 build-out pass."
+            },
+            {
+              "id": "enc-a5-p1-s1-beat2-customs",
+              "name": "Beat 2 — Imperial Customs Inspection",
+              "type": "social",
+              "trigger": "Imperial corvette intercepts on approach",
+              "description": "SCAFFOLD: Imperial customs inspection beat. Varth's credentials are tested in real time — they hold, but the inspecting officer asks one question more than expected. PCs may reinforce the cover or escalate. To be expanded.",
+              "tactics": "RUN: Deception/Streetwise checks per cover — placeholder until adv5 build-out fills the discipline-challenge stat block."
+            },
+            {
+              "id": "enc-a5-p1-s1-beat3-touchdown",
+              "name": "Beat 3 — Touchdown on Malpaz",
+              "type": "social",
+              "trigger": "Banshee clears customs and lands",
+              "description": "SCAFFOLD: Surface arrival. Establish Malpaz's population pressure under occupation, the research station's surface footprint, the local contact waiting at the dock. To be expanded.",
+              "tactics": "NO DICE — orientation scaffold."
+            },
+            {
+              "id": "enc-a5-p1-s1-beat4-the-contact",
+              "name": "Beat 4 — Meeting the Local Contact",
+              "type": "social",
+              "trigger": "Crew makes the rendezvous with the surface contact",
+              "description": "SCAFFOLD: Major sit-down NPC for adv5 to be named in the build-out pass. Reserve a conversation overlay slot here — when the contact is created, this beat should hook [contact-slug] in brackets and launch the conversation from the Conversation panel.",
+              "tactics": "GM ACTION (when adv5 is built out): Launch the contact's conversation overlay from the Conversation panel. Comfort starting value to be set in the build-out pass."
+            }
+          ]
         },
         {
           "id": "adv5-p1-s2",

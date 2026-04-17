@@ -1,0 +1,103 @@
+{
+  "id": "oga-garra-cantina",
+  "title": "The Broker in the Back Booth",
+  "subtitle": "Oga Garra — Oga's Cantina, Black Spire Outpost, Batuu",
+  "setting": "The back booth of Oga's Cantina, behind a beaded curtain that the bouncers move people away from. Loud, smoky main floor — DJ R-3X playing a slow set. Behind the curtain it is quieter than it has any right to be. Oga is at the booth alone, drinking something that is not on the menu, with a ledger pad open in front of her and three datachips in a neat row.",
+  "context": "The crew has come to Black Spire Outpost looking for captains and ships willing to run the Iron Blockade. Every fixer in the outpost has the same answer — go see Oga. Oga, mantellian-savrip Blutopian, runs the cantina, the dock fees, the gambling rake, the off-the-books courier registry, the moonshine tax, and a small but profitable insurance scheme on long-haul cargo runs. She is not a friend to the Empire and she is not a friend to the Resistance either. She is a friend to whoever pays her on time and brings interesting trouble to her door. Galactic Standard time at the booth: late local night.",
+  "readAloud": "The bouncer looks at you, looks past you, looks back. Says nothing. Pulls the beaded curtain aside.\n\nThe back booth is dark except for a single warm-orange floor lamp shaped like a Trandoshan tooth. Oga Garra sits hunched over a pad, marking something with the flat end of a stylus. She does not look up when you sit. She finishes the line. Marks it with a tap.\n\n\"Drink first.\" Her voice is gravel through a vocoder. She slides a small clay cup toward each of you. The liquid is dark green and absolutely still. \"You don't have to drink it. But you have to put your hand on it. Show me you have hands. Show me your hands aren't shaking.\"\n\nA pause. She finally looks up. Her eyes are slow and very awake.\n\n\"Word is you want a ship that'll run the Iron Blockade. Word is you have credits but no introductions. So I am the introduction. I take ten points off the top of whatever you negotiate, payable in the currency of the ship that takes the contract — credits, fuel, favors. Doesn't matter. We agree on the ten before we agree on anything else.\"\n\nShe sips her drink.\n\n\"Then you tell me what you actually need, and I tell you which of the three datachips to look at. Ask.\"",
+  "gmNotes": "A transactional, professional conversation overlay. Comfort starts at 3 — Oga is open for business and the crew was vouched for, but she is testing them constantly and a wrong move drops the temperature fast. This is the Adventure 8 mirror to no other scene exactly — the closest analog is Mandrake's deal conversation. Played correctly, Oga is the door to the rest of the adventure.\n\nStory topics about the Iron Blockade, the fleet she's contracted, and her own history with the Empire HOLD or raise comfort. Business topics about specific captains, contracts, and rates are neutral — she expects them and answers efficiently. Probe topics about her loyalties, her past with the Resistance, or whether she is selling the crew out cost 1 comfort each — Oga reads probes as business intelligence and bills them accordingly.\n\nTHE TEN-POINT TAX: This is the gating mechanic. If the crew explicitly accepts the 10% rake at the start, comfort jumps to 4 immediately and the conversation runs warm. If the crew negotiates it down, Oga respects them but takes 1 comfort — she came here to do business, not to barter. If the crew refuses to pay it at all, Oga shrugs, closes the ledger pad, and the conversation ends. The bouncer escorts the crew out. Adventure 8 then becomes a much harder slog without her network.\n\nAt Comfort 1, Oga politely informs the crew that she has another appointment and they may finish their drinks at the bar. The crew gets one captain referral (Soren Vex — the worst option, on purpose) and no further help.\n\nVOICE: Oga is dry, slow, and absolutely uninterested in performance. She does not laugh, but she occasionally smiles in a way that is not warm. She uses very few words. When she gives intel, she gives it cleanly. When she gives advice, she gives it once. She does not repeat herself.\n\nSOREN VEX REVEAL: When the crew asks for captains (root oga-the-captains), Soren Vex is among the names — see scene gmNotes for adv8-p1-s3 for the full reveal context. The Maya beat is mechanically separate (she sees him from across the cantina), but Oga lists him without flinching.",
+  "comfort": {
+    "starting": 3,
+    "max": 5,
+    "exitThreshold": 1,
+    "exitLine": "Oga closes the ledger pad without urgency. She slides the three datachips back into a pouch on her belt. 'I think we have what we need.' She does not raise her voice. The bouncer is at the curtain before the sentence is finished. 'You are welcome to finish the drinks at the bar. Compliments of the house. The next round is yours to buy.' She returns her attention to the empty pad in front of her, which is now a different pad than the one she was working on. The conversation is over. The crew is escorted to the main floor with quiet professionalism. They have one captain referral — Vex — and a tab that mysteriously ran longer than it should have.",
+    "dryLine": "Oga slides the second of the three datachips across to the crew. 'That's the one. Read it before you walk out of here. If you have questions, ask them now. After tonight my time costs more.' She closes the ledger pad. 'You did fine. Most crews don't. The bouncer will not bother you on your way out. The bartender will pour you the next round on my tab. Tomorrow at second sun, the captain on that chip will be at the docking ring, slip 14. Don't be late. He bills by the hour from the time you said you'd arrive.'"
+  },
+  "roots": [
+    {
+      "id": "oga-accept-the-tax",
+      "text": "Ten points off the top is fine. Let's talk.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "She does not smile. But something in her shoulders loosens.\n\n'Good. We can do business in less time than I thought.'\n\nShe taps the leftmost of the three datachips.\n\n'Names on this one. Ships on the second. Routes through the Cordon on the third. You can have any one of them included. The other two are extra — three thousand credits per chip, or trade, if you have something I want. We negotiate the trade after I see what you want.'\n\nA pause.\n\n'Now. Tell me what you actually need. The blockade is large. Different parts of it want different things. The captain who can run gas through the Hosnian gap is not the captain who can move people through the Malpaz corridor. Specify.'",
+      "gmNote": "FAST COMFORT GAIN. Comfort jumps from 3 to 4 immediately. Oga respects efficiency and the crew just bought it. The three-chip menu is real — the crew can buy all three, but the campaign assumes they pick one (captains) and the GM provides the others through other adventure beats. Players who try to negotiate after this should still be able to (Oga is professional) but the warm-up is over.",
+      "unlocks": ["oga-the-captains", "oga-the-routes", "oga-the-blockade"],
+      "tags": ["business", "comfort-gain", "fast-track"]
+    },
+    {
+      "id": "oga-negotiate",
+      "text": "Ten is steep. Let's talk five.",
+      "type": "business",
+      "comfortCost": -1,
+      "response": "She looks at the speaker for a long beat. Slow. Reads them.\n\n'Eight. Final.'\n\nShe waits exactly two beats.\n\n'I am not in the mood to enjoy a negotiation tonight. Eight is a number that means I am still doing business with you and I am still going to be polite. Six is a number that means we are not doing business. Choose.'\n\nIf the crew accepts eight: She nods, once. The ledger pad opens. 'Good. Now stop wasting my time.'\n\nIf the crew tries to push lower: She closes the ledger pad. The bouncer appears at the curtain. The conversation ends.",
+      "gmNote": "Comfort drops by 1 — the negotiation costs goodwill even when it succeeds. Oga's 'two beats' is a real timer; she will NOT counter-offer. Eight or out. If the crew accepts eight, the rest of the conversation runs but she is curt and unforgiving for the rest of the scene. If they push for less, the scene ends per the exitLine. Players who think they're being clever discover Oga is not the kind of broker who rewards cleverness.",
+      "unlocks": ["oga-the-captains", "oga-the-routes"],
+      "tags": ["business", "negotiation"]
+    },
+    {
+      "id": "oga-the-captains",
+      "text": "We need a captain who can run a small fleet through the Cordon.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "She slides the first datachip closer to her side of the table. Reads from it without looking down.\n\n'Three names. Each viable. Each costly in a different way.'\n\n'One — Captain Idra Maku. Mon Calamari. Old Rebellion vintage. Has run the Cordon four times this year and she is not dead. She charges eighteen thousand and she does not negotiate and she does not work with strangers without a sit-down first. She is in port for three more days. Go drink with her at the Mil Milk lounge. She likes blue drinks and quiet questions.'\n\n'Two — Captain Doss Brell. Human. Corellian gunship out of Bestine. Cheaper — twelve thousand. Faster than Maku. Will absolutely sell you to the Empire if the Empire offers him fourteen. He has done so to two crews this year that I know of. Buy his loyalty in advance with a bigger purse and a story he wants to tell at the next port. He likes being important.'\n\nA pause. She does not change her tone.\n\n'Three — Captain Soren Vex. Human. Battered Corellian gunship called the Requital, slip 14, undocked. Rates are negotiable. He needs the work. He knows the Cordon as well as Maku does. He will run anything you put on his deck without asking what it is.'\n\nShe meets the crew's eyes.\n\n'I list him third because he has a reputation. People who knew him before do not work with him now. If your crew is one of those people, choose Maku or Brell instead. If your crew does not know him, ask me a follow-up.'",
+      "gmNote": "MAYA HOOK. Soren Vex is the third name on purpose. The reveal beat (adv8-p1-s2 Beat 4 in the encounters list) handles Maya seeing him; this conversation handles Oga listing him without judgment. Oga's offer to ANSWER follow-ups about Vex is a player invitation — they should ask. Oga's read of Vex is professionally accurate and morally neutral: she is a broker, not a friend.",
+      "unlocks": ["oga-vex-history", "oga-the-routes"],
+      "tags": ["business", "captains", "vex-reveal"]
+    },
+    {
+      "id": "oga-the-blockade",
+      "text": "What does the Iron Blockade actually look like, on the ground?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "She takes a slow sip of her drink.\n\n'It looks like the Empire finally decided this sector mattered. Four destroyers in static positions over the major lanes. A picket line of frigates in the gaps. Interdictors at three of the chokepoints, including the Malpaz one. Gravity wells you can see on a long-range scan if you know where to look.'\n\nA pause.\n\n'On the surface — Imperial customs in every port. Bounty offices in cantinas where there have never been bounty offices. Identity checks at the docking rings. New informants nobody knew were informants. Old smugglers vanished. New smugglers appeared who were never smugglers a month ago and they all have very clean documentation. You can guess what those are.'\n\nShe sets the cup down.\n\n'It will hold the sector for three months. Four if they get lucky. After that, the Empire will need to ease up because their own supply lines run through here too and the captains they leaned on have started disappearing. The window to do anything interesting in this sector is now. Hence the lounge being full.'",
+      "gmNote": "Concrete sector intel. The 'three to four months' timer is a real campaign-pacing hint — Adv 8-10 take place inside that window. The 'new smugglers with clean documentation' is the Empire's infiltration program; GMs should plant at least one of these in adv8-9 as a betrayal vector. The 'window is now' is Oga's pitch for why she is willing to broker — she also has business that needs doing in the same window.",
+      "unlocks": ["oga-the-empire", "oga-the-routes"],
+      "tags": ["story", "blockade", "intel"]
+    },
+    {
+      "id": "oga-your-loyalties",
+      "text": "Whose side are you actually on?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "She is silent for a long beat. Not offended. Considering.\n\n'I am on the side of Black Spire Outpost staying open under whoever happens to be running the sector that month. That has been my side for thirty-one years. It will be my side for as long as I draw breath.'\n\nA pause.\n\n'When the Empire has the sector, I sell them moonshine and pretend not to notice the patrols in my main floor. When the Resistance has the sector, I sell them moonshine and pretend not to notice the meetings in this booth. When neither has the sector — which is most of the time — I sell moonshine to whoever has credits and I do not ask whose side they are on. I would prefer if they returned the favor.'\n\nShe meets the crew's eyes.\n\n'If you are asking whether I will sell you out — the answer is no, on this contract, because you have paid me. If you come back to this cantina in eighteen months under different banners, the answer may be different, because the contract will be different. I am not your friend. I am your broker. Pay me. Do not ask me to be more than that.'",
+      "gmNote": "Comfort drops by 1 — the question is the question, and Oga reads it as billable. But the answer is honest and useful: Oga is not a betrayal vector inside the contract. She IS a betrayal vector across contracts, which is correct characterization. If the crew returns to Batuu in adv9-10 under different circumstances, GMs should remember that Oga's loyalty is to her cantina, not to them.",
+      "unlocks": [],
+      "tags": ["probe", "loyalty", "honest"]
+    }
+  ],
+  "followUps": {
+    "oga-vex-history": {
+      "id": "oga-vex-history",
+      "parentId": "oga-the-captains",
+      "text": "What's Vex's reputation, exactly?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "She does not soften the answer.\n\n'He ran refugee charters out of Bestine for three years with a partner. The charters were clean. The two of them were good at the work. Then there was a bounty on the partner — Imperial, six figures — and Vex turned her in for the money. She did not die. She was sentenced to a labor camp. She got out, eventually. He did not.'\n\nA pause.\n\n'He has been here on Batuu for six years. He drinks alone. He takes contracts no one else will take and he runs them well, because he is trying to pay something off that you cannot pay off with credits.'\n\nShe glances toward the main floor — through the curtain.\n\n'If your crew has anyone in it who was on Bestine in those years, you may have a complication when you walk out of this booth. Your call whether to take it as a complication or as something else. I will not interfere either way. He is on the chip. The other two are also on the chip. Choose.'",
+      "gmNote": "DIRECT MAYA HOOK. Oga is naming the situation without naming Maya. If Maya is in the crew (she always is), the players now know she is the partner he sold out. Oga's 'I will not interfere either way' is the broker stepping aside — she will broker a contract with Vex even if Maya's standing right there. The choice belongs to the crew. This conversation handoff is the explicit setup for the Beat 4 reveal in adv8-p1-s2 and the Vex-Maya arc that runs into adv10.",
+      "unlocks": [],
+      "tags": ["vex", "maya-hook", "load-bearing"]
+    },
+    "oga-the-routes": {
+      "id": "oga-the-routes",
+      "parentId": "oga-the-captains",
+      "text": "Walk us through the routes.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "She taps the third datachip.\n\n'Three usable. The Hosnian gap — fastest, but it is where the Empire is paying most attention this week. Use it if you are running clean cargo and have papers that survive a search.\n\nThe Malpaz corridor — slowest. Goes through an interdictor field and a contested system. Useful if you have something the Empire would burn the Hosnian crews to find. Not for normal cargo.\n\nThe Xala-Cermau hyperlane — middle. Old smuggler route. Long. Boring. Three jumps where you have to recalculate manually because the navicomputer charts are deliberately wrong. The Empire does not patrol it because the Empire does not believe anyone uses it. Anyone who knows what they are doing does.'\n\nA pause.\n\n'Match the route to the captain. Maku prefers Xala-Cermau. Brell prefers Hosnian — easier to sell you to a checkpoint there. Vex prefers Malpaz because it is the only one a desperate man will run.'",
+      "gmNote": "Three real campaign routes. The Xala-Cermau is the canonical adv9-p1-s1 route. The Malpaz corridor is the canonical adv10-p1-s2 route. The 'match the route to the captain' framing is a player tool — GMs can let the crew's choice of captain determine WHICH route the next two adventures use, and adjust accordingly. Brell-as-betrayal-vector at Hosnian is a built-in plot if the crew ignores Oga's warning and hires him anyway.",
+      "unlocks": [],
+      "tags": ["business", "routes"]
+    },
+    "oga-the-empire": {
+      "id": "oga-the-empire",
+      "parentId": "oga-the-blockade",
+      "text": "Anyone in particular running the Imperial side here?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "'Captain Irelle Vassar. Eriadu officer. Methodical. Not stupid. She has set up shop on the lead destroyer — the Iron Cordon — and she runs the blockade on a four-shift rotation that covers every approach vector. She does not improvise well. She wins on the rotation, not on the moment.'\n\nA pause.\n\n'There is a way to break the rotation, if it ever became important to you. The four-shift cycle has a seam — third shift to fourth — where one of the destroyers is reorienting for forty minutes. If you can time a run for that seam at the right vector, you have a window. I do not give that window away to most crews. I am giving it to you because you accepted the ten without arguing and because you tipped the bouncer on the way in.'\n\nA small, dry look.\n\n'I notice both. I tip back, in my way.'",
+      "gmNote": "Tactical gold. The 'four-shift seam' is the explicit mechanic for adv8-p2-s1 (Breaking the Cordon) — players who took this beat get a -2 Resist on the cordon-run check. GMs should track that the crew earned the intel. The 'tipped the bouncer' detail is a free pickup if the players narrated it OR a quiet GM nudge to add the moment if they didn't.",
+      "unlocks": [],
+      "tags": ["story", "vassar", "tactics"]
+    }
+  }
+}

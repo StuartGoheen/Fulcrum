@@ -52,14 +52,90 @@
           "number": 1,
           "title": "Arrival on Batuu",
           "subtitle": "Hunted and Battered",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a8-p1-s1-beat1-approach",
+              "name": "Beat 1 — Approach to Batuu",
+              "type": "social",
+              "trigger": "Banshee enters Batuu approach lane",
+              "description": "Batuu is a frontier world on the edge of Wild Space — the kind of port where you go when you need a ship and don't want anyone to log who hired it. The Banshee drops out of hyperspace and the cockpit display fills with traffic: freighters, smugglers, the occasional Imperial customs cruiser running a slow lap. Maya knows the controllers here by name. She talks the Banshee through the approach lane on a callsign three years out of date that nobody has bothered to flag.",
+              "tactics": "NO DICE — orientation. Maya's callsign familiarity is a small free comfort beat — she has been here before and the GM should let the players see the easy professionalism. End beat with the Banshee on final approach to Black Spire docking ring."
+            },
+            {
+              "id": "enc-a8-p1-s1-beat2-the-dock",
+              "name": "Beat 2 — Black Spire Docking Ring",
+              "type": "social",
+              "trigger": "Banshee touches down",
+              "description": "Black Spire Outpost is bustling. The docking ring is full — freighters, gunships, a few outlaw scouts. Customs is run by a single, tired Twi'lek who waves the crew through without looking. The first Resistance contact (Vos, per the canon) is in the cantina across the plaza, drinking alone, waiting. The crew has perhaps an hour to orient themselves before the meeting.",
+              "tactics": "NO DICE — first impressions. PCs may scan the dock (free Insight: at least two ships fly false transponders, one is Imperial Intelligence in disguise, two are clearly outlaw). End beat when the crew commits to the cantina meeting."
+            },
+            {
+              "id": "enc-a8-p1-s1-beat3-orient",
+              "name": "Beat 3 — Walking the Plaza",
+              "type": "social",
+              "trigger": "Crew walks from dock to cantina",
+              "description": "The walk across the plaza is fifteen minutes through the morning bustle. The crew passes a market — kyber-crystal scams, replica sabers, real spice in unmarked tins. A street performer is doing a marionette show about the Death Star's destruction; the children laugh; the adults watch the Imperial customs officer at the edge of the crowd. The plaza has three feels at once: tourist destination, smuggler hub, low-grade Imperial occupation.",
+              "tactics": "NO DICE — atmospheric establishment. PCs may make small purchases or stop briefly. The marionette show is a free observational beat that establishes that everyone knows the Empire is here and pretends not to. End beat at the cantina door."
+            },
+            {
+              "id": "enc-a8-p1-s1-beat4-the-cantina-door",
+              "name": "Beat 4 — Tugg at the Door",
+              "type": "social",
+              "trigger": "Crew arrives at Oga's Cantina",
+              "description": "The Gamorrean bouncer — Tugg — looks the crew over. He says nothing. He does not move to bar the door. He is reading them. After a beat he steps aside and lets them past. The first sight inside Oga's Cantina is DJ R-3X playing a slow set, the bar two-deep, and at the back booth a Mirialan in muted clothing nursing a single drink. Vos. Waiting.",
+              "tactics": "NO DICE — entry beat. Establish Tugg's read as consequential (he will remember faces; later return visits will go faster). End beat with the crew sighting Vos. Adventure 8 Scene 2 (Oga's Cantina conversation) begins."
+            }
+          ]
         },
         {
           "id": "adv8-p1-s2",
           "number": 2,
           "title": "Oga's Cantina",
           "subtitle": "The Price of a Fleet",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a8-p1-s2-beat1-the-floor",
+              "name": "Beat 1 — Walking Into Oga's",
+              "type": "social",
+              "trigger": "Crew enters Oga's Cantina at Black Spire Outpost",
+              "description": "The cantina is full. DJ R-3X is playing a slow set. The bar is two-deep with spacers, prospectors, freight crews, and at least three hooded figures who are not what they appear to be. The bouncer at the door — a Gamorrean named Tugg — looks the crew over once, decides nothing, and lets them past. The first hour is orientation: figure out who is here, who is watching, and who to talk to about a captain. The Resistance contact the crew was supposed to meet (per s1) is at the back booth, drinking alone, waiting.",
+              "tactics": "NO DICE — orientation. Players may scan the room (free Insight: at least one Imperial informant, one bounty hunter casing, two Resistance sympathizers wearing the same earring). The contact at the back booth waves them over. End beat when the crew sits."
+            },
+            {
+              "id": "enc-a8-p1-s2-beat2-the-broker-intro",
+              "name": "Beat 2 — The Contact Names Oga",
+              "type": "social",
+              "trigger": "Crew sits with the Resistance contact",
+              "description": "The contact — a quiet Mirialan who introduces himself only as \"Vos\" — listens to the crew's brief. He nods at the right moments. When they finish, he says, simply: \"You need Oga. She runs the captains, the docks, and the only registry of who can run what through the Cordon. I have already paid your introduction fee. Tell Tugg you're going behind the curtain. Do not insult her. Do not haggle for less than eight points. Pay her on time. After that — she will be useful.\" He stands, drops a credit chip on the table for the drinks, and walks out without looking back.",
+              "tactics": "NO DICE — handoff beat. Vos is not a recurring NPC — he is the one-shot bridge to Oga. Players who try to detain him for more questions get a polite \"I have done what I came to do\" and he leaves. The introduction is real: Tugg will admit the crew behind the beaded curtain at any point in the next two hours."
+            },
+            {
+              "id": "enc-a8-p1-s2-beat3-conversation",
+              "name": "Beat 3 — Behind the Curtain (Oga Conversation Overlay)",
+              "type": "social",
+              "trigger": "Crew tells Tugg they are going behind the curtain",
+              "description": "Tugg parts the beaded curtain. Oga is at the back booth alone, drinking something not on the menu, with a ledger pad open and three datachips in a neat row. This is the structured social scene: the Oga Garra conversation overlay. Launch the [oga-garra-cantina] conversation from the Conversation panel. Comfort starts at 3 — accept the ten-point tax cleanly to jump to 4 immediately. The conversation delivers the Iron Blockade strategic brief, the three-captain referral (Maku, Brell, Vex), the route options (Hosnian / Malpaz / Xala-Cermau), Captain Vassar's four-shift seam, and the Soren Vex history.",
+              "tactics": "GM ACTION: Open the Conversation panel and launch [oga-garra-cantina]. Story topics about the blockade and Oga's loyalties HOLD comfort. Business topics about captains, contracts, and rates are neutral. Probe topics about her loyalties cost 1 comfort each. THE TEN-POINT TAX is the gate: accept cleanly = comfort to 4 and warm conversation; haggle to eight = -1 comfort but proceeds; refuse entirely = scene ends and Adv 8 becomes a much harder slog."
+            },
+            {
+              "id": "enc-a8-p1-s2-beat4-vex-across-the-room",
+              "name": "Beat 4 — Maya Sees Vex Across the Floor",
+              "type": "social",
+              "trigger": "Crew leaves the back booth — OR — the crew asks Oga about Vex specifically and triggers the [oga-vex-history] follow-up",
+              "description": "The crew steps back through the beaded curtain onto the main floor. Maya, who came in with them but stayed at the bar during the Oga conversation, has stopped moving. She is staring across the cantina at a man in spacer's leathers drinking alone at a corner table — gray hair, scarred hands, fifty-something. He is reading a flimsi sheet. He has not seen her. Maya does not say anything. She does not move. Her hand has gone to the grip of the blaster at her hip and stayed there. The crew has to choose: ask her, walk away, or approach Vex themselves.",
+              "tactics": "NO DICE — reveal beat. This is the Soren Vex visual reveal, separate from Oga's naming of him in the conversation. Maya will not initiate. PCs who ask her get one sentence: \"That's Soren Vex. He sold me to the Empire. Oga is going to put his name on her shortlist tomorrow. I needed to see his face first.\" She will not engage with him in the cantina. She will not engage with him at the bar. If the contract goes to him, she will engage him at slip 14 — at her own tempo, on her own ground (s3 trigger)."
+            },
+            {
+              "id": "enc-a8-p1-s2-beat5-walking-out",
+              "name": "Beat 5 — Walking Out of Oga's",
+              "type": "social",
+              "trigger": "Crew exits the cantina",
+              "description": "The cold of Black Spire Outpost's night air is sharp after the smoky cantina. The crew has Oga's captain shortlist on a datachip, the route options, the four-shift seam intel, and a complication named Soren Vex. They have until second sun tomorrow to choose a captain and present at slip 14, slip 12 (Maku), or slip 9 (Brell), depending. Maya walks slightly apart from the crew on the way back to the lodgings. She does not speak. The decision belongs to the crew. She has said her piece by being seen with her hand on the blaster.",
+              "tactics": "NO DICE — closing beat. End the scene at the lodgings door. The captain choice is real and consequential: Maku is the safe pick and aligns with the Xala-Cermau route in adv9; Brell is the cheap pick and is a built-in betrayal vector; Vex is the morally complicated pick and is the canonical adv8-10 path that ends with his sacrifice in adv10-p1-s2. Honor whichever choice the crew makes and adjust the captain in s3 accordingly."
+            }
+          ]
         },
         {
           "id": "adv8-p1-s3",
@@ -125,6 +201,56 @@
                 "name": "Soren Vex",
                 "notes": "Not a combat encounter in Adv8. Stats provided for Adv10 fleet battle and any contingency where the heroes confront him physically."
               }
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a8-p1-s3-beat1-the-shortlist",
+              "name": "Beat 1 — Reading Oga's Shortlist",
+              "type": "social",
+              "trigger": "Morning after Oga's Cantina, crew opens the captain datachip",
+              "description": "The chip Oga handed over the night before is open on the lodging table. Three names: Captain Idra Maku (Mon Calamari, slip 12, Xala-Cermau preference, eighteen thousand), Captain Doss Brell (Human, slip 9, Hosnian preference, twelve thousand, betrayal-prone), Captain Soren Vex (Human, slip 14, Malpaz preference, negotiable, the Maya complication). Vos's introduction is good for one approach — the crew picks one captain to meet first. Maya is at the table this morning. She does not say which one to pick. She drinks her caf and waits.",
+              "tactics": "NO DICE — orientation. Players debate openly. Maya's silence is a deliberate beat — she will not influence the choice. She will live with whichever the crew makes. End beat when a captain is chosen and the crew commits to walking to that slip."
+            },
+            {
+              "id": "enc-a8-p1-s3-beat2-the-walk",
+              "name": "Beat 2 — The Walk to the Slip",
+              "type": "social",
+              "trigger": "Crew walks the docking ring",
+              "description": "The Black Spire docking ring at second sun is full of motion: launch crews, refueling lines, customs droids. The walk to slip 9, 12, or 14 takes ten minutes through the morning bustle. If Maya is coming with the crew (she insists if Vex was chosen; she may stay back if Maku or Brell), she walks slightly ahead, deliberately setting the pace. The Requital, the Maku ship, or the Brell ship is visible from a hundred meters out — each looks exactly like the captain Oga described.",
+              "tactics": "NO DICE — atmospheric transition. If Vex was chosen, the GM should narrate Maya's shoulders progressively tighter as the slip number gets closer. If Maku or Brell was chosen, the walk is professional and quiet. End beat at the cargo ramp."
+            },
+            {
+              "id": "enc-a8-p1-s3-beat3-conversation-vex",
+              "name": "Beat 3a — Sitting Across from Vex (Conversation Overlay, if Vex chosen)",
+              "type": "social",
+              "trigger": "Crew climbs the ramp of the Requital",
+              "description": "Vex has poured caf for everyone, including Maya at the ramp behind the crew. Maya is not at the table — she is at the ramp, arms folded, having come this far and no further. The fourth caf cup sits between Vex and the empty chair like a placed object in a still life. This is the structured social scene: the Soren Vex conversation overlay. Launch the [soren-vex-requital] conversation from the Conversation panel. Comfort starts at 1 — one wrong word from Maya walking off the ship and taking the contract with her. The conversation is a triangle: the crew asks, Vex answers, Maya listens.",
+              "tactics": "GM ACTION (only if Vex chosen): Open the Conversation panel and launch [soren-vex-requital]. Story topics about Bestine, the partner he sold out, and the six years since HOLD or raise comfort. Business topics about contract/route/ship are neutral. Probe topics that minimize what he did cost 2 comfort each. Maya may speak via standard interjection — see the sv-to-maya root for the explicit Maya-speaks moment. At Comfort 0, Vex stands and walks to the cockpit; the contract dies; the crew leaves the Requital empty-handed and Oga will not see them again for two days. At dryLine, the contract is signed and adv8-p2 begins with Vex at the stick."
+            },
+            {
+              "id": "enc-a8-p1-s3-beat3-other-captains",
+              "name": "Beat 3b — Sitting Across from Maku or Brell (if Vex NOT chosen)",
+              "type": "social",
+              "trigger": "Crew climbs the ramp of Maku's ship (slip 12) or Brell's ship (slip 9)",
+              "description": "A shorter, cleaner contract conversation. Maku — Mon Calamari, Old Rebellion vintage, drinks blue, asks quiet questions, wants a sit-down before signing — runs the brief like a professional officer and signs in twenty minutes if the crew is honest about the cargo. Brell — Human, Corellian, charming, easy — signs immediately and adds three \"small\" amendments that the crew should read carefully (each amendment is an out for him to walk away from the contract under cover of \"force majeure\"). Both captains can be hired tonight. Neither is Vex. Maya, in the room, says nothing. She approves of either by being there.",
+              "tactics": "NO DICE for Maku — sign or not, his rate is fixed. Brell requires a Streetwise/Insight check (Resist 2) to spot at least two of the three amendments; failed check signs Brell with the amendments intact, which sets up his eventual betrayal at the Hosnian gap (a planned betrayal beat for adv8-p2-s1 if Brell is chosen). End beat with the contract signed and the captain on payroll."
+            },
+            {
+              "id": "enc-a8-p1-s3-beat4-load-out",
+              "name": "Beat 4 — Load-Out",
+              "type": "tactical",
+              "trigger": "Captain hired",
+              "description": "The crew spends the rest of the day moving cargo, codes, and personal kit aboard the chosen captain's ship. The Banshee is parked in the public dock under Maya's authority — she will recover it after the cordon run. The cargo for the run is sealed crates marked as agricultural drone parts; the actual contents (depending on adv7 outcome and player choice) are encrypted Resistance comm gear, evac manifests, or the Imperial defection codes the campaign has been building toward. The chosen captain does not ask. Per their contract, they fly it.",
+              "tactics": "NO DICE — load-out logistics. Crew states load priorities (which weapons go on the Requital/Maku/Brell deck, who sleeps where, what stays on the Banshee). End beat with the cargo sealed and the captain confirming launch window for the next morning."
+            },
+            {
+              "id": "enc-a8-p1-s3-beat5-night-before",
+              "name": "Beat 5 — The Night Before the Run",
+              "type": "social",
+              "trigger": "Evening, crew settles in for the night",
+              "description": "The crew has chosen their captain and loaded the cargo. The cordon run is at first sun. Tonight is a quiet beat. Maya, if Vex was chosen, may take a single PC aside for a private conversation — five minutes, no longer, on the dock under the floodlamps. She does not need advice. She is naming what she is doing: \"Tomorrow I give him orders. Day after, we see what kind of run he flies. After that — I don't know. But tonight is the last night I get to not know, and I needed someone to know I was in it.\"",
+              "tactics": "NO DICE — closing tonal beat. If Vex was chosen, the Maya private conversation is the GM's tool for letting one PC step into Maya's confidence on her terms — a small comfort beat for the Maya relationship that pays into adv9-10. If Maku or Brell was chosen, the closing beat is quieter — the crew checks gear, sleeps, dreams about whatever they dream about. End the scene at first sun. Adventure 8 Part 2 (Breaking the Cordon) begins."
             }
           ]
         }

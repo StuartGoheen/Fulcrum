@@ -1,0 +1,103 @@
+{
+  "id": "the-storyteller-bright-tree",
+  "title": "The Fire That Remembers",
+  "subtitle": "The Storyteller — Bright Tree Village, Endor Canopy",
+  "setting": "A small communal fire on a high platform of Bright Tree Village, woven from living branches and lashed leaf-mats. Night has fallen. The forest below is loud with insects and distant calls; the platform is quiet except for the fire and the soft creak of the rope-walks. Chief Chirpa sits across the fire on a low stool. Paploo squats beside the Storyteller, ready to translate.",
+  "context": "The crew chose parley over slaughter at the Ewok ambush. They were brought up into the village. They have been fed — strips of smoked boar-wolf and a bitter fungal tea — and now the Storyteller, an elder so old his fur has gone the color of birch bark, has signaled the conversation can begin. Paploo translates patiently. Chief Chirpa watches but does not speak. The Storyteller carries a small wooden carving in one hand: a black tree, curled inward, with the bark stripped away. He turns it slowly through his fingers as he speaks.",
+  "readAloud": "The fire is small but very steady. The Storyteller settles cross-legged on the leaf-mat. His eyes are milky with cataracts but they find each of you in turn anyway — slowly, the way you read a face you cannot see clearly.\n\nPaploo squats at his shoulder. \"He says — welcome. He says you walked under the canopy without burning anyone today. He says that is enough to be told the story.\"\n\nThe Storyteller speaks. The words are soft, lilting, full of vowels that hum in the chest. Paploo waits, then translates.\n\n\"He says, before he tells you the story you came for, you may ask. Anything. He has been alive for nine generations of trees. Most things he has seen at least once. Some things he has only heard, but those are also true.\"\n\nThe Storyteller turns the carved black tree in his fingers. The fire catches its surface. It does not reflect the light back — the carving drinks it.\n\n\"Ask carefully. The night is not long, and the dead zone does not wait.\"",
+  "gmNotes": "A reverent, low-pressure conversation overlay. Comfort starts at 4 — the Storyteller is welcoming and the parley earned the seat by the fire — but the topic is sacred to the Ewoks and condescension or impatience drops it fast. Story topics about the Ebon Spire, the corruption, and the Ewoks' history with the dead zone are the heart of the scene and HOLD or raise comfort. Business topics about the route in, the warding rituals, and any Ewok aid are neutral — Chirpa permits but does not love them. Probe topics that question Ewok belief or treat the Storyteller as a quaint primitive cost 2 comfort each — Paploo's translation will get visibly slower as he tries to soften the question on the way over.\n\nAt Comfort 1, Chirpa stands and the conversation ends. The crew still gets the route — the deal was struck — but they do not get the totem (carved warding charm), the warning about the Hall of Mirrors, or the secondary route that bypasses the worst of the Boundary fauna.\n\nVOICE: The Storyteller speaks slowly and uses concrete images for abstract things — 'the cold under the bark,' 'the hunger that does not eat.' Paploo's translations should occasionally fumble for a Basic word, supply two options, and shrug. Chirpa speaks twice, both times in single sentences. He matters more by what he watches than by what he says.\n\nThis is the Adventure 4 mirror to Maya's galley scene — not because the Storyteller is Maya, but because both scenes are the warm, sit-down center of an otherwise harsh adventure. Played slowly, this scene is where the Endor section earns its weight.",
+  "comfort": {
+    "starting": 4,
+    "max": 5,
+    "exitThreshold": 1,
+    "exitLine": "Chief Chirpa stands. He says nothing — but he does not need to. Paploo, suddenly tense, lowers his eyes. 'He says — the night is not for this kind of asking.' The Storyteller closes his hand around the carved black tree and tucks it into a pouch at his hip. 'He says you have your route. The scout will lead you at first light. He says — be careful with what you carry into the dead zone, because what you carry comes back.' The fire dims as if on cue. The conversation is over. The crew is shown to a sleeping platform. They are watched from the rope-walks until they sleep.",
+    "dryLine": "The Storyteller lays down the carved black tree, picks up a smaller carving — a tiny living tree, the wood pale and freshly cut — and presses it into a hero's hand. 'He says — this is for the one who chose not to burn the canopy today. Carry it across the boundary. The dead zone hates the smell of living wood. It is not much. It is what we have to give.' Chirpa nods, once. Paploo grins. 'He says you may sleep here tonight. He says we will not let anything climb the platform.' The fire is replenished. The conversation ends warmly."
+  },
+  "roots": [
+    {
+      "id": "ts-the-spire",
+      "text": "What is the Ebon Spire?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "The Storyteller closes his eyes. He speaks for a long time before Paploo translates — the Ewok words are rhythmic, almost sung. Then Paploo, carefully:\n\n'He says — the Spire was a tree. The largest tree. Older than the song of the canopy. It stood at the center of the dead zone before the dead zone was dead. He says — a stranger came. Not from the canopy. Not from the ground. From between. The stranger carved into the tree what the tree could not carry. The stranger left. The tree did not die — that would have been mercy. The tree turned to stone. And what the stranger left inside the stone began to eat outward.'\n\nA pause. The Storyteller turns the carving.\n\n'He says — the dead zone is the bite. The Spire is the tooth. He says — the stranger was called a name we no longer say, but his apprentices came back, and his enemies came back, and they all wanted to take the tooth out of the world. None of them did. They became the dead zone too.'\n\nThe Storyteller opens his eyes. They find a hero across the fire.\n\n'He says — you are the next ones to try. He hopes you fail more gently than the others.'",
+      "gmNote": "The Storyteller naming Revan in oral-history terms without using the name. The 'tooth' image is the Storyteller's own framing — the Spire as a single dark fang in the world's mouth. Players should hear the deep time. Comfort gain implicit. This response also seeds the truth that previous expeditions failed and that their corpses are now part of the dead zone — players who reach the Hollowed in p3-s4 should remember this line.",
+      "unlocks": ["ts-the-stranger", "ts-the-others"],
+      "tags": ["spire", "story", "deep-time"]
+    },
+    {
+      "id": "ts-the-route",
+      "text": "What's the safest route across the boundary?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "The Storyteller gestures. Paploo unfolds a leaf-mat with marks pressed into it — a pictographic map.\n\n'He says — there is no safe. There is less-bad. The west approach goes through the boar-wolf marsh — fast, but the wolves are starving this season because the dead zone has taken their hunting ground. The east approach goes long around a ridge of fallen trees and adds half a day, but the wolves do not climb the ridge. He says — you are armored and many. You can take the west, if you do not stop.'\n\nA short pause.\n\n'He says — at the boundary itself, do not step on the gray ferns. They are the first things the Spire reached out and changed. Stepping on them is — '\n\nPaploo searches for a word, fails, settles for two: 'Noticed. Remembered.'\n\n'He says — once the Spire has noticed you, it will be looking for you when you walk in.'",
+      "gmNote": "Concrete tactical handoff. The west/east route choice is real — west is fast (sets up the boar-wolf pack ambush in p2-s2), east costs half a day but reduces the wolf encounter to a single skirmish. The 'don't step on gray ferns' detail is mechanically meaningful: a PC who explicitly avoids the ferns at the boundary in p2-s3 gets a small Resist bonus to one Hall of Mirrors save in p3-s3. GMs should track which PC heard this advice and whether they used it.",
+      "unlocks": ["ts-the-totem", "ts-the-ferns"],
+      "tags": ["business", "route", "tactics"]
+    },
+    {
+      "id": "ts-the-corruption",
+      "text": "Has the dead zone been growing?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "Chirpa speaks for the first time. A single sharp sentence, and then he gestures the Storyteller to continue.\n\nPaploo, sober: 'He says — yes. The chief says yes. He has watched it for forty seasons. The boundary moves outward by the length of a child's arm every year. Slow. Patient. The grandfather trees on its edge die first. Then the small ones. Then the ferns gray and lay down. Then the soil gives up. Then the rain stops falling there because the air over the dead ground has nothing in it that calls the rain.'\n\nThe Storyteller resumes.\n\n'He says — when he was small, the boundary was a half-day's walk from this village. Now it is a quarter. When his sons' sons are old, it will be at the rope-walks. We have already chosen the canopy we will retreat to. We do not say which one. The choice is — quiet.'\n\nA long pause.\n\n'He says — that is why he is telling you this. Not because he believes you can stop the Spire. He has watched many believe that. He believes you may slow it. That is enough to be worth telling the story to.'",
+      "gmNote": "The campaign stakes from the Ewoks' perspective. Comfort holds — this is the wound the Storyteller wanted witnessed, like the Ugnaughts and Nuvo. Players who acknowledge what the loss means earn an implicit comfort gain. The 'we have already chosen the canopy we will retreat to' is a small devastating detail — the Ewoks have already lost this war and are managing the timeline of their loss. If the players ever return to Endor in a later adventure, the boundary should have moved noticeably and the village should be visibly preparing to abandon Bright Tree.",
+      "unlocks": ["ts-the-others"],
+      "tags": ["story", "stakes", "wound"]
+    },
+    {
+      "id": "ts-the-others",
+      "text": "Who else has come for the Spire? Recently?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "The Storyteller's hand tightens on the carving.\n\nPaploo: 'He says — a tall man in black armor, two seasons ago. He came with soldiers in white. They did not stop in the village. They did not parley. We watched them from the canopy. They went to the boundary. They went past it. They did not come back the same way they went in.'\n\nA pause.\n\n'He says — some of them came back. Not all. Not the tall man. He was — '\n\nPaploo searches.\n\n' — louder going in than going out. The forest noticed him. He has gone into the Spire and he is not finished there.'\n\nThe Storyteller looks at the crew.\n\n'He says — the tall man left a thing behind that hums. We have not gone to look. We do not want to be near the thing that hums. He says — if you find it, you may want it. He says — be careful with wanting it.'",
+      "gmNote": "DRACO BREADCRUMB. The 'tall man in black armor' is Inquisitor Draco's prior visit. The 'thing that hums' he left behind is a Sith holocron decoy/beacon — players who reach the Abyssal Vault in p3-s5 will find it physically, and Draco may use it to track the crew in subsequent adventures. The Storyteller's 'be careful with wanting it' is the moral hinge: any PC who pockets it without warning the others will be marked by Draco for the rest of the campaign.",
+      "unlocks": [],
+      "tags": ["story", "draco-foreshadow", "load-bearing"]
+    },
+    {
+      "id": "ts-why-tell-us",
+      "text": "Why are you telling outsiders this story at all?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "Chirpa speaks again — longer this time. Paploo listens, then translates carefully.\n\n'The chief says — because we have run out of our own stories that change the ending. Every season we tell the children a new one and every season the boundary has moved closer. We told ourselves a story about hiding. We told ourselves a story about the Spire forgetting us. We told ourselves a story about the trees outliving the corruption. None of them are true.'\n\nA pause. Chirpa holds the crew's eyes.\n\n'He says — you are an outside story. You are a story we do not control. We are telling you ours so that yours has the right shape. That is all. We are not asking you to save us. We are not promising you anything. We are giving you the bones of the story so you can put your own meat on them. Do with it what you do.'\n\nThe Storyteller, more quietly: 'He says — please do not waste the gift. Many before you have.'",
+      "gmNote": "Comfort drops by 1 — the question carries judgment, even gently — but Chirpa's answer is the moral charter for the entire adventure. This is the line that should make players treat the Spire run as more than loot. If a player follows up by promising anything specific, Chirpa shakes his head: 'Promise it to the canopy. Not to me. Walk it back if you live.' Players who actually return to Endor later in the campaign and report success should be received with quiet, formal gravity — not celebration.",
+      "unlocks": [],
+      "tags": ["probe", "honest", "charter"]
+    }
+  ],
+  "followUps": {
+    "ts-the-stranger": {
+      "id": "ts-the-stranger",
+      "parentId": "ts-the-spire",
+      "text": "The stranger — what was he?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "The Storyteller is silent for a long beat. Then:\n\nPaploo: 'He says — a man who could move things without touching them. A man who could be in two places in the canopy at once. A man whose footprints did not crush the moss. We do not have a word for what he was. The closest is — ' Paploo glances at the crew, hesitant ' — the canopy-without-roots. A thing that grew very high and could not feel the ground.'\n\nA pause.\n\n'He says — your stories may have a word for this. You may use yours. Ours did not survive the telling.'",
+      "gmNote": "Force-user described in Ewok cosmology. 'Canopy-without-roots' is the Ewok metaphor for the ungrounded Force-user — beautiful, dangerous, severed. PCs with Force sensitivity should hear themselves in the warning. The Storyteller offering 'you may use your word' is genuine — he wants the crew to bring their own knowledge to bear, not simply to receive his.",
+      "unlocks": [],
+      "tags": ["force", "metaphor"]
+    },
+    "ts-the-totem": {
+      "id": "ts-the-totem",
+      "parentId": "ts-the-route",
+      "text": "Is there anything we can carry that helps?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "The Storyteller produces, from the pouch at his hip, three small carvings on leather thongs. Each is a tiny living tree — pale wood, freshly cut.\n\nPaploo: 'He says — these are not magic. He wants you to know that first. They are reminders. The dead zone makes you forget the canopy. It makes you forget the smell of living wood and the sound of birds. Wear one against the skin and when the Spire reaches into your head, smell the carving and remember where you are from.'\n\nA pause.\n\n'He says — three is not many. The crew is — ' Paploo counts ' — more than three. Choose carefully who carries them. He suggests — those who are most likely to be alone in the dark.'",
+      "gmNote": "The Ewok totems. Mechanically, a PC wearing a totem may, once per scene in p3-s3 or p3-s4, re-roll a single Will/Insight save against a Dark Side Phantom or Hollowed effect. Three are offered — players choose distribution. The 'most likely to be alone' framing is true in fiction (the Hall of Mirrors isolates each PC). GMs should let players actually negotiate the distribution roleplay rather than just hand them out.",
+      "unlocks": [],
+      "tags": ["business", "totem", "reward"]
+    },
+    "ts-the-ferns": {
+      "id": "ts-the-ferns",
+      "parentId": "ts-the-route",
+      "text": "What happens if someone steps on the gray ferns?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "Paploo, slowly: 'He says — the Spire takes a — ' he gropes ' — a measurement. Of the one who stepped. Color of breath, sound of heart, what they fear most when they are tired. The measurement does not hurt at the boundary. It is — recorded. Filed. Saved.'\n\nA pause.\n\n'He says — when you are inside the Spire, the measurement is used. It is shown back to you. You will see your own fears wearing your own face and they will know your name. He says — those who do not step on the ferns are still seen, but they are seen as strangers, and the Spire has to work harder to fit a fear to them.'\n\nThe Storyteller closes his eyes.\n\n'He says — the ferns are gray for a reason. Step around them. Tell each other. Even if it sounds foolish. Especially then.'",
+      "gmNote": "Gameplay link to the Hall of Mirrors. PCs who explicitly step around the gray ferns in p2-s3 get a -1 Power on the phantom that is built for them in p3-s3. PCs who don't (or who step on them deliberately) get +1 Power. GM should not announce the mechanic. Just narrate the boundary crossing carefully — describe each PC's choice — and apply the modifier silently in p3-s3. Player skill rewarded with mechanical advantage, no roll required.",
+      "unlocks": [],
+      "tags": ["story", "ferns", "tactics"]
+    }
+  }
+}

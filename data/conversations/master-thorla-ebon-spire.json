@@ -1,0 +1,125 @@
+{
+  "id": "master-thorla-ebon-spire",
+  "title": "The Survivor Among the Stones",
+  "subtitle": "Master Thorla — Antechamber of the Ebon Spire",
+  "setting": "A ruined antechamber just inside the breached door of the Ebon Spire. A single crystal in a broken alcove gives off enough pale light to see by. The walls are obsidian-black and very cold. Master Thorla sits with his back against a fluted stone column, an old, scarred lightsaber across his knees. He does not stand when the crew enters. He does not appear to be breathing very deeply.",
+  "context": "The crew has crossed the boundary, entered the Spire, and found a Jedi survivor — Master Thorla — left behind by Inquisitor Draco's expedition. Thorla is Mirialan, perhaps sixty, robes torn and crusted with old blood. He has been in this antechamber for three days without food. He has not slept. The Dark Side Nexus has been working on him the entire time. He answered the crew's call only because he is too exhausted to flee further into the Spire. He does not yet know if the crew is real or a hallucination. He intends to find out before he speaks at length.",
+  "readAloud": "The crystal in the alcove pulses once as you enter — pale, slow, like a heartbeat someone is trying to hide. Master Thorla does not look up. He is sitting against a black column with his lightsaber unlit across his knees. His hands are folded over the hilt. Both hands tremor slightly, and he is making no effort to stop them.\n\nWhen he finally speaks, his voice is dry — the voice of a man who has not had water in some time.\n\n\"You are the third group I have seen since I have been sitting here. The first two faded when I closed my eyes and counted to twenty. So you will forgive me if I count, before I answer anything you ask.\"\n\nHe closes his eyes. The crew can hear him counting under his breath, in Mirialan — soft, even, a whisper. At twenty he opens his eyes again. He takes a long moment to focus on each crew member in turn.\n\n\"Ah. Real, then. That is — surprising. I had stopped preparing to be surprised.\"\n\nHe does not move. The lightsaber stays across his knees.\n\n\"Ask. Quickly. The Spire is listening too, and it has questions of its own.\"",
+  "gmNotes": "A fragile, low-comfort conversation overlay. Comfort starts at 1 — Thorla is one bad question away from collapse, either physical or psychic. This is the LOWEST starting comfort of any campaign conversation. It is intentional. The crew's job is to find out what they need to know before he breaks.\n\nStory topics about Draco, the Spire interior, and the Sith Holocron Draco is hunting are critical and HOLD comfort. Business topics about the route deeper, the traps ahead, and the Holocron retrieval cost 1 comfort each — Thorla is not a tactician anymore and being asked to be one taxes him visibly. Probe topics about what he did under Draco, what he gave up, what he became, cost 2 comfort each — he is teetering on full despair and a probe at the wrong moment ends the scene immediately.\n\nAt Comfort 0 (NOT 1 — Thorla starts AT 1), Thorla quietly thumbs his lightsaber to the lowest setting and presses it into his own chest. The crew can stop him with a Reflex save (Resist 2) or by stepping in, but the moment is the moment regardless — the conversation ends, and whether or not Thorla physically dies in the antechamber, he is gone for the rest of the adventure.\n\nThe crew does NOT see the meter. The GM signals comfort through Thorla's tremor — when comfort drops, the tremor in his hands worsens visibly. When it rises, his hands still.\n\nVOICE: Thorla speaks slowly, in complete sentences, with very long pauses between them. He does not raise his voice. He occasionally addresses someone who is not in the room. Do not announce when this happens — let the players notice. He uses the formal Jedi 'we' when speaking of the Order in past tense. He uses the singular when speaking of himself.\n\nThis is the Adventure 4 mirror to Varth's aftermath conversation — both are characters at the bottom of their endurance, both speak more honestly than they ever will again, and both can be lost if pushed wrong. Played correctly, this scene is the heart of the Spire descent.",
+  "comfort": {
+    "starting": 1,
+    "max": 4,
+    "exitThreshold": 0,
+    "exitLine": "Thorla closes his eyes. His thumb finds the activation stud on his lightsaber. The blade does not ignite — he has selected the lowest setting, the one for cauterizing wounds. He turns the emitter inward. 'Forgive me. I am not strong enough to be asked these things.' If a PC moves to stop him, narrate the moment cleanly — a hand on his wrist, the saber turned aside, Thorla's eyes opening with no light behind them. 'Then you will have to carry me down. Or leave me here. I will not be the one who decides which.' Whether stopped or not, the conversation is over. Thorla cannot continue. The crew descends without him.",
+    "dryLine": "Thorla nods, very slowly. He sets the lightsaber on the stone beside him. 'That is the bottom of what I have to give. Take it.' He gestures, weakly, at the corridor that descends into the Spire. 'Draco went that way. The Holocron is below the Hall of Mirrors. The Hall is — patient. Do not engage your phantoms. Walk through them. Speak to each other if you can. The Hall hates being witnessed.' A pause. 'I will wait here. If I am still here when you return, take me with you. If I am not — do not look for me. The Spire will have made its own arrangement.'"
+  },
+  "roots": [
+    {
+      "id": "mt-water",
+      "text": "[Offer water and rations before asking anything.]",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "He looks at the canteen for a long beat as if he does not recognize the object. Then his trembling hand closes around it. He drinks slowly, in small sips, the way a survivor drinks who has had water taken away before.\n\n'Thank you. That is — kind. The Spire had me convinced kindness was no longer a thing that existed. It is good to be reminded.'\n\nHe sets the canteen down without finishing it.\n\n'I will save the rest. We do not know how long this conversation will last.'\n\nHis hands have stopped trembling. The lightsaber stays on his knees, but his grip on it has eased.",
+      "gmNote": "FAST COMFORT GAIN. Comfort jumps from 1 to 3 immediately — physical care interrupts the Spire's psychic siege long enough for Thorla to find the bottom of himself and stand on it. The hands stilling is the visible tell. This is the equivalent of leading with proof of Varth in the Raden conversation — players who think to do this BEFORE asking questions get the entire useful conversation. Players who skip it and dive into questions are working against the clock.",
+      "unlocks": ["mt-draco", "mt-the-spire", "mt-the-route"],
+      "tags": ["water", "comfort-gain", "fast-track"]
+    },
+    {
+      "id": "mt-draco",
+      "text": "Tell us about Draco. What did he take from this place?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "He looks past the crew for a long moment. Past the antechamber. Past everything.\n\n'He took an apprentice. He took a Sith Holocron. He took my partner — a Knight named Vell — alive, for what he calls reconditioning. And he took the time he had with me to tell me, in considerable detail, why none of it would matter, why the Order is finished, why I should expect to die in this antechamber over the course of the next four days.'\n\nA pause.\n\n'I have only been here three. He was wrong about the four. He has been wrong about a number of things, in my experience of him. He is not infallible. He is only — relentless. There is a distinction.'\n\nHe meets the crew's eyes.\n\n'The Holocron he took is the smaller of the two that were here. It is a Sith piece — a crystalline cube of dark facets, bound with old gold wire. He has it now. The larger artifact — the Jedi Holocron — he left, because he could not open it. Neither could I. It is below. If you want it, you may have it.'",
+      "gmNote": "Confirms Draco's exact prize and motive, sets up the Jedi Holocron as the recoverable target in p3-s5. The 'partner Vell taken alive' is a campaign hook for a future adventure — Vell may surface as a fallen apprentice or rescue target later. The 'he is not infallible' is also a player gift: Draco can be beaten, even by a broken Jedi, even three days in.",
+      "unlocks": ["mt-vell", "mt-holocron"],
+      "tags": ["draco", "intel"]
+    },
+    {
+      "id": "mt-the-spire",
+      "text": "What is the Spire actually doing — to you, right now?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "A long, slow exhale.\n\n'It is — interviewing me. That is the closest word in Basic. It is patient. It does not torture, in the sense most people use the word. It selects a memory I would prefer not to revisit, lifts it gently, and asks me to describe it to it in my own voice. It does this once an hour. It has done this seventy-two times.'\n\nA brief, very small smile — the first he has shown.\n\n'The memory it began with was the death of my first Padawan. The memory it is on now is the morning I knew I was no longer a great Master, only an old one. The Spire is not creative. It is — comprehensive. It will eventually arrive at every memory I have. It is in no hurry.'\n\nHe touches the lightsaber, gently.\n\n'The reason I am still alive is that I have answered every question. The Spire respects an honest interview. It punishes lies and silences with the cold — the cold you feel when you crossed the boundary, but inside the bones. I have not lied to it. I do not advise lying to it.'",
+      "gmNote": "Practical advice for the Hall of Mirrors. PCs who answer their phantoms honestly (RP only — the GM should ask 'what does your character actually say to it?') take 1 less Power on the failed-save effect. PCs who attack or lie take +1 Power. The 'comprehensive' framing is also the campaign-level cost — Thorla is a man whose every memory has been pawed through. If players save him and bring him out, he should be visibly diminished for the rest of the adventure and treated tenderly.",
+      "unlocks": ["mt-the-cold", "mt-the-hall"],
+      "tags": ["story", "spire", "tactics"]
+    },
+    {
+      "id": "mt-the-route",
+      "text": "What's between us and the bottom?",
+      "type": "business",
+      "comfortCost": -1,
+      "response": "He is quiet for a moment, gathering it.\n\n'A descending corridor — Draco cleared it of the worst of the wards on his way down, but the Spire restores them slowly. You will encounter at least one. A library — broken, dusty, with the bones of previous expeditions scattered. Read nothing aloud there. Some of the texts have words on them that bite back when sounded.\n\nA Hall of Mirrors. I have spoken of it. Walk through. Do not engage.\n\nA chamber of bound spirits — the Hollowed. Draco passed them by. They will let you do the same if you do not draw weapons. They are — sad, more than dangerous. They want to be let go, and you cannot let them go in the time you have. Apologize and walk through.\n\nThen the Vault. The Holocron is on a stone plinth. Draco may have left a watch behind. I cannot say. I did not see him leave; I only saw him arrive.'",
+      "gmNote": "Comfort drops by 1 — Thorla finds the tactical brief exhausting because it requires him to be a Master again and he no longer wants to be. But the brief is gold: the explicit advice 'don't engage' the Hall of Mirrors and 'apologize and walk through' the Hollowed are the fast-track resolutions for both scenes. PCs who follow this advice in p3-s3 and p3-s4 reduce the difficulty of those scenes substantially. PCs who ignore it discover Thorla was right.",
+      "unlocks": ["mt-the-hall", "mt-the-watch"],
+      "tags": ["business", "tactics"]
+    },
+    {
+      "id": "mt-what-you-gave-up",
+      "text": "What did you give Draco, in those three days, before he left?",
+      "type": "probe",
+      "comfortCost": -2,
+      "response": "He is silent for a very long time. The tremor returns to his hands.\n\nHe is not, the crew slowly realizes, looking at any of them. He is looking at someone seated to the right of the column — someone who is not there.\n\n'I gave him — the names of two safe houses on Coruscant. I gave him — the route my surviving Padawan was supposed to use to reach Tatooine, if she ever got out. I gave him — the activation phrase for an old emergency beacon I had not used in twenty years.'\n\nHis voice does not rise. It only goes very flat.\n\n'I told myself I gave him these things because Vell was about to lose another finger if I did not. That is the version I have rehearsed. The truer version is that I was afraid, and the things I gave him were the easiest things to give. I have not yet decided how to tell my Order, if I live to. I am — practicing the telling on you.'\n\nHe looks at the crew, finally. His eyes are wet but he does not cry.\n\n'You do not need to forgive me for that. I am not asking. I am only — saying it out loud. The Spire was about to ask me to. I would prefer to have said it to people first.'",
+      "gmNote": "DEEP TONAL MOMENT. Comfort drops by 2 — Thorla goes through the worst of his interior in one answer and is now genuinely close to the exit threshold. But the answer is honest. Players who absorb it without judgment, who say something kind, who simply acknowledge — earn back 1 comfort silently and Thorla survives the rest of the conversation. Players who push further, demand details, or moralize finish the scene in two more questions. The 'practicing on you' framing is the gift: he is doing the players the honor of using them as the first audience for a confession he will eventually have to give the surviving Order. Treat that with weight.",
+      "unlocks": [],
+      "tags": ["probe", "shame", "load-bearing"]
+    }
+  ],
+  "followUps": {
+    "mt-vell": {
+      "id": "mt-vell",
+      "parentId": "mt-draco",
+      "text": "Tell us about Vell. So we know what to look for, if we cross paths.",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "A small, tired smile.\n\n'Twi'lek. Knight. Forty-one. Lekku scarring on the left side from a saber strike during the Clone Wars she still tells the story of incorrectly to spare the feelings of the Knight who gave it to her. Quick with a single saber, slow with a double. Reads people very well. Does not read herself well at all.'\n\nA pause.\n\n'If Draco breaks her — and he intends to — she will not be Vell anymore. She will be wearing Vell's face. Do not trust the face. Trust the inconsistencies. The real Vell apologizes when she is wrong. The replaced Vell will not.'\n\nThorla closes his eyes briefly.\n\n'And — if there is no way to save her — I would consider it a kindness if the one who finds her gave her a clean ending. She would consider it a kindness too. Tell her I said so. She will know.'",
+      "gmNote": "Vell is now a campaign asset/threat. If the GM wants to bring her in as a fallen apprentice in adv6-9, the 'apologizes when wrong' tell is a built-in player verification mechanism. The mercy-killing request is real and Thorla means it. If the players ever face Replaced Vell, this conversation is the receipt that makes the choice meaningful.",
+      "unlocks": [],
+      "tags": ["vell", "campaign-hook"]
+    },
+    "mt-holocron": {
+      "id": "mt-holocron",
+      "parentId": "mt-draco",
+      "text": "What's in the Jedi Holocron, if we recover it?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "'I do not know. I could not open it. None of the expeditions before me could open it either, judging from the bones in the library. The hand-marks on the casing suggest at least a dozen failed attempts.'\n\nA pause.\n\n'I will tell you what is on the casing, since I had time to read it. It is in Old Jedi script. It says — \"For the one who is willing to be smaller than they were.\" That is the entire inscription. I did not understand it. Perhaps you will. Perhaps the one of you who finds it will, in the moment.'",
+      "gmNote": "Sets up the Holocron as a campaign artifact whose opening condition is a humility/sacrifice moment. GM should keep this loose — it could open for a PC who declines a major reward later, or who chooses to save someone instead of completing an objective. The condition should reveal itself organically through play. Until then, the Holocron is a beautiful unopenable artifact in the crew's possession.",
+      "unlocks": [],
+      "tags": ["holocron", "campaign-artifact"]
+    },
+    "mt-the-cold": {
+      "id": "mt-the-cold",
+      "parentId": "mt-the-spire",
+      "text": "The cold — is it the same cold we felt with Draco?",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "He nods, slowly. 'Yes. Draco draws from this place. He is its student. The cold he carries is borrowed cold. The Spire is the source.'\n\nA pause.\n\n'When you next encounter Draco — and you will — and you feel the cold behind your sternum, you may now know that the cold is not coming from him. It is coming from this place, channeled through him. He is not stronger than the cold. The cold is older than him. That is — possibly useful to you. I cannot tell you how, in the moment. But it is true.'",
+      "gmNote": "Hands the players a campaign-long Force-lore upgrade: Draco's signature is a CHANNELING of the Spire, not Draco's own. This may pay off in adv6 or adv10 if a Force-sensitive PC tries to interrupt or sever the channel. GMs should let players invent uses — give them a free Insight check at advantage in any Draco scene where the cold is named.",
+      "unlocks": [],
+      "tags": ["force", "draco", "lore"]
+    },
+    "mt-the-hall": {
+      "id": "mt-the-hall",
+      "parentId": "mt-the-route",
+      "text": "What did the Hall of Mirrors show you?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "A long pause.\n\n'It showed me the Padawan I lost. As she would have looked at sixteen. It showed me the Knight I am supposed to be in my own head, staring at the Master I actually am. It showed me my mother, who has been dead forty years.'\n\nA brief, dry exhale.\n\n'The mother was the worst, because the Spire got her right. The voice. The exact way she said my name when I had disappointed her. I had to sit down. I did not realize I had walked through it until I was on the other side.'\n\nHe meets the crew's eyes.\n\n'It will do this for each of you. It is not personal. It is not malicious. It is — comprehensive. Walk through. Do not engage. Speak to each other if you must — about anything, about a meal you remember, about a song. The Hall hates being witnessed by other people because then the phantom is no longer a private thing.'",
+      "gmNote": "Concrete tactical advice that converts to a real mechanic in p3-s3: any PC who has another PC describing or witnessing them during their phantom encounter rolls Will saves at advantage. This rewards players for explicitly narrating cross-party support during the Hall of Mirrors. GM should call for narration, not rolls, and apply the bonus silently.",
+      "unlocks": [],
+      "tags": ["probe", "hall", "tactics"]
+    },
+    "mt-the-watch": {
+      "id": "mt-the-watch",
+      "parentId": "mt-the-route",
+      "text": "Could Draco have left a watcher in the Vault?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "He thinks about it.\n\n'Possibly. He had three Dark Troopers with him going in. I saw all three return when he came back through this antechamber on his way out. So if there is a watcher, it is not human. It may not be there at all.'\n\nA pause.\n\n'But — there is a presence in the Vault that was there before Draco arrived and will be there when he is gone. A — large thing. Asleep, or perhaps only patient. The Spire shaped it from the corruption itself, over the centuries. I could feel it from the Hall. I would not call it a watcher. I would call it a tenant. It does not work for Draco. It works for the Spire. Disturb it carefully. If at all.'",
+      "gmNote": "Explicit foreshadow of the Dark Side Dragon in p3-s5. The 'tenant' framing is meaningful: the Dragon is not Draco's pet, and PCs who try to use it against Draco may find it neutral toward both sides. The 'asleep or only patient' line lets the GM choose how aggressive the Dragon's first appearance is based on table tone.",
+      "unlocks": [],
+      "tags": ["business", "dragon", "foreshadow"]
+    }
+  }
+}

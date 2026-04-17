@@ -227,7 +227,48 @@
             "stealth"
           ],
           "gearFlags": [],
-          "encounters": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p1-s1-beat1-arrival",
+              "name": "Beat 1 — Arrival on the Cloudscape",
+              "type": "social",
+              "trigger": "The crew steps off the Banshee onto a Cloudscape Platform",
+              "description": "Cloud City is a boomtown — Ugnaught riggers, Wing Guard in mismatched armor, gambling barkers, Tibanna prospectors, refugees with bedrolls. The crew has Varga's name, the suspicion he is here, and nothing else. The first hour is sensory orientation — the smell of Tibanna venturi exhaust, the sound of hovertruck horns, the stretch of orange cloud below the platform railings. Varth is on encrypted comms from the Banshee, narrating the city's shape from public sensor feeds. He warns: Wing Guard captain is on Varga's payroll, do not trust the uniform.",
+              "tactics": "NO DICE — orientation only. Players make first impressions, choose lodgings, ask Varth what he sees from above. Drop one ambient detail per PC: a Wing Guard officer who lingers a beat too long on the crew, a child running a betting pool on the next ore shipment, a dead Ugnaught being quietly removed by maintenance droids two platforms away. End the beat when a PC asks the first concrete question about how to find Varga."
+            },
+            {
+              "id": "enc-a3-p1-s1-beat2-the-wall",
+              "name": "Beat 2 — The Wall of Silence",
+              "type": "social",
+              "trigger": "Crew begins asking about Varga in cantinas, dock offices, ore brokers",
+              "description": "Every contact closes up. Bartenders pour drinks and look past the question. A Sullustan ore broker rolls down his shutter mid-conversation. A spice runner the crew finds in a back booth pays for her drink and leaves before the question lands. The pattern is too clean to be ordinary fear — Varga has paid the entire underworld to not see the crew coming. The wall is comprehensive. Within ninety minutes, the crew has talked to a dozen people and learned exactly nothing.",
+              "tactics": "RUN: existing Charm/Persuasion/Streetwise discipline checks here. Failed checks burn time without intel; succeeded checks confirm the wall but earn one warm contact (an off-duty rigger willing to whisper a single sentence: \"Try the Works. The Ugnaughts have a problem too.\"). Wins or losses both lead to Beat 3 — the wall is the scene's point, not its obstacle."
+            },
+            {
+              "id": "enc-a3-p1-s1-beat3-the-message",
+              "name": "Beat 3 — The Unsigned Threat",
+              "type": "social",
+              "trigger": "After ~ninety minutes of stonewalling",
+              "description": "Every crew datapad chimes at the same instant — an unsigned text message routed through three relays Varth cannot trace. STAY OUT OF THE INDUSTRIAL DISTRICT. NO WARNINGS AFTER THIS ONE. The message has no signature but it is in Basic, written in the precise idiom of someone whose first language is not Basic. Varth, on comms, immediately notes the linguistic tells: \"That's an Ugnaught who learned Basic from Imperial training films. The Parliament of Guilds. Not Varga.\" The crew has their first real lead.",
+              "tactics": "NO DICE — delivery beat. The message is the scene's pivot. Varth's Basic-idiom analysis is free intel; PCs may also try a Slicing or Insight check on the routing to add detail (Resist 1) — success surfaces that the relays terminated in a maintenance bay in The Works. Either way, the crew leaves Beat 3 knowing The Works is the next target."
+            },
+            {
+              "id": "enc-a3-p1-s1-beat4-the-descent",
+              "name": "Beat 4 — The Service Lift",
+              "type": "social",
+              "trigger": "Crew commits to The Works",
+              "description": "The crew finds the only public service lift down to the industrial decks — operated by an off-duty Wing Guardsman named Hessel who asks no questions and charges five credits per head. The descent is forty stories. The lift is open-sided. The temperature climbs. The light gets dimmer and oranger. Hessel says one sentence on the way down, without looking at anyone: \"Ugnaughts are scared. Whatever you came down here for — be quick about it. Wing Guard rotation through this lift in twenty minutes.\" He does not elaborate. The lift opens onto the catwalk-maze of The Works.",
+              "tactics": "NO DICE — atmospheric transition. Hessel's sentence is a free contact-of-convenience the GM may use later (he can be called for an unscheduled lift back up if the crew is on the run, but only once, and he expects ten credits per head for the favor). The twenty-minute timer is a soft pressure for Beat 5 / scene s2 — establish it but do not enforce it; it is meant to make the Ugnaught conversation feel urgent, not to create a hard fail state."
+            },
+            {
+              "id": "enc-a3-p1-s1-beat5-handoff",
+              "name": "Beat 5 — Hand-off to The Works",
+              "type": "social",
+              "trigger": "Crew steps off the lift into The Works catwalk",
+              "description": "The Works is steam, sodium-orange light, the constant gargle of Tibanna venturis, and the bustle of a thousand Ugnaught riggers and engineers between shifts. Two Ugnaughts are visibly waiting for the crew at the third catwalk junction — Fyren, short and ink-stained, and Krygg, taller and arms-crossed. They are not threatening. They are nervous. Fyren raises a hand, palm out, and gestures the crew toward Maintenance Bay 7. The threat-message senders have come to meet the threat-message recipients. Adventure 3 Scene 2 picks up there.",
+              "tactics": "NO DICE — handoff beat. The Ugnaught greeting is unmistakable; if the crew chooses to ignore it and explore The Works on their own, Fyren and Krygg follow patiently and make the same gesture again at the next junction. They will not give up. The scene ends when the crew enters Maintenance Bay 7 (s2 trigger)."
+            }
+          ],
           "environmentMechanics": [
             {
               "name": "Varga's Informant Network",
@@ -494,7 +535,40 @@
             "deception"
           ],
           "gearFlags": [],
-          "encounters": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p1-s2-beat1-the-bay",
+              "name": "Beat 1 — Inside Maintenance Bay 7",
+              "type": "social",
+              "trigger": "Crew enters Maintenance Bay 7 with Fyren and Krygg",
+              "description": "The bay door cycles shut. Fyren snaps a portable signal jammer on. Krygg drags two crates over and gestures the crew to sit. The hand-written threat note is on the workbench, weighted with a hydrospanner. Fyren confirms, without prompting, that he wrote it. Krygg confirms, with prompting, that he co-signed reluctantly. They open the floor: the crew came down armed for hostiles and instead they have two terrified Ugnaught Guild administrators who have been waiting six months to find a crew like theirs.",
+              "tactics": "NO DICE — entry beat. Establishes the room and the two NPCs. Players may want to scan for surveillance (free Insight: the jammer is real, the bay is clean) or to refuse the seats and stay standing (Krygg shrugs and stays standing himself). Beat ends when a PC asks the first real question — that triggers Beat 2."
+            },
+            {
+              "id": "enc-a3-p1-s2-beat2-conversation",
+              "name": "Beat 2 — Sitting Down with Fyren and Krygg (Conversation Overlay)",
+              "type": "social",
+              "trigger": "A PC asks the first real question of the Ugnaughts",
+              "description": "Fyren and Krygg invite the crew's questions in earnest. This is the structured social scene — the Fyren-Krygg conversation overlay. Launch the [fyren-krygg-the-works] conversation from the Conversation panel. The two Ugnaughts share a single comfort meter; Fyren is the diplomat voice, Krygg is the pragmatist voice. The conversation can deliver tournament handover intel, the cashier (Mandelbrot) characterization, the Imperial undercover (Arandis) tell, the Nuvo wound, and — at high comfort — a Wing Guard service-corridor keycard.",
+              "tactics": "GM ACTION: Open the Conversation panel and launch [fyren-krygg-the-works]. Comfort starts at 3. Story topics about the Tibanna siphon and Nuvo HOLD comfort. Business topics about the handover are neutral. Probe topics about Guild complicity cost 1 comfort each. Krygg's tell is his knuckle-cracking — when comfort drops, he cracks. When it rises, he sits. The hard exit is Krygg pulling Fyren out by the collar at Comfort 1. The conversation ends when accessible topics run out, when comfort drops to 1, or when the GM is ready to hand off to Beat 3."
+            },
+            {
+              "id": "enc-a3-p1-s2-beat3-the-trade",
+              "name": "Beat 3 — The Trade Offered",
+              "type": "social",
+              "trigger": "After the conversation overlay closes — assuming the Ugnaughts did not bolt",
+              "description": "Fyren lays it out plainly: stop Varga's thugs from stealing a Tibanna shipment at Refinery Platform 13 tonight, and the Ugnaughts will deliver everything they promised — the tournament handover diagram, the cashier brief, the service-corridor keycard if comfort earned it. Krygg adds the constraint: no Ugnaughts on the operation, no Ugnaught names in any reporting back to Wing Guard or station authorities. The crew is the cudgel. The Ugnaughts are the eyes.",
+              "tactics": "NO DICE — deal beat. The richness of the trade is gated on the conversation outcome:\n  • Comfort 4-5 at end of Beat 2: full intel package + Wing Guard keycard + safe-house promise (used in p3-s1 Gauntlet).\n  • Comfort 3: full intel, no keycard, conditional safe-house (Krygg has to think about it).\n  • Comfort 2: handover diagram only — no cashier, no air-tram option, no keycard.\n  • Comfort 1 (Krygg pulled Fyren): Refinery 13 objective only. No further intel. The trade is the scene's deliverable."
+            },
+            {
+              "id": "enc-a3-p1-s2-beat4-route-out",
+              "name": "Beat 4 — The Quiet Way Out",
+              "type": "social",
+              "trigger": "Trade is struck, intel exchanged",
+              "description": "Krygg walks the crew to the south service lift — the one Wing Guard does not rotate through, operated by an Ugnaught named Tev who owes Krygg a debt. The lift takes the crew up to Platform 87, three stories below their lodgings, a quiet exit. Krygg gives one parting line, gruff: \"Bring our gas back. Then come find us. Cantina on level 312, the night after. We will know your faces.\" Fyren does not speak as the crew leaves. He watches the bay door cycle shut behind them.",
+              "tactics": "NO DICE — exit beat. The south lift route is a free re-entry the crew may use to return to The Works any time during the adventure without burning Hessel's favor. The cantina rendezvous on level 312 (the night after Refinery 13) is a real beat the GM should honor — it lands in a later interlude and is where Krygg cooks the bad meal he promised in the conversation if comfort hit 4+."
+            }
+          ],
           "environmentMechanics": [
             {
               "name": "The Works",
@@ -1402,7 +1476,48 @@
             "investigation"
           ],
           "gearFlags": [],
-          "encounters": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p1-s5-beat1-final-prep",
+              "name": "Beat 1 — Final Pre-Tournament Prep",
+              "type": "social",
+              "trigger": "Morning of the tournament, casino entry checkpoints in three hours",
+              "description": "The crew is at their lodgings or a quiet upper-level café running last-minute prep — cover identities, buy-in credits in the right pouches, verifying that the Ugnaught service-corridor keycard (if earned) actually reads at the test door. Varth is on the comm running a final intel sweep on Arandis, Lady Fioro, Silas Draver, and the cashier rotation. Maya is running diagnostics on the Banshee's exit vector. Everything is, briefly, going to plan.",
+              "tactics": "NO DICE — orientation. Players state their cover identities once more out loud (Maya prompts them on comms if they forget); the GM notes any rough edges and may apply +1 Resist on s2 audition checks for vague pitches, in keeping with the same mechanic as Adv2. Beat ends with Varth's voice cutting in, tight."
+            },
+            {
+              "id": "enc-a3-p1-s5-beat2-the-spike",
+              "name": "Beat 2 — The Energy Spike",
+              "type": "tactical",
+              "trigger": "Varth reports an unscheduled hyperspace exit at the system edge",
+              "description": "Varth's voice is genuinely afraid — the first time the crew has heard real fear in him since the Vanishing Place. \"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It's the Assiduous — Inquisitor Draco's flagship.\" A beat of silence on the comm. Then, quietly: \"That ship is the clean-up crew. If Arandis loses the money wrong, or if Varga double-crosses them, Draco won't board. He'll sterilize. Cloud City — the entire city — is leverage now.\"",
+              "tactics": "NO DICE — reveal beat. The Assiduous arrival changes the stakes from heist to ticking-clock. Players should feel the fear in Varth's voice. Force-sensitive PCs may roll a free Insight at advantage to confirm what they already know — Draco himself is aboard. The temple-tap / cold-behind-the-sternum sensory beats from Adv1-2 should fire here for any PC who has felt them before."
+            },
+            {
+              "id": "enc-a3-p1-s5-beat3-the-debate",
+              "name": "Beat 3 — The Crew Decides",
+              "type": "social",
+              "trigger": "After the Assiduous reveal — before the casino entry deadline",
+              "description": "Roughly twenty real minutes of player decision-making. The options are real: walk away (the Banshee is fueled, the exit vector is plotted, the Assiduous has not yet locked the system); proceed as planned (the original heist with a hard deadline now); or escalate (try to use Draco's presence as cover or pressure on Varga). Varth stays on the line but does not push. Maya states, plainly and once: \"If Cloud City is on the chopping block, walking away does not save it. Draco's already here. Whether we play the table or not, this city is leverage now.\"",
+              "tactics": "NO DICE — player decision beat. GM should let the discussion run as long as it needs. The choice the crew makes shapes Part 2: proceed (canonical path); walk away (Varth scrubs the contract, the adventure converts to a Cloud City evacuation/sabotage arc the GM improvises against the same map); escalate (the GM adjusts s2-s4 to include direct Draco-pressure beats and one early Inquisitor sighting before s5). The decision IS the beat. Honor whichever the players pick."
+            },
+            {
+              "id": "enc-a3-p1-s5-beat4-the-walk",
+              "name": "Beat 4 — The Walk to the Royal Casino",
+              "type": "social",
+              "trigger": "Crew commits to proceeding (or to the GM's improvised alternate path)",
+              "description": "The crew walks to the Royal Casino in cover. The walk takes nine minutes through the upper Cloudscape promenade. Lt. Arandis passes them coming the other way, in his Corellian shipping-broker disguise, on his way to the same casino. He nods politely. He does not recognize them. The crew may now confirm visually what Krygg told them: Arandis plays like a man who has been told what to do with cards and is doing it. He does not look like a card player. He looks like a man dressed as one.",
+              "tactics": "NO DICE — atmosphere and confirmation. PCs who took the Krygg conversation get the free visual confirmation as written. PCs who skipped the Ugnaught conversation get only the polite nod and have to figure out Arandis on their own at the table. End beat at the casino entrance."
+            },
+            {
+              "id": "enc-a3-p1-s5-beat5-the-buy-in",
+              "name": "Beat 5 — The Buy-In",
+              "type": "social",
+              "trigger": "Crew at the casino entry checkpoint",
+              "description": "The casino concierge — a Twi'lek named Vass with a perfect smile — verifies cover identities at the door. Buy-in is paid: 50,000 credits per registered player, in marked Bespin chips, non-refundable. Each registered crew member receives a player ID disc and a table assignment. Hand-off to Part 2 (Elimination Rounds). The clock to the Assiduous is now public knowledge among the casino staff — Vass mentions it in passing as a curiosity (\"Off-port arrival caused a stir today, did you see?\") and the GM should use her tone to land the dread again.",
+              "tactics": "RUN any pre-existing Deception or Streetwise checks for casino entry here. PCs with strong cover pitches from Beat 1 enter clean. PCs with weak pitches face +1 Resist on the entry check; failure means Vass requests a secondary verification (a small, manageable social hurdle, not a fail state). The buy-in is mechanical — note 50,000 credits per player off the crew sheet. End scene at table assignment."
+            }
+          ],
           "environmentMechanics": [
             {
               "name": "The Clock",
@@ -1741,7 +1856,48 @@
             "skulduggery"
           ],
           "gearFlags": [],
-          "encounters": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p2-s1-beat1-the-floor",
+              "name": "Beat 1 — Reading the Floor",
+              "type": "social",
+              "trigger": "Crew enters the Royal Casino floor, fifty-plus competitors at the tables",
+              "description": "The first hour of the tournament is observation. The crew is seated at separate tables (per registration) — Maya at Table 1, Face PC at Table 4 with Arandis, Muscle PC at Table 7, and so on. The brief is to identify the players who matter: Lt. Arandis (Imperial undercover), Silas Draver (loud, drunk-acting, stone sober — casing the room for a heist), Lady Mirana Fioro (Hapan noblewoman, Varga's plant, watching Arandis with calculation). The crew has no comms — the casino jammer makes any verbal communication between PCs visible to floor security.",
+              "tactics": "RUN: existing Insight / Streetwise discipline checks for player-reading. Each PC may identify one other player per round of observation. Krygg's \"plays like a man who has been told what to do with cards\" tell from the Ugnaught conversation grants free identification of Arandis to any PC who heard it. End beat after each PC has read at least one other player."
+            },
+            {
+              "id": "enc-a3-p2-s1-beat2-day-one-cards",
+              "name": "Beat 2 — Day One Card Play",
+              "type": "social",
+              "trigger": "First competitive session of the tournament",
+              "description": "Sabacc is played. The crew's first real test: can they hold their cover identities under live tournament pressure? Each PC plays through six hands at their assigned table. The cards themselves matter less than the social tells — bluffs that match cover identity, betting patterns consistent with the brag-and-price the Ugnaughts coached, and the absence of crew-level coordination (no eye contact across tables, no shared bathroom breaks).",
+              "tactics": "RUN: existing Sabacc / Deception challenges here. Apply the conversation-modifier from Adv2-style cover workshops if any prep was done in s5. Each PC who survives Day One advances; each PC who busts is eliminated and joins the spectator gallery (still useful for s2-s4 events but no longer at a table). End beat with announced standings — at minimum, three crew members should advance for the heist to remain viable; if fewer do, the GM adjusts s4 to allow spectator-side intervention."
+            },
+            {
+              "id": "enc-a3-p2-s1-beat3-the-back-bar",
+              "name": "Beat 3 — Day One Recess at the Back Bar",
+              "type": "social",
+              "trigger": "Tournament adjourns for evening recess",
+              "description": "The casino's back bar — open only to registered players and their plus-ones — fills up. This is the sit-down social interlude. PCs may approach Lt. Arandis (who drinks alone, badly), Lady Fioro (who holds court with a small Hapan retinue and watches Arandis from across the room), or Silas Draver (who is genuinely drunk now, having dropped the act). Each contact is a different kind of intel: Arandis is a recruit if pressed gently and Maya can confirm his Imperial cover faster than Varth can; Fioro is a manipulator who can be flipped against Varga with the right pressure; Draver wants to recruit the crew into his heist plan and may be neutralized as a distraction by accepting and then double-crossing him.",
+              "tactics": "RUN: Charm / Insight / Persuasion checks per contact. Each contact yields one named piece of intel that pays off in s2-s4 (Arandis: the exact wafer hand-off timing; Fioro: Varga's docking bay number; Draver: a half-formed heist diversion the crew can co-opt). End beat at last call — the casino closes the back bar and Day One ends. Players who took none of the contacts walk into Day Two without the named intel and must improvise at the table."
+            },
+            {
+              "id": "enc-a3-p2-s1-beat4-the-night-call",
+              "name": "Beat 4 — Late-Night Comm with Varth",
+              "type": "social",
+              "trigger": "Crew returns to lodgings after recess",
+              "description": "Varth waits up. He has been monitoring the casino feeds and has questions. The crew debriefs him on what they read at the tables and at the bar. He cross-references: \"Arandis is Imperial Intelligence Section 7 — confirmed, his cover documents are the third I have seen with that exact watermark pattern. He is junior. His handler is on the Assiduous and is named Captain Veen — Veen is older, smarter, will not be at any table.\" Varth also reports: the Assiduous has not moved. Draco is patient. The clock has not yet started ticking.",
+              "tactics": "NO DICE — debrief beat. Varth's intel is free. The Section 7 / Captain Veen detail seeds Adventure 6 (where Veen will surface as one of the data-center officers Varth bypasses). Players who run the Varth-Leviathan conversation in adv10 may reference Veen by name as a recurring antagonist they tracked from this beat. End beat with the crew sleeping on what they know."
+            },
+            {
+              "id": "enc-a3-p2-s1-beat5-day-two",
+              "name": "Beat 5 — Day Two: Field Narrows",
+              "type": "social",
+              "trigger": "Second tournament session",
+              "description": "Day Two is the field-narrowing day. The fifty-plus tournament drops to twenty-four players by close of session. The crew's table assignments rotate — at least one PC ends up at the same table as Arandis or Fioro, putting the crew face-to-face with their targets in live play. The cards become harder. The bluffs become subtler. Arandis loses two hands in a row that he should have won, deliberately, to set up the loss-pattern Varga's cashier needs to recognize. Lady Fioro raises a hand and Arandis reads it without looking at her — they are working together, openly, if you know how to look.",
+              "tactics": "RUN: harder Sabacc / Deception checks. The crew's tactical objective is to advance to the final eight (s2 trigger) without exposing their cover. PCs who confirmed Arandis-Fioro coordination get free Insight on s2-s3. End the scene with the announced final-eight bracket; hand off to s2."
+            }
+          ],
           "environmentMechanics": [
             {
               "name": "Tournament Structure",
@@ -3033,7 +3189,48 @@
             "tech"
           ],
           "gearFlags": [],
-          "encounters": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p2-s5-beat1-the-wreck",
+              "name": "Beat 1 — The Casino in Ruins",
+              "type": "social",
+              "trigger": "Immediately after the s4 heist resolution",
+              "description": "The Royal Casino floor is a wreck. Smoke from a discharged blaster hangs in the upper rafters. Two croupier droids are face-down. A Twi'lek dealer is trying to comfort a sobbing Bothan player. Sirens — Wing Guard responding — are audible from the upper concourse and closing fast. Lady Fioro is on the floor against the cashier counter, wounded in the thigh, blood pooling, terrified. She is talking. She will not stop talking. The crew has perhaps four minutes before Wing Guard arrives in force.",
+              "tactics": "NO DICE — orientation. Establish urgency through ambient detail (the sirens, the Bothan crying, the smoke). Players orient themselves and choose a direction — Fioro is the obvious draw but PCs may also want to grab the wafer from the cashier counter if it was not yet taken in s4. End beat when a PC kneels beside Fioro to listen."
+            },
+            {
+              "id": "enc-a3-p2-s5-beat2-fioro-talks",
+              "name": "Beat 2 — Fioro Spills",
+              "type": "social",
+              "trigger": "PC engages with Fioro",
+              "description": "Fioro, frightened and bleeding, gives up everything in a rush: \"He's at the lower docks — Docking Bay 4414. He has the Shackles of Nizon holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight! I was supposed to be on that ship. He promised me passage. He is not going to keep that promise. Get him. Get him for me.\" She thrusts her data-bracelet at the nearest PC — it contains the bay's service-entry codes she was supposed to use to board.",
+              "tactics": "NO DICE — Fioro talks willingly, terrified by the shooting and abandoned by Varga. Insight check (free) on Fioro: she is telling the truth and she is also planning to vanish off-world the moment Wing Guard distracts the crew. Players may choose to detain her (Wing Guard will find her, she will be charged, she will testify against Varga) or to let her run (she vanishes from the campaign — possibly returning later as a Hapan noble plot in a sequel). The data-bracelet is the deliverable either way."
+            },
+            {
+              "id": "enc-a3-p2-s5-beat3-varth-grim",
+              "name": "Beat 3 — Varth's Grim Update",
+              "type": "social",
+              "trigger": "On the comm, in parallel with Fioro",
+              "description": "Varth's voice cuts through the cashier-counter chaos: \"The Shackles just activated its engines. Ten minutes to launch window. And — damn it. The Assiduous has moved. Geosynchronous over Cloud City. Not over the docks. Over the city. Draco is positioning to sterilize if Varga gets clear. We have ten minutes to put hands on Varga or this whole platform is glass.\" A beat. \"Maya is spinning the Banshee up. We have an exit. We do not have a city after this. Move.\"",
+              "tactics": "NO DICE — stakes escalation. Varth's update lands the actual cost of failure: Cloud City's population — millions — is leverage now. The ten-minute clock from this beat carries through s2-s3 (next adventure scenes). Players who heard the Storyteller's \"the cost of the gift\" or Krygg's Nuvo story should feel the moral weight of \"we leave or millions burn\" landing on the same nerve."
+            },
+            {
+              "id": "enc-a3-p2-s5-beat4-the-flight",
+              "name": "Beat 4 — Out the Service Corridor",
+              "type": "tactical",
+              "trigger": "Wing Guard reaches the casino floor",
+              "description": "The crew runs. The casino service corridor — accessible via the Ugnaught keycard if it was earned in adv3-p1-s2 — empties into the lower platform tram station. From there it is six minutes to the lower industrial docks and Bay 4414. Without the keycard, the crew has to fight or talk past two Wing Guard checkpoints, costing two minutes of their ten-minute window. With the Ugnaught safe-house promise from Beat 4 of the s2 conversation, they may stash any wounded crew at the level 312 cantina and pick them up after — Krygg is there cooking the meal he promised.",
+              "tactics": "RUN: Stealth / Athletics / fast-talk depending on route. With keycard: clean run, six minutes to docks. Without keycard: 2 checkpoints (Resist 2 each) and a +2 minute penalty per failed check. With safe-house: wounded PCs evacuate to level 312 and continue the next adventure with Krygg's (bad) hot meal already in their stomachs. End scene at the lower docks tram exit."
+            },
+            {
+              "id": "enc-a3-p2-s5-beat5-handoff",
+              "name": "Beat 5 — Hand-off to Part 3",
+              "type": "social",
+              "trigger": "Crew arrives at lower industrial docks tram exit",
+              "description": "The crew steps off the tram into the lower industrial docks — sodium-orange light, freight haulers, and Docking Bay 4414 visible four hundred meters across the platform, blast doors half-open, Varga's cargo train already moving toward the Shackles of Nizon's loading ramp. The Banshee is in low orbit per Maya's plan, ready to extract on signal. The Assiduous is a black wedge in the upper sky. The clock — eight minutes remaining of the ten Varth named — is on every visible chronometer in the dock yard.",
+              "tactics": "NO DICE — handoff beat. Establishes the geography for adv3-p3-s1 (The Gauntlet) and the eight-minute remaining clock. Players may take one short prep action here (a final comm to Varth, a quick gear check, a moment with Maya on intercom). End the scene the moment a PC commits to the dock approach. Adventure 3 Part 3 begins."
+            }
+          ],
           "environmentMechanics": [
             {
               "name": "City in Lockdown",

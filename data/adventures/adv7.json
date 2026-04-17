@@ -121,7 +121,33 @@
           "number": 3,
           "title": "Jump to Nowhere",
           "subtitle": "Into the Void",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a7-p2-s3-beat1-the-jump",
+              "name": "Beat 1 — Blind Jump from the Resurgence",
+              "type": "tactical",
+              "trigger": "Resurgence destroyed, Banshee jumps with no destination",
+              "description": "SCAFFOLD: The blind jump beat. Maya keys a randomized vector to escape the Imperial pursuit. The Banshee comes out of hyperspace in unmapped space — quiet, dark, no nearby systems. The crew has time, no destination, and Denia in Imperial custody. To be expanded in build-out.",
+              "tactics": "NO DICE — orientation scaffold."
+            },
+            {
+              "id": "enc-a7-p2-s3-beat2-take-stock",
+              "name": "Beat 2 — Taking Stock",
+              "type": "social",
+              "trigger": "Maya secures the ship in deep space",
+              "description": "SCAFFOLD: The crew counts what they have. Fuel for fewer jumps than they need. Rations for two weeks. One injured PC. The Resistance fleet is gone. Denia is gone. The campaign is at its lowest point. Reserve a conversation overlay slot for whichever NPC anchors the next move (likely Maya or a returning Varth-via-comm if the build-out chooses).",
+              "tactics": "NO DICE — assessment scaffold. Conversation slot reserved."
+            },
+            {
+              "id": "enc-a7-p2-s3-beat3-the-decision",
+              "name": "Beat 3 — Where Do We Go",
+              "type": "social",
+              "trigger": "Crew has finished the inventory",
+              "description": "SCAFFOLD: The decision beat. Options: Black Spire / Batuu (sets up adv8), the Outer Rim Resistance cell, or somewhere off-narrative. The crew's call. Adv7 build-out should make this beat the explicit setup for the adv8 Iron Blockade arc.",
+              "tactics": "NO DICE — player decision scaffold."
+            }
+          ]
         }
       ]
     }

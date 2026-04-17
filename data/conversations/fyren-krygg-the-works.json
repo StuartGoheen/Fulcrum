@@ -1,0 +1,103 @@
+{
+  "id": "fyren-krygg-the-works",
+  "title": "The Foremen Who Hate the Hutt",
+  "subtitle": "Fyren & Krygg — Maintenance Bay 7, The Works",
+  "setting": "A cramped Ugnaught maintenance bay in the lower industrial decks of Cloud City. Steam vents rumble. The air is hot and smells of burnt insulation. The bay door is sealed and a portable signal jammer chirps quietly on a workbench.",
+  "context": "The crew has just convinced two terrified Ugnaught Guild administrators — Fyren and Krygg — that they're not Varga's people. The hand-drawn warning that drove the crew down here is on the workbench, weighted with a hydrospanner. Fyren did the writing. Krygg signed off, reluctantly. They both have families on the upper levels. They both watched a junior rigger named Nuvo get fed into a Tibanna venturi last month for asking the wrong question. They want Varga gone and they will pay for it with everything they know — but they have to live in Cloud City after the crew leaves, and they need that to be remembered.",
+  "readAloud": "The bay door cycles shut behind you. Fyren — short even for an Ugnaught, snub-tusked, an ink stain on his left cheek that has clearly been there for days — kills the overhead light and snaps on a portable lamp instead. Krygg, a head taller and twice as broad, drags two crates over for the crew to sit on and stays standing himself, arms folded.\n\n\"You came down,\" Fyren says. The Basic is careful, slightly accented. \"That is more than I expected. Most who get our message — they leave.\"\n\nHe looks at the warning note on the bench. Looks back up.\n\n\"We did not write it because we are with him. We wrote it because we hoped you would be the kind of people who do not scare. I did not have a way to ask you that question without the question being a death sentence for me. So I had to write it the other way around. I am sorry for that.\"\n\nKrygg grunts. \"He is sorry. I am not. Now talk.\"",
+  "gmNotes": "Two-NPC conversation overlay. Both Ugnaughts share the comfort meter, but their voices are distinct — Fyren is the diplomat, Krygg is the pragmatist. Comfort starts at 3: they are already dealing, but they are scared, and a wrong word can still spook them back behind the Guild's silence.\n\nStory topics about the Guild, the Tibanna siphon, and dead rigger Nuvo HOLD or raise comfort — these are wounds the Ugnaughts want witnessed. Business topics about the refinery hit, the tournament handover, and Varga's logistics are neutral — they came here to deliver these. Probe topics about the Guild's complicity (why didn't the Parliament stop Varga earlier, what other clans were taking his bribes) cost 1 comfort each — Krygg in particular bristles at outsiders judging Ugnaught politics.\n\nAt Comfort 1, Krygg hauls Fyren out by the collar. The bay door cycles. The crew gets the refinery objective and nothing else — no tournament handover intel, no later safe-house access. At Comfort 4+, the crew gets a bonus: an Ugnaught keycard for the casino service corridors that pays off in adv3-p3-s1 (the Gauntlet).\n\nThe crew does NOT see the meter. The GM signals it through Krygg — when comfort drops, Krygg starts cracking his knuckles. When it rises, he sits down on the third crate. If he ever sits, you have them.\n\nVOICE: Fyren is precise, formal, and apologetic. Krygg is short, blunt, and weary. They have been doing this double act since they were apprentices forty years ago and it shows. Let Fyren answer first; let Krygg cut in to correct or to finish a sentence.",
+  "comfort": {
+    "starting": 3,
+    "max": 5,
+    "exitThreshold": 1,
+    "exitLine": "Krygg stands. He puts a heavy hand on Fyren's shoulder — gentle, but final. 'Enough. We told them where the gas goes. That is all we owe.' He moves past the crew to the bay door and palms it open. The steam from the corridor pours in. 'Stop the theft at Platform 13. If you do, we will be at the cantina on level 312 the night after. If you do not, we will not. That is the deal. Go.' Fyren looks at the floor. He does not look up again.",
+    "dryLine": "Fyren takes a long breath and nods. 'You have asked everything we are willing to be asked.' He hands across a folded sheet — guard rotations, the dealer-droid maintenance schedule, the two service corridors that bypass the casino floor. Krygg, finally, sits down on the third crate. 'When you walk out of here, walk separately. Take the south lift. The Wing Guard there owes me a debt and pretends he does not.' A short pause. 'Bring our gas back. Then come find us. We will know your faces.'"
+  },
+  "roots": [
+    {
+      "id": "fk-the-siphon",
+      "text": "Tell us about the Tibanna siphon.",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "Fyren spreads his hands. 'It is — elegant. That is the worst part. Varga did not invent it; he bought the schematic from a retired Imperial QM. He has us divert one tank in twelve from the official shipment to a parallel feeder line. The official manifests still balance. The Guild quotas still balance. The Empire pays for the missing tank as if it were delivered. Varga sells it to whichever Imperial captain is willing to pay private rates for an unmarked top-up.'\n\nKrygg cuts in. 'Eight percent of every shipment off this rock. For three years.'\n\nFyren nods, tired. 'The numbers are large. Larger than the Guild itself moves in a year. The riggers who do the diverting are paid in promises and kept quiet by threats. The riggers who refuse — ' he pauses '—are sometimes promoted. Sometimes not.'",
+      "gmNote": "Sets the scale. The 'eight percent' figure is a deliberate echo of Raden's own skim from Varth's network — same pattern, smaller stakes, different victim. Players who ran the Raden conversation should hear the parallel. No comfort change. The 'sometimes promoted, sometimes not' is the lead-in to the Nuvo question.",
+      "unlocks": ["fk-nuvo", "fk-the-handover"],
+      "tags": ["siphon", "scale"]
+    },
+    {
+      "id": "fk-the-handover",
+      "text": "How does the tournament handover actually work?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "Krygg snorts. 'Ask the diplomat. He has the diagram.'\n\nFyren produces a flimsi from inside his vest. 'The Imperial payment is not a credit transfer. It is a coded data wafer carried by an Imperial officer playing the tournament under a cover identity. He loses, deliberately, at the final table. The wafer travels with the tournament winnings to the cashier. The cashier — who is on Varga's payroll — swaps the wafer into a private payout envelope and routes it down to Varga's offices via the air-tram on schedule 4-Beta. From wafer to Varga, twenty-seven minutes.'\n\nA short pause.\n\n'The window to intercept is the cashier's hand-off. Eleven minutes. The cashier is alone in the count room during that window because the tournament protocol requires it. If you can reach the count room in those eleven minutes — without triggering the casino's lockdown — you can take the wafer and Varga will not know it is gone until the air-tram arrives empty.'",
+      "gmNote": "The tactical brief that the heroes paid for. This is the explicit setup for the adv3-p2-s4 (The Heist) intercept. The eleven-minute window is the actual mechanic — GMs running that scene should put a visible timer on the table. The cashier is unnamed here but corresponds to Jacc Mandelbrot in adv3-p2-s2.",
+      "unlocks": ["fk-cashier", "fk-air-tram"],
+      "tags": ["business", "intel", "handover"]
+    },
+    {
+      "id": "fk-the-officer",
+      "text": "Who is the Imperial officer at the table?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "Fyren shakes his head. 'I do not know his face. I know his cover. He plays as a Corellian shipping broker named Arandis. The Guild registry lists him under that name three tournaments running. He always loses in the final two hands. He always loses to the same kind of player — quiet, patient, wealthy. Varga selects the winner in advance, which means the winner is also Varga's. The wafer goes to Varga whether Arandis or the winner carries it down.'\n\nKrygg speaks without looking up. 'He is not a card player. He plays like a man who has been told what to do with cards and is doing it.'\n\nFyren nods. 'Krygg has watched the tournament for the Guild for nine years. He sees what the cameras do not.'",
+      "gmNote": "Confirms Arandis (adv3-p1-s4 / p2-s3) is Imperial undercover. Krygg's tell — 'he plays like a man who has been told what to do with cards' — is a free Insight on Arandis the players can act on at the table without rolling for it. Comfort holds. If a PC asks Krygg how he sees these things, he just shrugs: 'I watched my father work with Varga's father. You learn what you live with.'",
+      "unlocks": ["fk-cashier"],
+      "tags": ["business", "arandis"]
+    },
+    {
+      "id": "fk-nuvo",
+      "text": "Tell us what happened to Nuvo.",
+      "type": "story",
+      "comfortCost": 0,
+      "response": "A long beat. Krygg looks away. Fyren looks down at his hands.\n\n'He was twenty-three. Apprentice rigger, second year. He found a discrepancy in the diversion schedule — one of Varga's enforcers had taken an extra tank for personal sale, off the books even from Varga. Nuvo brought the discrepancy to me because he was honest and because he trusted me to know what to do with honesty.'\n\nA pause.\n\n'I told him to forget it. He could not. He brought it to the Guild floor manager. The floor manager brought it to Varga. Varga put Nuvo into a Tibanna venturi that night, in front of the diversion crew, so that the lesson would land where it needed to. The venturi — at full pressure — does not leave a body. It leaves a sound.'\n\nKrygg, very quietly. 'I worked the morning shift. I heard it.'\n\nFyren looks up. There is something cold and very old behind his eyes. 'That is why we wrote you the warning. So that no one else heard a sound like that on our account.'",
+      "gmNote": "DEEP TONAL MOMENT. Comfort holds — this is the wound the Ugnaughts wanted witnessed. Players who ask kindly, listen quietly, or offer any acknowledgement at all earn implicit comfort gain (do not announce). Players who push past the moment — 'okay but back to the heist' — drop comfort by 1 and Krygg will not sit down for the rest of the scene. The Nuvo story is also the moral receipt for any later choice to leave Varga's gas operation intact: there is a name on what they walk away from.",
+      "unlocks": ["fk-the-debt"],
+      "tags": ["story", "wound", "load-bearing"]
+    },
+    {
+      "id": "fk-why-not-sooner",
+      "text": "Why hasn't the Parliament stopped Varga before now?",
+      "type": "probe",
+      "comfortCost": -1,
+      "response": "Krygg finally moves. He uncrosses his arms and steps forward — not threatening, but the temperature in the bay drops anyway.\n\n'You think we did not try. You stand in our maintenance bay an hour and you think we did not try.'\n\nFyren puts a hand on Krygg's wrist. Krygg subsides, but does not step back.\n\n'What he means is — we tried. The Parliament voted three times to refer the matter to the Wing Guard. Three times the Wing Guard captain — also paid by Varga — found insufficient evidence. We tried to send word off-world to the Mining Guild oversight on Coruscant. Two of the three messengers vanished. The third arrived and was politely ignored. Varga is not powerful because he is clever. He is powerful because he pays everyone who could stop him a little less than they are worth, but a little more than the alternative.'\n\nKrygg, low: 'And we have children. Up there. And we cannot move them off this rock without his permission, because he owns the dock fees. So.'\n\nA pause.\n\n'So we wait, and we work, and we keep our heads down, and we send a hand-written warning to off-world strangers and we hope.'",
+      "gmNote": "Comfort drops by 1 — Krygg specifically reads the question as judgment, and even Fyren's softer answer carries the cost of being made to defend their inaction. But the answer is honest and players who absorb it without arguing get a quiet comfort gain back at the end of the conversation. The 'we have children' line is the foundation for Krygg refusing any later request to physically join the heist — he gives information, never bodies. If the crew tries to recruit him in a later scene, this is the answer he will give again.",
+      "unlocks": [],
+      "tags": ["probe", "complicity", "shame"]
+    }
+  ],
+  "followUps": {
+    "fk-cashier": {
+      "id": "fk-cashier",
+      "parentId": "fk-the-handover",
+      "text": "Tell us about the cashier.",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "Fyren nods. 'Sullustan. Name is Mandelbrot. He has been in the count room for eleven years. He took the Varga retainer six years ago after his sister was hospitalized off-world and he could not pay the bills any other way. He is not a true believer. He is a man who is afraid of being audited and a man who is paying off a debt that gets bigger every year.'\n\nA pause.\n\n'If you reach him with the wafer in his hand and you tell him plainly that you can make the audit go away — he will not fight you. He will lose his job and he will not be sad about it. He has been waiting to be relieved of that count room for six years and the only person who can do it is somebody outside the system.'\n\nKrygg, dry: 'Bring him a bottle of Tihaarian brandy. He drinks alone. He misses being thanked.'",
+      "gmNote": "Concrete tactical advice for the heist beat. The Mandelbrot (Jacc Mandelbrot in adv3-p2-s2) characterization makes him a non-combat resolution at the count-room hand-off — the crew can recruit him with a pitch instead of fighting through. The brandy detail is a free social win in the Pressure Cooker scene if a PC actually buys the bottle.",
+      "unlocks": [],
+      "tags": ["business", "mandelbrot", "tactics"]
+    },
+    "fk-air-tram": {
+      "id": "fk-air-tram",
+      "parentId": "fk-the-handover",
+      "text": "What if we let the wafer reach the air-tram and intercept that instead?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "Fyren considers. He almost smiles. 'It is a colder play but it is not a worse one. The 4-Beta tram runs the platform exterior between the casino and the Industrial District. There are three minutes between the casino terminal and the Industrial transfer where the tram is on an open span over the cloud line. No witnesses. No cameras that work in the wind. If you can match velocity from a hangar skiff, you can take the courier off the tram cleanly and Varga will assume the wafer was lost in transit.'\n\nA pause.\n\n'The cost is the courier. If you take the courier off the tram, the courier does not return. Varga will know that. The courier's family will know that. The courier — ' he glances at Krygg ' — is one of ours.'\n\nKrygg, flatly: 'Tibo. Sixteen years on the tram. He took the Varga gig because his daughter is at the academy on Hosnian. We would prefer the count-room option. Just so you know what you are choosing.'",
+      "gmNote": "The crew is offered a SECOND viable plan with a real moral cost. This is the scaffolding for the s4 Heist tactical decision: count-room (clean, social, non-lethal but messier on-site) vs tram intercept (clean tactically, but Tibo dies or is taken and his family pays). Players who pick the tram option after this conversation are doing it eyes-open. GM should bring Tibo back as a name in the s4 scene if they choose it.",
+      "unlocks": [],
+      "tags": ["business", "moral-cost", "tibo"]
+    },
+    "fk-the-debt": {
+      "id": "fk-the-debt",
+      "parentId": "fk-nuvo",
+      "text": "If we get Varga off this rock — what do you owe us?",
+      "type": "business",
+      "comfortCost": 0,
+      "response": "Fyren and Krygg trade a long look. Krygg shrugs first. Fyren turns back.\n\n'A safe house. Three of them, actually — one in The Works, one near the casino service corridor, one on the cargo dock. Keys are real, supplies are stocked, and the Wing Guard who pretends not to see them is paid through next year. They will be yours for as long as you want them.'\n\nA short pause.\n\n'And — passage. If you ever need to leave Cloud City quietly, with cargo, or with a body, the cargo dock house has a Guild-marked freighter that will take you to any of the Outer Rim ports we move Tibanna to. No questions asked, ever, by any Ugnaught who handles the manifest.'\n\nKrygg adds, gruffly: 'And if you stop the theft at Platform 13 today — there will be a hot meal waiting in the level 312 cantina the night after. I will cook it. I cook badly. You will eat it anyway.'",
+      "gmNote": "The relationship payoff. The three safe-houses and Guild freighter are real campaign assets — usable in adv3 escape scenes (p3-s1 Gauntlet specifically) and any future Cloud City return. Krygg cooking is the comfort gain — when the famously-hard Krygg offers to feed the crew, you have him for life. GMs running adv3 should remember to honor the safe-house promise the next time the crew is on the run.",
+      "unlocks": [],
+      "tags": ["business", "reward", "safe-house"]
+    }
+  }
+}

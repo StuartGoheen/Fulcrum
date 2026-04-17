@@ -129,7 +129,41 @@
           "number": 2,
           "title": "Last Preparations",
           "subtitle": "Point of No Return",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a9-p2-s2-beat1-the-dock",
+              "name": "Beat 1 — At the Resistance Forward Dock",
+              "type": "social",
+              "trigger": "Crew arrives at the Resistance staging area",
+              "description": "SCAFFOLD: The night before the Leviathan run. Resistance staging dock. The fleet the crew has assembled across adv8-9 is moored and prepping. Crews are loading torpedoes and doing pre-flight. The whole staging area smells like coolant and engine wash. Adv9 build-out should make this the calm-before-the-storm beat.",
+              "tactics": "NO DICE — orientation scaffold."
+            },
+            {
+              "id": "enc-a9-p2-s2-beat2-the-briefing",
+              "name": "Beat 2 — Final Mission Briefing",
+              "type": "social",
+              "trigger": "Resistance commander calls the briefing",
+              "description": "SCAFFOLD: The mission brief for the Leviathan boarding. Walk the crew through the boarding plan, the gravity well array objective, and the extraction window. Adv9 build-out should reference the varth-leviathan conversation by name — what the crew thinks they are doing here is NOT what Varth has been planning. The briefing is honest within the Resistance's knowledge but incomplete.",
+              "tactics": "NO DICE — briefing scaffold."
+            },
+            {
+              "id": "enc-a9-p2-s2-beat3-the-night",
+              "name": "Beat 3 — The Last Quiet Night",
+              "type": "social",
+              "trigger": "Briefing ends, crew has the evening",
+              "description": "SCAFFOLD: The last private night before the run. Reserve overlay slots for any of: Maya (the cockpit conversation), Soren Vex if alive (a final dock-side beat — adv9 build-out may resolve his arc one scene earlier than adv10), Denia (post-rescue, if she was recovered), or any PC-PC quiet moment. This beat is the campaign's pre-finale exhale.",
+              "tactics": "NO DICE — tonal closing scaffold. Multiple conversation slots reserved."
+            },
+            {
+              "id": "enc-a9-p2-s2-beat4-launch",
+              "name": "Beat 4 — Launch",
+              "type": "tactical",
+              "trigger": "Dawn",
+              "description": "SCAFFOLD: The fleet launches. Adv10 begins on the deck of the Banshee at hyperspace transit. To be expanded in build-out.",
+              "tactics": "NO DICE — handoff scaffold."
+            }
+          ]
         }
       ]
     }

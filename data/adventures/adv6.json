@@ -126,7 +126,33 @@
           "number": 1,
           "title": "Tracking Varth to Eriadu",
           "subtitle": "Following the Trail",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a6-p1-s1-beat1-the-trail",
+              "name": "Beat 1 — Picking Up Varth's Trail",
+              "type": "social",
+              "trigger": "Crew arrives at Eriadu after the adv5 break",
+              "description": "SCAFFOLD: Eriadu arrival beat. The crew is hunting Varth post-betrayal — this is the beat where they confirm he is on Eriadu and pick up his ground-trail. The varth-leviathan conversation (adv10-p2-s3) references this entire arc; the build-out should make the betrayal's aftermath emotionally weighty. Full readAloud/gmNotes pending adv6 build-out (see follow-up #144).",
+              "tactics": "NO DICE — orientation scaffold."
+            },
+            {
+              "id": "enc-a6-p1-s1-beat2-the-broker",
+              "name": "Beat 2 — Eriadu Broker Sit-Down",
+              "type": "social",
+              "trigger": "Crew makes contact with the Eriadu fixer",
+              "description": "SCAFFOLD: Major sit-down NPC for adv6 to be named in build-out. Reserve a conversation overlay slot. The fixer should know enough to point the crew at Draco's citadel and at Varth's data-center target.",
+              "tactics": "GM ACTION (when adv6 is built out): Launch the fixer's conversation overlay. Comfort starting value to be set in the build-out pass."
+            },
+            {
+              "id": "enc-a6-p1-s1-beat3-the-citadel",
+              "name": "Beat 3 — Sighting the Citadel",
+              "type": "social",
+              "trigger": "Crew gets eyes-on Draco's citadel",
+              "description": "SCAFFOLD: Visual sighting and reconnaissance handoff to s2 (Reconnaissance of the Citadel). Establish the citadel's scale, the acid rain weather, the security posture. To be expanded.",
+              "tactics": "NO DICE — handoff beat scaffold."
+            }
+          ]
         },
         {
           "id": "adv6-p1-s2",
@@ -182,7 +208,33 @@
           "number": 2,
           "title": "Off-World",
           "subtitle": "The Score That Never Was",
-          "completed": false
+          "completed": false,
+          "encounters": [
+            {
+              "id": "enc-a6-p3-s2-beat1-aftermath",
+              "name": "Beat 1 — Boarding the Banshee Without Varth",
+              "type": "social",
+              "trigger": "Crew makes the Banshee after the citadel escape",
+              "description": "SCAFFOLD: The first quiet moment after the betrayal. Maya is at the controls. Denia is in the medbay. Varth is gone. The crew sits in the common room with what just happened. This beat is the emotional pivot of the campaign — it should be played slow, in quiet. Full readAloud and a Maya conversation overlay opportunity to be authored in the adv6 build-out pass.",
+              "tactics": "NO DICE — emotional pivot. Reserve a Maya conversation overlay slot here — the Banshee galley scene format from adv1 should be re-used for a \"Maya post-betrayal\" conversation that mirrors the original galley scene's warmth with grief instead."
+            },
+            {
+              "id": "enc-a6-p3-s2-beat2-the-jump",
+              "name": "Beat 2 — The Jump Off Eriadu",
+              "type": "tactical",
+              "trigger": "Imperial pursuit closes",
+              "description": "SCAFFOLD: Imperial pursuit / hyperspace jump beat. The Banshee threads the upper atmosphere under fire and jumps to the rendezvous coordinates Varth-the-traitor would NOT know about (Maya's personal cache).",
+              "tactics": "RUN tactical pursuit checks — placeholder for build-out pass."
+            },
+            {
+              "id": "enc-a6-p3-s2-beat3-quiet-night",
+              "name": "Beat 3 — A Quiet Night in Hyperspace",
+              "type": "social",
+              "trigger": "Banshee in stable hyperspace transit",
+              "description": "SCAFFOLD: The crew's first real conversation about what just happened. This is the second Maya-overlay opportunity — paired with Beat 1, it bookends the betrayal with grief and resolve. To be authored in build-out.",
+              "tactics": "NO DICE — closing tonal beat scaffold. Reserve conversation slot."
+            }
+          ]
         }
       ]
     }
