@@ -739,6 +739,18 @@
         if (enc.composition.positioning) h += '<div style="color:#7a7068;"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
         h += '</div>';
       }
+      if (Array.isArray(enc.scriptedEscalation) && enc.scriptedEscalation.length) {
+        h += '<div style="font-size:0.65rem;margin-top:0.25rem;padding:0.25rem 0.35rem;background:rgba(245,158,11,0.08);border-left:2px solid #f59e0b;border-radius:0 3px 3px 0;">';
+        h += '<div style="color:#f59e0b;font-family:Audiowide,sans-serif;font-size:0.55rem;letter-spacing:0.05em;margin-bottom:0.15rem;">SCRIPTED ESCALATION (AUTO)</div>';
+        enc.scriptedEscalation.forEach(function (se) {
+          var conds = (se.conditions || []).map(function (c) { return '[' + c.charAt(0).toUpperCase() + c.slice(1) + ']'; }).join(' ');
+          var tgts = (se.targets || []).join(', ');
+          h += '<div style="color:#fbbf24;">R' + se.round + ': ' + esc(conds) + ' &rarr; <span style="color:#d4c5a0;">' + esc(tgts) + '</span>';
+          if (se.note) h += ' <span style="color:#7a7068;font-style:italic;">&mdash; ' + esc(se.note) + '</span>';
+          h += '</div>';
+        });
+        h += '</div>';
+      }
       if (enc.type === 'combat' && window.CombatTracker) {
         h += '<button class="ct-start-encounter-btn" data-enc-idx="' + scene.encounters.indexOf(enc) + '">&#9876; Start Encounter</button>';
       }

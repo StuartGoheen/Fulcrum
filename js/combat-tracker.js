@@ -63,6 +63,57 @@
     });
   }
 
+  function findCombatantsByTarget(target) {
+    if (!combatState || !target) return [];
+    var t = String(target).trim();
+    if (!t) return [];
+    var tLower = t.toLowerCase();
+    var exact = combatState.combatants.filter(function (npc) {
+      return (npc.name || '').toLowerCase() === tLower;
+    });
+    if (exact.length) return exact;
+    var escaped = tLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re;
+    try { re = new RegExp('\\b' + escaped + '\\b', 'i'); } catch (e) { re = null; }
+    if (!re) return [];
+    return combatState.combatants.filter(function (npc) {
+      return re.test(npc.name || '');
+    });
+  }
+
+  function applyScriptedEscalation(round) {
+    if (!combatState || !combatState.encounter) return;
+    var script = combatState.encounter.scriptedEscalation;
+    if (!Array.isArray(script) || !script.length) return;
+    var applied = [];
+    script.forEach(function (entry) {
+      if (!entry || entry.round !== round) return;
+      var targets = Array.isArray(entry.targets) ? entry.targets : [];
+      var conditions = Array.isArray(entry.conditions) ? entry.conditions : [];
+      if (!targets.length || !conditions.length) return;
+      var matched = [];
+      targets.forEach(function (tgt) {
+        findCombatantsByTarget(tgt).forEach(function (npc) {
+          if (matched.indexOf(npc) === -1) matched.push(npc);
+        });
+      });
+      if (!matched.length) return;
+      matched.forEach(function (npc) {
+        conditions.forEach(function (cid) { npcAddCond(npc, cid); });
+      });
+      applied.push({
+        conditions: conditions.slice(),
+        targets: matched.map(function (n) { return n.name; }),
+        note: entry.note || ''
+      });
+    });
+    if (applied.length) {
+      combatState.lastEscalation = { round: round, entries: applied };
+    } else if (combatState.lastEscalation && combatState.lastEscalation.round !== round) {
+      combatState.lastEscalation = null;
+    }
+  }
+
   function migrateNpcConditions(npc) {
     if (!npc) return;
     if (!npc.conditions) npc.conditions = [];
@@ -348,6 +399,8 @@
     };
 
     rebuildTurnOrder();
+
+    applyScriptedEscalation(1);
 
     if (pcSlots.length > 0 && pcTokenZone) {
       pcSlots.forEach(function (pc) {
@@ -635,6 +688,28 @@
     return stepDie(dieStr, steps);
   }
 
+  function renderEscalationBanner() {
+    if (!combatState || !combatState.lastEscalation) return '';
+    var le = combatState.lastEscalation;
+    if (le.round !== combatState.round) return '';
+    if (!le.entries || !le.entries.length) return '';
+    var html = '<div class="ct-escalation-banner" style="margin:0.4rem 0;padding:0.4rem 0.6rem;border-left:3px solid #f59e0b;background:rgba(245,158,11,0.12);border-radius:0 4px 4px 0;color:#fbbf24;font-size:0.75rem;">';
+    html += '<strong style="font-family:Audiowide,sans-serif;font-size:0.65rem;letter-spacing:0.06em;color:#f59e0b;">SCRIPTED ESCALATION &mdash; ROUND ' + le.round + '</strong>';
+    le.entries.forEach(function (en) {
+      var condStr = en.conditions.map(function (c) {
+        var def = getEffectDef(c);
+        var label = (def && def.name) ? def.name : c.charAt(0).toUpperCase() + c.slice(1);
+        return '[' + label + ']';
+      }).join(' ');
+      var tgtStr = en.targets.join(', ');
+      html += '<div style="margin-top:0.15rem;">' + esc(condStr) + ' applied to <strong>' + esc(tgtStr) + '</strong>';
+      if (en.note) html += ' &mdash; <em>' + esc(en.note) + '</em>';
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
   function renderCombatTracker() {
     var container = document.getElementById('combat-tracker-panel');
     if (!container || !combatState) return;
@@ -656,6 +731,8 @@
     html += '<button class="ct-end-btn" id="ct-end-encounter">End</button>';
     html += '</div>';
     html += '</div>';
+
+    html += renderEscalationBanner();
 
     html += '<div class="ct-two-panel">';
 
@@ -1995,7 +2072,10 @@
       var order = getTurnOrder();
       if (order.length === 0) return;
       combatState.currentTurnIndex = (combatState.currentTurnIndex + 1) % order.length;
-      if (combatState.currentTurnIndex === 0) combatState.round++;
+      if (combatState.currentTurnIndex === 0) {
+        combatState.round++;
+        applyScriptedEscalation(combatState.round);
+      }
       combatState.selectedId = null;
       renderCombatTracker();
     });
@@ -2021,6 +2101,7 @@
       combatState.round++;
       combatState.currentTurnIndex = 0;
       combatState.selectedId = null;
+      applyScriptedEscalation(combatState.round);
       renderCombatTracker();
     });
 
@@ -2281,7 +2362,9 @@
       encounterName: combatState.encounter ? combatState.encounter.name : '',
       highestTier: combatState.highestTier,
       joinBattleSent: combatState.joinBattleSent,
-      tacticalMap: combatState.tacticalMap || null
+      tacticalMap: combatState.tacticalMap || null,
+      scriptedEscalation: (combatState.encounter && combatState.encounter.scriptedEscalation) || null,
+      lastEscalation: combatState.lastEscalation || null
     });
   }
 
@@ -2298,7 +2381,8 @@
     var restoredMapKey = serverState._restoreBroadcastedMapKey || serverState.broadcastedMapKey || null;
 
     combatState = {
-      encounter: { name: serverState.encounterName || 'Combat' },
+      encounter: { name: serverState.encounterName || 'Combat', scriptedEscalation: serverState.scriptedEscalation || null },
+      lastEscalation: serverState.lastEscalation || null,
       scene: {},
       round: serverState.round || 1,
       currentTurnIndex: serverState.currentTurnIndex || 0,
@@ -2451,8 +2535,14 @@
 
   function applyTurnAdvance(data) {
     if (!combatState) return;
+    var prevRound = combatState.round;
     if (data.currentTurnIndex !== undefined) combatState.currentTurnIndex = data.currentTurnIndex;
     if (data.round !== undefined) combatState.round = data.round;
+    if (combatState.round > prevRound) {
+      for (var r = prevRound + 1; r <= combatState.round; r++) {
+        applyScriptedEscalation(r);
+      }
+    }
     combatState.selectedId = null;
     renderCombatTracker();
   }
