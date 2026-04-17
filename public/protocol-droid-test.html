@@ -129,7 +129,6 @@
     padding-bottom: 12px;
     border-bottom: 1px dashed var(--line);
   }
-  .answer-body { white-space: pre-wrap; line-height: 1.6; }
   .answer-meta {
     margin-top: 14px;
     padding-top: 12px;
@@ -147,8 +146,31 @@
     font-size: 11px;
     border: 1px solid;
   }
-  .src-chip.journal { color: var(--crew); border-color: rgba(108,198,255,0.4); background: rgba(108,198,255,0.08); }
-  .src-chip.rules   { color: var(--rule); border-color: rgba(200,164,78,0.4); background: rgba(200,164,78,0.08); }
+  .src-chip.journal  { color: var(--crew);  border-color: rgba(108,198,255,0.4); background: rgba(108,198,255,0.08); }
+  .src-chip.rules    { color: var(--rule);  border-color: rgba(200,164,78,0.4); background: rgba(200,164,78,0.08); }
+  .src-chip.dramatis { color: #e09cff; border-color: rgba(224,156,255,0.4); background: rgba(224,156,255,0.08); }
+  .answer-body { line-height: 1.65; }
+  .answer-body p { margin: 0 0 10px 0; }
+  .answer-body p:last-child { margin-bottom: 0; }
+  .answer-body strong { color: #fff; }
+  .answer-body em { color: #d8c9a0; }
+  .answer-body ul { margin: 6px 0 12px 0; padding-left: 22px; }
+  .answer-body li { margin: 2px 0; }
+  .answer-body .assessment {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--gold);
+    background: rgba(200,164,78,0.06);
+    border-radius: 0 4px 4px 0;
+  }
+  .answer-body .assessment .assessment-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
   .empty {
     color: var(--ink-dim);
     text-align: center;
@@ -233,6 +255,47 @@
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
+  // Light markdown renderer: **bold**, *italic*, "- " bullet lists, paragraphs.
+  // All input is HTML-escaped first, then a small set of patterns is applied.
+  function renderMarkdown(src) {
+    var raw = String(src == null ? '' : src);
+    // Pull out an optional trailing "Assessment: ..." block so we can style it.
+    var assessment = null;
+    var m = raw.match(/(^|\n\s*\n)\s*Assessment:\s*([\s\S]+?)\s*$/);
+    if (m) {
+      assessment = m[2];
+      raw = raw.slice(0, m.index).replace(/\s+$/, '');
+    }
+    function blockToHtml(block) {
+      var lines = block.split(/\n/);
+      var allBullets = lines.length > 0 && lines.every(function (ln) { return /^\s*[-*]\s+/.test(ln); });
+      if (allBullets) {
+        return '<ul>' + lines.map(function (ln) {
+          return '<li>' + inline(ln.replace(/^\s*[-*]\s+/, '')) + '</li>';
+        }).join('') + '</ul>';
+      }
+      return '<p>' + inline(lines.join(' ').replace(/\s+/g, ' ').trim()) + '</p>';
+    }
+    function inline(s) {
+      // Escape first, then re-introduce safe markup.
+      var out = esc(s);
+      out = out.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+      out = out.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,!?:;]|$)/g, '$1<em>$2</em>');
+      return out;
+    }
+    var blocks = raw.split(/\n\s*\n/).map(function (b) { return b.trim(); }).filter(Boolean);
+    var html = blocks.map(blockToHtml).join('');
+    if (assessment) {
+      var aBlocks = assessment.split(/\n\s*\n/).map(function (b) { return b.trim(); }).filter(Boolean);
+      var aHtml = aBlocks.length ? aBlocks.map(blockToHtml).join('') : '<p>' + inline(assessment) + '</p>';
+      html += '<div class="assessment">' +
+        '<span class="assessment-label">Assessment</span>' +
+        aHtml +
+        '</div>';
+    }
+    return html;
+  }
+
   scopeRow.addEventListener('click', function (e) {
     var b = e.target.closest('.scope-btn');
     if (!b) return;
@@ -268,8 +331,10 @@
     var sources = data.sources || [];
     if (sources.length) {
       srcHtml = '<div class="sources">' + sources.map(function (s) {
-        var cls = (s.type === 'rules') ? 'rules' : 'journal';
-        var icon = (s.type === 'rules') ? '📘' : '📓';
+        var cls, icon;
+        if (s.type === 'rules')         { cls = 'rules';    icon = '📘'; }
+        else if (s.type === 'dramatis') { cls = 'dramatis'; icon = '👤'; }
+        else                            { cls = 'journal';  icon = '📓'; }
         var label = s.label || s.refId || 'source';
         var ref = s.refId != null ? (' #' + s.refId) : '';
         return '<span class="src-chip ' + cls + '">' + icon + ' ' + esc(label) + esc(ref) + '</span>';
@@ -277,11 +342,16 @@
     }
 
     var meta = data.meta || {};
+    var rulesText = (meta.rulesSectionCount || 0) + ' sections';
+    if (meta.rulesSelected != null && meta.rulesTotal != null && meta.rulesSelected < meta.rulesTotal) {
+      rulesText = meta.rulesSelected + '/' + meta.rulesTotal + ' sections (prefilter)';
+    }
     var metaHtml = '<div class="answer-meta">' +
       '<span>scope: ' + esc(scope) + '</span>' +
       '<span>operator: ' + esc(character || '—') + '</span>' +
-      '<span>journal entries: ' + (meta.journalEntryCount || 0) + '</span>' +
-      '<span>rules sections: ' + (meta.rulesSectionCount || 0) + '</span>' +
+      '<span>journal: ' + (meta.journalEntryCount || 0) + ' entries</span>' +
+      '<span>dramatis: ' + (meta.dramatisProfileCount || 0) + ' dossiers</span>' +
+      '<span>rules: ' + rulesText + '</span>' +
       '<span>prompt: ' + (meta.promptChars || 0).toLocaleString() + ' chars</span>' +
       '<span>' + (meta.elapsedMs || 0) + ' ms</span>' +
       '</div>';
@@ -291,7 +361,7 @@
     card.innerHTML =
       '<div class="answer-q">Question</div>' +
       '<div class="answer-q-text">' + esc(question) + '</div>' +
-      '<div class="answer-body">' + esc(data.answer || '') + '</div>' +
+      '<div class="answer-body">' + renderMarkdown(data.answer || '') + '</div>' +
       srcHtml + metaHtml;
 
     if (output.querySelector('.empty')) output.innerHTML = '';

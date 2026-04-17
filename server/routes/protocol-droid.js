@@ -46,6 +46,80 @@ function loadRulesCorpus() {
   return _rulesCache;
 }
 
+// --- Topic prefilter for the rules corpus ---
+const STOPWORDS = new Set([
+  'the','and','for','with','that','this','what','how','why','when','where','who','which',
+  'can','are','was','were','will','have','has','had','from','our','your','any','one','two',
+  'about','than','then','also','into','only','some','more','most','few','many','other','these','those',
+  'use','using','used','get','got','best','good','bad','make','makes','made','need','needs','want',
+  'his','her','their','them','they','you','him','she','its','out','off','all','not','but','yet',
+  'should','could','would','must','may','might','does','doing','did','done','vs','versus','against'
+]);
+
+function tokenize(s) {
+  return String(s == null ? '' : s).toLowerCase().match(/[a-z0-9_]{3,}/g) || [];
+}
+
+let _rulesIndex = null;
+function buildRulesIndex() {
+  if (_rulesIndex) return _rulesIndex;
+  const sections = loadRulesCorpus();
+  _rulesIndex = sections.map(s => {
+    const tokens = tokenize(s.label + ' ' + s.content);
+    const freq = new Map();
+    for (const t of tokens) freq.set(t, (freq.get(t) || 0) + 1);
+    const labelTokens = new Set(tokenize(s.label));
+    return { id: s.id, label: s.label, content: s.content, freq, labelTokens };
+  });
+  return _rulesIndex;
+}
+
+function selectRulesSections(question, opts) {
+  opts = opts || {};
+  const topN = opts.topN || 6;
+  const always = opts.always || ['gamesystem', 'glossary'];
+  const idx = buildRulesIndex();
+  const qTokens = tokenize(question).filter(t => !STOPWORDS.has(t));
+  if (!qTokens.length) {
+    // Pure-stopword questions (e.g. "who are you?") — give it the anchors only,
+    // not the entire corpus, so we don't burn 946KB on a meta-question.
+    const anchors = always.map(id => idx.find(x => x.id === id)).filter(Boolean);
+    return { sections: anchors, selected: anchors.length, total: idx.length, mode: 'anchors-only' };
+  }
+  const scored = idx.map(s => {
+    let score = 0;
+    for (const t of qTokens) {
+      const f = s.freq.get(t) || 0;
+      if (f > 0) score += 1 + Math.log(1 + f);
+      if (s.labelTokens.has(t)) score += 3;
+    }
+    return { s, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+
+  const picked = new Map();
+  for (const id of always) {
+    const found = idx.find(x => x.id === id);
+    if (found) picked.set(found.id, found);
+  }
+  for (const { s, score } of scored) {
+    if (picked.size >= topN) break;
+    if (score <= 0) continue;
+    if (!picked.has(s.id)) picked.set(s.id, s);
+  }
+  // Safety net: if scoring yielded ~nothing useful, fall back to full corpus.
+  const scoredHits = scored.filter(x => x.score > 0).length;
+  if (scoredHits === 0) {
+    return { sections: idx, selected: idx.length, total: idx.length, mode: 'no-hits-fallback' };
+  }
+  return {
+    sections: Array.from(picked.values()),
+    selected: picked.size,
+    total: idx.length,
+    mode: 'prefiltered',
+  };
+}
+
 async function loadDramatisCorpus(isGmCaller) {
   // Players only see revealed NPCs and never gm_notes; GM sees everything.
   const where = isGmCaller ? '' : 'WHERE revealed = true';
@@ -188,13 +262,15 @@ function buildPrompt({ characterName, scope, question, journalEntries, rulesSect
     'EVALUATIVE QUESTIONS: If the operator asks for an opinion, judgment, recommendation, or assessment (e.g. "can he be trusted?", "is this safe?", "what should we do?", "compare X and Y"), you MUST first state the relevant facts from the cited evidence, then close with a short Assessment paragraph beginning with "Assessment:". The Assessment must reason strictly from the cited evidence — never speculate beyond it. Acknowledge ambiguity where the evidence is thin.',
     '',
     'CITATIONS: Cite ONLY the entries or rules sources whose content materially appears in your answer. Do not list everything you skimmed. Aim for 1-5 sources unless the question genuinely spans more.',
+    'CITATION COLLAPSE: If you would otherwise cite three or more sibling sources of the same family (e.g. multiple vocations\' Edge tables, multiple weapons\' damage rows, multiple species entries), collapse them into ONE summary citation rather than listing each. Pick the single most representative refId and write the label as a family summary (e.g. "Vocation Edge variants", "Heavy pistol damage rows").',
+    'FORMATTING: You MAY use light Markdown — **bold** for names and key terms, single-asterisk *italic* for emphasis, and "- " bullet lists when comparing items or listing options. Do NOT use headers (#), tables, or code fences.',
     'Each citation goes in the "sources" array as one of:',
     '  { "type": "journal",  "refId": <entry id from CREW LOGS>, "label": "<2-6 word topic, NOT the verbatim entry title>" }',
     '  { "type": "dramatis", "refId": "<npc_key from DRAMATIS, e.g. varth>", "label": "<2-6 word topic, e.g. Varth dossier — bio>" }',
     '  { "type": "rules",    "refId": "<rules source id, e.g. gamesystem>", "label": "<2-6 word reference, e.g. Symmetric Resolution>" }',
     'The label is what the player sees on a chip — make it a useful summary of WHY this source supports your answer (e.g. "Varth\'s prison survival", "Trust pitch — routing data", "Aim maneuver bonuses"). Never copy the full entry title.',
     '',
-    'Keep answers concise (3-8 sentences for factual recall, up to ~12 sentences when an Assessment is required). Use plain prose, no markdown headers.',
+    'Keep answers concise (3-8 sentences for factual recall, up to ~12 sentences when an Assessment is required).',
     'Return ONLY a JSON object with shape: { "answer": string, "sources": [...] }. No other text.',
   ].join('\n');
 
@@ -259,9 +335,11 @@ router.post('/protocol-droid/ask', async (req, res) => {
       wantCrew ? loadJournalCorpus(characterName) : Promise.resolve([]),
       wantCrew ? loadDramatisCorpus(isGmCaller)   : Promise.resolve([]),
     ]);
-    const rulesSections = (sc === 'rules' || sc === 'both')
-      ? loadRulesCorpus()
-      : [];
+    const wantRules = (sc === 'rules' || sc === 'both');
+    const rulesPick = wantRules
+      ? selectRulesSections(q)
+      : { sections: [], selected: 0, total: 0, mode: 'skipped' };
+    const rulesSections = rulesPick.sections;
 
     const prompt = buildPrompt({
       characterName, scope: sc, question: q,
@@ -304,7 +382,11 @@ router.post('/protocol-droid/ask', async (req, res) => {
         scope: sc,
         characterName: characterName || null,
         journalEntryCount: journalEntries.length,
+        dramatisProfileCount: dramatisProfiles.length,
         rulesSectionCount: rulesSections.length,
+        rulesSelected: rulesPick.selected,
+        rulesTotal: rulesPick.total,
+        rulesMode: rulesPick.mode,
         promptChars: prompt.length,
         elapsedMs,
       },
