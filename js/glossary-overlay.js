@@ -3063,7 +3063,10 @@
     _hydrateComments(wrap);
 
     wrap.querySelectorAll('[data-dramatis-toggle]').forEach(function (card) {
-      card.addEventListener('click', function (e) {
+      var header = card.querySelector('.dp-player-header');
+      if (!header) return;
+      header.style.cursor = 'pointer';
+      header.addEventListener('click', function (e) {
         if (e.target.closest('[data-dp-lightbox]')) return;
         var key = card.dataset.dramatisToggle;
         _dramatisExpanded = (_dramatisExpanded === key) ? null : key;
