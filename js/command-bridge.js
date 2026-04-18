@@ -971,8 +971,10 @@
       h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem;">';
       h += '<span style="font-family:Audiowide,sans-serif;color:#f59e0b;font-size:0.7rem;">ROUND</span>';
       h += '<input type="number" min="1" class="cb-esc-round-num" value="' + (entry.round || 1) + '" style="width:3.5rem;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-family:Audiowide,sans-serif;" />';
-      h += '<button class="cb-esc-del-round" style="margin-left:auto;font-size:0.6rem;padding:0.15rem 0.4rem;background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid #ef4444;border-radius:3px;cursor:pointer;">Remove Round</button>';
+      h += '<button class="cb-esc-preview-round" style="margin-left:auto;font-size:0.6rem;padding:0.15rem 0.45rem;background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid #f59e0b;border-radius:3px;cursor:pointer;">Preview Round ' + (entry.round || 1) + '</button>';
+      h += '<button class="cb-esc-del-round" style="font-size:0.6rem;padding:0.15rem 0.4rem;background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid #ef4444;border-radius:3px;cursor:pointer;">Remove Round</button>';
       h += '</div>';
+      h += '<div class="cb-esc-preview-out" style="display:none;"></div>';
 
       if (!entry.actions.length) {
         h += '<div style="font-size:0.65rem;color:#7a7068;font-style:italic;">No actions. Add one below.</div>';
@@ -1269,6 +1271,132 @@
     _bindEscalationEditorEvents(panel, scene, encIdx);
   }
 
+  function _condLabelForPreview(cid) {
+    var defs = (window.EffectManager && window.EffectManager.EFFECT_DEFS) || [];
+    for (var i = 0; i < defs.length; i++) {
+      if (defs[i].id === cid) return defs[i].name || cid;
+    }
+    return cid.charAt(0).toUpperCase() + cid.slice(1);
+  }
+
+  function _findSceneNpcsByTarget(scene, target) {
+    var sceneNpcs = (scene && scene.npcs) || [];
+    var t = String(target || '').trim();
+    if (!t) return [];
+    var tLower = t.toLowerCase();
+    var exact = sceneNpcs.filter(function (n) { return (n.name || '').toLowerCase() === tLower; });
+    if (exact.length) return exact;
+    var escaped = tLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re;
+    try { re = new RegExp('\\b' + escaped + '\\b', 'i'); } catch (e) { re = null; }
+    if (!re) return [];
+    return sceneNpcs.filter(function (n) { return re.test(n.name || ''); });
+  }
+
+  function _simulateEscalationEntry(scene, entry) {
+    var resolved = [];
+    (entry.actions || []).forEach(function (act) {
+      if (!act || !act.type) return;
+      var targets = Array.isArray(act.targets) ? act.targets : [];
+      var matched = [];
+      var pcLabels = [];
+      var unresolved = [];
+      targets.forEach(function (tgt) {
+        var t = String(tgt || '').trim();
+        if (!t) return;
+        var tLower = t.toLowerCase();
+        if (tLower === 'pcs' || tLower === 'players' || tLower === 'party' || tLower === 'all pcs') {
+          if (pcLabels.indexOf('All PCs') === -1) pcLabels.push('All PCs');
+          return;
+        }
+        var hits = _findSceneNpcsByTarget(scene, tgt);
+        if (!hits.length) {
+          if (unresolved.indexOf(t) === -1) unresolved.push(t);
+        } else {
+          hits.forEach(function (n) { if (matched.indexOf(n) === -1) matched.push(n); });
+        }
+      });
+      var record = { type: act.type, note: act.note || '', unresolved: unresolved };
+      if (act.type === 'applyCondition' || act.type === 'removeCondition') {
+        record.conditions = (act.conditions || []).slice();
+        record.targets = matched.map(function (n) { return n.name; }).concat(pcLabels);
+        if (act.type === 'applyCondition') {
+          if (act.duration) record.duration = act.duration;
+          if (act.arena) record.arena = act.arena;
+        }
+        if (!record.conditions.length) record._skip = 'no conditions selected';
+        else if (!record.targets.length) record._skip = 'no targets resolved in scene roster';
+      } else if (act.type === 'damage') {
+        record.amount = Math.max(0, parseInt(act.amount, 10) || 0);
+        record.targets = matched.map(function (n) { return n.name; }).concat(pcLabels);
+        record.pcsAffected = pcLabels.length > 0;
+        if (!record.amount) record._skip = 'amount is 0';
+        else if (!record.targets.length) record._skip = 'no targets resolved';
+      } else if (act.type === 'spawn') {
+        var name = act.npc || act.template || (act._stub && act._stub.name) || '';
+        var num = Math.max(1, parseInt(act.count, 10) || 1);
+        var spawned = [];
+        if (name) { for (var i = 0; i < num; i++) spawned.push(name); }
+        record.spawned = spawned;
+        record.zone = act.zone || '';
+        record.spawnSource = act._source || 'roster';
+        if (!spawned.length) record._skip = 'no NPC selected';
+      } else if (act.type === 'narrate') {
+        record.text = String(act.text || act.note || '').trim();
+        if (!record.text) record._skip = 'no narration text';
+      } else {
+        return;
+      }
+      resolved.push(record);
+    });
+    return resolved;
+  }
+
+  function _renderEscalationPreviewHtml(round, entries) {
+    if (!entries.length) {
+      return '<div style="margin:0.3rem 0 0;padding:0.4rem 0.6rem;border-left:3px solid #7a7068;background:rgba(122,112,104,0.1);border-radius:0 4px 4px 0;color:#7a7068;font-size:0.65rem;font-style:italic;">No actions to preview. Add at least one action.</div>';
+    }
+    var html = '<div style="margin:0.4rem 0 0;padding:0.4rem 0.6rem;border-left:3px solid #f59e0b;background:rgba(245,158,11,0.12);border-radius:0 4px 4px 0;color:#fbbf24;font-size:0.7rem;">';
+    html += '<div style="display:flex;align-items:center;gap:0.4rem;"><strong style="font-family:Audiowide,sans-serif;font-size:0.6rem;letter-spacing:0.06em;color:#f59e0b;">PREVIEW &mdash; ROUND ' + round + '</strong>';
+    html += '<span style="font-size:0.55rem;color:#7a7068;font-style:italic;">(simulated against current scene roster — no state changed)</span>';
+    html += '<button class="cb-esc-preview-close" style="margin-left:auto;font-size:0.55rem;padding:0.05rem 0.3rem;background:transparent;color:#7a7068;border:1px solid #7a7068;border-radius:3px;cursor:pointer;">Hide</button>';
+    html += '</div>';
+    entries.forEach(function (en) {
+      var line = '';
+      if (en._skip) {
+        var typeLbl = en.type.replace(/([A-Z])/g, ' $1').toLowerCase();
+        line = '<span style="color:#7a7068;font-style:italic;">[' + esc(typeLbl) + ' skipped: ' + esc(en._skip) + ']</span>';
+      } else if (en.type === 'applyCondition') {
+        var condStr = (en.conditions || []).map(function (c) { return '[' + _condLabelForPreview(c) + ']'; }).join(' ');
+        line = esc(condStr) + ' applied to <strong>' + esc((en.targets || []).join(', ')) + '</strong>';
+        var meta = [];
+        if (en.duration) meta.push(en.duration);
+        if (en.arena) meta.push(en.arena);
+        if (meta.length) line += ' <span style="color:#7a7068;font-size:0.6rem;">(' + esc(meta.join(', ')) + ')</span>';
+      } else if (en.type === 'removeCondition') {
+        var rcondStr = (en.conditions || []).map(function (c) { return '[' + _condLabelForPreview(c) + ']'; }).join(' ');
+        line = esc(rcondStr) + ' removed from <strong>' + esc((en.targets || []).join(', ')) + '</strong>';
+      } else if (en.type === 'damage') {
+        line = '<span style="color:#ef4444;">&#9888; ' + en.amount + ' damage</span> to <strong>' + esc((en.targets || []).join(', ')) + '</strong>';
+        if (en.pcsAffected) line += ' <span style="color:#7a7068;font-style:italic;">(GM applies to PC sheets)</span>';
+      } else if (en.type === 'spawn') {
+        line = '<span style="color:#a855f7;">&#10010; Reinforcements:</span> <strong>' + esc((en.spawned || []).join(', ')) + '</strong>';
+        if (en.zone) line += ' <span style="color:#7a7068;">@ ' + esc(en.zone) + '</span>';
+        if (en.spawnSource && en.spawnSource !== 'roster') line += ' <span style="color:#a78bfa;font-size:0.6rem;">(from ' + esc(en.spawnSource) + ' — added to roster on save)</span>';
+      } else if (en.type === 'narrate') {
+        line = '<span style="color:#c084fc;">&#9836;</span> <em>' + esc(en.text) + '</em>';
+      }
+      html += '<div style="margin-top:0.2rem;">' + line;
+      if (en.note && en.type !== 'narrate' && !en._skip) html += ' &mdash; <em>' + esc(en.note) + '</em>';
+      if (en.unresolved && en.unresolved.length) {
+        html += ' <span style="color:#f97316;font-size:0.6rem;">(unmatched: ' + esc(en.unresolved.join(', ')) + ')</span>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
   function _bindEscalationEditorEvents(panel, scene, encIdx) {
     var draftKey = scene.id + ':' + encIdx;
 
@@ -1288,6 +1416,29 @@
         rEl.querySelectorAll('.cb-esc-action').forEach(function (aEl) {
           _refreshActionPreview(aEl, scene);
         });
+      });
+    });
+
+    panel.querySelectorAll('.cb-esc-preview-round').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var rEl = btn.closest('.cb-esc-round');
+        var ri = parseInt(rEl.dataset.roundIdx, 10);
+        var draft = _readEscalationFromDom(panel);
+        _escalationDraft[draftKey] = draft;
+        var entry = draft[ri];
+        if (!entry) return;
+        var resolved = _simulateEscalationEntry(scene, entry);
+        var out = rEl.querySelector('.cb-esc-preview-out');
+        if (!out) return;
+        out.innerHTML = _renderEscalationPreviewHtml(entry.round || 1, resolved);
+        out.style.display = 'block';
+        var closeBtn = out.querySelector('.cb-esc-preview-close');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function () {
+            out.style.display = 'none';
+            out.innerHTML = '';
+          });
+        }
       });
     });
 
