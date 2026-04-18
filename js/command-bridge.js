@@ -2858,7 +2858,17 @@
     html += '<span class="cb-rs-beat-pill" style="background:' + typeColor + ';">' + esc(beat.type || 'beat') + '</span>';
     html += '</div>';
     if (beat.trigger) html += '<div class="cb-rs-beat-trigger"><strong>Trigger:</strong> ' + linkify(beat.trigger) + '</div>';
+    if (beat.readAloud) {
+      html += '<div class="cb-rs-beat-readaloud"><div class="cb-rs-beat-section-label">&#128220; Read Aloud</div>';
+      html += linkify(beat.readAloud).split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      html += '</div>';
+    }
     if (beat.description) html += '<div class="cb-rs-beat-desc">' + linkify(beat.description) + '</div>';
+    if (beat.gmNotes) {
+      html += '<div class="cb-rs-beat-gmnotes"><div class="cb-rs-beat-section-label">&#128221; GM Notes for this Beat</div>';
+      html += linkify(beat.gmNotes).split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      html += '</div>';
+    }
     if (beat.tactics) html += '<div class="cb-rs-beat-tactics"><div class="cb-rs-beat-tactics-label">GM Tactics</div>' + linkify(beat.tactics) + '</div>';
     if (beat.composition) {
       html += '<div class="cb-rs-comp">';

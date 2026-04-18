@@ -6977,3 +6977,42 @@
   border: 1px solid rgba(239, 68, 68, 0.5);
 }
 .cb-encounter-link:hover { background: #ef4444; color: #1a1a1a; }
+
+/* Per-beat readAloud + gmNotes within Run Scene spotlight */
+.cb-rs-beat-section-label {
+  font-family: Audiowide, sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.cb-rs-beat-readaloud {
+  margin: 0.7rem 0;
+  padding: 0.75rem 0.95rem;
+  background: rgba(200, 164, 78, 0.08);
+  border-left: 3px solid #c8a44e;
+  border-radius: 0 4px 4px 0;
+  color: #f3e7c9;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  font-style: italic;
+}
+.cb-rs-beat-readaloud .cb-rs-beat-section-label { color: #c8a44e; font-style: normal; }
+.cb-rs-beat-readaloud p { margin: 0.5rem 0; }
+.cb-rs-beat-readaloud p:first-of-type { margin-top: 0; }
+.cb-rs-beat-readaloud p:last-child { margin-bottom: 0; }
+
+.cb-rs-beat-gmnotes {
+  margin: 0.7rem 0;
+  padding: 0.65rem 0.85rem;
+  background: rgba(56, 189, 248, 0.06);
+  border-left: 2px solid rgba(56, 189, 248, 0.45);
+  border-radius: 0 3px 3px 0;
+  color: #d8cfb8;
+  font-size: 0.83rem;
+  line-height: 1.6;
+}
+.cb-rs-beat-gmnotes .cb-rs-beat-section-label { color: #38bdf8; }
+.cb-rs-beat-gmnotes p { margin: 0.4rem 0; }
+.cb-rs-beat-gmnotes p:first-of-type { margin-top: 0; }
+.cb-rs-beat-gmnotes p:last-child { margin-bottom: 0; }
