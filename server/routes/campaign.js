@@ -353,6 +353,88 @@ router.delete('/campaign/scene/:sceneId/npc/:npcIndex', (req, res) => {
   }
 });
 
+const ALLOWED_ESCALATION_ACTIONS = ['applyCondition', 'removeCondition', 'damage', 'spawn', 'narrate'];
+
+function _sanitizeEscalationAction(act) {
+  if (!act || typeof act !== 'object') return null;
+  if (ALLOWED_ESCALATION_ACTIONS.indexOf(act.type) === -1) return null;
+  const out = { type: act.type };
+  if (act.type === 'applyCondition' || act.type === 'removeCondition') {
+    if (!Array.isArray(act.targets) || !act.targets.length) return null;
+    if (!Array.isArray(act.conditions) || !act.conditions.length) return null;
+    out.targets = act.targets.map(String);
+    out.conditions = act.conditions.map(String);
+    if (act.type === 'applyCondition') {
+      if (act.duration) out.duration = String(act.duration);
+      if (act.arena) out.arena = String(act.arena);
+    }
+  } else if (act.type === 'damage') {
+    if (!Array.isArray(act.targets) || !act.targets.length) return null;
+    const amt = parseInt(act.amount, 10);
+    if (!(amt > 0)) return null;
+    out.targets = act.targets.map(String);
+    out.amount = amt;
+  } else if (act.type === 'spawn') {
+    const npc = act.npc || act.template;
+    if (!npc) return null;
+    out.npc = String(npc);
+    out.count = Math.max(1, parseInt(act.count, 10) || 1);
+    if (act.zone) out.zone = String(act.zone);
+  } else if (act.type === 'narrate') {
+    const text = act.text != null ? String(act.text).trim() : '';
+    if (!text) return null;
+    out.text = text;
+  }
+  if (act.note && act.type !== 'narrate') out.note = String(act.note);
+  return out;
+}
+
+function _sanitizeEscalationEntry(entry) {
+  if (!entry || typeof entry !== 'object') return null;
+  const round = parseInt(entry.round, 10);
+  if (!(round >= 1)) return null;
+  const rawActions = Array.isArray(entry.actions) ? entry.actions : [];
+  const actions = rawActions.map(_sanitizeEscalationAction).filter(Boolean);
+  if (!actions.length) return null;
+  return { round, actions };
+}
+
+router.put('/campaign/scene/:sceneId/encounter/:encIndex/escalation', (req, res) => {
+  // In no-auth dev mode, gate() does not set req.userRole. In auth mode,
+  // gate() blocks player role from /api/campaign writes before we get here.
+  if (req.userRole && req.userRole !== 'gm') {
+    return res.status(403).json({ error: 'GM access required.' });
+  }
+  const { sceneId, encIndex } = req.params;
+  const idx = parseInt(encIndex, 10);
+  if (!Number.isFinite(idx) || idx < 0) {
+    return res.status(400).json({ error: 'Invalid encounter index' });
+  }
+  const script = req.body && req.body.scriptedEscalation;
+  if (!Array.isArray(script)) {
+    return res.status(400).json({ error: 'scriptedEscalation array required' });
+  }
+  const cleanScript = script.map(_sanitizeEscalationEntry).filter(Boolean);
+  try {
+    const data = loadAdventures();
+    const scene = findSceneById(data, sceneId);
+    if (!scene) return res.status(404).json({ error: 'Scene not found' });
+    if (!scene.encounters || idx < 0 || idx >= scene.encounters.length) {
+      return res.status(404).json({ error: 'Encounter index out of range' });
+    }
+    if (cleanScript.length === 0) {
+      delete scene.encounters[idx].scriptedEscalation;
+    } else {
+      scene.encounters[idx].scriptedEscalation = cleanScript;
+    }
+    writeAdventures(data);
+    res.json({ success: true, scriptedEscalation: cleanScript });
+  } catch (err) {
+    console.error('[PUT /campaign/scene/encounter/escalation]', err);
+    res.status(500).json({ error: 'Failed to update escalation script', detail: err.message });
+  }
+});
+
 router.put('/campaign/scene/:sceneId/positions', (req, res) => {
   const { sceneId } = req.params;
   const positions = req.body;
