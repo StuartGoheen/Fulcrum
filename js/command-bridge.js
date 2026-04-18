@@ -286,6 +286,11 @@
     var idx = currentSceneIndex();
     var next = idx + dir;
     if (next < 0 || next >= scenes.length) return;
+    var leavingSceneId = currentScene;
+    // Offer to log key decisions for the scene we're leaving (if it has any
+    // decisionPoints and none have been logged yet for this adventure).
+    // Captured before the swap so openDecisionModal sees the correct scene.
+    if (leavingSceneId) promptDecisionOnComplete(leavingSceneId);
     currentScene = scenes[next].id;
     closeAllFloatingPanels();
     renderScene();

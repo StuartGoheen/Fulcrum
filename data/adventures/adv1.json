@@ -1688,16 +1688,16 @@
                 "y": 183
               },
               "npc_2": {
-                "x": 612,
-                "y": 265
+                "x": 755,
+                "y": 387
               },
               "npc_0": {
-                "x": 595,
-                "y": 106
+                "x": 631,
+                "y": 366
               },
               "npc_4": {
-                "x": 741,
-                "y": 210
+                "x": 755,
+                "y": 213
               },
               "npc_3": {
                 "x": 577,
@@ -7870,14 +7870,26 @@
               "scriptedEscalation": [
                 {
                   "round": 2,
-                  "targets": ["Defense Turret T1", "Defense Turret T2", "Defense Turret T3"],
-                  "conditions": ["optimized"],
+                  "targets": [
+                    "Defense Turret T1",
+                    "Defense Turret T2",
+                    "Defense Turret T3"
+                  ],
+                  "conditions": [
+                    "optimized"
+                  ],
                   "note": "Coordinated targeting links lock onto the Banshee."
                 },
                 {
                   "round": 3,
-                  "targets": ["Defense Turret T1", "Defense Turret T2", "Defense Turret T3"],
-                  "conditions": ["empowered"],
+                  "targets": [
+                    "Defense Turret T1",
+                    "Defense Turret T2",
+                    "Defense Turret T3"
+                  ],
+                  "conditions": [
+                    "empowered"
+                  ],
                   "note": "Focus-fire on the starboard engine."
                 }
               ],

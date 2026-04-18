@@ -1291,14 +1291,20 @@
                   "actions": [
                     {
                       "type": "damage",
-                      "targets": ["Trandoshan Mercenaries"],
+                      "targets": [
+                        "Trandoshan Mercenaries"
+                      ],
                       "amount": 2,
                       "note": "Stray blaster fire ruptures a steam main — scalding vapor washes the breach team."
                     },
                     {
                       "type": "applyCondition",
-                      "targets": ["Trandoshan Mercenaries"],
-                      "conditions": ["disoriented"],
+                      "targets": [
+                        "Trandoshan Mercenaries"
+                      ],
+                      "conditions": [
+                        "disoriented"
+                      ],
                       "note": "Steam blinds their scent-tracking momentarily."
                     },
                     {
@@ -1318,14 +1324,22 @@
                     },
                     {
                       "type": "removeCondition",
-                      "targets": ["Trandoshan Mercenaries"],
-                      "conditions": ["disoriented"],
+                      "targets": [
+                        "Trandoshan Mercenaries"
+                      ],
+                      "conditions": [
+                        "disoriented"
+                      ],
                       "note": "The steam clears. Scent-tracking is back online."
                     },
                     {
                       "type": "applyCondition",
-                      "targets": ["Trandoshan Mercenaries"],
-                      "conditions": ["empowered"],
+                      "targets": [
+                        "Trandoshan Mercenaries"
+                      ],
+                      "conditions": [
+                        "empowered"
+                      ],
                       "note": "The reinforcements rally the squad — focus-fire on Raden."
                     }
                   ]
