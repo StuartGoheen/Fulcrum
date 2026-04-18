@@ -301,6 +301,9 @@ async function initSchema() {
       await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS vote_data JSONB`);
     } catch (e) {}
     try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS impacts JSONB`);
+    } catch (e) {}
+    try {
       const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);
       if (existingIdx.rows.length > 0) {
         const def = existingIdx.rows[0].indexdef || '';

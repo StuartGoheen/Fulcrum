@@ -26,13 +26,18 @@ async function resolveDecisionState() {
   const state = getImpactDefaults();
   try {
     const result = await pool.query(
-      'SELECT campaign_impact, impact_value FROM campaign_decisions WHERE campaign_impact IS NOT NULL AND impact_value IS NOT NULL ORDER BY created_at ASC'
+      'SELECT campaign_impact, impact_value, impacts FROM campaign_decisions ORDER BY created_at ASC'
     );
     for (const row of result.rows) {
-      const impact = row.campaign_impact;
-      if (!impact) continue;
-      if (row.impact_value) {
-        state[impact] = row.impact_value;
+      let impacts = [];
+      if (Array.isArray(row.impacts) && row.impacts.length) {
+        impacts = row.impacts;
+      } else if (row.campaign_impact && row.impact_value) {
+        impacts = [{ key: row.campaign_impact, value: row.impact_value }];
+      }
+      for (const imp of impacts) {
+        if (!imp || !imp.key || imp.value == null) continue;
+        state[imp.key] = imp.value;
       }
     }
   } catch (err) {

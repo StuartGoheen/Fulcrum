@@ -561,7 +561,7 @@ Tracks key crew decisions throughout the campaign for narrative continuity.
 
 **Player UI (socket-client.js):** Vote overlay (`decision-vote-overlay`) with choice buttons, auto-dismiss on resolution or cancellation. All rendered text escaped via `_escHtml`.
 
-**Campaign Impact Tags:** maya-fate, denia-fate, varth-relationship, malpaz-uprising, soren-alliance, kessra-grudge.
+**Campaign Impact Tags (NPC-status tracks):** One slug-named track per recurring NPC — `maya`, `denia`, `varth`, `switch`, `kessra`, `raden`, `mandrake`, `sinde`, `soren`. Plus deferred world-state key `malpaz-uprising` (not an NPC track). Each registry entry has `default`, `source`, `description`, `npc:true`, `recurringIn:[adventure ids]`. Last-write-wins per key across logged decisions.
 
 ## Adaptive Adventure Content
 

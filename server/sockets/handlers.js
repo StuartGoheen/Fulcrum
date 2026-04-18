@@ -1316,7 +1316,7 @@ function registerHandlers(io) {
         socket.emit('error', { message: 'Only the GM can resolve a decision.' });
         return;
       }
-      const { choice, outcome, campaign_impact, decision_point_id, option_key, impact_value, gm_notes, auto_notes } = payload || {};
+      const { choice, outcome, campaign_impact, decision_point_id, option_key, impact_value, gm_notes, auto_notes, impacts } = payload || {};
       if (!choice) {
         socket.emit('error', { message: 'Choice is required to resolve.' });
         return;
@@ -1345,16 +1345,26 @@ function registerHandlers(io) {
       }
 
       try {
+        const impactsArr = Array.isArray(impacts) ? impacts.filter(i => i && i.key && i.value != null) : [];
+        const legacyKey = campaign_impact || (impactsArr[0] && impactsArr[0].key) || null;
+        const legacyVal = impact_value || (impactsArr[0] && impactsArr[0].value) || null;
         const result = await pool.query(
           `INSERT INTO campaign_decisions
            (scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted,
-            decision_point_id, option_key, impact_value, gm_notes, auto_notes, vote_data)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
-          [sceneId, adventureId, decisionKey, choice, outcome || null, campaign_impact || null, wasVoted,
-           decision_point_id || null, option_key || null, impact_value || null,
+            decision_point_id, option_key, impact_value, gm_notes, auto_notes, vote_data, impacts)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
+          [sceneId, adventureId, decisionKey, choice, outcome || null, legacyKey, wasVoted,
+           decision_point_id || null, option_key || null, legacyVal,
            gm_notes || null, auto_notes || null,
-           voteData ? JSON.stringify(voteData) : null]
+           voteData ? JSON.stringify(voteData) : null,
+           impactsArr.length ? JSON.stringify(impactsArr) : null]
         );
+        try {
+          if (sceneId) {
+            const { regenerateSceneJournalEntry } = require('../routes/journal');
+            await regenerateSceneJournalEntry(sceneId);
+          }
+        } catch (e) { console.error('[decision:resolve] regen journal failed:', e.message); }
         io.emit('decision:resolved', {
           decision: result.rows[0],
           poll: _activePoll ? { votes: _activePoll.votes, choices: _activePoll.choices } : null

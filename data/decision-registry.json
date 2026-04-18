@@ -1,52 +1,72 @@
 {
-  "switch-deal": {
+  "switch": {
     "default": "none",
     "source": "adv1-p1-s3",
-    "description": "Did the heroes accept Switch's deal to become information assets?"
+    "description": "Switch (info-broker droid) — alliance status with the crew",
+    "npc": true,
+    "recurringIn": ["adv1", "adv2", "adv3", "adv5", "adv7"]
   },
-  "mandrake-fate": {
+  "mandrake": {
     "default": "unresolved",
     "source": "adv1-p2-s7",
-    "description": "Mandrake's fate during the Vanishing Place extraction (destiny-gated)"
+    "description": "Warden Mandrake — fate at the Vanishing Place (destiny-gated)",
+    "npc": true,
+    "recurringIn": ["adv1"]
   },
-  "kessra-grudge": {
+  "kessra": {
     "default": "none",
     "source": "adv2-p1-s1",
-    "description": "How the heroes handled Kessra at Blackwind Point — determines aviary ambush"
+    "description": "Kessra — Blackwind Point handling determines later aviary ambush",
+    "npc": true,
+    "recurringIn": ["adv2"]
   },
-  "raden-fate": {
+  "raden": {
     "default": "unresolved",
     "source": "adv2-p1-s3",
-    "description": "Raden's path — light (cooperated), threaten, or dark (delivered to Varga)"
+    "description": "Raden — cooperated, threatened, or delivered to Varga",
+    "npc": true,
+    "recurringIn": ["adv2"]
   },
-  "denia-fate": {
+  "denia": {
     "default": "unresolved",
     "source": "adv2-p2-s7",
-    "description": "Did the heroes rescue Denia from Varga's dungeon or leave her behind?"
+    "description": "Master Denia — rescued from Varga's dungeon or abandoned",
+    "npc": true,
+    "recurringIn": ["adv2", "adv4", "adv7", "adv9", "adv10"]
   },
-  "maya-fate": {
-    "default": "alive",
-    "source": "adv3-p3-s5",
-    "description": "Did the heroes save Maya from the Shackles of Nizon?"
+  "maya": {
+    "default": "unresolved",
+    "source": "adv1-p1-s1",
+    "description": "Maya — relationship status across the campaign",
+    "npc": true,
+    "recurringIn": ["adv1", "adv2", "adv3", "adv4", "adv5", "adv6", "adv7", "adv8", "adv9", "adv10"]
   },
-  "varth-relationship": {
+  "varth": {
     "default": "trusted",
     "source": null,
-    "description": "Crew's overall trust level with Varth (evolves across adventures)"
+    "description": "Admiral Varth — crew trust level (evolves across adventures)",
+    "npc": true,
+    "recurringIn": ["adv1", "adv2", "adv3", "adv4", "adv5", "adv6", "adv7", "adv8", "adv9", "adv10"]
+  },
+  "soren": {
+    "default": "unresolved",
+    "source": "adv8",
+    "description": "Soren Vex — recruited for the pirate fleet or rejected",
+    "npc": true,
+    "recurringIn": ["adv8", "adv10"]
+  },
+  "sinde": {
+    "default": "unresolved",
+    "source": "adv2-p2-s3",
+    "description": "Lady Sinde — ISB cipher module recovered for Switch",
+    "npc": true,
+    "recurringIn": ["adv2"]
   },
   "malpaz-uprising": {
     "default": "unresolved",
     "source": "adv5",
-    "description": "Did the heroes spark the Malpaz insurrection?"
-  },
-  "soren-alliance": {
-    "default": "unresolved",
-    "source": "adv8",
-    "description": "Soren Vex recruited for the pirate fleet or rejected?"
-  },
-  "sinde-cipher": {
-    "default": "unresolved",
-    "source": "adv2-p2-s3",
-    "description": "Did the heroes steal Lady Sinde's ISB cipher module for Switch?"
+    "description": "DEFERRED: Did the heroes spark the Malpaz insurrection? Not an NPC track.",
+    "npc": false,
+    "recurringIn": ["adv5", "adv10"]
   }
 }

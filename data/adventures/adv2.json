@@ -312,25 +312,39 @@
             {
               "id": "dp-kessra-grudge",
               "prompt": "How do the heroes handle Kessra's landing tax at Blackwind Point?",
-              "campaignImpact": "kessra-grudge",
               "options": [
                 {
                   "key": "paid",
                   "label": "Pay the landing tax",
-                  "sets": "none",
-                  "consequence": "No grudge. Kessra is satisfied. But the crew is marked as easy targets in the encampment."
+                  "consequence": "No grudge. Kessra is satisfied. But the crew is marked as easy targets in the encampment.",
+                  "impacts": [
+                    {
+                      "key": "kessra",
+                      "value": "none"
+                    }
+                  ]
                 },
                 {
                   "key": "humiliated",
                   "label": "Humiliate Kessra",
-                  "sets": "grudge",
-                  "consequence": "Local respect earned but Kessra holds a grudge. She reappears in the fortress aviary with trained raptors."
+                  "consequence": "Local respect earned but Kessra holds a grudge. She reappears in the fortress aviary with trained raptors.",
+                  "impacts": [
+                    {
+                      "key": "kessra",
+                      "value": "grudge"
+                    }
+                  ]
                 },
                 {
                   "key": "diplomacy",
                   "label": "Negotiate respectfully",
-                  "sets": "neutral",
-                  "consequence": "Kessra accepts a reduced fee. No grudge, no easy-target mark. Neutral outcome."
+                  "consequence": "Kessra accepts a reduced fee. No grudge, no easy-target mark. Neutral outcome.",
+                  "impacts": [
+                    {
+                      "key": "kessra",
+                      "value": "neutral"
+                    }
+                  ]
                 }
               ]
             }
@@ -927,25 +941,39 @@
             {
               "id": "dp-raden-fate",
               "prompt": "How do the heroes handle Raden at the filtration plant?",
-              "campaignImpact": "raden-fate",
               "options": [
                 {
                   "key": "light",
                   "label": "Earn Raden's trust (light path)",
-                  "sets": "light",
-                  "consequence": "Raden shares everything. Full intel package. He stays behind or flees. Heroes enter with strong preparation."
+                  "consequence": "Raden shares everything. Full intel package. He stays behind or flees. Heroes enter with strong preparation.",
+                  "impacts": [
+                    {
+                      "key": "raden",
+                      "value": "light"
+                    }
+                  ]
                 },
                 {
                   "key": "threaten",
                   "label": "Threaten Raden for intel",
-                  "sets": "threaten",
-                  "consequence": "Minimum intel — maps only. Raden gives nothing else. Heroes enter the fortress underprepared."
+                  "consequence": "Minimum intel — maps only. Raden gives nothing else. Heroes enter the fortress underprepared.",
+                  "impacts": [
+                    {
+                      "key": "raden",
+                      "value": "threaten"
+                    }
+                  ]
                 },
                 {
                   "key": "dark",
                   "label": "Deliver Raden to Varga",
-                  "sets": "dark",
-                  "consequence": "Raden is taken by force. Varga rewards the crew with trust. Triggers Raden's execution in Part 2. Dark Side destiny moment."
+                  "consequence": "Raden is taken by force. Varga rewards the crew with trust. Triggers Raden's execution in Part 2. Dark Side destiny moment.",
+                  "impacts": [
+                    {
+                      "key": "raden",
+                      "value": "dark"
+                    }
+                  ]
                 }
               ]
             }
@@ -3114,31 +3142,50 @@
             {
               "id": "dp-sinde-cipher",
               "prompt": "Do the heroes steal Lady Sinde's ISB cipher module for Switch?",
-              "campaignImpact": "sinde-cipher",
               "options": [
                 {
                   "key": "stolen",
                   "label": "Steal the cipher module",
-                  "sets": "stolen",
-                  "consequence": "Switch's secondary objective completed. TC-663 delivers it to Switch's network. Major favor earned with Switch."
+                  "consequence": "Switch's secondary objective completed. TC-663 delivers it to Switch's network. Major favor earned with Switch.",
+                  "impacts": [
+                    {
+                      "key": "sinde",
+                      "value": "stolen"
+                    }
+                  ]
                 },
                 {
                   "key": "failed",
                   "label": "Attempted but failed",
-                  "sets": "failed",
-                  "consequence": "Sinde is alerted. Security tightens. Switch notes the failure but TC-663 still provides base intel."
+                  "consequence": "Sinde is alerted. Security tightens. Switch notes the failure but TC-663 still provides base intel.",
+                  "impacts": [
+                    {
+                      "key": "sinde",
+                      "value": "failed"
+                    }
+                  ]
                 },
                 {
                   "key": "refused",
                   "label": "Refused the job",
-                  "sets": "refused",
-                  "consequence": "TC-663 still helps with base intel but Switch marks the debt. No favor earned."
+                  "consequence": "TC-663 still helps with base intel but Switch marks the debt. No favor earned.",
+                  "impacts": [
+                    {
+                      "key": "sinde",
+                      "value": "refused"
+                    }
+                  ]
                 },
                 {
                   "key": "no-contact",
                   "label": "No TC-663 contact (Switch deal refused)",
-                  "sets": "no-contact",
-                  "consequence": "TC-663 never approaches the heroes. The cipher module job is never offered."
+                  "consequence": "TC-663 never approaches the heroes. The cipher module job is never offered.",
+                  "impacts": [
+                    {
+                      "key": "sinde",
+                      "value": "no-contact"
+                    }
+                  ]
                 }
               ]
             }
@@ -4435,19 +4482,28 @@
             {
               "id": "dp-denia-fate",
               "prompt": "Do the heroes rescue Jedi Master Denia from Varga's dungeon?",
-              "campaignImpact": "denia-fate",
               "options": [
                 {
                   "key": "rescued",
                   "label": "Rescue Denia",
-                  "sets": "rescued",
-                  "consequence": "Denia joins the crew. Jedi lore-interpreter for the campaign. Silent alarm triggered. Demos senses the Force disturbance."
+                  "consequence": "Denia joins the crew. Jedi lore-interpreter for the campaign. Silent alarm triggered. Demos senses the Force disturbance.",
+                  "impacts": [
+                    {
+                      "key": "denia",
+                      "value": "rescued"
+                    }
+                  ]
                 },
                 {
                   "key": "abandoned",
                   "label": "Leave Denia on Varth's advice",
-                  "sets": "abandoned",
-                  "consequence": "Faster escape. Denia remains in the dungeon. Draco recovers her off-camera. Church of the Force fills the lore role. Denia reappears in Adv10."
+                  "consequence": "Faster escape. Denia remains in the dungeon. Draco recovers her off-camera. Church of the Force fills the lore role. Denia reappears in Adv10.",
+                  "impacts": [
+                    {
+                      "key": "denia",
+                      "value": "abandoned"
+                    }
+                  ]
                 }
               ]
             }
@@ -5417,14 +5473,14 @@
           ],
           "conditionals": [
             {
-              "impact": "denia-fate",
+              "impact": "denia",
               "is": "rescued",
               "append": {
                 "gmNotes": "DENIA RESCUED ENDING: She is weak and confused — doesn't know where she is or what year it is. She doesn't know the Empire exists yet."
               }
             },
             {
-              "impact": "denia-fate",
+              "impact": "denia",
               "is": "abandoned",
               "append": {
                 "gmNotes": "DENIA ABANDONED ENDING: The ship is quiet. Varth says nothing about the woman they left in the dungeon. He has already sent a coded message to Draco."

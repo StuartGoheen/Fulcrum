@@ -43,25 +43,35 @@ router.post('/decisions', async (req, res) => {
   const {
     scene_id, adventure_id, decision_key, choice, outcome,
     campaign_impact, voted, decision_point_id, option_key,
-    impact_value, gm_notes, auto_notes, vote_data
+    impact_value, gm_notes, auto_notes, vote_data, impacts
   } = req.body;
   if (!adventure_id || !decision_key || !choice) {
     return res.status(400).json({ error: 'adventure_id, decision_key, and choice are required.' });
   }
   try {
+    const impactsArr = Array.isArray(impacts) ? impacts.filter(i => i && i.key && i.value != null) : [];
+    const legacyKey = campaign_impact || (impactsArr[0] && impactsArr[0].key) || null;
+    const legacyVal = impact_value || (impactsArr[0] && impactsArr[0].value) || null;
     const result = await pool.query(
       `INSERT INTO campaign_decisions
        (scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted,
-        decision_point_id, option_key, impact_value, gm_notes, auto_notes, vote_data)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+        decision_point_id, option_key, impact_value, gm_notes, auto_notes, vote_data, impacts)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
       [
         scene_id || null, adventure_id, decision_key, choice,
-        outcome || null, campaign_impact || null, voted || false,
-        decision_point_id || null, option_key || null, impact_value || null,
+        outcome || null, legacyKey, voted || false,
+        decision_point_id || null, option_key || null, legacyVal,
         gm_notes || null, auto_notes || null,
-        vote_data ? JSON.stringify(vote_data) : null
+        vote_data ? JSON.stringify(vote_data) : null,
+        impactsArr.length ? JSON.stringify(impactsArr) : null
       ]
     );
+    if (scene_id) {
+      try {
+        const { regenerateSceneJournalEntry } = require('./journal');
+        await regenerateSceneJournalEntry(scene_id);
+      } catch (e) { console.error('[POST /decisions] regen journal failed:', e.message); }
+    }
     res.json({ decision: result.rows[0] });
   } catch (err) {
     console.error('[POST /decisions]', err);
@@ -72,8 +82,9 @@ router.post('/decisions', async (req, res) => {
 router.put('/decisions/:id', async (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
   const { id } = req.params;
-  const { choice, outcome, campaign_impact, gm_notes, auto_notes, impact_value, option_key } = req.body;
+  const { choice, outcome, campaign_impact, gm_notes, auto_notes, impact_value, option_key, impacts } = req.body;
   try {
+    const impactsArr = Array.isArray(impacts) ? impacts.filter(i => i && i.key && i.value != null) : null;
     const result = await pool.query(
       `UPDATE campaign_decisions SET
         choice = COALESCE($1, choice),
@@ -82,11 +93,14 @@ router.put('/decisions/:id', async (req, res) => {
         gm_notes = COALESCE($4, gm_notes),
         auto_notes = COALESCE($5, auto_notes),
         impact_value = COALESCE($6, impact_value),
-        option_key = COALESCE($7, option_key)
-       WHERE id = $8 RETURNING *`,
+        option_key = COALESCE($7, option_key),
+        impacts = COALESCE($8::jsonb, impacts)
+       WHERE id = $9 RETURNING *`,
       [choice || null, outcome || null, campaign_impact || null,
        gm_notes || null, auto_notes || null, impact_value || null,
-       option_key || null, id]
+       option_key || null,
+       impactsArr ? JSON.stringify(impactsArr) : null,
+       id]
     );
     if (result.rows.length === 0) return res.status(404).json({ error: 'Decision not found.' });
     res.json({ decision: result.rows[0] });

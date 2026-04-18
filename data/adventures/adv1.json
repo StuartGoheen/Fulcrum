@@ -1423,12 +1423,18 @@
                 {
                   "key": "opt-1",
                   "label": "Help Maya against the enforcers",
-                  "consequence": "The heroes are now entangled in a heist. Maya offers the Code Cylinder job."
+                  "consequence": "The heroes openly side with Maya. She remembers the moment they chose her without knowing her name. Maya joins as a trusted ally and is forthcoming about the Code Cylinder job.",
+                  "impacts": [
+                    { "key": "maya", "value": "allied" }
+                  ]
                 },
                 {
                   "key": "opt-2",
                   "label": "Try to stay out of it",
-                  "consequence": "The enforcers assume the heroes are Maya's crew regardless — confrontation is unavoidable."
+                  "consequence": "The enforcers assume the heroes are Maya's crew regardless — confrontation is unavoidable. Maya survives but registers the hesitation. She works with the crew but hedges, holds back intel, and watches her back.",
+                  "impacts": [
+                    { "key": "maya", "value": "reluctant-ally" }
+                  ]
                 }
               ]
             }
@@ -2881,25 +2887,39 @@
             {
               "id": "dp-switch-deal",
               "prompt": "Do the heroes accept Switch's information-asset deal?",
-              "campaignImpact": "switch-deal",
               "options": [
                 {
                   "key": "accepted",
                   "label": "Accept Switch's deal",
-                  "sets": "accepted",
-                  "consequence": "Heroes become Switch info assets. TC-663 finds them in Adv2. Switch assigns cipher module job."
+                  "consequence": "Heroes become Switch info assets. TC-663 finds them in Adv2. Switch assigns cipher module job.",
+                  "impacts": [
+                    {
+                      "key": "switch",
+                      "value": "accepted"
+                    }
+                  ]
                 },
                 {
                   "key": "refused",
                   "label": "Refuse the deal",
-                  "sets": "refused",
-                  "consequence": "Cylinder stays locked. No TC-663 contact in Adv2. Switch marks them as unreliable."
+                  "consequence": "Cylinder stays locked. No TC-663 contact in Adv2. Switch marks them as unreliable.",
+                  "impacts": [
+                    {
+                      "key": "switch",
+                      "value": "refused"
+                    }
+                  ]
                 },
                 {
                   "key": "double-cross",
                   "label": "Double-cross Switch",
-                  "sets": "betrayed",
-                  "consequence": "Switch activates security. Extremely dangerous. If heroes survive, Switch becomes an enemy."
+                  "consequence": "Switch activates security. Extremely dangerous. If heroes survive, Switch becomes an enemy.",
+                  "impacts": [
+                    {
+                      "key": "switch",
+                      "value": "betrayed"
+                    }
+                  ]
                 }
               ]
             }
@@ -9965,31 +9985,50 @@
             {
               "id": "dp-mandrake-fate",
               "prompt": "What happens to Mandrake during the extraction?",
-              "campaignImpact": "mandrake-fate",
               "options": [
                 {
                   "key": "survived",
                   "label": "Mandrake survives the extraction",
-                  "sets": "survived",
-                  "consequence": "Mandrake escapes with the crew. He becomes a recurring ally with his own agenda."
+                  "consequence": "Mandrake escapes with the crew. He becomes a recurring ally with his own agenda.",
+                  "impacts": [
+                    {
+                      "key": "mandrake",
+                      "value": "survived"
+                    }
+                  ]
                 },
                 {
                   "key": "sacrificed",
                   "label": "Mandrake sacrifices himself covering the retreat",
-                  "sets": "sacrificed",
-                  "consequence": "Mandrake dies holding the line against Draco. His sacrifice buys the crew time to escape."
+                  "consequence": "Mandrake dies holding the line against Draco. His sacrifice buys the crew time to escape.",
+                  "impacts": [
+                    {
+                      "key": "mandrake",
+                      "value": "sacrificed"
+                    }
+                  ]
                 },
                 {
                   "key": "captured",
                   "label": "Mandrake is captured by Draco",
-                  "sets": "captured",
-                  "consequence": "Draco takes Mandrake alive. He reappears later as a broken instrument of the Inquisition."
+                  "consequence": "Draco takes Mandrake alive. He reappears later as a broken instrument of the Inquisition.",
+                  "impacts": [
+                    {
+                      "key": "mandrake",
+                      "value": "captured"
+                    }
+                  ]
                 },
                 {
                   "key": "betrayed",
                   "label": "Mandrake betrays the crew to Draco",
-                  "sets": "betrayed",
-                  "consequence": "Mandrake cuts a deal with Draco in exchange for his life. The crew discovers the betrayal later."
+                  "consequence": "Mandrake cuts a deal with Draco in exchange for his life. The crew discovers the betrayal later.",
+                  "impacts": [
+                    {
+                      "key": "mandrake",
+                      "value": "betrayed"
+                    }
+                  ]
                 }
               ]
             }

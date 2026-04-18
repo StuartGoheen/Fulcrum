@@ -3196,11 +3196,20 @@
       scene.decisionPoints.forEach(function (dp) {
         html += '<div class="cb-dash-dp-group" data-dp-id="' + esc(dp.id) + '">';
         html += '<div class="cb-dash-dp-prompt">' + esc(dp.prompt) + '</div>';
-        if (dp.campaignImpact) html += '<span class="cb-dash-dp-impact">' + esc(dp.campaignImpact) + '</span>';
         dp.options.forEach(function (opt) {
-          html += '<div class="cb-dash-dp-option" data-dp-id="' + esc(dp.id) + '" data-opt-key="' + esc(opt.key) + '" data-dp-impact="' + esc(dp.campaignImpact || '') + '" data-opt-sets="' + esc(opt.sets || '') + '" data-opt-label="' + esc(opt.label) + '" data-opt-consequence="' + esc(opt.consequence || '') + '">';
+          var impactsArr = Array.isArray(opt.impacts) ? opt.impacts
+            : (dp.campaignImpact && opt.sets ? [{ key: dp.campaignImpact, value: opt.sets }] : []);
+          var impactsJson = JSON.stringify(impactsArr).replace(/"/g, '&quot;');
+          html += '<div class="cb-dash-dp-option" data-dp-id="' + esc(dp.id) + '" data-opt-key="' + esc(opt.key) + '" data-impacts="' + impactsJson + '" data-opt-label="' + esc(opt.label) + '" data-opt-consequence="' + esc(opt.consequence || '') + '">';
           html += '<strong>' + esc(opt.label) + '</strong>';
           if (opt.consequence) html += ' <span>&rarr; ' + esc(opt.consequence) + '</span>';
+          if (impactsArr.length) {
+            html += '<div class="cb-dash-dp-impacts">';
+            impactsArr.forEach(function (imp) {
+              html += '<span class="cb-dash-dp-impact">' + esc(imp.key) + ' &rarr; ' + esc(imp.value) + '</span>';
+            });
+            html += '</div>';
+          }
           html += '</div>';
         });
         html += '</div>';
@@ -3269,11 +3278,12 @@
     container.querySelectorAll('.cb-dash-dp-option').forEach(function (opt) {
       opt.style.cursor = 'pointer';
       opt.addEventListener('click', function () {
+        var impactsArr = [];
+        try { impactsArr = JSON.parse(opt.dataset.impacts || '[]'); } catch (e) {}
         openDecisionModal({
           decisionPointId: opt.dataset.dpId,
           optionKey: opt.dataset.optKey,
-          campaignImpact: opt.dataset.dpImpact || null,
-          impactValue: opt.dataset.optSets || null,
+          impacts: impactsArr,
           choice: opt.dataset.optLabel,
           consequence: opt.dataset.optConsequence || ''
         });
@@ -5327,7 +5337,14 @@
       html += '<div class="cb-dec-structured-info">';
       html += '<div class="cb-dec-selected-label">Selected: <strong>' + esc(_structuredData.choice) + '</strong></div>';
       if (_structuredData.consequence) html += '<div class="cb-dec-selected-consequence">' + esc(_structuredData.consequence) + '</div>';
-      if (_structuredData.campaignImpact) html += '<div class="cb-dec-selected-impact">Impact: <span class="cb-dash-dp-impact">' + esc(_structuredData.campaignImpact) + '</span> &rarr; ' + esc(_structuredData.impactValue || '') + '</div>';
+      var sImpacts = Array.isArray(_structuredData.impacts) ? _structuredData.impacts : [];
+      if (sImpacts.length) {
+        html += '<div class="cb-dec-selected-impact">Impacts:';
+        sImpacts.forEach(function (imp) {
+          html += ' <span class="cb-dash-dp-impact">' + esc(imp.key) + ' &rarr; ' + esc(imp.value) + '</span>';
+        });
+        html += '</div>';
+      }
       html += '</div>';
     } else if (sceneDecisionPoints.length > 0) {
       html += '<label>Decision Points</label>';
@@ -5387,17 +5404,18 @@
         var dp = sceneDecisionPoints[dpIdx];
         var opt = dp ? dp.options[optIdx] : null;
         if (dp && opt) {
+          var impactsArr = Array.isArray(opt.impacts) ? opt.impacts
+            : (dp.campaignImpact && opt.sets ? [{ key: dp.campaignImpact, value: opt.sets }] : []);
           _structuredData = {
             decisionPointId: dp.id,
             optionKey: opt.key,
-            campaignImpact: dp.campaignImpact || null,
-            impactValue: opt.sets || null,
+            impacts: impactsArr,
             choice: opt.label,
             consequence: opt.consequence || ''
           };
           choiceInput.value = opt.label;
           outcomeInput.value = opt.consequence || '';
-          if (dp.campaignImpact) impactSelect.value = dp.campaignImpact;
+          if (impactsArr.length && impactsArr[0].key) impactSelect.value = impactsArr[0].key;
         }
       });
     });
@@ -5438,16 +5456,20 @@
       var impactVal = impactSelect.value || null;
       var gmNotes = gmNotesInput.value.trim() || null;
       var decKey = _structuredData ? _structuredData.decisionPointId : 'custom';
+      var impactsArr = (_structuredData && Array.isArray(_structuredData.impacts) && _structuredData.impacts.length)
+        ? _structuredData.impacts
+        : (impactVal ? [{ key: impactVal, value: 'set' }] : []);
       var resolvePayload = {
         choice: choice,
         outcome: outcomeInput.value.trim() || null,
-        campaign_impact: _structuredData ? (_structuredData.campaignImpact || impactVal) : impactVal,
+        campaign_impact: impactsArr.length ? impactsArr[0].key : null,
+        impact_value: impactsArr.length ? impactsArr[0].value : null,
+        impacts: impactsArr,
         adventure_id: currentAdventure,
         scene_id: currentScene,
         decision_key: decKey,
         decision_point_id: _structuredData ? _structuredData.decisionPointId : null,
         option_key: _structuredData ? _structuredData.optionKey : null,
-        impact_value: _structuredData ? _structuredData.impactValue : null,
         gm_notes: gmNotes,
         auto_notes: scene ? ('Scene: ' + (scene.title || currentScene)) : null
       };

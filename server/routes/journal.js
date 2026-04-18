@@ -327,25 +327,15 @@ router.post('/journal/extract-tags/:sceneId', async (req, res) => {
   }
 });
 
-async function createSceneJournalEntry(sceneId) {
+async function buildSceneJournalBody(sceneId) {
   const data = loadAdventuresData();
   const found = findSceneWithContext(data, sceneId);
   if (!found) return null;
-
   const { scene, adventure, part } = found;
-  const entryTitle = scene.title || sceneId;
-
-  const existing = await pool.query(
-    'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND author_character_name = $2',
-    [sceneId, 'Campaign Log']
-  );
-  if (existing.rows.length > 0) return null;
 
   const bodyLines = [];
   bodyLines.push(`${adventure.title} — Part ${part.number}: ${part.title}`);
-  if (scene.subtitle) {
-    bodyLines.push(scene.subtitle);
-  }
+  if (scene.subtitle) bodyLines.push(scene.subtitle);
   if (scene.challengeType) {
     const typeLabels = {
       social: 'Social', combat: 'Combat', exploration: 'Exploration',
@@ -362,9 +352,7 @@ async function createSceneJournalEntry(sceneId) {
     for (const npc of scene.npcs) {
       if (!npc.name) continue;
       const key = npc.name + '|' + (npc.type || '');
-      if (!npcGroups[key]) {
-        npcGroups[key] = { name: npc.name, type: npc.type || '', count: 0 };
-      }
+      if (!npcGroups[key]) npcGroups[key] = { name: npc.name, type: npc.type || '', count: 0 };
       npcGroups[key].count += (npc.count || 1);
     }
     for (const g of Object.values(npcGroups)) {
@@ -376,16 +364,67 @@ async function createSceneJournalEntry(sceneId) {
 
   if (scene.loreTags && scene.loreTags.length) {
     bodyLines.push('Lore References:');
-    for (const tag of scene.loreTags) {
-      bodyLines.push(`  • ${tag}`);
-    }
+    for (const tag of scene.loreTags) bodyLines.push(`  • ${tag}`);
     bodyLines.push('');
+  }
+
+  try {
+    const decRes = await pool.query(
+      'SELECT choice, outcome, campaign_impact, impact_value, impacts FROM campaign_decisions WHERE scene_id = $1 ORDER BY created_at ASC',
+      [sceneId]
+    );
+    if (decRes.rows.length) {
+      bodyLines.push('Decisions:');
+      for (const d of decRes.rows) {
+        bodyLines.push(`  • Chose: ${d.choice}`);
+        if (d.outcome) bodyLines.push(`      Outcome: ${d.outcome}`);
+        let imps = Array.isArray(d.impacts) && d.impacts.length
+          ? d.impacts
+          : (d.campaign_impact && d.impact_value ? [{ key: d.campaign_impact, value: d.impact_value }] : []);
+        if (imps.length) {
+          const impactStr = imps.map(i => `${i.key} → ${i.value}`).join(', ');
+          bodyLines.push(`      Impacts: ${impactStr}`);
+        }
+      }
+      bodyLines.push('');
+    }
+  } catch (e) {
+    console.error('[buildSceneJournalBody] decisions lookup failed:', e.message);
   }
 
   bodyLines.push('———');
   bodyLines.push('Crew notes — add your observations below.');
 
-  const body = bodyLines.join('\n');
+  return { title: scene.title || sceneId, body: bodyLines.join('\n'), scene, adventure, part };
+}
+
+async function regenerateSceneJournalEntry(sceneId) {
+  const built = await buildSceneJournalBody(sceneId);
+  if (!built) return null;
+  const existing = await pool.query(
+    'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND author_character_name = $2',
+    [sceneId, 'Campaign Log']
+  );
+  if (existing.rows.length === 0) return null;
+  await pool.query(
+    'UPDATE journal_entries SET title = $1, body = $2 WHERE id = $3',
+    [built.title, built.body, existing.rows[0].id]
+  );
+  return existing.rows[0].id;
+}
+
+async function createSceneJournalEntry(sceneId) {
+  const built = await buildSceneJournalBody(sceneId);
+  if (!built) return null;
+  const { scene, body, title } = built;
+
+  const existing = await pool.query(
+    'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND author_character_name = $2',
+    [sceneId, 'Campaign Log']
+  );
+  if (existing.rows.length > 0) return null;
+
+  const entryTitle = title;
 
   const client = await pool.connect();
   try {
@@ -439,3 +478,4 @@ async function createSceneJournalEntry(sceneId) {
 module.exports = router;
 module.exports.extractTagsFromScene = extractTagsFromScene;
 module.exports.createSceneJournalEntry = createSceneJournalEntry;
+module.exports.regenerateSceneJournalEntry = regenerateSceneJournalEntry;
