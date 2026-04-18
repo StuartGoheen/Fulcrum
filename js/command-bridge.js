@@ -2228,63 +2228,202 @@
           addPanel.style.display = 'none';
           return;
         }
-        var saved = window.NpcBuilder ? window.NpcBuilder.getSavedNpcs() : [];
-        if (!saved.length) {
-          addPanel.style.display = 'block';
-          addPanel.innerHTML = '<p class="cb-muted" style="font-size:0.7rem;">No saved NPCs in Threat Builder. Open the Threat Builder and save some first.</p>';
-          return;
+        _renderAddNpcPanel(panel, addPanel, null);
+      });
+    }
+  }
+
+  function _buildInlineStub(name) {
+    var nm = (name || '').trim() || 'New Stub';
+    return {
+      name: nm,
+      tier: 1,
+      threatCategory: 'character',
+      arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
+      role: '',
+      powerSource: '',
+      classification: 'standard',
+      traits: [],
+      tags: [],
+      extraGambits: [],
+      attacks: [],
+      loot: [],
+      numPlayers: 4,
+      socialNotes: '',
+      weaponChassis: 'medium',
+      shipDetails: { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' }
+    };
+  }
+
+  function _addStubToScene(stub) {
+    return window.NpcBuilder.buildNpcFromSaved(stub).then(function (built) {
+      var newNpc = {
+        name: stub.name,
+        _templateName: stub.name.toLowerCase().trim(),
+        type: 'Character',
+        count: 1,
+        loot: [],
+        threatBuild: {
+          role: '',
+          tier: stub.tier,
+          classification: stub.classification,
+          threatCategory: stub.threatCategory,
+          powerSource: '',
+          arenas: JSON.parse(JSON.stringify(stub.arenas)),
+          computed: built.computed,
+          traits: [],
+          tags: [],
+          roleKit: null,
+          computedAttacks: [],
+          weaponChassis: 'medium',
+          loot: []
         }
-        var ph = '<div class="cb-add-npc-list">';
-        saved.forEach(function (npc, si) {
-          var catBadge = (npc.threatCategory && npc.threatCategory !== 'character') ? esc(npc.threatCategory.charAt(0).toUpperCase() + npc.threatCategory.slice(1)) + ' ' : '';
-          ph += '<button class="cb-add-npc-item" data-saved-idx="' + si + '">';
-          ph += '<span class="cb-add-npc-item-name">' + esc(npc.name || 'Unnamed') + '</span>';
-          ph += '<span class="cb-add-npc-item-meta">' + catBadge + 'T' + (npc.tier || 0) + ' ' + esc(npc.classification || '') + ' ' + esc(npc.role || '') + '</span>';
-          ph += '</button>';
-        });
-        ph += '</div>';
-        addPanel.innerHTML = ph;
-        addPanel.style.display = 'block';
-        addPanel.querySelectorAll('.cb-add-npc-item').forEach(function (item) {
-          item.addEventListener('click', function () {
-            var si = parseInt(item.dataset.savedIdx, 10);
-            var savedNpc = saved[si];
-            if (!savedNpc) return;
-            window.NpcBuilder.buildNpcFromSaved(savedNpc).then(function (built) {
-              var newNpc = {
-                name: savedNpc.name || 'Unnamed',
-                _templateName: (savedNpc.name || 'unnamed').toLowerCase().trim(),
-                type: (savedNpc.threatCategory || 'character').charAt(0).toUpperCase() + (savedNpc.threatCategory || 'character').slice(1),
-                count: 1,
-                loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : [],
-                threatBuild: {
-                  role: savedNpc.role,
-                  tier: savedNpc.tier,
-                  classification: savedNpc.classification,
-                  threatCategory: savedNpc.threatCategory,
-                  powerSource: savedNpc.powerSource || built.powerSource || '',
-                  arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
-                  computed: built.computed,
-                  traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
-                  tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
-                  roleKit: built.roleKit,
-                  computedAttacks: built.computedAttacks || [],
-                  weaponChassis: savedNpc.weaponChassis || 'medium',
-                  loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
-                }
-              };
-              var npcs = getSceneNpcs();
-              npcs.push(newNpc);
-              setSceneNpcs(npcs);
-              addSceneNpc(newNpc);
-              addPanel.style.display = 'none';
-              _refreshNpcPanel();
-              renderScene();
-            });
-          });
+      };
+      var npcs = getSceneNpcs();
+      npcs.push(newNpc);
+      var newIdx = npcs.length - 1;
+      setSceneNpcs(npcs);
+      addSceneNpc(newNpc);
+      return newIdx;
+    });
+  }
+
+  function _editNpcInBuilder(npcIdx, onDone) {
+    var npcs = getSceneNpcs();
+    var npc = npcs[npcIdx];
+    if (!npc || !npc.threatBuild || !window.NpcBuilder) return;
+    var buildData = JSON.parse(JSON.stringify(npc.threatBuild));
+    buildData.name = npc.name || buildData.name || '';
+    if (npc.loot) buildData.loot = JSON.parse(JSON.stringify(npc.loot));
+    window.NpcBuilder.openWithNpc(buildData, function (updated) {
+      npc.name = updated.name || npc.name;
+      npc.threatBuild = updated;
+      npc.threatBuild.computed = updated.computed;
+      if (updated.roleKit) npc.threatBuild.roleKit = updated.roleKit;
+      if (updated.powerSource) npc.threatBuild.powerSource = updated.powerSource;
+      npc.threatBuild.computedAttacks = updated.computedAttacks || [];
+      if (updated.loot) npc.loot = updated.loot;
+      setSceneNpcs(npcs);
+      persistSceneNpc(npcIdx, npc);
+      if (typeof onDone === 'function') onDone();
+    });
+  }
+
+  function _renderAddNpcPanel(panel, addPanel, lastStubIdx) {
+    var saved = window.NpcBuilder ? window.NpcBuilder.getSavedNpcs() : [];
+    var ph = '';
+
+    ph += '<div class="cb-add-npc-stub" style="padding:0.4rem 0.5rem;border:1px dashed #c8a44e;border-radius:4px;background:rgba(200,164,78,0.05);margin-bottom:0.5rem;">';
+    ph += '<div style="font-family:Audiowide,sans-serif;font-size:0.6rem;color:#c8a44e;letter-spacing:0.05em;margin-bottom:0.25rem;">INLINE NPC STUB</div>';
+    ph += '<div style="font-size:0.6rem;color:#7a7068;line-height:1.3;margin-bottom:0.3rem;">Quick 2/2/2/2/2 NPC with no role, traits, or attacks. Flesh it out in the Threat Builder.</div>';
+    ph += '<div style="display:flex;gap:0.3rem;align-items:center;">';
+    ph += '<input type="text" id="cb-stub-name" placeholder="Name (e.g. Imperial Guard)" style="flex:1;padding:0.25rem 0.4rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.7rem;" />';
+    ph += '<button id="cb-stub-create" style="font-size:0.65rem;padding:0.3rem 0.6rem;background:#22c55e;color:#000;border:none;border-radius:3px;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.05em;font-weight:bold;">Create</button>';
+    ph += '</div>';
+    if (lastStubIdx != null) {
+      var npcs = getSceneNpcs();
+      var stubNpc = npcs[lastStubIdx];
+      var stubName = stubNpc ? (stubNpc.name || 'New Stub') : 'New Stub';
+      ph += '<div id="cb-stub-followup" style="margin-top:0.4rem;padding:0.35rem 0.45rem;background:rgba(34,197,94,0.1);border-left:2px solid #22c55e;border-radius:0 3px 3px 0;font-size:0.65rem;color:#d4c5a0;">';
+      ph += 'Created <strong>' + esc(stubName) + '</strong>. ';
+      ph += '<a href="#" id="cb-stub-open-builder" data-stub-idx="' + lastStubIdx + '" style="color:#f59e0b;text-decoration:underline;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.04em;">Open in Threat Builder &rarr;</a>';
+      ph += '</div>';
+    }
+    ph += '</div>';
+
+    if (saved.length) {
+      ph += '<div style="font-family:Audiowide,sans-serif;font-size:0.55rem;color:#7a7068;letter-spacing:0.05em;margin-bottom:0.2rem;">SAVED NPCS</div>';
+      ph += '<div class="cb-add-npc-list">';
+      saved.forEach(function (npc, si) {
+        var catBadge = (npc.threatCategory && npc.threatCategory !== 'character') ? esc(npc.threatCategory.charAt(0).toUpperCase() + npc.threatCategory.slice(1)) + ' ' : '';
+        ph += '<button class="cb-add-npc-item" data-saved-idx="' + si + '">';
+        ph += '<span class="cb-add-npc-item-name">' + esc(npc.name || 'Unnamed') + '</span>';
+        ph += '<span class="cb-add-npc-item-meta">' + catBadge + 'T' + (npc.tier || 0) + ' ' + esc(npc.classification || '') + ' ' + esc(npc.role || '') + '</span>';
+        ph += '</button>';
+      });
+      ph += '</div>';
+    } else {
+      ph += '<p class="cb-muted" style="font-size:0.65rem;font-style:italic;">No saved NPCs in Threat Builder yet.</p>';
+    }
+
+    addPanel.innerHTML = ph;
+    addPanel.style.display = 'block';
+
+    var createBtn = addPanel.querySelector('#cb-stub-create');
+    var nameInput = addPanel.querySelector('#cb-stub-name');
+    function doCreate() {
+      var stub = _buildInlineStub(nameInput ? nameInput.value : '');
+      _addStubToScene(stub).then(function (newIdx) {
+        _refreshNpcPanel();
+        renderScene();
+        var refreshedPanel = document.getElementById('fp-npcs');
+        var refreshedAdd = refreshedPanel ? refreshedPanel.querySelector('#cb-add-npc-panel') : null;
+        if (refreshedPanel && refreshedAdd) {
+          _renderAddNpcPanel(refreshedPanel, refreshedAdd, newIdx);
+        }
+      });
+    }
+    if (createBtn) createBtn.addEventListener('click', doCreate);
+    if (nameInput) {
+      nameInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); doCreate(); }
+      });
+    }
+
+    var openLink = addPanel.querySelector('#cb-stub-open-builder');
+    if (openLink) {
+      openLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        var idx = parseInt(openLink.dataset.stubIdx, 10);
+        _editNpcInBuilder(idx, function () {
+          _refreshNpcPanel();
+          var refreshedPanel = document.getElementById('fp-npcs');
+          var refreshedAdd = refreshedPanel ? refreshedPanel.querySelector('#cb-add-npc-panel') : null;
+          if (refreshedPanel && refreshedAdd) {
+            _renderAddNpcPanel(refreshedPanel, refreshedAdd, idx);
+          }
         });
       });
     }
+
+    addPanel.querySelectorAll('.cb-add-npc-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var si = parseInt(item.dataset.savedIdx, 10);
+        var savedNpc = saved[si];
+        if (!savedNpc) return;
+        window.NpcBuilder.buildNpcFromSaved(savedNpc).then(function (built) {
+          var newNpc = {
+            name: savedNpc.name || 'Unnamed',
+            _templateName: (savedNpc.name || 'unnamed').toLowerCase().trim(),
+            type: (savedNpc.threatCategory || 'character').charAt(0).toUpperCase() + (savedNpc.threatCategory || 'character').slice(1),
+            count: 1,
+            loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : [],
+            threatBuild: {
+              role: savedNpc.role,
+              tier: savedNpc.tier,
+              classification: savedNpc.classification,
+              threatCategory: savedNpc.threatCategory,
+              powerSource: savedNpc.powerSource || built.powerSource || '',
+              arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
+              computed: built.computed,
+              traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
+              tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
+              roleKit: built.roleKit,
+              computedAttacks: built.computedAttacks || [],
+              weaponChassis: savedNpc.weaponChassis || 'medium',
+              loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
+            }
+          };
+          var npcs = getSceneNpcs();
+          npcs.push(newNpc);
+          setSceneNpcs(npcs);
+          addSceneNpc(newNpc);
+          addPanel.style.display = 'none';
+          _refreshNpcPanel();
+          renderScene();
+        });
+      });
+    });
   }
 
   function _refreshNpcPanel() {
