@@ -4444,7 +4444,7 @@
               "type": "combat",
               "trigger": "Heroes board the yacht or Varga's mercs are defeated",
               "description": "Varga fights desperately in the yacht's corridors. His massive bulk is a weapon in the tight space. Remaining mercs cover his retreat.",
-              "tactics": "Varga uses Crushing Tail in corridors where heroes can't dodge. Commands remaining forces. He knows this is the end."
+              "tactics": "SCENE TACTICS (NPC-agnostic): Yacht interior — cramped corridors, narrow turns, no flanking room. The boss-tier threat exploits the tight space (massive bulk, melee reach, room-spanning attacks) where PCs can't sidestep. Choke points are everywhere — every corridor and doorway is a kill funnel. Cover is minimal (built-in seating, bulkhead frames). Sightlines are short. Remaining supports cover the boss's retreat or hold side passages. Tactical leverage: PCs can split the boss's attention by pushing into adjacent compartments, but doing so isolates them from the rest of the crew. Escape routes for the boss are limited — this is the end of the line."
             }
           ],
           "environmentMechanics": [

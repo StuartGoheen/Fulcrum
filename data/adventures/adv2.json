@@ -1448,7 +1448,167 @@
               "power": 3,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "encampment-defense",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "20ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Workshop",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Raden's mechanical workshop — heavy equipment, hard cover. Improvised weapons (cutting torches, hydrospanners) within reach. Raden defends from here."
+              },
+              {
+                "id": "B1",
+                "label": "Water Tower",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Elevated water tank on stilts. Light cover at the base; climbable (Athletics) for high-ground sightlines across the encampment. HAZARD: shoot the tower to spill water on adjacent zones — concealment for one round, then mud (difficult terrain)."
+              },
+              {
+                "id": "C1",
+                "label": "Storage Crates",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Stacked supply crates. Hard cover. Forms a defensive line PCs can hold or attackers can use as flanking cover."
+              },
+              {
+                "id": "D1",
+                "label": "North Gate",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Reinforced perimeter gate. Light cover from the frame. Can be barred (Engineering) to deny this entry — forces attackers around to the east."
+              },
+              {
+                "id": "A2",
+                "label": "Tent Row (West)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Refugee tents and tarps. Light cover, heavy concealment. Civilians here — collateral risk if firefight spreads. Difficult terrain (lines, stakes, sleeping mats)."
+              },
+              {
+                "id": "B2",
+                "label": "Open Square",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Central courtyard of the encampment. No cover, clear sightlines to every gate. The kill zone."
+              },
+              {
+                "id": "C2",
+                "label": "Fuel Drums",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Stacked fuel drums and a generator. Light cover. HAZARD: a stray shot ignites the drums — explosion damages the zone and adjacent zones, then burning ground (1 stress to enter) for rest of the scene."
+              },
+              {
+                "id": "D2",
+                "label": "East Gate",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Secondary perimeter gate. Light cover. Trandoshan attackers will pivot here if the north gate is sealed."
+              },
+              {
+                "id": "A3",
+                "label": "Tent Row (South)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "More tents. Light cover, heavy concealment. Civilians scatter from here to the west when fighting starts."
+              },
+              {
+                "id": "B3",
+                "label": "Sentry Wreckage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Smoldering wreckage of Raden's jury-rigged sentry droid (destroyed in the breach). Light cover. Difficult terrain — costs extra to cross. Sparking power cells (one-time arc damage to anyone standing on the wreck for two consecutive rounds)."
+              },
+              {
+                "id": "C3",
+                "label": "South Gate (Breached)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Where the attackers came in. Gate is shattered, no cover. The original entry point."
+              },
+              {
+                "id": "D3",
+                "label": "Jungle Edge",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Edge of the surrounding jungle. Light cover, concealment. Trandoshans favor this zone — natural ambush ground for their second wave."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "Open Square",
+                "notes": "Mid-encampment when the breach happens. Should redeploy to the workshop or storage crates immediately."
+              },
+              {
+                "who": "Raden (ally NPC)",
+                "zone": "Workshop",
+                "notes": "Holds the workshop. Vulnerable — protect at all costs is the win condition. Can craft/repair from this position if given a turn."
+              },
+              {
+                "who": "Attackers (breach team)",
+                "zone": "South Gate (Breached)",
+                "notes": "Push north through the wrecked sentry into the open square. Use storage crates and tent row for cover as they advance."
+              },
+              {
+                "who": "Attackers (flank)",
+                "zone": "Jungle Edge",
+                "notes": "Second pair fans east through the jungle and pushes the east gate. Tries to pin the defenders in a crossfire."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Defensive scenario — protect the ally NPC (Raden) in the workshop. Attackers breach from the south gate (already shattered) and pivot to the east gate if the north is barred. The open square is the kill zone; the workshop, storage crates, and fuel drums anchor the defensive cover. ENVIRONMENTAL LEVERS: (1) sentry wreckage — difficult terrain that slows the breach team for one extra round; (2) fuel drums — ignite to clear the C2/C3 axis; (3) water tower — drop for concealment + difficult terrain across B1/B2; (4) north gate — bar to force attackers into the more exposed east gate approach. CIVILIAN RISK: tent rows hold non-combatants — firefight that spreads west costs morale/reputation with the encampment. Use chokepoints, environmental hazards, and the vertical sightline from the water tower to hold the line.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 400,
+                "y": 250
+              },
+              "npc_0": {
+                "x": 580,
+                "y": 460
+              },
+              "npc_1": {
+                "x": 620,
+                "y": 440
+              },
+              "npc_2": {
+                "x": 720,
+                "y": 420
+              },
+              "npc_3": {
+                "x": 700,
+                "y": 480
+              }
+            }
+          }
         },
         {
           "id": "adv2-p1-s5",
@@ -2518,7 +2678,145 @@
               "power": 3,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "gladiator-pit",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "15ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Crowd Wall (West)",
+                "passable": false,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Stone-and-repulsor barrier separating the pit from the spectator stands. Impassable. Crowd noise is deafening on this side."
+              },
+              {
+                "id": "B1",
+                "label": "Trophy Stakes",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Row of spiked stakes displaying past gladiators' weapons and skulls. Light cover. Improvised weapons (vibroblades, cudgels) can be wrenched free with a Physique check. PSYCHOLOGICAL HAZARD: PCs forced into this zone face a Resolve check (-1 stress on failure)."
+              },
+              {
+                "id": "C1",
+                "label": "Chain Mounts",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Heavy chains hang from anchor points on the wall. Light cover. CAN BE GRABBED — a PC can take a chain (action) to use as an improvised whip/grapple weapon, or to swing across to the central drain (Athletics)."
+              },
+              {
+                "id": "D1",
+                "label": "Crowd Wall (East)",
+                "passable": false,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Eastern barrier. Impassable. Spectator boxes loom above — Varga's court watches from here."
+              },
+              {
+                "id": "A2",
+                "label": "Sand Hollow",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Loose, deep sand depression. Light cover from the lip. ENVIRONMENT: a fighter standing here can kick sand at an adjacent foe ([Disoriented] for one round, no roll required — costs an action)."
+              },
+              {
+                "id": "B2",
+                "label": "Central Drain",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Iron grating over the pit's drainage. No cover, but the centerpiece of the arena. Crowd cheers loudest for kills here. Slightly slick — Athletics check to sprint across without slipping."
+              },
+              {
+                "id": "C2",
+                "label": "Fallen Columns",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Toppled stone columns (from a previous match's collapse). Hard cover. Climbable for a brief height advantage (costs an action)."
+              },
+              {
+                "id": "D2",
+                "label": "Judgment Stone",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Raised dais of black stone where the crowd expects a finishing blow. Light cover from the stone edge. Reaching this zone with the opponent prone scores massive crowd favor (narrative reward)."
+              },
+              {
+                "id": "A3",
+                "label": "Gladiator Gate",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Iron portcullis where fighters enter the pit. Light cover from the bars. Closes behind combatants — no exit while the match is live."
+              },
+              {
+                "id": "B3",
+                "label": "Sand Floor (Center-South)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Open sand. No cover. Long sightlines to every other zone. The default engagement space."
+              },
+              {
+                "id": "C3",
+                "label": "Torch Sconce",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Wall-mounted torch sconce. Light cover from the post. HAZARD: knock the torch loose for a small fire patch (1 stress to enter, lasts 2 rounds)."
+              },
+              {
+                "id": "D3",
+                "label": "Beast Gate",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Iron portcullis where beasts are released. No cover. CLOSED in this match (no beast); but a PC who reaches it can attempt to force it open (Engineering, Hard) — if released mid-fight, the match becomes a three-way."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (Champion)",
+                "zone": "Gladiator Gate",
+                "notes": "Enters from the western portcullis. Standard rules: non-lethal, but a real fight."
+              },
+              {
+                "who": "Opposing Champion",
+                "zone": "Beast Gate",
+                "notes": "Enters opposite. Heavy melee build expected — pushes for the central drain or judgment stone for crowd favor."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Single-combat arena, non-lethal exhibition rules but real danger. The crowd is part of the encounter — finishes at the central drain or judgment stone earn massive narrative reward; fights that drag in the gladiator/beast gate corners earn boos. The sand floor (B3) is the default neutral ground. ENVIRONMENTAL LEVERS: (1) sand hollow — kick sand for free [Disoriented]; (2) chain mounts — grab a chain for improvised weapon/grapple; (3) torch sconce — knock loose for fire patch; (4) trophy stakes — wrench a weapon free; (5) fallen columns — hard cover and brief elevation; (6) beast gate — Engineering check to release a hidden beast and turn the match three-way (high-risk, GM-discretion drama). The pit is enclosed — no escape until the match resolves. The opposing fighter typically pushes for the centerpiece zones (central drain, judgment stone) to play to the crowd.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 100,
+                "y": 350
+              },
+              "npc_0": {
+                "x": 700,
+                "y": 200
+              }
+            }
+          }
         },
         {
           "id": "adv2-p2-s2",
@@ -3414,7 +3712,167 @@
               "power": 1,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "aviary",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "20ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Western Undergrowth",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Dense fern thicket beneath the canopy. Light cover, heavy concealment. Difficult terrain. Predators favor this zone for ambush approaches."
+              },
+              {
+                "id": "B1",
+                "label": "Canopy Walk (West)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Elevated wooden walkway through the upper canopy. Light cover from the railing. Grants +1 elevation/sightlines. Climbable from below (Athletics)."
+              },
+              {
+                "id": "C1",
+                "label": "Canopy Walk (East)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Continuation of the walkway. Light cover. Connects to the southeast roost. The high lane — flying threats prefer altitude."
+              },
+              {
+                "id": "D1",
+                "label": "Northeast Tech Bay",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Aviary control alcove with monitor stations. Hard cover. CAN COMMAND the environmental control station from here (overrides local handler's controls — Computers check, Hard)."
+              },
+              {
+                "id": "A2",
+                "label": "Stone Path",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Smooth stone walkway through the aviary. No cover, but fast — the only zone that doesn't cost extra to traverse. The kill zone — fast but exposed to diving threats."
+              },
+              {
+                "id": "B2",
+                "label": "Eastern Thicket",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Dense vegetation. Light cover, heavy concealment. Difficult terrain. Used as cover between strikes by ground/air predators."
+              },
+              {
+                "id": "C2",
+                "label": "Open Glade",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Clearing with a small reflecting pool. No cover, sightlines to every other zone. Diving attacks from the canopy walk converge here."
+              },
+              {
+                "id": "D2",
+                "label": "Environmental Control Station",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Climate-controlled console. Hard cover. CONTROLS: trigger mist (concealment everywhere for 2 rounds), darkness (drops aviary to dark for 2 rounds), or aviary doors (lock/unlock entry/exit). Disrupts pack coordination."
+              },
+              {
+                "id": "A3",
+                "label": "Southwest Corner",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Shaded corner with low ferns. Light cover, concealment. Dead-end pocket — limited maneuver space."
+              },
+              {
+                "id": "B3",
+                "label": "Aviary Doors (South)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Reinforced doors. LOCKED at scene start — opens from the environmental control station OR by picking the lock at the southeast entrance (Engineering, Hard)."
+              },
+              {
+                "id": "C3",
+                "label": "Watering Pool",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Shallow pool. Light cover from the rim. Slick footing — Athletics check to sprint through. Drinking-trough for the aviary's inhabitants — predators pass through here regularly."
+              },
+              {
+                "id": "D3",
+                "label": "Southeast Roost",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Carved stone roost with overhangs. Hard cover. Predator nesting/launching site — defenders hole up here when wounded. Climbable to canopy walk (Athletics)."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "Stone Path",
+                "notes": "Mid-aviary when the doors lock and predators are released. Exposed — should move to cover (undergrowth, tech bay, control station) immediately."
+              },
+              {
+                "who": "Predators (perch flock)",
+                "zone": "Canopy Walk (East)",
+                "notes": "Launch diving attacks from elevation. Drop on PCs in open zones, retreat to roosts between strikes."
+              },
+              {
+                "who": "Predators (ground pack)",
+                "zone": "Western Undergrowth",
+                "notes": "Use the undergrowth and thicket for concealment between strikes. Coordinated pack behavior — flank from cover."
+              },
+              {
+                "who": "Handler (commands the pack)",
+                "zone": "Northeast Tech Bay",
+                "notes": "Commands from elevation/cover with whistle signals. Pack scatters to the southeast roost and defends territorially if the handler is downed."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Pack hunters with environmental advantage in dense terrain. The aviary doors are LOCKED at scene start — escape requires reaching the environmental control station OR picking the southeast entrance lock. The canopy walk is the high lane (favored by flying/diving threats); the stone path is the fast-but-exposed kill zone; the undergrowth and thicket give predators concealment between strikes. ENVIRONMENTAL LEVERS: (1) environmental control station — trigger mist, darkness, or unlock the doors (disrupts pack coordination, opens escape); (2) tech bay — alternative path to the same controls. PACK BEHAVIOR: coordinated while the handler is up; if the handler falls, the pack retreats to the southeast roost and defends territorially (becomes ambush rather than pursuit). The watering pool is a regular pack route — predators may drop in there mid-fight from off-map.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 200,
+                "y": 280
+              },
+              "npc_0": {
+                "x": 700,
+                "y": 100
+              },
+              "npc_1": {
+                "x": 100,
+                "y": 100
+              },
+              "npc_2": {
+                "x": 720,
+                "y": 460
+              },
+              "npc_3": {
+                "x": 600,
+                "y": 200
+              }
+            }
+          }
         },
         {
           "id": "adv2-p2-s4",
@@ -4311,7 +4769,168 @@
               "power": 2,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "knife-in-the-dark",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "10ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Balcony",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Stone balcony overlooking the courtyard. Light cover from the railing. Climbable (Athletics) — only secondary route in or out. Drop is two stories."
+              },
+              {
+                "id": "B1",
+                "label": "Bed Alcove (West)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Curtained sleeping alcove. Light cover from drapes (concealment, not protection). PCs may start prone here if asleep when ambush triggers."
+              },
+              {
+                "id": "C1",
+                "label": "Bed Alcove (East)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Second sleeping alcove. Same as B1 — concealment only. Difficult terrain (bedding, sheets)."
+              },
+              {
+                "id": "D1",
+                "label": "Hidden Weapon Cache",
+                "passable": true,
+                "cover": "full",
+                "lighting": "dim",
+                "terrain": "Concealed wall panel — a paranoid PC may have stashed weapons here at scene-prep time. Requires a Perception check (Easy if PC stashed, Hard otherwise) to find and retrieve. Action to access."
+              },
+              {
+                "id": "A2",
+                "label": "Washroom",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "dim",
+                "terrain": "Tiled washroom. Hard cover from the doorway and tub. Slick floor — Athletics to sprint across without slipping. Steam piping (HAZARD — rupture for concealment cloud across A1/A2)."
+              },
+              {
+                "id": "B2",
+                "label": "Main Chamber",
+                "passable": true,
+                "cover": "none",
+                "lighting": "dim",
+                "terrain": "Central living area. No cover. Clear sightlines from the entrance to the bed alcoves. The kill zone — assassins want their targets here, exposed."
+              },
+              {
+                "id": "C2",
+                "label": "Low Table",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Carved stone table with seating. Light cover. Improvised weapons (carafes, decorative knives) within reach. Can be tipped for additional cover (action) — becomes hard cover behind it."
+              },
+              {
+                "id": "D2",
+                "label": "Wall Tapestries",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Heavy hanging tapestries against the wall. Light cover, concealment. Can be torn down (action) to drape over a foe ([Restrained] for one round) or cover a body."
+              },
+              {
+                "id": "A3",
+                "label": "Servant Door",
+                "passable": true,
+                "cover": "none",
+                "lighting": "dim",
+                "terrain": "Narrow staff entrance. No cover. Locked (Engineering, Easy to pick) — secondary escape. Leads to the kitchens."
+              },
+              {
+                "id": "B3",
+                "label": "Main Doorway",
+                "passable": true,
+                "cover": "none",
+                "lighting": "dim",
+                "terrain": "Carved double doors — the obvious entrance. Where the assassins breach. No cover at the threshold. Can be barred (action, Engineering) once cleared."
+              },
+              {
+                "id": "C3",
+                "label": "Antechamber",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Small entry vestibule before the doors. Light cover from a column. Where additional supports stack before pushing in."
+              },
+              {
+                "id": "D3",
+                "label": "Window Slit",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Narrow ventilation window. Light cover from the frame. Too small to climb through (a child or droid could). Useful for line-of-sight only."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (sleeping)",
+                "zone": "Bed Alcove (West)",
+                "notes": "Distribute PCs across the bed alcoves and main chamber based on player stated positions. Asleep or off-guard when the ambush triggers. Likely [Disoriented] turn 1. May be unarmed if no weapon was stashed. Distribute PCs across the bed alcoves and main chamber based on player stated positions."
+              },
+              {
+                "who": "PCs (sleeping, alt)",
+                "zone": "Bed Alcove (East)",
+                "notes": "Alternate alcove for PCs not assigned to the western alcove."
+              },
+              {
+                "who": "Assassin (Heavy / Melee)",
+                "zone": "Main Doorway",
+                "notes": "Breaches first. Pushes into the main chamber for melee range against the closest target."
+              },
+              {
+                "who": "Assassin (Ranged)",
+                "zone": "Antechamber",
+                "notes": "Holds the doorway. Cuts off retreat through the main entrance. Targets PCs trying to flee."
+              },
+              {
+                "who": "Assassin (Optional flank)",
+                "zone": "Balcony",
+                "notes": "If GM uses a third attacker: enters via the balcony (climbed during the previous beat). Strikes from behind while the others pin the room."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Nighttime ambush in close quarters — PCs are likely off-guard, possibly unarmed, possibly [Disoriented] for round 1. Lighting is DIM throughout (assassins favor it; GMs may rule it as concealment for stealth approaches). The main chamber is the kill zone; the bed alcoves are concealment but not protection. ENVIRONMENTAL LEVERS: (1) hidden weapon cache — paranoid PC prep pays off here; (2) low table — tip for hard cover; (3) wall tapestries — tear down to restrain a foe; (4) washroom steam — rupture pipes for concealment cloud; (5) main doors — bar after clearing to prevent reinforcements. ESCAPE ROUTES: balcony (climb, two-story drop) or servant door (pick the lock). The window slit is sightline-only. WIN CONDITION: survive and either kill the assassins or escape — a PC who makes the balcony or servant door is out and safe.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 200,
+                "y": 100
+              },
+              "npc_0": {
+                "x": 480,
+                "y": 460
+              },
+              "npc_1": {
+                "x": 600,
+                "y": 460
+              },
+              "npc_2": {
+                "x": 100,
+                "y": 100
+              }
+            }
+          }
         },
         {
           "id": "adv2-p2-s7",
@@ -4717,7 +5336,159 @@
               "power": 3,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "hidden-lab",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "10ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Entry Door",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "The hidden lab's only conventional entrance. No cover at the threshold. Can be sealed (Engineering) once cleared to prevent reinforcements."
+              },
+              {
+                "id": "B1",
+                "label": "Control Console (West)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Main lab control bank. Hard cover. INTERACT: shut down or override the elite droids' targeting (Computers, Hard) — they go [Stunned] for one round."
+              },
+              {
+                "id": "C1",
+                "label": "Control Console (East)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Secondary console. Hard cover. INTERACT: cycle the lab lights (drop to dark for 2 rounds — droids have low-light sensors so they're less affected, but PCs gain concealment)."
+              },
+              {
+                "id": "D1",
+                "label": "Droid Alcove (East)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Recessed charging alcove where one elite droid was docked at scene start. Light cover from the alcove edges. Power couplings exposed (HAZARD — shoot the coupling for an arc burst, 1 stress to droids in adjacent zones)."
+              },
+              {
+                "id": "A2",
+                "label": "Workbench (West)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Cluttered workbench with tools and droid parts. Light cover. Improvised weapons (vibroblades, ion drivers) within reach. Difficult terrain (cables, parts on the floor)."
+              },
+              {
+                "id": "B2",
+                "label": "Lab Floor (Center)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Open lab floor. No cover. Clear sightlines from both droid alcoves to the cryostasis pod. The kill zone — both droids will sweep this with overlapping fire."
+              },
+              {
+                "id": "C2",
+                "label": "Shelving",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Tall shelving stacked with sample jars and equipment. Light cover. Can be toppled (Physique check) for difficult terrain in adjacent zones — also damages anyone caught under it (1 stress)."
+              },
+              {
+                "id": "D2",
+                "label": "Droid Alcove (West)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Mirror of D1 — second elite droid's charging position. Same hazard (exposed power couplings). Light cover."
+              },
+              {
+                "id": "A3",
+                "label": "Lab Tables (Annex)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Side annex with research tables. Light cover. Holds research data — a PC can grab the data (action) for narrative reward (intel on Denia's captivity)."
+              },
+              {
+                "id": "B3",
+                "label": "Cryostasis Pod",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Denia's cryostasis pod. Hard cover from the housing. PROTECT — hostile fire that lands here risks damaging the pod. Pod can be unlocked (Computers, Hard) to wake/release Denia."
+              },
+              {
+                "id": "C3",
+                "label": "Maintenance Hatch",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Floor access to lab maintenance. No cover. Slow to traverse (action to climb through). Secondary escape route — leads to a service tunnel under the palace."
+              },
+              {
+                "id": "D3",
+                "label": "Solid Wall (Reinforced)",
+                "passable": false,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Reinforced bunker wall. Impassable. Lined with shielded conduits — heat and EM-shielded against external scans (which is why the lab stays hidden)."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "Entry Door",
+                "notes": "Just breached the hidden door. Initially in the entry zone — should advance to cover (workbench, control console, shelving) immediately as droids activate."
+              },
+              {
+                "who": "Elite Droid #1",
+                "zone": "Droid Alcove (East)",
+                "notes": "Activates from charging dock. Heavy armor, integrated weapons. Pushes into the lab floor for overlapping fire on the entry zone."
+              },
+              {
+                "who": "Elite Droid #2",
+                "zone": "Droid Alcove (West)",
+                "notes": "Mirror of Droid #1. Establishes crossfire with its counterpart across the central lab floor."
+              },
+              {
+                "who": "Denia (objective NPC)",
+                "zone": "Cryostasis Pod",
+                "notes": "In stasis. Not a combatant. Pod is a protect-target — stray fire risks damaging it. Can be released (Computers check) to wake her."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Two heavy security threats activate from charging alcoves and establish crossfire across the open lab floor. The lab floor (B2) is the kill zone. PROTECT TARGET: the cryostasis pod is hard cover but stray fire risks damaging it (and harming the captive inside). ENVIRONMENTAL LEVERS: (1) ion weapons / ion drivers from the workbench — extremely effective vs. droid armor; (2) control consoles — Computers checks to override targeting ([Stunned] one round) or kill the lights; (3) exposed power couplings in droid alcoves — shoot for an arc burst that damages the docked droid; (4) shelving — topple for difficult terrain and impact damage. ESCAPE ROUTE: maintenance hatch (slow but viable). PRIORITY: PCs should fight from cover, use ion weapons, and either disable the droids or push to the pod / hatch — direct slugging match favors the heavily-armored droids.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 100,
+                "y": 100
+              },
+              "npc_0": {
+                "x": 720,
+                "y": 200
+              },
+              "npc_1": {
+                "x": 720,
+                "y": 360
+              }
+            }
+          }
         },
         {
           "id": "adv2-p2-s8",
@@ -4940,7 +5711,7 @@
               "type": "combat",
               "trigger": "Heroes encounter Demos in the corridor",
               "description": "Demos with vibro-staff and minor Force powers, flanked by 2 Trandoshan bodyguards. Mini-boss fight.",
-              "tactics": "Demos uses Force Slam to separate the party. Bodyguards flank isolated targets. Focus fire on the strongest-looking PC."
+              "tactics": "SCENE TACTICS (NPC-agnostic): Tight escape corridor, sparse cover (cargo crates, support pillars), long sightlines down the hall. The lead threat works to separate the party — push isolated PCs into side alcoves, doorways, or against bulkheads where the rest of the crew can't reach. Supports flank isolated targets and focus fire on the most-armored or highest-threat PC. Choke points: doorways and bulkhead seals — PCs can lock or jam them to delay pursuit. Hazards: emergency klaxons and warning lights — GM may rule visibility/distraction effects. The exit is the goal — every round trading shots is a round more security converges."
             }
           ],
           "environmentMechanics": [
@@ -5093,7 +5864,158 @@
               "power": 3,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "escape-corridor",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "15ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Corridor (Behind PCs)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Corridor behind the PCs. No cover. Pursuit pressure — additional security closes from this direction each round combat continues."
+              },
+              {
+                "id": "B1",
+                "label": "Bulkhead Seal (Rear)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Heavy bulkhead door. Light cover from the frame. Can be SEALED (Engineering, Moderate) to cut off the rear pursuit — buys 2 rounds before they cut through."
+              },
+              {
+                "id": "C1",
+                "label": "Side Alcove (West)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "dim",
+                "terrain": "Recessed maintenance alcove. Hard cover. Concealment from the main corridor. Useful for a PC pinning down the boss-tier threat — or a trap if the PC is isolated there."
+              },
+              {
+                "id": "D1",
+                "label": "Cargo Crates (West)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Stacked cargo crates against the corridor wall. Hard cover. Can be toppled (Physique) into the corridor for difficult terrain in B2/C2."
+              },
+              {
+                "id": "A2",
+                "label": "Corridor (Mid)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Open corridor. No cover. Long sightlines down the hall. The kill zone for any prolonged engagement."
+              },
+              {
+                "id": "B2",
+                "label": "Support Pillar",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Structural pillar in the middle of the corridor. Light cover from either side. The only mid-corridor cover — both sides will fight over it."
+              },
+              {
+                "id": "C2",
+                "label": "Corridor (Mid-East)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "More open corridor. No cover. Where the boss-tier threat tries to isolate PCs against the bulkheads."
+              },
+              {
+                "id": "D2",
+                "label": "Cargo Crates (East)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Mirror of D1. Hard cover. Toppling these blocks the C2/D2 axis."
+              },
+              {
+                "id": "A3",
+                "label": "Side Alcove (East)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "dim",
+                "terrain": "Mirror of C1. Hard cover, concealment. Where the boss-tier threat will try to push isolated PCs."
+              },
+              {
+                "id": "B3",
+                "label": "Doorway (Choke)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Narrow doorway connecting to the next compartment. Light cover from the frame. Choke point — only one combatant can push through per round without bunching up."
+              },
+              {
+                "id": "C3",
+                "label": "Klaxon Panel",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Emergency klaxon and warning lights. Light cover from the housing. Can be smashed (Engineering) to silence the alarm — slows down the rate of reinforcement arrival behind the PCs."
+              },
+              {
+                "id": "D3",
+                "label": "Hangar Approach",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Final stretch toward the hangar. No cover. The exit zone — a PC who reaches D3 and presses east is one move from the next scene."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "Corridor (Mid)",
+                "notes": "Pushing east toward the hangar. Should sprint for cover (cargo crates, support pillar, side alcoves) on first turn."
+              },
+              {
+                "who": "Boss-Tier Threat",
+                "zone": "Doorway (Choke)",
+                "notes": "Blocks the eastern doorway. Works to separate the party — push isolated PCs into side alcoves where supports can't reach."
+              },
+              {
+                "who": "Bodyguards x2",
+                "zone": "Hangar Approach",
+                "notes": "Flank from the east. Focus fire on the most-armored or highest-threat PC. Use the cargo crates for cover as they advance."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Tight escape corridor with sparse cover and forced movement east. The corridor zones (A1, A2, C2) are the kill zone — long sightlines, no cover. The cargo crates, support pillar, and side alcoves anchor the cover positions. The boss-tier threat works to isolate PCs into side alcoves where supports can't reach; the bodyguards focus-fire the highest-threat target. ENVIRONMENTAL LEVERS: (1) bulkhead seal (rear) — Engineering check to lock out pursuit for 2 rounds; (2) klaxon panel — smash to slow reinforcement rate; (3) cargo crate stacks — topple for difficult terrain and to block flanking lanes. PRESSURE: each round combat continues, more security closes from the rear corridor. WIN CONDITION: reach the hangar approach (D3) — every round trading shots is a round more security converges. Push east, don't stand and fight.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 200,
+                "y": 280
+              },
+              "npc_0": {
+                "x": 600,
+                "y": 360
+              },
+              "npc_1": {
+                "x": 720,
+                "y": 460
+              },
+              "npc_2": {
+                "x": 720,
+                "y": 200
+              }
+            }
+          }
         },
         {
           "id": "adv2-p2-s9",
@@ -5486,7 +6408,167 @@
                 "gmNotes": "DENIA ABANDONED ENDING: The ship is quiet. Varth says nothing about the woman they left in the dungeon. He has already sent a coded message to Draco."
               }
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "hangar-bay-firefight",
+            "gridColumns": 4,
+            "gridRows": 3,
+            "zoneSize": "20ft",
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
+            "zones": [
+              {
+                "id": "A1",
+                "label": "Hangar Entrance",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Open hangar entry. No cover at the threshold. Where the PCs arrive and the troopers are working to seal them out."
+              },
+              {
+                "id": "B1",
+                "label": "Tibanna Crates (NW)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Stacked Tibanna gas containers. Hard cover. HAZARD: shoot the crates for an explosion — area damage in this zone and adjacents (clears positions but indiscriminate). Once exploded, becomes burning ground (1 stress) for 2 rounds."
+              },
+              {
+                "id": "C1",
+                "label": "Tibanna Crates (NE)",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Mirror of B1 — more Tibanna stacks. Same explosion hazard. The two stacks form a shooting gallery between them."
+              },
+              {
+                "id": "D1",
+                "label": "Control Booth",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Elevated hangar control booth. Hard cover. INTERACT: open/close the blast doors (Engineering), trigger the fire suppression (drops dense foam — concealment everywhere for 1 round), or kill the hangar lights."
+              },
+              {
+                "id": "A2",
+                "label": "Maintenance Walkway (West)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Catwalk along the western wall. Light cover from the rail. Climbable (Athletics) for elevation. Connects A1 to A3."
+              },
+              {
+                "id": "B2",
+                "label": "Open Hangar Floor (West)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Open floor next to the parked ship. No cover. Clear sightlines to the trooper firing positions. The kill zone west."
+              },
+              {
+                "id": "C2",
+                "label": "Open Hangar Floor (East)",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "Mirror of B2. No cover. Kill zone east."
+              },
+              {
+                "id": "D2",
+                "label": "Fuel Pumps",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Hangar refueling station. Light cover. HAZARD: a stray shot ignites — explosion damages this zone and adjacents, then burning ground for the rest of the scene. WORSE than the Tibanna crates — also cuts off ship refueling if the GM wants that complication later."
+              },
+              {
+                "id": "A3",
+                "label": "Ship Ramp",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "The PCs' (or witness's) parked ship. Ramp is down. Hard cover from the landing struts. Boarding ends the scene for that PC. INTERACT: spool engines (Pilot, Easy) for a getaway."
+              },
+              {
+                "id": "B3",
+                "label": "Cargo Loader",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Heavy cargo loader / repulsorlift. Hard cover. Mobile — a PC can pilot it (Operations check) for moving cover, or drive it into a trooper position for ramming damage."
+              },
+              {
+                "id": "C3",
+                "label": "Trooper Firing Line",
+                "passable": true,
+                "cover": "hard",
+                "lighting": "normal",
+                "terrain": "Improvised firing line — sandbags and stacked crates. Hard cover. Where the troopers have set up to eliminate witnesses. Anchor of the trooper position."
+              },
+              {
+                "id": "D3",
+                "label": "Blast Doors (Far)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Heavy blast doors leading deeper into the facility. Light cover from the frame. CLOSED at scene start — opens from the control booth or via Engineering at the doors (Hard). Reinforcements arrive here if doors are forced open."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "Hangar Entrance",
+                "notes": "Arrive at the entrance just as the firefight is in progress. Should sprint for the maintenance walkway, Tibanna crates (cover but explosive), or ship ramp on first turn."
+              },
+              {
+                "who": "Troopers (firing line)",
+                "zone": "Trooper Firing Line",
+                "notes": "Anchored behind sandbags at C3. Half the squad — overlapping fire across the open floor."
+              },
+              {
+                "who": "Troopers (forward positions)",
+                "zone": "Tibanna Crates (NE)",
+                "notes": "Other half — pushed forward behind the Tibanna crates. Vulnerable to the explosion hazard if PCs target the crates."
+              },
+              {
+                "who": "Witness (objective NPC)",
+                "zone": "Ship Ramp",
+                "notes": "The witness the troopers are trying to silence. Pinned behind the ship's landing struts. Win condition: extract them alive."
+              }
+            ],
+            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): Hangar bay firefight — heavy hard cover on both sides with deadly open lanes between. Open hangar floor (B2, C2) is the kill zone. ENVIRONMENTAL LEVERS: (1) Tibanna crates — shoot for explosions that clear positions but are indiscriminate (good for breaking enemy cover, bad if PCs are caught in the splash); (2) fuel pumps — even worse explosion, with persistent burning ground; (3) control booth — open/close blast doors, trigger fire-suppression foam (concealment everywhere for 1 round), or kill the lights; (4) cargo loader — mobile cover or improvised ramming weapon. WIN CONDITION: extract the witness (NPC at the ship ramp) and board the ship. The troopers are trying to eliminate witnesses, not capture — they'll prioritize firing on the witness if PCs leave them exposed. The blast doors at D3 are closed at scene start; if forced open, reinforcements arrive — keep them sealed.",
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 100,
+                "y": 100
+              },
+              "npc_0": {
+                "x": 600,
+                "y": 460
+              },
+              "npc_1": {
+                "x": 620,
+                "y": 440
+              },
+              "npc_2": {
+                "x": 600,
+                "y": 480
+              },
+              "npc_3": {
+                "x": 720,
+                "y": 100
+              }
+            }
+          }
         }
       ]
     }
