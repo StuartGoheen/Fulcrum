@@ -416,7 +416,7 @@
               "id": "sc-a2s1-intimidate",
               "discipline": "intimidate",
               "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
-              "arena": "presence",
+              "arena": "grit",
               "actionType": "interact",
               "control": {
                 "failure": "Kessra doesn't flinch. The Vipers close in. Pay the tax or fight.",
@@ -805,7 +805,7 @@
               "id": "sc-a2s2-insight",
               "discipline": "insight",
               "context": "Reading body language in the crowd. Spotting who gets nervous when the Devaronian is mentioned.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Too much noise. The encampment is a wall of anxiety and desperation — everyone looks nervous.",
@@ -826,7 +826,7 @@
               "id": "sc-a2s2-intimidation",
               "discipline": "intimidate",
               "context": "Leaning on a local who clearly knows something but won't talk.",
-              "arena": "presence",
+              "arena": "grit",
               "actionType": "interact",
               "control": {
                 "failure": "They shut down completely. Mouth closed, eyes down. And three people nearby saw you threaten someone — word will spread.",
@@ -847,7 +847,7 @@
               "id": "sc-a2s2-streetwise",
               "discipline": "skulduggery",
               "context": "Working the underworld channels. Trading favors for information. Speaking the right language to the right people.",
-              "arena": "wits",
+              "arena": "reflex",
               "actionType": "interact",
               "control": {
                 "failure": "You're not plugged in here. Blackwind Point has its own networks and you're an outsider. No traction.",
@@ -1102,7 +1102,7 @@
               "id": "sc-a2s3-insight",
               "discipline": "insight",
               "context": "Reading Raden's mental state to find the right approach. What is he most afraid of?",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "isOptional": true,
               "control": {
@@ -1980,7 +1980,7 @@
               "discipline": "insight",
               "context": "Reading the court dynamics — who has power, who is plotting.",
               "isOptional": true,
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Overwhelming sensory chaos. Too many players to read. The court is a blur of agendas.",
@@ -2434,7 +2434,7 @@
               "discipline": "insight",
               "complexity": "simple",
               "context": "Reading the crowd and court dynamics during the arena fight.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Too focused on the fight to notice anything. The crowd is just noise.",
@@ -2842,7 +2842,7 @@
               "complexity": "complex",
               "context": "Detecting Narek's poison in the drinks being served to Varga.",
               "narrativePacing": "Key check that drives the scene's central decision. Early detection gives more options; late detection forces crisis action.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Nothing seems off. The drinks are served. Events proceed toward the 'do nothing' outcome unless another hero intervenes.",
@@ -2864,7 +2864,7 @@
               "discipline": "insight",
               "complexity": "simple",
               "context": "Reading Vel Crekk during the Iron Ring negotiations.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Zabrak discipline makes him hard to read. He seems confident and in control. Standard negotiation.",
@@ -2886,7 +2886,7 @@
               "discipline": "insight",
               "complexity": "simple",
               "context": "Assessing Grakkus — the Wookiee enforcer watching from the margins.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Big, powerful, looks dangerous. That's all you get.",
@@ -3721,7 +3721,7 @@
               "discipline": "insight",
               "complexity": "simple",
               "context": "Reading Sinde's body language during the evening feast.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "She's controlled. Professional. Nothing readable. ISB training is effective.",
@@ -4204,7 +4204,7 @@
               "discipline": "insight",
               "complexity": "simple",
               "context": "Waking up before the assassins strike — sensing the wrongness in the corridor.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "You wake to a blade at your throat. The assassins have full surprise. First round: the heroes cannot act.",
@@ -4227,7 +4227,7 @@
               "complexity": "simple",
               "context": "Retroactive preparation — did you stash a weapon in your quarters?",
               "narrativePacing": "Resolved before the fight begins. A flashback check.",
-              "arena": "wits",
+              "arena": "reflex",
               "actionType": "interact",
               "control": {
                 "failure": "Nothing stashed. Improvised weapons only. The confidence of arriving prepared is replaced by the scramble of fighting with a chair leg.",
@@ -4294,7 +4294,7 @@
               "complexity": "complex",
               "context": "Interrogating a captured assassin about who ordered the hit.",
               "isOptional": true,
-              "arena": "presence",
+              "arena": "grit",
               "actionType": "interact",
               "control": {
                 "failure": "The assassin is more afraid of Demos than of you. 'Kill me. It's better than what he'll do.' No information.",
@@ -5009,7 +5009,7 @@
               "discipline": "insight",
               "context": "Reading Demos's Force abilities — is he trained?",
               "isOptional": true,
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Terrifying display. His abilities seem formidable. No way to tell if he's trained or not.",

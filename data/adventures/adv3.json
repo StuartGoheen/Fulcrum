@@ -394,7 +394,7 @@
               "discipline": "insight",
               "context": "Reading the threatening message — is it a real threat or a warning?",
               "isOptional": true,
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Reads as a genuine threat. Approach with caution — may be a trap.",
@@ -637,7 +637,7 @@
               "id": "sc-a3s2-insight",
               "discipline": "insight",
               "context": "Reading Fyren and Krygg — are they trustworthy?",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Hard to read. Ugnaught body language is unfamiliar. Could be genuine or a setup.",
@@ -1365,7 +1365,7 @@
               "id": "sc-a3s4-insight",
               "discipline": "insight",
               "context": "Studying Arandis's playing pattern over surveillance.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "She seems like what she claims — a wealthy patron enjoying the tournament.",
@@ -2000,7 +2000,7 @@
               "id": "sc-a3s6-insight",
               "discipline": "insight",
               "context": "Reading other players — identifying Varga's proxy.",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Too many players to read. Can't identify the connection. Everyone's wearing a poker face.",
@@ -2366,7 +2366,7 @@
               "id": "sc-a3s7-insight",
               "discipline": "insight",
               "context": "Reading Szygar — is he genuinely dangerous or just desperate?",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "He looks unhinged. Could go either way. Dangerous to approach.",
@@ -2388,7 +2388,7 @@
               "discipline": "intimidate",
               "context": "Commanding Szygar to drop the weapon.",
               "isOptional": true,
-              "arena": "presence",
+              "arena": "grit",
               "actionType": "interact",
               "control": {
                 "failure": "Szygar panics harder. The blaster swings wildly. Situation worsens.",
@@ -2677,7 +2677,7 @@
               "id": "sc-a3s8-insight",
               "discipline": "insight",
               "context": "Reading Fioro's intentions — will she run immediately?",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Hard to read in the chaos. She could run or cooperate — fifty-fifty.",
@@ -3337,7 +3337,7 @@
               "id": "sc-a3s10-insight",
               "discipline": "insight",
               "context": "Reading Fioro — is she telling the truth about Varga's location?",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "Varth's logic seems sound. 'It's the only way.' No reason to doubt the tactical assessment.",
@@ -5451,7 +5451,7 @@
               "id": "sc-a3s16-insight",
               "discipline": "insight",
               "context": "Reading Varth after his silence nearly killed Maya. What is he really?",
-              "arena": "wits",
+              "arena": "presence",
               "actionType": "assess",
               "control": {
                 "failure": "His explanation seems reasonable — 'tactical calculation.' But something doesn't sit right. You can't articulate why.",
