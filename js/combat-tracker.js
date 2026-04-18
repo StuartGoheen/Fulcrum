@@ -700,7 +700,14 @@
     _placementNpcId = null;
     var sock = getSocket();
     if (sock) {
-      sock.emit('combat:end', summary ? { summary: summary } : undefined);
+      var endPayload = undefined;
+      if (summary) {
+        endPayload = { summary: summary };
+        if (combatState && combatState.scene && combatState.scene.id) {
+          endPayload.sceneId = combatState.scene.id;
+        }
+      }
+      sock.emit('combat:end', endPayload);
     }
     if (summary) showCombatSummaryModal(summary);
     combatState = null;
@@ -815,7 +822,8 @@
     if (sock) {
       sock.emit('combat:start', {
         encounterName: combatState.encounter.name,
-        highestTier: combatState.highestTier
+        highestTier: combatState.highestTier,
+        sceneId: (combatState.scene && combatState.scene.id) || null
       });
       combatState.joinBattleSent = true;
       renderCombatTracker();

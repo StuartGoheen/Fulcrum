@@ -174,6 +174,100 @@ function _stopCombatHeartbeat() {
   }
 }
 
+function _formatCombatLogBody(summary) {
+  const t = summary.totals || {};
+  const lines = [];
+  lines.push('Encounter: ' + (summary.encounterName || 'Combat'));
+  lines.push('Rounds: ' + (t.rounds || 0) +
+    ' | Escalations: ' + (t.escalations || 0) +
+    ' | Conditions: ' + (t.conditions || 0) +
+    ' | KOs: ' + (t.kos || 0));
+  lines.push('');
+  if (summary.koList && summary.koList.length) {
+    lines.push('Knocked Out:');
+    summary.koList.forEach(function (n) { lines.push('  • ' + n); });
+    lines.push('');
+  }
+  if (summary.standing && summary.standing.length) {
+    lines.push('Still Standing:');
+    summary.standing.forEach(function (n) { lines.push('  • ' + n); });
+    lines.push('');
+  }
+  lines.push('———');
+  const log = Array.isArray(summary.log) ? summary.log : [];
+  lines.push('Full Log (' + log.length + ' events):');
+  if (!log.length) {
+    lines.push('  (no events recorded)');
+  } else {
+    log.forEach(function (e) {
+      lines.push('[R' + (e.round || 1) + '] ' + (e.text || ''));
+    });
+  }
+  return lines.join('\n');
+}
+
+async function _saveCombatLogToJournal(summary, sceneId) {
+  if (!summary) return null;
+  const encounterName = summary.encounterName || 'Combat';
+  const title = 'Combat Log: ' + encounterName;
+  const body = _formatCombatLogBody(summary);
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const entryResult = await client.query(
+      `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+       VALUES ($1, $2, $3, $4) RETURNING id`,
+      [title, body, 'Combat Log', sceneId || null]
+    );
+    const entryId = entryResult.rows[0].id;
+
+    const tagPairs = [{ name: 'Combat', category: 'custom' }];
+    if (encounterName) tagPairs.push({ name: encounterName, category: 'custom' });
+
+    if (sceneId) {
+      try {
+        const adventuresDir = path.join(__dirname, '..', '..', 'data', 'adventures');
+        const files = fs.readdirSync(adventuresDir).filter(f => /^adv\d+\.json$/.test(f));
+        for (const f of files) {
+          let adv;
+          try { adv = JSON.parse(fs.readFileSync(path.join(adventuresDir, f), 'utf8')); }
+          catch (e) { continue; }
+          for (const part of (adv.parts || [])) {
+            for (const s of (part.scenes || [])) {
+              if (s.id === sceneId && s.title) {
+                tagPairs.push({ name: s.title, category: 'location' });
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    for (const tp of tagPairs) {
+      const tagResult = await client.query(
+        `INSERT INTO journal_tags (name, category, is_custom)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name
+         RETURNING id`,
+        [tp.name, tp.category, tp.category === 'custom']
+      );
+      await client.query(
+        'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+        [entryId, tagResult.rows[0].id]
+      );
+    }
+
+    await client.query('COMMIT');
+    return entryId;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 function registerHandlers(io) {
   io.on('connection', (socket) => {
     console.log(`[socket] Connected: ${socket.id}`);
@@ -645,7 +739,7 @@ function registerHandlers(io) {
       }
     });
 
-    socket.on('combat:start', ({ encounterName, highestTier }) => {
+    socket.on('combat:start', ({ encounterName, highestTier, sceneId }) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can start combat.' });
         return;
@@ -654,6 +748,7 @@ function registerHandlers(io) {
         active: true,
         encounterName: encounterName || 'Combat',
         highestTier: highestTier || 0,
+        sceneId: sceneId || null,
         responses: {},
         startedAt: Date.now(),
         combatants: [],
@@ -846,12 +941,15 @@ function registerHandlers(io) {
       console.log(`[socket] ${socket.data.characterName} joined battle: control=${control} power=${power} surprised=${surprised} mastery=${mastery}`);
     });
 
-    socket.on('combat:end', (payload) => {
+    socket.on('combat:end', async (payload) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can end combat.' });
         return;
       }
       const summary = payload && payload.summary ? payload.summary : null;
+      const payloadSceneId = payload && payload.sceneId ? String(payload.sceneId) : null;
+      const stateSceneId = (_combatState && _combatState.sceneId) ? String(_combatState.sceneId) : null;
+      const sceneId = payloadSceneId || stateSceneId;
       if (summary && summary.totals) {
         const t = summary.totals;
         console.log(`[socket] GM ended combat: ${summary.encounterName} — rounds=${t.rounds} escalations=${t.escalations} conditions=${t.conditions} kos=${t.kos} logEntries=${(summary.log || []).length}`);
@@ -863,6 +961,18 @@ function registerHandlers(io) {
       _broadcastedMapPins = [];
       _stopCombatHeartbeat();
       io.to('players').emit('combat:ended');
+
+      if (summary) {
+        try {
+          const entryId = await _saveCombatLogToJournal(summary, sceneId);
+          if (entryId) {
+            io.emit('journal:updated', { entryId });
+            console.log(`[socket] Combat log saved to journal entry #${entryId}`);
+          }
+        } catch (err) {
+          console.error('[socket] combat:end journal save error:', err);
+        }
+      }
     });
 
     socket.on('combat:request', () => {
