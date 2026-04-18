@@ -95,6 +95,78 @@
     return out;
   }
 
+  function _proseInlineFormat(text) {
+    var s = String(text == null ? '' : text);
+    var m = s.match(/^([^a-z\n:]{4,80}:)(\s+|$)/);
+    if (m) {
+      return '<strong class="cb-prose-label">' + esc(m[1]) + '</strong>' + (m[2] ? ' ' : '') + linkify(s.substring(m[0].length));
+    }
+    return linkify(s);
+  }
+
+  function _formatProse(text) {
+    if (text == null) return '';
+    var s = String(text).replace(/\r\n/g, '\n').trim();
+    if (!s) return '';
+    var paragraphs = s.split(/\n\n+/);
+    var html = '';
+    paragraphs.forEach(function (para) {
+      var lines = para.split(/\n/).map(function (l) { return l.replace(/\s+$/, ''); }).filter(function (l) { return l.trim().length > 0; });
+      if (!lines.length) return;
+      var i = 0;
+      var pendingHeader = null;
+      while (i < lines.length) {
+        var line = lines[i].replace(/^\s+/, '');
+        var headerOnly = line.match(/^([^a-z\n:]{4,80}):$/);
+        if (headerOnly && (i + 1 < lines.length)) {
+          pendingHeader = headerOnly[1];
+          i++;
+          continue;
+        }
+        if (/^[•\-]\s+/.test(line)) {
+          var items = [];
+          while (i < lines.length) {
+            var cur = lines[i].replace(/^\s+/, '');
+            if (!/^[•\-]\s+/.test(cur)) break;
+            items.push(cur.replace(/^[•\-]\s+/, ''));
+            i++;
+          }
+          var listHtml = '<ul class="cb-prose-list">';
+          items.forEach(function (it) { listHtml += '<li>' + _proseInlineFormat(it) + '</li>'; });
+          listHtml += '</ul>';
+          if (pendingHeader) {
+            html += '<div class="cb-prose-section"><div class="cb-prose-header">' + esc(pendingHeader) + '</div>' + listHtml + '</div>';
+            pendingHeader = null;
+          } else {
+            html += listHtml;
+          }
+        } else {
+          var paraBuf = [];
+          while (i < lines.length) {
+            var cur2 = lines[i].replace(/^\s+/, '');
+            if (/^[•\-]\s+/.test(cur2)) break;
+            var hdr2 = cur2.match(/^([^a-z\n:]{4,80}):$/);
+            if (hdr2 && (i + 1 < lines.length) && paraBuf.length) break;
+            paraBuf.push(cur2);
+            i++;
+          }
+          var paraText = paraBuf.join(' ');
+          if (pendingHeader) {
+            html += '<div class="cb-prose-section"><div class="cb-prose-header">' + esc(pendingHeader) + '</div><p>' + _proseInlineFormat(paraText) + '</p></div>';
+            pendingHeader = null;
+          } else {
+            html += '<p>' + _proseInlineFormat(paraText) + '</p>';
+          }
+        }
+      }
+      if (pendingHeader) {
+        html += '<div class="cb-prose-header">' + esc(pendingHeader) + '</div>';
+        pendingHeader = null;
+      }
+    });
+    return html;
+  }
+
   var socket = typeof io !== 'undefined' ? io() : null;
   if (socket) window.__sharedSocket = socket;
 
@@ -758,19 +830,19 @@
     if (scene.readAloudPart1 && scene.readAloudPart2) {
       h += '<div class="cb-read-aloud" style="margin-bottom:0.75rem;" data-tts-section="part1">';
       h += '<div class="cb-section-label">Read-Aloud — Part 1 <button class="cb-tts-narrate-btn" data-tts-action="narrate-all" title="Narrate Part 1 then auto-continue to Part 2">&#9654; Narrate</button></div>';
-      h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart1) + '</div>';
+      h += '<div class="cb-read-aloud-text cb-prose">' + _formatProse(scene.readAloudPart1) + '</div>';
       if (scene.readAloudPart1PauseNote) {
         h += '<div class="cb-pause-note" style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.85rem;font-style:italic;">' + scene.readAloudPart1PauseNote + '</div>';
       }
       h += '</div>';
       h += '<div class="cb-read-aloud" style="margin-top:6px;" data-tts-section="part2">';
       h += '<div class="cb-section-label">Read-Aloud — Part 2 <button class="cb-tts-narrate-btn" data-tts-action="narrate-part2" title="Narrate Part 2">&#9654; Narrate</button></div>';
-      h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart2) + '</div>';
+      h += '<div class="cb-read-aloud-text cb-prose">' + _formatProse(scene.readAloudPart2) + '</div>';
       h += '</div>';
     } else if (scene.readAloud) {
       h += '<div class="cb-read-aloud" data-tts-section="single">';
       h += '<div class="cb-section-label">Player Read-Aloud <button class="cb-tts-narrate-btn" data-tts-action="narrate-single" title="Narrate">&#9654; Narrate</button></div>';
-      h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div>';
+      h += '<div class="cb-read-aloud-text cb-prose">' + _formatProse(scene.readAloud) + '</div>';
       h += '</div>';
     }
     return h;
@@ -778,7 +850,7 @@
 
   function _buildGmNotesHtml(scene) {
     if (!scene.gmNotes) return '';
-    return '<div class="cb-gm-notes"><div class="cb-section-label">GM Notes</div><div>' + linkify(scene.gmNotes) + '</div></div>';
+    return '<div class="cb-gm-notes"><div class="cb-section-label">GM Notes</div><div class="cb-prose">' + _formatProse(scene.gmNotes) + '</div></div>';
   }
 
   function _buildNpcRosterHtml(scene) {
@@ -2868,8 +2940,8 @@
       var beatRaCollapsed = _runSceneCollapsed[beatRaKey] === true; // default expanded
       html += '<div class="cb-rs-strip cb-rs-beat-readaloud' + (beatRaCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(beatRaKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(beatRaKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128220; Read Aloud</span><span class="cb-rs-strip-hint">click to ' + (beatRaCollapsed ? 'expand' : 'collapse') + '</span></div>';
-      html += '<div class="cb-rs-strip-body">';
-      html += linkify(beat.readAloud).split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      html += '<div class="cb-rs-strip-body cb-prose">';
+      html += _formatProse(beat.readAloud);
       html += '</div></div>';
     }
     if (beat.description) html += '<div class="cb-rs-beat-desc">' + linkify(beat.description) + '</div>';
@@ -2878,8 +2950,8 @@
       var beatNotesCollapsed = _runSceneCollapsed[beatNotesKey] !== false; // default collapsed
       html += '<div class="cb-rs-strip cb-rs-beat-gmnotes' + (beatNotesCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(beatNotesKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(beatNotesKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128221; GM Notes for this Beat</span><span class="cb-rs-strip-hint">click to ' + (beatNotesCollapsed ? 'expand' : 'collapse') + '</span></div>';
-      html += '<div class="cb-rs-strip-body">';
-      html += linkify(beat.gmNotes).split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      html += '<div class="cb-rs-strip-body cb-prose">';
+      html += _formatProse(beat.gmNotes);
       html += '</div></div>';
     }
     if (beat.tactics) html += '<div class="cb-rs-beat-tactics"><div class="cb-rs-beat-tactics-label">GM Tactics</div>' + linkify(beat.tactics) + '</div>';
@@ -2935,6 +3007,17 @@
       html += '<div class="cb-rs-strip' + (notesCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(notesKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(notesKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128221; GM Notes</span><span class="cb-rs-strip-hint">click to ' + (notesCollapsed ? 'expand' : 'collapse') + '</span></div>';
       html += '<div class="cb-rs-strip-body">' + _buildGmNotesHtml(scene) + '</div>';
+      html += '</div>';
+    }
+
+    // Checks strip — surfaces structured disciplineChallenges / skillChecks
+    var rsDcList = (scene.disciplineChallenges && scene.disciplineChallenges.length) ? scene.disciplineChallenges : (scene.skillChecks || []);
+    if (rsDcList.length) {
+      var checksKey = scene.id + ':checks';
+      var checksCollapsed = _runSceneCollapsed[checksKey] !== false; // default collapsed
+      html += '<div class="cb-rs-strip cb-rs-checks' + (checksCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(checksKey) + '">';
+      html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(checksKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#127922; Checks for this Scene <span class="cb-rs-checks-count">(' + rsDcList.length + ')</span></span><span class="cb-rs-strip-hint">click to ' + (checksCollapsed ? 'expand' : 'collapse') + '</span></div>';
+      html += '<div class="cb-rs-strip-body">' + _buildChallengesHtml(scene) + '</div>';
       html += '</div>';
     }
 
