@@ -2966,7 +2966,8 @@
     container.querySelectorAll('[data-rs-toggle]').forEach(function (head) {
       head.addEventListener('click', function () {
         var key = head.getAttribute('data-rs-toggle');
-        _runSceneCollapsed[key] = !(_runSceneCollapsed[key] === false);
+        var isCollapsed = _runSceneCollapsed[key] !== false;
+        _runSceneCollapsed[key] = !isCollapsed;
         _persistRunScene(scene.id);
         renderScene();
       });
