@@ -194,12 +194,20 @@
           "hazards": "Imperial spies. Varga's informant network. Wing Guard patrols.",
           "decisionPoints": [
             {
-              "choice": "Trace the threatening message",
-              "consequence": "Leads to the Ugnaught Parliament of Guilds in the Industrial District."
-            },
-            {
-              "choice": "Continue investigating openly",
-              "consequence": "Risk attracting Varga's attention and Imperial surveillance."
+              "id": "adv3-p1-s1-key-decision",
+              "prompt": "Key Decision: The Brick Wall",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Trace the threatening message",
+                  "consequence": "Leads to the Ugnaught Parliament of Guilds in the Industrial District."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Continue investigating openly",
+                  "consequence": "Risk attracting Varga's attention and Imperial surveillance."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -502,12 +510,20 @@
           "hazards": "Industrial District — steam, noise, narrow catwalks. Imperial surveillance possible.",
           "decisionPoints": [
             {
-              "choice": "Accept the Ugnaught deal",
-              "consequence": "Leads to a tactical combat encounter at the refinery. Intel reward is worth it."
-            },
-            {
-              "choice": "Demand the intel first",
-              "consequence": "Ugnaughts refuse. They need proof the heroes are willing to act."
+              "id": "adv3-p1-s2-key-decision",
+              "prompt": "Key Decision: The Industrial Connection",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Accept the Ugnaught deal",
+                  "consequence": "Leads to a tactical combat encounter at the refinery. Intel reward is worth it."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Demand the intel first",
+                  "consequence": "Ugnaughts refuse. They need proof the heroes are willing to act."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -813,12 +829,20 @@
           "hazards": "Catwalks over a lethal drop. Gas tank explosions. Steam pipe scald damage. High winds.",
           "decisionPoints": [
             {
-              "choice": "Ambush the Trandoshans",
-              "consequence": "Element of surprise. Risk of gas tank explosions in crossfire."
-            },
-            {
-              "choice": "Try to disable the shuttle first",
-              "consequence": "Prevents escape but alerts the Trandoshans. Harder initial engagement."
+              "id": "adv3-p1-s3-key-decision",
+              "prompt": "Key Decision: The Refinery Rumble",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Ambush the Trandoshans",
+                  "consequence": "Element of surprise. Risk of gas tank explosions in crossfire."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Try to disable the shuttle first",
+                  "consequence": "Prevents escape but alerts the Trandoshans. Harder initial engagement."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -1176,16 +1200,25 @@
           "hazards": "Heavy hotel security. Imperial surveillance. High-profile public venue.",
           "decisionPoints": [
             {
-              "choice": "Enter as a tournament player",
-              "consequence": "Direct access to the table. Requires gambling skill."
-            },
-            {
-              "choice": "Infiltrate as casino security",
-              "consequence": "Free movement but no access to the game itself."
-            },
-            {
-              "choice": "Infiltrate the droid maintenance crew",
-              "consequence": "Can rig dealer droids. High-tech approach."
+              "id": "adv3-p1-s4-key-decision",
+              "prompt": "Key Decision: The Imperial Mark",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Enter as a tournament player",
+                  "consequence": "Direct access to the table. Requires gambling skill."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Infiltrate as casino security",
+                  "consequence": "Free movement but no access to the game itself."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Infiltrate the droid maintenance crew",
+                  "consequence": "Can rig dealer droids. High-tech approach."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -1443,12 +1476,20 @@
           "hazards": "Star Destroyer in orbit. Time pressure. Draco's willingness to destroy the entire city.",
           "decisionPoints": [
             {
-              "choice": "Proceed with the tournament plan",
-              "consequence": "Must win the pot before Draco acts. High pressure."
-            },
-            {
-              "choice": "Try to grab Varga directly",
-              "consequence": "Skips the tournament but alerts everyone. Extremely dangerous without the credits."
+              "id": "adv3-p1-s5-key-decision",
+              "prompt": "Key Decision: The Buy-In",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Proceed with the tournament plan",
+                  "consequence": "Must win the pot before Draco acts. High pressure."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Try to grab Varga directly",
+                  "consequence": "Skips the tournament but alerts everyone. Extremely dangerous without the credits."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -1822,12 +1863,20 @@
           "hazards": "Surveillance systems. Smugglers with hidden weapons. Spice deals. Imperial undercover agents.",
           "decisionPoints": [
             {
-              "choice": "Focus on winning hands",
-              "consequence": "Advance in the tournament but may miss crucial intelligence."
-            },
-            {
-              "choice": "Focus on gathering intel on Arandis and Fioro",
-              "consequence": "Better prepared for the heist but risk elimination from the tournament."
+              "id": "adv3-p2-s1-key-decision",
+              "prompt": "Key Decision: The Elimination Rounds",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Focus on winning hands",
+                  "consequence": "Advance in the tournament but may miss crucial intelligence."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Focus on gathering intel on Arandis and Fioro",
+                  "consequence": "Better prepared for the heist but risk elimination from the tournament."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2161,12 +2210,20 @@
           "hazards": "Armed gambler in a crowded casino. Potential for mass panic. Stormtroopers ready to intervene lethally.",
           "decisionPoints": [
             {
-              "choice": "Subdue Szygar quietly",
-              "consequence": "Earns trust from Mandelbrot. Casino stays open. Tournament continues."
-            },
-            {
-              "choice": "Let Arandis's men handle it",
-              "consequence": "They kill Szygar. Potential police investigation. Risk of tournament cancellation."
+              "id": "adv3-p2-s2-key-decision",
+              "prompt": "Key Decision: The Pressure Cooker",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Subdue Szygar quietly",
+                  "consequence": "Earns trust from Mandelbrot. Casino stays open. Tournament continues."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Let Arandis's men handle it",
+                  "consequence": "They kill Szygar. Potential police investigation. Risk of tournament cancellation."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2498,12 +2555,20 @@
           "hazards": "Packed casino. Security everywhere. Fioro will try to leave immediately.",
           "decisionPoints": [
             {
-              "choice": "Intercept Fioro immediately",
-              "consequence": "Direct confrontation in the casino. Public and messy."
-            },
-            {
-              "choice": "Follow Fioro and grab her outside",
-              "consequence": "Cleaner but she might reach Varga's people first."
+              "id": "adv3-p2-s3-key-decision",
+              "prompt": "Key Decision: The Final Table",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Intercept Fioro immediately",
+                  "consequence": "Direct confrontation in the casino. Public and messy."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Follow Fioro and grab her outside",
+                  "consequence": "Cleaner but she might reach Varga's people first."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2891,12 +2956,20 @@
           "hazards": "Three-way crossfire. Panicking civilians (difficult terrain). Overturned tables. Flying weaponized droids.",
           "decisionPoints": [
             {
-              "choice": "Save Fioro from Draver",
-              "consequence": "Secures the datapad intel. She'll reveal Varga's location in gratitude/fear."
-            },
-            {
-              "choice": "Grab the datapad in the chaos",
-              "consequence": "May not get Varga's location. But secures the credits."
+              "id": "adv3-p2-s4-key-decision",
+              "prompt": "Key Decision: The Heist",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Save Fioro from Draver",
+                  "consequence": "Secures the datapad intel. She'll reveal Varga's location in gratitude/fear."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Grab the datapad in the chaos",
+                  "consequence": "May not get Varga's location. But secures the credits."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -3154,8 +3227,15 @@
           "hazards": "Wing Guard closing in. Imperial Star Destroyer entering the system. Time pressure.",
           "decisionPoints": [
             {
-              "choice": "Race to Docking Bay 4414",
-              "consequence": "Sprint through a city in lockdown. Leads to Part 3."
+              "id": "adv3-p2-s5-key-decision",
+              "prompt": "Key Decision: The Aftermath",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Race to Docking Bay 4414",
+                  "consequence": "Sprint through a city in lockdown. Leads to Part 3."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -3492,12 +3572,20 @@
           "hazards": "City lockdown. Steam pipes. Narrow catwalks. Corrupt law enforcement. Must keep moving or be overwhelmed.",
           "decisionPoints": [
             {
-              "choice": "Run and use the environment",
-              "consequence": "Faster. Steam pipes, cargo skiffs, and maintenance ducts as escape tools."
-            },
-            {
-              "choice": "Fight through directly",
-              "consequence": "Slower. Risks being overwhelmed by reinforcements."
+              "id": "adv3-p3-s1-key-decision",
+              "prompt": "Key Decision: The Gauntlet",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Run and use the environment",
+                  "consequence": "Faster. Steam pipes, cargo skiffs, and maintenance ducts as escape tools."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Fight through directly",
+                  "consequence": "Slower. Risks being overwhelmed by reinforcements."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -3979,12 +4067,20 @@
           "hazards": "Open hangar to Bespin's clouds. Z-95s attempting takeoff. Fuel crates. Magnetic field boundary.",
           "decisionPoints": [
             {
-              "choice": "Stop the Z-95s from launching",
-              "consequence": "Prevents aerial strafing. Heroes might hijack fighters for the escape."
-            },
-            {
-              "choice": "Rush Varga directly",
-              "consequence": "Risk being strafed if fighters launch, but could end the fight faster."
+              "id": "adv3-p3-s2-key-decision",
+              "prompt": "Key Decision: Hutt's Hangar",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Stop the Z-95s from launching",
+                  "consequence": "Prevents aerial strafing. Heroes might hijack fighters for the escape."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Rush Varga directly",
+                  "consequence": "Risk being strafed if fighters launch, but could end the fight faster."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -4299,12 +4395,20 @@
           "hazards": "Fuel crate explosions. Z-95 engine wash. Narrow yacht corridors if boarding.",
           "decisionPoints": [
             {
-              "choice": "Board the Glorious Chariot",
-              "consequence": "Close-quarters fight with Varga in his own ship. Can capture the yacht."
-            },
-            {
-              "choice": "Disable engines from outside",
-              "consequence": "Safer but Varga might have an escape pod."
+              "id": "adv3-p3-s3-key-decision",
+              "prompt": "Key Decision: The Firefight",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Board the Glorious Chariot",
+                  "consequence": "Close-quarters fight with Varga in his own ship. Can capture the yacht."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Disable engines from outside",
+                  "consequence": "Safer but Varga might have an escape pod."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -4557,12 +4661,20 @@
           "hazards": "30-second countdown. Stormtrooper platoon incoming. Must launch immediately.",
           "decisionPoints": [
             {
-              "choice": "Take the Glorious Chariot",
-              "consequence": "Luxury yacht with decent shields and weapons. The primary escape vehicle."
-            },
-            {
-              "choice": "Also grab Z-95 fighters",
-              "consequence": "Additional firepower for the orbital battle. Requires pilots."
+              "id": "adv3-p3-s4-key-decision",
+              "prompt": "Key Decision: Grand Theft Starship",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Take the Glorious Chariot",
+                  "consequence": "Luxury yacht with decent shields and weapons. The primary escape vehicle."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Also grab Z-95 fighters",
+                  "consequence": "Additional firepower for the orbital battle. Requires pilots."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -4859,16 +4971,6 @@
             }
           ],
           "hazards": "Star Destroyer in orbit. TIE Fighter screen. Automated Gas Hauler on collision course. Two-minute countdown.",
-          "decisionPoints": [
-            {
-              "choice": "Turn and fight to save Maya",
-              "consequence": "Engage TIEs and destroy the Gas Hauler. Varth reluctantly helps. Heroic but dangerous."
-            },
-            {
-              "choice": "Follow Varth's order and jump to hyperspace",
-              "consequence": "Maya dies. The slaves die. The heroes are rich but compromised."
-            }
-          ],
           "decisionPoints": [
             {
               "id": "dp-maya-fate",
@@ -5223,8 +5325,15 @@
           "hazards": "Turbolaser fire from the Assiduous. Must jump to hyperspace immediately.",
           "decisionPoints": [
             {
-              "choice": "Confront Varth about his betrayal",
-              "consequence": "He deflects — 'tactical calculation.' But the heroes now know what he's capable of."
+              "id": "adv3-p3-s6-key-decision",
+              "prompt": "Key Decision: The Choice",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Confront Varth about his betrayal",
+                  "consequence": "He deflects — 'tactical calculation.' But the heroes now know what he's capable of."
+                }
+              ]
             }
           ],
           "loreTags": [

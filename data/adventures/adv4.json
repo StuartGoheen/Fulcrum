@@ -397,12 +397,20 @@
           "npcs": [],
           "decisionPoints": [
             {
-              "choice": "Parley — Lower weapons and attempt diplomacy with the Ewoks",
-              "consequence": "The Ewoks escort the crew to the village. They meet Chief Chirpa, the Storyteller, and gain guides and intelligence about the Dead Forest. The Ewok blessing becomes available in Part 2."
-            },
-            {
-              "choice": "Pyre — Fight through the Ewok ambush with overwhelming force",
-              "consequence": "The Ewoks scatter but the forest turns hostile. No village scene, no guides, no Storyteller intelligence. The trek to the Dead Forest is longer and harder. The crew arrives at the Spire depleted and without the Ewok blessing."
+              "id": "adv4-p1-s4-key-decision",
+              "prompt": "Key Decision: Parley or Pyre",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Parley — Lower weapons and attempt diplomacy with the Ewoks",
+                  "consequence": "The Ewoks escort the crew to the village. They meet Chief Chirpa, the Storyteller, and gain guides and intelligence about the Dead Forest. The Ewok blessing becomes available in Part 2."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Pyre — Fight through the Ewok ambush with overwhelming force",
+                  "consequence": "The Ewoks scatter but the forest turns hostile. No village scene, no guides, no Storyteller intelligence. The trek to the Dead Forest is longer and harder. The crew arrives at the Spire depleted and without the Ewok blessing."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -610,12 +618,20 @@
           ],
           "decisionPoints": [
             {
-              "choice": "Save the Ewoks — throw themselves into the jaws of the pack to protect their guides",
-              "consequence": "The crew takes injuries but saves most of the scouts. At the boundary, the lead Ewok presses a carved wooden totem into a hero's hand — a quiet blessing from a harsh world. The crew has allies in the forest."
-            },
-            {
-              "choice": "Let them die — conserve strength for the Spire and prioritize the mission",
-              "consequence": "The Ewok guides are slaughtered. The crew steps over the bodies of those who trusted them. No totem, no blessing. Only the sound of carrion birds gathering in the canopy."
+              "id": "adv4-p2-s2-key-decision",
+              "prompt": "Key Decision: The Test of Conscience",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Save the Ewoks — throw themselves into the jaws of the pack to protect their guides",
+                  "consequence": "The crew takes injuries but saves most of the scouts. At the boundary, the lead Ewok presses a carved wooden totem into a hero's hand — a quiet blessing from a harsh world. The crew has allies in the forest."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Let them die — conserve strength for the Spire and prioritize the mission",
+                  "consequence": "The Ewok guides are slaughtered. The crew steps over the bodies of those who trusted them. No totem, no blessing. Only the sound of carrion birds gathering in the canopy."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -743,12 +759,20 @@
           ],
           "decisionPoints": [
             {
-              "choice": "Compassion — Sacrifice time and resources to free Thorla from the cage and coax him back from the edge",
-              "consequence": "The crew gains fragmentary intelligence about Draco's forces and movements. Thorla is too broken to fight but can be evacuated. He becomes a potential holocron interpreter in the Adventure 5 interlude. The parallel to Denia's rescue is honored."
-            },
-            {
-              "choice": "The Clock — Step over the discarded Jedi and press deeper into the Spire, prioritizing the mission",
-              "consequence": "Faster progress but the crew repeats the cold calculus Varth demands of them. No intelligence about Draco's disposition. Thorla is abandoned in the dark — another life discarded for the payday."
+              "id": "adv4-p3-s1-key-decision",
+              "prompt": "Key Decision: The Shattered Seal",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Compassion — Sacrifice time and resources to free Thorla from the cage and coax him back from the edge",
+                  "consequence": "The crew gains fragmentary intelligence about Draco's forces and movements. Thorla is too broken to fight but can be evacuated. He becomes a potential holocron interpreter in the Adventure 5 interlude. The parallel to Denia's rescue is honored."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "The Clock — Step over the discarded Jedi and press deeper into the Spire, prioritizing the mission",
+                  "consequence": "Faster progress but the crew repeats the cold calculus Varth demands of them. No intelligence about Draco's disposition. Thorla is abandoned in the dark — another life discarded for the payday."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -875,12 +899,20 @@
           ],
           "decisionPoints": [
             {
-              "choice": "Conscience over Violence — Lower weapons, trust allies, accept the ugly truths to shatter the illusions",
-              "consequence": "The mirrors break. The crew reunites. Heroes who overcome the phantoms gain a moment of clarity in the heart of the dark."
-            },
-            {
-              "choice": "Give in to fear — Attack the phantoms with lethal intent",
-              "consequence": "The heroes fire blindly at their own friends in the dark. Allies are wounded. The psychological damage carries forward — the dark got inside their heads."
+              "id": "adv4-p3-s3-key-decision",
+              "prompt": "Key Decision: The Hall of Mirrors",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Conscience over Violence — Lower weapons, trust allies, accept the ugly truths to shatter the illusions",
+                  "consequence": "The mirrors break. The crew reunites. Heroes who overcome the phantoms gain a moment of clarity in the heart of the dark."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Give in to fear — Attack the phantoms with lethal intent",
+                  "consequence": "The heroes fire blindly at their own friends in the dark. Allies are wounded. The psychological damage carries forward — the dark got inside their heads."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -932,12 +964,20 @@
           ],
           "decisionPoints": [
             {
-              "choice": "Dominion — The Nightsister opens her mind to the void and dominates the trapped spirits",
-              "consequence": "The spirits are enslaved and the path clears. The Nightsister gains a dangerous taste of dark side power — intoxicating and corrosive. She used the dead as tools, just as Varth uses the living."
-            },
-            {
-              "choice": "Release — The crew fights to physically shatter the husks and free the trapped spirits",
-              "consequence": "A brutal, close-quarters battle. The crew takes injuries but grants the tortured souls the release they've been denied for centuries. Merciful, costly, and right."
+              "id": "adv4-p3-s4-key-decision",
+              "prompt": "Key Decision: The Hollowed",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Dominion — The Nightsister opens her mind to the void and dominates the trapped spirits",
+                  "consequence": "The spirits are enslaved and the path clears. The Nightsister gains a dangerous taste of dark side power — intoxicating and corrosive. She used the dead as tools, just as Varth uses the living."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Release — The crew fights to physically shatter the husks and free the trapped spirits",
+                  "consequence": "A brutal, close-quarters battle. The crew takes injuries but grants the tortured souls the release they've been denied for centuries. Merciful, costly, and right."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -1010,12 +1050,20 @@
           ],
           "decisionPoints": [
             {
-              "choice": "The Half-Measure — Snatch the Jedi Holocron and run, securing half the map and prioritizing survival",
-              "consequence": "The crew escapes with the Jedi Holocron (incomplete navigation data). Safer, but they leave the Sith Holocron for the Empire to potentially recover. The charts will need drift algorithms to be usable regardless."
-            },
-            {
-              "choice": "The Grave — Push forward into the teeth of the Dark Troopers and the Dragon to seize the Sith Holocron from the pedestal",
-              "consequence": "The crew risks annihilation but may secure both holocrons — the complete set of Revan's navigation data. Maximum risk, maximum reward. The Sith Holocron rejects Draco during the assault, creating a window of chaos."
+              "id": "adv4-p3-s5-key-decision",
+              "prompt": "Key Decision: The Abyssal Vault",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "The Half-Measure — Snatch the Jedi Holocron and run, securing half the map and prioritizing survival",
+                  "consequence": "The crew escapes with the Jedi Holocron (incomplete navigation data). Safer, but they leave the Sith Holocron for the Empire to potentially recover. The charts will need drift algorithms to be usable regardless."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "The Grave — Push forward into the teeth of the Dark Troopers and the Dragon to seize the Sith Holocron from the pedestal",
+                  "consequence": "The crew risks annihilation but may secure both holocrons — the complete set of Revan's navigation data. Maximum risk, maximum reward. The Sith Holocron rejects Draco during the assault, creating a window of chaos."
+                }
+              ]
             }
           ],
           "loreTags": [

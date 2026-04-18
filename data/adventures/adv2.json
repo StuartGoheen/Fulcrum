@@ -310,16 +310,6 @@
           "hazards": "Muddy terrain at the landing pad — difficult terrain, movement costs double. Swoops ignore this. Ferrocrete pad edges provide stable footing.",
           "decisionPoints": [
             {
-              "choice": "Pay Kessra's landing tax",
-              "consequence": "Marked as easy targets. Pickpockets and grifters will target you in the encampment. No aviary ambush later."
-            },
-            {
-              "choice": "Humiliate Kessra (fight or intimidate)",
-              "consequence": "Local respect earned. But Kessra holds a grudge — she reappears inside the fortress for the aviary ambush (Part 2, Scene 3)."
-            }
-          ],
-          "decisionPoints": [
-            {
               "id": "dp-kessra-grudge",
               "prompt": "How do the heroes handle Kessra's landing tax at Blackwind Point?",
               "campaignImpact": "kessra-grudge",
@@ -524,12 +514,20 @@
           "hazards": "The encampment itself is not physically dangerous, but drawing too much attention is. Failed investigation attempts alert Varga's network or the Trandoshan hit squad already hunting Raden.",
           "decisionPoints": [
             {
-              "choice": "Pursue the investigation thoroughly (reach 10 VP)",
-              "consequence": "Complete picture — exact location of Raden's hiding spot. Clean approach to the filtration plant."
-            },
-            {
-              "choice": "Leave early with partial information",
-              "consequence": "Must search the swamp edge. Raden's trip-wires catch the crew off guard. Complications at the filtration plant."
+              "id": "adv2-p1-s2-key-decision",
+              "prompt": "Key Decision: Working the Encampment",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Pursue the investigation thoroughly (reach 10 VP)",
+                  "consequence": "Complete picture — exact location of Raden's hiding spot. Clean approach to the filtration plant."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Leave early with partial information",
+                  "consequence": "Must search the swamp edge. Raden's trip-wires catch the crew off guard. Complications at the filtration plant."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -927,20 +925,6 @@
           "hazards": "Swamp terrain approaching the plant. Raden's crude trip-wires and perimeter alarms if crew left the encampment with < 10 VP.",
           "decisionPoints": [
             {
-              "choice": "Earn Raden's trust (light path)",
-              "consequence": "Raden shares everything — maps, guard rotations, Varga's habits, TC-663's location, cover identity coaching. He stays behind at the filtration plant or flees off-world. Heroes enter the fortress on their own cover."
-            },
-            {
-              "choice": "Threaten Raden for intel",
-              "consequence": "Raden gives minimum intel — maps only, no details on routines or TC-663. Tells the crew to leave and never come back. Heroes enter the fortress with thin preparation."
-            },
-            {
-              "choice": "Deliver Raden to Varga (Varth's dark path)",
-              "consequence": "Heroes take Raden by force or deception. They arrive at the fortress with a valuable gift — a fugitive returned in chains. Varga is delighted and immediately trusts the newcomers. Triggers the Execution of Raden event in Part 2. Dark Side / Corruption destiny moment."
-            }
-          ],
-          "decisionPoints": [
-            {
               "id": "dp-raden-fate",
               "prompt": "How do the heroes handle Raden at the filtration plant?",
               "campaignImpact": "raden-fate",
@@ -1225,12 +1209,20 @@
           "hazards": "Cramped industrial machinery. Bursting steam pipes (Tech check for area denial). Collapsing catwalks (upper catwalk on primary tank — more than two people risks collapse). Single-file pipe corridors. Slick treatment pool walkways. Settling tanks are difficult terrain (chest-deep water). Sentry droid wreckage blocks the southern gate (difficult terrain, one round).",
           "decisionPoints": [
             {
-              "choice": "Hold position and fight",
-              "consequence": "The crew uses the filtration plant's chokepoints. Defensible but no escape route if overwhelmed."
-            },
-            {
-              "choice": "Fight toward the rear exit",
-              "consequence": "Running battle through the machinery. More mobile but Raden is harder to protect in motion."
+              "id": "adv2-p1-s4-key-decision",
+              "prompt": "Key Decision: The Hit Squad",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Hold position and fight",
+                  "consequence": "The crew uses the filtration plant's chokepoints. Defensible but no escape route if overwhelmed."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Fight toward the rear exit",
+                  "consequence": "Running battle through the machinery. More mobile but Raden is harder to protect in motion."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -1725,12 +1717,20 @@
           "hazards": "Hostile court environment. Surrounded by Varga's forces. No weapons allowed in the throne room (confiscated at the door). Violence = instant death.",
           "decisionPoints": [
             {
-              "choice": "Impress Varga with a spectacular audition",
-              "consequence": "Earn 'guest' status and freedom to move within approved areas of the palace."
-            },
-            {
-              "choice": "Try to intervene when Raden is taken",
-              "consequence": "Extremely dangerous — would blow cover immediately. Varga's court is heavily armed."
+              "id": "adv2-p1-s5-key-decision",
+              "prompt": "Key Decision: The Court of Varga",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Impress Varga with a spectacular audition",
+                  "consequence": "Earn 'guest' status and freedom to move within approved areas of the palace."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Try to intervene when Raden is taken",
+                  "consequence": "Extremely dangerous — would blow cover immediately. Varga's court is heavily armed."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2260,16 +2260,25 @@
           "hazards": "Arena environment — sand floor, repulsor barriers, torch sconces. Crowd throws objects (bottles, food) that can be used as improvised weapons or distractions.",
           "decisionPoints": [
             {
-              "choice": "Fight to win — full effort",
-              "consequence": "Maximum reputation gain. Varga is impressed. Opens doors in the court. Gorrak respects the victor."
-            },
-            {
-              "choice": "Throw the fight deliberately",
-              "consequence": "Deception check to make it look convincing. If successful, appears non-threatening — useful for the cover but limits court access. If caught, Varga is insulted."
-            },
-            {
-              "choice": "Fight dirty — use hidden weapons or Force",
-              "consequence": "Wins the fight but risks exposing true capabilities. Demos may notice Force use. Varga respects ruthlessness but it draws the wrong kind of attention."
+              "id": "adv2-p2-s1-key-decision",
+              "prompt": "Key Decision: The Gladiator Arena",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Fight to win — full effort",
+                  "consequence": "Maximum reputation gain. Varga is impressed. Opens doors in the court. Gorrak respects the victor."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Throw the fight deliberately",
+                  "consequence": "Deception check to make it look convincing. If successful, appears non-threatening — useful for the cover but limits court access. If caught, Varga is insulted."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Fight dirty — use hidden weapons or Force",
+                  "consequence": "Wins the fight but risks exposing true capabilities. Demos may notice Force use. Varga respects ruthlessness but it draws the wrong kind of attention."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2709,20 +2718,30 @@
           "hazards": "Poison in the drinks. Iron Ring enforcers who react violently to interference. Varga's own guards. Court witnesses who could blow the heroes' cover.",
           "decisionPoints": [
             {
-              "choice": "Warn Varga about the poison",
-              "consequence": "Enormous trust gained with Varga. Narek is executed publicly. The heroes saved a crime lord and condemned a slave. Moral cost is real."
-            },
-            {
-              "choice": "Warn Narek privately",
-              "consequence": "Narek may abort or may proceed anyway (Persuasion check). If he proceeds and fails, the investigation threatens everyone."
-            },
-            {
-              "choice": "Swap the poisoned drinks via Skulduggery",
-              "consequence": "Clean resolution. No one dies. Narek is confused. The poison never reaches Varga. But the heroes are now carrying poisoned cups."
-            },
-            {
-              "choice": "Do nothing — let the poison play out",
-              "consequence": "The toxin makes Varga sick but doesn't kill him (Hutt biology). Varga orders an investigation. Narek is eventually caught. Everyone's cover is at risk during the investigation."
+              "id": "adv2-p2-s2-key-decision",
+              "prompt": "Key Decision: The Iron Ring",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Warn Varga about the poison",
+                  "consequence": "Enormous trust gained with Varga. Narek is executed publicly. The heroes saved a crime lord and condemned a slave. Moral cost is real."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Warn Narek privately",
+                  "consequence": "Narek may abort or may proceed anyway (Persuasion check). If he proceeds and fails, the investigation threatens everyone."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Swap the poisoned drinks via Skulduggery",
+                  "consequence": "Clean resolution. No one dies. Narek is confused. The poison never reaches Varga. But the heroes are now carrying poisoned cups."
+                },
+                {
+                  "key": "opt-4",
+                  "label": "Do nothing — let the poison play out",
+                  "consequence": "The toxin makes Varga sick but doesn't kill him (Hutt biology). Varga orders an investigation. Narek is eventually caught. Everyone's cover is at risk during the investigation."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -3091,20 +3110,6 @@
             }
           ],
           "hazards": "Demos's surveillance. Guard patrols. Increasing suspicion from extended stay. Kessra's raptors (conditional).",
-          "decisionPoints": [
-            {
-              "choice": "Focus on TC-663 first",
-              "consequence": "Fastest path to implant identification and palace intelligence. But requires either the code phrase or a risky Charm approach."
-            },
-            {
-              "choice": "Cultivate Gome for financial intel",
-              "consequence": "Slower but safer. Gome volunteers information freely — the challenge is steering him to useful topics. Provides Bespin/Cloud City intel for Adventure 3."
-            },
-            {
-              "choice": "Solo reconnaissance of the fortress",
-              "consequence": "Direct but dangerous. Stealth checks with high risk if caught in restricted areas. Maps escape routes and identifies restricted areas for when things go sideways."
-            }
-          ],
           "decisionPoints": [
             {
               "id": "dp-sinde-cipher",
@@ -3532,20 +3537,30 @@
           "hazards": "ISB investigation. Stormtrooper patrols in Varga's private wing. Sinde's counter-surveillance training. Discovery means Imperial attention.",
           "decisionPoints": [
             {
-              "choice": "Investigate Sinde's true identity",
-              "consequence": "Reveals ISB connection. Dangerous knowledge — if she discovers the heroes know, she will act to protect her cover."
-            },
-            {
-              "choice": "Eavesdrop on the Sinde/Varga meeting",
-              "consequence": "Critical intel: shipment coordinates, 'the Accountant,' payment routing. But failure means being caught in Varga's private wing."
-            },
-            {
-              "choice": "Approach Sinde as a potential ally",
-              "consequence": "Extremely risky but potentially game-changing. Her investigation parallels the heroes'. But she's ISB — trusting her means trusting the Empire."
-            },
-            {
-              "choice": "Avoid Sinde entirely",
-              "consequence": "Safest option. Lose the intel from her meeting but maintain cover. The ISB investigation continues without the heroes' involvement."
+              "id": "adv2-p2-s4-key-decision",
+              "prompt": "Key Decision: The Imperial Shadow",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Investigate Sinde's true identity",
+                  "consequence": "Reveals ISB connection. Dangerous knowledge — if she discovers the heroes know, she will act to protect her cover."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Eavesdrop on the Sinde/Varga meeting",
+                  "consequence": "Critical intel: shipment coordinates, 'the Accountant,' payment routing. But failure means being caught in Varga's private wing."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Approach Sinde as a potential ally",
+                  "consequence": "Extremely risky but potentially game-changing. Her investigation parallels the heroes'. But she's ISB — trusting her means trusting the Empire."
+                },
+                {
+                  "key": "opt-4",
+                  "label": "Avoid Sinde entirely",
+                  "consequence": "Safest option. Lose the intel from her meeting but maintain cover. The ISB investigation continues without the heroes' involvement."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -3711,16 +3726,25 @@
           "hazards": "None — the scene is interrupted before hazards become relevant.",
           "decisionPoints": [
             {
-              "choice": "Prioritize physical access to the diagnostic port",
-              "consequence": "Requires getting close to Varga and interfacing with the implant directly. High risk, high reward — but the plan never executes."
-            },
-            {
-              "choice": "Intercept the data on Bespin instead",
-              "consequence": "Wait for Varga to reach Cloud City where his banking infrastructure is accessible. Safer but requires following him. This becomes the actual path forward."
-            },
-            {
-              "choice": "Convince Varga to provide access willingly",
-              "consequence": "A long shot — but if anyone could charm a Hutt, this crew might. The plan never gets tested."
+              "id": "adv2-p2-s5-key-decision",
+              "prompt": "Key Decision: The Best Laid Plans",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Prioritize physical access to the diagnostic port",
+                  "consequence": "Requires getting close to Varga and interfacing with the implant directly. High risk, high reward — but the plan never executes."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Intercept the data on Bespin instead",
+                  "consequence": "Wait for Varga to reach Cloud City where his banking infrastructure is accessible. Safer but requires following him. This becomes the actual path forward."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Convince Varga to provide access willingly",
+                  "consequence": "A long shot — but if anyone could charm a Hutt, this crew might. The plan never gets tested."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -4021,16 +4045,25 @@
           "hazards": "Darkness (limited visibility). Unarmored heroes. Weapons may not be accessible. Confined quarters limit movement. Assassins have surprise.",
           "decisionPoints": [
             {
-              "choice": "Fight in the quarters",
-              "consequence": "Confined space — favors the Wookiee's reach and limits ranged combat. But the heroes know the room layout."
-            },
-            {
-              "choice": "Break for the corridor",
-              "consequence": "More room to maneuver but risks encountering more enemies or alerting the fortress."
-            },
-            {
-              "choice": "Capture an assassin alive",
-              "consequence": "Difficult during a lethal ambush but provides critical intelligence about who ordered the hit."
+              "id": "adv2-p2-s6-key-decision",
+              "prompt": "Key Decision: Knife in the Dark",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Fight in the quarters",
+                  "consequence": "Confined space — favors the Wookiee's reach and limits ranged combat. But the heroes know the room layout."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Break for the corridor",
+                  "consequence": "More room to maneuver but risks encountering more enemies or alerting the fortress."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Capture an assassin alive",
+                  "consequence": "Difficult during a lethal ambush but provides critical intelligence about who ordered the hit."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -4398,20 +4431,6 @@
             }
           ],
           "hazards": "High-security zone. Silent alarms if stasis machinery is tampered with. Igren Demos can sense Force disturbances. Draco inbound.",
-          "decisionPoints": [
-            {
-              "choice": "Rescue Denia and Raden against Varth's advice",
-              "consequence": "Triggers silent alarm. Demos senses the Force disturbance. But gains a Jedi ally and saves a man from the dungeon. Varth adapts his plan around Denia's presence."
-            },
-            {
-              "choice": "Leave Denia on Varth's recommendation, rescue Raden only",
-              "consequence": "Faster escape. No silent alarm from Force disturbance. But Denia is abandoned in the dungeon. Varth secretly contacts Draco after the escape — Draco recovers her off-camera. The heroes never learn she survived until the Adv10 showdown. The Church of the Force fills the lore-interpreter role in later adventures."
-            },
-            {
-              "choice": "Attempt to eavesdrop on the Demos/Draco holo-call",
-              "consequence": "Reveals Draco is inbound with the Assiduous. Death clock starts. Critical intelligence."
-            }
-          ],
           "decisionPoints": [
             {
               "id": "dp-denia-fate",
@@ -4809,16 +4828,25 @@
           "hazards": "Force powers — Slam and Pull. Environmental hazards (braziers, statues). Narrow corridors favor Demos's staff. Fortress lockdown — blast doors sealing, hostile forces converging.",
           "decisionPoints": [
             {
-              "choice": "Fight Demos head-on",
-              "consequence": "Tough fight but clears the path. Risk: Varga gains more escape time."
-            },
-            {
-              "choice": "Convince Demos that Varga has abandoned him",
-              "consequence": "Persuasion T2 — if successful, Demos steps aside in bitter rage. Saves time and lives."
-            },
-            {
-              "choice": "Split the party — some fight, some run for the hangar",
-              "consequence": "Risky but potentially catches Varga. Smaller groups are more vulnerable."
+              "id": "adv2-p2-s8-key-decision",
+              "prompt": "Key Decision: The Escape",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Fight Demos head-on",
+                  "consequence": "Tough fight but clears the path. Risk: Varga gains more escape time."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Convince Demos that Varga has abandoned him",
+                  "consequence": "Persuasion T2 — if successful, Demos steps aside in bitter rage. Saves time and lives."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Split the party — some fight, some run for the hangar",
+                  "consequence": "Risky but potentially catches Varga. Smaller groups are more vulnerable."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -5179,12 +5207,20 @@
           "hazards": "Open hangar bay. Tibanna gas crates (explosive if hit). Collapsing ceiling from Varga's escape. Stormtrooper crossfire.",
           "decisionPoints": [
             {
-              "choice": "Fight to the ship and pursue Varga",
-              "consequence": "Can get a trajectory lock on Varga's escape vector. Leads to Cloud City."
-            },
-            {
-              "choice": "Eliminate Lady Sinde and the Stormtroopers",
-              "consequence": "Removes Imperial witnesses but costs time. Varga gets further away."
+              "id": "adv2-p2-s9-key-decision",
+              "prompt": "Key Decision: The Hangar Bay",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Fight to the ship and pursue Varga",
+                  "consequence": "Can get a trajectory lock on Varga's escape vector. Leads to Cloud City."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Eliminate Lady Sinde and the Stormtroopers",
+                  "consequence": "Removes Imperial witnesses but costs time. Varga gets further away."
+                }
+              ]
             }
           ],
           "loreTags": [

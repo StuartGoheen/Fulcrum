@@ -1417,12 +1417,20 @@
           "hazards": "Cantina environment — dim lighting, overturned tables, broken glass, panicking patrons. A fight on Jakku draws local attention (Varga's people, local gangs) but NOT Imperial attention.",
           "decisionPoints": [
             {
-              "choice": "Help Maya against the enforcers",
-              "consequence": "The heroes are now entangled in a heist. Maya offers the Code Cylinder job."
-            },
-            {
-              "choice": "Try to stay out of it",
-              "consequence": "The enforcers assume the heroes are Maya's crew regardless — confrontation is unavoidable."
+              "id": "adv1-p1-s1-key-decision",
+              "prompt": "Key Decision: Bad Business at The Burning Deck",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Help Maya against the enforcers",
+                  "consequence": "The heroes are now entangled in a heist. Maya offers the Code Cylinder job."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Try to stay out of it",
+                  "consequence": "The enforcers assume the heroes are Maya's crew regardless — confrontation is unavoidable."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -1865,24 +1873,35 @@
           "hazards": "Derelict vaporator maintenance shed. Rusted shutter, unstable floor sections, exposed conduit. Varga's people don't know where the party went — but that window won't last.",
           "decisionPoints": [
             {
-              "choice": "Accept Maya's offer at her terms — 5 shares for her",
-              "consequence": "The deal is done. The party heads into the badlands with Maya. Scene 3 (The Processor) follows directly."
-            },
-            {
-              "choice": "Negotiate for a better split (Persuasion)",
-              "consequence": "Maya's share can be reduced to a minimum of 2. Each tier of success drops her share by one. She respects the play if it's done well."
-            },
-            {
-              "choice": "Demand more information before committing",
-              "consequence": "Maya gives what she can but holds back personal details. Insight reveals her real motives. She won't wait indefinitely — they need to move."
-            },
-            {
-              "choice": "Refuse and let Maya go alone",
-              "consequence": "Maya leaves. PCs can still find Switch through cantina contacts (Abyssin drifters know the badlands, Nela Bren knows Switch by reputation) — but they lose their cut and Maya's trust."
-            },
-            {
-              "choice": "Try to take the cylinder from Maya",
-              "consequence": "Maya is wounded but not cornered. She'll bolt. The cylinder leads nowhere without Switch — and the PCs have made an enemy of their best lead."
+              "id": "adv1-p1-s2-key-decision",
+              "prompt": "Key Decision: Maya's Offer",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Accept Maya's offer at her terms — 5 shares for her",
+                  "consequence": "The deal is done. The party heads into the badlands with Maya. Scene 3 (The Processor) follows directly."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Negotiate for a better split (Persuasion)",
+                  "consequence": "Maya's share can be reduced to a minimum of 2. Each tier of success drops her share by one. She respects the play if it's done well."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Demand more information before committing",
+                  "consequence": "Maya gives what she can but holds back personal details. Insight reveals her real motives. She won't wait indefinitely — they need to move."
+                },
+                {
+                  "key": "opt-4",
+                  "label": "Refuse and let Maya go alone",
+                  "consequence": "Maya leaves. PCs can still find Switch through cantina contacts (Abyssin drifters know the badlands, Nela Bren knows Switch by reputation) — but they lose their cut and Maya's trust."
+                },
+                {
+                  "key": "opt-5",
+                  "label": "Try to take the cylinder from Maya",
+                  "consequence": "Maya is wounded but not cornered. She'll bolt. The cylinder leads nowhere without Switch — and the PCs have made an enemy of their best lead."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2858,20 +2877,6 @@
             }
           ],
           "hazards": "Cramped underground bunker. Motion sensors active.",
-          "decisionPoints": [
-            {
-              "choice": "Accept Switch's deal — reduced fee for becoming information assets",
-              "consequence": "The cylinder is analyzed. Switch identifies it as ghost transfer authorization. Maya proposes using it on the shuttle at the landing field."
-            },
-            {
-              "choice": "Try to double-cross Switch",
-              "consequence": "Switch has security turrets and backup. Extremely dangerous."
-            },
-            {
-              "choice": "Refuse the deal and try to decrypt elsewhere",
-              "consequence": "No one else on Jakku has the capability. The cylinder stays locked."
-            }
-          ],
           "decisionPoints": [
             {
               "id": "dp-switch-deal",
@@ -5367,12 +5372,20 @@
           "hazards": "Cramped bunker — collapsing droid stacks, steam pipes, Switch's security turrets can be activated as environmental weapons.",
           "decisionPoints": [
             {
-              "choice": "Fight Ganga Lor in the bunker",
-              "consequence": "Cramped quarters combat. Ganga Lor is killed. His death sends a message to Varga."
-            },
-            {
-              "choice": "Try to negotiate or bluff",
-              "consequence": "Ganga Lor has orders to recover the cylinder by force. Negotiation only delays the inevitable."
+              "id": "adv1-p1-s4-key-decision",
+              "prompt": "Key Decision: The Gangster's Revenge",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Fight Ganga Lor in the bunker",
+                  "consequence": "Cramped quarters combat. Ganga Lor is killed. His death sends a message to Varga."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Try to negotiate or bluff",
+                  "consequence": "Ganga Lor has orders to recover the cylinder by force. Negotiation only delays the inevitable."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -6582,20 +6595,30 @@
           "hazards": "Militarized hangar — heavy machinery, incoming Imperial shuttle providing time pressure. Open terrain with limited cover.",
           "decisionPoints": [
             {
-              "choice": "Bluff approach — impersonate Imperial personnel",
-              "consequence": "Requires Deception checks. Lower risk if successful. Disguise Kit helps."
-            },
-            {
-              "choice": "Stealth approach — sneak to the shuttle",
-              "consequence": "Requires Stealth/Skulduggery. Avoids confrontation until extraction."
-            },
-            {
-              "choice": "Create a diversion",
-              "consequence": "Draws guards away but risks escalating the situation."
-            },
-            {
-              "choice": "Direct assault",
-              "consequence": "Loud and fast. Guarantees combat. Reinforcements arrive quickly."
+              "id": "adv1-p1-s5-key-decision",
+              "prompt": "Key Decision: The Heist",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Bluff approach — impersonate Imperial personnel",
+                  "consequence": "Requires Deception checks. Lower risk if successful. Disguise Kit helps."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Stealth approach — sneak to the shuttle",
+                  "consequence": "Requires Stealth/Skulduggery. Avoids confrontation until extraction."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Create a diversion",
+                  "consequence": "Draws guards away but risks escalating the situation."
+                },
+                {
+                  "key": "opt-4",
+                  "label": "Direct assault",
+                  "consequence": "Loud and fast. Guarantees combat. Reinforcements arrive quickly."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -7251,12 +7274,20 @@
           "hazards": "Smuggler's Path navigation hazards. Dead space dropout points, gravity wells, Imperial sensor buoys, poorly maintained hyperspace corridors.",
           "decisionPoints": [
             {
-              "choice": "Assist Maya with navigation along the Smuggler's Path",
-              "consequence": "Piloting/Tech checks can improve the transit — faster, smoother, less risk of detection."
-            },
-            {
-              "choice": "Attempt a different approach to Ajan Kloss",
-              "consequence": "Standard lanes are patrolled. Any alternative route is slower and riskier than Maya's Smuggler's Path."
+              "id": "adv1-p2-s1-key-decision",
+              "prompt": "Key Decision: The Banshee",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Assist Maya with navigation along the Smuggler's Path",
+                  "consequence": "Piloting/Tech checks can improve the transit — faster, smoother, less risk of detection."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Attempt a different approach to Ajan Kloss",
+                  "consequence": "Standard lanes are patrolled. Any alternative route is slower and riskier than Maya's Smuggler's Path."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -7823,16 +7854,25 @@
           "hazards": "Three perimeter defense turrets firing down on the Banshee from the canyon rim. Three rounds of escalating bombardment (Round 1 baseline → Round 2 [Optimized] → Round 3 [Empowered]+[Optimized]). Hard crash landing in jungle clearing. Ship grounded; starboard engine smoking. Dense jungle terrain ahead.",
           "decisionPoints": [
             {
-              "choice": "Leave Maya with tools and supplies",
-              "consequence": "Repairs proceed at normal pace. Banshee will be ready for extraction — if the turrets are down."
-            },
-            {
-              "choice": "Split the party — some stay to help repair",
-              "consequence": "Faster repairs but fewer fighters for the fortress infiltration and turret objective."
-            },
-            {
-              "choice": "Prioritize the turret objective alongside the rescue",
-              "consequence": "More complex infiltration but Maya can extract safely. Ties into Mandrake's generator deal."
+              "id": "adv1-p2-s2-key-decision",
+              "prompt": "Key Decision: The Crash",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Leave Maya with tools and supplies",
+                  "consequence": "Repairs proceed at normal pace. Banshee will be ready for extraction — if the turrets are down."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Split the party — some stay to help repair",
+                  "consequence": "Faster repairs but fewer fighters for the fortress infiltration and turret objective."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Prioritize the turret objective alongside the rescue",
+                  "consequence": "More complex infiltration but Maya can extract safely. Ties into Mandrake's generator deal."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -8164,12 +8204,20 @@
           "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
           "decisionPoints": [
             {
-              "choice": "Accept Mandrake's deal — sabotage the generator",
-              "consequence": "He guides you to a secret entrance. Generator sabotage frees prisoners, kills turrets (enabling Maya's extraction), drops security doors, and blinds the sensor grid. One action, four payoffs."
-            },
-            {
-              "choice": "Refuse and find your own way in",
-              "consequence": "Much harder infiltration without a guide. The fortress is heavily fortified. Turrets remain active — Maya's extraction will be extremely dangerous. Prisoners remain penned."
+              "id": "adv1-p2-s3-key-decision",
+              "prompt": "Key Decision: The Jungle Trek",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Accept Mandrake's deal — sabotage the generator",
+                  "consequence": "He guides you to a secret entrance. Generator sabotage frees prisoners, kills turrets (enabling Maya's extraction), drops security doors, and blinds the sensor grid. One action, four payoffs."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Refuse and find your own way in",
+                  "consequence": "Much harder infiltration without a guide. The fortress is heavily fortified. Turrets remain active — Maya's extraction will be extremely dangerous. Prisoners remain penned."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -8787,16 +8835,25 @@
           "hazards": "Fortified temple ruin — laser fences, gun emplacements, Clone Wars-era tech security. Hard clock: Inquisitor Draco is en route.",
           "decisionPoints": [
             {
-              "choice": "Explore the Medical Bay before pushing deeper",
-              "consequence": "Vischera provides intel about Varth, Draco, and hints of Project Leviathan's biological component. Time spent but information gained."
-            },
-            {
-              "choice": "Access the Communications Center",
-              "consequence": "Starts the Draco clock — his ETA is confirmed. Critical time pressure added but knowledge gained."
-            },
-            {
-              "choice": "Move directly toward the generator / detention block",
-              "consequence": "Fastest path. Less intel but more time before Draco arrives."
+              "id": "adv1-p2-s4-key-decision",
+              "prompt": "Key Decision: The Vanishing Place — Infiltration",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Explore the Medical Bay before pushing deeper",
+                  "consequence": "Vischera provides intel about Varth, Draco, and hints of Project Leviathan's biological component. Time spent but information gained."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Access the Communications Center",
+                  "consequence": "Starts the Draco clock — his ETA is confirmed. Critical time pressure added but knowledge gained."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Move directly toward the generator / detention block",
+                  "consequence": "Fastest path. Less intel but more time before Draco arrives."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -9036,16 +9093,25 @@
           "hazards": "Clone Wars-era generator — volatile if handled wrong. Security droid activates on tampering. Explosion risk on failure.",
           "decisionPoints": [
             {
-              "choice": "Sabotage the generator per Mandrake's deal",
-              "consequence": "Four-purpose payoff: kills turrets (Maya can extract), drops laser fences (prisoners freed), unlocks security doors (detention block opens), blinds sensor grid (chaos cover). Alerts the garrison but cripples their infrastructure."
-            },
-            {
-              "choice": "Skip the sabotage and head straight for Varth",
-              "consequence": "Faster but turrets remain active (Maya's extraction becomes extremely dangerous), prisoners remain penned, Mandrake is betrayed. Full security remains active."
-            },
-            {
-              "choice": "Attempt a partial sabotage — selective systems only",
-              "consequence": "Requires Legendary tech result. If achieved, heroes can choose which systems fail in what order. If not, full sabotage or nothing."
+              "id": "adv1-p2-s5-key-decision",
+              "prompt": "Key Decision: The Generator",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Sabotage the generator per Mandrake's deal",
+                  "consequence": "Four-purpose payoff: kills turrets (Maya can extract), drops laser fences (prisoners freed), unlocks security doors (detention block opens), blinds sensor grid (chaos cover). Alerts the garrison but cripples their infrastructure."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Skip the sabotage and head straight for Varth",
+                  "consequence": "Faster but turrets remain active (Maya's extraction becomes extremely dangerous), prisoners remain penned, Mandrake is betrayed. Full security remains active."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Attempt a partial sabotage — selective systems only",
+                  "consequence": "Requires Legendary tech result. If achieved, heroes can choose which systems fail in what order. If not, full sabotage or nothing."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -9311,12 +9377,20 @@
           "hazards": "Detention block — automated defenses, elite guards. Time pressure from Inquisitor's arrival.",
           "decisionPoints": [
             {
-              "choice": "Trust Varth and follow his lead",
-              "consequence": "Fastest exit. Varth cooperates fully and directs the escape."
-            },
-            {
-              "choice": "Question Varth's story aggressively",
-              "consequence": "Varth is patient but firm. He has nothing to prove. Delays the escape slightly."
+              "id": "adv1-p2-s6-key-decision",
+              "prompt": "Key Decision: The Detention Block",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Trust Varth and follow his lead",
+                  "consequence": "Fastest exit. Varth cooperates fully and directs the escape."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Question Varth's story aggressively",
+                  "consequence": "Varth is patient but firm. He has nothing to prove. Delays the escape slightly."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -9887,20 +9961,6 @@
             }
           ],
           "hazards": "Three-way firefight. Imperial walkers approaching. Shadow Troopers flanking. Time-critical extraction.",
-          "decisionPoints": [
-            {
-              "choice": "Fight through to the north clearing (turrets down)",
-              "consequence": "Maya extracts clean. Mandrake covers the retreat. The plan worked."
-            },
-            {
-              "choice": "Fight through to the clearing (turrets still up)",
-              "consequence": "Maya takes heavy fire on approach. Banshee is damaged. Extraction is chaotic and costly."
-            },
-            {
-              "choice": "Flee into the jungle for an alternate pickup",
-              "consequence": "Must evade Shadow Troopers in dense canopy. Maya provides strafing support from a distance."
-            }
-          ],
           "decisionPoints": [
             {
               "id": "dp-mandrake-fate",
