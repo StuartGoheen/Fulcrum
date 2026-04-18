@@ -192,7 +192,7 @@
             }
           ],
           "hazards": "Imperial spies. Varga's informant network. Wing Guard patrols.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Trace the threatening message",
               "consequence": "Leads to the Ugnaught Parliament of Guilds in the Industrial District."
@@ -500,7 +500,7 @@
             }
           ],
           "hazards": "Industrial District — steam, noise, narrow catwalks. Imperial surveillance possible.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Accept the Ugnaught deal",
               "consequence": "Leads to a tactical combat encounter at the refinery. Intel reward is worth it."
@@ -811,7 +811,7 @@
             }
           ],
           "hazards": "Catwalks over a lethal drop. Gas tank explosions. Steam pipe scald damage. High winds.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Ambush the Trandoshans",
               "consequence": "Element of surprise. Risk of gas tank explosions in crossfire."
@@ -1174,7 +1174,7 @@
             }
           ],
           "hazards": "Heavy hotel security. Imperial surveillance. High-profile public venue.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Enter as a tournament player",
               "consequence": "Direct access to the table. Requires gambling skill."
@@ -1441,7 +1441,7 @@
             }
           ],
           "hazards": "Star Destroyer in orbit. Time pressure. Draco's willingness to destroy the entire city.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Proceed with the tournament plan",
               "consequence": "Must win the pot before Draco acts. High pressure."
@@ -1820,7 +1820,7 @@
             }
           ],
           "hazards": "Surveillance systems. Smugglers with hidden weapons. Spice deals. Imperial undercover agents.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Focus on winning hands",
               "consequence": "Advance in the tournament but may miss crucial intelligence."
@@ -2159,7 +2159,7 @@
             }
           ],
           "hazards": "Armed gambler in a crowded casino. Potential for mass panic. Stormtroopers ready to intervene lethally.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Subdue Szygar quietly",
               "consequence": "Earns trust from Mandelbrot. Casino stays open. Tournament continues."
@@ -2496,7 +2496,7 @@
             }
           ],
           "hazards": "Packed casino. Security everywhere. Fioro will try to leave immediately.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Intercept Fioro immediately",
               "consequence": "Direct confrontation in the casino. Public and messy."
@@ -2889,7 +2889,7 @@
             }
           ],
           "hazards": "Three-way crossfire. Panicking civilians (difficult terrain). Overturned tables. Flying weaponized droids.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Save Fioro from Draver",
               "consequence": "Secures the datapad intel. She'll reveal Varga's location in gratitude/fear."
@@ -3152,7 +3152,7 @@
             }
           ],
           "hazards": "Wing Guard closing in. Imperial Star Destroyer entering the system. Time pressure.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Race to Docking Bay 4414",
               "consequence": "Sprint through a city in lockdown. Leads to Part 3."
@@ -3490,7 +3490,7 @@
             }
           ],
           "hazards": "City lockdown. Steam pipes. Narrow catwalks. Corrupt law enforcement. Must keep moving or be overwhelmed.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Run and use the environment",
               "consequence": "Faster. Steam pipes, cargo skiffs, and maintenance ducts as escape tools."
@@ -3977,7 +3977,7 @@
             }
           ],
           "hazards": "Open hangar to Bespin's clouds. Z-95s attempting takeoff. Fuel crates. Magnetic field boundary.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Stop the Z-95s from launching",
               "consequence": "Prevents aerial strafing. Heroes might hijack fighters for the escape."
@@ -4297,7 +4297,7 @@
             }
           ],
           "hazards": "Fuel crate explosions. Z-95 engine wash. Narrow yacht corridors if boarding.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Board the Glorious Chariot",
               "consequence": "Close-quarters fight with Varga in his own ship. Can capture the yacht."
@@ -4555,7 +4555,7 @@
             }
           ],
           "hazards": "30-second countdown. Stormtrooper platoon incoming. Must launch immediately.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Take the Glorious Chariot",
               "consequence": "Luxury yacht with decent shields and weapons. The primary escape vehicle."
@@ -4859,7 +4859,7 @@
             }
           ],
           "hazards": "Star Destroyer in orbit. TIE Fighter screen. Automated Gas Hauler on collision course. Two-minute countdown.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Turn and fight to save Maya",
               "consequence": "Engage TIEs and destroy the Gas Hauler. Varth reluctantly helps. Heroic but dangerous."
@@ -5221,7 +5221,7 @@
             }
           ],
           "hazards": "Turbolaser fire from the Assiduous. Must jump to hyperspace immediately.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Confront Varth about his betrayal",
               "consequence": "He deflects — 'tactical calculation.' But the heroes now know what he's capable of."

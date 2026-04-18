@@ -308,7 +308,7 @@
             }
           ],
           "hazards": "Muddy terrain at the landing pad — difficult terrain, movement costs double. Swoops ignore this. Ferrocrete pad edges provide stable footing.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Pay Kessra's landing tax",
               "consequence": "Marked as easy targets. Pickpockets and grifters will target you in the encampment. No aviary ambush later."
@@ -522,7 +522,7 @@
             }
           ],
           "hazards": "The encampment itself is not physically dangerous, but drawing too much attention is. Failed investigation attempts alert Varga's network or the Trandoshan hit squad already hunting Raden.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Pursue the investigation thoroughly (reach 10 VP)",
               "consequence": "Complete picture — exact location of Raden's hiding spot. Clean approach to the filtration plant."
@@ -925,7 +925,7 @@
             }
           ],
           "hazards": "Swamp terrain approaching the plant. Raden's crude trip-wires and perimeter alarms if crew left the encampment with < 10 VP.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Earn Raden's trust (light path)",
               "consequence": "Raden shares everything — maps, guard rotations, Varga's habits, TC-663's location, cover identity coaching. He stays behind at the filtration plant or flees off-world. Heroes enter the fortress on their own cover."
@@ -1223,7 +1223,7 @@
             }
           ],
           "hazards": "Cramped industrial machinery. Bursting steam pipes (Tech check for area denial). Collapsing catwalks (upper catwalk on primary tank — more than two people risks collapse). Single-file pipe corridors. Slick treatment pool walkways. Settling tanks are difficult terrain (chest-deep water). Sentry droid wreckage blocks the southern gate (difficult terrain, one round).",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Hold position and fight",
               "consequence": "The crew uses the filtration plant's chokepoints. Defensible but no escape route if overwhelmed."
@@ -1723,7 +1723,7 @@
             }
           ],
           "hazards": "Hostile court environment. Surrounded by Varga's forces. No weapons allowed in the throne room (confiscated at the door). Violence = instant death.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Impress Varga with a spectacular audition",
               "consequence": "Earn 'guest' status and freedom to move within approved areas of the palace."
@@ -2258,7 +2258,7 @@
             }
           ],
           "hazards": "Arena environment — sand floor, repulsor barriers, torch sconces. Crowd throws objects (bottles, food) that can be used as improvised weapons or distractions.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Fight to win — full effort",
               "consequence": "Maximum reputation gain. Varga is impressed. Opens doors in the court. Gorrak respects the victor."
@@ -2707,7 +2707,7 @@
             }
           ],
           "hazards": "Poison in the drinks. Iron Ring enforcers who react violently to interference. Varga's own guards. Court witnesses who could blow the heroes' cover.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Warn Varga about the poison",
               "consequence": "Enormous trust gained with Varga. Narek is executed publicly. The heroes saved a crime lord and condemned a slave. Moral cost is real."
@@ -3091,7 +3091,7 @@
             }
           ],
           "hazards": "Demos's surveillance. Guard patrols. Increasing suspicion from extended stay. Kessra's raptors (conditional).",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Focus on TC-663 first",
               "consequence": "Fastest path to implant identification and palace intelligence. But requires either the code phrase or a risky Charm approach."
@@ -3530,7 +3530,7 @@
             }
           ],
           "hazards": "ISB investigation. Stormtrooper patrols in Varga's private wing. Sinde's counter-surveillance training. Discovery means Imperial attention.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Investigate Sinde's true identity",
               "consequence": "Reveals ISB connection. Dangerous knowledge — if she discovers the heroes know, she will act to protect her cover."
@@ -3709,7 +3709,7 @@
           "gmNotes": "This scene replaces the former datapad heist. There is NO standalone heist — the crew never gets a clean shot at Varga's implant. Instead, this scene serves two purposes:\n\n1. PLANNING CONSOLIDATION: The crew reviews everything they've gathered — the Iron Ring hologram recording, TC-663's implant identification (Cybot Galactica Model VII, diagnostic port behind right ear), Gome's Bespin/Cloud City/Figg & Associates intel, and the urgency created by Sinde's ISB audit accelerating Varga's departure. This is the moment the crew synthesizes their investigation into a plan.\n\n2. INTERRUPTED BY KNIFE IN THE DARK: The planning session is cut short by the assassination attempt (Scene 6). The crew never gets to execute their extraction plan because violence erupts first. This is deliberate — the narrative intention is that the crew escapes Takodana with intelligence ABOUT the cybernetic, not data FROM it. The actual data extraction happens on Bespin in Adventure 3.\n\nNO STANDALONE ENCOUNTERS OR DISCIPLINE CHECKS: This scene has no mechanical challenges of its own. It is a narrative bridge — the crew reviews their intel, begins formulating a plan, and is interrupted by the Scene 6 assassination attempt. The GM should use this scene to:\n- Confirm what the crew knows (implant model, diagnostic port, Bespin escape route)\n- Let them debate approaches (physical access vs. convincing Varga vs. intercepting on Bespin)\n- Establish the time pressure (Varga is leaving SOON)\n- Then slam the door open with assassins\n\nVARTH'S ROLE: Varth provides tactical awareness via comlink — he warns the crew about the assassins approaching. This reinforces his competence and makes his later betrayal more painful. He's genuinely useful here.\n\nWHAT THE CREW ESCAPES WITH: NOT the account data. They escape with:\n- TC-663's implant specs (Model VII, diagnostic port location)\n- Gome's Bespin intel (Cloud City, Figg & Associates)\n- The Recording Rod capture of the Iron Ring hologram\n- Varga's escape trajectory (from Scene 9)\n- The knowledge that the data is ONLY in Varga's head\n\nTRANSITION: This scene flows directly into Scene 6 (Knife in the Dark). The assassination erupts before the extraction plan can be executed. From there, the cascade is: assassination → dungeon → escape → hangar.",
           "npcs": [],
           "hazards": "None — the scene is interrupted before hazards become relevant.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Prioritize physical access to the diagnostic port",
               "consequence": "Requires getting close to Varga and interfacing with the implant directly. High risk, high reward — but the plan never executes."
@@ -4019,7 +4019,7 @@
             }
           ],
           "hazards": "Darkness (limited visibility). Unarmored heroes. Weapons may not be accessible. Confined quarters limit movement. Assassins have surprise.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Fight in the quarters",
               "consequence": "Confined space — favors the Wookiee's reach and limits ranged combat. But the heroes know the room layout."
@@ -4398,7 +4398,7 @@
             }
           ],
           "hazards": "High-security zone. Silent alarms if stasis machinery is tampered with. Igren Demos can sense Force disturbances. Draco inbound.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Rescue Denia and Raden against Varth's advice",
               "consequence": "Triggers silent alarm. Demos senses the Force disturbance. But gains a Jedi ally and saves a man from the dungeon. Varth adapts his plan around Denia's presence."
@@ -4807,7 +4807,7 @@
             }
           ],
           "hazards": "Force powers — Slam and Pull. Environmental hazards (braziers, statues). Narrow corridors favor Demos's staff. Fortress lockdown — blast doors sealing, hostile forces converging.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Fight Demos head-on",
               "consequence": "Tough fight but clears the path. Risk: Varga gains more escape time."
@@ -5177,7 +5177,7 @@
             }
           ],
           "hazards": "Open hangar bay. Tibanna gas crates (explosive if hit). Collapsing ceiling from Varga's escape. Stormtrooper crossfire.",
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Fight to the ship and pursue Varga",
               "consequence": "Can get a trajectory lock on Varga's escape vector. Leads to Cloud City."

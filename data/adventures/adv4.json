@@ -242,7 +242,7 @@
               }
             }
           ],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Endor",
             "The Banshee",
@@ -321,7 +321,7 @@
               "loot": []
             }
           ],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Endor Wildlife",
             "Boar-wolf"
@@ -363,7 +363,7 @@
               "loot": []
             }
           ],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Ewoks",
             "Endor",
@@ -395,7 +395,7 @@
           "readAloud": "The Ewoks hold their fire — barely. Small dark eyes watch from the branches above, bowstrings taut, stone-tipped spears leveled. The forest holds its breath.\n\nThe crew faces a choice of conscience. They are on a ticking clock for their payday, and clearing this primitive obstacle with overwhelming firepower would be swift. But to slaughter the forest's natives is to invite the wrath of the woods and stain their own spirits.",
           "gmNotes": "This is the first major moral decision of the adventure. The choice has real consequences:\n\nPARLEY: If the heroes lower their blasters and attempt to bridge the language barrier through patience, empathy, or a Force-projection of calm, the Ewoks respond to sincerity. They are escorted to the village (Scene 5). They gain guides, intelligence about the Dead Forest, and the Storyteller's warning.\n\nPYRE: If the heroes fight through, the Ewoks scatter but the forest becomes hostile. No guides, no intelligence, no Storyteller scene. The trek to the Dead Forest is longer, harder, and the crew arrives depleted. The Ewok totem blessing in Part 2 is unavailable.\n\nEither way, the adventure continues — but the cost of violence echoes forward.",
           "npcs": [],
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Parley — Lower weapons and attempt diplomacy with the Ewoks",
               "consequence": "The Ewoks escort the crew to the village. They meet Chief Chirpa, the Storyteller, and gain guides and intelligence about the Dead Forest. The Ewok blessing becomes available in Part 2."
@@ -471,7 +471,7 @@
               "loot": []
             }
           ],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Ewoks",
             "Chief Chirpa",
@@ -565,7 +565,7 @@
               "loot": []
             }
           ],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Dead Forest",
             "Dark Side",
@@ -608,7 +608,7 @@
               "loot": []
             }
           ],
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Save the Ewoks — throw themselves into the jaws of the pack to protect their guides",
               "consequence": "The crew takes injuries but saves most of the scouts. At the boundary, the lead Ewok presses a carved wooden totem into a hero's hand — a quiet blessing from a harsh world. The crew has allies in the forest."
@@ -650,7 +650,7 @@
           "readAloud": "The fight ends, the blood soaking into the gray dust. The surviving Ewoks are terrified, trembling not just from the wolves but from what lies ahead. They refuse to take another step.\n\nBefore the crew is a sharp, unnatural line where the living forest abruptly ends and the petrified dead zone begins. On one side: green, breathing, alive. On the other: gray, silent, and utterly still. The transition is not gradual. It is a wound in the earth, drawn with geometric precision.\n\nThe Ewoks will go no further. They have honored their word to Chirpa. What lies beyond is not their world.",
           "gmNotes": "The boundary is the point of no return. Once the crew crosses, they are entirely alone — no guides, no Varth on comms (the Nexus will sever the link in Part 3), no support.\n\nTOTEM MOMENT: If the crew saved the Ewoks, the lead scout presses a small, carved wooden totem into a hero's hand with a solemn bow before melting back into the living forest. This is a quiet, earned moment of grace. The totem may have mechanical significance later (resistance to Dark Side effects in the Spire) or it may simply be a narrative touchstone — a reminder that someone out there is grateful.\n\nNO TOTEM: If the crew let the Ewoks die, there is only silence and carrion birds. The bridge is burned. They step over the bodies and cross alone.\n\nEither way, the heroes are now entirely on their own.",
           "npcs": [],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Dead Forest",
             "Dark Side Nexus",
@@ -683,7 +683,7 @@
           "readAloud": "Stepping across the boundary, the crew enters a massive clearing of withered, dead vegetation. In the center stands the Ebon Spire.\n\nIt is not a tower built of stone, but a colossal, ancient tree that has been entirely petrified into black, obsidian-like rock. Its trunk is wider than a corvette, its dead branches clawing at a sky choked with gray, unmoving clouds. The Dark Side radiates from it like heat from a reactor core — a physical pressure against the chest, a whisper at the edge of hearing.\n\nAt the base of its massive trunk is a seamless, carved stone door, perfectly integrated into the petrified wood. But a chilling detail awaits: the thick, gray moss that should have covered the door for millennia has been torn away. There are fresh scrape marks on the stone. Someone else has been here recently.\n\nThe door has no handles or latches. Opening it requires a deep attunement to the Force — sensing dormant tumblers deep within the stone-wood and telekinetically grinding them open. Without the Force, it requires masterful, risky skullduggery — finding micro-fissures in the ancient bark to trigger pressure plates without bringing a dead-fall trap down upon their heads.\n\nAs the heavy stone finally grinds inward, exhaling a breath of absolute darkness, crypt-dust, and ozone into the crew's faces, the comms crackle. Varth's voice returns, warm, grinning, and encouraging — completely erasing the coldness from ten minutes ago.\n\n\"There it is. Good work, Boss. I knew you could handle the wildlife. Grab those charts and let's get off this rock. Drinks are on me when we hit Vel Shara.\"",
           "gmNotes": "The Ebon Spire reveal should be awe-inspiring and deeply wrong. A tree the size of a capital ship, turned to black glass by millennia of Dark Side corruption. It should feel ancient, powerful, and malevolent.\n\nTHE SCRAPE MARKS: This is the first sign that Inquisitor Draco has been here. Fresh damage on a door that hasn't been touched in centuries. Don't explain it — let the players draw their own conclusions. The payoff comes in Part 3, Scene 1.\n\nTHE DOOR PUZZLE: This is a skill challenge, not a combat encounter. Force-sensitive characters can sense the mechanism. Non-Force characters need slicing/mechanics skills and accept higher risk (dead-fall traps). Either approach works.\n\nVARTH'S WHIPLASH: His warm, charming return after the cold 'don't waste ammo on the locals' line is deliberate. He is a skilled manipulator who knows when to apply warmth and when to apply pressure. Players should feel the tonal whiplash — charm after cruelty. This is how abusers operate.\n\nThe last line of comms before the Nexus severs contact in Part 3.",
           "npcs": [],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Ebon Spire",
             "Dark Side Nexus",
@@ -741,7 +741,7 @@
               "loot": []
             }
           ],
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Compassion — Sacrifice time and resources to free Thorla from the cage and coax him back from the edge",
               "consequence": "The crew gains fragmentary intelligence about Draco's forces and movements. Thorla is too broken to fight but can be evacuated. He becomes a potential holocron interpreter in the Adventure 5 interlude. The parallel to Denia's rescue is honored."
@@ -825,7 +825,7 @@
           "readAloud": "Following Draco's trail of destruction, the crew descends into what used to be Revan's ancient library. It has been pulverized. Shattered obsidian shelves and the burnt ashes of ancient texts cover the floor like black snow. Scattered among the wreckage are the decomposing, mummified corpses of looters and cultists who found this place centuries ago and wiped each other out in the dark.\n\nDraco has clearly just moved through here, cleaving ancient statues and obliterating what he didn't need to ensure nothing of value remained behind him. The holocron vault — a cavity in the far wall — has been torn open. Whatever was stored in the secondary alcoves has been shattered or taken.\n\nBut among the dead, clutched in the skeletal fingers of a centuries-old corpse, something glints. A data-chip, cracked but intact, containing a fragmentary log written in Old Galactic Basic. Its author warns of the 'hall of echoes' deeper in the Spire — a place where the dark feeds on memory and turns it against the intruder.",
           "gmNotes": "This scene is atmospheric and provides two things: intelligence (the fragmentary log warning about the Hall of Mirrors ahead) and thematic resonance (the dead cultists as a mirror for the crew's own greed).\n\nTHE DEAD CULTISTS: These are people who came here centuries ago seeking Revan's power. They found it, fought over it, and killed each other in the dark. Their mummified corpses are a silent warning — a mirror held up to the terminal end of obsession. The crew is looking at what greed leaves behind when the galaxy stops watching.\n\nTHE DATA-CHIP: A fragmentary warning about the Hall of Mirrors (Scene 3). If the crew reads it, they have forewarning about what's ahead. If they skip it, the Hall hits them cold.\n\nDRACO'S TRAIL: Deliberate, methodical destruction. He took what he wanted and scorched the rest. This is the Imperial way — extract value, destroy the remainder.",
           "npcs": [],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Revan",
             "Ebon Spire Archives",
@@ -873,7 +873,7 @@
               "loot": []
             }
           ],
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Conscience over Violence — Lower weapons, trust allies, accept the ugly truths to shatter the illusions",
               "consequence": "The mirrors break. The crew reunites. Heroes who overcome the phantoms gain a moment of clarity in the heart of the dark."
@@ -930,7 +930,7 @@
               "loot": []
             }
           ],
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "Dominion — The Nightsister opens her mind to the void and dominates the trapped spirits",
               "consequence": "The spirits are enslaved and the path clears. The Nightsister gains a dangerous taste of dark side power — intoxicating and corrosive. She used the dead as tools, just as Varth uses the living."
@@ -1008,7 +1008,7 @@
               "loot": []
             }
           ],
-          "decisions": [
+          "decisionPoints": [
             {
               "choice": "The Half-Measure — Snatch the Jedi Holocron and run, securing half the map and prioritizing survival",
               "consequence": "The crew escapes with the Jedi Holocron (incomplete navigation data). Safer, but they leave the Sith Holocron for the Empire to potentially recover. The charts will need drift algorithms to be usable regardless."
@@ -1094,7 +1094,7 @@
               "loot": []
             }
           ],
-          "decisions": [],
+          "decisionPoints": [],
           "loreTags": [
             "Maya",
             "The Banshee",
