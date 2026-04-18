@@ -971,6 +971,8 @@
       h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem;">';
       h += '<span style="font-family:Audiowide,sans-serif;color:#f59e0b;font-size:0.7rem;">ROUND</span>';
       h += '<input type="number" min="1" class="cb-esc-round-num" value="' + (entry.round || 1) + '" style="width:3.5rem;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-family:Audiowide,sans-serif;" />';
+      h += '<button class="cb-esc-move-round-up" title="Move round up"' + (ri === 0 ? ' disabled' : '') + ' style="font-size:0.65rem;padding:0.1rem 0.35rem;background:rgba(245,158,11,0.15);color:' + (ri === 0 ? '#7a7068' : '#f59e0b') + ';border:1px solid ' + (ri === 0 ? '#7a7068' : '#f59e0b') + ';border-radius:3px;cursor:' + (ri === 0 ? 'not-allowed' : 'pointer') + ';">&uarr;</button>';
+      h += '<button class="cb-esc-move-round-down" title="Move round down"' + (ri === draft.length - 1 ? ' disabled' : '') + ' style="font-size:0.65rem;padding:0.1rem 0.35rem;background:rgba(245,158,11,0.15);color:' + (ri === draft.length - 1 ? '#7a7068' : '#f59e0b') + ';border:1px solid ' + (ri === draft.length - 1 ? '#7a7068' : '#f59e0b') + ';border-radius:3px;cursor:' + (ri === draft.length - 1 ? 'not-allowed' : 'pointer') + ';">&darr;</button>';
       h += '<button class="cb-esc-preview-round" style="margin-left:auto;font-size:0.6rem;padding:0.15rem 0.45rem;background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid #f59e0b;border-radius:3px;cursor:pointer;">Preview Round ' + (entry.round || 1) + '</button>';
       h += '<button class="cb-esc-del-round" style="font-size:0.6rem;padding:0.15rem 0.4rem;background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid #ef4444;border-radius:3px;cursor:pointer;">Remove Round</button>';
       h += '</div>';
@@ -981,6 +983,7 @@
       }
 
       entry.actions.forEach(function (act, ai) {
+        var lastAi = entry.actions.length - 1;
         h += '<div class="cb-esc-action" data-action-idx="' + ai + '" style="margin-top:0.3rem;padding:0.35rem;border-left:2px solid #c8a44e;background:rgba(0,0,0,0.2);border-radius:0 3px 3px 0;">';
         h += '<div style="display:flex;align-items:center;gap:0.35rem;margin-bottom:0.25rem;">';
         h += '<select class="cb-esc-action-type" style="padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
@@ -988,7 +991,9 @@
           h += '<option value="' + t.id + '"' + (act.type === t.id ? ' selected' : '') + '>' + esc(t.label) + '</option>';
         });
         h += '</select>';
-        h += '<button class="cb-esc-del-action" style="margin-left:auto;font-size:0.6rem;padding:0.1rem 0.35rem;background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid #ef4444;border-radius:3px;cursor:pointer;">&times;</button>';
+        h += '<button class="cb-esc-move-action-up" title="Move action up"' + (ai === 0 ? ' disabled' : '') + ' style="margin-left:auto;font-size:0.6rem;padding:0.1rem 0.3rem;background:rgba(200,164,78,0.15);color:' + (ai === 0 ? '#7a7068' : '#c8a44e') + ';border:1px solid ' + (ai === 0 ? '#7a7068' : '#c8a44e') + ';border-radius:3px;cursor:' + (ai === 0 ? 'not-allowed' : 'pointer') + ';">&uarr;</button>';
+        h += '<button class="cb-esc-move-action-down" title="Move action down"' + (ai === lastAi ? ' disabled' : '') + ' style="font-size:0.6rem;padding:0.1rem 0.3rem;background:rgba(200,164,78,0.15);color:' + (ai === lastAi ? '#7a7068' : '#c8a44e') + ';border:1px solid ' + (ai === lastAi ? '#7a7068' : '#c8a44e') + ';border-radius:3px;cursor:' + (ai === lastAi ? 'not-allowed' : 'pointer') + ';">&darr;</button>';
+        h += '<button class="cb-esc-del-action" style="font-size:0.6rem;padding:0.1rem 0.35rem;background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid #ef4444;border-radius:3px;cursor:pointer;">&times;</button>';
         h += '</div>';
 
         if (act.type === 'applyCondition' || act.type === 'removeCondition') {
@@ -1135,9 +1140,19 @@
     h += '<button class="cb-esc-save" style="margin-left:auto;font-size:0.65rem;padding:0.3rem 0.7rem;background:#22c55e;color:#000;border:none;border-radius:3px;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.05em;font-weight:bold;">Save Script</button>';
     h += '<button class="cb-esc-cancel" style="font-size:0.65rem;padding:0.3rem 0.6rem;background:rgba(122,112,104,0.2);color:#7a7068;border:1px solid #7a7068;border-radius:3px;cursor:pointer;">Discard</button>';
     h += '</div>';
+    h += '<div class="cb-esc-live-preview" data-scene-id="' + esc(scene.id) + '">' + _buildLiveEscalationPreview(scene, draft) + '</div>';
     h += '<div class="cb-esc-status" style="font-size:0.6rem;color:#7a7068;min-height:0.8rem;"></div>';
     h += '</div>';
     return h;
+  }
+
+  function _buildLiveEscalationPreview(scene, draft) {
+    var clean = (draft || []).filter(function (entry) { return entry && entry.actions && entry.actions.length; });
+    if (!clean.length) {
+      return '<div style="font-size:0.6rem;color:#7a7068;font-style:italic;margin-top:0.5rem;padding:0.4rem;border:1px dashed rgba(245,158,11,0.3);border-radius:3px;">Live log preview will appear here once you add at least one action.</div>';
+    }
+    var syntheticEnc = { scriptedEscalation: clean };
+    return _buildEscalationPreviewHtml(scene, syntheticEnc);
   }
 
   function _renderActionPreviewHtml(act, roundNum, sceneNpcNames) {
@@ -1244,9 +1259,19 @@
     var roundNum = roundNumEl ? (parseInt(roundNumEl.value, 10) || 1) : 1;
     var act = _readActionFromDom(aEl);
     var preview = aEl.querySelector('.cb-esc-action-preview');
-    if (!preview) return;
-    var npcNames = _getSceneNpcNames(scene);
-    preview.innerHTML = _renderActionPreviewHtml(act, roundNum, npcNames);
+    if (preview) {
+      var npcNames = _getSceneNpcNames(scene);
+      preview.innerHTML = _renderActionPreviewHtml(act, roundNum, npcNames);
+    }
+    var panel = aEl.closest('.cb-esc-editor');
+    if (panel) _refreshLivePreview(panel, scene);
+  }
+
+  function _refreshLivePreview(panel, scene) {
+    var live = panel.querySelector('.cb-esc-live-preview');
+    if (!live) return;
+    var draft = _readEscalationFromDom(panel);
+    live.innerHTML = _buildLiveEscalationPreview(scene, draft);
   }
 
   function _readEscalationFromDom(panel) {
@@ -1415,6 +1440,74 @@
       roundNumEl.addEventListener('input', function () {
         rEl.querySelectorAll('.cb-esc-action').forEach(function (aEl) {
           _refreshActionPreview(aEl, scene);
+        });
+        _refreshLivePreview(panel, scene);
+      });
+    });
+
+    function reorderAndRerender(mutator) {
+      var draft = _readEscalationFromDom(panel);
+      mutator(draft);
+      _escalationDraft[draftKey] = draft;
+      var body = panel.querySelector('.cb-fpanel-body');
+      body.innerHTML = _buildEscalationEditorHtml(scene, encIdx);
+      _bindEscalationEditorEvents(panel, scene, encIdx);
+    }
+
+    panel.querySelectorAll('.cb-esc-move-round-up').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var ri = parseInt(btn.closest('.cb-esc-round').dataset.roundIdx, 10);
+        if (ri <= 0) return;
+        reorderAndRerender(function (draft) {
+          var tmp = draft[ri - 1];
+          draft[ri - 1] = draft[ri];
+          draft[ri] = tmp;
+        });
+      });
+    });
+
+    panel.querySelectorAll('.cb-esc-move-round-down').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var ri = parseInt(btn.closest('.cb-esc-round').dataset.roundIdx, 10);
+        reorderAndRerender(function (draft) {
+          if (ri >= draft.length - 1) return;
+          var tmp = draft[ri + 1];
+          draft[ri + 1] = draft[ri];
+          draft[ri] = tmp;
+        });
+      });
+    });
+
+    panel.querySelectorAll('.cb-esc-move-action-up').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var ri = parseInt(btn.closest('.cb-esc-round').dataset.roundIdx, 10);
+        var ai = parseInt(btn.closest('.cb-esc-action').dataset.actionIdx, 10);
+        if (ai <= 0) return;
+        reorderAndRerender(function (draft) {
+          if (!draft[ri]) return;
+          var arr = draft[ri].actions;
+          var tmp = arr[ai - 1];
+          arr[ai - 1] = arr[ai];
+          arr[ai] = tmp;
+        });
+      });
+    });
+
+    panel.querySelectorAll('.cb-esc-move-action-down').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var ri = parseInt(btn.closest('.cb-esc-round').dataset.roundIdx, 10);
+        var ai = parseInt(btn.closest('.cb-esc-action').dataset.actionIdx, 10);
+        reorderAndRerender(function (draft) {
+          if (!draft[ri]) return;
+          var arr = draft[ri].actions;
+          if (ai >= arr.length - 1) return;
+          var tmp = arr[ai + 1];
+          arr[ai + 1] = arr[ai];
+          arr[ai] = tmp;
         });
       });
     });
