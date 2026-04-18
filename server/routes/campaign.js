@@ -435,6 +435,35 @@ router.put('/campaign/scene/:sceneId/encounter/:encIndex/escalation', (req, res)
   }
 });
 
+router.put('/campaign/scene/:sceneId/encounter/:encounterId/scripted-escalation', (req, res) => {
+  if (req.userRole && req.userRole !== 'gm') {
+    return res.status(403).json({ error: 'GM access required.' });
+  }
+  const { sceneId, encounterId } = req.params;
+  const script = req.body && req.body.scriptedEscalation;
+  if (!Array.isArray(script)) {
+    return res.status(400).json({ error: 'scriptedEscalation array required' });
+  }
+  const cleanScript = script.map(_sanitizeEscalationEntry).filter(Boolean);
+  try {
+    const data = loadAdventures();
+    const scene = findSceneById(data, sceneId);
+    if (!scene) return res.status(404).json({ error: 'Scene not found' });
+    const enc = (scene.encounters || []).find(e => e.id === encounterId);
+    if (!enc) return res.status(404).json({ error: 'Encounter not found' });
+    if (cleanScript.length === 0) {
+      delete enc.scriptedEscalation;
+    } else {
+      enc.scriptedEscalation = cleanScript;
+    }
+    writeAdventures(data);
+    res.json({ success: true, scriptedEscalation: cleanScript });
+  } catch (err) {
+    console.error('[PUT /campaign/scene/encounter/scripted-escalation]', err);
+    res.status(500).json({ error: 'Failed to update scripted escalation', detail: err.message });
+  }
+});
+
 router.put('/campaign/scene/:sceneId/positions', (req, res) => {
   const { sceneId } = req.params;
   const positions = req.body;

@@ -929,14 +929,68 @@
           h += '<input type="number" min="0" class="cb-esc-amount" value="' + (parseInt(act.amount, 10) || 0) + '" style="width:5rem;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;" />';
           h += '</div>';
         } else if (act.type === 'spawn') {
+          var savedTemplates = (window.NpcBuilder && window.NpcBuilder.getSavedNpcs) ? window.NpcBuilder.getSavedNpcs() : [];
+          var spawnSource = act._source;
+          if (!spawnSource) {
+            if (act._stub) spawnSource = 'stub';
+            else if (act.npc && npcNames.indexOf(act.npc) === -1 && savedTemplates.some(function (t) { return (t.name || '').toLowerCase() === String(act.npc).toLowerCase(); })) spawnSource = 'library';
+            else spawnSource = 'roster';
+          }
           h += '<div style="display:flex;flex-direction:column;gap:0.25rem;">';
-          h += '<label style="font-size:0.6rem;color:#7a7068;">NPC template (from this scene\'s roster):</label>';
-          h += '<select class="cb-esc-spawn-npc" style="padding:0.2rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
-          h += '<option value="">— pick NPC —</option>';
-          npcNames.forEach(function (nm) {
-            h += '<option value="' + esc(nm) + '"' + ((act.npc || act.template) === nm ? ' selected' : '') + '>' + esc(nm) + '</option>';
-          });
+          h += '<label style="font-size:0.6rem;color:#7a7068;">Spawn source:</label>';
+          h += '<select class="cb-esc-spawn-source" style="padding:0.2rem;background:rgba(0,0,0,0.4);border:1px solid #a855f7;color:#c084fc;border-radius:3px;font-size:0.65rem;">';
+          h += '<option value="roster"' + (spawnSource === 'roster' ? ' selected' : '') + '>Scene Roster</option>';
+          h += '<option value="library"' + (spawnSource === 'library' ? ' selected' : '') + '>Threat Library (saved templates)</option>';
+          h += '<option value="stub"' + (spawnSource === 'stub' ? ' selected' : '') + '>+ Inline NPC Stub</option>';
           h += '</select>';
+          if (spawnSource === 'roster') {
+            h += '<label style="font-size:0.6rem;color:#7a7068;">NPC (from this scene\'s roster):</label>';
+            h += '<select class="cb-esc-spawn-npc" style="padding:0.2rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
+            h += '<option value="">— pick NPC —</option>';
+            npcNames.forEach(function (nm) {
+              h += '<option value="' + esc(nm) + '"' + ((act.npc || act.template) === nm ? ' selected' : '') + '>' + esc(nm) + '</option>';
+            });
+            h += '</select>';
+          } else if (spawnSource === 'library') {
+            h += '<label style="font-size:0.6rem;color:#7a7068;">Saved threat template:</label>';
+            h += '<select class="cb-esc-spawn-library" style="padding:0.2rem;background:rgba(0,0,0,0.4);border:1px solid #a855f7;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
+            h += '<option value="">— pick template —</option>';
+            savedTemplates.forEach(function (t) {
+              var label = (t.name || 'Unnamed') + ' (T' + (t.tier || 0) + ' ' + (t.classification || '') + (t.role ? ' ' + t.role : '') + ')';
+              var sel = (t.name === act.npc) ? ' selected' : '';
+              h += '<option value="' + esc(t.name || '') + '"' + sel + '>' + esc(label) + '</option>';
+            });
+            h += '</select>';
+            if (!savedTemplates.length) h += '<div style="font-size:0.6rem;color:#7a7068;font-style:italic;">No saved templates yet. Open the Threat Builder to save some.</div>';
+            h += '<div style="font-size:0.55rem;color:#a78bfa;font-style:italic;">On save, this template will be added to the scene roster so the spawn resolves mid-encounter.</div>';
+          } else if (spawnSource === 'stub') {
+            var stub = act._stub || { name: act.npc || '', tier: 1, classification: 'standard', role: '', powerSource: 'martial' };
+            h += '<label style="font-size:0.6rem;color:#7a7068;">Quick NPC stub (added to scene roster on save):</label>';
+            h += '<input type="text" class="cb-esc-stub-name" value="' + esc(stub.name) + '" placeholder="NPC name" style="padding:0.2rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #a855f7;color:#d4c5a0;border-radius:3px;font-size:0.65rem;" />';
+            h += '<div style="display:flex;gap:0.4rem;">';
+            h += '<div style="flex:1;"><label style="font-size:0.55rem;color:#7a7068;">Tier:</label>';
+            h += '<input type="number" min="1" max="5" class="cb-esc-stub-tier" value="' + (parseInt(stub.tier, 10) || 1) + '" style="width:100%;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;" /></div>';
+            h += '<div style="flex:2;"><label style="font-size:0.55rem;color:#7a7068;">Classification:</label>';
+            h += '<select class="cb-esc-stub-class" style="width:100%;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
+            ['minion','standard','elite','rival','boss'].forEach(function (c) {
+              h += '<option value="' + c + '"' + (stub.classification === c ? ' selected' : '') + '>' + c.charAt(0).toUpperCase() + c.slice(1) + '</option>';
+            });
+            h += '</select></div></div>';
+            h += '<div style="display:flex;gap:0.4rem;">';
+            h += '<div style="flex:1;"><label style="font-size:0.55rem;color:#7a7068;">Role:</label>';
+            h += '<select class="cb-esc-stub-role" style="width:100%;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
+            ['', 'anchor','threat','harrier','support','controller'].forEach(function (r) {
+              h += '<option value="' + r + '"' + ((stub.role || '') === r ? ' selected' : '') + '>' + (r ? r.charAt(0).toUpperCase() + r.slice(1) : '(none)') + '</option>';
+            });
+            h += '</select></div>';
+            h += '<div style="flex:1;"><label style="font-size:0.55rem;color:#7a7068;">Power Source:</label>';
+            h += '<select class="cb-esc-stub-power" style="width:100%;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;">';
+            ['martial','ranged','force','leader'].forEach(function (p) {
+              h += '<option value="' + p + '"' + ((stub.powerSource || 'martial') === p ? ' selected' : '') + '>' + p.charAt(0).toUpperCase() + p.slice(1) + '</option>';
+            });
+            h += '</select></div></div>';
+            h += '<div style="font-size:0.55rem;color:#a78bfa;font-style:italic;">Default arenas 2/2/2/2/2. Refine in the Threat Builder afterward for traits, attacks, etc.</div>';
+          }
           h += '<div style="display:flex;gap:0.4rem;">';
           h += '<div style="flex:1;"><label style="font-size:0.6rem;color:#7a7068;">Count:</label>';
           h += '<input type="number" min="1" class="cb-esc-spawn-count" value="' + (parseInt(act.count, 10) || 1) + '" style="width:100%;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;" /></div>';
@@ -1012,7 +1066,30 @@
           act.targets = dtgts;
           act.amount = parseInt(aEl.querySelector('.cb-esc-amount').value, 10) || 0;
         } else if (type === 'spawn') {
-          act.npc = aEl.querySelector('.cb-esc-spawn-npc').value || '';
+          var srcEl = aEl.querySelector('.cb-esc-spawn-source');
+          var src = srcEl ? srcEl.value : 'roster';
+          act._source = src;
+          if (src === 'roster') {
+            var rosterEl = aEl.querySelector('.cb-esc-spawn-npc');
+            act.npc = rosterEl ? rosterEl.value : '';
+          } else if (src === 'library') {
+            var libEl = aEl.querySelector('.cb-esc-spawn-library');
+            act.npc = libEl ? libEl.value : '';
+          } else if (src === 'stub') {
+            var nameEl = aEl.querySelector('.cb-esc-stub-name');
+            var tierEl = aEl.querySelector('.cb-esc-stub-tier');
+            var classEl = aEl.querySelector('.cb-esc-stub-class');
+            var roleEl = aEl.querySelector('.cb-esc-stub-role');
+            var powerEl = aEl.querySelector('.cb-esc-stub-power');
+            act._stub = {
+              name: nameEl ? nameEl.value.trim() : '',
+              tier: tierEl ? (parseInt(tierEl.value, 10) || 1) : 1,
+              classification: classEl ? classEl.value : 'standard',
+              role: roleEl ? roleEl.value : '',
+              powerSource: powerEl ? powerEl.value : 'martial'
+            };
+            act.npc = act._stub.name;
+          }
           act.count = parseInt(aEl.querySelector('.cb-esc-spawn-count').value, 10) || 1;
           var zn = aEl.querySelector('.cb-esc-spawn-zone').value.trim();
           if (zn) act.zone = zn;
@@ -1051,6 +1128,27 @@
         var ai = parseInt(aEl.dataset.actionIdx, 10);
         if (draft[ri] && draft[ri].actions[ai]) {
           draft[ri].actions[ai] = { type: sel.value };
+        }
+        _escalationDraft[draftKey] = draft;
+        var body = panel.querySelector('.cb-fpanel-body');
+        body.innerHTML = _buildEscalationEditorHtml(scene, encIdx);
+        _bindEscalationEditorEvents(panel, scene, encIdx);
+      });
+    });
+
+    panel.querySelectorAll('.cb-esc-spawn-source').forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var draft = _readEscalationFromDom(panel);
+        var rEl = sel.closest('.cb-esc-round');
+        var aEl = sel.closest('.cb-esc-action');
+        var ri = parseInt(rEl.dataset.roundIdx, 10);
+        var ai = parseInt(aEl.dataset.actionIdx, 10);
+        if (draft[ri] && draft[ri].actions[ai]) {
+          var current = draft[ri].actions[ai];
+          current._source = sel.value;
+          if (sel.value !== 'stub') delete current._stub;
+          if (sel.value !== 'roster' && sel.value !== 'library') current.npc = '';
+          if (sel.value === 'stub' && !current._stub) current._stub = { name: '', tier: 1, classification: 'standard', role: '', powerSource: 'martial' };
         }
         _escalationDraft[draftKey] = draft;
         var body = panel.querySelector('.cb-fpanel-body');
@@ -1138,8 +1236,28 @@
         });
         clean = clean.filter(function (entry) { return entry.actions.length; });
 
+        if (status) { status.style.color = '#7a7068'; status.textContent = 'Resolving spawns…'; }
+        var savedTemplates = (window.NpcBuilder && window.NpcBuilder.getSavedNpcs) ? window.NpcBuilder.getSavedNpcs() : [];
+        var rosterPromises = [];
+        clean.forEach(function (entry) {
+          (entry.actions || []).forEach(function (act) {
+            if (act.type !== 'spawn') return;
+            if (act._source === 'library' && act.npc) {
+              var tpl = savedTemplates.find(function (t) { return (t.name || '') === act.npc; });
+              if (tpl) rosterPromises.push(_addEscalationNpcToSceneRoster(tpl));
+            } else if (act._source === 'stub' && act._stub && act._stub.name) {
+              var stubSaved = _materializeEscalationStub(act._stub);
+              act.npc = stubSaved.name;
+              rosterPromises.push(_addEscalationNpcToSceneRoster(stubSaved));
+            }
+            delete act._source;
+            delete act._stub;
+          });
+        });
+
+        Promise.all(rosterPromises).then(function () {
         if (status) { status.style.color = '#7a7068'; status.textContent = 'Saving…'; }
-        fetch('/api/campaign/scene/' + encodeURIComponent(scene.id) + '/encounter/' + encIdx + '/escalation', {
+        return fetch('/api/campaign/scene/' + encodeURIComponent(scene.id) + '/encounter/' + encIdx + '/escalation', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ scriptedEscalation: clean })
@@ -1166,8 +1284,76 @@
         }).catch(function (err) {
           if (status) { status.style.color = '#ef4444'; status.textContent = 'Save failed: ' + err.message; }
         });
+        }).catch(function (err) {
+          if (status) { status.style.color = '#ef4444'; status.textContent = 'Spawn resolution failed: ' + err.message; }
+        });
       });
     }
+  }
+
+  function _materializeEscalationStub(stub) {
+    return {
+      name: stub.name,
+      tier: stub.tier || 1,
+      threatCategory: 'character',
+      classification: stub.classification || 'standard',
+      role: stub.role || '',
+      powerSource: stub.powerSource || 'martial',
+      arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
+      traits: [],
+      tags: [],
+      extraGambits: [],
+      attacks: [],
+      loot: [],
+      numPlayers: 4,
+      weaponChassis: 'medium'
+    };
+  }
+
+  function _addEscalationNpcToSceneRoster(savedNpc) {
+    if (!window.NpcBuilder || !window.NpcBuilder.buildNpcFromSaved) {
+      return Promise.reject(new Error('NpcBuilder not available'));
+    }
+    return window.NpcBuilder.buildNpcFromSaved(savedNpc).then(function (built) {
+      var existing = getSceneNpcs();
+      var nameLc = (savedNpc.name || '').toLowerCase().trim();
+      if (existing.some(function (n) { return (n.name || '').toLowerCase().trim() === nameLc; })) {
+        return savedNpc.name;
+      }
+      var newNpc = {
+        name: savedNpc.name || 'Unnamed',
+        _templateName: nameLc || 'unnamed',
+        type: (savedNpc.threatCategory || 'character').charAt(0).toUpperCase() + (savedNpc.threatCategory || 'character').slice(1),
+        count: 1,
+        loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : [],
+        threatBuild: {
+          role: savedNpc.role,
+          tier: savedNpc.tier,
+          classification: savedNpc.classification,
+          threatCategory: savedNpc.threatCategory,
+          powerSource: savedNpc.powerSource || '',
+          arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
+          computed: built.computed,
+          traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
+          tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
+          roleKit: built.roleKit,
+          computedAttacks: built.computedAttacks || [],
+          weaponChassis: savedNpc.weaponChassis || 'medium',
+          loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
+        }
+      };
+      existing.push(newNpc);
+      setSceneNpcs(existing);
+      addSceneNpc(newNpc);
+      var adv = getAdventure(currentAdventure);
+      var part = adv ? getPart(adv, currentPart) : null;
+      var scene = part ? getScene(part, currentScene) : null;
+      if (scene) {
+        if (!scene.npcs) scene.npcs = [];
+        scene.npcs.push(JSON.parse(JSON.stringify(newNpc)));
+      }
+      return newNpc.name;
+    });
   }
 
   function _openEscalationEditor(scene, encIdx) {
