@@ -2986,8 +2986,11 @@
     container.querySelectorAll('[data-rs-toggle]').forEach(function (head) {
       head.addEventListener('click', function () {
         var key = head.getAttribute('data-rs-toggle');
-        var isCollapsed = _runSceneCollapsed[key] !== false;
-        _runSceneCollapsed[key] = !isCollapsed;
+        // Read the actual rendered state from the DOM so the toggle works
+        // regardless of whether this strip defaults expanded or collapsed.
+        var strip = head.closest('.cb-rs-strip');
+        var currentlyCollapsed = !!(strip && strip.classList.contains('collapsed'));
+        _runSceneCollapsed[key] = !currentlyCollapsed;
         _persistRunScene(scene.id);
         renderScene();
       });
