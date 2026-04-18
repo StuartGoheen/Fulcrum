@@ -2967,6 +2967,7 @@
       head.addEventListener('click', function () {
         var key = head.getAttribute('data-rs-toggle');
         _runSceneCollapsed[key] = !(_runSceneCollapsed[key] === false);
+        _persistRunScene(scene.id);
         renderScene();
       });
     });
