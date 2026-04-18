@@ -7016,3 +7016,12 @@
 .cb-rs-beat-gmnotes p { margin: 0.4rem 0; }
 .cb-rs-beat-gmnotes p:first-of-type { margin-top: 0; }
 .cb-rs-beat-gmnotes p:last-child { margin-bottom: 0; }
+
+/* Per-beat strips inherit their colored panel padding; nested strip-body should be flush */
+.cb-rs-beat-readaloud > .cb-rs-strip-body,
+.cb-rs-beat-gmnotes > .cb-rs-strip-body {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin-top: 0.4rem;
+}

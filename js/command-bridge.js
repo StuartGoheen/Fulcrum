@@ -2859,15 +2859,23 @@
     html += '</div>';
     if (beat.trigger) html += '<div class="cb-rs-beat-trigger"><strong>Trigger:</strong> ' + linkify(beat.trigger) + '</div>';
     if (beat.readAloud) {
-      html += '<div class="cb-rs-beat-readaloud"><div class="cb-rs-beat-section-label">&#128220; Read Aloud</div>';
+      var beatRaKey = scene.id + ':b' + beatIdx + ':beat-ra';
+      var beatRaCollapsed = _runSceneCollapsed[beatRaKey] === true; // default expanded
+      html += '<div class="cb-rs-strip cb-rs-beat-readaloud' + (beatRaCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(beatRaKey) + '">';
+      html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(beatRaKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128220; Read Aloud</span><span class="cb-rs-strip-hint">click to ' + (beatRaCollapsed ? 'expand' : 'collapse') + '</span></div>';
+      html += '<div class="cb-rs-strip-body">';
       html += linkify(beat.readAloud).split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
-      html += '</div>';
+      html += '</div></div>';
     }
     if (beat.description) html += '<div class="cb-rs-beat-desc">' + linkify(beat.description) + '</div>';
     if (beat.gmNotes) {
-      html += '<div class="cb-rs-beat-gmnotes"><div class="cb-rs-beat-section-label">&#128221; GM Notes for this Beat</div>';
+      var beatNotesKey = scene.id + ':b' + beatIdx + ':beat-notes';
+      var beatNotesCollapsed = _runSceneCollapsed[beatNotesKey] !== false; // default collapsed
+      html += '<div class="cb-rs-strip cb-rs-beat-gmnotes' + (beatNotesCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(beatNotesKey) + '">';
+      html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(beatNotesKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128221; GM Notes for this Beat</span><span class="cb-rs-strip-hint">click to ' + (beatNotesCollapsed ? 'expand' : 'collapse') + '</span></div>';
+      html += '<div class="cb-rs-strip-body">';
       html += linkify(beat.gmNotes).split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join('');
-      html += '</div>';
+      html += '</div></div>';
     }
     if (beat.tactics) html += '<div class="cb-rs-beat-tactics"><div class="cb-rs-beat-tactics-label">GM Tactics</div>' + linkify(beat.tactics) + '</div>';
     if (beat.composition) {
@@ -2905,18 +2913,20 @@
     var notesKey = scene.id + ':notes';
     var raCollapsed = _runSceneCollapsed[raKey] !== false;
     var notesCollapsed = _runSceneCollapsed[notesKey] !== false;
+    var anyBeatReadAloud = encs.some(function (e) { return e && e.readAloud; });
+    var anyBeatGmNotes = encs.some(function (e) { return e && e.gmNotes; });
 
     var html = '<div class="cb-runscene">';
 
-    // Read Aloud strip
-    if (scene.readAloud || scene.readAloudPart1) {
+    // Read Aloud strip — hidden when any beat supplies its own read-aloud (avoids duplication)
+    if (!anyBeatReadAloud && (scene.readAloud || scene.readAloudPart1)) {
       html += '<div class="cb-rs-strip' + (raCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(raKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(raKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128220; Read Aloud</span><span class="cb-rs-strip-hint">click to ' + (raCollapsed ? 'expand' : 'collapse') + '</span></div>';
       html += '<div class="cb-rs-strip-body">' + _buildReadAloudHtml(scene) + '</div>';
       html += '</div>';
     }
-    // GM Notes strip
-    if (scene.gmNotes) {
+    // GM Notes strip — hidden when any beat supplies its own GM notes (avoids duplication)
+    if (!anyBeatGmNotes && scene.gmNotes) {
       html += '<div class="cb-rs-strip' + (notesCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(notesKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(notesKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128221; GM Notes</span><span class="cb-rs-strip-hint">click to ' + (notesCollapsed ? 'expand' : 'collapse') + '</span></div>';
       html += '<div class="cb-rs-strip-body">' + _buildGmNotesHtml(scene) + '</div>';
