@@ -716,6 +716,150 @@
     return h;
   }
 
+  function _escCondLabel(cid) {
+    if (window.EffectManager && window.EffectManager.EFFECT_DEFS) {
+      var defs = window.EffectManager.EFFECT_DEFS;
+      for (var i = 0; i < defs.length; i++) {
+        if (defs[i].id === cid && defs[i].name) return defs[i].name;
+      }
+    }
+    return String(cid).charAt(0).toUpperCase() + String(cid).slice(1);
+  }
+
+  var _ESC_PC_TARGETS = ['pcs', 'players', 'party', 'all pcs'];
+
+  function _escSceneNpcNames(scene) {
+    var npcs = (scene && scene.npcs) || [];
+    return npcs.map(function (n) { return String(n.name || n.type || '').trim(); }).filter(Boolean);
+  }
+
+  function _escTargetResolves(target, sceneNpcNames, actionType) {
+    var t = String(target == null ? '' : target).trim();
+    if (!t) return false;
+    var tLower = t.toLowerCase();
+    if (_ESC_PC_TARGETS.indexOf(tLower) !== -1) {
+      return actionType === 'damage';
+    }
+    for (var i = 0; i < sceneNpcNames.length; i++) {
+      if (sceneNpcNames[i].toLowerCase() === tLower) return true;
+    }
+    var escaped = tLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re;
+    try { re = new RegExp('\\b' + escaped + '\\b', 'i'); } catch (e) { return false; }
+    for (var j = 0; j < sceneNpcNames.length; j++) {
+      var n = sceneNpcNames[j];
+      if (re.test(n) || re.test(n + ' #1')) return true;
+    }
+    return false;
+  }
+
+  function _escSpawnResolves(template, sceneNpcNames) {
+    var t = String(template == null ? '' : template).trim().toLowerCase();
+    if (!t) return false;
+    for (var i = 0; i < sceneNpcNames.length; i++) {
+      var nm = sceneNpcNames[i].toLowerCase();
+      if (nm === t || nm.indexOf(t) !== -1 || t.indexOf(nm) !== -1) return true;
+    }
+    return false;
+  }
+
+  function _escTargetSpan(target, sceneNpcNames, actionType) {
+    var ok = _escTargetResolves(target, sceneNpcNames, actionType);
+    if (ok) return '<span style="color:#d4c5a0;">' + esc(target) + '</span>';
+    var tLower = String(target || '').trim().toLowerCase();
+    var isPcAlias = _ESC_PC_TARGETS.indexOf(tLower) !== -1;
+    var tip = isPcAlias
+      ? 'Only damage actions can target PCs — applyCondition/removeCondition target combatants on the tracker only'
+      : 'No combatant in this scene matches this target';
+    return '<span class="cb-esc-bad-target" style="color:#ef4444;text-decoration:underline wavy #ef4444;" title="' + esc(tip) + '">' + esc(target) + '</span>';
+  }
+
+  function _escActionToHtml(act, sceneNpcNames) {
+    var line = '';
+    var hasBad = false;
+    var targets = Array.isArray(act.targets) ? act.targets : [];
+    var checkTargets = function () {
+      return targets.map(function (t) {
+        if (!_escTargetResolves(t, sceneNpcNames, act.type)) hasBad = true;
+        return _escTargetSpan(t, sceneNpcNames, act.type);
+      }).join(', ');
+    };
+    if (act.type === 'applyCondition' || act.type === 'removeCondition') {
+      var conds = (act.conditions || []).map(function (c) { return '[' + _escCondLabel(c) + ']'; }).join(' ');
+      var verb = act.type === 'applyCondition' ? '&rarr;' : '&times;';
+      var tgtHtml = checkTargets();
+      line = esc(conds) + ' ' + verb + ' ' + tgtHtml;
+      if (!targets.length) hasBad = true;
+      if (!(act.conditions || []).length) hasBad = true;
+    } else if (act.type === 'damage') {
+      var amt = parseInt(act.amount, 10) || 0;
+      var dtgts = checkTargets();
+      var pcsAffected = targets.some(function (t) {
+        return _ESC_PC_TARGETS.indexOf(String(t || '').trim().toLowerCase()) !== -1;
+      });
+      line = '<span style="color:#ef4444;">&#9888; ' + amt + ' damage</span> &rarr; ' + dtgts;
+      if (pcsAffected) line += ' <span style="color:#7a7068;">(GM applies to PC sheets)</span>';
+      if (!amt || !targets.length) hasBad = true;
+    } else if (act.type === 'spawn') {
+      var tmpl = act.npc || act.template || '';
+      var count = Math.max(1, parseInt(act.count, 10) || 1);
+      var labels = [];
+      for (var i = 0; i < count; i++) labels.push(tmpl);
+      var spawnOk = _escSpawnResolves(tmpl, sceneNpcNames);
+      if (!spawnOk) hasBad = true;
+      var spawnSpan = spawnOk
+        ? '<span style="color:#d4c5a0;">' + esc(labels.join(', ')) + '</span>'
+        : '<span class="cb-esc-bad-target" style="color:#ef4444;text-decoration:underline wavy #ef4444;" title="No NPC template in this scene matches this name">' + esc(labels.join(', ')) + '</span>';
+      line = '<span style="color:#a855f7;">&#10010; Reinforcements:</span> ' + spawnSpan;
+      if (act.zone) line += ' <span style="color:#7a7068;">@ ' + esc(act.zone) + '</span>';
+    } else if (act.type === 'narrate') {
+      var text = String(act.text || act.note || '').trim();
+      if (!text) hasBad = true;
+      line = '<span style="color:#c084fc;">&#9836;</span> <em style="color:#d4c5a0;">' + esc(text) + '</em>';
+    } else {
+      return null;
+    }
+    return { line: line, hasBad: hasBad };
+  }
+
+  function _buildEscalationPreviewHtml(scene, enc) {
+    var sceneNpcNames = _escSceneNpcNames(scene);
+    var h = '<div style="font-size:0.65rem;margin-top:0.25rem;padding:0.3rem 0.4rem;background:rgba(245,158,11,0.08);border-left:2px solid #f59e0b;border-radius:0 3px 3px 0;">';
+    h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.2rem;">';
+    h += '<span style="color:#f59e0b;font-family:Audiowide,sans-serif;font-size:0.55rem;letter-spacing:0.05em;">SCRIPTED ESCALATION &mdash; LOG PREVIEW</span>';
+    h += '<span style="color:#7a7068;font-size:0.55rem;font-style:italic;">mirrors combat log</span>';
+    h += '</div>';
+    var totalBad = 0;
+    enc.scriptedEscalation.forEach(function (se) {
+      var actions = (Array.isArray(se.actions) && se.actions.length) ? se.actions : null;
+      if (!actions) {
+        var lt = Array.isArray(se.targets) ? se.targets : [];
+        var lc = Array.isArray(se.conditions) ? se.conditions : [];
+        actions = (lt.length && lc.length)
+          ? [{ type: 'applyCondition', targets: lt, conditions: lc, note: se.note || '' }]
+          : [];
+      }
+      actions.forEach(function (act) {
+        if (!act || !act.type) return;
+        var rendered = _escActionToHtml(act, sceneNpcNames);
+        if (!rendered) return;
+        if (rendered.hasBad) totalBad++;
+        h += '<div style="color:#fbbf24;padding:0.1rem 0;">R' + (se.round || '?') + ': ' + rendered.line;
+        if (act.note && act.type !== 'narrate') {
+          h += ' <span style="color:#7a7068;font-style:italic;">&mdash; ' + esc(act.note) + '</span>';
+        }
+        h += '</div>';
+      });
+    });
+    if (totalBad > 0) {
+      h += '<div style="margin-top:0.25rem;padding:0.2rem 0.3rem;background:rgba(239,68,68,0.12);border-left:2px solid #ef4444;border-radius:0 3px 3px 0;color:#fca5a5;font-size:0.6rem;">';
+      h += '&#9888; ' + totalBad + ' action' + (totalBad === 1 ? '' : 's') + ' contain values that won\'t resolve or apply at runtime (bad target name, missing amount/conditions/text, etc.). Fix them before saving or those parts will be skipped.';
+      h += '</div>';
+    }
+    h += '</div>';
+    return h;
+  }
+
   function _buildEncountersHtml(scene) {
     if (!scene.encounters || !scene.encounters.length) return '';
     var h = '<div class="cb-card">';
@@ -740,42 +884,7 @@
         h += '</div>';
       }
       if (Array.isArray(enc.scriptedEscalation) && enc.scriptedEscalation.length) {
-        h += '<div style="font-size:0.65rem;margin-top:0.25rem;padding:0.25rem 0.35rem;background:rgba(245,158,11,0.08);border-left:2px solid #f59e0b;border-radius:0 3px 3px 0;">';
-        h += '<div style="color:#f59e0b;font-family:Audiowide,sans-serif;font-size:0.55rem;letter-spacing:0.05em;margin-bottom:0.15rem;">SCRIPTED ESCALATION (AUTO)</div>';
-        enc.scriptedEscalation.forEach(function (se) {
-          var actions = (Array.isArray(se.actions) && se.actions.length) ? se.actions : null;
-          if (!actions) {
-            var lt = Array.isArray(se.targets) ? se.targets : [];
-            var lc = Array.isArray(se.conditions) ? se.conditions : [];
-            if (lt.length && lc.length) {
-              actions = [{ type: 'applyCondition', targets: lt, conditions: lc, note: se.note || '' }];
-            } else {
-              actions = [];
-            }
-          }
-          actions.forEach(function (act) {
-            if (!act || !act.type) return;
-            var line = '';
-            if (act.type === 'applyCondition' || act.type === 'removeCondition') {
-              var conds = (act.conditions || []).map(function (c) { return '[' + c.charAt(0).toUpperCase() + c.slice(1) + ']'; }).join(' ');
-              var tgts = (act.targets || []).join(', ');
-              var verb = act.type === 'applyCondition' ? '&rarr;' : '&times;';
-              line = esc(conds) + ' ' + verb + ' <span style="color:#d4c5a0;">' + esc(tgts) + '</span>';
-            } else if (act.type === 'damage') {
-              line = '<span style="color:#ef4444;">&#9888; ' + (parseInt(act.amount, 10) || 0) + ' dmg</span> &rarr; <span style="color:#d4c5a0;">' + esc((act.targets || []).join(', ')) + '</span>';
-            } else if (act.type === 'spawn') {
-              line = '<span style="color:#a855f7;">&#10010; spawn</span> <span style="color:#d4c5a0;">' + esc(act.npc || act.template || '') + (act.count ? ' x' + act.count : '') + '</span>' + (act.zone ? ' <span style="color:#7a7068;">@' + esc(act.zone) + '</span>' : '');
-            } else if (act.type === 'narrate') {
-              line = '<span style="color:#c084fc;">&#9836; narrate:</span> <em style="color:#d4c5a0;">' + esc(act.text || act.note || '') + '</em>';
-            } else {
-              return;
-            }
-            h += '<div style="color:#fbbf24;">R' + se.round + ': ' + line;
-            if (act.note && act.type !== 'narrate') h += ' <span style="color:#7a7068;font-style:italic;">&mdash; ' + esc(act.note) + '</span>';
-            h += '</div>';
-          });
-        });
-        h += '</div>';
+        h += _buildEscalationPreviewHtml(scene, enc);
       }
       var thisEncIdx = scene.encounters.indexOf(enc);
       h += '<div style="display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.35rem;">';
@@ -1008,6 +1117,10 @@
           h += '<input type="text" class="cb-esc-note" value="' + esc(act.note || '') + '" style="width:100%;padding:0.15rem 0.3rem;background:rgba(0,0,0,0.4);border:1px solid #c8a44e;color:#d4c5a0;border-radius:3px;font-size:0.65rem;" />';
         }
 
+        h += '<div class="cb-esc-action-preview" style="margin-top:0.35rem;padding:0.25rem 0.35rem;border-top:1px dashed rgba(245,158,11,0.3);background:rgba(245,158,11,0.05);font-size:0.65rem;color:#fbbf24;">';
+        h += _renderActionPreviewHtml(act, entry.round, npcNames);
+        h += '</div>';
+
         h += '</div>';
       });
 
@@ -1025,82 +1138,122 @@
     return h;
   }
 
+  function _renderActionPreviewHtml(act, roundNum, sceneNpcNames) {
+    if (!act || !act.type) {
+      return '<span style="color:#7a7068;font-style:italic;">— select an action type —</span>';
+    }
+    var rendered = _escActionToHtml(act, sceneNpcNames);
+    if (!rendered) {
+      return '<span style="color:#7a7068;font-style:italic;">— preview unavailable —</span>';
+    }
+    var out = '<span style="color:#7a7068;font-family:Audiowide,sans-serif;font-size:0.5rem;letter-spacing:0.05em;">PREVIEW &raquo;</span> ';
+    out += 'R' + (roundNum || '?') + ': ' + rendered.line;
+    if (act.note && act.type !== 'narrate') {
+      out += ' <span style="color:#7a7068;font-style:italic;">&mdash; ' + esc(act.note) + '</span>';
+    }
+    if (rendered.hasBad) {
+      out += '<div style="margin-top:0.15rem;color:#fca5a5;font-size:0.6rem;">&#9888; Some values won\'t resolve in this scene — those parts will be skipped at runtime.</div>';
+    }
+    return out;
+  }
+
+  function _readActionFromDom(aEl) {
+    var typeSel = aEl.querySelector('.cb-esc-action-type');
+    var type = typeSel ? typeSel.value : '';
+    var act = { type: type };
+    if (type === 'applyCondition' || type === 'removeCondition') {
+      var tgts = [];
+      aEl.querySelectorAll('.cb-esc-targets option:checked').forEach(function (o) { tgts.push(o.value); });
+      var extra = aEl.querySelector('.cb-esc-extra-targets');
+      if (extra && extra.value.trim()) {
+        extra.value.split(',').forEach(function (t) {
+          var v = t.trim();
+          if (v && tgts.indexOf(v) === -1) tgts.push(v);
+        });
+      }
+      act.targets = tgts;
+      var conds = [];
+      aEl.querySelectorAll('.cb-esc-conditions option:checked').forEach(function (o) { conds.push(o.value); });
+      act.conditions = conds;
+      if (type === 'applyCondition') {
+        var dur = aEl.querySelector('.cb-esc-duration');
+        if (dur && dur.value) act.duration = dur.value;
+        var arena = aEl.querySelector('.cb-esc-arena');
+        if (arena && arena.value) act.arena = arena.value;
+      }
+    } else if (type === 'damage') {
+      var dtgts = [];
+      aEl.querySelectorAll('.cb-esc-targets option:checked').forEach(function (o) { dtgts.push(o.value); });
+      var dextra = aEl.querySelector('.cb-esc-extra-targets');
+      if (dextra && dextra.value.trim()) {
+        dextra.value.split(',').forEach(function (t) {
+          var v = t.trim();
+          if (v && dtgts.indexOf(v) === -1) dtgts.push(v);
+        });
+      }
+      act.targets = dtgts;
+      var amtEl = aEl.querySelector('.cb-esc-amount');
+      act.amount = amtEl ? (parseInt(amtEl.value, 10) || 0) : 0;
+    } else if (type === 'spawn') {
+      var srcEl = aEl.querySelector('.cb-esc-spawn-source');
+      var src = srcEl ? srcEl.value : 'roster';
+      act._source = src;
+      if (src === 'library') {
+        var libEl = aEl.querySelector('.cb-esc-spawn-library');
+        act.npc = libEl ? libEl.value : '';
+      } else if (src === 'stub') {
+        var nameEl = aEl.querySelector('.cb-esc-stub-name');
+        var tierEl = aEl.querySelector('.cb-esc-stub-tier');
+        var classEl = aEl.querySelector('.cb-esc-stub-class');
+        var roleEl = aEl.querySelector('.cb-esc-stub-role');
+        var powerEl = aEl.querySelector('.cb-esc-stub-power');
+        act._stub = {
+          name: nameEl ? nameEl.value.trim() : '',
+          tier: tierEl ? (parseInt(tierEl.value, 10) || 1) : 1,
+          classification: classEl ? classEl.value : 'standard',
+          role: roleEl ? roleEl.value : '',
+          powerSource: powerEl ? powerEl.value : 'martial'
+        };
+        act.npc = act._stub.name;
+      } else {
+        var rosterEl = aEl.querySelector('.cb-esc-spawn-npc');
+        act.npc = rosterEl ? rosterEl.value : '';
+      }
+      var countEl = aEl.querySelector('.cb-esc-spawn-count');
+      act.count = countEl ? (parseInt(countEl.value, 10) || 1) : 1;
+      var zoneEl = aEl.querySelector('.cb-esc-spawn-zone');
+      var zn = zoneEl ? zoneEl.value.trim() : '';
+      if (zn) act.zone = zn;
+    } else if (type === 'narrate') {
+      var nEl = aEl.querySelector('.cb-esc-narrate');
+      act.text = nEl ? nEl.value : '';
+    }
+    if (type !== 'narrate') {
+      var noteEl = aEl.querySelector('.cb-esc-note');
+      if (noteEl && noteEl.value.trim()) act.note = noteEl.value.trim();
+    }
+    return act;
+  }
+
+  function _refreshActionPreview(aEl, scene) {
+    var rEl = aEl.closest('.cb-esc-round');
+    if (!rEl) return;
+    var roundNumEl = rEl.querySelector('.cb-esc-round-num');
+    var roundNum = roundNumEl ? (parseInt(roundNumEl.value, 10) || 1) : 1;
+    var act = _readActionFromDom(aEl);
+    var preview = aEl.querySelector('.cb-esc-action-preview');
+    if (!preview) return;
+    var npcNames = _getSceneNpcNames(scene);
+    preview.innerHTML = _renderActionPreviewHtml(act, roundNum, npcNames);
+  }
+
   function _readEscalationFromDom(panel) {
     var rounds = [];
     panel.querySelectorAll('.cb-esc-round').forEach(function (rEl) {
       var roundNum = parseInt(rEl.querySelector('.cb-esc-round-num').value, 10) || 1;
       var actions = [];
       rEl.querySelectorAll('.cb-esc-action').forEach(function (aEl) {
-        var type = aEl.querySelector('.cb-esc-action-type').value;
-        var act = { type: type };
-        if (type === 'applyCondition' || type === 'removeCondition') {
-          var tgts = [];
-          aEl.querySelectorAll('.cb-esc-targets option:checked').forEach(function (o) { tgts.push(o.value); });
-          var extra = aEl.querySelector('.cb-esc-extra-targets');
-          if (extra && extra.value.trim()) {
-            extra.value.split(',').forEach(function (t) {
-              var v = t.trim();
-              if (v && tgts.indexOf(v) === -1) tgts.push(v);
-            });
-          }
-          act.targets = tgts;
-          var conds = [];
-          aEl.querySelectorAll('.cb-esc-conditions option:checked').forEach(function (o) { conds.push(o.value); });
-          act.conditions = conds;
-          if (type === 'applyCondition') {
-            var dur = aEl.querySelector('.cb-esc-duration');
-            if (dur && dur.value) act.duration = dur.value;
-            var arena = aEl.querySelector('.cb-esc-arena');
-            if (arena && arena.value) act.arena = arena.value;
-          }
-        } else if (type === 'damage') {
-          var dtgts = [];
-          aEl.querySelectorAll('.cb-esc-targets option:checked').forEach(function (o) { dtgts.push(o.value); });
-          var dextra = aEl.querySelector('.cb-esc-extra-targets');
-          if (dextra && dextra.value.trim()) {
-            dextra.value.split(',').forEach(function (t) {
-              var v = t.trim();
-              if (v && dtgts.indexOf(v) === -1) dtgts.push(v);
-            });
-          }
-          act.targets = dtgts;
-          act.amount = parseInt(aEl.querySelector('.cb-esc-amount').value, 10) || 0;
-        } else if (type === 'spawn') {
-          var srcEl = aEl.querySelector('.cb-esc-spawn-source');
-          var src = srcEl ? srcEl.value : 'roster';
-          act._source = src;
-          if (src === 'roster') {
-            var rosterEl = aEl.querySelector('.cb-esc-spawn-npc');
-            act.npc = rosterEl ? rosterEl.value : '';
-          } else if (src === 'library') {
-            var libEl = aEl.querySelector('.cb-esc-spawn-library');
-            act.npc = libEl ? libEl.value : '';
-          } else if (src === 'stub') {
-            var nameEl = aEl.querySelector('.cb-esc-stub-name');
-            var tierEl = aEl.querySelector('.cb-esc-stub-tier');
-            var classEl = aEl.querySelector('.cb-esc-stub-class');
-            var roleEl = aEl.querySelector('.cb-esc-stub-role');
-            var powerEl = aEl.querySelector('.cb-esc-stub-power');
-            act._stub = {
-              name: nameEl ? nameEl.value.trim() : '',
-              tier: tierEl ? (parseInt(tierEl.value, 10) || 1) : 1,
-              classification: classEl ? classEl.value : 'standard',
-              role: roleEl ? roleEl.value : '',
-              powerSource: powerEl ? powerEl.value : 'martial'
-            };
-            act.npc = act._stub.name;
-          }
-          act.count = parseInt(aEl.querySelector('.cb-esc-spawn-count').value, 10) || 1;
-          var zn = aEl.querySelector('.cb-esc-spawn-zone').value.trim();
-          if (zn) act.zone = zn;
-        } else if (type === 'narrate') {
-          act.text = aEl.querySelector('.cb-esc-narrate').value;
-        }
-        if (type !== 'narrate') {
-          var noteEl = aEl.querySelector('.cb-esc-note');
-          if (noteEl && noteEl.value.trim()) act.note = noteEl.value.trim();
-        }
-        actions.push(act);
+        actions.push(_readActionFromDom(aEl));
       });
       rounds.push({ round: roundNum, actions: actions });
     });
@@ -1118,6 +1271,25 @@
 
   function _bindEscalationEditorEvents(panel, scene, encIdx) {
     var draftKey = scene.id + ':' + encIdx;
+
+    panel.querySelectorAll('.cb-esc-action').forEach(function (aEl) {
+      var refresh = function () { _refreshActionPreview(aEl, scene); };
+      aEl.querySelectorAll('input, textarea, select').forEach(function (el) {
+        if (el.classList.contains('cb-esc-action-type')) return;
+        el.addEventListener('input', refresh);
+        el.addEventListener('change', refresh);
+      });
+    });
+
+    panel.querySelectorAll('.cb-esc-round').forEach(function (rEl) {
+      var roundNumEl = rEl.querySelector('.cb-esc-round-num');
+      if (!roundNumEl) return;
+      roundNumEl.addEventListener('input', function () {
+        rEl.querySelectorAll('.cb-esc-action').forEach(function (aEl) {
+          _refreshActionPreview(aEl, scene);
+        });
+      });
+    });
 
     panel.querySelectorAll('.cb-esc-action-type').forEach(function (sel) {
       sel.addEventListener('change', function () {
