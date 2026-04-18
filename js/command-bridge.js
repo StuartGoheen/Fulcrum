@@ -309,6 +309,9 @@
         var parsed = JSON.parse(raw);
         _runSceneActive[sceneId] = !!parsed.active;
         if (typeof parsed.beat === 'number') _runSceneBeat[sceneId] = parsed.beat;
+        if (parsed.collapsed && typeof parsed.collapsed === 'object') {
+          Object.keys(parsed.collapsed).forEach(function (k) { _runSceneCollapsed[k] = !!parsed.collapsed[k]; });
+        }
         return !!parsed.active;
       }
     } catch (_) {}
@@ -317,9 +320,14 @@
   }
   function _persistRunScene(sceneId) {
     try {
+      var collapsed = {};
+      Object.keys(_runSceneCollapsed).forEach(function (k) {
+        if (k.indexOf(sceneId + ':') === 0) collapsed[k] = _runSceneCollapsed[k];
+      });
       localStorage.setItem(_runStorageKey(sceneId), JSON.stringify({
         active: !!_runSceneActive[sceneId],
-        beat: _runSceneBeat[sceneId] || 0
+        beat: _runSceneBeat[sceneId] || 0,
+        collapsed: collapsed
       }));
     } catch (_) {}
   }
@@ -2292,6 +2300,29 @@
         if (key) openTacticalMapToKey(key);
       });
     });
+    panel.querySelectorAll('.cb-conversation-link').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var slug = el.dataset.convSlug;
+        if (slug && window.ConversationOverlay) window.ConversationOverlay.launch(slug);
+      });
+    });
+    panel.querySelectorAll('.cb-encounter-link').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var encId = el.dataset.encId;
+        var adv = getAdventure(currentAdventure);
+        var part = adv ? getPart(adv, currentPart) : null;
+        var sc = part ? getScene(part, currentScene) : null;
+        if (!encId || !sc || !sc.encounters) return;
+        var enc = null;
+        for (var i = 0; i < sc.encounters.length; i++) if (sc.encounters[i].id === encId) { enc = sc.encounters[i]; break; }
+        if (enc && window.CombatTracker) {
+          window._cbSocket = socket;
+          window.CombatTracker.start(enc, sc, getSceneNpcs(), partyCache, socket);
+          var ctPanel = document.getElementById('combat-tracker-panel');
+          if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
     panel.querySelectorAll('.cb-lore-tag').forEach(function (el) {
       el.addEventListener('click', function () { openLoreModal(el.dataset.loreTag); });
     });
@@ -2855,7 +2886,7 @@
     return html;
   }
 
-  function _renderRunScene(scene, container) {
+  function _renderRunScene(scene, container, sceneIdx, allScenes) {
     var encs = (scene.encounters || []);
     var hasBeats = encs.length > 0;
     var beatIdx = Math.min(_getRunSceneBeat(scene.id), Math.max(0, encs.length - 1));
@@ -2920,6 +2951,10 @@
       html += '<button class="cb-rs-mark-beat' + (beatDone ? ' done' : '') + '" id="cb-rs-mark-beat">' + (beatDone ? '&#10003; Beat Complete' : '&#9675; Mark Beat Done') + '</button>';
     }
     html += '<div class="cb-rs-spacer"></div>';
+    var sceneList = allScenes || [];
+    var sIdx = (typeof sceneIdx === 'number') ? sceneIdx : -1;
+    html += '<button class="cb-rs-nav" id="scene-prev"' + (sIdx <= 0 ? ' disabled' : '') + '>&larr; Prev Scene</button>';
+    html += '<button class="cb-rs-nav" id="scene-next"' + (sIdx < 0 || sIdx >= sceneList.length - 1 ? ' disabled' : '') + '>Next Scene &rarr;</button>';
     html += '<button class="cb-rs-exit" id="cb-rs-exit">&times; Back to Dashboard</button>';
     html += '</div>';
 
@@ -3046,6 +3081,50 @@
       html += '</div>';
     }
     html += '</div>';
+
+    if (runActive) {
+      html += _renderRunScene(scene, container, idx, scenes);
+      html += '</div>';
+      container.innerHTML = html;
+      var rsToggleBtn = container.querySelector('#cb-runscene-toggle');
+      if (rsToggleBtn) rsToggleBtn.addEventListener('click', function () {
+        _setRunSceneActive(scene.id, false);
+        renderScene();
+      });
+      _bindRunSceneEvents(container, scene);
+      // Generic link binders
+      container.querySelectorAll('.cb-condition-link').forEach(function (el) {
+        el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+      });
+      container.querySelectorAll('.cb-map-link').forEach(function (el) {
+        el.addEventListener('click', function () { var key = el.dataset.mapKey; if (key) openTacticalMapToKey(key); });
+      });
+      container.querySelectorAll('.cb-conversation-link').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var slug = el.dataset.convSlug;
+          if (slug && window.ConversationOverlay) window.ConversationOverlay.launch(slug);
+        });
+      });
+      container.querySelectorAll('.cb-encounter-link').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var encId = el.dataset.encId;
+          if (!encId || !scene.encounters) return;
+          var enc = null;
+          for (var i = 0; i < scene.encounters.length; i++) if (scene.encounters[i].id === encId) { enc = scene.encounters[i]; break; }
+          if (enc && window.CombatTracker) {
+            window._cbSocket = socket;
+            window.CombatTracker.start(enc, scene, getSceneNpcs(), partyCache, socket);
+            var ctPanel = document.getElementById('combat-tracker-panel');
+            if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      var prevBtnRs = document.getElementById('scene-prev');
+      var nextBtnRs = document.getElementById('scene-next');
+      if (prevBtnRs) prevBtnRs.addEventListener('click', function () { navigateScene(-1); });
+      if (nextBtnRs) nextBtnRs.addEventListener('click', function () { navigateScene(1); });
+      return;
+    }
 
     html += '<div class="cb-tile-grid">';
     if (hasReadAloud) {
@@ -3213,6 +3292,31 @@
     var nextBtn = document.getElementById('scene-next');
     if (prevBtn) prevBtn.addEventListener('click', function () { navigateScene(-1); });
     if (nextBtn) nextBtn.addEventListener('click', function () { navigateScene(1); });
+    var rsToggleBtnDash = document.getElementById('cb-runscene-toggle');
+    if (rsToggleBtnDash) rsToggleBtnDash.addEventListener('click', function () {
+      _setRunSceneActive(scene.id, true);
+      renderScene();
+    });
+    container.querySelectorAll('.cb-conversation-link').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var slug = el.dataset.convSlug;
+        if (slug && window.ConversationOverlay) window.ConversationOverlay.launch(slug);
+      });
+    });
+    container.querySelectorAll('.cb-encounter-link').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var encId = el.dataset.encId;
+        if (!encId || !scene.encounters) return;
+        var enc = null;
+        for (var i = 0; i < scene.encounters.length; i++) if (scene.encounters[i].id === encId) { enc = scene.encounters[i]; break; }
+        if (enc && window.CombatTracker) {
+          window._cbSocket = socket;
+          window.CombatTracker.start(enc, scene, getSceneNpcs(), partyCache, socket);
+          var ctPanel = document.getElementById('combat-tracker-panel');
+          if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   }
 
   function toggleSceneComplete(sceneId) {

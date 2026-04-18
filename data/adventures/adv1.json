@@ -7281,7 +7281,7 @@
               "name": "Beat 2 — Mid-Transit, Galley Caf",
               "type": "social",
               "trigger": "Second dropout, ~11 minutes of recalc dead-time before the next jump",
-              "description": "The autopilot holds the Banshee in dead space while Maya queues the next jump. She comes aft to the galley for caf — and for the first time on this trip she's not actively flying anything. She invites the crew to ask what they're going to ask. \"I won't be in a talking mood once we drop out at Aldhani. Now's the time.\" This is a structured social scene — the Maya conversation overlay. Launch the [maya-banshee-galley] conversation from the Conversation panel.",
+              "description": "The autopilot holds the Banshee in dead space while Maya queues the next jump. She comes aft to the galley for caf — and for the first time on this trip she's not actively flying anything. She invites the crew to ask what they're going to ask. \"I won't be in a talking mood once we drop out at Aldhani. Now's the time.\" This is a structured social scene — the Maya conversation overlay. Launch it here: [conversation:maya-banshee-galley]",
               "tactics": "GM ACTION: Open the Conversation panel in the Command Bridge and launch [maya-banshee-galley]. Players ask questions through the player overlay; GM delivers Maya's responses one beat at a time. Maya starts at Comfort 4. The recalc clock is a built-in timer — the GM can call \"two minutes left\" to wind the scene down naturally. Mirrors the Varth debrief structure but tighter, terser, more guarded. End the scene when the recalc clock hits zero or comfort drops to 1."
             },
             {
