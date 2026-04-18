@@ -969,12 +969,62 @@
     { id: 'round', label: 'Rounds', types: ['round', 'start', 'end'] }
   ];
 
+  var LOG_FILTER_PREFS_KEY = 'ct.gmLogFilterPrefs.v1';
+
+  function defaultLogFilters() {
+    return { escalation: true, condition: true, vitality: true, ko: true, round: true };
+  }
+
+  function loadLogFilterPrefs() {
+    try {
+      var raw = window.localStorage && window.localStorage.getItem(LOG_FILTER_PREFS_KEY);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') return null;
+      var filters = defaultLogFilters();
+      if (parsed.filters && typeof parsed.filters === 'object') {
+        Object.keys(filters).forEach(function (k) {
+          if (parsed.filters[k] === false) filters[k] = false;
+        });
+      }
+      var search = typeof parsed.search === 'string' ? parsed.search : '';
+      return { filters: filters, search: search };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveLogFilterPrefs() {
+    if (!combatState) return;
+    try {
+      if (!window.localStorage) return;
+      var payload = JSON.stringify({
+        filters: combatState.logFilters || defaultLogFilters(),
+        search: combatState.logSearch || ''
+      });
+      window.localStorage.setItem(LOG_FILTER_PREFS_KEY, payload);
+    } catch (e) {}
+  }
+
   function getLogFilterState() {
     if (!combatState.logFilters) {
-      combatState.logFilters = { escalation: true, condition: true, vitality: true, ko: true, round: true };
+      var prefs = loadLogFilterPrefs();
+      if (prefs) {
+        combatState.logFilters = prefs.filters;
+        if (typeof combatState.logSearch !== 'string') combatState.logSearch = prefs.search;
+      } else {
+        combatState.logFilters = defaultLogFilters();
+      }
     }
     if (typeof combatState.logSearch !== 'string') combatState.logSearch = '';
     return combatState.logFilters;
+  }
+
+  function resetLogFilterPrefs() {
+    if (!combatState) return;
+    combatState.logFilters = defaultLogFilters();
+    combatState.logSearch = '';
+    saveLogFilterPrefs();
   }
 
   function logEntryMatchesFilters(entry) {
@@ -1011,6 +1061,14 @@
       });
       html += '</div>';
       html += '<input type="search" class="ct-gmlog-search" id="ct-gmlog-search" placeholder="Filter log&hellip;" value="' + esc(search) + '" autocomplete="off" />';
+      var defaults = defaultLogFilters();
+      var isDefault = !search;
+      if (isDefault) {
+        Object.keys(defaults).forEach(function (k) {
+          if (filters[k] === false) isDefault = false;
+        });
+      }
+      html += '<button type="button" class="ct-gmlog-reset" id="ct-gmlog-reset"' + (isDefault ? ' disabled' : '') + ' title="Reset filters to defaults">Reset</button>';
       html += '</div>';
       html += '<div class="ct-gmlog-body">';
       if (log.length === 0) {
@@ -2397,14 +2455,25 @@
         var id = btn.dataset.logChip;
         var filters = getLogFilterState();
         filters[id] = filters[id] === false ? true : false;
+        saveLogFilterPrefs();
         renderCombatTracker();
       });
     });
+
+    var logReset = container.querySelector('#ct-gmlog-reset');
+    if (logReset) {
+      logReset.addEventListener('click', function (e) {
+        e.stopPropagation();
+        resetLogFilterPrefs();
+        renderCombatTracker();
+      });
+    }
 
     var logSearch = container.querySelector('#ct-gmlog-search');
     if (logSearch) {
       logSearch.addEventListener('input', function () {
         combatState.logSearch = logSearch.value;
+        saveLogFilterPrefs();
         var caret = logSearch.selectionStart;
         renderCombatTracker();
         var refreshed = document.querySelector('#ct-gmlog-search');

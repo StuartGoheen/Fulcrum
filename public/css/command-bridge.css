@@ -6544,6 +6544,27 @@
   background: rgba(15, 23, 42, 0.95);
 }
 .ct-gmlog-search::placeholder { color: #64748b; }
+.ct-gmlog-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.6);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.ct-gmlog-reset:hover:not(:disabled) {
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+.ct-gmlog-reset:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 .ct-gmlog-body {
   max-height: 220px;
   overflow-y: auto;
