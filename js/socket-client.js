@@ -666,6 +666,54 @@
   var _initTrackerDrag = { active: false, x: 0, y: 0, startX: 0, startY: 0 };
   var _initTrackerResize = { active: false, startX: 0, startY: 0, startW: 0, startH: 0 };
 
+  function _playerCondLabel(c) {
+    var id = typeof c === 'string' ? c : (c && (c.id || c.name)) || '';
+    if (!id) return '';
+    if (window.EffectManager && Array.isArray(window.EffectManager.EFFECT_DEFS)) {
+      var defs = window.EffectManager.EFFECT_DEFS;
+      for (var i = 0; i < defs.length; i++) {
+        if (defs[i].id === id && defs[i].name) return defs[i].name;
+      }
+    }
+    return id.charAt(0).toUpperCase() + id.slice(1);
+  }
+
+  function _renderPlayerEscalationBanner(state) {
+    if (!state || !state.lastEscalation) return '';
+    var le = state.lastEscalation;
+    if (le.round !== state.round) return '';
+    var entries = le.entries || [];
+    if (!entries.length) return '';
+    var html = '<div class="pit-escalation-banner" style="margin:0.35rem 0.5rem;padding:0.4rem 0.55rem;border-left:3px solid #f59e0b;background:rgba(245,158,11,0.12);border-radius:0 4px 4px 0;color:#fbbf24;font-size:0.72rem;line-height:1.35;">';
+    html += '<div style="font-family:Audiowide,sans-serif;font-size:0.6rem;letter-spacing:0.08em;color:#f59e0b;">SCRIPTED EVENT &mdash; ROUND ' + le.round + '</div>';
+    var rendered = 0;
+    entries.forEach(function (en) {
+      var line = '';
+      if (en.type === 'narrate') {
+        line = '<span style="color:#c084fc;">&#9836;</span> <em>' + _escHtml(en.text || '') + '</em>';
+      } else if (en.type === 'spawn') {
+        line = '<span style="color:#a855f7;">&#10010; Reinforcements:</span> <strong>' + _escHtml((en.spawned || []).join(', ')) + '</strong>';
+        if (en.zone) line += ' <span style="opacity:0.75;">@ ' + _escHtml(en.zone) + '</span>';
+      } else if (en.type === 'damage') {
+        line = '<span style="color:#ef4444;">&#9888; ' + _escHtml(String(en.amount || 0)) + ' damage</span> &rarr; <strong>' + _escHtml((en.targets || []).join(', ')) + '</strong>';
+        if (en.pcsAffected) line += ' <span style="color:#fca5a5;font-style:italic;">(update your sheet)</span>';
+      } else if (en.type === 'applyCondition') {
+        var conds = (en.conditions || []).map(function (c) { return '[' + _playerCondLabel(c) + ']'; }).join(' ');
+        line = _escHtml(conds) + ' &rarr; <strong>' + _escHtml((en.targets || []).join(', ')) + '</strong>';
+      } else if (en.type === 'removeCondition') {
+        var rconds = (en.conditions || []).map(function (c) { return '[' + _playerCondLabel(c) + ']'; }).join(' ');
+        line = _escHtml(rconds) + ' cleared from <strong>' + _escHtml((en.targets || []).join(', ')) + '</strong>';
+      } else {
+        return;
+      }
+      if (en.note && en.type !== 'narrate') line += ' &mdash; <em>' + _escHtml(en.note) + '</em>';
+      html += '<div style="margin-top:0.2rem;">' + line + '</div>';
+      rendered++;
+    });
+    html += '</div>';
+    return rendered ? html : '';
+  }
+
   function _showInitiativeTracker(state) {
     var tracker = document.getElementById('player-init-tracker');
     if (!tracker) {
@@ -696,6 +744,8 @@
     if (isMyTurn) {
       html += '<div class="pit-my-turn-banner">YOUR TURN</div>';
     }
+
+    html += _renderPlayerEscalationBanner(state);
 
     html += '<div class="pit-body" id="pit-body">';
     html += '<div class="pit-turn-list">';

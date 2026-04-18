@@ -134,7 +134,8 @@ function _getPlayerCombatState() {
         id: p.id, name: p.name, type: 'pc', initiative: p.initiative,
         conditions: p.conditions, activeEffects: p.activeEffects, surprised: p.surprised, mastery: p.mastery
       };
-    })
+    }),
+    lastEscalation: _combatState.lastEscalation || null
   };
 }
 
@@ -812,6 +813,14 @@ function registerHandlers(io) {
       if (data.tacticalMap !== undefined) _combatState.tacticalMap = data.tacticalMap;
       if (data.combatLog !== undefined && Array.isArray(data.combatLog)) _combatState.combatLog = data.combatLog;
       if (data.combatLogCollapsed !== undefined) _combatState.combatLogCollapsed = !!data.combatLogCollapsed;
+      if (data.lastEscalation !== undefined) {
+        var le = data.lastEscalation;
+        if (le === null) {
+          _combatState.lastEscalation = null;
+        } else if (le && typeof le === 'object' && Array.isArray(le.entries)) {
+          _combatState.lastEscalation = { round: le.round, entries: le.entries };
+        }
+      }
       io.to('players').emit('combat:state-update', _getPlayerCombatState());
     });
 
