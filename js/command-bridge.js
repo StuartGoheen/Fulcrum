@@ -29,6 +29,22 @@
     'telekinesis': 'force_telekinesis',
   };
 
+  function _slugToTitle(slug) {
+    return String(slug || '').replace(/[-_]/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+  }
+
+  function _resolveEncounterName(encId) {
+    if (!encId) return null;
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+    if (!scene || !scene.encounters) return null;
+    for (var i = 0; i < scene.encounters.length; i++) {
+      if (scene.encounters[i].id === encId) return scene.encounters[i].name || encId;
+    }
+    return null;
+  }
+
   function linkify(str) {
     var s = String(str);
     var out = '';
@@ -42,8 +58,26 @@
       var mapMatch = inner.match(/^map:(.+)$/);
       if (mapMatch) {
         var mapKey = mapMatch[1].trim();
-        var mapTitle = mapKey.replace(/-/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
-        out += '<span class="cb-map-link" data-map-key="' + esc(mapKey) + '">' + esc(mapTitle) + '</span>';
+        var mapTitle = _slugToTitle(mapKey);
+        out += '<span class="cb-map-link" data-map-key="' + esc(mapKey) + '" title="Open tactical map">&#128506; ' + esc(mapTitle) + '</span>';
+        last = match.index + match[0].length;
+        continue;
+      }
+
+      var convMatch = inner.match(/^conversation:(.+)$/);
+      if (convMatch) {
+        var convSlug = convMatch[1].trim();
+        var convTitle = _slugToTitle(convSlug);
+        out += '<span class="cb-conversation-link" data-conv-slug="' + esc(convSlug) + '" title="Launch conversation overlay">&#128172; ' + esc(convTitle) + '</span>';
+        last = match.index + match[0].length;
+        continue;
+      }
+
+      var encMatch = inner.match(/^encounter:(.+)$/);
+      if (encMatch) {
+        var encId = encMatch[1].trim();
+        var encName = _resolveEncounterName(encId) || _slugToTitle(encId);
+        out += '<span class="cb-encounter-link" data-enc-id="' + esc(encId) + '" title="Start encounter in combat tracker">&#9876; ' + esc(encName) + '</span>';
         last = match.index + match[0].length;
         continue;
       }
@@ -262,6 +296,46 @@
   var _lastRenderedScene = null;
   var _npcExpandState = {};
   var _sceneNpcOverrides = {};
+  var _runSceneActive = {};
+  var _runSceneBeat = {};
+  var _runSceneCollapsed = {};
+
+  function _runStorageKey(sceneId) { return 'cb-runscene:' + sceneId; }
+  function _isRunSceneActive(sceneId) {
+    if (sceneId in _runSceneActive) return !!_runSceneActive[sceneId];
+    try {
+      var raw = localStorage.getItem(_runStorageKey(sceneId));
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        _runSceneActive[sceneId] = !!parsed.active;
+        if (typeof parsed.beat === 'number') _runSceneBeat[sceneId] = parsed.beat;
+        return !!parsed.active;
+      }
+    } catch (_) {}
+    _runSceneActive[sceneId] = false;
+    return false;
+  }
+  function _persistRunScene(sceneId) {
+    try {
+      localStorage.setItem(_runStorageKey(sceneId), JSON.stringify({
+        active: !!_runSceneActive[sceneId],
+        beat: _runSceneBeat[sceneId] || 0
+      }));
+    } catch (_) {}
+  }
+  function _setRunSceneActive(sceneId, on) {
+    _runSceneActive[sceneId] = !!on;
+    if (on && typeof _runSceneBeat[sceneId] !== 'number') _runSceneBeat[sceneId] = 0;
+    _persistRunScene(sceneId);
+  }
+  function _setRunSceneBeat(sceneId, idx) {
+    _runSceneBeat[sceneId] = Math.max(0, idx | 0);
+    _persistRunScene(sceneId);
+  }
+  function _getRunSceneBeat(sceneId) {
+    _isRunSceneActive(sceneId);
+    return Math.max(0, (_runSceneBeat[sceneId] | 0));
+  }
 
   function ensureComputedAttacks(npc) {
     if (!npc.threatBuild) return;
@@ -2711,6 +2785,199 @@
     });
   }
 
+  function _detectHookTokens(text) {
+    var s = String(text || '');
+    var re = /\[(conversation|map|encounter):([^\]]+)\]/g;
+    var out = []; var m;
+    while ((m = re.exec(s)) !== null) {
+      out.push({ kind: m[1], target: m[2].trim() });
+    }
+    return out;
+  }
+
+  function _renderRunSceneSpotlight(scene, beatIdx) {
+    var encs = (scene.encounters || []);
+    var beat = encs[beatIdx] || null;
+    var html = '';
+    if (!beat) {
+      html += '<div class="cb-rs-spotlight">';
+      html += '<div class="cb-rs-beat-head"><div class="cb-rs-beat-title">Whole Scene</div><div class="cb-rs-beat-meta">No beats authored — scene-level overview</div></div>';
+      var tokens = _detectHookTokens((scene.readAloud || '') + ' ' + (scene.gmNotes || ''));
+      if (encs.length || tokens.length) {
+        html += '<div class="cb-rs-hooks"><div class="cb-rs-hook-label">Quick Launch</div>';
+        encs.forEach(function (e) {
+          html += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(e.id) + '">&#9876; ' + esc(e.name || e.id) + '</button>';
+        });
+        tokens.forEach(function (t) {
+          if (t.kind === 'conversation') {
+            html += '<button class="cb-rs-hook-btn cb-conversation-link" data-conv-slug="' + esc(t.target) + '">&#128172; ' + esc(_slugToTitle(t.target)) + '</button>';
+          } else if (t.kind === 'map') {
+            html += '<button class="cb-rs-hook-btn cb-map-link" data-map-key="' + esc(t.target) + '">&#128506; ' + esc(_slugToTitle(t.target)) + '</button>';
+          }
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+      return html;
+    }
+    var typeColor = beat.type === 'combat' ? '#ef4444' : beat.type === 'social' ? '#c084fc' : beat.type === 'infiltration' ? '#818cf8' : '#c8a44e';
+    html += '<div class="cb-rs-spotlight" style="border-left-color:' + typeColor + ';">';
+    html += '<div class="cb-rs-beat-head">';
+    html += '<div class="cb-rs-beat-title">' + esc(beat.name || ('Beat ' + (beatIdx + 1))) + '</div>';
+    html += '<span class="cb-rs-beat-pill" style="background:' + typeColor + ';">' + esc(beat.type || 'beat') + '</span>';
+    html += '</div>';
+    if (beat.trigger) html += '<div class="cb-rs-beat-trigger"><strong>Trigger:</strong> ' + linkify(beat.trigger) + '</div>';
+    if (beat.description) html += '<div class="cb-rs-beat-desc">' + linkify(beat.description) + '</div>';
+    if (beat.tactics) html += '<div class="cb-rs-beat-tactics"><div class="cb-rs-beat-tactics-label">GM Tactics</div>' + linkify(beat.tactics) + '</div>';
+    if (beat.composition) {
+      html += '<div class="cb-rs-comp">';
+      if (beat.composition.enemies) {
+        beat.composition.enemies.forEach(function (e) {
+          var thr = e.threat === 'rival' ? '#f59e0b' : e.threat === 'nemesis' ? '#ef4444' : '#7a7068';
+          html += '<div class="cb-rs-comp-row"><span class="cb-rs-comp-thr" style="color:' + thr + ';">' + esc(e.threat || '') + '</span> ' + esc(e.type) + ' &times;' + e.count + '</div>';
+        });
+      }
+      if (beat.composition.terrain) html += '<div class="cb-rs-comp-row"><strong>Terrain:</strong> ' + esc(beat.composition.terrain) + '</div>';
+      if (beat.composition.positioning) html += '<div class="cb-rs-comp-row"><strong>Positioning:</strong> ' + esc(beat.composition.positioning) + '</div>';
+      html += '</div>';
+    }
+    if (Array.isArray(beat.scriptedEscalation) && beat.scriptedEscalation.length) {
+      html += _buildEscalationPreviewHtml(scene, beat);
+    }
+    var beatHooks = '';
+    if (beat.type === 'combat' && window.CombatTracker) {
+      beatHooks += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(beat.id) + '">&#9876; Start ' + esc(beat.name || 'Encounter') + '</button>';
+    }
+    if (beatHooks) {
+      html += '<div class="cb-rs-hooks"><div class="cb-rs-hook-label">Run This Beat</div>' + beatHooks + '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _renderRunScene(scene, container) {
+    var encs = (scene.encounters || []);
+    var hasBeats = encs.length > 0;
+    var beatIdx = Math.min(_getRunSceneBeat(scene.id), Math.max(0, encs.length - 1));
+    var sceneNpcs = getSceneNpcs();
+    var raKey = scene.id + ':ra';
+    var notesKey = scene.id + ':notes';
+    var raCollapsed = _runSceneCollapsed[raKey] !== false;
+    var notesCollapsed = _runSceneCollapsed[notesKey] !== false;
+
+    var html = '<div class="cb-runscene">';
+
+    // Read Aloud strip
+    if (scene.readAloud || scene.readAloudPart1) {
+      html += '<div class="cb-rs-strip' + (raCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(raKey) + '">';
+      html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(raKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128220; Read Aloud</span><span class="cb-rs-strip-hint">click to ' + (raCollapsed ? 'expand' : 'collapse') + '</span></div>';
+      html += '<div class="cb-rs-strip-body">' + _buildReadAloudHtml(scene) + '</div>';
+      html += '</div>';
+    }
+    // GM Notes strip
+    if (scene.gmNotes) {
+      html += '<div class="cb-rs-strip' + (notesCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(notesKey) + '">';
+      html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(notesKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128221; GM Notes</span><span class="cb-rs-strip-hint">click to ' + (notesCollapsed ? 'expand' : 'collapse') + '</span></div>';
+      html += '<div class="cb-rs-strip-body">' + _buildGmNotesHtml(scene) + '</div>';
+      html += '</div>';
+    }
+
+    // Beat strip
+    if (hasBeats) {
+      html += '<div class="cb-rs-beatstrip">';
+      html += '<button class="cb-rs-nav" id="cb-rs-prev"' + (beatIdx === 0 ? ' disabled' : '') + '>&larr; Prev</button>';
+      html += '<div class="cb-rs-beatdots">';
+      encs.forEach(function (e, i) {
+        var done = !!(completionsData[scene.id] && completionsData[scene.id].beatsDone && completionsData[scene.id].beatsDone[i]);
+        var cls = 'cb-rs-dot' + (i === beatIdx ? ' active' : '') + (done ? ' done' : '');
+        html += '<button class="' + cls + '" data-rs-jump="' + i + '" title="' + esc(e.name || ('Beat ' + (i + 1))) + '">' + (i + 1) + '</button>';
+      });
+      html += '</div>';
+      html += '<div class="cb-rs-beatcount">Beat ' + (beatIdx + 1) + ' of ' + encs.length + '</div>';
+      html += '<button class="cb-rs-nav" id="cb-rs-next"' + (beatIdx >= encs.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
+      html += '</div>';
+    }
+
+    // Body: spotlight + side rail
+    html += '<div class="cb-rs-body">';
+    html += '<div class="cb-rs-main">' + _renderRunSceneSpotlight(scene, beatIdx) + '</div>';
+    if (sceneNpcs.length) {
+      html += '<div class="cb-rs-side"><div class="cb-rs-side-label">Scene NPCs</div>';
+      sceneNpcs.forEach(function (n) {
+        html += '<div class="cb-rs-side-npc"><strong>' + esc(n.name || n.type || 'NPC') + '</strong>';
+        if (n.type && n.type !== n.name) html += '<div class="cb-rs-side-sub">' + esc(n.type) + '</div>';
+        if (n.count && n.count > 1) html += '<div class="cb-rs-side-sub">&times;' + n.count + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+
+    // Footer
+    html += '<div class="cb-rs-footer">';
+    if (hasBeats) {
+      var beatDone = !!(completionsData[scene.id] && completionsData[scene.id].beatsDone && completionsData[scene.id].beatsDone[beatIdx]);
+      html += '<button class="cb-rs-mark-beat' + (beatDone ? ' done' : '') + '" id="cb-rs-mark-beat">' + (beatDone ? '&#10003; Beat Complete' : '&#9675; Mark Beat Done') + '</button>';
+    }
+    html += '<div class="cb-rs-spacer"></div>';
+    html += '<button class="cb-rs-exit" id="cb-rs-exit">&times; Back to Dashboard</button>';
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  function _bindRunSceneEvents(container, scene) {
+    container.querySelectorAll('[data-rs-toggle]').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var key = head.getAttribute('data-rs-toggle');
+        _runSceneCollapsed[key] = !(_runSceneCollapsed[key] === false);
+        renderScene();
+      });
+    });
+    container.querySelectorAll('[data-rs-jump]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        _setRunSceneBeat(scene.id, parseInt(b.getAttribute('data-rs-jump'), 10) || 0);
+        renderScene();
+      });
+    });
+    var prev = container.querySelector('#cb-rs-prev');
+    var next = container.querySelector('#cb-rs-next');
+    if (prev) prev.addEventListener('click', function () {
+      _setRunSceneBeat(scene.id, _getRunSceneBeat(scene.id) - 1);
+      renderScene();
+    });
+    if (next) next.addEventListener('click', function () {
+      _setRunSceneBeat(scene.id, _getRunSceneBeat(scene.id) + 1);
+      renderScene();
+    });
+    var mark = container.querySelector('#cb-rs-mark-beat');
+    if (mark) mark.addEventListener('click', function () {
+      var idx = _getRunSceneBeat(scene.id);
+      if (!completionsData[scene.id]) completionsData[scene.id] = {};
+      if (!completionsData[scene.id].beatsDone) completionsData[scene.id].beatsDone = {};
+      completionsData[scene.id].beatsDone[idx] = !completionsData[scene.id].beatsDone[idx];
+      var encs = scene.encounters || [];
+      if (completionsData[scene.id].beatsDone[idx] && idx < encs.length - 1) {
+        _setRunSceneBeat(scene.id, idx + 1);
+      }
+      renderScene();
+    });
+    var exit = container.querySelector('#cb-rs-exit');
+    if (exit) exit.addEventListener('click', function () {
+      _setRunSceneActive(scene.id, false);
+      renderScene();
+    });
+    // Bind escalation preview button if present
+    container.querySelectorAll('.cb-esc-preview-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var encIdx = parseInt(btn.dataset.encIdx, 10);
+        if (!isNaN(encIdx)) _openEscalationEditor(scene, encIdx);
+      });
+    });
+    // Bind hook click handlers (conversation, encounter, map) — generic binders below also catch these.
+  }
+
   function renderScene() {
     if (window.CombatTracker && window.CombatTracker.isActive() && currentScene !== _lastRenderedScene) {
       window.CombatTracker.end();
@@ -2751,10 +3018,12 @@
     var hasNarrativeLinks = !!(scene.narrativeLinks && scene.narrativeLinks.length);
     var hasGroupChallenge = !!scene.groupChallenge;
 
+    var runActive = _isRunSceneActive(scene.id);
+
     var html = '<div class="cb-dashboard">';
 
     html += '<div class="cb-dash-header">';
-    html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '</h2>';
+    html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '<button class="cb-runscene-toggle' + (runActive ? ' on' : '') + '" id="cb-runscene-toggle" title="' + (runActive ? 'Switch back to dashboard view' : 'Switch to focused beat-by-beat view') + '">' + (runActive ? '&#9881; Dashboard' : '&#9654; Run Scene') + '</button></h2>';
     if (scene.subtitle) html += '<div class="cb-scene-subtitle">' + esc(scene.subtitle) + '</div>';
     var sceneAdaptations = _getSceneAdaptations(scene.id);
     var partAdaptations = part ? _getPartAdaptations(part.id) : [];
