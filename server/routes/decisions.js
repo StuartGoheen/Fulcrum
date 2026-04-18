@@ -50,8 +50,8 @@ router.post('/decisions', async (req, res) => {
   }
   try {
     const impactsArr = Array.isArray(impacts) ? impacts.filter(i => i && i.key && i.value != null) : [];
-    const legacyKey = campaign_impact || (impactsArr[0] && impactsArr[0].key) || null;
-    const legacyVal = impact_value || (impactsArr[0] && impactsArr[0].value) || null;
+    const legacyKey = campaign_impact || null;
+    const legacyVal = impact_value || null;
     const result = await pool.query(
       `INSERT INTO campaign_decisions
        (scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted,
