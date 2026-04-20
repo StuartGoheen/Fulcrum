@@ -1304,6 +1304,10 @@
             {
               "targetScene": "adv2-p1-s1",
               "note": "Varga's enforcers here foreshadow the full encounter with his organization on Takodana."
+            },
+            {
+              "targetScene": "adv1-p1-s2",
+              "note": "After the brawl, Maya pulls the crew into a back booth (or out the back hallway) to make her pitch privately. Direct hand-off to Maya's Offer."
             }
           ],
           "challengeType": "social",
@@ -1726,7 +1730,9 @@
               ],
               "intel": "Maya intercepted an encrypted Imperial Code Cylinder from Varga's supply chain. She needs it decrypted by Switch, a droid information broker hidden in the badlands. She is offering 10 shares — 1 per crew member, 5 for herself — with a floor of 2 shares for herself if negotiated down.",
               "threatBuild": null,
-              "loot": []
+              "loot": [],
+              "nonCombat": true,
+              "nonCombatNote": "No threatBuild required: this scene is a private conversation. Maya does not fight here. Her combat statblock (used only if a fight unexpectedly breaks out — e.g. on the Banshee in P2-S1) is carried on her P1-S1 entry and reused there."
             }
           ],
           "hazards": "Derelict vaporator maintenance shed. Rusted shutter, unstable floor sections, exposed conduit. Varga's people don't know where the party went — but that window won't last.",
@@ -1770,7 +1776,12 @@
             "The Sinkhole",
             "Varga's Supply Chain"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p1-s3",
+              "note": "If the crew accepts Maya's offer, she leads them to Switch's bunker in the Sinkhole — a speeder ride into the badlands. If they refuse, the adventure stalls; offer Cade Ryll never showing as the nudge back in."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "rescue",
@@ -1919,7 +1930,13 @@
               },
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": null,
+          "mapBinding": {
+            "mapStatus": "none",
+            "reason": "Private booth-room conversation immediately after the cantina brawl. Theater-of-the-mind is sufficient — Maya pulls the crew aside, makes her pitch, accepts patching up. No combat is plausible here.",
+            "idealArtIfAdded": "A small \"back booth / med-corner\" inset of the Burning Deck (could reuse burning-deck.png cropped to the bar/back area)."
+          }
         },
         {
           "id": "adv1-p1-s3",
@@ -2787,6 +2804,10 @@
             {
               "targetScene": "adv2-p2-s2",
               "note": "Switch's agent TC-663 appears in Varga's court — connected through Switch's intelligence network."
+            },
+            {
+              "targetScene": "adv1-p1-s4",
+              "note": "Whether Switch is paid, betrayed, or strong-armed, Ganga Lor (Varga's lieutenant) tracks the crew to the bunker for a revenge ambush as soon as the deal closes."
             }
           ],
           "challengeType": "social",
@@ -2973,7 +2994,13 @@
           "readAloudPart1": "Maya leads you out of the settlement and into the open desert. The sun hammers down as you cross a dry wash and climb through a field of broken mesas — wind-carved rock pillars standing like the ribs of something ancient. No tracks. No markers. Nothing out here but heat and silence and the whisper of sand moving against itself.\n\nMaya moves with purpose. She knows this path.",
           "readAloudPart1PauseNote": "Let the players take in the desert. If anyone wants to scout or investigate the surroundings, this is the moment. Ask: \"What do you notice as you walk?\" or \"Are you watching for anything specific?\" Then move to Part 2 when they reach the bunker.",
           "readAloudPart2": "The sinkhole opens without warning — a ragged crater in the mesa floor, maybe thirty meters across, its walls carved smooth by millennia of wind. At the bottom, half-buried in sand, sits what looks like an abandoned moisture vaporator station. Maya slides down the slope and keys in a code on a rusted panel. A blast door grinds open.\n\nInside is a technological cave — wires hang from the ceiling like vines, the floor is a carpet of droid parts and discarded components. Screens flicker with data feeds from across the sector. But in the center of the filth sits a pristine, priceless desk of Japor ivory wood — polished to a mirror shine, completely out of place in this desert hole.\n\nBehind it, a protocol droid who has clearly forgone memory wipes for decades regards you with an unsettling intelligence. His photoreceptors track each of you individually as you enter.\n\n\"Ah. Maya. You brought friends.\" The droid's vocabulator carries the precise, faintly condescending tone of old Republic diplomatic programming. \"How unlike you.\"",
-          "subtitle": "The Sinkhole"
+          "subtitle": "The Sinkhole",
+          "tacticalMap": null,
+          "mapBinding": {
+            "mapStatus": "none",
+            "reason": "Slicing/decryption montage inside Switch's bunker. No combat — that arrives in P1-S4, which is already bound to switch-lair. Theater-of-the-mind handles the negotiation + decrypt sequence.",
+            "idealArtIfAdded": "A close-up of Switch's console pit (could crop a portion of switch-lair.png around the command pit zone)."
+          }
         },
         {
           "id": "adv1-p1-s4",
@@ -5267,7 +5294,12 @@
             "The Code Cylinder",
             "Jakku"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p1-s5",
+              "note": "With Ganga Lor dead and the Imperial nav data in hand, the crew has the Reestkii Landing Field coordinates and a window to hit the Lambda before Imperial relief arrives. Direct push into The Heist."
+            }
+          ],
           "challengeType": "combat",
           "destinyTags": [
             "destruction"
@@ -7486,7 +7518,12 @@
             "Ajan Kloss",
             "Imperial Occupation"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p2-s2",
+              "note": "Once the crew has gear, plan, and Maya's coordinates loaded, the Banshee makes the jump to Ajan Kloss — and clips a perimeter turret on approach."
+            }
+          ],
           "challengeType": "technical",
           "destinyTags": [
             "discovery"
@@ -7655,7 +7692,74 @@
               "tier": 1
             }
           ],
-          "subtitle": "Hyperspace Transit"
+          "subtitle": "Hyperspace Transit",
+          "tacticalMap": {
+            "mapKey": "banshee",
+            "zoneSize": "ship-room",
+            "zones": [
+              {
+                "id": "cockpit",
+                "label": "Cockpit",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "Pilot/co-pilot/sensors/weapons consoles. Where Maya flies from. Wraparound viewports."
+              },
+              {
+                "id": "common-room",
+                "label": "Common Room",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Central hub. Holotable. Where the crew gathers for the route briefing."
+              },
+              {
+                "id": "galley",
+                "label": "Galley",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Kitchen nook. Where Maya offers caf and the post-Switch breather happens."
+              },
+              {
+                "id": "captains-cabin",
+                "label": "Captain's Cabin",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "Maya's quarters. Locked. Photos on the wall the PCs are not invited to ask about."
+              },
+              {
+                "id": "cargo-bay",
+                "label": "Cargo Bay",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "Main hold. Where loaded gear and the crew's personal kit live."
+              },
+              {
+                "id": "engineering",
+                "label": "Engineering Section",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Power plant + hyperdrive. Repairs happen here."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "common-room",
+                "notes": "Gathered around the holotable for the route briefing."
+              },
+              {
+                "who": "Maya",
+                "zone": "cockpit",
+                "notes": "Pre-flight checks while the crew talks. Joins the holotable for the actual briefing."
+              }
+            ],
+            "gmTacticalNotes": "NON-COMBAT SCENE: This is a flight-prep / character beat scene aboard the Banshee — gear-buy, route plan, downtime conversations. The map is here so the GM can frame WHERE conversations happen (galley = informal, cockpit = pilot intimacy, captain's cabin = locked door = a question), not because a fight is expected. If combat does happen (e.g. an unannounced boarding), use the Cockpit as the choke-point and the Cargo Bay as the open kill-floor."
+          }
         },
         {
           "id": "adv1-p2-s2",
@@ -8070,7 +8174,12 @@
             "Ajan Kloss",
             "Jungle Environment"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p2-s3",
+              "note": "The Banshee skids into the canopy. Repairs are non-trivial (Starship Tool Kit gate). Either way, the only way to Varth is on foot through the jungle."
+            }
+          ],
           "challengeType": "survival",
           "destinyTags": [
             "creation"
@@ -8294,7 +8403,13 @@
               "tier": 1
             }
           ],
-          "subtitle": "Emergency Landing"
+          "subtitle": "Emergency Landing",
+          "tacticalMap": null,
+          "mapBinding": {
+            "mapStatus": "none",
+            "reason": "In-cockpit cinematic moment — turret hits, crash sequence, immediate post-crash confusion. Resolves as a Piloting challenge (already in disciplineChallenges) plus a few rolls; a tactical map would over-formalize a 5-minute beat.",
+            "idealArtIfAdded": "A \"crashed Banshee in the canopy\" diorama showing the ship wedged in jungle treeline at the start of the Green Hell trek — useful as setpiece art, not as a combat grid."
+          }
         },
         {
           "id": "adv1-p2-s3",
@@ -8310,7 +8425,12 @@
             "Klosari",
             "The Vanishing Place"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p2-s4",
+              "note": "Whether the crew completed the Green Hell trek clean or beat-up, somewhere along the canopy a sniper's reticule paints them — Mandrake reveals himself."
+            }
+          ],
           "challengeType": "survival",
           "destinyTags": [
             "discovery"
@@ -8595,118 +8715,145 @@
           "subtitle": "Ajan Kloss",
           "tacticalMap": {
             "mapKey": "jungle-trek",
-            "gmTacticalNotes": "The Green Hell is a 4×3 grid representing the trek corridor between the crash site (south edge) and the fortress perimeter ridge (north edge). Use it as a pacing aid — advance the crew one zone per VP threshold, narrating environmental hazards as they cross each band. Acid pool clusters and fungal blooms are color elements, not hard terrain — let players narrate routing around them as part of their group challenge contributions.\n\nKEY ZONES (south to north): crash-site treeline (south), acid-pool fen (west-center), fungal-bloom cluster (east-center), predator territory (mid), game trail (winding through), the ridge (north — sightline to fortress, the 6 VP intel beat), the rest clearing (north-east, the 8 VP beat), perimeter cover (north edge).\n\nNO COMBAT POSITIONS — this is a traversal map. Treat it as a discussion prop while the group challenge resolves.",
+            "zoneSize": "jungle-region",
             "zones": [
               {
-                "id": "crash-treeline",
-                "label": "Crash-Site Treeline",
-                "passable": true,
-                "cover": "light",
-                "lighting": "dim",
-                "terrain": "jungle floor — root systems, dense undergrowth"
-              },
-              {
-                "id": "south-fen",
-                "label": "Acid-Pool Fen",
-                "passable": true,
-                "cover": "none",
-                "lighting": "normal",
-                "terrain": "standing water, mineral seeps — ACID POOLS scattered throughout"
-              },
-              {
-                "id": "fungal-cluster",
-                "label": "Fungal Bloom Cluster",
-                "passable": true,
-                "cover": "heavy",
-                "lighting": "bioluminescent",
-                "terrain": "EXPLODING FUNGUS — touch triggers spore detonation in 5m radius"
-              },
-              {
-                "id": "game-trail",
-                "label": "Game Trail",
-                "passable": true,
-                "cover": "light",
-                "lighting": "dim",
-                "terrain": "cleared narrow path between hazards (revealed at 2 VP)"
-              },
-              {
-                "id": "predator-territory",
-                "label": "Predator Territory",
+                "id": "jungle-path-south",
+                "label": "Jungle Path — South Entry",
                 "passable": true,
                 "cover": "medium",
                 "lighting": "dim",
-                "terrain": "territorial fauna — large arthropods, hunting birds"
+                "terrain": "Crash-site path heading north into the canopy. Starting zone."
               },
               {
-                "id": "mineral-shelf",
-                "label": "Mineral Shelf",
+                "id": "clearing",
+                "label": "Clearing",
                 "passable": true,
-                "cover": "medium",
-                "lighting": "dim",
-                "terrain": "rocky outcrop — slower but safer crossing"
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Open glade. Visible from the canopy. Risky to linger."
               },
               {
-                "id": "canopy-climb",
-                "label": "Canopy Climb",
+                "id": "shelf-fungi",
+                "label": "Shelf Fungi",
                 "passable": true,
                 "cover": "heavy",
                 "lighting": "dim",
-                "terrain": "vertical climb up vine-tangled trees toward the ridge"
+                "terrain": "Massive shelf fungi growing from the rock. Heavy concealment, spore haze."
               },
               {
-                "id": "the-ridge",
-                "label": "The Ridge (Sightline)",
+                "id": "vine-canopy-nw",
+                "label": "Vine Canopy — Northwest",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "Vine network through the canopy. Climbable. Mandrake will use this if combat starts in s4."
+              },
+              {
+                "id": "flowering-grove",
+                "label": "Flowering Grove",
                 "passable": true,
                 "cover": "light",
                 "lighting": "normal",
-                "terrain": "open ridge above canopy — full fortress sightline (6 VP intel beat)"
+                "terrain": "Beautiful — and deceptive. Pollen fogs sensors."
               },
               {
-                "id": "rest-clearing",
-                "label": "Sheltered Clearing",
+                "id": "biolum-bloom",
+                "label": "Bioluminescent Bloom",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Pulsing violet fungal spheres. HAZARD: shooting one releases a spore cloud (concealment + Endure check or [Sickened])."
+              },
+              {
+                "id": "moss-bank",
+                "label": "Moss Bank",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Slick moss over volcanic rock. Difficult terrain."
+              },
+              {
+                "id": "fallen-log",
+                "label": "Fallen Log",
                 "passable": true,
                 "cover": "medium",
                 "lighting": "normal",
-                "terrain": "clean water, defensible cover (8 VP rest beat)"
+                "terrain": "Massive fallen tree across the path — climb-over or detour."
               },
               {
-                "id": "descent-slope",
-                "label": "Descent Slope",
-                "passable": true,
-                "cover": "light",
-                "lighting": "dim",
-                "terrain": "steep slope down from ridge toward fortress perimeter"
-              },
-              {
-                "id": "perimeter-treeline",
-                "label": "Perimeter Treeline",
-                "passable": true,
-                "cover": "heavy",
-                "lighting": "dim",
-                "terrain": "final cover — fortress wall visible through vines"
-              },
-              {
-                "id": "perimeter-edge",
-                "label": "Perimeter Edge",
+                "id": "ridge-overlook",
+                "label": "Ridge Overlook",
                 "passable": true,
                 "cover": "light",
                 "lighting": "normal",
-                "terrain": "last vegetation before open ground at the wall"
+                "terrain": "Elevated vantage. Macrobinoculars give partial fortress sight from here."
+              },
+              {
+                "id": "perforated-rock",
+                "label": "Perforated Rock",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Honeycombed volcanic rock. Multiple cover positions. Acid pool nearby (tox detector reveals)."
+              },
+              {
+                "id": "spiral-ferns",
+                "label": "Spiral Ferns",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "Dense fern wall. Slow to push through."
+              },
+              {
+                "id": "dense-undergrowth-sw",
+                "label": "Dense Undergrowth — Southwest",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "The hardest, longest route — and the safest from canopy observers."
+              },
+              {
+                "id": "rocky-shelf-east",
+                "label": "Rocky Shelf — East",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Exposed shelf — fast travel, but visible."
+              },
+              {
+                "id": "dense-jungle-east",
+                "label": "Dense Jungle — East",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "The slowest path — and where Mandrake reveals himself in s4."
+              },
+              {
+                "id": "abandoned-equipment",
+                "label": "Abandoned Equipment",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "Old crashed survey gear. Salvage check possible."
+              },
+              {
+                "id": "west-path",
+                "label": "West Path",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Approach to the fortress perimeter — terminus of the trek."
               }
             ],
             "startingPositions": [
               {
-                "who": "PCs (entry)",
-                "zone": "Crash-Site Treeline",
-                "notes": "Crew begins here at scene start, freshly off the crash. The trek runs north toward the perimeter."
-              },
-              {
-                "who": "PCs (scene end)",
-                "zone": "Perimeter Treeline",
-                "notes": "Where the group challenge resolves and Scene 4 opens."
+                "who": "PCs",
+                "zone": "jungle-path-south",
+                "notes": "Begin at the crash-site entry. Goal: traverse to West Path / fortress approach."
               }
             ],
-            "gmStartingPositions": {}
+            "gmTacticalNotes": "GROUP CHALLENGE FRAME: This is the Green Hell traverse — a multi-zone group challenge (already in disciplineChallenges/groupChallenge). The map is for the GM to track WHICH zones the party crossed (acid-pool brushes, spore-bloom triggers, ridge recons) and to set up s4. Mandrake is observing from Vine Canopy NW or Dense Jungle East throughout — he reveals himself in s4 once the party has \"earned\" his attention by surviving the trek."
           }
         },
         {
@@ -8715,7 +8862,7 @@
           "title": "Ghost in the Canopy",
           "subtitle": "Ajan Kloss — The Ridge",
           "readAloud": "The trail goes quiet around you. Not the quiet of stillness — the quiet of something deciding. You're catching your breath when a figure drops out of the canopy in front of you. Not a leap. A controlled descent, like he's done it a thousand times.\n\nLean. Hard. Old Separatist commando gear, patched and rewoven with strips of plant fiber and beadwork that doesn't belong to any culture you recognize. A rifle in his hands, raised, aimed — but his finger is laid alongside the trigger guard, not on the trigger. He's not threatening. He's deciding.\n\nThe jungle has gone quiet around him. He's been there the whole time.",
-          "gmNotes": "FIRST CONTACT WITH VAZUS MANDRAKE: A Separatist Holdout Commando, four years past the official surrender order he refused to obey. He didn't keep fighting because he believed in the cause — the cause died and he knows it. He kept fighting because the indigenous Klosari took him in when his unit was dust. He learned their language. He wears their craftsmanship. He is theirs now.\n\nPLAY HIM: Quiet, deliberate, mostly listening. Recurring physical tell — a single carved bone bead that he threads between the fingers of his off hand whenever he's deciding what to say. Use the bead. It's a gift from a Klosari child and he doesn't yet know whether he'll see her again.\n\n=== ACT 1 — THE ENCOUNTER (Jungle) ===\nTHE FIRST EXCHANGE IS A TEST: He doesn't introduce himself. He asks something that doesn't make sense at first — what unit they served with, who sent them, what they think the lights in the southern sky last night were. He's checking whether they're Imperials in cover, Skarn's enforcers, or something else. Run it as a short tight social beat — two or three exchanges, no dice yet. Reward careful or honest answers. Then the rifle lowers (not all the way — to his hip) and he says: \"Come on. I want you to see something.\" He turns and starts walking uphill without looking back.\n\n=== ACT 2 — THE RIDGE (Pitch) ===\nHe leads them up a steep game trail for roughly twenty minutes — climbing hard, through tangled growth, past blind-spots he's used for years. The trail breaks at a ridge above the canopy. THIS is where the crew gets their first look at the Vanishing Place.\n\nTHE VIEW: A moss-covered temple ruin in the valley below, fortified with scavenged Clone Wars hardware. Dark basalt walls. Laser fences glowing red along the perimeter, visible through the canopy gaps. Two gun turret emplacements on the east and west walls, servos audible as a faint grinding in the quiet. A Lambda-class shuttle on the rooftop landing pad — a pristine Imperial ship on an ancient stone platform. A squad of white-armored Stormtroopers at parade rest outside the west wall, a jarring contrast to the grimy mercenary outlines in the windows.\n\nMandrake sits against a lichen-covered stone at the ridge edge, rifle across his knees. NOW he talks. This is where the structured conversation hook fires — and where the pitch lands, because the target is in full view below.\n\nCONVERSATION HOOK — `mandrake-the-deal` (data/conversations/mandrake-the-deal.json): Comfort starts at 3 (guarded but cooperative). Story topics about the Klosari, the jungle, or his old unit hold or raise comfort; business topics about the generator, sluice route, and charge spec are neutral; probe topics about his loyalty, past, or what happens to him after the deal cost 1 comfort each. Acceptance closes the conversation cleanly and opens the descent to the sluice; comfort exhaustion ends it with the offer withdrawn and the ridge view as the last thing the crew shares with him.\n\nTHE REVEAL, IN PIECES — let the conversation deliver these naturally, and POINT at the target as you narrate:\n1. THE PRISONERS: Klosari resistors are inside the fortress, penned behind the laser fences the crew can see glowing through the gaps. Mandrake has been planning to free them for months but doesn't have the firepower alone.\n2. THE DEAL: He'll guide the crew in through the drainage sluice on the northeast face (point — the crew can see the vine-choked grate from here). In exchange, they sabotage the generator on their way through.\n3. THE FOUR-PURPOSE CONVERGENCE: When he lists what the generator powers, do it SLOW, and POINT each time:\n   - 'Those turrets' (point at the east and west emplacements) — PAUSE. You want the table to hear 'turrets' and remember Maya's warning from Scene 2 about her shuttle's extraction flight path.\n   - 'Those fences' (point at the red glow of the prisoner pens).\n   - 'That block' (point at the south end of the fortress where the detention wing sits).\n   - 'Every sensor' (gesture at the whole thing).\nOne sabotage. Four problems solved. With the target in view. The plan clicks at the table, not in your notes.\n\nINSIGHT CHECK (Resist 5): If a player reaches for it, Legendary tier reveals the thing he isn't saying out loud — if the Klosari don't walk free tonight, he's already promised himself he'll detonate his remaining charges in Skarn's throne room. He has nothing left after this. Don't volunteer it. Make a player earn it.\n\n=== ACT 3 — THE DESCENT (Approach) ===\nACCEPTANCE: Mandrake nods once, stands, slings the rifle. He leads the crew back down through a hidden canopy route — a series of game trails and rope-assisted descents that he has walked a thousand times. It is tense but not mechanically demanding; narrate local flavor (Klosari trail markers, scavenged commando cache points, a boobytrap he disarms without comment). The descent ends at the vine-choked drainage sluice on the fortress's northeast face. He works the grate loose with a vibroblade. Cut to Scene 5 with the crew belly-crawling through knee-deep runoff into the fortress understructure.\n\nREFUSAL / COMFORT HITS ZERO: He stands, takes one last look at the fortress below, and says \"Then we never met.\" He steps back into the canopy and is gone — the ridge view is yours now, and only yours. The sluice grate is still down there. The crew can find it without him. But the turrets will stay hot, the fences will stay live, the Klosari will stay penned, and no one will be waiting at the pens when the lights go out. The deal is permanently off.",
+          "gmNotes": "FIRST CONTACT WITH VAZUS MANDRAKE: A Separatist Holdout Commando, four years past the official surrender order he refused to obey. He didn't keep fighting because he believed in the cause — the cause died and he knows it. He kept fighting because the indigenous Klosari took him in when his unit was dust. He learned their language. He wears their craftsmanship. He is theirs now.\n\nPLAY HIM: Quiet, deliberate, mostly listening. Recurring physical tell — a single carved bone bead that he threads between the fingers of his off hand whenever he's deciding what to say. Use the bead. It's a gift from a Klosari child and he doesn't yet know whether he'll see her again.\n\n=== ACT 1 — THE ENCOUNTER (Jungle) ===\nTHE FIRST EXCHANGE IS A TEST: He doesn't introduce himself. He asks something that doesn't make sense at first — what unit they served with, who sent them, what they think the lights in the southern sky last night were. He's checking whether they're Imperials in cover, Skarn's enforcers, or something else. Run it as a short tight social beat — two or three exchanges, no dice yet. Reward careful or honest answers. Then the rifle lowers (not all the way — to his hip) and he says: \"Come on. I want you to see something.\" He turns and starts walking uphill without looking back.\n\n=== ACT 2 — THE RIDGE (Pitch) ===\nHe leads them up a steep game trail for roughly twenty minutes — climbing hard, through tangled growth, past blind-spots he's used for years. The trail breaks at a ridge above the canopy. THIS is where the crew gets their first look at the Vanishing Place.\n\nTHE VIEW: A moss-covered temple ruin in the valley below, fortified with scavenged Clone Wars hardware. Dark basalt walls. Laser fences glowing red along the perimeter, visible through the canopy gaps. Two gun turret emplacements on the east and west walls, servos audible as a faint grinding in the quiet. A Lambda-class shuttle on the rooftop landing pad — a pristine Imperial ship on an ancient stone platform. A squad of white-armored Stormtroopers at parade rest outside the west wall, a jarring contrast to the grimy mercenary outlines in the windows.\n\nMandrake sits against a lichen-covered stone at the ridge edge, rifle across his knees. NOW he talks. This is where the structured conversation hook fires — and where the pitch lands, because the target is in full view below.\n\nCONVERSATION HOOK — `mandrake-the-deal` (data/conversations/mandrake-the-deal.json): Comfort starts at 3 (guarded but cooperative). Story topics about the Klosari, the jungle, or his old unit hold or raise comfort; business topics about the generator, sluice route, and charge spec are neutral; probe topics about his loyalty, past, or what happens to him after the deal cost 1 comfort each. Acceptance closes the conversation cleanly and opens the descent to the sluice; comfort exhaustion ends it with the offer withdrawn and the ridge view as the last thing the crew shares with him.\n\nTHE REVEAL, IN PIECES — let the conversation deliver these naturally, and POINT at the target as you narrate:\n1. THE PRISONERS: Klosari resistors are inside the fortress, penned behind the laser fences the crew can see glowing through the gaps. Mandrake has been planning to free them for months but doesn't have the firepower alone.\n2. THE DEAL: He'll guide the crew in through the drainage sluice on the northeast face (point — the crew can see the vine-choked grate from here). In exchange, they sabotage the generator on their way through.\n3. THE FOUR-PURPOSE CONVERGENCE: When he lists what the generator powers, do it SLOW, and POINT each time:\n   - 'Those turrets' (point at the east and west emplacements) — PAUSE. You want the table to hear 'turrets' and remember Maya's warning from Scene 2 about her shuttle's extraction flight path.\n   - 'Those fences' (point at the red glow of the prisoner pens).\n   - 'That block' (point at the south end of the fortress where the detention wing sits).\n   - 'Every sensor' (gesture at the whole thing).\nOne sabotage. Four problems solved. With the target in view. The plan clicks at the table, not in your notes.\n\nINSIGHT CHECK (Resist 5): If a player reaches for it, Legendary tier reveals the thing he isn't saying out loud — if the Klosari don't walk free tonight, he's already promised himself he'll detonate his remaining charges in Skarn's throne room. He has nothing left after this. Don't volunteer it. Make a player earn it.\n\n=== ACT 3 — THE DESCENT (Approach) ===\nACCEPTANCE: Mandrake nods once, stands, slings the rifle. He leads the crew back down through a hidden canopy route — a series of game trails and rope-assisted descents that he has walked a thousand times. It is tense but not mechanically demanding; narrate local flavor (Klosari trail markers, scavenged commando cache points, a boobytrap he disarms without comment). The descent ends at the vine-choked drainage sluice on the fortress's northeast face. He works the grate loose with a vibroblade. Cut to Scene 5 with the crew belly-crawling through knee-deep runoff into the fortress understructure.\n\nREFUSAL / COMFORT HITS ZERO: He stands, takes one last look at the fortress below, and says \"Then we never met.\" He steps back into the canopy and is gone — the ridge view is yours now, and only yours. The sluice grate is still down there. The crew can find it without him. But the turrets will stay hot, the fences will stay live, the Klosari will stay penned, and no one will be waiting at the pens when the lights go out. The deal is permanently off.\n\n  NARRATIVE BRIDGE — TO P2-S5 (INFILTRATION): Branch by Mandrake decision. (a) DEAL ACCEPTED → Mandrake guides to the drainage sluice; PCs enter the fortress wet-but-quiet from the south, skipping the exterior staging area. (b) DEAL REFUSED → no sluice intel; PCs must breach the front (Exterior Staging Area), tripping Stormtrooper Squad on the way in. (c) MANDRAKE DEAD → as (b), and his Klosari prisoners do not get freed in s8 (cuts the East Wing Pens subplot).",
           "npcs": [
             {
               "name": "Vazus Mandrake",
@@ -8830,7 +8977,12 @@
             "General Skarn",
             "Captain Vischera"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p2-s5",
+              "note": "If Mandrake's deal is accepted, he guides them to the drainage sluice for a soft infiltration. If refused, the crew approaches blind through the front perimeter."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "rescue",
@@ -8956,7 +9108,79 @@
               "power": 4,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "jungle-trek",
+            "zoneSize": "jungle-region",
+            "focalZones": [
+              "vine-canopy-nw",
+              "dense-jungle-east",
+              "ridge-overlook"
+            ],
+            "zones": [
+              {
+                "id": "vine-canopy-nw",
+                "label": "Vine Canopy — Northwest",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "The vine network. Mandrake uses this for movement-without-touching-ground if things go hot. Climb (Athletics) to reach it."
+              },
+              {
+                "id": "dense-jungle-east",
+                "label": "Dense Jungle — East",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "Mandrake's reveal zone. Heavy concealment all around."
+              },
+              {
+                "id": "ridge-overlook",
+                "label": "Ridge Overlook",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Where the conversation usually happens — Mandrake brings them here to show them the fortress."
+              },
+              {
+                "id": "biolum-bloom",
+                "label": "Bioluminescent Bloom",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Mandrake will detonate one as a warning shot if the PCs turn hostile (spore barrier)."
+              },
+              {
+                "id": "perforated-rock",
+                "label": "Perforated Rock",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Defensive position if combat starts — but Mandrake will not stay to fight."
+              },
+              {
+                "id": "west-path",
+                "label": "West Path",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Where Mandrake leads them next: the drainage sluice approach to the fortress."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs",
+                "zone": "ridge-overlook",
+                "notes": "Brought here by Mandrake (or arrive on their own and find him waiting)."
+              },
+              {
+                "who": "Vazus Mandrake",
+                "zone": "vine-canopy-nw",
+                "notes": "In the canopy on first reveal — drops down to ridge for the conversation. Returns to canopy if combat starts."
+              }
+            ],
+            "gmTacticalNotes": "CONVERSATION-FIRST SCENE: Mandrake is a Tier 2 Stalker with full home-field advantage. He should NOT be fought — he will fire warning shots, detonate a bloom, and vanish into the canopy. If the PCs accept his deal, the party gets a guide to the drainage sluice (a much easier fortress approach). If the PCs attack and survive, they lose the sluice route and must approach the fortress unguided."
+          }
         },
         {
           "id": "adv1-p2-s5",
@@ -9241,7 +9465,12 @@
             "Admiral Varth",
             "Ajan Kloss"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p2-s6",
+              "note": "Once inside the fortress walls, the crew's priority is the Generator Room — sabotage drops the perimeter turrets and the detention mag-locks before the Detention Block hit."
+            }
+          ],
           "challengeType": "infiltration",
           "destinyTags": [
             "destruction",
@@ -9671,7 +9900,7 @@
           "title": "The Generator",
           "subtitle": "Mandrake's Deal",
           "readAloud": "The generator room is deep in the fortress basement — a repurposed Clone Wars power unit, cables snaking out through the walls like arteries. Through the grated floor, you can feel the hum in your teeth. This one machine powers everything: the turrets on the walls, the laser fences penning Mandrake's people, the security doors sealing the detention block, the sensor grid watching every corridor.\n\nKill this, and the whole fortress goes blind.",
-          "gmNotes": "This is the tactical linchpin of the entire infiltration. The generator encounter has four-purpose significance — the GM should make the payoff chain EXPLICIT. When sabotaged, it simultaneously:\n\n(1) Kills the perimeter turret defenses — clearing Maya's extraction flight path\n(2) Drops the laser fences penning indigenous prisoners — enabling Mandrake's rescue\n(3) Unlocks the security doors blocking the detention area — opening the path to Varth\n(4) Blinds the sensor grid — creating chaos cover for everyone\n\nIf the heroes honor Mandrake's deal, this is where they pay it off. If they skip it, turrets stay active (Maya's extraction becomes near-suicidal), prisoners stay penned (Mandrake is betrayed), and security remains fully operational.\n\nThe generator room has 2 mercenary guards (bored, playing cards) and a Clone Wars-era security droid that activates if the generator is tampered with.\n\nAfter the generator blows, the fortress alarm sounds. This is the point of no return — from here, it's a clock. The heroes need to reach the detention block before the garrison reorganizes.",
+          "gmNotes": "This is the tactical linchpin of the entire infiltration. The generator encounter has four-purpose significance — the GM should make the payoff chain EXPLICIT. When sabotaged, it simultaneously:\n\n(1) Kills the perimeter turret defenses — clearing Maya's extraction flight path\n(2) Drops the laser fences penning indigenous prisoners — enabling Mandrake's rescue\n(3) Unlocks the security doors blocking the detention area — opening the path to Varth\n(4) Blinds the sensor grid — creating chaos cover for everyone\n\nIf the heroes honor Mandrake's deal, this is where they pay it off. If they skip it, turrets stay active (Maya's extraction becomes near-suicidal), prisoners stay penned (Mandrake is betrayed), and security remains fully operational.\n\nThe generator room has 2 mercenary guards (bored, playing cards) and a Clone Wars-era security droid that activates if the generator is tampered with.\n\nAfter the generator blows, the fortress alarm sounds. This is the point of no return — from here, it's a clock. The heroes need to reach the detention block before the garrison reorganizes.\n\n  NARRATIVE BRIDGE — TO P2-S7 (DETENTION): Branch by sabotage outcome. (a) FULL SABOTAGE → mag-locks open, turrets cold; Varth's cell guards confused and PCs have soft-surprise. (b) PARTIAL → mag-locks open but corridor surveillance trips an alarm — 2-beat reinforcement clock. (c) FAILURE / SKIPPED → mag-locks live, turrets hot; Varth's cell guards alert; cell doors require Skulduggery (Hard) or security kit. This same outcome also flexes s8 extraction (rooftop landing vs. hot ground extraction).",
           "npcs": [
             {
               "name": "Generator Guards",
@@ -9682,7 +9911,73 @@
               "dialogue": [
                 "\"What the— how did you get in here?\"",
                 "\"Nobody told us about any inspection—\""
-              ]
+              ],
+              "threatBuild": {
+                "role": "anchor",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "light",
+                "traits": [],
+                "tags": [],
+                "roleKit": {
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
+                },
+                "notes": "Generator-room guards (×2). Same Skarn Mercenary minion block used by every other interior fortress guard in adv1 (P2-S5, P2-S7) — by design, so the GM does not have to swap statblocks mid-fortress. Anchor/Martial kit fits the role: they are sentries posted to hold a position. Bored card-players, slow to react, easy to drop quietly. Masterful+ = takedown.",
+                "computed": {
+                  "power": 1,
+                  "defense": 1,
+                  "evasion": 1,
+                  "resist": 1,
+                  "vitality": 4,
+                  "initiative": 2,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "powerSource": "martial"
+              }
             }
           ],
           "hazards": "Clone Wars-era generator — volatile if handled wrong. Security droid activates on tampering. Explosion risk on failure.",
@@ -9714,7 +10009,12 @@
             "Vazus Mandrake",
             "Clone Wars"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv1-p2-s7",
+              "note": "With (or without) the generator sabotaged, the crew pushes to the Detention Block. Sabotage outcome flexes s7 hard — see s7 GM notes."
+            }
+          ],
           "challengeType": "technical",
           "destinyTags": [
             "destruction",
@@ -9877,47 +10177,15 @@
           ],
           "tacticalMap": {
             "mapKey": "vanishing-place",
-            "gmTacticalNotes": "FOCAL ZONE: Generator Room (south of Central Passage, accessed via the ramp). The vaulted chamber with the Clone Wars fusion core. Two mercenary guards on cards inside the room; a dormant Clone Wars security droid in a charging cradle near the generator housing.\n\nAPPROACH: Crew descends from Central Passage. The ramp is the only entry — Generator Room has one door, which makes it both defensible and a trap. No back exit. Plan stealth entry (silent guard takedown) before the droid is touched, OR be ready to fight the droid head-on.\n\nTHE DROID: The Clone Wars-era security droid is dormant in the charging cradle until the generator housing is tampered with. Once the tech check on the generator begins, it activates next beat. It is the dangerous threat in this room — use the Generator Room's conduit channels and grated floor plates as terrain (cover, footing penalties when running across grates).\n\nTHE FOUR-PURPOSE PAYOFF: When the sabotage succeeds, narrate the chain in this exact order so the table feels each domino:\n1. Gun Turret West and Gun Turret East die — the servos go silent first, then the barrels droop. Maya's flight path opens.\n2. East Wing Pens — the laser fences cut out with a sharp pop. Mandrake moves immediately. The Klosari are loose.\n3. Detention Block — the mag-locks click open simultaneously across all four cells. Varth's cell door swings on its own.\n4. The fortress sensor grid blinds. All work-lights flicker. The throb stops. For three beats the fortress is dark, deaf, and confused — this is the chaos cover for the rest of the run.\n\nBLAST FOOTPRINT: Failed sabotage = explosion in Generator Room. PCs in the room must clear to Central Passage (one zone north) or take falling-debris damage. Adjacent zones (Central Passage, Central Junction) shake and lose lighting briefly.\n\nPARTIAL SABOTAGE OPTION: If PCs choose 'selective sabotage' (only some systems), GM picks which subset goes down — recommend leaving the sensor grid up if the table needs s7 to keep tension, or leaving turrets up if s8 needs the high-stakes extraction.",
+            "gmTacticalNotes": "FOCAL ZONE: Generator Room (interior, off Central Passage). Vaulted Clone Wars-era fusion core, conduit channels in the floor, sound-deadening machinery hum (helps stealth). Two bored guards at a card table near the conduit entrance.\n\nAPPROACH PATH: Drainage Sluice (if Mandrake guided in) → East Passage → Central Passage → Generator Room. Alternate: West Corridor if the PCs entered through the front. The generator room itself is a single sealed chamber — once inside, sightlines are clean; the throbbing core masks small sounds.\n\nSABOTAGE OBJECTIVE: Tech / Security check (Field Toolkit gates this) to drop the perimeter turrets AND the detention-block mag-locks. Three outcomes drive s7/s8: full sabotage (turrets off + mag-locks open), partial (one or the other), failure (alarm triggers a 2-beat reinforcement clock).\n\nTHE GUARDS: Skarn Mercenary minion block (×2 — see threatBuild on the npc). They are NOT expecting trouble. If approached stealthily they can be dropped silently (Skulduggery / Brawl[Grit] takedown). If they spot the party first, they reach for blasters — but they are slow and minion-tier. The real risk is the alarm panel on the wall behind them.",
             "zones": [
               {
-                "id": "drainage-sluice",
-                "label": "Drainage Sluice",
-                "passable": true,
-                "cover": "heavy",
-                "lighting": "dim",
-                "terrain": "flooded stone tunnel — knee-deep runoff, slick algae"
-              },
-              {
-                "id": "communications-center",
-                "label": "Communications Center",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "normal",
-                "terrain": "comm equipment bolted to ancient stone — datapads, holotransceiver"
-              },
-              {
-                "id": "storage",
-                "label": "Storage",
+                "id": "generator-room",
+                "label": "Generator Room",
                 "passable": true,
                 "cover": "heavy",
                 "lighting": "normal",
-                "terrain": "crates and supply containers stacked three high"
-              },
-              {
-                "id": "medical-bay",
-                "label": "Medical Bay",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "normal",
-                "terrain": "specimen tanks, surgical table, bacta station — Vischera here"
-              },
-              {
-                "id": "west-corridor",
-                "label": "West Corridor",
-                "passable": true,
-                "cover": "light",
-                "lighting": "normal",
-                "terrain": "wide stone passage — voices carry"
+                "terrain": "Vaulted fusion core, conduit channels — heavy cover from the core housing."
               },
               {
                 "id": "central-passage",
@@ -9925,7 +10193,7 @@
                 "passable": true,
                 "cover": "light",
                 "lighting": "normal",
-                "terrain": "main north-south spine — generator throb felt underfoot"
+                "terrain": "Approach corridor. Generator throb felt underfoot."
               },
               {
                 "id": "central-junction",
@@ -9933,23 +10201,7 @@
                 "passable": true,
                 "cover": "medium",
                 "lighting": "normal",
-                "terrain": "crossroads — patrol notice board, rubber mats"
-              },
-              {
-                "id": "generator-room",
-                "label": "Generator Room",
-                "passable": true,
-                "cover": "heavy",
-                "lighting": "normal",
-                "terrain": "Clone Wars fusion core — vaulted chamber, conduit channels"
-              },
-              {
-                "id": "turbolift-stairs",
-                "label": "Turbolift & Stairs",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "dim",
-                "terrain": "turbolift car + spiral stair to Level 2"
+                "terrain": "Crossroads. Patrol notice board."
               },
               {
                 "id": "east-passage",
@@ -9957,121 +10209,32 @@
                 "passable": true,
                 "cover": "light",
                 "lighting": "dim",
-                "terrain": "narrower corridor toward sluice entry"
+                "terrain": "Sluice-side approach."
               },
               {
-                "id": "detention-corridor",
-                "label": "Detention Corridor",
+                "id": "drainage-sluice",
+                "label": "Drainage Sluice",
                 "passable": true,
-                "cover": "light",
-                "lighting": "normal",
-                "terrain": "short approach to cell block — bright lights, no shadows"
-              },
-              {
-                "id": "detention-block",
-                "label": "Detention Block",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "normal",
-                "terrain": "four cells, mag-lock doors — guard table at entrance, Varth in cell 3"
-              },
-              {
-                "id": "east-wing-pens",
-                "label": "East Wing Pens",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "red-hum",
-                "terrain": "three pens behind laser fences — Klosari prisoners"
-              },
-              {
-                "id": "exterior-staging",
-                "label": "Exterior Staging Area",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "normal",
-                "terrain": "cleared ground, stacked crates — stormtrooper squad here"
-              },
-              {
-                "id": "turret-west",
-                "label": "Gun Turret — West",
-                "passable": false,
                 "cover": "heavy",
-                "lighting": "normal",
-                "terrain": "automated turret on west wall — generator-powered"
-              },
-              {
-                "id": "turret-east",
-                "label": "Gun Turret — East",
-                "passable": false,
-                "cover": "heavy",
-                "lighting": "normal",
-                "terrain": "automated turret on east wall — covers sluice approach"
-              },
-              {
-                "id": "turbolift-arrival-l2",
-                "label": "Turbolift Arrival — Level 2",
-                "passable": true,
-                "cover": "light",
                 "lighting": "dim",
-                "terrain": "upper sanctum entry from turbolift"
-              },
-              {
-                "id": "command-area-l2",
-                "label": "Command Area — Level 2",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "normal",
-                "terrain": "holo-table, tactical displays — Skarn officers + Imperial advance team"
-              },
-              {
-                "id": "rooftop-pad",
-                "label": "Rooftop Landing Pad",
-                "passable": true,
-                "cover": "light",
-                "lighting": "open",
-                "terrain": "open stone platform, Lambda shuttle parked — Maya lands here if turrets down"
+                "terrain": "Mandrake's entry route. Knee-deep runoff."
               }
             ],
             "startingPositions": [
               {
-                "who": "PCs (entry)",
-                "zone": "Central Passage",
-                "notes": "Approach from the north. Generator Room is one zone south down the ramp."
+                "who": "PCs",
+                "zone": "east-passage",
+                "notes": "Approaching from the sluice side (Mandrake-guided). Stealth window."
               },
               {
                 "who": "Generator Guards (×2)",
-                "zone": "Generator Room",
-                "notes": "Playing cards at a folding table near the door. Distracted; vulnerable to silent takedown if PCs enter quietly."
-              },
-              {
-                "who": "Security Droid",
-                "zone": "Generator Room",
-                "notes": "Dormant in charging cradle near generator housing. Activates next beat after generator is tampered with."
-              },
-              {
-                "who": "Mandrake (waiting)",
-                "zone": "East Wing Pens",
-                "notes": "Pre-positioned from s5. Moves to free Klosari the instant the fences drop."
+                "zone": "generator-room",
+                "notes": "At the card table near the core. Bored, slow to react. Alarm panel on the wall behind them."
               }
             ],
-            "gmStartingPositions": {
-              "PCs": {
-                "x": 375,
-                "y": 230
-              },
-              "Guards": {
-                "x": 366,
-                "y": 350
-              },
-              "Droid": {
-                "x": 366,
-                "y": 350
-              },
-              "Mandrake": {
-                "x": 424,
-                "y": 459
-              }
-            }
+            "focalZones": [
+              "generator-room"
+            ]
           }
         },
         {
@@ -10196,6 +10359,10 @@
             {
               "targetScene": "adv2-p1-s1",
               "note": "Varth immediately begins directing the heroes toward Varga the Hutt."
+            },
+            {
+              "targetScene": "adv1-p2-s8",
+              "note": "Varth's extraction triggers Draco's Lambda arriving over the rooftop pad and Skarn's remaining mercs collapsing inward — direct cut to the three-way climax."
             }
           ],
           "challengeType": "social",
