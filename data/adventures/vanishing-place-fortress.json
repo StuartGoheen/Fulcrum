@@ -639,6 +639,20 @@
         "YELLOW": "Patrol every 2 rounds, in pairs, blasters unholstered but low. Check in on comm every round.",
         "ORANGE": "Converge on trigger zone at end of Round 1. Shoot first at unknown silhouettes.",
         "RED": "All mercs in the fight. Use gambits aggressively. Will sacrifice individuals to buy the fortress time."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "central_hall"
+        ],
+        "YELLOW": [
+          "central_hall"
+        ],
+        "ORANGE": [
+          "central_hall"
+        ],
+        "RED": [
+          "central_hall"
+        ]
       }
     },
     {
@@ -650,6 +664,20 @@
         "YELLOW": "Standing. Blasters in hand. One watching the N corridor, one watching the S pens.",
         "ORANGE": "Dead if generator sabotage was loud, fighting if sabotage was a confrontation, radioing if sabotage was sneaky-but-not-sneaky-enough. Either way, their post is the ignition point of the klaxon.",
         "RED": "If still alive: fighting to the last. If dead: their comlinks are still chattering — useful intel for the crew."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "central_hall"
+        ],
+        "YELLOW": [
+          "central_hall"
+        ],
+        "ORANGE": [
+          "central_hall"
+        ],
+        "RED": [
+          "central_hall"
+        ]
       }
     },
     {
@@ -661,6 +689,20 @@
         "YELLOW": "Still shut down. A blinking diagnostic light suggests it's in standby — perception-observant PCs may flag it.",
         "ORANGE": "BOOTS ON TIER ESCALATION. Stands up during the first round of ORANGE. Moves to the trigger zone on Round 2. Commits violence on Round 3.",
         "RED": "Fighting. Will pursue Varth specifically if it has a line of sight to him."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "central_hall"
+        ],
+        "YELLOW": [
+          "central_hall"
+        ],
+        "ORANGE": [
+          "central_hall"
+        ],
+        "RED": [
+          "central_hall"
+        ]
       }
     },
     {
@@ -672,6 +714,20 @@
         "YELLOW": "Standing, weapons on hips. Watching the pens for movement.",
         "ORANGE": "Mag-lock the guard post from inside. Shoot through the fence at any prisoner moving toward it. Do NOT open the post door — their orders are to hold Varth's corridor above all else.",
         "RED": "Same — mag-locked, shooting from inside. If Varth is out, they're already dead or fled."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "detention_guard_post"
+        ],
+        "YELLOW": [
+          "detention_guard_post"
+        ],
+        "ORANGE": [
+          "detention_guard_post"
+        ],
+        "RED": [
+          "detention_guard_post"
+        ]
       }
     },
     {
@@ -683,6 +739,22 @@
         "YELLOW": "Facing the turbolift head. Sergeant on comm.",
         "ORANGE": "Descend turbolift Round 1. In Central Hall by end of Round 2. Converge on the trigger zone.",
         "RED": "Half back on the roof to receive Draco, half holding whatever objective the fight has become."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "rooftop_pad"
+        ],
+        "YELLOW": [
+          "rooftop_pad"
+        ],
+        "ORANGE": [
+          "turbolift",
+          "central_hall"
+        ],
+        "RED": [
+          "rooftop_pad",
+          "central_hall"
+        ]
       }
     },
     {
@@ -694,6 +766,21 @@
         "YELLOW": "Move to cover positions along the W wall.",
         "ORANGE": "Breach the W doors (end of Round 2). Join the convergence in Central Hall.",
         "RED": "Hold the W doors and provide a rally point for any retreating mercs."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "exterior_west"
+        ],
+        "YELLOW": [
+          "exterior_west"
+        ],
+        "ORANGE": [
+          "exterior_west",
+          "central_hall"
+        ],
+        "RED": [
+          "exterior_west"
+        ]
       }
     },
     {
@@ -705,6 +792,20 @@
         "YELLOW": "Glancing at the door. Hand near a scalpel. Will parley — she is AFRAID of what's happening, not loyal.",
         "ORANGE": "Mag-locks the Med Bay from inside. Arms herself with a neurotoxin autoinjector. Will parley through the door if the crew identifies themselves as not-Imperial.",
         "RED": "Surrenders immediately if the door is breached. Trades intel for safety. She's been wanting to leave for months."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "medical_bay"
+        ],
+        "YELLOW": [
+          "medical_bay"
+        ],
+        "ORANGE": [
+          "medical_bay"
+        ],
+        "RED": [
+          "medical_bay"
+        ]
       }
     },
     {
@@ -716,6 +817,20 @@
         "YELLOW": "Standing near his door. Has already guessed something is happening.",
         "ORANGE": "Demands the crew open his cell NOW. Treats the rescue like a hired service. If generator is dead, his mag-lock is open — he walks out on his own.",
         "RED": "Moving on his own if he can. Will commandeer a blaster if offered. Willing to fight to escape but will not risk HIS life for a pen full of locals."
+      },
+      "zonesByTier": {
+        "GREEN": [
+          "varth_cell"
+        ],
+        "YELLOW": [
+          "varth_cell"
+        ],
+        "ORANGE": [
+          "varth_cell"
+        ],
+        "RED": [
+          "varth_cell"
+        ]
       }
     }
   ],

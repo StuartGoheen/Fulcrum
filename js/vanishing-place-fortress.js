@@ -338,13 +338,16 @@
   function _onTick() {
     var ns = JSON.parse(JSON.stringify(_currentState));
     if (ns.tier === 'RED') {
+      // Draco clock: rounds 1..4 inclusive. Shadow Troopers deploy on round 4.
       ns.redRound = Math.min((ns.redRound || 1) + 1, 4);
     } else if (ns.tier === 'ORANGE') {
+      // Reinforcement clock: rounds 1..4 inclusive. At round 4, ORANGE → RED (auto-escalate).
       ns.orangeRound = (ns.orangeRound || 1) + 1;
-      if (ns.orangeRound > 4) {
+      if (ns.orangeRound >= 4) {
         ns.tier = 'RED';
         ns.redRound = 1;
         ns.orangeRound = 0;
+        ns.lastTrigger = { id: 'reinforcement_timeout', label: 'Reinforcements arrived (ORANGE round 4)', from: 'ORANGE', to: 'RED', at: Date.now(), kind: 'auto' };
       }
     }
     _pushState(ns);
@@ -686,10 +689,11 @@
         if (!fortressZone) return;
         var tier = _getTier(_currentState.tier);
         var zt = fortressZone.byTier[_currentState.tier] || {};
+        // Authoritative per-tier zone presence: read npcGroups[].zonesByTier[tier].
         var relevantNpcs = _data.npcGroups.filter(function (g) {
-          var beh = (g.byTier[_currentState.tier] || '').toLowerCase();
-          var zoneTokens = fortressZone.label.toLowerCase().split(/[\s\(\-,]+/);
-          return zoneTokens.some(function (tok) { return tok.length > 3 && beh.indexOf(tok) >= 0; });
+          var zbt = g.zonesByTier || {};
+          var zoneKeys = zbt[_currentState.tier] || [];
+          return zoneKeys.indexOf(fortressZone.key) >= 0;
         });
         var html = '<div class="tm-zone-vpf-block" style="margin-top:10px;border-top:1px solid rgba(200,164,78,0.25);padding-top:8px;">' +
           '<div style="font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:' + tier.color + ';margin-bottom:4px;">Fortress tier: ' + _esc(tier.label) + '</div>' +
