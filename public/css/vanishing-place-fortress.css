@@ -407,3 +407,58 @@
   filter: brightness(1.35);
   cursor: pointer;
 }
+
+/* ---------- Direct tier selector ---------- */
+.vpf-tier-select-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a8a08a;
+  margin-right: 4px;
+}
+.vpf-tier-select {
+  background: rgba(20, 20, 24, 0.8);
+  color: #e6dcc4;
+  border: 1px solid rgba(200, 164, 78, 0.45);
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 0.62rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+.vpf-tier-select:hover { border-color: rgba(200, 164, 78, 0.85); }
+
+/* ---------- Partial sabotage picker ---------- */
+.vpf-partial-form { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.vpf-partial-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(20, 20, 24, 0.6);
+  border: 1px solid rgba(200, 164, 78, 0.2);
+  border-radius: 4px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.vpf-partial-row:hover { background: rgba(200, 164, 78, 0.06); border-color: rgba(200, 164, 78, 0.4); }
+.vpf-partial-check { margin-top: 2px; cursor: pointer; accent-color: #c8a44e; }
+.vpf-partial-text { flex: 1; }
+.vpf-partial-flag {
+  font-family: monospace;
+  font-size: 0.6rem;
+  color: #c8a44e;
+  letter-spacing: 0.02em;
+  margin-bottom: 2px;
+}
+.vpf-partial-label { font-size: 0.65rem; color: #e6dcc4; line-height: 1.4; }
+.vpf-partial-status {
+  margin-top: 10px;
+  font-size: 0.62rem;
+  color: #a8a08a;
+  text-align: right;
+}
+.vpf-partial-status strong { color: #c8a44e; font-size: 0.7rem; }

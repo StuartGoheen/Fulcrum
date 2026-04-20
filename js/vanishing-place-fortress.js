@@ -127,6 +127,14 @@
         '<div class="vpf-one-liner">' + _esc(tier.oneLiner) + '</div>' +
       '</div>' +
       '<div class="vpf-actions">' +
+        '<label class="vpf-tier-select-label" title="Set tier directly — bypasses trigger prompts. Use when the fiction already resolved and you just need the fortress at a specific level.">Set:' +
+          '<select class="vpf-tier-select">' +
+            ORDER.map(function (t) {
+              var sel = t === _currentState.tier ? ' selected' : '';
+              return '<option value="' + t + '"' + sel + '>' + t + '</option>';
+            }).join('') +
+          '</select>' +
+        '</label>' +
         '<button class="vpf-btn vpf-btn-trigger" title="Fire a specific escalation trigger (blaster fire, body found, alarm, etc.)">Trigger&hellip;</button>' +
         '<button class="vpf-btn vpf-btn-counter" title="Apply a counter-action (hide body, sever alarm, fake all-clear)">Counter&hellip;</button>' +
         '<button class="vpf-btn vpf-btn-sabotage" title="Apply generator sabotage outcome">Sabotage&hellip;</button>' +
@@ -183,6 +191,8 @@
     $('.vpf-btn-trigger')  .addEventListener('click', _onOpenTriggerPicker);
     $('.vpf-btn-counter')  .addEventListener('click', _onOpenCounterPicker);
     $('.vpf-btn-sabotage') .addEventListener('click', _onSabotage);
+    var tierSelect = $('.vpf-tier-select');
+    if (tierSelect) tierSelect.addEventListener('change', _onDirectTierChange);
     $('.vpf-btn-reset')    .addEventListener('click', _onReset);
     $('.vpf-btn-ref')      .addEventListener('click', openReference);
     var tickBtn = $('.vpf-btn-tick');
@@ -369,6 +379,16 @@
   function _applySabotage(outcomeKey) {
     var outcome = _data.sabotageCascade.outcomes[outcomeKey];
     if (!outcome) return;
+    // Partial sabotage requires an explicit 2-of-4 flag picker.
+    var gmChoiceKeys = Object.keys(outcome.flags).filter(function (k) { return outcome.flags[k] === 'gm-choice'; });
+    if (gmChoiceKeys.length > 0) {
+      _openPartialSabotagePicker(outcomeKey, outcome, gmChoiceKeys);
+      return;
+    }
+    _commitSabotage(outcomeKey, outcome, {});
+  }
+
+  function _commitSabotage(outcomeKey, outcome, chosenFlagMap) {
     var ns = JSON.parse(JSON.stringify(_currentState));
     ns.sabotage = outcomeKey;
     ns.tier = outcome.tierSetTo;
@@ -378,8 +398,83 @@
       var v = outcome.flags[k];
       if (v === true) ns.flags[k] = true;
       else if (v === false) ns.flags[k] = false;
-      // 'gm-choice' leaves the existing value alone — GM toggles manually if wanted
+      else if (v === 'gm-choice') ns.flags[k] = !!chosenFlagMap[k];
     });
+    _pushState(ns);
+  }
+
+  function _openPartialSabotagePicker(outcomeKey, outcome, gmChoiceKeys) {
+    // Per design note in the sabotage JSON: GM picks 2 of the 4 cascade effects that fire.
+    var REQUIRED_TRUE = 2;
+    var LABELS = {
+      turrets_offline: 'Turrets offline (exterior extraction lane clears)',
+      laser_fences_dropped: 'Laser fences drop (detention pens spill)',
+      mag_locks_open: 'Mag-locks pop open (Varth\u2019s cell, all Level 1 doors)',
+      sensor_grid_blind: 'Sensor grid blind (passive detection offline)'
+    };
+    var html = '<div class="vpf-modal-sub">Partial sabotage: exactly ' + REQUIRED_TRUE + ' of these 4 cascade effects fire. The other ' + (gmChoiceKeys.length - REQUIRED_TRUE) + ' do <strong>not</strong>. Pick based on what the fiction supports — GM guidance suggestion: <em>laser_fences_dropped + mag_locks_open</em> (the noisy, visible ones).</div>' +
+      '<form class="vpf-partial-form">';
+    gmChoiceKeys.forEach(function (k) {
+      html += '<label class="vpf-partial-row">' +
+        '<input type="checkbox" class="vpf-partial-check" data-flag="' + _esc(k) + '"/>' +
+        '<div class="vpf-partial-text">' +
+          '<div class="vpf-partial-flag">' + _esc(k) + '</div>' +
+          '<div class="vpf-partial-label">' + _esc(LABELS[k] || k) + '</div>' +
+        '</div>' +
+      '</label>';
+    });
+    html += '</form>' +
+      '<div class="vpf-partial-status">Pick exactly ' + REQUIRED_TRUE + '. Selected: <strong class="vpf-partial-count">0</strong>/' + REQUIRED_TRUE + '.</div>';
+
+    _openModal('Partial Sabotage: pick 2 of 4 cascade effects', html, 'Apply partial cascade', function () {
+      var checked = Array.prototype.slice.call(document.querySelectorAll('.vpf-partial-check:checked'));
+      if (checked.length !== REQUIRED_TRUE) {
+        alert('You must select exactly ' + REQUIRED_TRUE + ' cascade effects. Currently selected: ' + checked.length + '.');
+        return false; // keep modal open
+      }
+      var chosen = {};
+      gmChoiceKeys.forEach(function (k) { chosen[k] = false; });
+      checked.forEach(function (cb) { chosen[cb.dataset.flag] = true; });
+      _commitSabotage(outcomeKey, outcome, chosen);
+    });
+
+    // Wire count updater and enforce max-2.
+    setTimeout(function () {
+      var countEl = document.querySelector('.vpf-partial-count');
+      var boxes = Array.prototype.slice.call(document.querySelectorAll('.vpf-partial-check'));
+      boxes.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          var n = boxes.filter(function (b) { return b.checked; }).length;
+          if (n > REQUIRED_TRUE) {
+            cb.checked = false;
+            n = REQUIRED_TRUE;
+            alert('Only ' + REQUIRED_TRUE + ' cascade effects can fire on partial sabotage. Uncheck another to change your pick.');
+          }
+          if (countEl) countEl.textContent = n;
+        });
+      });
+    }, 0);
+  }
+
+  function _onDirectTierChange(ev) {
+    var toId = ev.target.value;
+    var fromId = _currentState.tier;
+    if (toId === fromId) return;
+    var toTier = _getTier(toId);
+    if (!toTier) return;
+    var msg = 'Set tier directly from ' + fromId + ' → ' + toId + '?\n\nThis bypasses the trigger prompt — no read-aloud cue will fire. Use only when the fiction already justifies the tier (e.g., loading a saved state, correcting a misclick).';
+    if (!confirm(msg)) {
+      // Revert the dropdown selection.
+      ev.target.value = fromId;
+      return;
+    }
+    var ns = JSON.parse(JSON.stringify(_currentState));
+    ns.tier = toId;
+    ns.lastTrigger = { id: 'direct_set', label: 'Direct tier set by GM', from: fromId, to: toId, at: Date.now(), kind: 'direct' };
+    if (toId === 'ORANGE' && fromId !== 'ORANGE') ns.orangeRound = 1;
+    if (toId === 'RED' && fromId !== 'RED') ns.redRound = 1;
+    if (toId !== 'ORANGE') ns.orangeRound = toId === 'RED' ? ns.orangeRound : 0;
+    if (toId !== 'RED') ns.redRound = 0;
     _pushState(ns);
   }
 
@@ -465,7 +560,10 @@
     box.querySelector('.vpf-modal-cancel').addEventListener('click', _closeModal);
     if (okText && onOk) {
       box.querySelector('.vpf-modal-ok').addEventListener('click', function () {
-        try { onOk(); } finally { _closeModal(); }
+        var result;
+        try { result = onOk(); } catch (e) { _closeModal(); throw e; }
+        // Allow onOk to return `false` to keep the modal open (validation failures).
+        if (result !== false) _closeModal();
       });
     }
     overlay.addEventListener('click', function (ev) {
@@ -521,20 +619,18 @@
 
   function _zoneForRoomName(room) {
     if (!_data || !_data.zones) return null;
-    var target = String(room || '').toLowerCase().trim();
+    // Normalize for comparison: collapse whitespace and dash variants, case-insensitive.
+    function norm(s) {
+      return String(s || '').toLowerCase().replace(/[—–-]/g, '-').replace(/\s+/g, ' ').trim();
+    }
+    var target = norm(room);
+    // Primary: explicit mapRooms alias list (authoritative).
     for (var i = 0; i < _data.zones.length; i++) {
       var z = _data.zones[i];
-      if (z.label && z.label.toLowerCase() === target) return z;
-    }
-    // Fuzzy: fortress-data "Exterior West (Staging Area)" vs hitbox "Exterior Staging Area"
-    for (var j = 0; j < _data.zones.length; j++) {
-      var z2 = _data.zones[j];
-      var zl = z2.label.toLowerCase();
-      if (zl.indexOf(target) >= 0 || target.indexOf(zl) >= 0) return z2;
-      // Token match on first significant word
-      var zlFirst = zl.split(/[\s\(\-]/)[0];
-      var tgFirst = target.split(/[\s\(\-]/)[0];
-      if (zlFirst && tgFirst && zlFirst === tgFirst) return z2;
+      var aliases = z.mapRooms || [z.label];
+      for (var a = 0; a < aliases.length; a++) {
+        if (norm(aliases[a]) === target) return z;
+      }
     }
     return null;
   }
