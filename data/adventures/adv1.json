@@ -1934,8 +1934,7 @@
           "tacticalMap": null,
           "mapBinding": {
             "mapStatus": "none",
-            "reason": "Private conversation in a derelict vaporator maintenance shed three blocks from The Burning Deck. Theater-of-the-mind is sufficient — Maya makes her pitch, the crew accepts or refuses. No combat is plausible here.",
-            "idealArtIfAdded": "A small, dim interior: collapsed workbench, stripped conduit, half a moisture collector. Dust motes in a single shaft of light from a slat in the rusted shutter. Bench in the center where the Code Cylinder is set down."
+            "reason": "Private conversation in a derelict vaporator maintenance shed three blocks from The Burning Deck. Theater-of-the-mind is sufficient — Maya makes her pitch, the crew accepts or refuses. No combat is plausible here."
           }
         },
         {
@@ -2998,8 +2997,7 @@
           "tacticalMap": null,
           "mapBinding": {
             "mapStatus": "none",
-            "reason": "Slicing/decryption montage inside Switch's bunker. No combat — that arrives in P1-S4, which is already bound to switch-lair. Theater-of-the-mind handles the negotiation + decrypt sequence.",
-            "idealArtIfAdded": "A close-up of Switch's console pit (could crop a portion of switch-lair.png around the command pit zone)."
+            "reason": "Slicing/decryption montage inside Switch's bunker. No combat — that arrives in P1-S4, which is already bound to switch-lair. Theater-of-the-mind handles the negotiation + decrypt sequence."
           }
         },
         {
@@ -8407,8 +8405,7 @@
           "tacticalMap": null,
           "mapBinding": {
             "mapStatus": "none",
-            "reason": "In-cockpit cinematic moment — turret hits, crash sequence, immediate post-crash confusion. Resolves as a Piloting challenge (already in disciplineChallenges) plus a few rolls; a tactical map would over-formalize a 5-minute beat.",
-            "idealArtIfAdded": "A \"crashed Banshee in the canopy\" diorama showing the ship wedged in jungle treeline at the start of the Green Hell trek — useful as setpiece art, not as a combat grid."
+            "reason": "In-cockpit cinematic moment — turret hits, crash sequence, immediate post-crash confusion. Resolves as a Piloting challenge (already in disciplineChallenges) plus a few rolls; a tactical map would over-formalize a 5-minute beat."
           }
         },
         {
