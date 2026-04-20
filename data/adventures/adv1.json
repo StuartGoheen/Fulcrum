@@ -1934,8 +1934,8 @@
           "tacticalMap": null,
           "mapBinding": {
             "mapStatus": "none",
-            "reason": "Private booth-room conversation immediately after the cantina brawl. Theater-of-the-mind is sufficient — Maya pulls the crew aside, makes her pitch, accepts patching up. No combat is plausible here.",
-            "idealArtIfAdded": "A small \"back booth / med-corner\" inset of the Burning Deck (could reuse burning-deck.png cropped to the bar/back area)."
+            "reason": "Private conversation in a derelict vaporator maintenance shed three blocks from The Burning Deck. Theater-of-the-mind is sufficient — Maya makes her pitch, the crew accepts or refuses. No combat is plausible here.",
+            "idealArtIfAdded": "A small, dim interior: collapsed workbench, stripped conduit, half a moisture collector. Dust motes in a single shaft of light from a slat in the rusted shutter. Bench in the center where the Code Cylinder is set down."
           }
         },
         {
