@@ -8499,7 +8499,7 @@
               },
               {
                 "at": 0.6,
-                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northeast face.",
+                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northwest face.",
                 "checkpoint": false
               },
               {
@@ -8609,7 +8609,7 @@
             "credits": 0,
             "items": [],
             "intel": [
-              "Fortress sightline from the canopy ridge — perimeter layout, guard towers, drainage sluice on the northeast face",
+              "Fortress sightline from the canopy ridge — perimeter layout, guard towers, drainage sluice on the northwest face",
               "Acid pool patterns and fungal bloom routes — safe paths through the Green Hell"
             ],
             "connections": []
@@ -8859,7 +8859,7 @@
           "title": "Ghost in the Canopy",
           "subtitle": "Ajan Kloss — The Ridge",
           "readAloud": "The trail goes quiet around you. Not the quiet of stillness — the quiet of something deciding. You're catching your breath when a figure drops out of the canopy in front of you. Not a leap. A controlled descent, like he's done it a thousand times.\n\nLean. Hard. Old Separatist commando gear, patched and rewoven with strips of plant fiber and beadwork that doesn't belong to any culture you recognize. A rifle in his hands, raised, aimed — but his finger is laid alongside the trigger guard, not on the trigger. He's not threatening. He's deciding.\n\nThe jungle has gone quiet around him. He's been there the whole time.",
-          "gmNotes": "FIRST CONTACT WITH VAZUS MANDRAKE: A Separatist Holdout Commando, four years past the official surrender order he refused to obey. He didn't keep fighting because he believed in the cause — the cause died and he knows it. He kept fighting because the indigenous Klosari took him in when his unit was dust. He learned their language. He wears their craftsmanship. He is theirs now.\n\nPLAY HIM: Quiet, deliberate, mostly listening. Recurring physical tell — a single carved bone bead that he threads between the fingers of his off hand whenever he's deciding what to say. Use the bead. It's a gift from a Klosari child and he doesn't yet know whether he'll see her again.\n\n=== ACT 1 — THE ENCOUNTER (Jungle) ===\nTHE FIRST EXCHANGE IS A TEST: He doesn't introduce himself. He asks something that doesn't make sense at first — what unit they served with, who sent them, what they think the lights in the southern sky last night were. He's checking whether they're Imperials in cover, Skarn's enforcers, or something else. Run it as a short tight social beat — two or three exchanges, no dice yet. Reward careful or honest answers. Then the rifle lowers (not all the way — to his hip) and he says: \"Come on. I want you to see something.\" He turns and starts walking uphill without looking back.\n\n=== ACT 2 — THE RIDGE (Pitch) ===\nHe leads them up a steep game trail for roughly twenty minutes — climbing hard, through tangled growth, past blind-spots he's used for years. The trail breaks at a ridge above the canopy. THIS is where the crew gets their first look at the Vanishing Place.\n\nTHE VIEW: A moss-covered temple ruin in the valley below, fortified with scavenged Clone Wars hardware. Dark basalt walls. Laser fences glowing red along the perimeter, visible through the canopy gaps. Two gun turret emplacements on the east and west walls, servos audible as a faint grinding in the quiet. A Lambda-class shuttle on the rooftop landing pad — a pristine Imperial ship on an ancient stone platform. A squad of white-armored Stormtroopers at parade rest outside the west wall, a jarring contrast to the grimy mercenary outlines in the windows.\n\nMandrake sits against a lichen-covered stone at the ridge edge, rifle across his knees. NOW he talks. This is where the structured conversation hook fires — and where the pitch lands, because the target is in full view below.\n\nCONVERSATION HOOK — `mandrake-the-deal` (data/conversations/mandrake-the-deal.json): Comfort starts at 3 (guarded but cooperative). Story topics about the Klosari, the jungle, or his old unit hold or raise comfort; business topics about the generator, sluice route, and charge spec are neutral; probe topics about his loyalty, past, or what happens to him after the deal cost 1 comfort each. Acceptance closes the conversation cleanly and opens the descent to the sluice; comfort exhaustion ends it with the offer withdrawn and the ridge view as the last thing the crew shares with him.\n\nTHE REVEAL, IN PIECES — let the conversation deliver these naturally, and POINT at the target as you narrate:\n1. THE PRISONERS: Klosari resistors are inside the fortress, penned behind the laser fences the crew can see glowing through the gaps. Mandrake has been planning to free them for months but doesn't have the firepower alone.\n2. THE DEAL: He'll guide the crew in through the drainage sluice on the northeast face (point — the crew can see the vine-choked grate from here). In exchange, they sabotage the generator on their way through.\n3. THE FOUR-PURPOSE CONVERGENCE: When he lists what the generator powers, do it SLOW, and POINT each time:\n   - 'Those turrets' (point at the east and west emplacements) — PAUSE. You want the table to hear 'turrets' and remember Maya's warning from Scene 2 about her shuttle's extraction flight path.\n   - 'Those fences' (point at the red glow of the prisoner pens).\n   - 'That block' (point at the south end of the fortress where the detention wing sits).\n   - 'Every sensor' (gesture at the whole thing).\nOne sabotage. Four problems solved. With the target in view. The plan clicks at the table, not in your notes.\n\nINSIGHT CHECK (Resist 5): If a player reaches for it, Legendary tier reveals the thing he isn't saying out loud — if the Klosari don't walk free tonight, he's already promised himself he'll detonate his remaining charges in Skarn's throne room. He has nothing left after this. Don't volunteer it. Make a player earn it.\n\n=== ACT 3 — THE DESCENT (Approach) ===\nACCEPTANCE: Mandrake nods once, stands, slings the rifle. He leads the crew back down through a hidden canopy route — a series of game trails and rope-assisted descents that he has walked a thousand times. It is tense but not mechanically demanding; narrate local flavor (Klosari trail markers, scavenged commando cache points, a boobytrap he disarms without comment). The descent ends at the vine-choked drainage sluice on the fortress's northeast face. He works the grate loose with a vibroblade. Cut to Scene 5 with the crew belly-crawling through knee-deep runoff into the fortress understructure.\n\nREFUSAL / COMFORT HITS ZERO: He stands, takes one last look at the fortress below, and says \"Then we never met.\" He steps back into the canopy and is gone — the ridge view is yours now, and only yours. The sluice grate is still down there. The crew can find it without him. But the turrets will stay hot, the fences will stay live, the Klosari will stay penned, and no one will be waiting at the pens when the lights go out. The deal is permanently off.\n\n  NARRATIVE BRIDGE — TO P2-S5 (INFILTRATION): Branch by Mandrake decision. (a) DEAL ACCEPTED → Mandrake guides to the drainage sluice; PCs enter the fortress wet-but-quiet from the south, skipping the exterior staging area. (b) DEAL REFUSED → no sluice intel; PCs must breach the front (Exterior Staging Area), tripping Stormtrooper Squad on the way in. (c) MANDRAKE DEAD → as (b), and his Klosari prisoners do not get freed in s8 (cuts the East Wing Pens subplot).",
+          "gmNotes": "FIRST CONTACT WITH VAZUS MANDRAKE: A Separatist Holdout Commando, four years past the official surrender order he refused to obey. He didn't keep fighting because he believed in the cause — the cause died and he knows it. He kept fighting because the indigenous Klosari took him in when his unit was dust. He learned their language. He wears their craftsmanship. He is theirs now.\n\nPLAY HIM: Quiet, deliberate, mostly listening. Recurring physical tell — a single carved bone bead that he threads between the fingers of his off hand whenever he's deciding what to say. Use the bead. It's a gift from a Klosari child and he doesn't yet know whether he'll see her again.\n\n=== ACT 1 — THE ENCOUNTER (Jungle) ===\nTHE FIRST EXCHANGE IS A TEST: He doesn't introduce himself. He asks something that doesn't make sense at first — what unit they served with, who sent them, what they think the lights in the southern sky last night were. He's checking whether they're Imperials in cover, Skarn's enforcers, or something else. Run it as a short tight social beat — two or three exchanges, no dice yet. Reward careful or honest answers. Then the rifle lowers (not all the way — to his hip) and he says: \"Come on. I want you to see something.\" He turns and starts walking uphill without looking back.\n\n=== ACT 2 — THE RIDGE (Pitch) ===\nHe leads them up a steep game trail for roughly twenty minutes — climbing hard, through tangled growth, past blind-spots he's used for years. The trail breaks at a ridge above the canopy. THIS is where the crew gets their first look at the Vanishing Place.\n\nTHE VIEW: A moss-covered temple ruin in the valley below, fortified with scavenged Clone Wars hardware. Dark basalt walls. Laser fences glowing red along the perimeter, visible through the canopy gaps. Two gun turret emplacements on the east and west walls, servos audible as a faint grinding in the quiet. A Lambda-class shuttle on the rooftop landing pad — a pristine Imperial ship on an ancient stone platform. A squad of white-armored Stormtroopers at parade rest outside the west wall, a jarring contrast to the grimy mercenary outlines in the windows.\n\nMandrake sits against a lichen-covered stone at the ridge edge, rifle across his knees. NOW he talks. This is where the structured conversation hook fires — and where the pitch lands, because the target is in full view below.\n\nCONVERSATION HOOK — `mandrake-the-deal` (data/conversations/mandrake-the-deal.json): Comfort starts at 3 (guarded but cooperative). Story topics about the Klosari, the jungle, or his old unit hold or raise comfort; business topics about the generator, sluice route, and charge spec are neutral; probe topics about his loyalty, past, or what happens to him after the deal cost 1 comfort each. Acceptance closes the conversation cleanly and opens the descent to the sluice; comfort exhaustion ends it with the offer withdrawn and the ridge view as the last thing the crew shares with him.\n\nTHE REVEAL, IN PIECES — let the conversation deliver these naturally, and POINT at the target as you narrate:\n1. THE PRISONERS: Klosari resistors are inside the fortress, penned behind the laser fences the crew can see glowing through the gaps. Mandrake has been planning to free them for months but doesn't have the firepower alone.\n2. THE DEAL: He'll guide the crew in through the drainage sluice on the northwest face (point — the crew can see the vine-choked grate from here). In exchange, they sabotage the generator on their way through.\n3. THE FOUR-PURPOSE CONVERGENCE: When he lists what the generator powers, do it SLOW, and POINT each time:\n   - 'Those turrets' (point at the east and west emplacements) — PAUSE. You want the table to hear 'turrets' and remember Maya's warning from Scene 2 about her shuttle's extraction flight path.\n   - 'Those fences' (point at the red glow of the prisoner pens).\n   - 'That block' (point at the south end of the fortress where the detention wing sits).\n   - 'Every sensor' (gesture at the whole thing).\nOne sabotage. Four problems solved. With the target in view. The plan clicks at the table, not in your notes.\n\nINSIGHT CHECK (Resist 5): If a player reaches for it, Legendary tier reveals the thing he isn't saying out loud — if the Klosari don't walk free tonight, he's already promised himself he'll detonate his remaining charges in Skarn's throne room. He has nothing left after this. Don't volunteer it. Make a player earn it.\n\n=== ACT 3 — THE DESCENT (Approach) ===\nACCEPTANCE: Mandrake nods once, stands, slings the rifle. He leads the crew back down through a hidden canopy route — a series of game trails and rope-assisted descents that he has walked a thousand times. It is tense but not mechanically demanding; narrate local flavor (Klosari trail markers, scavenged commando cache points, a boobytrap he disarms without comment). The descent ends at the vine-choked drainage sluice on the fortress's northwest face. He works the grate loose with a vibroblade. Cut to Scene 5 with the crew belly-crawling through knee-deep runoff into the fortress understructure.\n\nREFUSAL / COMFORT HITS ZERO: He stands, takes one last look at the fortress below, and says \"Then we never met.\" He steps back into the canopy and is gone — the ridge view is yours now, and only yours. The sluice grate is still down there. The crew can find it without him. But the turrets will stay hot, the fences will stay live, the Klosari will stay penned, and no one will be waiting at the pens when the lights go out. The deal is permanently off.\n\n  NARRATIVE BRIDGE — TO P2-S5 (INFILTRATION): Branch by Mandrake decision. (a) DEAL ACCEPTED → Mandrake guides to the drainage sluice; PCs enter the fortress wet-but-quiet from the south, skipping the exterior staging area. (b) DEAL REFUSED → no sluice intel; PCs must breach the front (Exterior Staging Area), tripping Stormtrooper Squad on the way in. (c) MANDRAKE DEAD → as (b), and his Klosari prisoners do not get freed in s8 (cuts the East Wing Pens subplot).",
           "npcs": [
             {
               "name": "Vazus Mandrake",
@@ -8871,7 +8871,7 @@
                 "\"Don't move. I've had a bead on you since the river crossing.\"",
                 "\"You're going to The Vanishing Place? Then we have a common interest. Skarn has my people penned up inside that fortress.\"",
                 "\"When his forces moved in, the locals resisted. Skarn rounded up everyone who fought back. They're behind laser fences and locked doors — all powered by one generator.\"",
-                "\"I know a way in — a drainage sluice on the northeast face. But I need something in return. The generator. I need it destroyed. It powers the turret defenses, the fences, the security doors, and the sensor grid. One target, and everything Skarn built falls apart.\"",
+                "\"I know a way in — a drainage sluice on the northwest face. But I need something in return. The generator. I need it destroyed. It powers the turret defenses, the fences, the security doors, and the sensor grid. One target, and everything Skarn built falls apart.\"",
                 "\"They took me in when my war ended. I won't leave them in cages.\""
               ],
               "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, the drainage sluice entrance, and critically, the generator's role in powering turrets, laser fences, security doors, and the sensor grid. He also knows Vischera is conducting experiments in the Medical Bay. His indigenous people — the locals who adopted him — are held in detention pens near the fortress's east wing.",
@@ -9034,7 +9034,7 @@
             "openingBeat": "A figure drops out of the canopy. Rifle aimed, finger off the trigger. The jungle has gone quiet around him — he has been there the whole time.",
             "risingAction": "He tests the crew with questions. The rifle lowers to his hip. Then he says \"Come on. I want you to see something,\" and leads them up a game trail that climbs hard for twenty minutes through tangled growth — until the canopy breaks and the ridge opens.",
             "climax": "The fortress laid out below, Lambda shuttle on the pad, turret servos audible in the quiet. Mandrake points. \"One generator. Kills those turrets. Drops those fences. Opens that block. Blinds every sensor.\" The pitch lands with the target in view — the plan clicks at the table, not in your notes.",
-            "resolution": "The deal struck (or refused). If accepted — Mandrake slings his rifle and leads them back down through a hidden canopy route he has walked a thousand times, ending at a vine-choked drainage sluice in the fortress's northeast face. The grate works loose under his vibroblade. The runoff tunnel opens. Time to go.",
+            "resolution": "The deal struck (or refused). If accepted — Mandrake slings his rifle and leads them back down through a hidden canopy route he has walked a thousand times, ending at a vine-choked drainage sluice in the fortress's northwest face. The grate works loose under his vibroblade. The runoff tunnel opens. Time to go.",
             "estimatedMinutes": 35
           },
           "knackTags": [
@@ -9186,10 +9186,10 @@
           "fortressState": {
             "ref": "vanishing-place-fortress",
             "startTier": "GREEN",
-            "note": "Fortress is unaware. Crew entered via the drainage sluice. See the Fortress Alert widget at the top of the Vanishing Place tactical map for live tier, escalation triggers, and reinforcement clock."
+            "note": "Fortress is unaware. Crew is approaching via the NW Drainage Sluice. Mandrake parts from them at the outer grate and circles W on his own — he is NOT inside. See the Fortress Alert widget at the top of the Vanishing Place tactical map for live tier, escalation triggers, NPC placements, and the reinforcement clock."
           },
-          "readAloud": "The runoff tunnel closes around you — knee-deep cold water, slick algae on basalt walls, the green-black of old stone under a patina of biological growth. Your own breathing echoes back from somewhere deeper than should be possible. Mandrake's silhouette is framed against the grate behind you for a beat — a final nod — and then he is moving east, fast and quiet, toward the pens.\n\nThe tunnel opens into a vaulted chamber. The ceiling arches overhead in a single massive span, no pillars, no supports — the original builders carved it from one piece. Somewhere above, a generator throbs through the stone. The air smells of wet rock, machine oil, and bacta. You are inside the Vanishing Place.",
-          "gmNotes": "Mandrake leads the heroes through the drainage sluice into the fortress interior. Once inside, Mandrake splits off — he positions himself near the east wing detention pens where his people are held, ready to move the moment the generator goes down. He tells the heroes: 'I'll be at the pens. When the lights go out, I'm getting them out. You get your admiral. We meet at the north clearing for extraction.'\n\nKey locations: the Medical Bay (Captain Vischera conducts biological experiments on wildlife), the Communications Center, and the Generator Room. Intercepted transmissions reveal that the Imperial officer outside is stalling — Inquisitor Valin Draco is en route to take personal custody of Varth. This creates a hard clock: grab Varth before the Inquisitor lands.\n\nGENERATOR SABOTAGE (UPDATED): The generator encounter now has four-purpose significance. When sabotaged, it simultaneously: (1) kills the perimeter turret defenses — clearing Maya's extraction flight path, (2) drops the laser fences penning the indigenous prisoners — enabling Mandrake's rescue, (3) unlocks the security doors blocking the detention area, and (4) blinds the sensor grid — creating chaos cover. The GM should make this payoff chain explicit when the generator blows.\n\nT1/T2/T3 CALLBACK: The 'perimeter turret defenses' Maya needs disabled are the same three emplacements (designated T1, T2, T3) that fired on the Banshee during the descent in Adv 1 P2 S2 (The Crash). They are powered by the fortress generator. When the generator is sabotaged in P2 S5, T1/T2/T3 go offline simultaneously and Maya's extraction flight path opens. Make this explicit when narrating the generator payoff — the crew should recognize the turret designations and feel the closure.",
+          "readAloud": "Mandrake works the outer grate loose with his vibroblade and folds it back. He doesn't follow you in. 'I'll be west of the wall,' he says, eyes already tracking the treeline. 'When the lights go out, you'll know I'm working. Get your admiral. The Klosari are mine.' Then he is gone into the canopy — quiet, fast, no goodbye.\n\nThe runoff tunnel closes around you — knee-deep cold water, slick algae on basalt, your own breathing echoing back from somewhere deeper than the pipe should run. Voices drift through from somewhere further in — distorted, unplaceable, two mercs talking about a sabacc hand. Sound carries both ways down this pipe. Whatever you do in here, the fortress can hear it too.\n\nThe tunnel opens upward into a short vertical shaft, capped by a second grate set in a corridor floor. Beyond it: lamplight, the low throb of a generator through stone, the smell of wet rock and bacta. You are about to be inside the Vanishing Place.",
+          "gmNotes": "SLUICE — SANDBOX INFILTRATION (run as obvious obstacles, GM-call resolution):\n\n1) OUTER GRATE (NW exterior, vine-choked). Already worked loose by Mandrake on the way in — no check needed. If the PCs want to RE-SEAL it behind themselves to deny pursuit, that's a Standard Mechanics or Athletics check.\n\n2) MOTION/IR SENSORS (mid-pipe). NOT obvious. PCs only see them if they're looking — Assess (Investigation), Tech, or any sensible perception-leaning check the GM honors. Once spotted, PCs can DISABLE (Tech), BYPASS in stealth (Stealth — submerging fully under the runoff is the obvious play), or simply walk into them and trip the alarm. A tripped sensor does NOT auto-escalate the fortress — but the GM may, at any time after that, send 1–2 Stormtroopers in from the SW yard to investigate. That's a deliberate GM tool for cranking tension.\n\n3) AMBIENT NOISE RULE. Voices echo through the pipe both ways. Players overhear snippets of merc chatter (use this for color and intel). Conversely, ANY loud noise the PCs make in the sluice (blaster bolt, dropped gear, a shouted curse) carries the same direction and gives the same GM-discretion option as a tripped sensor.\n\n4) INNER FLOOR GRATE (drops them into the corridor in the NW interior). Same options as the outer — force, slice, or carefully unscrew.\n\n=== INSIDE THE FORTRESS ===\nOnce through the inner grate, the PCs have a rough map (Mandrake's recollection) and know roughly where things are: Generator in the central assembly area, Pens to the SE, Varth's Cell beyond the Pens, Med Bay W, Comms N-center. They do NOT know who is where. Run it as a sandbox — let the PCs scout, sneak, plan.\n\nNPC PLACEMENTS (authoritative — the Fortress Alert widget shows the same): 2 Skarn soldiers in the Detention Guard Post (corridor S of generator, N of pens), 2 more in the corridor between the Pens and Varth's Cell, Captain Vischera + 2 escort soldiers in the Med Bay, 2 Skarn mercs in the Comms Center. Outside: 4 Stormtroopers + Sergeant in the SW yard. No interior patrols of the assembly hall — the fortress is light on bodies because Skarn is overconfident.\n\nMANDRAKE — INDEPENDENT WESTERN ACTOR: Mandrake is in the treeline NW of the SW yard. He holds fire as long as the PCs are quiet. The MOMENT the alarm goes up OR the generator drops, he opens up on the Stormtrooper squad and pins them in the yard — they will NOT reach Central Hall while Mandrake is alive and shooting. That is the deal: the PCs handle the inside, Mandrake handles the outside. He freelances his prisoner rescue once the fences drop.\n\nGENERATOR SABOTAGE — FOUR-PURPOSE PAYOFF: One sabotage simultaneously (1) kills the perimeter turrets [T1/T2/T3 from P2-S2 — Maya's extraction lane opens, make the callback explicit], (2) drops the laser fences penning the Klosari prisoners [Mandrake's payday], (3) opens the mag-locks on Level 1 including Varth's cell, and (4) blinds the sensor grid. Make the chain EXPLICIT when the lights drop. Sabotage outcomes (full / partial / failed) live in the fortress widget's Sabotage Cascade panel — see P2-S6 for the resolution structure.",
           "npcs": [
             {
               "name": "Captain Vischera",
@@ -9499,7 +9499,7 @@
               "id": "enc-s8-sluice",
               "name": "The Drainage Sluice",
               "type": "infiltration",
-              "trigger": "Mandrake leads them to the northeast face",
+              "trigger": "Mandrake leads them to the northwest face",
               "description": "A drainage tunnel barely wide enough for a Wookiee. Knee-deep in runoff. Leads into the fortress basement level. Trip wires and crude motion sensors line the route.",
               "tactics": "Slow, careful progress. Skulduggery to disarm traps. Tech to bypass sensors. Athletics for the tight squeeze."
             },
@@ -9618,18 +9618,18 @@
               "actionType": "interact",
               "discipline": "stealth",
               "arena": "reflex",
-              "target": "Fortress interior patrols",
+              "target": "Corridor sightlines & posted guards (Detention Guard Post, Varth's Cell corridor, Comms Center)",
               "resist": 3,
-              "context": "Moving through fortress corridors without alerting patrols. Tight spaces, regular patrol routes.",
+              "context": "Moving through the fortress without being spotted from a posted-guard sightline. The interior is light on bodies but the corridor pairs cover the S half of Level 1 by line-of-sight, and the Comms Center has a holo-feed of the SW yard. Roll per major sightline crossed.",
               "narrativePacing": "Roll per major corridor section.",
               "control": {
-                "failure": "A patrol spots movement. Alert is raised in that section — guards converge.",
+                "failure": "A posted guard catches movement in their sightline. That zone goes YELLOW; if the PCs don't sanitize within 1 round, ORANGE.",
                 "success": "Refer to effect tiers."
               },
               "effect": {
                 "fleeting": "Progress but close calls. The party can hear patrols just around corners.",
                 "masterful": "Ghost-like progress. Patrols pass without noticing.",
-                "legendary": "Perfect infiltration — the party also identifies the command center location and an alternate extraction route."
+                "legendary": "Perfect movement — the PCs also identify which corridor pair is the soft target and an alternate route around the Comms Center holo-feed."
               },
               "complexity": "complex",
               "power": 4,
@@ -9681,7 +9681,7 @@
           "subtitle": "The Fortress",
           "tacticalMap": {
             "mapKey": "vanishing-place",
-            "gmTacticalNotes": "ENTRY POINT: Crew enters via the Drainage Sluice (northeast corner, knee-deep runoff). Mandrake guides them this far, then peels off through the East Passage toward the East Wing Pens to position himself for the generator-blow rescue.\n\nROUTE OPTIONS FROM THE SLUICE: From the Drainage Sluice the crew has three branches via the corridors:\n• West run — Storage → Medical Bay (Vischera intel beat). Passes Communications Center along the way.\n• Central run — Central Junction → Central Passage → ramp down to Generator Room (s6 setup).\n• South run — Turbolift & Stairs → Detention Corridor → Detention Block (Varth, s7).\n\nPATROL PRESSURE: Skarn's mercenary squad rotates between Central Junction, West Corridor, and Storage. Stormtrooper squad is in Exterior Staging Area (outside the west wall) — they don't enter the building unless an alarm sounds. If the crew is loud, expect interior reinforcements within 1–2 beats.\n\nOPTIONAL OBJECTIVE ROOMS:\n• Medical Bay — Vischera at her bench, back to the door. She is not a fighter; she will surrender and trade intel for safety. Specimen tanks provide cover and visual disturbance for stealth approaches.\n• Communications Center — the comms intercept that establishes the Draco hard-clock fires here. Once a PC reads the transmission log, the clock starts (3 beats: TIE patrol overhead. 6 beats: Lambda enters atmo. 9 beats: Shadow Troopers deploy early into s8).\n• Storage — locked blast-rated case (worth a Skulduggery beat for gear or credits).\n\nSIGHTLINES: Central Junction has clear sightlines into Central Passage, West Corridor, and East Passage simultaneously — a fight here pulls everyone. Avoid it for stealth runs.\n\nTURRETS: Gun Turret West and Gun Turret East are visible on the map but are external threats — they matter when Maya extracts (s8). For s5 they're context: a perimeter you can see through windows or hear servos from.\n\nESCAPE ROUTES: Drainage Sluice back the way they came; Turbolift to Level 2 (cuts off ground-floor pursuit but exposes them to the Lambda crew). The East Wing Pens corridor is one-way until the generator drops the fences.",
+            "gmTacticalNotes": "ENTRY POINT: Crew arrives via the NW Drainage Sluice (knee-deep runoff). Mandrake parts from them at the outer grate and circles W on his own — he is NOT inside.\n\nROUTE OPTIONS FROM THE INNER GRATE: The PCs drop into the NW corridor of Level 1 and have three obvious lanes:\n• Central → cross the assembly hall to the generator (P2-S6 setup). Stay N to avoid the Detention Guard Post sightline through the pens fence.\n• West → Storage and the Medical Bay (Vischera intel beat). Passes the Comms Center door — closed, but the mercs inside have a holo-feed of the SW yard, not the corridor.\n• South → through the pens area toward the Detention Guard Post and Varth's Cell corridor (the two posted-pair lanes).\n\nPOSTED-NPC PRESSURE: 2 Skarn soldiers in the Detention Guard Post (S corridor, line-of-sight N through the pens fence). 2 more in the corridor outside Varth's Cell. Vischera + 2 escort soldiers in the Med Bay. 2 mercs in the Comms Center. NO interior patrols of the assembly hall — Skarn is overconfident.\n\nEXTERIOR PRESSURE: Stormtrooper squad in the SW yard. They do NOT enter unless the alarm goes up — and once it does, Mandrake opens fire from the treeline and pins them outside. Optional GM tool: if the PCs trip a sluice sensor or carry loud noise through the pipe, the GM may send 1–2 troopers in to investigate (no roll, GM discretion).\n\nOPTIONAL OBJECTIVE ROOMS:\n• Medical Bay — Vischera at her bench with 2 escort soldiers. She'll parley if the PCs identify as not-Imperial. Trade intel for safety.\n• Communications Center — 2 mercs at the consoles. The comms intercept that establishes the Draco hard-clock fires here. Once a PC reads the transmission log, the clock starts (3 beats: TIE patrol overhead. 6 beats: Lambda enters atmo. 9 beats: Shadow Troopers deploy early into s8).\n• Storage — quiet, occasional restocking traffic; locked blast-rated case worth a Skulduggery beat for gear or credits.\n\nSIGHTLINE WARNING: The Detention Guard Post sees N through the E fence wall of the pens. Anyone working at the generator from the S face is visible. Use the housing as cover or close the sightline first.\n\nTURRETS: Gun Turret West and Gun Turret East are visible on the map but are external threats — they matter when Maya extracts (s8). For s5 they're context: a perimeter you can see through windows or hear servos from.\n\nESCAPE ROUTES: Drainage Sluice back the way they came; Turbolift to Level 2 (cuts off ground-floor pursuit but exposes them to the Lambda crew). The East Wing Pens corridor is one-way until the generator drops the fences.",
             "zones": [
               {
                 "id": "drainage-sluice",
@@ -9906,88 +9906,10 @@
             "startTier": "CARRY-FORWARD",
             "note": "Inherit whatever tier P2-S5 ended on. Sabotage outcome (full/partial/failed) sets the sabotageCascade flags on the fortressState — see the widget's Sabotage Cascade panel. Sabotage ALWAYS ends at ORANGE or higher — the generator dying is felt across the fortress."
           },
-          "readAloud": "The generator room is deep in the fortress basement — a repurposed Clone Wars power unit, cables snaking out through the walls like arteries. Through the grated floor, you can feel the hum in your teeth. This one machine powers everything: the turrets on the walls, the laser fences penning Mandrake's people, the security doors sealing the detention block, the sensor grid watching every corridor.\n\nKill this, and the whole fortress goes blind.",
-          "gmNotes": "This is the tactical linchpin of the entire infiltration. The generator encounter has four-purpose significance — the GM should make the payoff chain EXPLICIT. When sabotaged, it simultaneously:\n\n(1) Kills the perimeter turret defenses — clearing Maya's extraction flight path\n(2) Drops the laser fences penning indigenous prisoners — enabling Mandrake's rescue\n(3) Unlocks the security doors blocking the detention area — opening the path to Varth\n(4) Blinds the sensor grid — creating chaos cover for everyone\n\nIf the heroes honor Mandrake's deal, this is where they pay it off. If they skip it, turrets stay active (Maya's extraction becomes near-suicidal), prisoners stay penned (Mandrake is betrayed), and security remains fully operational.\n\nThe generator room has 2 mercenary guards (bored, playing cards) and a Clone Wars-era security droid that activates if the generator is tampered with.\n\nAfter the generator blows, the fortress alarm sounds. This is the point of no return — from here, it's a clock. The heroes need to reach the detention block before the garrison reorganizes.\n\n  NARRATIVE BRIDGE — TO P2-S7 (DETENTION): Branch by sabotage outcome. (a) FULL SABOTAGE → mag-locks open, turrets cold; Varth's cell guards confused and PCs have soft-surprise. (b) PARTIAL → mag-locks open but corridor surveillance trips an alarm — 2-beat reinforcement clock. (c) FAILURE / SKIPPED → mag-locks live, turrets hot; Varth's cell guards alert; cell doors require Skulduggery (Hard) or security kit. This same outcome also flexes s8 extraction (rooftop landing vs. hot ground extraction).\n\nSABOTAGE CASCADE — SINGLE SOURCE OF TRUTH (reactive fortress): The sabotage outcome for this scene is NOT resolved by ad-hoc GM memory or by loose yes/no flags anymore. The Reactive Fortress widget (map: Vanishing Place) is authoritative. When the generator check resolves, the GM opens the widget's \"Sabotage...\" button and picks exactly one of three outcomes: FULL SABOTAGE (Legendary/Masterful) — sets flags {turrets_offline:true, laser_fences_dropped:true, mag_locks_open:true, sensor_grid_blind:true}; PARTIAL SABOTAGE (Fleeting) — GM picks 2 of the 4 flags true, the other 2 false; FAILED SABOTAGE (check failed OR detected) — all four flags false PLUS security_droid_active:true. In all three cases the fortress tier is auto-set to ORANGE MINIMUM (the whole compound felt it). These flags are the ONLY things P2-S7 and P2-S8 read — do not track a parallel \"was the generator sabotaged\" boolean anywhere else. If you need to know what the turrets, fences, mag-locks, or sensors are doing later in the adventure, read the widget's Active Flags row. See data/adventures/vanishing-place-fortress.json → sabotageCascade for the full outcome table.",
-          "npcs": [
-            {
-              "name": "Generator Guards",
-              "type": "Skarn's Mercenaries",
-              "count": 2,
-              "notes": "Bored guards playing cards in the generator room. Not expecting trouble.",
-              "behavior": "Startled and slow to react. They assumed no one could get this deep without triggering an alarm.",
-              "dialogue": [
-                "\"What the— how did you get in here?\"",
-                "\"Nobody told us about any inspection—\""
-              ],
-              "threatBuild": {
-                "role": "anchor",
-                "tier": 0,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 2,
-                  "grit": 2,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "weaponChassis": "light",
-                "traits": [],
-                "tags": [],
-                "roleKit": {
-                  "roleName": "Anchor / Martial",
-                  "action": {
-                    "name": "Shield Slam",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + push target 1 zone",
-                      "legendary": "Chassis damage + push 1 zone + [Prone]"
-                    },
-                    "isAttack": true,
-                    "arena": "physique"
-                  },
-                  "maneuver": {
-                    "name": "Lockdown",
-                    "modifies": "Move",
-                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
-                  },
-                  "gambit": {
-                    "name": "Shove Back",
-                    "cost": "-1 Power",
-                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
-                    "rider": "Push 1 zone"
-                  },
-                  "exploit": {
-                    "name": "Intercept",
-                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
-                    "description": "The Anchor becomes the target of the attack instead."
-                  },
-                  "powerSource": "martial"
-                },
-                "notes": "Generator-room guards (×2). Same Skarn Mercenary minion block used by every other interior fortress guard in adv1 (P2-S5, P2-S7) — by design, so the GM does not have to swap statblocks mid-fortress. Anchor/Martial kit fits the role: they are sentries posted to hold a position. Bored card-players, slow to react, easy to drop quietly. Masterful+ = takedown.",
-                "computed": {
-                  "power": 1,
-                  "defense": 1,
-                  "evasion": 1,
-                  "resist": 1,
-                  "vitality": 4,
-                  "initiative": 2,
-                  "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "light",
-                    "label": "Light",
-                    "fleeting": 2,
-                    "masterful": 3,
-                    "legendary": 4
-                  }
-                },
-                "powerSource": "martial"
-              }
-            }
-          ],
-          "hazards": "Clone Wars-era generator — volatile if handled wrong. Security droid activates on tampering. Explosion risk on failure.",
+          "readAloud": "The corridor opens into the assembly hall. Vaulted basalt ceiling, unsupported. The generator squats in the middle of the floor — a repurposed Clone Wars power unit, cables snaking out of it through conduit channels in the stone like arteries. No one is posted on it. No one is in this room at all right now. Through the south fence wall of the pens you can just see two Skarn soldiers in the Detention Guard Post, watching the cells.\n\nThis one machine powers the turrets, the laser fences, the mag-locks on every cell, and every sensor in the building. Kill it, and the whole fortress goes blind at once.",
+          "gmNotes": "THE GENERATOR IS UNGUARDED. Skarn is overconfident — there is no posted detail on the generator itself and no security droid. The risk is NOT a fight at the generator — the risk is BEING SEEN doing the work.\n\nSIGHTLINE RISK: The Detention Guard Post (S corridor) has line-of-sight N to the assembly hall through the E fence wall of the pens — they will see anyone working at the generator if they look up. The Comms Center mercs have a holo-feed of the SW yard but NOT of the assembly hall — they are not a direct sightline risk, but loud noise carries to them. Approach quietly; if you must shoot, do it once and move.\n\nFOUR-PURPOSE PAYOFF (make this EXPLICIT when the lights drop): One sabotage simultaneously — (1) kills the perimeter turrets [T1/T2/T3 from P2-S2 — Maya's extraction lane opens; speak the designations aloud and watch the table connect it], (2) drops the laser fences penning the Klosari prisoners [Mandrake's payday — outside, you'll hear his blasterfire pick up the second the fences die], (3) pops the mag-locks on Level 1 INCLUDING Varth's cell, and (4) blinds the sensor grid.\n\nMANDRAKE: The instant the generator dies, Mandrake escalates from harassing fire to a full push on the SW Stormtrooper squad. Through the W wall the PCs will hear the firefight intensify. He is doing his job. The PCs need to do theirs — clock is now running.\n\nSABOTAGE CASCADE — SINGLE SOURCE OF TRUTH: Sabotage outcome is resolved through the Reactive Fortress widget (Vanishing Place map), NOT through ad-hoc GM memory. When the generator check resolves, open the widget's `Sabotage…` button and pick exactly one outcome: FULL SABOTAGE (Legendary/Masterful) sets all four cascade flags true; PARTIAL SABOTAGE (Fleeting) lets the GM pick exactly 2-of-4 to fire (priority suggestion: fences drop, mag-locks open — turrets and sensors keep watching); FAILED SABOTAGE (check failed OR detection triggered) leaves all flags false. In all three cases tier auto-sets to ORANGE minimum — the whole fortress feels the attempt. P2-S7 and P2-S8 read these flags directly. Do not track a parallel `was_generator_sabotaged` boolean anywhere.\n\nNARRATIVE BRIDGE — TO P2-S7: Branch by sabotage flags. (a) FULL → mag-locks open, turrets cold, Varth's mag-lock pops, the S-corridor pair is the only thing between the PCs and Varth. (b) PARTIAL → GM-chosen mix, typically fences-and-mag-locks for momentum or turrets-and-sensors for stealth. (c) FAILED → mag-locks live, turrets hot, sensors lit; corridor pairs are now actively hunting. This same outcome flexes P2-S8 extraction (rooftop landing if turrets are off vs. hot ground extraction if they aren't).",
+          "npcs": [],
+          "hazards": "Volatile Clone Wars power unit. Failed sabotage = uncontrolled detonation (PCs caught in blast). Loud sabotage carries through the stone — the Comms Center mercs will hear it and start trying to raise the corridor pairs.",
           "decisionPoints": [
             {
               "id": "adv1-p2-s6-key-decision",
@@ -10045,34 +9967,34 @@
           ],
           "encounters": [
             {
-              "id": "enc-s9-generator-approach",
-              "name": "Generator Room Approach",
+              "id": "enc-s6-generator-approach",
+              "name": "Approaching the Generator Unseen",
               "type": "infiltration",
-              "trigger": "Heroes reach the generator sublevel",
-              "description": "Two mercenary guards in the generator room, playing cards. A Clone Wars security droid sits dormant in a charging cradle near the generator housing. The room hums with power.",
-              "tactics": "Stealth takedown of guards avoids triggering the droid. Loud approach activates it. The droid is ancient but functional."
+              "trigger": "PCs reach the assembly hall and move on the generator housing",
+              "description": "The hall is empty. The generator is unguarded. The risk is being spotted from the Detention Guard Post sightline through the pens, or making noise loud enough to carry to the Comms Center.",
+              "tactics": "Approach from the N (the corridor the PCs dropped into). Use the generator housing itself as cover from the S sightline. If the PCs need to neutralize a sightline first, the Detention Guard Post is the one to silence."
             },
             {
-              "id": "enc-s9-generator-sabotage",
+              "id": "enc-s6-generator-sabotage",
               "name": "Generator Sabotage",
               "type": "technical",
-              "trigger": "Heroes attempt to sabotage the generator",
-              "description": "The fortress generator is a repurposed Clone Wars power unit. Sabotaging it produces a four-purpose payoff chain. The GM should narrate each system going down in sequence for maximum dramatic impact: lights flicker, turrets whine down, laser fences spark and die, security doors clunk open, sensor screens go dark.",
-              "tactics": "Tech check for clean sabotage. Failure = immediate detonation (still works but heroes caught in blast). Success = controlled shutdown with time to clear. The four-purpose chain should be narrated explicitly."
+              "trigger": "PCs attempt to sabotage the generator",
+              "description": "Tech check on a repurposed Clone Wars power unit. The four-purpose payoff chain fires the moment the unit drops — narrate each system going down in sequence: lights flicker, turrets whine down, laser fences spark and die, mag-locks pop sequentially across Level 1, sensor screens go dark. Outside, Mandrake's blasterfire picks up.",
+              "tactics": "Field Toolkit gates clean sabotage. Failure = immediate detonation (still triggers cascade but PCs are caught in the blast — Athletics save). Mastery makes the sabotage look like a Clone Wars equipment failure, not deliberate — buying the PCs an extra round of confusion before the fortress commits."
             }
           ],
           "environmentMechanics": [
             {
-              "name": "Clone Wars Security Droid",
-              "trigger": "Activated by tampering with the generator or by combat noise",
-              "effect": "An ancient but functional battle droid guards the generator. Slow but heavily armored for its era.",
-              "mitigation": "Stealth takedown of guards avoids activating it. Tech check can reprogram it. Destroying it is noisy."
-            },
-            {
               "name": "Generator Volatility",
               "trigger": "Failed sabotage attempt",
-              "effect": "Uncontrolled detonation. Same fortress-wide effects but heroes caught in blast radius.",
-              "mitigation": "Field Toolkit enables clean sabotage. Without one, the check is harder."
+              "effect": "Uncontrolled detonation. Cascade fires anyway, but PCs are caught in the blast radius (Athletics to mitigate).",
+              "mitigation": "Field Toolkit enables clean sabotage."
+            },
+            {
+              "name": "Detention Guard Post Sightline",
+              "trigger": "PC visible at the generator while a soldier in the Detention Guard Post is looking N",
+              "effect": "Detection. The S-pair raises the alarm. Fortress goes ORANGE.",
+              "mitigation": "Use the generator housing itself as cover; OR neutralize the S-pair first; OR work the generator from the N face."
             }
           ],
           "rewards": {
@@ -10087,10 +10009,10 @@
             ]
           },
           "pacing": {
-            "openingBeat": "The generator room. A repurposed Clone Wars power unit humming in the fortress basement.",
-            "risingAction": "Guards to deal with. The security droid. Getting to the generator housing.",
-            "climax": "The sabotage itself: the four-purpose payoff chain. Turrets die, fences drop, doors unlock, sensors blind. Mandrake moves to free his people.",
-            "resolution": "The alarm sounds. The fortress goes dark. The clock is running — reach Varth before they reorganize.",
+            "openingBeat": "The empty assembly hall. The generator humming alone in the middle of the room.",
+            "risingAction": "Closing the sightline from the Detention Guard Post. Working the housing without being heard.",
+            "climax": "The sabotage itself: the four-purpose payoff chain fires. Turrets die, fences drop, mag-locks pop across Level 1, sensors blind. Outside, Mandrake's blasterfire intensifies on the SW yard.",
+            "resolution": "The fortress goes ORANGE minimum. The reinforcement clock starts. Reach Varth before Draco's Lambda lands.",
             "estimatedMinutes": 25
           },
           "knackTags": [
@@ -10120,19 +10042,19 @@
               "actionType": "interact",
               "discipline": "stealth",
               "arena": "reflex",
-              "target": "Generator room guards",
+              "target": "Detention Guard Post sightline through the pens",
               "resist": 1,
               "complexity": "simple",
-              "context": "Neutralizing the generator room guards without triggering the security droid.",
-              "narrativePacing": "Roll on approach. Failure activates the droid and alerts nearby patrols.",
+              "context": "Working at the generator without being spotted from the S sightline. The Detention Guard Post sees N through the E fence wall of the pens. Use the housing as cover or bypass the sightline before approaching.",
+              "narrativePacing": "Roll on approach. Failure puts a Detention Guard Post soldier on a comm.",
               "control": {
-                "failure": "Guards shout an alarm. The security droid activates. Nearby patrols start converging.",
+                "failure": "A soldier in the Detention Guard Post sees movement at the generator. They radio it in. Fortress goes ORANGE.",
                 "success": "Refer to effect tiers."
               },
               "effect": {
-                "fleeting": "Guards neutralized but one gets a partial shout. The droid's charging cradle flickers — it may activate soon.",
-                "masterful": "Clean takedown. Guards down silently. Droid remains dormant.",
-                "legendary": "Guards down without a sound. The PC also notices the droid's power cable — yanking it prevents activation entirely."
+                "fleeting": "Approach made but a near-miss — the soldier glanced up. YELLOW tier; PCs have 1 round to sanitize.",
+                "masterful": "Clean approach. Generator housing covers your work entirely.",
+                "legendary": "Approach AND a quiet sabacc-game distraction inside the Guard Post via a tossed credit chit — both soldiers' attention is on the floor, not the hall."
               },
               "power": 4,
               "tier": 1
@@ -10184,63 +10106,50 @@
           ],
           "tacticalMap": {
             "mapKey": "vanishing-place",
-            "gmTacticalNotes": "FOCAL ZONE: Generator Room (interior, off Central Passage). Vaulted Clone Wars-era fusion core, conduit channels in the floor, sound-deadening machinery hum (helps stealth). Two bored guards at a card table near the conduit entrance.\n\nAPPROACH PATH: Drainage Sluice (if Mandrake guided in) → East Passage → Central Passage → Generator Room. Alternate: West Corridor if the PCs entered through the front. The generator room itself is a single sealed chamber — once inside, sightlines are clean; the throbbing core masks small sounds.\n\nSABOTAGE OBJECTIVE: Tech / Security check (Field Toolkit gates this) to drop the perimeter turrets AND the detention-block mag-locks. Three outcomes drive s7/s8: full sabotage (turrets off + mag-locks open), partial (one or the other), failure (alarm triggers a 2-beat reinforcement clock).\n\nTHE GUARDS: Skarn Mercenary minion block (×2 — see threatBuild on the npc). They are NOT expecting trouble. If approached stealthily they can be dropped silently (Skulduggery / Brawl[Grit] takedown). If they spot the party first, they reach for blasters — but they are slow and minion-tier. The real risk is the alarm panel on the wall behind them.",
+            "gmTacticalNotes": "FOCAL ZONE: the generator housing in the middle of CENTRAL HALL (Level 1 assembly floor). No posted guards on it — Skarn is overconfident. The housing itself is heavy cover and breaks the S sightline from the Detention Guard Post if approached from the N or W face.\n\nAPPROACH PATH: PCs drop in from the Drainage Sluice (NW interior corridor) → cross to the assembly hall. Stay in the N half of the room — the S half is where the Detention Guard Post can see them through the pens fence wall.\n\nSABOTAGE OBJECTIVE: Tech check on the generator (Field Toolkit gates clean sabotage). Three outcomes drive S7/S8 — see the Reactive Fortress widget's Sabotage Cascade panel for authoritative flag handling.\n\nNO COMBAT EXPECTED HERE — this scene should resolve as quiet infiltration → tech challenge → cascade. If the PCs trigger combat, they are doing it wrong; the corridor pairs will mag-lock and shoot through their fence walls, and the Comms Center mercs will start patching a distress signal upstream.",
             "zones": [
               {
-                "id": "generator-room",
-                "label": "Generator Room",
+                "id": "central-hall",
+                "label": "Central Hall (assembly + generator)",
                 "passable": true,
                 "cover": "heavy",
                 "lighting": "normal",
-                "terrain": "Vaulted fusion core, conduit channels — heavy cover from the core housing."
+                "terrain": "Vaulted basalt, unsupported ceiling. Generator housing is heavy cover in the middle of the room."
               },
               {
-                "id": "central-passage",
-                "label": "Central Passage",
-                "passable": true,
-                "cover": "light",
-                "lighting": "normal",
-                "terrain": "Approach corridor. Generator throb felt underfoot."
-              },
-              {
-                "id": "central-junction",
-                "label": "Central Junction",
-                "passable": true,
-                "cover": "medium",
-                "lighting": "normal",
-                "terrain": "Crossroads. Patrol notice board."
-              },
-              {
-                "id": "east-passage",
-                "label": "East Passage",
+                "id": "north-corridor",
+                "label": "N Corridor (sluice arrival)",
                 "passable": true,
                 "cover": "light",
                 "lighting": "dim",
-                "terrain": "Sluice-side approach."
+                "terrain": "PCs drop in here from the inner sluice grate."
+              },
+              {
+                "id": "detention-guard-post-sightline",
+                "label": "Detention Guard Post (S sightline)",
+                "passable": false,
+                "cover": "n/a",
+                "lighting": "normal",
+                "terrain": "Not enterable in this scene — but the 2 soldiers here have a S→N sightline through the pens fence wall onto the generator."
               },
               {
                 "id": "drainage-sluice",
-                "label": "Drainage Sluice",
+                "label": "Drainage Sluice (NW exterior, PC entry)",
                 "passable": true,
                 "cover": "heavy",
                 "lighting": "dim",
-                "terrain": "Mandrake's entry route. Knee-deep runoff."
+                "terrain": "Knee-deep runoff, sensor cluster mid-pipe, two grates."
               }
             ],
             "startingPositions": [
               {
                 "who": "PCs",
-                "zone": "east-passage",
-                "notes": "Approaching from the sluice side (Mandrake-guided). Stealth window."
-              },
-              {
-                "who": "Generator Guards (×2)",
-                "zone": "generator-room",
-                "notes": "At the card table near the core. Bored, slow to react. Alarm panel on the wall behind them."
+                "zone": "north-corridor",
+                "notes": "Just dropped in through the inner floor grate. The generator is one move action away across the assembly hall. The Detention Guard Post sightline is the immediate concern."
               }
             ],
             "focalZones": [
-              "generator-room"
+              "central-hall"
             ]
           }
         },
@@ -10254,7 +10163,7 @@
             "note": "Minimum YELLOW on scene start — the generator is dead or tampered and the fortress knows something is wrong. If P2-S6 was a loud fight, start ORANGE. If Varth is already walking free from a cascade, start RED. The widget reads the current tier from campaign_state; carry forward whatever the GM set at the end of P2-S6."
           },
           "readAloud": "You blow the door to the holding cell expecting a broken man. Instead, you find Admiral Gilder Varth sitting comfortably, gambling with a confused guard and packing a bag.\n\nHe looks up with a charming, tired smile and flips a credit chip in greeting. \"You're late. I had credits on the second moonrise.\"",
-          "gmNotes": "Varth is arrogant, charming, and unbothered. He treats the rescue like a hired service. He is ready to leave immediately — no physical items to retrieve. His authentication key for the encrypted account is memorized, keeping him in permanent control of his leverage.\n\nKey reveal: he didn't defect for moral reasons — he embezzled a fortune and needs the heroes to get him out. He uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' This is the heroes' first real interaction with Varth — establish his 'Cool Uncle' persona.\n\nHIS PITCH: Once freed, Varth explains: the money is locked inside Varga's financial network. He has the authentication key memorized, but Varga moved the account after Varth was captured. They need to get inside Varga's operation to find the routing data. This sets up Adventure 2.\n\nIMPORTANT: Varth carries nothing physical. His authentication key is memorized — not on any device. His value is entirely in what he knows. This is a deliberate narrative choice — it makes him indispensable and impossible to cut out of the deal.\n\nSABOTAGE CASCADE — DOWNSTREAM CONSUMPTION (reactive fortress): This scene's conditional behavior is driven by the cascade flags set in P2-S6, NOT by re-asking \"was the generator sabotaged?\" Read the flags from the Reactive Fortress widget (on the Vanishing Place tactical map) and branch accordingly: mag_locks_open=true → Varth's cell door is already cracked, no slicing check needed, but prisoners in the detention pens are also loose and creating chaos/cover/noise; mag_locks_open=false → slicing/brute-force is still required. laser_fences_dropped=true → the south corridor and detention approach are open ground and the GM should narrate the sudden silence of the fence hum; laser_fences_dropped=false → fences are live, crossing costs Composure or a Tech workaround. sensor_grid_blind=true → stealth approaches do not trigger passive detection this scene; sensor_grid_blind=false → any Hidden-state crew member rolls against passive detection at each corridor. turrets_offline=true → the exterior approach when the crew exfils is a clean lane; turrets_offline=false → exfil will be contested (this is the handoff to P2-S8). security_droid_active=true (failed sabotage only) → the NE tarp in the Generator Room stands up and begins pursuit. Do not invent other flags. If a player does something that should modify a flag mid-scene (e.g., re-sliced the mag-locks, shot out a fence), the GM updates the widget via \"Trigger...\" or manually toggles flags — the widget remains the single source of truth.",
+          "gmNotes": "Varth is arrogant, charming, and unbothered. He treats the rescue like a hired service. He is ready to leave immediately — no physical items to retrieve. His authentication key for the encrypted account is memorized, keeping him in permanent control of his leverage.\n\nKey reveal: he didn't defect for moral reasons — he embezzled a fortune and needs the heroes to get him out. He uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' This is the heroes' first real interaction with Varth — establish his 'Cool Uncle' persona.\n\nHIS PITCH: Once freed, Varth explains: the money is locked inside Varga's financial network. He has the authentication key memorized, but Varga moved the account after Varth was captured. They need to get inside Varga's operation to find the routing data. This sets up Adventure 2.\n\nIMPORTANT: Varth carries nothing physical. His authentication key is memorized — not on any device. His value is entirely in what he knows. This is a deliberate narrative choice — it makes him indispensable and impossible to cut out of the deal.\n\nSABOTAGE CASCADE — DOWNSTREAM CONSUMPTION (reactive fortress): This scene's conditional behavior is driven by the cascade flags set in P2-S6, NOT by re-asking \"was the generator sabotaged?\" Read the flags from the Reactive Fortress widget (on the Vanishing Place tactical map) and branch accordingly: mag_locks_open=true → Varth's cell door is already cracked, no slicing check needed, but prisoners in the detention pens are also loose and creating chaos/cover/noise; mag_locks_open=false → slicing/brute-force is still required. laser_fences_dropped=true → the south corridor and detention approach are open ground and the GM should narrate the sudden silence of the fence hum; laser_fences_dropped=false → fences are live, crossing costs Composure or a Tech workaround. sensor_grid_blind=true → stealth approaches do not trigger passive detection this scene; sensor_grid_blind=false → any Hidden-state crew member rolls against passive detection at each corridor. turrets_offline=true → the exterior approach when the crew exfils is a clean lane; turrets_offline=false → exfil will be contested (this is the handoff to P2-S8). Do not invent other flags. If a player does something that should modify a flag mid-scene (e.g., re-sliced the mag-locks, shot out a fence), the GM updates the widget via \"Trigger...\" or manually toggles flags — the widget remains the single source of truth.",
           "npcs": [
             {
               "name": "Admiral Gilder Varth",
