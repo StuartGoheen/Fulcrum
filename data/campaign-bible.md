@@ -576,6 +576,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - **Co-Pilot Dynamic:** Maya invites the Ace Pilot to the co-pilot seat for the Smuggler's Path — a stitched-together chain of scavenger trails and shadow-port routes from Jakku to Ajan Kloss (four jumps: Jakku → deep space dropout → Ord Mantell → Aldhani → Ajan Kloss). Bonding moment between Maya and the crew as she teaches them to read the gaps between hyperspace lanes. This is the Ace spotlight — they're not passengers, they're flying.
 - **Maya Wounded:** During the Ajan Kloss approach, V-wing strafing damages the Banshee. Maya takes shrapnel — a serious wound. The Ace takes the stick and brings the Banshee down in a controlled crash. Maya stays behind to repair the ship and gives the heroes a secondary objective: disable the perimeter turret defenses so she can fly the extraction safely.
 - **Mandrake's Deal (Revised):** Mandrake's motivation is personal — he's protecting indigenous locals who were rounded up and imprisoned by Skarn after they resisted the occupation. The generator powers four systems: turret defenses, laser fences penning prisoners, security doors blocking the detention area, and the sensor grid. Sabotage serves four purposes: honors Mandrake's deal (frees the prisoners), clears Maya's flight path (turrets down), opens the detention block (security doors down), and creates chaos cover.
+- **Skarn's Complicity (GM only):** Skarn supplies Captain Vischera with captured Klosari villagers as test subjects in exchange for medical care for his wounded mercs. The Med Bay escort soldiers are alive because of her work and protect her with full knowledge of what she does. This is the rotten heart of the fortress economy. Mandrake has been counting his missing people and knows where they are going; killing Vischera is his unspoken plan if he survives the raid. The Med Bay scene (P2-S5 / enc-s8-medbay) is built around the resulting Hope/Toll moral quandary — what to do with an unarmed Imperial scientist whose monstrous methods are producing a genuinely life-saving cure for a deadly disease.
 - **Mandrake Splits Off:** Inside the fortress, Mandrake separates to position himself near the detention pens, ready to free his people when the generator goes down. Heroes proceed to find Varth.
 - Varth is found gambling with his guards. "You're late." He carries nothing physical — his authentication key for the encrypted account is memorized.
 - **Conditional Extraction:** Maya's extraction depends on whether the turrets were destroyed. If the generator was sabotaged, Maya swoops in clean. If the turrets are still active, she takes heavy fire and the extraction is far more dangerous.
@@ -595,7 +596,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **Open Threads Carried Forward:**
 - Encrypted account in Varga's network (→ Adv2-3)
-- Project Leviathan mentioned in Vischera's research notes (→ ongoing)
+- Vischera's cure-research data and what the crew did with her (→ situational; reappears only if data preserved or if a cure-relevant plague beat surfaces in a later adventure)
 - Inquisitor Draco (→ ongoing)
 - Varga as antagonist (→ Adv2-3)
 - Switch's intelligence network / info broker deal (→ ongoing)

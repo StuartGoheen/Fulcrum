@@ -39,7 +39,7 @@
       "color": "#22c55e",
       "bgColor": "rgba(34,197,94,0.15)",
       "oneLiner": "Routine ops. Nobody knows you're here.",
-      "summary": "Posts are bored. Card games in the Detention Guard Post. The two soldiers in the corridor outside Varth's cell talk quietly. Vischera and her escort work in the Med Bay. The Comms mercs half-watch a holo-feed of the empty SW yard. The Stormtrooper squad watches the treeline but not the building. This is your window.",
+      "summary": "Posts are bored. Card games in the Detention Guard Post. The two soldiers in the corridor outside Varth's cell talk quietly. Vischera works at her bench in the Med Bay — mid-procedure on a Klosari subject, her two escort soldiers helmets-off and bored at the door. The Comms mercs half-watch a holo-feed of the empty SW yard. The Stormtrooper squad watches the treeline but not the building. This is your window.",
       "patrolTempo": "No interior patrols. Posts are static — bored people in fixed chairs."
     },
     {
@@ -66,7 +66,7 @@
       "color": "#ef4444",
       "bgColor": "rgba(239,68,68,0.15)",
       "oneLiner": "Inquisitor on the pad in 4 rounds. Fortress fights to the last.",
-      "summary": "The fortress has committed. A distress call has punched through to Draco's shuttle (already in-system). Every NPC who can fight is fighting. Captain Vischera arms herself in the med bay. The Lambda's engines whine up on the rooftop. The Draco clock is engaged — 4 rounds until Shadow Troopers boot onto the roof.",
+      "summary": "The fortress has committed. A distress call has punched through to Draco's shuttle (already in-system). Every NPC who can fight is fighting. Captain Vischera does NOT arm herself — the Med Bay is mag-locked from inside, escorts shoot if breached, and she begins a wipe of her cure-research drives at her terminal. The Lambda's engines whine up on the rooftop. The Draco clock is engaged — 4 rounds until Shadow Troopers boot onto the roof.",
       "patrolTempo": "Full combat. No routine. Reinforcement clock continues — see schedule. Round 4: Draco arrives."
     }
   ],
@@ -316,23 +316,23 @@
     {
       "key": "medical_bay",
       "label": "Medical Bay",
-      "description": "Vischera's enclosed lab on the W side. She works at the bench with two Skarn soldiers posted inside as escort/security.",
+      "description": "Vischera's enclosed lab on the W side. She works at the bench with two Skarn soldiers posted inside as escort/security. Default scene state is mid-procedure on a Klosari villager strapped to the surgical table — the room's quiet horror. See enc-s8-medbay for the full moral-quandary scene.",
       "byTier": {
         "GREEN": {
           "state": "routine",
-          "note": "Vischera at her bench, back to the door, absorbed in specimen work. Two soldiers near the door — one seated, one leaning, both bored."
+          "note": "Vischera at her bench, back to the door, mid-procedure on a restrained Klosari subject, dictating clinical notes into a recorder. Two soldiers near the door — one seated on a crate, one leaning against the wall, helmets off, bored. This is the default. The horror is mundane and routine."
         },
         "YELLOW": {
           "state": "alert",
-          "note": "Soldiers stand straight, blasters in hand. Vischera glances at the door every ~30s, hand near a scalpel."
+          "note": "Soldiers stand straight, blasters in hand. Vischera continues working but glances at the door every ~30s. The subject on the table is still there."
         },
         "ORANGE": {
           "state": "locked-from-inside",
-          "note": "Soldiers mag-lock the bay from inside and take cover behind the surgical table with Vischera. She arms a neurotoxin autoinjector. Will parley through the door if the crew identifies as not-Imperial."
+          "note": "Soldiers mag-lock the bay from inside and take cover behind the surgical table. Vischera moves to her terminal and begins prepping a data-wipe of her cure-research drives (Hard Tech check from outside to interrupt; otherwise drives are scrubbed in 2 rounds). She does not arm herself."
         },
         "RED": {
           "state": "locked-from-inside",
-          "note": "If breached, soldiers fight. Vischera surrenders the moment she has cover to do so — she's been wanting to leave for months and will trade intel for safety."
+          "note": "If breached, soldiers fight. Vischera does not arm herself, does not run, surrenders the moment shooting stops. Her behavior in the moral-quandary beat is unchanged by tier — she is calm, clinical, unrepentant, and will trade her data and intel for safe passage. See enc-s8-medbay for the six resolution paths."
         }
       },
       "mapRooms": [
@@ -693,12 +693,12 @@
     {
       "key": "vischera_squad",
       "label": "Captain Vischera + Med Bay Escort",
-      "composition": "Captain Vischera (P2-S5 threatBuild — non-combatant) + 2 Skarn Mercenaries (Standard) posted as escort/security inside the Med Bay.",
+      "composition": "Captain Vischera (P2-S5 threatBuild — non-combatant, surrenders calmly when escorts fall, anchors the moral-quandary scene at enc-s8-medbay) + 2 Skarn Mercenaries (Standard) posted as escort/security inside the Med Bay. The escorts are alive because of Vischera's cure work and protect her with full knowledge of what she does to the Klosari villagers Skarn supplies her with.",
       "byTier": {
-        "GREEN": "Vischera at her bench, back to the door. Both soldiers near the door — bored, not watching her, not watching it.",
-        "YELLOW": "Soldiers stand and ready blasters. Vischera glances at the door, hand near a scalpel.",
-        "ORANGE": "Soldiers mag-lock the bay and take cover behind the surgical table with Vischera. She arms a neurotoxin autoinjector. Will parley through the door if the PCs identify as not-Imperial.",
-        "RED": "Soldiers fight if breached. Vischera surrenders the moment she has cover — she trades intel for safety."
+        "GREEN": "Vischera at her bench, back to the door, mid-procedure on a restrained Klosari subject, dictating clinical notes. Both soldiers near the door — helmets off, bored, not watching her, not watching it.",
+        "YELLOW": "Soldiers stand and ready blasters. Vischera continues working but glances at the door, hand near a scalpel.",
+        "ORANGE": "Soldiers mag-lock the bay and take cover behind the surgical table. Vischera moves to her terminal and begins a data-wipe of her cure-research drives (Hard Tech from outside to interrupt; otherwise scrubbed in 2 rounds). She does not arm herself.",
+        "RED": "Soldiers fight if breached. Vischera does not arm herself, does not run, surrenders the moment shooting stops. See enc-s8-medbay for the moral-quandary scene."
       },
       "zonesByTier": {
         "GREEN": [
