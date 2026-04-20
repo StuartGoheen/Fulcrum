@@ -341,3 +341,69 @@
 .vpf-ref-list { margin: 0 0 0.3rem 1rem; padding: 0; font-size: 0.66rem; line-height: 1.55; }
 .vpf-ref-list li { margin-bottom: 0.3rem; }
 .vpf-ref-note { font-size: 0.62rem; color: #a8a08a; font-style: italic; margin-bottom: 0.3rem; }
+
+/* ---------- Trigger picker list ---------- */
+.vpf-modal-sub { font-size: 0.65rem; color: #a8a08a; line-height: 1.5; margin-bottom: 10px; font-style: italic; }
+.vpf-trigger-list { display: flex; flex-direction: column; gap: 8px; max-height: 60vh; overflow-y: auto; padding-right: 4px; }
+.vpf-trigger-opt {
+  text-align: left;
+  background: rgba(20, 20, 24, 0.6);
+  border: 1px solid rgba(200, 164, 78, 0.25);
+  border-radius: 4px;
+  padding: 10px 12px;
+  cursor: pointer;
+  color: #e6dcc4;
+  font-family: inherit;
+  transition: background 0.12s, border-color 0.12s;
+}
+.vpf-trigger-opt:hover { background: rgba(200, 164, 78, 0.08); border-color: rgba(200, 164, 78, 0.55); }
+.vpf-trigger-title { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.vpf-trigger-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em; }
+.vpf-trigger-arrow { color: #857c66; font-size: 0.7rem; }
+.vpf-trigger-to {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.vpf-trigger-cue { font-size: 0.62rem; color: #c8a44e; line-height: 1.45; font-style: italic; margin-bottom: 4px; }
+.vpf-trigger-counter { font-size: 0.58rem; color: #a8a08a; line-height: 1.4; }
+.vpf-trigger-counter strong { color: #e6dcc4; }
+
+/* ---------- Map hitbox tinting by fortress state ---------- */
+/* Calm (GREEN-ish): subtle cool amber — no change from baseline */
+.tm-hitbox[data-vpf-intensity="calm"] {
+  fill: rgba(200, 164, 78, 0.04);
+  stroke: rgba(200, 164, 78, 0.35);
+  stroke-width: 1;
+}
+/* Watchful (YELLOW): soft amber-yellow tint */
+.tm-hitbox[data-vpf-intensity="watchful"] {
+  fill: rgba(255, 214, 102, 0.12);
+  stroke: rgba(255, 214, 102, 0.70);
+  stroke-width: 1.5;
+}
+/* Hot (ORANGE): warm orange tint, stronger */
+.tm-hitbox[data-vpf-intensity="hot"] {
+  fill: rgba(255, 140, 40, 0.20);
+  stroke: rgba(255, 140, 40, 0.85);
+  stroke-width: 2;
+}
+/* Combat (RED): aggressive red tint with pulse */
+.tm-hitbox[data-vpf-intensity="combat"] {
+  fill: rgba(239, 68, 68, 0.25);
+  stroke: rgba(239, 68, 68, 0.95);
+  stroke-width: 2;
+  animation: vpf-combat-pulse 1.8s ease-in-out infinite;
+}
+@keyframes vpf-combat-pulse {
+  0%, 100% { fill: rgba(239, 68, 68, 0.18); }
+  50%      { fill: rgba(239, 68, 68, 0.35); }
+}
+/* Keep hover affordance on top of tint */
+.tm-hitbox[data-vpf-intensity]:hover {
+  filter: brightness(1.35);
+  cursor: pointer;
+}

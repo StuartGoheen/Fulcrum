@@ -10,6 +10,22 @@
   var _panel = null;
   var _socket = null;
   var _stateListener = null;
+  var _viewer = null;
+  var _zonePanelPatched = false;
+  var _originalShowZoneInfo = null;
+
+  // Maps a zone.state string to a visual intensity bucket. Drives hitbox tint.
+  function _intensityOf(stateStr) {
+    if (!stateStr) return 'calm';
+    var s = String(stateStr).toLowerCase();
+    // RED-tier state strings
+    if (/receiving-draco|locked-in-or-dead|fenced-or-chaos|redeployed|guarded/.test(s)) return 'combat';
+    // ORANGE-tier state strings
+    if (/convergence-zone|sealed-externally|troop-transport|locked-from-inside|locked-in|armed-weapons-free|descending|command-active|staffed-active|converging|mag-locked-hot|looted-by-defenders/.test(s)) return 'hot';
+    // YELLOW-tier state strings
+    if (/alert|active|held|fenced-watched|standing|staffed-alert/.test(s)) return 'watchful';
+    return 'calm';
+  }
 
   function _esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -111,8 +127,8 @@
         '<div class="vpf-one-liner">' + _esc(tier.oneLiner) + '</div>' +
       '</div>' +
       '<div class="vpf-actions">' +
-        '<button class="vpf-btn vpf-btn-escalate" title="Escalate to next tier">Escalate &uarr;</button>' +
-        '<button class="vpf-btn vpf-btn-deescalate" title="De-escalate (only within same round where allowed)">De-esc &darr;</button>' +
+        '<button class="vpf-btn vpf-btn-trigger" title="Fire a specific escalation trigger (blaster fire, body found, alarm, etc.)">Trigger&hellip;</button>' +
+        '<button class="vpf-btn vpf-btn-counter" title="Apply a counter-action (hide body, sever alarm, fake all-clear)">Counter&hellip;</button>' +
         '<button class="vpf-btn vpf-btn-sabotage" title="Apply generator sabotage outcome">Sabotage&hellip;</button>' +
         '<button class="vpf-btn vpf-btn-reset" title="Reset to GREEN / clear flags">Reset</button>' +
         '<button class="vpf-btn vpf-btn-ref" title="Open full reactive-fortress reference">How it reacts &rarr;</button>' +
@@ -164,94 +180,149 @@
 
     // bind
     var $ = function (sel) { return _panel.querySelector(sel); };
-    $('.vpf-btn-escalate')  .addEventListener('click', _onEscalate);
-    $('.vpf-btn-deescalate').addEventListener('click', _onDeEscalate);
-    $('.vpf-btn-sabotage')  .addEventListener('click', _onSabotage);
-    $('.vpf-btn-reset')     .addEventListener('click', _onReset);
-    $('.vpf-btn-ref')       .addEventListener('click', openReference);
+    $('.vpf-btn-trigger')  .addEventListener('click', _onOpenTriggerPicker);
+    $('.vpf-btn-counter')  .addEventListener('click', _onOpenCounterPicker);
+    $('.vpf-btn-sabotage') .addEventListener('click', _onSabotage);
+    $('.vpf-btn-reset')    .addEventListener('click', _onReset);
+    $('.vpf-btn-ref')      .addEventListener('click', openReference);
     var tickBtn = $('.vpf-btn-tick');
     if (tickBtn) tickBtn.addEventListener('click', _onTick);
 
     var toggleBtn = _panel.querySelector('.vpf-toggle');
     if (toggleBtn) toggleBtn.textContent = _panel.classList.contains('vpf-collapsed') ? 'Expand' : 'Collapse';
+
+    // Tint hitboxes on the tactical map.
+    _applyHitboxStates();
   }
 
   // ---------- user actions ----------
 
   var ORDER = ['GREEN', 'YELLOW', 'ORANGE', 'RED'];
 
-  function _onEscalate() {
-    var idx = ORDER.indexOf(_currentState.tier);
-    if (idx < 0 || idx >= ORDER.length - 1) return;
-    var next = ORDER[idx + 1];
-    _confirmTierChange(_currentState.tier, next, 'escalate');
-  }
-
-  function _onDeEscalate() {
-    var idx = ORDER.indexOf(_currentState.tier);
-    if (idx <= 0) return;
-    var next = ORDER[idx - 1];
-    var allowed = false;
-    var msg = '';
-    if (_currentState.tier === 'YELLOW') {
-      allowed = true;
-      msg = 'YELLOW → GREEN is reversible if the trigger was neutralized this round (body hidden, witness silenced, comm check faked). Confirm?';
-    } else if (_currentState.tier === 'ORANGE') {
-      allowed = true;
-      msg = 'ORANGE → YELLOW is ONLY valid if it is still the same round the alarm was raised AND the alarm line has been severed OR an all-clear was faked over Comms. Otherwise ORANGE is one-way. Confirm?';
-    } else if (_currentState.tier === 'RED') {
-      alert('RED is terminal. Draco is coming. There is no de-escalation.');
+  function _onOpenTriggerPicker() {
+    var fromId = _currentState.tier;
+    var applicable = (_data.escalationTriggers || []).filter(function (t) {
+      return (t.from || []).indexOf(fromId) >= 0;
+    });
+    if (!applicable.length) {
+      alert('No escalation triggers apply from ' + fromId + '. The fortress is already as hot as it gets.');
       return;
     }
-    if (!allowed) return;
-    _confirmTierChange(_currentState.tier, next, 'de-escalate', msg);
+    var html = '<div class="vpf-modal-sub">Pick the <em>specific</em> event that just happened in fiction. The chosen trigger sets the tier, fires the read-aloud cue, and logs the escalation reason.</div>' +
+      '<div class="vpf-trigger-list">';
+    applicable.forEach(function (t) {
+      var toTier = _getTier(t.to);
+      html += '<button class="vpf-trigger-opt" data-trigger-id="' + _esc(t.id) + '">' +
+        '<div class="vpf-trigger-title">' +
+          '<span class="vpf-trigger-label">' + _esc(t.label) + '</span>' +
+          '<span class="vpf-trigger-arrow">→</span>' +
+          '<span class="vpf-trigger-to" style="background:' + (toTier ? toTier.color : '#555') + ';color:#0a0a0a;">' + _esc(t.to) + '</span>' +
+        '</div>' +
+        '<div class="vpf-trigger-cue">' + _esc(t.readAloud) + '</div>' +
+        (t.counter ? '<div class="vpf-trigger-counter"><strong>Counter:</strong> ' + _esc(t.counter) + '</div>' : '') +
+        '</button>';
+    });
+    html += '</div>';
+    _openModal('Escalation Trigger', html, null, null);
+    setTimeout(function () {
+      document.querySelectorAll('.vpf-trigger-opt').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var trigId = btn.dataset.triggerId;
+          var trig = applicable.filter(function (x) { return x.id === trigId; })[0];
+          if (!trig) return;
+          _closeModal();
+          _applyTrigger(trig);
+        });
+      });
+    }, 0);
   }
 
-  function _confirmTierChange(fromId, toId, action, extraMsg) {
-    var fromTier = _getTier(fromId);
+  function _onOpenCounterPicker() {
+    var fromId = _currentState.tier;
+    var applicable = (_data.deEscalationTriggers || []).filter(function (t) { return t.from === fromId; });
+    if (!applicable.length) {
+      alert('No counter-actions apply from ' + fromId + '. ' + (fromId === 'RED' ? 'RED is terminal. Draco is coming. There is no de-escalation.' : 'The fortress is already at its calmest.'));
+      return;
+    }
+    var html = '<div class="vpf-modal-sub">The crew neutralized the escalation. Pick the counter-action the players pulled off.</div>' +
+      '<div class="vpf-trigger-list">';
+    applicable.forEach(function (t) {
+      var toTier = _getTier(t.to);
+      html += '<button class="vpf-trigger-opt" data-counter-id="' + _esc(t.id) + '">' +
+        '<div class="vpf-trigger-title">' +
+          '<span class="vpf-trigger-label">' + _esc(t.label) + '</span>' +
+          '<span class="vpf-trigger-arrow">→</span>' +
+          '<span class="vpf-trigger-to" style="background:' + (toTier ? toTier.color : '#555') + ';color:#0a0a0a;">' + _esc(t.to) + '</span>' +
+        '</div>' +
+        '<div class="vpf-trigger-cue">' + _esc(t.readAloud) + '</div>' +
+        '<div class="vpf-trigger-counter"><strong>Check:</strong> ' + _esc(t.check) + '</div>' +
+        '</button>';
+    });
+    html += '</div>';
+    _openModal('Counter-action', html, null, null);
+    setTimeout(function () {
+      document.querySelectorAll('.vpf-trigger-opt').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var id = btn.dataset.counterId;
+          var trig = applicable.filter(function (x) { return x.id === id; })[0];
+          if (!trig) return;
+          _closeModal();
+          _applyDeEscTrigger(trig);
+        });
+      });
+    }, 0);
+  }
+
+  function _applyTrigger(trig) {
+    var toId = trig.to;
     var toTier = _getTier(toId);
     if (!toTier) return;
-
-    // Find the most relevant escalation/deescalation trigger's read-aloud cue.
-    var cue = '';
-    var triggers = action === 'escalate' ? _data.escalationTriggers : _data.deEscalationTriggers;
-    for (var i = 0; i < triggers.length; i++) {
-      var t = triggers[i];
-      if (action === 'escalate') {
-        if ((t.from || []).indexOf(fromId) >= 0 && t.to === toId) { cue = t.readAloud; break; }
-      } else {
-        if (t.from === fromId && t.to === toId) { cue = t.readAloud; break; }
-      }
-    }
-
     var html =
       '<div class="vpf-modal-tier" style="background:' + toTier.bgColor + ';border-color:' + toTier.color + ';">' +
         '<div class="vpf-modal-tier-chip" style="background:' + toTier.color + ';">' + _esc(toTier.label) + '</div>' +
         '<div class="vpf-modal-tier-summary">' + _esc(toTier.summary) + '</div>' +
       '</div>' +
-      (extraMsg ? '<div class="vpf-modal-warn">' + _esc(extraMsg) + '</div>' : '') +
-      (cue ? '<div class="vpf-modal-cue"><div class="vpf-modal-cue-label">Read-aloud cue</div><div class="vpf-modal-cue-text">' + _esc(cue) + '</div></div>' : '') +
-      '<div class="vpf-modal-section-label">NPC behavior this tier</div>' +
+      '<div class="vpf-modal-cue"><div class="vpf-modal-cue-label">Trigger: ' + _esc(trig.label) + '</div><div class="vpf-modal-cue-text">' + _esc(trig.readAloud) + '</div></div>' +
+      (trig.counter ? '<div class="vpf-modal-warn"><strong>Counter available:</strong> ' + _esc(trig.counter) + '</div>' : '') +
+      '<div class="vpf-modal-section-label">NPC behavior at ' + _esc(toTier.label) + '</div>' +
       '<ul class="vpf-modal-npcs">' +
         _data.npcGroups.map(function (g) {
           return '<li><strong>' + _esc(g.label) + ':</strong> ' + _esc(g.byTier[toId]) + '</li>';
         }).join('') +
       '</ul>';
 
-    _openModal(
-      (action === 'escalate' ? 'Escalate' : 'De-escalate') + ': ' + _esc(fromTier ? fromTier.label : fromId) + ' → ' + _esc(toTier.label),
-      html,
-      'Confirm tier change',
-      function () {
-        var ns = JSON.parse(JSON.stringify(_currentState));
-        ns.tier = toId;
-        if (toId === 'ORANGE' && fromId !== 'ORANGE') ns.orangeRound = 1;
-        if (toId === 'RED' && fromId !== 'RED') ns.redRound = 1;
-        if (toId !== 'ORANGE') ns.orangeRound = 0;
-        if (toId !== 'RED') ns.redRound = 0;
-        _pushState(ns);
-      }
-    );
+    _openModal('Fire trigger: ' + _esc(trig.label), html, 'Apply & read-aloud to players', function () {
+      var fromId = _currentState.tier;
+      var ns = JSON.parse(JSON.stringify(_currentState));
+      ns.tier = toId;
+      ns.lastTrigger = { id: trig.id, label: trig.label, from: fromId, to: toId, at: Date.now() };
+      if (toId === 'ORANGE' && fromId !== 'ORANGE') ns.orangeRound = 1;
+      if (toId === 'RED' && fromId !== 'RED') ns.redRound = 1;
+      if (toId !== 'ORANGE') ns.orangeRound = toId === 'RED' ? 0 : ns.orangeRound;
+      if (toId !== 'RED') ns.redRound = 0;
+      _pushState(ns);
+    });
+  }
+
+  function _applyDeEscTrigger(trig) {
+    var toId = trig.to;
+    var toTier = _getTier(toId);
+    if (!toTier) return;
+    var html =
+      '<div class="vpf-modal-tier" style="background:' + toTier.bgColor + ';border-color:' + toTier.color + ';">' +
+        '<div class="vpf-modal-tier-chip" style="background:' + toTier.color + ';">' + _esc(toTier.label) + '</div>' +
+        '<div class="vpf-modal-tier-summary">' + _esc(toTier.summary) + '</div>' +
+      '</div>' +
+      '<div class="vpf-modal-warn"><strong>Window:</strong> ' + _esc(trig.check) + '</div>' +
+      '<div class="vpf-modal-cue"><div class="vpf-modal-cue-label">Counter: ' + _esc(trig.label) + '</div><div class="vpf-modal-cue-text">' + _esc(trig.readAloud) + '</div></div>';
+    _openModal('Apply counter: ' + _esc(trig.label), html, 'Roll back tier', function () {
+      var ns = JSON.parse(JSON.stringify(_currentState));
+      ns.tier = toId;
+      ns.lastTrigger = { id: trig.id, label: trig.label, from: _currentState.tier, to: toId, at: Date.now(), kind: 'counter' };
+      if (toId !== 'ORANGE') ns.orangeRound = 0;
+      if (toId !== 'RED') ns.redRound = 0;
+      _pushState(ns);
+    });
   }
 
   function _onTick() {
@@ -428,12 +499,137 @@
     return _panel;
   }
 
+  // ---------- map integration (tinting + zone panel) ----------
+
+  function _findViewer(hostEl) {
+    // TacticalMapViewer stores itself on its canvas element or container. Find it.
+    if (!hostEl) return null;
+    // Search within hostEl for a known-canvas marker.
+    var canvas = hostEl.querySelector('.tm-canvas') || hostEl.querySelector('.tm-hitbox-layer');
+    // Most viewers stash self on the container; check common parent slots.
+    var probe = hostEl._tmViewer || hostEl.__tmViewer;
+    if (probe) return probe;
+    // Walk the container hierarchy looking for a viewer instance.
+    var el = hostEl;
+    while (el) {
+      if (el._tmViewer) return el._tmViewer;
+      if (el.__tmViewer) return el.__tmViewer;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function _zoneForRoomName(room) {
+    if (!_data || !_data.zones) return null;
+    var target = String(room || '').toLowerCase().trim();
+    for (var i = 0; i < _data.zones.length; i++) {
+      var z = _data.zones[i];
+      if (z.label && z.label.toLowerCase() === target) return z;
+    }
+    // Fuzzy: fortress-data "Exterior West (Staging Area)" vs hitbox "Exterior Staging Area"
+    for (var j = 0; j < _data.zones.length; j++) {
+      var z2 = _data.zones[j];
+      var zl = z2.label.toLowerCase();
+      if (zl.indexOf(target) >= 0 || target.indexOf(zl) >= 0) return z2;
+      // Token match on first significant word
+      var zlFirst = zl.split(/[\s\(\-]/)[0];
+      var tgFirst = target.split(/[\s\(\-]/)[0];
+      if (zlFirst && tgFirst && zlFirst === tgFirst) return z2;
+    }
+    return null;
+  }
+
+  function _applyHitboxStates() {
+    try {
+      if (!_data || !_currentState) return;
+      // Find all hitbox rects in the currently-visible tactical map.
+      // They live in the main document (SVG overlay), not the iframe.
+      var hitboxes = document.querySelectorAll('.tm-hitbox-layer .tm-hitbox');
+      if (!hitboxes.length) {
+        // Try again shortly in case the viewer hasn't rendered yet.
+        setTimeout(_applyHitboxStates, 250);
+        return;
+      }
+      // Resolve zone idx → zone.room from the active viewer.
+      var v = _viewer;
+      if (!v || !v.meta) return;
+      var zones = v.meta.zones || [];
+      var tier = _currentState.tier;
+      hitboxes.forEach(function (rect) {
+        var idx = parseInt(rect.getAttribute('data-zone-idx'), 10);
+        var mapZone = zones[idx];
+        if (!mapZone) return;
+        var fortressZone = _zoneForRoomName(mapZone.room);
+        if (!fortressZone) {
+          rect.removeAttribute('data-vpf-state');
+          rect.removeAttribute('data-vpf-intensity');
+          return;
+        }
+        var zt = fortressZone.byTier[tier] || {};
+        rect.setAttribute('data-vpf-state', zt.state || '');
+        rect.setAttribute('data-vpf-intensity', _intensityOf(zt.state));
+      });
+    } catch (e) { /* silent */ }
+  }
+
+  function _patchZonePanel() {
+    if (_zonePanelPatched) return;
+    var TMV = window.TacticalMapViewer;
+    if (!TMV || !TMV.prototype || !TMV.prototype._showZoneInfo) return;
+    _originalShowZoneInfo = TMV.prototype._showZoneInfo;
+    var self = { original: _originalShowZoneInfo };
+    TMV.prototype._showZoneInfo = function (idx) {
+      self.original.call(this, idx);
+      try {
+        if (!_panel || !_data || !_currentState) return;
+        // Only augment when we're the active map.
+        if (!this.meta || this.meta.mapKey !== 'vanishing-place') return;
+        var zone = this.meta.zones[idx];
+        if (!zone) return;
+        var fortressZone = _zoneForRoomName(zone.room);
+        if (!fortressZone) return;
+        var tier = _getTier(_currentState.tier);
+        var zt = fortressZone.byTier[_currentState.tier] || {};
+        var relevantNpcs = _data.npcGroups.filter(function (g) {
+          var beh = (g.byTier[_currentState.tier] || '').toLowerCase();
+          var zoneTokens = fortressZone.label.toLowerCase().split(/[\s\(\-,]+/);
+          return zoneTokens.some(function (tok) { return tok.length > 3 && beh.indexOf(tok) >= 0; });
+        });
+        var html = '<div class="tm-zone-vpf-block" style="margin-top:10px;border-top:1px solid rgba(200,164,78,0.25);padding-top:8px;">' +
+          '<div style="font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:' + tier.color + ';margin-bottom:4px;">Fortress tier: ' + _esc(tier.label) + '</div>' +
+          '<div style="font-size:0.62rem;margin-bottom:4px;"><span style="display:inline-block;background:rgba(200,164,78,0.12);border:1px solid rgba(200,164,78,0.3);color:#c8a44e;padding:1px 6px;border-radius:3px;font-size:0.52rem;letter-spacing:0.05em;text-transform:uppercase;">' + _esc(zt.state || '—') + '</span></div>' +
+          '<div style="font-size:0.62rem;color:#a8a08a;line-height:1.45;">' + _esc(zt.note || '') + '</div>';
+        if (relevantNpcs.length) {
+          html += '<div style="font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:#c8a44e;margin-top:6px;margin-bottom:3px;">NPCs present / relevant</div>';
+          relevantNpcs.forEach(function (g) {
+            html += '<div style="font-size:0.6rem;margin-bottom:3px;"><strong style="color:#e6dcc4;">' + _esc(g.label) + ':</strong> ' + _esc(g.byTier[_currentState.tier] || '') + '</div>';
+          });
+        }
+        html += '</div>';
+        this._zonePanel.insertAdjacentHTML('beforeend', html);
+      } catch (e) { /* silent */ }
+    };
+    _zonePanelPatched = true;
+  }
+
+  function _unpatchZonePanel() {
+    if (!_zonePanelPatched) return;
+    var TMV = window.TacticalMapViewer;
+    if (TMV && TMV.prototype && _originalShowZoneInfo) {
+      TMV.prototype._showZoneInfo = _originalShowZoneInfo;
+    }
+    _zonePanelPatched = false;
+    _originalShowZoneInfo = null;
+  }
+
   function attach(opts) {
     var hostEl = opts.host;
     _socket = opts.socket || window._gmSocket || null;
+    _viewer = opts.viewer || _findViewer(hostEl);
     if (!hostEl) return;
     _ensurePanel(hostEl);
     _bindStateListener();
+    _patchZonePanel();
     _initState();
     // Ask the server for the current campaign_state. The state:sync listener will
     // overwrite _currentState and re-render when the server responds.
@@ -451,6 +647,15 @@
 
   function detach() {
     _unbindStateListener();
+    _unpatchZonePanel();
+    // Clear any tint we applied.
+    try {
+      document.querySelectorAll('.tm-hitbox[data-vpf-state]').forEach(function (r) {
+        r.removeAttribute('data-vpf-state');
+        r.removeAttribute('data-vpf-intensity');
+      });
+    } catch (_) {}
+    _viewer = null;
     if (_panel) { _panel.remove(); _panel = null; }
     _closeModal();
   }

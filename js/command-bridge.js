@@ -6952,7 +6952,7 @@
       try {
         if (window.VanishingPlaceFortress) {
           if (key === 'vanishing-place') {
-            window.VanishingPlaceFortress.attach({ host: body, socket: socket });
+            window.VanishingPlaceFortress.attach({ host: body, socket: socket, viewer: viewer });
           } else {
             window.VanishingPlaceFortress.detach();
           }
