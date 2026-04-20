@@ -3772,8 +3772,8 @@
           "number": 2,
           "title": "Hutt's Hangar",
           "subtitle": "Docking Bay 4414",
-          "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nSix Z-95 Headhunters line the walls — two along the port side, four along the starboard, nose-out toward the center. The rearmost crimson-trimmed fighter on the starboard line carries a Huttese glyph on the fuselage. Varga's personal stable. Pilots are already sprinting the open floor toward their cockpits, ladders down, engines cycling. Stacked cargo crates clutter the center of the bay — Trandoshan manifests, Guild Tibanna-gas hazard placards, still warm from the offload.\n\nVarga's voice booms from the bay's intercom — he is staging the Glorious Chariot in the adjacent launch cradle, ramp already closing. When the screens cut to a live feed, he sees you. Fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads!\"",
-          "gmNotes": "The final confrontation with Varga. The Glorious Chariot is priming for launch. Six Z-95 fighters are scrambling — if they get airborne, they'll strafe the hangar. Savvy heroes might shoot pilots on ladders to hijack fighters. Varga retreats up the ramp as mercenaries fall. Heroes must breach the ship or disable its engines. If they board, they fight Varga in the yacht's narrow corridors where his massive bulk is a weapon.",
+          "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nAt the far north end, framed by heavy durasteel scaffolding, the Glorious Chariot squats in her launch cradle — gold and purple, three thruster housings visible through the scaffold gaps, turbines already cycling with a whine that climbs toward takeoff pitch. Between the two tallest scaffold towers, the yacht's boarding ramp is still down.\n\nSix Z-95 Headhunters line the hangar walls — two along the port side, four along the starboard, nose-out toward the center. The rearmost crimson-trimmed fighter on the starboard line carries a Huttese glyph on the fuselage — Varga's stable. Pilots are already sprinting the open floor toward their cockpits, ladders down, engines cycling. Stacked cargo crates clutter the center of the bay — Trandoshan manifests, Guild Tibanna-gas hazard placards, still warm from the offload.\n\nVarga's voice booms from the cradle's loudspeakers, fat with panic. When a cradle monitor cuts to a live feed, he sees you. Fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads! Get me in the air NOW!\"",
+          "gmNotes": "The final confrontation with Varga. The Glorious Chariot sits in the adjacent launch cradle at the NORTH end of the map, her thrusters visible through the scaffolding, boarding ramp still down between the scaffold towers. Six Z-95 Headhunters line the hangar walls (2 port, 4 starboard) and their pilots are racing the open floor toward cockpits.\n\nTHE LAUNCH CLOCK: The Chariot is priming for launch. Track it as 6 beats. Each beat is one round of the fight. When the clock hits zero, the Chariot lifts and the scene transitions into s3 (Firefight — closing the hangar) and then s4/s5 (Grand Theft Starship + Skirmish Over Bespin — pursuit in orbit). The Chariot leaving is a BAD outcome but not a fail state — it's the 'normal' path and the pursuit is the planned finale. Stopping the Chariot before launch is the HARD path.\n\nTWO WIN CONDITIONS, TWO PATHS:\n1. STOP THE CHARIOT (hard): Heroes must reach the Launch Cradle zone at the north end before beat 6. Options once there — (a) ascend the ramp and fight Varga aboard the yacht (his bulk is a weapon in the narrow corridors — use the ramp/airlock as a choke point), (b) sabotage the visible thruster housings from the scaffolding (Tech check, Hard — successful disable locks the Chariot on the pad), (c) trigger the Tibanna-gas cargo crates as a chained detonation that cracks the cradle mounts (requires reaching the crates AND igniting them while heroes have already moved north — high risk). If heroes pull any of these off, Varga is trapped — boss fight on his terms, but he can't flee.\n2. LET THE CHARIOT LAUNCH (normal): Heroes steal a Z-95 from the walls and chase the yacht into Bespin's atmosphere (s4 → s5). This is the designed through-line. The hangar fight becomes a sprint to a cockpit rather than an assault on the ramp.\n\nPILOT INTERCEPT ECONOMY: Each Z-95 pilot that reaches a cockpit and launches = one additional harrier in s5. Shooting pilots on the ladders is high-value. Make this explicit to the table.\n\nSCAFFOLDING: Climbable with Athletics. Ascending the scaffold opens a sightline to the cradle AND a path to the ramp. BUT when the Chariot's engines reach full cycle (beat 4+), heat wash makes the scaffolding impassable. Audibility in the north half of the hangar drops to zero — shouted coordination fails on beat 4+.\n\nVARGA'S POSITION: On the Chariot's bridge or at the top of the ramp. NOT on the hangar floor. Heroes who want to engage Varga directly MUST climb the scaffolding or push up the ramp. He shouts commands and taunts via the cradle PA; the scene's emotional presence is his voice in the hangar, his physical presence one zone away behind the scaffold.\n\nCARGO CRATE HAZARD: The center-floor crate cluster is Guild-marked Tibanna gas. Sustained fire or a deliberate ignition check triggers an area detonation — [Concealment] smoke wall for 2 beats, damage to anyone adjacent, and if heroes position it right, the blast cracks the cradle mount scaffolding. High-risk, high-reward environmental play.",
           "npcs": [
             {
               "name": "Varga the Hutt",
@@ -4246,11 +4246,11 @@
             "zones": [
               {
                 "id": "rear-exhaust-wall",
-                "label": "Rear Exhaust Wall",
+                "label": "Glorious Chariot — Launch Cradle",
                 "passable": true,
-                "cover": "medium",
+                "cover": "heavy",
                 "lighting": "harsh",
-                "terrain": "Three thruster exhaust ports — heat haze and loud vent cycles. Cover behind grating, hot flue gas on bad rolls."
+                "terrain": "Adjacent launch cradle visible through scaffolding at the north edge. Three of the Chariot's thrusters cycling for launch; boarding ramp still down between the two tallest scaffold towers. Scaffold climbable (Athletics) until engines reach full cycle on beat 4+ (heat wash blocks passage, audibility drops to zero in north half)."
               },
               {
                 "id": "port-fighter-line",
@@ -4326,6 +4326,11 @@
                 "who": "Varga's Personal Z-95",
                 "zone": "Starboard Fighter Line",
                 "notes": "Rearmost craft. Prestige steal target for s4. Crimson detailing, Huttese glyph."
+              },
+              {
+                "who": "Varga the Hutt",
+                "zone": "Glorious Chariot — Launch Cradle",
+                "notes": "On the Chariot bridge / top of ramp — NOT on the hangar floor. Reachable only via the ramp or scaffolding. Shouts via cradle PA. 6-beat launch clock."
               }
             ],
             "gmStartingPositions": {
@@ -4348,6 +4353,10 @@
               "Varga-Z95": {
                 "x": 890,
                 "y": 460
+              },
+              "Varga": {
+                "x": 510,
+                "y": 45
               }
             }
           }
