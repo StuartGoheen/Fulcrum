@@ -48,7 +48,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   │   ├── burning-deck.html   # The Burning Deck cantina (1024×635)
 │   │   ├── switch-lair.html    # Switch's Lair sinkhole (1024×716)
 │   │   ├── landing-field.html  # Reestkii Landing Field (1024×576)
-│   │   ├── vanishing-place.html # The Vanishing Place fortress (1024×576)
+│   │   ├── vanishing-place.html # The Vanishing Place fortress (1024×576, 16 zones incl. Central Hall / Detention Guard Post / Varth's Cell)
 │   │   ├── banshee.html        # The Banshee — Barloz-class freighter (1024×946, 20 zones)
 │   │   ├── jungle-trek.html    # Jungle Trek (1024×1024, 16 zones)
 │   │   ├── blackwind-point.html # Blackwind Point (1024×778)
@@ -644,3 +644,15 @@ Run command: `node server/index.js`
 ## Adventure 1 Audit (2026-04-20)
 
 `data/adventures/adv1.json` swept end-to-end. All 13 scenes now pass three checks: (1) every NPC in a combat-plausible scene has a complete `threatBuild` block; (2) every scene either has a `tacticalMap` block whose `mapKey` matches a real file in `public/maps/` OR an explicit `mapBinding: { mapStatus: "none", reason, idealArtIfAdded }` flag; (3) every scene has at least one outbound `narrativeLinks` entry into the next adv1 scene. Branching transitions (P2-S4→S5 Mandrake decision, P2-S6→S7 sabotage cascade) carry a `NARRATIVE BRIDGE` paragraph appended to `gmNotes` covering each branch. Final coverage: 10 scenes have a `tacticalMap` block, 3 scenes (P1-S2 derelict vaporator shed, P1-S3 slicing montage, P2-S2 in-cockpit cinematic) carry the explicit no-map flag. Two NPC schema additions used: `nonCombat: true` + `nonCombatNote` (Maya in P1-S2 — non-combat conversation scene; her statblock lives on her P1-S1 entry) and `mapBinding: { mapStatus: "none", reason, idealArtIfAdded }`. New `tacticalMap` bindings: P2-S1 → `banshee`, P2-S3 → `jungle-trek` (full 16-zone), P2-S4 → `jungle-trek` (focal: vine canopy), P2-S6 → `vanishing-place` (focal: Generator Room). Generator Guards in P2-S6 now carries the Skarn Mercenary minion threatBuild. Full scene-by-scene report in `.local/tasks/adv1-audit-report.md`.
+
+## Adventure 1 — Reactive Fortress State (2026-04-20)
+
+The Vanishing Place (adv1 Part 2 scenes S5–S8) now has a dynamic fortress-state system. NPCs no longer sit still while PCs trigger alarms — the fortress converges, locks down, and reinforces on a one-way ratchet.
+
+**Data file:** `data/adventures/vanishing-place-fortress.json` — single source of truth. 4 tiers (GREEN/YELLOW/ORANGE/RED), 8 escalation triggers + 4 de-escalation paths each with read-aloud cues, 13 zones × per-tier state, 8 NPC groups × per-tier behavior, reinforcement clock (4 rounds from ORANGE), Draco clock (4 rounds from RED), sabotage cascade (full/partial/failed → turrets_offline/laser_fences_dropped/mag_locks_open/sensor_grid_blind flags). Ratchet rules: GREEN↔YELLOW reversible within 1 round, YELLOW↔ORANGE same-round-only, ORANGE→RED one-way (auto at round 4 if alarm not cut), RED terminal.
+
+**Scene references:** `adv1-p2-s5` through `adv1-p2-s8` each carry a `fortressState: { ref: "vanishing-place-fortress", startTier, note }` block. P2-S5 starts GREEN, P2-S6 carries forward, P2-S7 starts YELLOW minimum, P2-S8 starts RED.
+
+**GM widget:** `js/vanishing-place-fortress.js` + `public/css/vanishing-place-fortress.css`. Wired into `js/command-bridge.js` `loadMapInPanel` — attaches when the Vanishing Place tactical map is opened, detaches otherwise. Widget header shows tier chip, one-liner, escalate/de-escalate/sabotage/reset/reference buttons; body shows patrol tempo, tier summary, active sabotage flags, reinforcement/Draco clock with Tick button, per-zone state, per-NPC-group behavior. State persists via socket `state:update` with key `adv1_vanishing_place_alert`; all GMs stay in sync via `state:sync`. Escalation button opens a confirm modal showing the read-aloud cue for the triggering event and the per-NPC behavior preview of the destination tier. Sabotage button opens a 3-option chooser that sets tier + flags atomically. "How it reacts" button opens a full reference modal with all tiers, triggers, de-escalation paths, ratchet rules, both clocks, and the sabotage cascade table.
+
+**Hitbox cleanup:** `public/maps/vanishing-place.html` — 5 fictional corridor zones (Central Junction / Central Passage / East Passage / West Corridor / Detention Corridor) collapsed into one accurate "Central Hall" zone. Old "Detention Block" split into "Detention Guard Post" (west half, where the 2 guards play cards) and "Varth's Cell" (east half, walled and mag-locked separate from the pens). Zone total: 16.

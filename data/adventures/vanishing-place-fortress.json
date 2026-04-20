@@ -1,0 +1,343 @@
+{
+  "id": "adv1_vp_fortress",
+  "title": "The Vanishing Place — Fortress Reactive State",
+  "mapKey": "vanishing-place",
+  "appliesToScenes": ["adv1-p2-s5", "adv1-p2-s6", "adv1-p2-s7", "adv1-p2-s8"],
+  "stateKey": "adv1_vanishing_place_alert",
+  "summary": "A tiny fortress. Twelve hostile interior NPCs, one Inquisitor shuttle arriving soon. Escalation is a ONE-WAY RATCHET past ORANGE — stealth has a narrow window to claw back down, then the fortress commits. Generator sabotage and prison break are geometrically coupled: the generator room looks south through the pens, and any fence-drop is visible from the detention guard post.",
+
+  "sceneStartTiers": {
+    "adv1-p2-s5": { "tier": "GREEN", "round": 0, "note": "Crew just entered via the drainage sluice. No one knows they're inside." },
+    "adv1-p2-s6": { "tier": "GREEN", "round": 0, "note": "Unless P2-S5 escalated the fortress, the generator room is still a routine post. Carry forward whatever tier P2-S5 ended on." },
+    "adv1-p2-s7": { "tier": "YELLOW", "round": 0, "note": "Generator tampering (however it went) costs stealth. Even a perfect sabotage leaves a dead generator — patrols notice. Start YELLOW minimum; ORANGE if the sabotage was loud or partial; RED if Varth is walking free already." },
+    "adv1-p2-s8": { "tier": "RED", "round": 1, "note": "Draco is landing. The fortress is RED by definition. Reinforcement clock is already ticking." }
+  },
+
+  "tiers": [
+    {
+      "id": "GREEN",
+      "label": "UNAWARE",
+      "color": "#22c55e",
+      "bgColor": "rgba(34,197,94,0.15)",
+      "oneLiner": "Routine ops. Nobody knows you're here.",
+      "summary": "Patrols are bored. Card games in the detention guard post. Vischera works alone in the med bay. The security droid is dormant. Rooftop troopers watch the treeline but not the building. This is your window.",
+      "patrolTempo": "Two-merc pair sweeps Central Hall every 4 rounds. Otherwise stationary."
+    },
+    {
+      "id": "YELLOW",
+      "label": "SUSPICIOUS",
+      "color": "#eab308",
+      "bgColor": "rgba(234,179,8,0.15)",
+      "oneLiner": "Something is off. Investigating.",
+      "summary": "A missing comm check, a strange sound, a guard who didn't answer. Patrols now move in twos, weapons drawn but not shouldered. Nobody is locked down yet. The crew still has stealth on the table — but the windows are narrowing.",
+      "patrolTempo": "Patrols sweep every 2 rounds. Guards stand rather than sit. Turbolift held at Level 1."
+    },
+    {
+      "id": "ORANGE",
+      "label": "ALARM / LOCKDOWN",
+      "color": "#f97316",
+      "bgColor": "rgba(249,115,22,0.15)",
+      "oneLiner": "Klaxons. Mag-locks. Everyone is converging.",
+      "summary": "The alarm panel has been tripped (or something louder). Klaxons cycle on Level 1. Mag-locks slam. Interior patrols converge on the trigger location. Rooftop stormtroopers descend the turbolift. The security droid boots up if it wasn't already. Turrets track all exterior targets.",
+      "patrolTempo": "No routine. All NPCs are moving toward noise. Reinforcement clock engaged — see schedule."
+    },
+    {
+      "id": "RED",
+      "label": "OPEN WAR / DRACO INBOUND",
+      "color": "#ef4444",
+      "bgColor": "rgba(239,68,68,0.15)",
+      "oneLiner": "Inquisitor on the pad in 4 rounds. Fortress fights to the last.",
+      "summary": "The fortress has committed. A distress call has punched through to Draco's shuttle (already in-system). Every NPC who can fight is fighting. Captain Vischera arms herself in the med bay. The Lambda's engines whine up on the rooftop. The Draco clock is engaged — 4 rounds until Shadow Troopers boot onto the roof.",
+      "patrolTempo": "Full combat. No routine. Reinforcement clock continues — see schedule. Round 4: Draco arrives."
+    }
+  ],
+
+  "ratchet": {
+    "description": "Escalation is a one-way ratchet past ORANGE. Stealth crews have narrow de-escalation windows at GREEN and YELLOW. ORANGE is terminal — the klaxon rang and too many people heard it. RED is auto-progression from ORANGE if nothing is resolved in 4 rounds.",
+    "paths": [
+      { "from": "GREEN", "to": "YELLOW", "reversible": true, "window": "Must neutralize the trigger within 1 round (hide body, silence witness, fake the comm check, restore the missed patrol ping). Otherwise YELLOW holds." },
+      { "from": "YELLOW", "to": "ORANGE", "reversible": "same-round-only", "window": "Within the SAME round the alarm is tripped: sever the alarm line at Central Hall (Hard Mechanics), OR fake an all-clear over Comms (Hard Slice + Deception), OR kill every witness before they transmit. After the round ends, ORANGE holds." },
+      { "from": "ORANGE", "to": "YELLOW", "reversible": false, "note": "The klaxon rang. Too many people heard it. No going back." },
+      { "from": "ORANGE", "to": "RED", "reversible": false, "auto": "Auto-escalates on Round 4 of ORANGE if the alarm isn't cut at Central Hall by then.", "note": "RED is also triggered immediately by: a Varth sighting in any non-cell zone, any blaster fire in the Command Area, or the Lambda on the rooftop taking damage." },
+      { "from": "RED", "to": "ORANGE", "reversible": false, "note": "Draco is coming. There is no de-escalation." }
+    ]
+  },
+
+  "escalationTriggers": [
+    { "id": "body_found", "label": "Body discovered", "from": ["GREEN", "YELLOW"], "to": "ORANGE", "readAloud": "A shout down the corridor — sharp, sudden, cut short. Then a klaxon picks up the beat. Red light strobes across the basalt. The fortress knows.", "counter": "Hide the body (Hard Stealth/Athletics, 1 round) BEFORE another NPC enters the zone. At GREEN, this rolls back. At YELLOW, this holds the tier." },
+    { "id": "blaster_fire_indoors", "label": "Blaster fire indoors", "from": ["GREEN", "YELLOW"], "to": "ORANGE", "readAloud": "Blaster-bolt echo ricochets through stone that wasn't built to hold it. Somewhere you can't see, a voice barks orders. Boots slap flagstone. Running toward you.", "counter": "None. Energy weapon discharge inside is a hard escalate. (Vibroblades, stun batons, unarmed takedowns do NOT trigger this.)" },
+    { "id": "missed_comm_check", "label": "Missed patrol comm check", "from": ["GREEN"], "to": "YELLOW", "readAloud": "Over a mercenary shoulder you can hear it: a comlink hissing a question that isn't being answered. The second hiss. The third. Someone is now walking toward the silence.", "counter": "Fake the ping from the missing patrol's comlink (Hard Slice, Disguise voice mod) within 1 round. Holds GREEN." },
+    { "id": "alarm_panel_tripped", "label": "Alarm panel pulled", "from": ["GREEN", "YELLOW"], "to": "ORANGE", "readAloud": "The klaxon starts low, winds up, hits its note. Every mag-lock on Level 1 slams home in sequence — crack, crack, crack, down the corridor.", "counter": "Sever the alarm line at Central Hall (Hard Mechanics) WITHIN the same round. Cuts the klaxon and rolls back to YELLOW. If the GM rules that the signal already reached Comms Center, this fails." },
+    { "id": "generator_tamper_detected", "label": "Generator being tampered (detected)", "from": ["GREEN", "YELLOW"], "to": "ORANGE", "readAloud": "One of the generator guards looks up mid-sentence. The status lights aren't blinking right. He's already reaching for his comlink.", "counter": "Silence both Generator Guards AND the Security Droid before any of them transmits. Full takedown within 1 round (usually impossible without pre-positioning)." },
+    { "id": "generator_dies", "label": "Generator goes dark (sabotage complete)", "from": ["GREEN", "YELLOW", "ORANGE"], "to": "ORANGE", "readAloud": "The generator's hum — that low note you've been feeling in your teeth — stops. The work-lights flicker and die. For one held breath the whole fortress is silent. Then the backup sirens kick in, and the laser fences die, and somewhere south of you, prisoners start shouting.", "counter": "None. The entire fortress feels the lights go out. This is inherent to the sabotage payoff — see `sabotageCascade` for the compensations." },
+    { "id": "varth_seen_outside_cell", "label": "Varth sighted outside his cell", "from": ["GREEN", "YELLOW", "ORANGE"], "to": "RED", "readAloud": "A guard rounds the corner, sees him, freezes. Varth is already walking. The guard's blaster comes up. Over the fortress comms: the Admiral is loose. Repeat. The Admiral is loose.", "counter": "None. Varth escaping is the fortress's worst-case alert. It goes straight to RED." },
+    { "id": "command_area_breached", "label": "Blaster fire on Level 2 (Command)", "from": ["ORANGE"], "to": "RED", "readAloud": "The holo-table sputters and dies. A Skarn officer is screaming into a headset. On the rooftop, the Lambda's engines start to whine.", "counter": "None." }
+  ],
+
+  "deEscalationTriggers": [
+    { "id": "hide_body", "label": "Hide body / sanitize scene", "from": "YELLOW", "to": "GREEN", "check": "Hard Stealth OR Athletics — must be resolved in 1 round, before any other NPC enters the zone.", "readAloud": "You drag the body behind the generator housing, kick a ration pack over the blood smear. Footsteps approach and pass and continue on. For now, the silence holds." },
+    { "id": "silence_witness", "label": "Silence the lone witness", "from": "YELLOW", "to": "GREEN", "check": "Takedown before the NPC transmits (any action that reduces them to 0 VIT in a single round, or a Hard Stealth grab).", "readAloud": "Their hand was on the comlink. Your hand closes over theirs. The comlink hits the floor and slides under a supply crate. They slump." },
+    { "id": "sever_alarm_line", "label": "Sever the alarm line at Central Hall", "from": "ORANGE", "to": "YELLOW", "check": "Hard Mechanics (Security Kit steps it down). Must happen in the SAME round the alarm was raised. If the signal reached Comms Center, the GM rules this fails.", "readAloud": "The klaxon chokes mid-cycle. Red light still pools in the corridor, but the sound dies. Somewhere above you, a voice is asking why the feed went quiet." },
+    { "id": "fake_all_clear", "label": "Fake an all-clear over Comms", "from": "ORANGE", "to": "YELLOW", "check": "Hard Slice (to spoof the channel) + Hard Deception (for the voice). Must happen in the SAME round the alarm was raised. Requires access to Comms Center.", "readAloud": "Your voice comes out Imperial-clipped, passable. 'All clear. Junior tripped a panel. Stand down, stand down.' A pause. Then: 'Acknowledged. Stand down.' The klaxon cuts out." }
+  ],
+
+  "reinforcementClock": {
+    "description": "Rounds counted from the moment the fortress went ORANGE. If it started at RED (P2-S8), add 4 rounds and see Draco section.",
+    "schedule": [
+      { "round": 1, "event": "Rooftop Stormtroopers start descending the turbolift (arrive Central Hall at end of Round 2).", "zone": "Turbolift & Stairs" },
+      { "round": 2, "event": "Exterior Stormtroopers converge on the W exterior doors. Interior patrols consolidate on the trigger zone.", "zone": "Exterior West → Central Hall" },
+      { "round": 3, "event": "Captain Vischera mag-locks the Med Bay from inside, arms herself with a neurotoxin autoinjector (1-shot stun, her threatBuild is noncombat, treat as Minion Fleeting effect only).", "zone": "Medical Bay" },
+      { "round": 4, "event": "If the alarm is still live at Central Hall: AUTO-ESCALATE to RED. Draco's Lambda is already on approach — his shuttle boots onto the rooftop at start of the next round.", "zone": "Rooftop Landing Pad" }
+    ],
+    "dracoClock": {
+      "description": "Once RED: Draco's shuttle is 4 rounds out. At the top of Round 4 (counting from RED), Shadow Troopers boot onto the rooftop and Inquisitor Draco walks off the ramp. This is the P2-S8 scene in motion.",
+      "countdown": [
+        { "round": 1, "event": "Lambda signature on long-range sensors. Rooftop troopers signal the Lambda, clear the pad." },
+        { "round": 2, "event": "Lambda in visual range. Engine whine audible from anywhere on Level 2." },
+        { "round": 3, "event": "Final approach. Lambda banks into the clearing. Landing lights flood the rooftop." },
+        { "round": 4, "event": "TOUCHDOWN. Ramp drops. Shadow Troopers deploy. Draco walks off. Switch to P2-S8 full stat blocks." }
+      ]
+    }
+  },
+
+  "zones": [
+    { "key": "drainage_sluice", "label": "Drainage Sluice", "description": "Knee-deep water entry on NE face. Crew's way in.",
+      "byTier": {
+        "GREEN": { "state": "unguarded", "note": "Nobody watches the sluice from inside. It's a drainage pipe." },
+        "YELLOW": { "state": "unguarded", "note": "Still not on the patrol list. Mercenaries don't think this way in." },
+        "ORANGE": { "state": "sealed-externally", "note": "A merc jams a supply crate into the interior grate. Crew inside cannot retreat this way without a Hard Athletics to shove it clear." },
+        "RED": { "state": "guarded", "note": "Two mercs posted at the interior grate with blasters. Also the exterior mouth is being watched by a rooftop spotter." }
+      }
+    },
+    { "key": "medical_bay", "label": "Medical Bay", "description": "Vischera's lab. Enclosed room, W side.",
+      "byTier": {
+        "GREEN": { "state": "routine", "note": "Vischera working alone at her bench, back to the door. Not listening." },
+        "YELLOW": { "state": "alert", "note": "Vischera glances at the door every ~30s. Door unlocked but her hand is near a scalpel." },
+        "ORANGE": { "state": "locked-from-inside", "note": "Vischera slams the mag-lock. Won't come out. Hides behind the surgical table with her autoinjector." },
+        "RED": { "state": "locked-from-inside", "note": "Vischera surrenders if the door is breached — she wants to trade intel for safety." }
+      }
+    },
+    { "key": "storage", "label": "Storage", "description": "Weapon crates, ration kits, det cord. Enclosed, NW.",
+      "byTier": {
+        "GREEN": { "state": "unoccupied", "note": "Door usually open. No one inside unless restocking." },
+        "YELLOW": { "state": "unoccupied", "note": "One merc may duck in to grab a spare powerpack — 20% chance per round." },
+        "ORANGE": { "state": "looted-by-defenders", "note": "Mercs rotating through for extra ammo. 2-merc traffic per round." },
+        "RED": { "state": "looted-by-defenders", "note": "Stormtroopers also pulling heavy ordnance. Proton grenades being distributed." }
+      }
+    },
+    { "key": "comms_center", "label": "Comms Center", "description": "Clone Wars relay banks. Enclosed, N-center.",
+      "byTier": {
+        "GREEN": { "state": "staffed-light", "note": "One Skarn comm-officer at the console, bored. Transmission log scrolling by." },
+        "YELLOW": { "state": "staffed-alert", "note": "Comm-officer on the horn, trying to reach the patrol that's gone quiet." },
+        "ORANGE": { "state": "staffed-active", "note": "Two officers now. One is patching a distress signal to Draco's Lambda. 2 rounds to connect." },
+        "RED": { "state": "staffed-active", "note": "Distress signal went through. Officers are now coordinating Draco's landing." }
+      }
+    },
+    { "key": "central_hall", "label": "Central Hall", "description": "Open floor including the generator (as physical cover). The spine of the fortress. Lines-of-sight south through the pens to the detention guard post.",
+      "byTier": {
+        "GREEN": { "state": "routine-patrol", "note": "2-merc pair sweeps every 4 rounds. Generator Guards (2) at the generator. Security Droid dormant in the NE alcove, shut down." },
+        "YELLOW": { "state": "active-patrol", "note": "2-merc pair sweeps every 2 rounds, blasters unholstered. Generator Guards standing rather than sitting." },
+        "ORANGE": { "state": "convergence-zone", "note": "All interior mercs rallying here at end of Round 1. Klaxons active. Mag-locks on all enclosed rooms slammed. Security Droid activates." },
+        "RED": { "state": "convergence-zone", "note": "Kill zone. Stormtroopers arriving from turbolift. Any PC here is taking multi-target fire." }
+      }
+    },
+    { "key": "turbolift", "label": "Turbolift & Stairs", "description": "Shaft between Level 1 and Level 2. Stairs run alongside.",
+      "byTier": {
+        "GREEN": { "state": "routine", "note": "Car parked at Level 1. Crew can use it freely if they can fake Imperial creds." },
+        "YELLOW": { "state": "held", "note": "Car held at Level 1 'by order.' Stairs still clear but one merc posted at the Level 1 landing." },
+        "ORANGE": { "state": "troop-transport", "note": "Rooftop stormtroopers ride down (Round 1). Car unavailable to crew for 2 rounds. Stairs contested." },
+        "RED": { "state": "troop-transport", "note": "Continuous shuttling. Draco's Shadow Troopers will come down this way in Round 4+ if the crew has breached Level 2." }
+      }
+    },
+    { "key": "detention_guard_post", "label": "Detention Guard Post", "description": "Enclosed guard room at the S end. 2 mercs sit here watching the Pens (through the east fence wall) and Varth's Cell door.",
+      "byTier": {
+        "GREEN": { "state": "cards", "note": "Two guards, blasters propped against the wall, playing sabacc. Distance to their weapons: 1 move action." },
+        "YELLOW": { "state": "standing", "note": "Guards standing, weapons holstered on hip. Scanning through the east fence toward the pens." },
+        "ORANGE": { "state": "locked-in", "note": "Guards mag-lock the post from inside. Will not exit — they're job-one for holding Varth. Shoot through the fence at any movement in the pens." },
+        "RED": { "state": "locked-in-or-dead", "note": "If Varth is already out, guards are dead or fled. Otherwise: entrenched, shooting everyone south of the generator." }
+      }
+    },
+    { "key": "varth_cell", "label": "Varth's Cell", "description": "Solo cell — walled, mag-locked, separate from the Pens. The man the Empire buried.",
+      "byTier": {
+        "GREEN": { "state": "mag-locked", "note": "Varth sits on the edge of his cot, legs crossed, watching the doorway with the patient expression of someone who's been expecting company." },
+        "YELLOW": { "state": "mag-locked", "note": "Same — Varth has noticed the tempo change and is now standing near his door, waiting." },
+        "ORANGE": { "state": "mag-locked-hot", "note": "Mag-lock runs hotter on ORANGE — a security override cycle has kicked in. Hard Mechanics to bypass (Security Kit steps it down). If generator is dead, mag-lock is open." },
+        "RED": { "state": "mag-locked-hot", "note": "Same. Unless the generator is dead, Varth is behind the door. If generator is dead, he's moving." }
+      }
+    },
+    { "key": "prisoner_pens", "label": "Prisoner Pens (×3)", "description": "Three laser-fence pens holding Mandrake's people. S of generator. Pen 3 (easternmost) has an east fence directly visible to the Detention Guard Post.",
+      "byTier": {
+        "GREEN": { "state": "fenced", "note": "Laser fences hum. ~12 prisoners total huddled inside. No guards posted at the pens — the fences do the work." },
+        "YELLOW": { "state": "fenced-watched", "note": "Detention Guard Post now pays attention to the pens. Any visible movement toward a fence draws a blaster bolt through Pen 3's east wall." },
+        "ORANGE": { "state": "fenced-watched", "note": "Same, more aggressive. Patrols pass the pens without slowing." },
+        "RED": { "state": "fenced-or-chaos", "note": "If the fences are DOWN (sabotage cascade): prisoners swarming out, Mandrake leading them. If the fences are UP: prisoners screaming, fortress ignoring them." }
+      }
+    },
+    { "key": "exterior_west", "label": "Exterior West (Staging Area)", "description": "Cleared ground outside W wall. Stormtrooper squad at parade rest.",
+      "byTier": {
+        "GREEN": { "state": "parade-rest", "note": "Squad watching the treeline, not the building. Maya could approach from the S ridge unnoticed with good Stealth." },
+        "YELLOW": { "state": "alert-posture", "note": "Squad facing half toward the treeline, half toward the W doors. Sergeant on comm." },
+        "ORANGE": { "state": "converging", "note": "Squad moves to the W doors. By end of Round 2 they're inside Central Hall." },
+        "RED": { "state": "redeployed", "note": "Squad split — half on the rooftop to receive Draco, half holding the W doors." }
+      }
+    },
+    { "key": "gun_turrets", "label": "Gun Turrets (W + E)", "description": "Automated turrets, generator-powered. Cover the exterior approaches.",
+      "byTier": {
+        "GREEN": { "state": "passive-scan", "note": "Track slowly, no lock-on. A stealthy approach from S ridge avoids them." },
+        "YELLOW": { "state": "active-scan", "note": "Faster sweep, tighter arc. Any thermal signature from the treeline flags." },
+        "ORANGE": { "state": "armed-weapons-free", "note": "Turrets fire on any unauthorized target in the open. Maya's approach gets chewed up unless they're disabled." },
+        "RED": { "state": "armed-weapons-free", "note": "Same — these are automated. They only go dark when the generator does." }
+      }
+    },
+    { "key": "command_area", "label": "Command Area (Level 2)", "description": "Upper sanctum. Holotable, tactical displays. Skarn officers + Imperial advance team.",
+      "byTier": {
+        "GREEN": { "state": "routine", "note": "Skarn officers and 2 Stormtrooper advance-team members. Watching the holotable. Not watching the turbolift door." },
+        "YELLOW": { "state": "alert", "note": "Officers on comm, trying to raise the patrol that went dark. Stormtroopers move to the turbolift side of the room." },
+        "ORANGE": { "state": "command-active", "note": "Officers coordinating the lockdown. Stormtroopers descend via turbolift (Round 1)." },
+        "RED": { "state": "command-active", "note": "Draco's arrival coordinated from here. Officers patch the Lambda's approach." }
+      }
+    },
+    { "key": "rooftop_pad", "label": "Rooftop Landing Pad (Level 2)", "description": "Lambda-class shuttle, Rooftop Stormtrooper squad.",
+      "byTier": {
+        "GREEN": { "state": "routine-guard", "note": "Squad watching the horizon. The Lambda is cold. A quiet, disciplined post." },
+        "YELLOW": { "state": "alert-guard", "note": "Squad faces the turbolift and stair heads instead of the horizon." },
+        "ORANGE": { "state": "descending", "note": "Squad descends to Central Hall (Round 1). Rooftop emptied. This is Maya's window IF turrets are down." },
+        "RED": { "state": "receiving-draco", "note": "Squad back on the pad to receive Draco. The Lambda spins up. Round 4: Draco's shuttle lands alongside." }
+      }
+    }
+  ],
+
+  "npcGroups": [
+    {
+      "key": "skarn_interior_patrols",
+      "label": "Skarn Interior Patrols",
+      "composition": "2 pairs of Skarn Mercenaries (reuse P2-S5 threatBuild).",
+      "byTier": {
+        "GREEN": "Patrol Central Hall every 4 rounds. Blasters holstered. Mostly smoking, bantering, complaining about the humidity.",
+        "YELLOW": "Patrol every 2 rounds, in pairs, blasters unholstered but low. Check in on comm every round.",
+        "ORANGE": "Converge on trigger zone at end of Round 1. Shoot first at unknown silhouettes.",
+        "RED": "All mercs in the fight. Use gambits aggressively. Will sacrifice individuals to buy the fortress time."
+      }
+    },
+    {
+      "key": "generator_guards",
+      "label": "Generator Guards",
+      "composition": "2 Skarn Mercenaries (Minion). Posted next to the generator housing. See adv1-p2-s6 threatBuild.",
+      "byTier": {
+        "GREEN": "Sitting on ammo crates. Sabacc cards between them. Blasters leaned against the generator housing — 1 full action away.",
+        "YELLOW": "Standing. Blasters in hand. One watching the N corridor, one watching the S pens.",
+        "ORANGE": "Dead if generator sabotage was loud, fighting if sabotage was a confrontation, radioing if sabotage was sneaky-but-not-sneaky-enough. Either way, their post is the ignition point of the klaxon.",
+        "RED": "If still alive: fighting to the last. If dead: their comlinks are still chattering — useful intel for the crew."
+      }
+    },
+    {
+      "key": "security_droid",
+      "label": "Clone Wars Security Droid",
+      "composition": "Dormant in Central Hall NE alcove. Elite Minion tier (reuse a Clone Wars B2 or similar statblock from the threat library).",
+      "byTier": {
+        "GREEN": "Shut down. Covered in a tarp. Looks like scenery.",
+        "YELLOW": "Still shut down. A blinking diagnostic light suggests it's in standby — perception-observant PCs may flag it.",
+        "ORANGE": "BOOTS ON TIER ESCALATION. Stands up during the first round of ORANGE. Moves to the trigger zone on Round 2. Commits violence on Round 3.",
+        "RED": "Fighting. Will pursue Varth specifically if it has a line of sight to him."
+      }
+    },
+    {
+      "key": "detention_guards",
+      "label": "Detention Guards",
+      "composition": "2 Skarn Mercenaries (Standard). Posted in the Detention Guard Post, watching Varth's cell door and through the E fence wall of the pens.",
+      "byTier": {
+        "GREEN": "Cards on the table. Blasters propped against the wall. Complaining about Varth being too calm.",
+        "YELLOW": "Standing, weapons on hips. Watching the pens for movement.",
+        "ORANGE": "Mag-lock the guard post from inside. Shoot through the fence at any prisoner moving toward it. Do NOT open the post door — their orders are to hold Varth's corridor above all else.",
+        "RED": "Same — mag-locked, shooting from inside. If Varth is out, they're already dead or fled."
+      }
+    },
+    {
+      "key": "rooftop_stormtroopers",
+      "label": "Rooftop Stormtroopers",
+      "composition": "4 Stormtroopers + 1 Sergeant (reuse P1-S5 threatBuild).",
+      "byTier": {
+        "GREEN": "Parade-rest formation near the Lambda. Watching the jungle horizon. Bored.",
+        "YELLOW": "Facing the turbolift head. Sergeant on comm.",
+        "ORANGE": "Descend turbolift Round 1. In Central Hall by end of Round 2. Converge on the trigger zone.",
+        "RED": "Half back on the roof to receive Draco, half holding whatever objective the fight has become."
+      }
+    },
+    {
+      "key": "exterior_stormtroopers",
+      "label": "Exterior (W) Stormtroopers",
+      "composition": "4 Stormtroopers at the W Staging Area (reuse P1-S5 threatBuild).",
+      "byTier": {
+        "GREEN": "At ease near the supply crates. Watching the treeline.",
+        "YELLOW": "Move to cover positions along the W wall.",
+        "ORANGE": "Breach the W doors (end of Round 2). Join the convergence in Central Hall.",
+        "RED": "Hold the W doors and provide a rally point for any retreating mercs."
+      }
+    },
+    {
+      "key": "captain_vischera",
+      "label": "Captain Vischera",
+      "composition": "Non-combatant unless cornered. See P2-S5 threatBuild.",
+      "byTier": {
+        "GREEN": "At her bench, back to the door, absorbed in specimen work. Will be startled but not hostile if approached civilly.",
+        "YELLOW": "Glancing at the door. Hand near a scalpel. Will parley — she is AFRAID of what's happening, not loyal.",
+        "ORANGE": "Mag-locks the Med Bay from inside. Arms herself with a neurotoxin autoinjector. Will parley through the door if the crew identifies themselves as not-Imperial.",
+        "RED": "Surrenders immediately if the door is breached. Trades intel for safety. She's been wanting to leave for months."
+      }
+    },
+    {
+      "key": "admiral_varth",
+      "label": "Admiral Gilder Varth",
+      "composition": "Prisoner. Non-hostile to the crew but imperious. See P2-S7 threatBuild.",
+      "byTier": {
+        "GREEN": "Sits on his cot. Hands folded. Patient. Assumes this will resolve itself.",
+        "YELLOW": "Standing near his door. Has already guessed something is happening.",
+        "ORANGE": "Demands the crew open his cell NOW. Treats the rescue like a hired service. If generator is dead, his mag-lock is open — he walks out on his own.",
+        "RED": "Moving on his own if he can. Will commandeer a blaster if offered. Willing to fight to escape but will not risk HIS life for a pen full of locals."
+      }
+    }
+  ],
+
+  "sabotageCascade": {
+    "description": "Collapses the prior ad-hoc flags from P2-S6 into the fortress state. When the Generator dies, FOUR things happen simultaneously (cascade payoff), but the sabotage itself is visible/audible across the fortress — sabotage ALWAYS escalates to ORANGE minimum.",
+    "outcomes": {
+      "full_sabotage": {
+        "label": "Full sabotage (Legendary or Masterful on the sabotage check)",
+        "tierSetTo": "ORANGE",
+        "flags": {
+          "turrets_offline": true,
+          "laser_fences_dropped": true,
+          "mag_locks_open": true,
+          "sensor_grid_blind": true,
+          "comms_degraded": false
+        },
+        "readAloud": "The generator dies with a wet electrical cough. Every work-light on Level 1 drops dark, then flickers back on in dim emergency amber. South of you, the laser fences die. A moment of silence — and then the mag-locks on Level 1 all pop open at once, a sharp percussive CRACK-CRACK-CRACK down every corridor. Prisoners start shouting. Somewhere a klaxon is trying to rally a fortress that suddenly has no teeth."
+      },
+      "partial_sabotage": {
+        "label": "Partial sabotage (Fleeting success — one or two cascade effects fire, others don't)",
+        "tierSetTo": "ORANGE",
+        "flags": {
+          "turrets_offline": "gm-choice",
+          "laser_fences_dropped": "gm-choice",
+          "mag_locks_open": "gm-choice",
+          "sensor_grid_blind": "gm-choice",
+          "comms_degraded": false
+        },
+        "readAloud": "The generator coughs, shudders, and keeps running — worse than before, but running. SOME things die; others hold. (GM picks which 2 of the 4 cascade effects fire. Priority suggestion: fences drop, mag-locks open. Turrets and sensors keep watching.)"
+      },
+      "failed_sabotage": {
+        "label": "Failed sabotage (crew made the check but triggered detection, OR failed the check)",
+        "tierSetTo": "ORANGE",
+        "flags": {
+          "turrets_offline": false,
+          "laser_fences_dropped": false,
+          "mag_locks_open": false,
+          "sensor_grid_blind": false,
+          "comms_degraded": false,
+          "security_droid_active": true
+        },
+        "readAloud": "The generator hums on, untouched. A red diagnostic light winks to life on the housing. Behind you, the tarp in the NE alcove rustles — something under it is standing up."
+      }
+    }
+  }
+}

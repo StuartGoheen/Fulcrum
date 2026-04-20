@@ -6947,6 +6947,17 @@
         socket: socket
       });
       viewer.loadMap(key);
+
+      // Reactive-fortress widget: only on Vanishing Place map.
+      try {
+        if (window.VanishingPlaceFortress) {
+          if (key === 'vanishing-place') {
+            window.VanishingPlaceFortress.attach({ host: body, socket: socket });
+          } else {
+            window.VanishingPlaceFortress.detach();
+          }
+        }
+      } catch (e) { console.warn('[gm-tm] fortress widget attach failed:', e); }
     }
 
     btn.addEventListener('click', open);

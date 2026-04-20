@@ -1,0 +1,343 @@
+/* Vanishing Place — Reactive Fortress Widget */
+
+.vpf-panel {
+  background: #12120f;
+  border: 1px solid #3a3632;
+  border-bottom: 1px solid #5a4a2a;
+  font-family: 'Exo 2', sans-serif;
+  color: #c0b89a;
+  font-size: 0.72rem;
+  max-height: 60%;
+  overflow: auto;
+}
+.vpf-panel.vpf-collapsed .vpf-body { display: none; }
+
+.vpf-top { display: flex; align-items: stretch; }
+.vpf-header {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.55rem 0.75rem;
+  border-left: 4px solid #555;
+  background: rgba(255,255,255,0.02);
+  transition: background 0.2s, border-color 0.2s;
+}
+.vpf-tier-chip {
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.7rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  min-width: 7.2rem;
+  text-align: center;
+}
+.vpf-summary-col { flex: 1; }
+.vpf-title {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8070;
+  margin-bottom: 0.18rem;
+}
+.vpf-one-liner { font-size: 0.82rem; color: #e6dcc4; font-weight: 600; }
+.vpf-actions { display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap; }
+.vpf-btn {
+  background: transparent;
+  border: 1px solid #3a3632;
+  color: #c8a44e;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.12s;
+}
+.vpf-btn:hover { border-color: #c8a44e; background: rgba(200,164,78,0.1); }
+.vpf-btn-escalate { color: #f97316; border-color: rgba(249,115,22,0.4); }
+.vpf-btn-escalate:hover { background: rgba(249,115,22,0.15); border-color: #f97316; }
+.vpf-btn-deescalate { color: #22c55e; border-color: rgba(34,197,94,0.4); }
+.vpf-btn-deescalate:hover { background: rgba(34,197,94,0.15); border-color: #22c55e; }
+.vpf-btn-reset { color: #7a7068; }
+.vpf-btn-ref { color: #60a5fa; border-color: rgba(96,165,250,0.4); }
+.vpf-btn-ref:hover { background: rgba(96,165,250,0.12); border-color: #60a5fa; }
+
+.vpf-toggle {
+  background: transparent;
+  border: none;
+  border-left: 1px solid #3a3632;
+  color: #7a7068;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 0.7rem;
+  cursor: pointer;
+}
+.vpf-toggle:hover { color: #c8a44e; }
+
+.vpf-body { padding: 0.6rem 0.75rem 0.8rem; }
+.vpf-tempo, .vpf-tier-summary { font-size: 0.68rem; line-height: 1.5; margin-bottom: 0.45rem; }
+.vpf-tempo strong { color: #c8a44e; }
+.vpf-tier-summary { color: #a8a08a; }
+
+.vpf-section-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c8a44e;
+  margin: 0.75rem 0 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.vpf-round {
+  background: rgba(249,115,22,0.2);
+  color: #f97316;
+  padding: 0.08rem 0.4rem;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.vpf-btn-tick {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.55rem;
+}
+
+.vpf-clock {
+  margin: 0 0 0.5rem 1rem;
+  padding: 0;
+  font-size: 0.66rem;
+  line-height: 1.6;
+  color: #a8a08a;
+}
+.vpf-clock li.vpf-clock-active {
+  color: #f97316;
+  font-weight: 700;
+  background: rgba(249,115,22,0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
+.vpf-clock-zone { color: #7a7068; font-style: italic; }
+
+.vpf-flag-row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.5rem; }
+.vpf-flag {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.4);
+  color: #ef4444;
+  font-size: 0.55rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.vpf-zone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.3rem;
+}
+.vpf-zone {
+  background: #1a1a1e;
+  border: 1px solid #2a2826;
+  border-radius: 3px;
+  padding: 0.35rem 0.5rem;
+}
+.vpf-zone-name {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #e6dcc4;
+  letter-spacing: 0.04em;
+}
+.vpf-zone-state { margin: 0.2rem 0; }
+.vpf-zone-pill {
+  display: inline-block;
+  background: rgba(200,164,78,0.12);
+  border: 1px solid rgba(200,164,78,0.3);
+  color: #c8a44e;
+  font-size: 0.52rem;
+  padding: 0.08rem 0.4rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.vpf-zone-note { font-size: 0.6rem; color: #a8a08a; line-height: 1.45; }
+
+.vpf-npc-list { display: grid; gap: 0.3rem; }
+.vpf-npc {
+  background: #1a1a1e;
+  border: 1px solid #2a2826;
+  border-left: 2px solid #c8a44e;
+  border-radius: 3px;
+  padding: 0.35rem 0.55rem;
+}
+.vpf-npc-name { font-weight: 700; color: #e6dcc4; font-size: 0.66rem; }
+.vpf-npc-comp { font-size: 0.56rem; color: #7a7068; font-style: italic; margin-bottom: 0.2rem; }
+.vpf-npc-behav { font-size: 0.64rem; line-height: 1.5; }
+
+/* Modal */
+.vpf-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 100000;
+  display: flex; align-items: center; justify-content: center;
+}
+.vpf-modal-box {
+  background: #0e0e0e;
+  border: 1px solid #3a3632;
+  border-radius: 6px;
+  width: min(640px, 94vw);
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Exo 2', sans-serif;
+  color: #c0b89a;
+}
+.vpf-modal-wide { width: min(1000px, 96vw); }
+.vpf-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid #3a3632;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8a44e;
+  font-weight: 700;
+}
+.vpf-modal-close {
+  background: transparent; border: none; color: #7a7068;
+  font-size: 1.2rem; cursor: pointer; line-height: 1;
+}
+.vpf-modal-close:hover { color: #c8a44e; }
+.vpf-modal-body { padding: 0.9rem 1rem; overflow: auto; font-size: 0.72rem; line-height: 1.55; }
+.vpf-modal-foot {
+  display: flex; gap: 0.4rem; justify-content: flex-end;
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid #3a3632;
+}
+.vpf-modal-ok, .vpf-modal-cancel {
+  background: transparent;
+  border: 1px solid #3a3632;
+  color: #c0b89a;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.62rem;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.vpf-modal-ok { color: #c8a44e; border-color: #c8a44e; background: rgba(200,164,78,0.08); }
+.vpf-modal-cancel:hover { border-color: #c0b89a; }
+
+.vpf-modal-tier {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.vpf-modal-tier-chip {
+  color: #0a0a0a;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.7rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  min-width: 7.5rem;
+  text-align: center;
+}
+.vpf-modal-tier-summary { flex: 1; font-size: 0.68rem; line-height: 1.5; }
+.vpf-modal-warn {
+  background: rgba(234,179,8,0.12);
+  border-left: 3px solid #eab308;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.66rem;
+  color: #eab308;
+  margin-bottom: 0.7rem;
+}
+.vpf-modal-cue {
+  background: rgba(96,165,250,0.1);
+  border-left: 3px solid #60a5fa;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.7rem;
+  border-radius: 0 3px 3px 0;
+}
+.vpf-modal-cue-label {
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #60a5fa;
+  margin-bottom: 0.25rem;
+}
+.vpf-modal-cue-text { font-style: italic; color: #e6dcc4; line-height: 1.55; }
+.vpf-modal-section-label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #c8a44e;
+  margin: 0.75rem 0 0.35rem;
+}
+.vpf-modal-npcs {
+  margin: 0 0 0.5rem 1rem;
+  padding: 0;
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+.vpf-modal-npcs li { margin-bottom: 0.3rem; }
+
+.vpf-modal-sub { font-size: 0.68rem; color: #a8a08a; margin-bottom: 0.6rem; line-height: 1.5; }
+.vpf-sabot-options { display: flex; flex-direction: column; gap: 0.4rem; }
+.vpf-sabot-opt {
+  background: #1a1a1e;
+  border: 1px solid #3a3632;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #c0b89a;
+  font-family: 'Exo 2', sans-serif;
+}
+.vpf-sabot-opt:hover { border-color: #c8a44e; background: #22221a; }
+.vpf-sabot-title { font-weight: 700; color: #e6dcc4; font-size: 0.7rem; margin-bottom: 0.2rem; }
+.vpf-sabot-tier { font-size: 0.6rem; color: #c8a44e; margin-bottom: 0.3rem; }
+.vpf-sabot-read { font-size: 0.64rem; color: #a8a08a; font-style: italic; line-height: 1.5; }
+
+/* Reference page */
+.vpf-ref-section { margin-bottom: 1.1rem; }
+.vpf-ref-section h3 {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #c8a44e;
+  margin: 0 0 0.5rem;
+  border-bottom: 1px solid #3a3632;
+  padding-bottom: 0.25rem;
+}
+.vpf-ref-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.45rem; }
+.vpf-ref-tier { background: #1a1a1e; border: 1px solid; border-radius: 3px; padding: 0.5rem 0.6rem; }
+.vpf-ref-tier-chip { color: #0a0a0a; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 3px; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 0.35rem; }
+.vpf-ref-tier-line { font-size: 0.62rem; line-height: 1.5; margin-bottom: 0.3rem; }
+.vpf-ref-tier-line strong { color: #c8a44e; }
+.vpf-ref-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.62rem;
+}
+.vpf-ref-table th, .vpf-ref-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #2a2826;
+}
+.vpf-ref-table th { color: #c8a44e; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.55rem; }
+.vpf-ref-cue { font-style: italic; color: #a8a08a; }
+.vpf-ref-flags { font-size: 0.55rem; color: #7a7068; line-height: 1.45; }
+.vpf-ref-list { margin: 0 0 0.3rem 1rem; padding: 0; font-size: 0.66rem; line-height: 1.55; }
+.vpf-ref-list li { margin-bottom: 0.3rem; }
+.vpf-ref-note { font-size: 0.62rem; color: #a8a08a; font-style: italic; margin-bottom: 0.3rem; }

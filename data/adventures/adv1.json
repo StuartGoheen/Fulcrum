@@ -9183,6 +9183,11 @@
           "id": "adv1-p2-s5",
           "number": 5,
           "title": "The Vanishing Place — Infiltration",
+          "fortressState": {
+            "ref": "vanishing-place-fortress",
+            "startTier": "GREEN",
+            "note": "Fortress is unaware. Crew entered via the drainage sluice. See the Fortress Alert widget at the top of the Vanishing Place tactical map for live tier, escalation triggers, and reinforcement clock."
+          },
           "readAloud": "The runoff tunnel closes around you — knee-deep cold water, slick algae on basalt walls, the green-black of old stone under a patina of biological growth. Your own breathing echoes back from somewhere deeper than should be possible. Mandrake's silhouette is framed against the grate behind you for a beat — a final nod — and then he is moving east, fast and quiet, toward the pens.\n\nThe tunnel opens into a vaulted chamber. The ceiling arches overhead in a single massive span, no pillars, no supports — the original builders carved it from one piece. Somewhere above, a generator throbs through the stone. The air smells of wet rock, machine oil, and bacta. You are inside the Vanishing Place.",
           "gmNotes": "Mandrake leads the heroes through the drainage sluice into the fortress interior. Once inside, Mandrake splits off — he positions himself near the east wing detention pens where his people are held, ready to move the moment the generator goes down. He tells the heroes: 'I'll be at the pens. When the lights go out, I'm getting them out. You get your admiral. We meet at the north clearing for extraction.'\n\nKey locations: the Medical Bay (Captain Vischera conducts biological experiments on wildlife), the Communications Center, and the Generator Room. Intercepted transmissions reveal that the Imperial officer outside is stalling — Inquisitor Valin Draco is en route to take personal custody of Varth. This creates a hard clock: grab Varth before the Inquisitor lands.\n\nGENERATOR SABOTAGE (UPDATED): The generator encounter now has four-purpose significance. When sabotaged, it simultaneously: (1) kills the perimeter turret defenses — clearing Maya's extraction flight path, (2) drops the laser fences penning the indigenous prisoners — enabling Mandrake's rescue, (3) unlocks the security doors blocking the detention area, and (4) blinds the sensor grid — creating chaos cover. The GM should make this payoff chain explicit when the generator blows.\n\nT1/T2/T3 CALLBACK: The 'perimeter turret defenses' Maya needs disabled are the same three emplacements (designated T1, T2, T3) that fired on the Banshee during the descent in Adv 1 P2 S2 (The Crash). They are powered by the fortress generator. When the generator is sabotaged in P2 S5, T1/T2/T3 go offline simultaneously and Maya's extraction flight path opens. Make this explicit when narrating the generator payoff — the crew should recognize the turret designations and feel the closure.",
           "npcs": [
@@ -9896,6 +9901,11 @@
           "number": 6,
           "title": "The Generator",
           "subtitle": "Mandrake's Deal",
+          "fortressState": {
+            "ref": "vanishing-place-fortress",
+            "startTier": "CARRY-FORWARD",
+            "note": "Inherit whatever tier P2-S5 ended on. Sabotage outcome (full/partial/failed) sets the sabotageCascade flags on the fortressState — see the widget's Sabotage Cascade panel. Sabotage ALWAYS ends at ORANGE or higher — the generator dying is felt across the fortress."
+          },
           "readAloud": "The generator room is deep in the fortress basement — a repurposed Clone Wars power unit, cables snaking out through the walls like arteries. Through the grated floor, you can feel the hum in your teeth. This one machine powers everything: the turrets on the walls, the laser fences penning Mandrake's people, the security doors sealing the detention block, the sensor grid watching every corridor.\n\nKill this, and the whole fortress goes blind.",
           "gmNotes": "This is the tactical linchpin of the entire infiltration. The generator encounter has four-purpose significance — the GM should make the payoff chain EXPLICIT. When sabotaged, it simultaneously:\n\n(1) Kills the perimeter turret defenses — clearing Maya's extraction flight path\n(2) Drops the laser fences penning indigenous prisoners — enabling Mandrake's rescue\n(3) Unlocks the security doors blocking the detention area — opening the path to Varth\n(4) Blinds the sensor grid — creating chaos cover for everyone\n\nIf the heroes honor Mandrake's deal, this is where they pay it off. If they skip it, turrets stay active (Maya's extraction becomes near-suicidal), prisoners stay penned (Mandrake is betrayed), and security remains fully operational.\n\nThe generator room has 2 mercenary guards (bored, playing cards) and a Clone Wars-era security droid that activates if the generator is tampered with.\n\nAfter the generator blows, the fortress alarm sounds. This is the point of no return — from here, it's a clock. The heroes need to reach the detention block before the garrison reorganizes.\n\n  NARRATIVE BRIDGE — TO P2-S7 (DETENTION): Branch by sabotage outcome. (a) FULL SABOTAGE → mag-locks open, turrets cold; Varth's cell guards confused and PCs have soft-surprise. (b) PARTIAL → mag-locks open but corridor surveillance trips an alarm — 2-beat reinforcement clock. (c) FAILURE / SKIPPED → mag-locks live, turrets hot; Varth's cell guards alert; cell doors require Skulduggery (Hard) or security kit. This same outcome also flexes s8 extraction (rooftop landing vs. hot ground extraction).",
           "npcs": [
@@ -10238,6 +10248,11 @@
           "id": "adv1-p2-s7",
           "number": 7,
           "title": "The Detention Block",
+          "fortressState": {
+            "ref": "vanishing-place-fortress",
+            "startTier": "YELLOW",
+            "note": "Minimum YELLOW on scene start — the generator is dead or tampered and the fortress knows something is wrong. If P2-S6 was a loud fight, start ORANGE. If Varth is already walking free from a cascade, start RED. The widget reads the current tier from campaign_state; carry forward whatever the GM set at the end of P2-S6."
+          },
           "readAloud": "You blow the door to the holding cell expecting a broken man. Instead, you find Admiral Gilder Varth sitting comfortably, gambling with a confused guard and packing a bag.\n\nHe looks up with a charming, tired smile and flips a credit chip in greeting. \"You're late. I had credits on the second moonrise.\"",
           "gmNotes": "Varth is arrogant, charming, and unbothered. He treats the rescue like a hired service. He is ready to leave immediately — no physical items to retrieve. His authentication key for the encrypted account is memorized, keeping him in permanent control of his leverage.\n\nKey reveal: he didn't defect for moral reasons — he embezzled a fortune and needs the heroes to get him out. He uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' This is the heroes' first real interaction with Varth — establish his 'Cool Uncle' persona.\n\nHIS PITCH: Once freed, Varth explains: the money is locked inside Varga's financial network. He has the authentication key memorized, but Varga moved the account after Varth was captured. They need to get inside Varga's operation to find the routing data. This sets up Adventure 2.\n\nIMPORTANT: Varth carries nothing physical. His authentication key is memorized — not on any device. His value is entirely in what he knows. This is a deliberate narrative choice — it makes him indispensable and impossible to cut out of the deal.",
           "npcs": [
@@ -10774,6 +10789,11 @@
           "number": 8,
           "title": "The Deal Gone Bad",
           "subtitle": "Climax",
+          "fortressState": {
+            "ref": "vanishing-place-fortress",
+            "startTier": "RED",
+            "note": "RED by definition — Draco has arrived and the Lambda is on the pad. The Draco clock is engaged (4 rounds to Shadow Trooper deployment). All NPCs are in full combat posture; reinforcement clock does not apply (fortress is already fully committed)."
+          },
           "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls across the compound. A shuttle descends through the canopy — sleek, black, unmarked. The ramp drops and a dark figure emerges. Even from a distance, you feel it — a cold pressure in your chest, a wrongness that makes your teeth ache.\n\nInquisitor Draco has arrived.\n\nThe comlink crackles. Maya's voice, tense but steady: \"I see the fireworks. Banshee's patched and in the air. Tell me those turrets are down.\"",
           "readAloudVariants": {
             "generatorSabotaged": "From the east wing, you hear shouting — Mandrake's voice, barking orders in a language you don't recognize. He's moving. His people are moving. The laser fences are down, the security doors are open, and the turret emplacements sit dark and dead on the walls. Whatever you did to that generator, it worked.",
