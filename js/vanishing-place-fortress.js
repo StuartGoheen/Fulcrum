@@ -730,6 +730,20 @@
     _ensurePanel(hostEl);
     _bindStateListener();
     _patchZonePanel();
+
+    // Guarantee tinting fires as soon as the tactical map finishes loading —
+    // chain onto any existing onMapLoaded handler without clobbering it.
+    if (_viewer) {
+      var prior = _viewer.onMapLoaded;
+      _viewer.onMapLoaded = function () {
+        if (typeof prior === 'function') { try { prior.apply(this, arguments); } catch (_) {} }
+        _applyHitboxStates();
+      };
+      // If the map is ALREADY loaded (common when re-opening the panel),
+      // tint immediately as well.
+      if (_viewer.meta) _applyHitboxStates();
+    }
+
     _initState();
     // Ask the server for the current campaign_state. The state:sync listener will
     // overwrite _currentState and re-render when the server responds.
