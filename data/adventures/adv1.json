@@ -8452,126 +8452,21 @@
         {
           "id": "adv1-p2-s3",
           "number": 3,
-          "title": "The Jungle Trek",
-          "readAloud": "The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.\n\nThen the ambush comes — not from Imperials, but from a ghost. A lone figure drops from the canopy — lean, hard, wearing tattered Separatist commando gear patched with strips of woven plant fiber and beadwork you don't recognize. Indigenous craftsmanship. Whoever this man is, he's been here a long time.\n\nHis rifle is aimed at your heads. But his finger isn't on the trigger. He's studying you.",
-          "gmNotes": "Environmental hazards: Acid Pools (disguised as standing water) and Exploding Fungus Blooms (detonate when disturbed). The ambusher is Vazus Mandrake, a Separatist Holdout Commando who refused the shutdown order 4 years ago. He's gone native — adopted the indigenous culture of Ajan Kloss, learned their language, wears their craftsmanship woven into his old gear.\n\nMANDRAKE'S MOTIVATION (REVISED): Mandrake is NOT fighting a generic guerrilla war against Skarn. He's protecting the indigenous people of Ajan Kloss who took him in after his cause died. When Skarn's warlord forces occupied the Vanishing Place, they displaced local indigenous communities and rounded up those who resisted. These prisoners are held inside the fortress behind laser fences and security doors — all powered by the central generator.\n\nMandrake's deal is personal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the generator. The generator powers FOUR critical systems: (1) perimeter turret defenses, (2) laser fences penning the prisoners, (3) security doors blocking the detention area, and (4) the sensor grid. Destroying it accomplishes everything: honors his deal (frees the prisoners), clears Maya's extraction flight path (turrets down), opens access to the detention block (security doors down), and creates chaos cover.\n\nTHE FOUR-PURPOSE CONVERGENCE: When the heroes learn about the generator from Mandrake, they should realize that sabotaging it also solves Maya's turret problem from Scene 2. One action, four payoffs. This is the moment the plan clicks together.\n\nOnce convinced the heroes are against the Empire (or at least against Skarn), Mandrake reveals the full picture. He's been planning this for years but lacked the firepower to do it alone.\n\nBEAT / CONVERSATION HOOK — \"The Deal in the Sluice\" (mandrake-the-deal): Once the ambush de-escalates and Mandrake leads the crew to the drainage sluice grate to talk terms, the GM may launch the structured conversation `mandrake-the-deal` (data/conversations/mandrake-the-deal.json). Comfort starts at 3 (guarded but cooperative) — Mandrake NEEDS this crew. Story topics about the Klosari, the jungle, or his old unit hold or raise comfort; business topics about the generator, the sluice route, and the charge spec are neutral; probe topics about his loyalty, his past, or what happens to him after the deal cost 1 comfort each. The recurring physical tell is Mandrake threading a single carved bead between his fingers — a gift from a Klosari child. Insight check Resist 5; Legendary tier reveals he has already promised himself that if the Klosari don't walk free tonight, he is detonating his remaining charges in Skarn's throne room. The four-purpose convergence (turrets/fences/doors/sensors) lands inside the `mandrake-the-generator` root — pause after the turret line so the table connects this back to Maya's warning from Scene 2. Acceptance of the deal closes the conversation cleanly and opens the sluice scene; comfort exhaustion ends it with the offer withdrawn.\n\nGROUP CHALLENGE: This scene uses a Victory Point (VP) accumulation mechanic for the jungle trek BEFORE Mandrake's ambush. The crew navigates the Green Hell as a team — each PC picks a discipline and describes how they contribute to the trek. Run the group challenge first, then trigger Mandrake's ambush once the trek resolves.\n\nMECHANICS:\n- Tier 1 / Power 4 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P4 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 10 VP total = the crew arrives fresh, prepared, and invisible\n- Below 10, they arrive in worse condition — injuries, exhaustion, lost gear\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means the jungle bites back — acid burns, spore exposure, a predator encounter, or a bad fall. The crew arrives at the fortress perimeter battered. All physical actions in the next scene are stepped down one tier until rest or medical treatment.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n2 VP: Game trail found threading between fungal blooms — avoids the densest spore zones.\n\n4 VP: Acid pool pattern identified — mineral seeps with discolored soil at the edges. Routable.\n\n6 VP: Ridge line above the canopy — clear sightline to fortress. Perimeter layout, guard towers, drainage sluice all confirmed.\n\n8 VP: Sheltered clearing with clean water. Rest stop. Everyone catches their breath.\n\n10 VP: Ghost trek. Every hazard avoided, every predator bypassed. The crew arrives fresh, sharp, and invisible.",
-          "npcs": [
-            {
-              "name": "Vazus Mandrake",
-              "type": "Separatist Holdout Commando",
-              "count": 1,
-              "notes": "Separatist commando gone native. Adopted indigenous culture of Ajan Kloss. Protects local population from Skarn's occupation. Wears CIS gear patched with indigenous beadwork and woven plant fiber.",
-              "behavior": "Paranoid and precise. Tests the heroes before revealing himself. Ambushes from the canopy — drops down with rifle aimed but finger off the trigger. Once convinced they're against Skarn, reveals his real motivation: freeing indigenous prisoners held inside the fortress. Becomes a cautious but genuine ally. Speaks with deep conviction about 'his people' — and he means the locals, not the Separatists.",
-              "dialogue": [
-                "\"Don't move. I've had a bead on you since the river crossing.\"",
-                "\"You're going to The Vanishing Place? Then we have a common interest. Skarn has my people penned up inside that fortress.\"",
-                "\"When his forces moved in, the locals resisted. Skarn rounded up everyone who fought back. They're behind laser fences and locked doors — all powered by one generator.\"",
-                "\"I know a way in — a drainage sluice on the northeast face. But I need something in return. The generator. I need it destroyed. It powers the turret defenses, the fences, the security doors, and the sensor grid. One target, and everything Skarn built falls apart.\"",
-                "\"They took me in when my war ended. I won't leave them in cages.\""
-              ],
-              "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, the drainage sluice entrance, and critically, the generator's role in powering turrets, laser fences, security doors, and the sensor grid. He also knows Vischera is conducting experiments in the Medical Bay. His indigenous people — the locals who adopted him — are held in detention pens near the fortress's east wing.",
-              "threatBuild": {
-                "role": "harrier",
-                "tier": 2,
-                "classification": "standard",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 3,
-                  "reflex": 3,
-                  "grit": 4,
-                  "wits": 2,
-                  "presence": 1
-                },
-                "weaponChassis": "medium",
-                "traits": [
-                  "veteran"
-                ],
-                "tags": [
-                  "Separatist",
-                  "Commando"
-                ],
-                "roleKit": {
-                  "roleName": "Harrier / Force",
-                  "action": {
-                    "name": "Force Lash",
-                    "defense": "resist",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + push target 1 zone",
-                      "legendary": "Chassis damage + push 1 zone + [Dazed]"
-                    },
-                    "isAttack": true,
-                    "arena": "grit"
-                  },
-                  "maneuver": {
-                    "name": "Phase Step",
-                    "modifies": "Move",
-                    "description": "Modifies Move. Move up to 2 zones, ignoring Engaged status entirely (no Opening, no disengage check). Cannot be intercepted."
-                  },
-                  "gambit": {
-                    "name": "Sever",
-                    "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
-                    "rider": "[Disoriented]"
-                  },
-                  "exploit": {
-                    "name": "Vanish",
-                    "trigger": "The Harrier takes damage.",
-                    "description": "Immediately move 1 zone (no Opening)."
-                  },
-                  "powerSource": "force"
-                },
-                "notes": "Mandrake is a potential ally, not necessarily an enemy. Defense 4 = max(3,4)-1+2. Resist 5 = Grit 4-1+2. Veteran grants +1 Exploit. He is dangerous, desperate, and potentially trustworthy.",
-                "computed": {
-                  "power": 4,
-                  "defense": 4,
-                  "evasion": 4,
-                  "resist": 5,
-                  "vitality": 9,
-                  "initiative": 6,
-                  "controlDie": "d8",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "medium",
-                    "label": "Medium",
-                    "fleeting": 2,
-                    "masterful": 4,
-                    "legendary": 6
-                  }
-                },
-                "powerSource": "force"
-              }
-            }
-          ],
+          "title": "The Green Hell",
+          "readAloud": "The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.\n\nThe canopy closes overhead. The light goes green and strange. Somewhere ahead, through klicks of hostile growth, the Vanishing Place waits.",
+          "gmNotes": "Environmental hazards dominate this scene: Acid Pools (disguised as standing water — hiss when disturbed) and Exploding Fungus Blooms (detonate when touched). Run them as recurring color, not constant rolls — sprinkle them as the crew advances.\n\nGROUP CHALLENGE — \"Navigating the Green Hell\": This scene is built around a Victory Point (VP) accumulation mechanic. Each PC picks a discipline and describes how they contribute to the trek. The crew is banking VP toward arriving fresh, prepared, and invisible at the fortress perimeter.\n\nMECHANICS:\n- Tier 1 / Power 4 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P4 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 10 VP total = the crew arrives fresh, prepared, and invisible\n- Below 10, they arrive in worse condition — injuries, exhaustion, lost gear\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means the jungle bites back — acid burns, spore exposure, a predator encounter, or a bad fall. The crew arrives at the fortress perimeter battered. All physical actions in the next scene are stepped down one tier until rest or medical treatment.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n2 VP: Game trail found threading between fungal blooms — avoids the densest spore zones.\n\n4 VP: Acid pool pattern identified — mineral seeps with discolored soil at the edges. Routable.\n\n6 VP: Ridge line above the canopy — clear sightline to fortress. Perimeter layout, guard towers, and a drainage sluice on the northeast face all confirmed. This is the scene's intel payoff — let them linger here.\n\n8 VP: Sheltered clearing with clean water. Rest stop. Everyone catches their breath.\n\n10 VP: Ghost trek. Every hazard avoided, every predator bypassed. The crew arrives fresh, sharp, and invisible.\n\nSEEDING THE NEXT SCENE: As the crew nears the fortress perimeter, quietly drop sensory hints that something has been watching them and choosing not to fire — a flicker of movement in the canopy, a single carved bone bead in the dirt at the ridge, the suggestion of an observer in the trees. These pay off in the next scene.\n\nSCENE END: When the VP target resolves (success or short), the scene ends with the crew at the fortress perimeter, cover behind a fallen tree or curtain of vines, the wall in sight. Pause. Let them plan. Then cut to Scene 4.",
+          "npcs": [],
           "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
-          "decisionPoints": [
-            {
-              "id": "adv1-p2-s3-key-decision",
-              "prompt": "Key Decision: The Jungle Trek",
-              "options": [
-                {
-                  "key": "opt-1",
-                  "label": "Accept Mandrake's deal — sabotage the generator",
-                  "consequence": "He guides you to a secret entrance. Generator sabotage frees prisoners, kills turrets (enabling Maya's extraction), drops security doors, and blinds the sensor grid. One action, four payoffs."
-                },
-                {
-                  "key": "opt-2",
-                  "label": "Refuse and find your own way in",
-                  "consequence": "Much harder infiltration without a guide. The fortress is heavily fortified. Turrets remain active — Maya's extraction will be extremely dangerous. Prisoners remain penned."
-                }
-              ]
-            }
-          ],
+          "decisionPoints": [],
           "loreTags": [
             "Ajan Kloss",
-            "Vazus Mandrake",
-            "General Skarn"
+            "Klosari",
+            "The Vanishing Place"
           ],
           "narrativeLinks": [],
           "challengeType": "survival",
           "destinyTags": [
-            "discovery",
-            "rescue"
+            "discovery"
           ],
           "vocationTags": [
             "voc_hound",
@@ -8581,17 +8476,18 @@
           "disciplineTags": [
             "survival",
             "athletics",
-            "investigation",
-            "insight",
             "stealth",
-            "medicine"
+            "investigation",
+            "medicine",
+            "beast_handling",
+            "insight"
           ],
           "gearFlags": [
             "Environmental"
           ],
           "encounters": [
             {
-              "id": "enc-s7-acid-pools",
+              "id": "enc-s3-acid-pools",
               "name": "Acid Pool Hazard",
               "type": "environmental",
               "trigger": "First encountered 2 klicks from the crash site",
@@ -8599,28 +8495,12 @@
               "tactics": "Environmental hazard. No opponents. Tox detector identifies them automatically. Without one, Survival or Investigation check required."
             },
             {
-              "id": "enc-s7-fungus",
+              "id": "enc-s3-fungus",
               "name": "Exploding Fungus Blooms",
               "type": "environmental",
               "trigger": "Encountered along the jungle trail",
               "description": "Massive fungal formations pulse with sickly bioluminescence. Physical contact triggers violent detonation of toxic spores in a 5-meter radius.",
               "tactics": "Avoidance is key. Ranged detonation from safe distance clears the path. Breath mask provides protection against spore damage."
-            },
-            {
-              "id": "enc-s7-ambush",
-              "name": "Mandrake's Ambush",
-              "type": "social",
-              "trigger": "After navigating through the worst of the jungle hazards",
-              "description": "A figure in tattered Separatist commando gear patched with indigenous beadwork drops from the canopy with a rifle aimed at the heroes. This is first contact with Vazus Mandrake — a man who went native years ago and fights for the locals, not the Confederacy.",
-              "tactics": "Mandrake is testing them. He won't shoot unless they shoot first. His finger isn't on the trigger. He's been watching them navigate the jungle — their competence has already told him a lot about who they are."
-            },
-            {
-              "id": "enc-s7-negotiation",
-              "name": "Mandrake's Deal",
-              "type": "social",
-              "trigger": "After Mandrake is convinced the heroes aren't Imperial",
-              "description": "Mandrake reveals his motivation: indigenous locals who took him in are held prisoner inside the fortress, penned behind laser fences and security doors powered by the central generator. He offers to guide the heroes inside via a drainage sluice in exchange for sabotaging the generator. The generator powers four systems: turret defenses, laser fences, security doors, and the sensor grid. This is the convergence point — one sabotage action solves Maya's turret problem, frees the prisoners, opens the detention block, and blinds the sensors.",
-              "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to free his people. When the heroes realize the generator also powers the turrets Maya warned them about, the deal should click."
             }
           ],
           "groupChallenge": {
@@ -8655,7 +8535,7 @@
               },
               {
                 "at": 0.6,
-                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northeast face — confirming Mandrake's intel before they arrive.",
+                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northeast face.",
                 "checkpoint": false
               },
               {
@@ -8765,37 +8645,28 @@
             "credits": 0,
             "items": [],
             "intel": [
-              "Detailed fortress layout from Mandrake",
-              "Guard rotation patterns",
-              "Location of the drainage sluice entrance",
-              "Captain Vischera's experiments in the Medical Bay",
-              "Generator powers four systems: turrets, laser fences, security doors, sensor grid",
-              "Indigenous prisoners held in east wing detention pens",
-              "Generator sabotage = turrets down = Maya can extract safely"
+              "Fortress sightline from the canopy ridge — perimeter layout, guard towers, drainage sluice on the northeast face",
+              "Acid pool patterns and fungal bloom routes — safe paths through the Green Hell"
             ],
-            "connections": [
-              "Vazus Mandrake (guide, ally — adopted indigenous culture, fights for his people)"
-            ]
+            "connections": []
           },
           "pacing": {
             "openingBeat": "The jungle closes in. Every step is a negotiation with the terrain.",
-            "risingAction": "Environmental hazards escalate. Acid pools, fungus, hostile fauna.",
-            "climax": "Mandrake's ambush. Rifle in your face from the canopy. But his finger isn't on the trigger.",
-            "resolution": "The deal is struck — and the plan clicks. Generator sabotage solves everything: frees prisoners, kills turrets, opens doors, blinds sensors. Mandrake leads them toward the fortress.",
-            "estimatedMinutes": 40
+            "risingAction": "Environmental hazards escalate — acid pools, exploding fungus, predators in the canopy.",
+            "climax": "The ridge above the canopy. First sightline of the fortress. The plan starts to take shape.",
+            "resolution": "The crew arrives at the fortress perimeter — fresh and invisible if they earned it, battered if they didn't. Cover behind the treeline, the wall in sight. Then movement above.",
+            "estimatedMinutes": 20
           },
           "knackTags": [
             "traumatized",
             "shadow-stalked",
             "exile",
-            "witness",
-            "addiction"
+            "witness"
           ],
           "backgroundTags": [
             "ancient-nexus-world",
             "conflict-zone",
-            "farming-world",
-            "corporate-mining-site"
+            "farming-world"
           ],
           "speciesTags": [
             "rodian",
@@ -8805,13 +8676,13 @@
             "sullustan"
           ],
           "themeTags": [
-            "frontier justice",
-            "independence",
-            "survival under duress"
+            "survival under duress",
+            "wilderness",
+            "the long approach"
           ],
           "disciplineChallenges": [
             {
-              "id": "sc-s7-survival-pools",
+              "id": "sc-s3-survival-pools",
               "actionType": "assess",
               "discipline": "survival",
               "arena": "grit",
@@ -8831,7 +8702,7 @@
               "tier": 1
             },
             {
-              "id": "sc-s7-athletics-terrain",
+              "id": "sc-s3-athletics-terrain",
               "actionType": "interact",
               "discipline": "athletics",
               "arena": "physique",
@@ -8852,7 +8723,7 @@
               "tier": 1
             },
             {
-              "id": "sc-s7-stealth-approach",
+              "id": "sc-s3-stealth-approach",
               "actionType": "interact",
               "discipline": "stealth",
               "arena": "reflex",
@@ -8872,9 +8743,329 @@
               "complexity": "complex",
               "power": 4,
               "tier": 1
+            }
+          ],
+          "subtitle": "Ajan Kloss",
+          "tacticalMap": {
+            "mapKey": "jungle-trek",
+            "gmTacticalNotes": "The Green Hell is a 4×3 grid representing the trek corridor between the crash site (south edge) and the fortress perimeter ridge (north edge). Use it as a pacing aid — advance the crew one zone per VP threshold, narrating environmental hazards as they cross each band. Acid pool clusters and fungal blooms are color elements, not hard terrain — let players narrate routing around them as part of their group challenge contributions.\n\nKEY ZONES (south to north): crash-site treeline (south), acid-pool fen (west-center), fungal-bloom cluster (east-center), predator territory (mid), game trail (winding through), the ridge (north — sightline to fortress, the 6 VP intel beat), the rest clearing (north-east, the 8 VP beat), perimeter cover (north edge).\n\nNO COMBAT POSITIONS — this is a traversal map. Treat it as a discussion prop while the group challenge resolves.",
+            "zones": [
+              {
+                "id": "crash-treeline",
+                "label": "Crash-Site Treeline",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "jungle floor — root systems, dense undergrowth"
+              },
+              {
+                "id": "south-fen",
+                "label": "Acid-Pool Fen",
+                "passable": true,
+                "cover": "none",
+                "lighting": "normal",
+                "terrain": "standing water, mineral seeps — ACID POOLS scattered throughout"
+              },
+              {
+                "id": "fungal-cluster",
+                "label": "Fungal Bloom Cluster",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "bioluminescent",
+                "terrain": "EXPLODING FUNGUS — touch triggers spore detonation in 5m radius"
+              },
+              {
+                "id": "game-trail",
+                "label": "Game Trail",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "cleared narrow path between hazards (revealed at 2 VP)"
+              },
+              {
+                "id": "predator-territory",
+                "label": "Predator Territory",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "territorial fauna — large arthropods, hunting birds"
+              },
+              {
+                "id": "mineral-shelf",
+                "label": "Mineral Shelf",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "rocky outcrop — slower but safer crossing"
+              },
+              {
+                "id": "canopy-climb",
+                "label": "Canopy Climb",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "vertical climb up vine-tangled trees toward the ridge"
+              },
+              {
+                "id": "the-ridge",
+                "label": "The Ridge (Sightline)",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "open ridge above canopy — full fortress sightline (6 VP intel beat)"
+              },
+              {
+                "id": "rest-clearing",
+                "label": "Sheltered Clearing",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "clean water, defensible cover (8 VP rest beat)"
+              },
+              {
+                "id": "descent-slope",
+                "label": "Descent Slope",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "steep slope down from ridge toward fortress perimeter"
+              },
+              {
+                "id": "perimeter-treeline",
+                "label": "Perimeter Treeline",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "final cover — fortress wall visible through vines"
+              },
+              {
+                "id": "perimeter-edge",
+                "label": "Perimeter Edge",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "last vegetation before open ground at the wall"
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (entry)",
+                "zone": "Crash-Site Treeline",
+                "notes": "Crew begins here at scene start, freshly off the crash. The trek runs north toward the perimeter."
+              },
+              {
+                "who": "PCs (scene end)",
+                "zone": "Perimeter Treeline",
+                "notes": "Where the group challenge resolves and Scene 4 opens."
+              }
+            ],
+            "gmStartingPositions": {}
+          }
+        },
+        {
+          "id": "adv1-p2-s4",
+          "number": 4,
+          "title": "Ghost in the Canopy",
+          "subtitle": "Ajan Kloss — Fortress Perimeter",
+          "readAloud": "The fortress walls are visible through a screen of vines. You're catching your breath, planning the approach — and then a figure drops out of the canopy in front of you. Not a leap. A controlled descent, like he's done it a thousand times.\n\nLean. Hard. Old Separatist commando gear, but patched and rewoven with strips of plant fiber and beadwork that doesn't belong to any culture you recognize. A rifle in his hands, raised, aimed — but his finger is laid alongside the trigger guard, not on the trigger. He's not threatening. He's deciding.\n\nThe jungle has gone quiet around him. He's been there the whole time.",
+          "gmNotes": "FIRST CONTACT WITH VAZUS MANDRAKE: A Separatist Holdout Commando, four years past the official surrender order he refused to obey. He didn't keep fighting because he believed in the cause — the cause died and he knows it. He kept fighting because the indigenous Klosari took him in when his unit was dust. He learned their language. He wears their craftsmanship. He is theirs now.\n\nPLAY HIM: Quiet, deliberate, mostly listening. Recurring physical tell — a single carved bone bead that he threads between the fingers of his off hand whenever he's deciding what to say. Use the bead. It's a gift from a Klosari child and he doesn't yet know whether he'll see her again.\n\nTHE FIRST EXCHANGE IS A TEST: He doesn't introduce himself. He asks something that doesn't make sense at first — what unit they served with, who sent them, what they think the lights in the southern sky last night were. He's checking whether they're Imperials in cover, Skarn's enforcers, or something else. Run it as a short tight social beat — two or three exchanges, no dice yet. Reward careful or honest answers. Then the rifle lowers (not all the way — to his hip), and he gestures: follow me.\n\nTHE SLUICE GRATE: He leads them about twenty minutes off-path to a half-hidden drainage sluice cut into the fortress's south wall, choked with vines. He sits with his back against the grate, rifle across his knees. NOW he talks. This is where the structured conversation hook fires.\n\nCONVERSATION HOOK — `mandrake-the-deal` (data/conversations/mandrake-the-deal.json): Comfort starts at 3 (guarded but cooperative). Story topics about the Klosari, the jungle, or his old unit hold or raise comfort; business topics about the generator, sluice route, and charge spec are neutral; probe topics about his loyalty, past, or what happens to him after the deal cost 1 comfort each. Acceptance closes the conversation cleanly and opens the sluice scene; comfort exhaustion ends it with the offer withdrawn.\n\nTHE REVEAL, IN PIECES — let the conversation deliver these naturally:\n1. THE PRISONERS: Klosari resistors are inside the fortress, penned behind laser fences, held in a detention block. He's been planning to free them for months but doesn't have the firepower alone.\n2. THE DEAL: He'll guide the crew in through the sluice. In exchange, they sabotage the generator on their way through.\n3. THE FOUR-PURPOSE CONVERGENCE: When he lists what the generator powers, do it slow — perimeter turrets — PAUSE — laser fences penning the prisoners, security doors blocking the detention block, sensor grid. The pause on \"turrets\" is intentional. You want the table to hear it and remember Maya's warning from Scene 2 about her shuttle's extraction flight path. One sabotage. Four problems solved. The plan clicks at the table, not in your notes.\n\nINSIGHT CHECK (Resist 5): If a player reaches for it, Legendary tier reveals the thing he isn't saying out loud — if the Klosari don't walk free tonight, he's already promised himself he'll detonate his remaining charges in Skarn's throne room. He has nothing left after this. Don't volunteer it. Make a player earn it.\n\nSCENE END: Acceptance — he nods once, stands, slings the rifle, starts working the sluice grate loose with a vibroblade. Cut to Scene 5 with the crew belly-crawling through ankle-deep runoff into the fortress understructure. Refusal / comfort hits zero — he stands, says \"Then we never met,\" and walks back into the canopy. The offer is gone. The crew breaches the hard way.",
+          "npcs": [
+            {
+              "name": "Vazus Mandrake",
+              "type": "Separatist Holdout Commando",
+              "count": 1,
+              "notes": "Separatist commando gone native. Adopted indigenous culture of Ajan Kloss. Protects local population from Skarn's occupation. Wears CIS gear patched with indigenous beadwork and woven plant fiber.",
+              "behavior": "Paranoid and precise. Tests the heroes before revealing himself. Ambushes from the canopy — drops down with rifle aimed but finger off the trigger. Once convinced they're against Skarn, reveals his real motivation: freeing indigenous prisoners held inside the fortress. Becomes a cautious but genuine ally. Speaks with deep conviction about 'his people' — and he means the locals, not the Separatists.",
+              "dialogue": [
+                "\"Don't move. I've had a bead on you since the river crossing.\"",
+                "\"You're going to The Vanishing Place? Then we have a common interest. Skarn has my people penned up inside that fortress.\"",
+                "\"When his forces moved in, the locals resisted. Skarn rounded up everyone who fought back. They're behind laser fences and locked doors — all powered by one generator.\"",
+                "\"I know a way in — a drainage sluice on the northeast face. But I need something in return. The generator. I need it destroyed. It powers the turret defenses, the fences, the security doors, and the sensor grid. One target, and everything Skarn built falls apart.\"",
+                "\"They took me in when my war ended. I won't leave them in cages.\""
+              ],
+              "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, the drainage sluice entrance, and critically, the generator's role in powering turrets, laser fences, security doors, and the sensor grid. He also knows Vischera is conducting experiments in the Medical Bay. His indigenous people — the locals who adopted him — are held in detention pens near the fortress's east wing.",
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 2,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 4,
+                  "wits": 2,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "veteran"
+                ],
+                "tags": [
+                  "Separatist",
+                  "Commando"
+                ],
+                "roleKit": {
+                  "roleName": "Harrier / Force",
+                  "action": {
+                    "name": "Force Lash",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Dazed]"
+                    },
+                    "isAttack": true,
+                    "arena": "grit"
+                  },
+                  "maneuver": {
+                    "name": "Phase Step",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones, ignoring Engaged status entirely (no Opening, no disengage check). Cannot be intercepted."
+                  },
+                  "gambit": {
+                    "name": "Sever",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
+                    "rider": "[Disoriented]"
+                  },
+                  "exploit": {
+                    "name": "Vanish",
+                    "trigger": "The Harrier takes damage.",
+                    "description": "Immediately move 1 zone (no Opening)."
+                  },
+                  "powerSource": "force"
+                },
+                "notes": "Mandrake is a potential ally, not necessarily an enemy. Defense 4 = max(3,4)-1+2. Resist 5 = Grit 4-1+2. Veteran grants +1 Exploit. He is dangerous, desperate, and potentially trustworthy.",
+                "computed": {
+                  "power": 4,
+                  "defense": 4,
+                  "evasion": 4,
+                  "resist": 5,
+                  "vitality": 9,
+                  "initiative": 6,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "powerSource": "force"
+              }
+            }
+          ],
+          "hazards": "Mandrake's rifle (he won't fire first, but he will fire). The crew's own response — a wrong move triggers a fight nobody wants.",
+          "decisionPoints": [
+            {
+              "id": "adv1-p2-s4-key-decision",
+              "prompt": "Key Decision: Mandrake's Deal",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Accept Mandrake's deal — sabotage the generator",
+                  "consequence": "He guides you through the sluice. Generator sabotage frees prisoners, kills turrets (enabling Maya's extraction), drops security doors, and blinds the sensor grid. One action, four payoffs."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Refuse and find your own way in",
+                  "consequence": "Mandrake withdraws back into the canopy. Much harder infiltration without a guide — turrets remain active, prisoners remain penned, and Maya's extraction will be extremely dangerous."
+                }
+              ]
+            }
+          ],
+          "loreTags": [
+            "Vazus Mandrake",
+            "Klosari",
+            "The Vanishing Place",
+            "General Skarn",
+            "Captain Vischera"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "social",
+          "destinyTags": [
+            "rescue",
+            "alliance"
+          ],
+          "vocationTags": [
+            "voc_face",
+            "voc_ghost"
+          ],
+          "disciplineTags": [
+            "insight",
+            "persuasion",
+            "intimidation"
+          ],
+          "gearFlags": [],
+          "encounters": [
+            {
+              "id": "enc-s4-ambush",
+              "name": "Mandrake's Ambush",
+              "type": "social",
+              "trigger": "After navigating through the worst of the jungle hazards",
+              "description": "A figure in tattered Separatist commando gear patched with indigenous beadwork drops from the canopy with a rifle aimed at the heroes. This is first contact with Vazus Mandrake — a man who went native years ago and fights for the locals, not the Confederacy.",
+              "tactics": "Mandrake is testing them. He won't shoot unless they shoot first. His finger isn't on the trigger. He's been watching them navigate the jungle — their competence has already told him a lot about who they are."
             },
             {
-              "id": "sc-s7-insight-mandrake",
+              "id": "enc-s4-negotiation",
+              "name": "Mandrake's Deal",
+              "type": "social",
+              "trigger": "After Mandrake is convinced the heroes aren't Imperial",
+              "description": "Mandrake reveals his motivation: indigenous locals who took him in are held prisoner inside the fortress, penned behind laser fences and security doors powered by the central generator. He offers to guide the heroes inside via a drainage sluice in exchange for sabotaging the generator. The generator powers four systems: turret defenses, laser fences, security doors, and the sensor grid. This is the convergence point — one sabotage action solves Maya's turret problem, frees the prisoners, opens the detention block, and blinds the sensors.",
+              "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to free his people. When the heroes realize the generator also powers the turrets Maya warned them about, the deal should click."
+            }
+          ],
+          "environmentMechanics": [],
+          "rewards": {
+            "credits": 0,
+            "items": [],
+            "intel": [
+              "Detailed fortress layout from Mandrake",
+              "Guard rotation patterns",
+              "Location of the drainage sluice entrance (southeast wall)",
+              "Captain Vischera's experiments in the Medical Bay",
+              "Generator powers four systems: turrets, laser fences, security doors, sensor grid",
+              "Klosari prisoners held in east-wing detention pens",
+              "Generator sabotage = turrets down = Maya can extract safely (the four-purpose convergence)"
+            ],
+            "connections": [
+              "Vazus Mandrake (guide, ally — adopted Klosari, fights for his people)"
+            ]
+          },
+          "pacing": {
+            "openingBeat": "A figure drops out of the canopy. Rifle aimed, finger off the trigger.",
+            "risingAction": "Mandrake tests the crew with questions. The rifle lowers. He leads them to the sluice grate.",
+            "climax": "The four-purpose convergence — when the table realizes one sabotage solves every problem at once.",
+            "resolution": "The deal struck. The grate worked loose. Mandrake nods toward the runoff tunnel — time to go.",
+            "estimatedMinutes": 25
+          },
+          "knackTags": [
+            "exile",
+            "witness",
+            "addiction",
+            "shadow-stalked"
+          ],
+          "backgroundTags": [
+            "conflict-zone",
+            "ancient-nexus-world"
+          ],
+          "speciesTags": [
+            "rodian",
+            "togruta",
+            "cathar",
+            "keldor",
+            "sullustan"
+          ],
+          "themeTags": [
+            "frontier justice",
+            "improbable allies",
+            "the cause beneath the cause"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s4-insight-mandrake",
               "actionType": "assess",
               "discipline": "insight",
               "arena": "presence",
@@ -8897,7 +9088,7 @@
               "tier": 1
             },
             {
-              "id": "sc-s7-persuasion-deal",
+              "id": "sc-s4-persuasion-deal",
               "actionType": "interact",
               "discipline": "persuasion",
               "arena": "presence",
@@ -8918,12 +9109,11 @@
               "power": 4,
               "tier": 1
             }
-          ],
-          "subtitle": "Ajan Kloss"
+          ]
         },
         {
-          "id": "adv1-p2-s4",
-          "number": 4,
+          "id": "adv1-p2-s5",
+          "number": 5,
           "title": "The Vanishing Place — Infiltration",
           "readAloud": "From the ridge, you see the fortress. It is not a pristine Imperial garrison but a repurposed, moss-covered temple ruin fortified with scavenged Clone Wars technology. Laser fences line the perimeter. Gun emplacements squat on the walls like armored toads.\n\nAnd there, on the landing pad — a Lambda-class shuttle. A squad of pristine Stormtroopers stands at attention, a stark contrast to Skarn's grimy mercenaries. The Empire is already here.",
           "gmNotes": "Mandrake leads the heroes through the drainage sluice into the fortress interior. Once inside, Mandrake splits off — he positions himself near the east wing detention pens where his people are held, ready to move the moment the generator goes down. He tells the heroes: 'I'll be at the pens. When the lights go out, I'm getting them out. You get your admiral. We meet at the north clearing for extraction.'\n\nKey locations: the Medical Bay (Captain Vischera conducts biological experiments on wildlife), the Communications Center, and the Generator Room. Intercepted transmissions reveal that the Imperial officer outside is stalling — Inquisitor Valin Draco is en route to take personal custody of Varth. This creates a hard clock: grab Varth before the Inquisitor lands.\n\nGENERATOR SABOTAGE (UPDATED): The generator encounter now has four-purpose significance. When sabotaged, it simultaneously: (1) kills the perimeter turret defenses — clearing Maya's extraction flight path, (2) drops the laser fences penning the indigenous prisoners — enabling Mandrake's rescue, (3) unlocks the security doors blocking the detention area, and (4) blinds the sensor grid — creating chaos cover. The GM should make this payoff chain explicit when the generator blows.\n\nT1/T2/T3 CALLBACK: The 'perimeter turret defenses' Maya needs disabled are the same three emplacements (designated T1, T2, T3) that fired on the Banshee during the descent in Adv 1 P2 S2 (The Crash). They are powered by the fortress generator. When the generator is sabotaged in P2 S5, T1/T2/T3 go offline simultaneously and Maya's extraction flight path opens. Make this explicit when narrating the generator payoff — the crew should recognize the turret designations and feel the closure.",
@@ -9177,7 +9367,7 @@
           "hazards": "Fortified temple ruin — laser fences, gun emplacements, Clone Wars-era tech security. Hard clock: Inquisitor Draco is en route.",
           "decisionPoints": [
             {
-              "id": "adv1-p2-s4-key-decision",
+              "id": "adv1-p2-s5-key-decision",
               "prompt": "Key Decision: The Vanishing Place — Infiltration",
               "options": [
                 {
@@ -9413,8 +9603,8 @@
           "subtitle": "The Fortress"
         },
         {
-          "id": "adv1-p2-s5",
-          "number": 5,
+          "id": "adv1-p2-s6",
+          "number": 6,
           "title": "The Generator",
           "subtitle": "Mandrake's Deal",
           "readAloud": "The generator room is deep in the fortress basement — a repurposed Clone Wars power unit, cables snaking out through the walls like arteries. Through the grated floor, you can feel the hum in your teeth. This one machine powers everything: the turrets on the walls, the laser fences penning Mandrake's people, the security doors sealing the detention block, the sensor grid watching every corridor.\n\nKill this, and the whole fortress goes blind.",
@@ -9435,7 +9625,7 @@
           "hazards": "Clone Wars-era generator — volatile if handled wrong. Security droid activates on tampering. Explosion risk on failure.",
           "decisionPoints": [
             {
-              "id": "adv1-p2-s5-key-decision",
+              "id": "adv1-p2-s6-key-decision",
               "prompt": "Key Decision: The Generator",
               "options": [
                 {
@@ -9624,8 +9814,8 @@
           ]
         },
         {
-          "id": "adv1-p2-s6",
-          "number": 6,
+          "id": "adv1-p2-s7",
+          "number": 7,
           "title": "The Detention Block",
           "readAloud": "You blow the door to the holding cell expecting a broken man. Instead, you find Admiral Gilder Varth sitting comfortably, gambling with a confused guard and packing a bag.\n\nHe looks up with a charming, tired smile and flips a credit chip in greeting. \"You're late. I had credits on the second moonrise.\"",
           "gmNotes": "Varth is arrogant, charming, and unbothered. He treats the rescue like a hired service. He is ready to leave immediately — no physical items to retrieve. His authentication key for the encrypted account is memorized, keeping him in permanent control of his leverage.\n\nKey reveal: he didn't defect for moral reasons — he embezzled a fortune and needs the heroes to get him out. He uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' This is the heroes' first real interaction with Varth — establish his 'Cool Uncle' persona.\n\nHIS PITCH: Once freed, Varth explains: the money is locked inside Varga's financial network. He has the authentication key memorized, but Varga moved the account after Varth was captured. They need to get inside Varga's operation to find the routing data. This sets up Adventure 2.\n\nIMPORTANT: Varth carries nothing physical. His authentication key is memorized — not on any device. His value is entirely in what he knows. This is a deliberate narrative choice — it makes him indispensable and impossible to cut out of the deal.",
@@ -9719,7 +9909,7 @@
           "hazards": "Detention block — automated defenses, elite guards. Time pressure from Inquisitor's arrival.",
           "decisionPoints": [
             {
-              "id": "adv1-p2-s6-key-decision",
+              "id": "adv1-p2-s7-key-decision",
               "prompt": "Key Decision: The Detention Block",
               "options": [
                 {
@@ -9957,8 +10147,8 @@
           "subtitle": "Meeting the Admiral"
         },
         {
-          "id": "adv1-p2-s7",
-          "number": 7,
+          "id": "adv1-p2-s8",
+          "number": 8,
           "title": "The Deal Gone Bad",
           "subtitle": "Climax",
           "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls across the compound. A shuttle descends through the canopy — sleek, black, unmarked. The ramp drops and a dark figure emerges. Even from a distance, you feel it — a cold pressure in your chest, a wrongness that makes your teeth ache.\n\nInquisitor Draco has arrived.\n\nThe comlink crackles. Maya's voice, tense but steady: \"I see the fireworks. Banshee's patched and in the air. Tell me those turrets are down.\"",
@@ -10305,7 +10495,7 @@
           "hazards": "Three-way firefight. Imperial walkers approaching. Shadow Troopers flanking. Time-critical extraction.",
           "decisionPoints": [
             {
-              "id": "dp-mandrake-fate",
+              "id": "adv1-p2-s8-key-decision",
               "prompt": "What happens to Mandrake during the extraction?",
               "options": [
                 {
