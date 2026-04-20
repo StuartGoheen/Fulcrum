@@ -13,7 +13,8 @@ const MAPS = {
   'command-center':   { img: 'command-center.png',       vw: 715,  vh: 1024 },
   'dungeons':         { img: 'dungeons.png',            vw: 622,  vh: 1024 },
   'throne-room':      { img: 'throne-room.png',        vw: 746,  vh: 1024 },
-  'throne-room-court':{ img: 'throne-room-court.png',  vw: 746,  vh: 1024 }
+  'throne-room-court':{ img: 'throne-room-court.png',  vw: 746,  vh: 1024 },
+  'hutts-hangar':     { img: 'hutts-hangar.png',      vw: 1024, vh: 895 }
 };
 
 let hitboxes = [];
