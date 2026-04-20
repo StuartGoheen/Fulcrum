@@ -9447,7 +9447,223 @@
               "tier": 1
             }
           ],
-          "subtitle": "The Fortress"
+          "subtitle": "The Fortress",
+          "tacticalMap": {
+            "mapKey": "vanishing-place",
+            "gmTacticalNotes": "ENTRY POINT: Crew enters via the Drainage Sluice (northeast corner, knee-deep runoff). Mandrake guides them this far, then peels off through the East Passage toward the East Wing Pens to position himself for the generator-blow rescue.\n\nROUTE OPTIONS FROM THE SLUICE: From the Drainage Sluice the crew has three branches via the corridors:\n• West run — Storage → Medical Bay (Vischera intel beat). Passes Communications Center along the way.\n• Central run — Central Junction → Central Passage → ramp down to Generator Room (s6 setup).\n• South run — Turbolift & Stairs → Detention Corridor → Detention Block (Varth, s7).\n\nPATROL PRESSURE: Skarn's mercenary squad rotates between Central Junction, West Corridor, and Storage. Stormtrooper squad is in Exterior Staging Area (outside the west wall) — they don't enter the building unless an alarm sounds. If the crew is loud, expect interior reinforcements within 1–2 beats.\n\nOPTIONAL OBJECTIVE ROOMS:\n• Medical Bay — Vischera at her bench, back to the door. She is not a fighter; she will surrender and trade intel for safety. Specimen tanks provide cover and visual disturbance for stealth approaches.\n• Communications Center — the comms intercept that establishes the Draco hard-clock fires here. Once a PC reads the transmission log, the clock starts (3 beats: TIE patrol overhead. 6 beats: Lambda enters atmo. 9 beats: Shadow Troopers deploy early into s8).\n• Storage — locked blast-rated case (worth a Skulduggery beat for gear or credits).\n\nSIGHTLINES: Central Junction has clear sightlines into Central Passage, West Corridor, and East Passage simultaneously — a fight here pulls everyone. Avoid it for stealth runs.\n\nTURRETS: Gun Turret West and Gun Turret East are visible on the map but are external threats — they matter when Maya extracts (s8). For s5 they're context: a perimeter you can see through windows or hear servos from.\n\nESCAPE ROUTES: Drainage Sluice back the way they came; Turbolift to Level 2 (cuts off ground-floor pursuit but exposes them to the Lambda crew). The East Wing Pens corridor is one-way until the generator drops the fences.",
+            "zones": [
+              {
+                "id": "drainage-sluice",
+                "label": "Drainage Sluice",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "flooded stone tunnel — knee-deep runoff, slick algae"
+              },
+              {
+                "id": "communications-center",
+                "label": "Communications Center",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "comm equipment bolted to ancient stone — datapads, holotransceiver"
+              },
+              {
+                "id": "storage",
+                "label": "Storage",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "crates and supply containers stacked three high"
+              },
+              {
+                "id": "medical-bay",
+                "label": "Medical Bay",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "specimen tanks, surgical table, bacta station — Vischera here"
+              },
+              {
+                "id": "west-corridor",
+                "label": "West Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "wide stone passage — voices carry"
+              },
+              {
+                "id": "central-passage",
+                "label": "Central Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "main north-south spine — generator throb felt underfoot"
+              },
+              {
+                "id": "central-junction",
+                "label": "Central Junction",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "crossroads — patrol notice board, rubber mats"
+              },
+              {
+                "id": "generator-room",
+                "label": "Generator Room",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Clone Wars fusion core — vaulted chamber, conduit channels"
+              },
+              {
+                "id": "turbolift-stairs",
+                "label": "Turbolift & Stairs",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "turbolift car + spiral stair to Level 2"
+              },
+              {
+                "id": "east-passage",
+                "label": "East Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "narrower corridor toward sluice entry"
+              },
+              {
+                "id": "detention-corridor",
+                "label": "Detention Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "short approach to cell block — bright lights, no shadows"
+              },
+              {
+                "id": "detention-block",
+                "label": "Detention Block",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "four cells, mag-lock doors — guard table at entrance, Varth in cell 3"
+              },
+              {
+                "id": "east-wing-pens",
+                "label": "East Wing Pens",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "red-hum",
+                "terrain": "three pens behind laser fences — Klosari prisoners"
+              },
+              {
+                "id": "exterior-staging",
+                "label": "Exterior Staging Area",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "cleared ground, stacked crates — stormtrooper squad here"
+              },
+              {
+                "id": "turret-west",
+                "label": "Gun Turret — West",
+                "passable": false,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "automated turret on west wall — generator-powered"
+              },
+              {
+                "id": "turret-east",
+                "label": "Gun Turret — East",
+                "passable": false,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "automated turret on east wall — covers sluice approach"
+              },
+              {
+                "id": "turbolift-arrival-l2",
+                "label": "Turbolift Arrival — Level 2",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "upper sanctum entry from turbolift"
+              },
+              {
+                "id": "command-area-l2",
+                "label": "Command Area — Level 2",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "holo-table, tactical displays — Skarn officers + Imperial advance team"
+              },
+              {
+                "id": "rooftop-pad",
+                "label": "Rooftop Landing Pad",
+                "passable": true,
+                "cover": "light",
+                "lighting": "open",
+                "terrain": "open stone platform, Lambda shuttle parked — Maya lands here if turrets down"
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (entry)",
+                "zone": "Drainage Sluice",
+                "notes": "Crew enters here knee-deep in runoff. Mandrake at their shoulder for the first beat, then peels off east toward the pens."
+              },
+              {
+                "who": "Mandrake (split-off)",
+                "zone": "East Passage",
+                "notes": "Heads east toward East Wing Pens; positions himself for the generator-blow rescue. Out of play until s6 resolves."
+              },
+              {
+                "who": "Captain Vischera",
+                "zone": "Medical Bay",
+                "notes": "At her bench, back to the door. Surrenders if confronted; trades intel for safety."
+              },
+              {
+                "who": "Skarn Mercenary Patrol (×4)",
+                "zone": "Central Junction",
+                "notes": "Rotating patrol — Central Junction ↔ West Corridor ↔ Storage. Loudest crossing point in the fortress."
+              },
+              {
+                "who": "Skarn Mercenary Static (×4)",
+                "zone": "Storage",
+                "notes": "Static guard on the locked blast-rated case. Will respond to any alarm within 1 beat."
+              },
+              {
+                "who": "Stormtrooper Squad (×6)",
+                "zone": "Exterior Staging Area",
+                "notes": "Parade rest near the west wall. Do not enter the fortress unless alarm sounds — then they breach via the reinforced west door."
+              }
+            ],
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 601,
+                "y": 123
+              },
+              "Mandrake": {
+                "x": 590,
+                "y": 264
+              },
+              "Vischera": {
+                "x": 235,
+                "y": 147
+              },
+              "Mercs-Patrol": {
+                "x": 541,
+                "y": 196
+              },
+              "Mercs-Static": {
+                "x": 372,
+                "y": 124
+              },
+              "Stormtroopers": {
+                "x": 230,
+                "y": 345
+              }
+            }
+          }
         },
         {
           "id": "adv1-p2-s6",
@@ -9658,7 +9874,205 @@
               "power": 4,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "vanishing-place",
+            "gmTacticalNotes": "FOCAL ZONE: Generator Room (south of Central Passage, accessed via the ramp). The vaulted chamber with the Clone Wars fusion core. Two mercenary guards on cards inside the room; a dormant Clone Wars security droid in a charging cradle near the generator housing.\n\nAPPROACH: Crew descends from Central Passage. The ramp is the only entry — Generator Room has one door, which makes it both defensible and a trap. No back exit. Plan stealth entry (silent guard takedown) before the droid is touched, OR be ready to fight the droid head-on.\n\nTHE DROID: The Clone Wars-era security droid is dormant in the charging cradle until the generator housing is tampered with. Once the tech check on the generator begins, it activates next beat. It is the dangerous threat in this room — use the Generator Room's conduit channels and grated floor plates as terrain (cover, footing penalties when running across grates).\n\nTHE FOUR-PURPOSE PAYOFF: When the sabotage succeeds, narrate the chain in this exact order so the table feels each domino:\n1. Gun Turret West and Gun Turret East die — the servos go silent first, then the barrels droop. Maya's flight path opens.\n2. East Wing Pens — the laser fences cut out with a sharp pop. Mandrake moves immediately. The Klosari are loose.\n3. Detention Block — the mag-locks click open simultaneously across all four cells. Varth's cell door swings on its own.\n4. The fortress sensor grid blinds. All work-lights flicker. The throb stops. For three beats the fortress is dark, deaf, and confused — this is the chaos cover for the rest of the run.\n\nBLAST FOOTPRINT: Failed sabotage = explosion in Generator Room. PCs in the room must clear to Central Passage (one zone north) or take falling-debris damage. Adjacent zones (Central Passage, Central Junction) shake and lose lighting briefly.\n\nPARTIAL SABOTAGE OPTION: If PCs choose 'selective sabotage' (only some systems), GM picks which subset goes down — recommend leaving the sensor grid up if the table needs s7 to keep tension, or leaving turrets up if s8 needs the high-stakes extraction.",
+            "zones": [
+              {
+                "id": "drainage-sluice",
+                "label": "Drainage Sluice",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "flooded stone tunnel — knee-deep runoff, slick algae"
+              },
+              {
+                "id": "communications-center",
+                "label": "Communications Center",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "comm equipment bolted to ancient stone — datapads, holotransceiver"
+              },
+              {
+                "id": "storage",
+                "label": "Storage",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "crates and supply containers stacked three high"
+              },
+              {
+                "id": "medical-bay",
+                "label": "Medical Bay",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "specimen tanks, surgical table, bacta station — Vischera here"
+              },
+              {
+                "id": "west-corridor",
+                "label": "West Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "wide stone passage — voices carry"
+              },
+              {
+                "id": "central-passage",
+                "label": "Central Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "main north-south spine — generator throb felt underfoot"
+              },
+              {
+                "id": "central-junction",
+                "label": "Central Junction",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "crossroads — patrol notice board, rubber mats"
+              },
+              {
+                "id": "generator-room",
+                "label": "Generator Room",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Clone Wars fusion core — vaulted chamber, conduit channels"
+              },
+              {
+                "id": "turbolift-stairs",
+                "label": "Turbolift & Stairs",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "turbolift car + spiral stair to Level 2"
+              },
+              {
+                "id": "east-passage",
+                "label": "East Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "narrower corridor toward sluice entry"
+              },
+              {
+                "id": "detention-corridor",
+                "label": "Detention Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "short approach to cell block — bright lights, no shadows"
+              },
+              {
+                "id": "detention-block",
+                "label": "Detention Block",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "four cells, mag-lock doors — guard table at entrance, Varth in cell 3"
+              },
+              {
+                "id": "east-wing-pens",
+                "label": "East Wing Pens",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "red-hum",
+                "terrain": "three pens behind laser fences — Klosari prisoners"
+              },
+              {
+                "id": "exterior-staging",
+                "label": "Exterior Staging Area",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "cleared ground, stacked crates — stormtrooper squad here"
+              },
+              {
+                "id": "turret-west",
+                "label": "Gun Turret — West",
+                "passable": false,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "automated turret on west wall — generator-powered"
+              },
+              {
+                "id": "turret-east",
+                "label": "Gun Turret — East",
+                "passable": false,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "automated turret on east wall — covers sluice approach"
+              },
+              {
+                "id": "turbolift-arrival-l2",
+                "label": "Turbolift Arrival — Level 2",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "upper sanctum entry from turbolift"
+              },
+              {
+                "id": "command-area-l2",
+                "label": "Command Area — Level 2",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "holo-table, tactical displays — Skarn officers + Imperial advance team"
+              },
+              {
+                "id": "rooftop-pad",
+                "label": "Rooftop Landing Pad",
+                "passable": true,
+                "cover": "light",
+                "lighting": "open",
+                "terrain": "open stone platform, Lambda shuttle parked — Maya lands here if turrets down"
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (entry)",
+                "zone": "Central Passage",
+                "notes": "Approach from the north. Generator Room is one zone south down the ramp."
+              },
+              {
+                "who": "Generator Guards (×2)",
+                "zone": "Generator Room",
+                "notes": "Playing cards at a folding table near the door. Distracted; vulnerable to silent takedown if PCs enter quietly."
+              },
+              {
+                "who": "Security Droid",
+                "zone": "Generator Room",
+                "notes": "Dormant in charging cradle near generator housing. Activates next beat after generator is tampered with."
+              },
+              {
+                "who": "Mandrake (waiting)",
+                "zone": "East Wing Pens",
+                "notes": "Pre-positioned from s5. Moves to free Klosari the instant the fences drop."
+              }
+            ],
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 375,
+                "y": 230
+              },
+              "Guards": {
+                "x": 366,
+                "y": 350
+              },
+              "Droid": {
+                "x": 366,
+                "y": 350
+              },
+              "Mandrake": {
+                "x": 424,
+                "y": 459
+              }
+            }
+          }
         },
         {
           "id": "adv1-p2-s7",
@@ -9991,7 +10405,205 @@
               "tier": 1
             }
           ],
-          "subtitle": "Meeting the Admiral"
+          "subtitle": "Meeting the Admiral",
+          "tacticalMap": {
+            "mapKey": "vanishing-place",
+            "gmTacticalNotes": "FOCAL ZONE: Detention Block (south end, off Detention Corridor). Four cells in a row, mag-lock doors, guard table at the corridor entrance.\n\nAPPROACH PATH: Detention Corridor connects from Turbolift & Stairs to Detention Block. The corridor is short, straight, brightly lit, deliberately offers no shadows or blind spots — this matters for stealth. Reinforced durasteel framing around the doorway at the far end. Mag-lock housings line the walls.\n\nSTATE BRANCHES THE ENCOUNTER:\n• If GENERATOR WAS SABOTAGED in s6: Mag-locks are open. Cell doors are swinging free. The two cell guards are confused and reaching for blasters — soft surprise, advantage to PCs. Varth is already standing, hands in pockets, watching the door with mild interest.\n• If GENERATOR WAS NOT SABOTAGED: Mag-locks are live. Cell guards are alert at their table — sabacc cards on the table but blasters in hand. Doors require Skulduggery (Hard) or a security kit to bypass manually. Varth is seated on his cot, gambling with the third cell's guard through the bars. Hard infiltration.\n• If PARTIAL SABOTAGE (sensor grid still up but doors open): Doors open, but the corridor's surveillance triggers an alarm at Central Junction — reinforcements arrive in 2 beats from the Turbolift & Stairs zone.\n\nCELL GUARDS (×2): Posted at the table near the corridor entrance. Use the Skarn Mercenary block. They are between PCs and Varth's cell — taking them down quietly is the goal if the doors are still locked.\n\nVARTH'S GUARD: The third cell's individual guard (the one Varth was gambling with) is a wildcard. He'll surrender if disarmed, fight if cornered, or just walk away if he sees daylight — the GM choice based on table tone.\n\nVARTH'S CELL: Third cell from the corridor. Cot, water dispenser, datapad with sabacc hands scribbled on it. Varth is unbothered — he will treat the rescue like a hired car arriving. The longer the PCs spend questioning him, the more he learns about THEM. Time pressure from the Draco clock should push them to move.\n\nEXIT: Back through Detention Corridor → Turbolift & Stairs. PCs can choose: ground floor exit toward Drainage Sluice or rooftop exit (Turbolift up to Level 2 → Rooftop Landing Pad — sets up Maya extraction in s8 if turrets are down).",
+            "zones": [
+              {
+                "id": "drainage-sluice",
+                "label": "Drainage Sluice",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "flooded stone tunnel — knee-deep runoff, slick algae"
+              },
+              {
+                "id": "communications-center",
+                "label": "Communications Center",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "comm equipment bolted to ancient stone — datapads, holotransceiver"
+              },
+              {
+                "id": "storage",
+                "label": "Storage",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "crates and supply containers stacked three high"
+              },
+              {
+                "id": "medical-bay",
+                "label": "Medical Bay",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "specimen tanks, surgical table, bacta station — Vischera here"
+              },
+              {
+                "id": "west-corridor",
+                "label": "West Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "wide stone passage — voices carry"
+              },
+              {
+                "id": "central-passage",
+                "label": "Central Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "main north-south spine — generator throb felt underfoot"
+              },
+              {
+                "id": "central-junction",
+                "label": "Central Junction",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "crossroads — patrol notice board, rubber mats"
+              },
+              {
+                "id": "generator-room",
+                "label": "Generator Room",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Clone Wars fusion core — vaulted chamber, conduit channels"
+              },
+              {
+                "id": "turbolift-stairs",
+                "label": "Turbolift & Stairs",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "turbolift car + spiral stair to Level 2"
+              },
+              {
+                "id": "east-passage",
+                "label": "East Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "narrower corridor toward sluice entry"
+              },
+              {
+                "id": "detention-corridor",
+                "label": "Detention Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "short approach to cell block — bright lights, no shadows"
+              },
+              {
+                "id": "detention-block",
+                "label": "Detention Block",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "four cells, mag-lock doors — guard table at entrance, Varth in cell 3"
+              },
+              {
+                "id": "east-wing-pens",
+                "label": "East Wing Pens",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "red-hum",
+                "terrain": "three pens behind laser fences — Klosari prisoners"
+              },
+              {
+                "id": "exterior-staging",
+                "label": "Exterior Staging Area",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "cleared ground, stacked crates — stormtrooper squad here"
+              },
+              {
+                "id": "turret-west",
+                "label": "Gun Turret — West",
+                "passable": false,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "automated turret on west wall — generator-powered"
+              },
+              {
+                "id": "turret-east",
+                "label": "Gun Turret — East",
+                "passable": false,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "automated turret on east wall — covers sluice approach"
+              },
+              {
+                "id": "turbolift-arrival-l2",
+                "label": "Turbolift Arrival — Level 2",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "upper sanctum entry from turbolift"
+              },
+              {
+                "id": "command-area-l2",
+                "label": "Command Area — Level 2",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "holo-table, tactical displays — Skarn officers + Imperial advance team"
+              },
+              {
+                "id": "rooftop-pad",
+                "label": "Rooftop Landing Pad",
+                "passable": true,
+                "cover": "light",
+                "lighting": "open",
+                "terrain": "open stone platform, Lambda shuttle parked — Maya lands here if turrets down"
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (entry)",
+                "zone": "Detention Corridor",
+                "notes": "Arriving from Turbolift & Stairs. Bright corridor — no cover."
+              },
+              {
+                "who": "Cell Guards (×2)",
+                "zone": "Detention Block",
+                "notes": "At the table near the entrance. Card game in progress. State depends on s6 outcome — see GM notes."
+              },
+              {
+                "who": "Admiral Varth",
+                "zone": "Detention Block",
+                "notes": "Third cell from the corridor. Standing or seated based on s6 outcome. Unarmed, unbothered."
+              },
+              {
+                "who": "Varth's Sabacc Guard",
+                "zone": "Detention Block",
+                "notes": "Individual guard at the third cell — wildcard. Surrenders, fights, or walks away based on table tone."
+              }
+            ],
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 524,
+                "y": 329
+              },
+              "Cell-Guards": {
+                "x": 524,
+                "y": 389
+              },
+              "Varth": {
+                "x": 524,
+                "y": 389
+              },
+              "Sabacc-Guard": {
+                "x": 524,
+                "y": 389
+              }
+            }
+          }
         },
         {
           "id": "adv1-p2-s8",
@@ -10672,162 +11284,227 @@
             }
           ],
           "tacticalMap": {
-            "mapKey": "fortress-rendezvous",
-            "gridColumns": 4,
-            "gridRows": 3,
-            "zoneSize": "20ft",
-            "columnLabels": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "rowLabels": [
-              1,
-              2,
-              3
-            ],
+            "mapKey": "vanishing-place",
+            "gmTacticalNotes": "FOCAL ZONES: Exterior Staging Area, Rooftop Landing Pad, and the perimeter (Gun Turrets East/West). The fight spans inside-to-outside — PCs are likely exiting via Drainage Sluice, the west reinforced door, or coming up through the Turbolift to the Rooftop Pad.\n\nTHREE-WAY GEOMETRY: Three factions in this fight:\n1. PCs — getting Varth (and Mandrake if alive) to extraction.\n2. Skarn's mercenaries — defending what's left of their fortress, hitting from interior zones (Central Junction, West Corridor, Storage). Use the Skarn Mercenary block in waves of 2–3.\n3. Imperial forces — Draco's advance team (Stormtrooper Squad in Exterior Staging Area; Shadow Troopers dropping into the treeline beyond) plus the perimeter walkers approaching through the jungle (off-map but audible — the throb of repulsorlift through the canopy).\n\nFACTION CROSSFIRE: Mercs and Imperials are fighting EACH OTHER as well as the PCs. Use this — narrate stray fire from one faction taking out the other. PCs can manipulate the crossfire via the Tactics challenge to find safer routes.\n\nEXTRACTION BRANCHES (driven by s6 turret outcome):\n• TURRETS DOWN (sabotage succeeded): Maya lands clean on the Rooftop Landing Pad. PCs route Detention Block → Detention Corridor → Turbolift to Level 2 → Turbolift Arrival → Rooftop Pad. Shadow Troopers will try to hit the rooftop from the treeline — use cover (Lambda shuttle wreckage if it's still there, or the parapet).\n• TURRETS UP (sabotage skipped): Maya cannot land on the rooftop — she does a strafing pass and touches down at the Exterior Staging Area under heavy fire. PCs route ground floor: Drainage Sluice or West Corridor → Exterior Staging Area. The Banshee takes damage on every beat she's on the ground. Rolling extraction — PCs board while moving.\n\nDRACO'S ARRIVAL: Inquisitor Draco arrives at the Rooftop Landing Pad via Lambda shuttle. He is a T4 Nemesis — solo encounter, do NOT pair him with the Shadow Troopers as a single fight. Either Draco engages alone on the rooftop (extraction-blocking encounter) or the Shadow Troopers ambush from the treeline (perimeter encounter). Pick one as the climactic obstacle based on the route the PCs took.\n\nMANDRAKE'S FATE PLAYS HERE: Mandrake is in the East Wing Pens area moving freed Klosari toward the Drainage Sluice. The decision (survives / sacrifices / captured / betrayed) resolves based on PC actions during the firefight — see decisionPoint adv1-p2-s8-key-decision.\n\nSHUTTLE EXIT VECTOR: Once aboard the Banshee, Maya breaks atmo. TIE fighters scrambling from a Star Destroyer in orbit — Piloting challenge for the escape (already statted in disciplineChallenges).",
             "zones": [
               {
-                "id": "A1",
-                "label": "Treeline (Northwest)",
+                "id": "drainage-sluice",
+                "label": "Drainage Sluice",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "dim",
+                "terrain": "flooded stone tunnel — knee-deep runoff, slick algae"
+              },
+              {
+                "id": "communications-center",
+                "label": "Communications Center",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "comm equipment bolted to ancient stone — datapads, holotransceiver"
+              },
+              {
+                "id": "storage",
+                "label": "Storage",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "crates and supply containers stacked three high"
+              },
+              {
+                "id": "medical-bay",
+                "label": "Medical Bay",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "specimen tanks, surgical table, bacta station — Vischera here"
+              },
+              {
+                "id": "west-corridor",
+                "label": "West Corridor",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "wide stone passage — voices carry"
+              },
+              {
+                "id": "central-passage",
+                "label": "Central Passage",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "main north-south spine — generator throb felt underfoot"
+              },
+              {
+                "id": "central-junction",
+                "label": "Central Junction",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "crossroads — patrol notice board, rubber mats"
+              },
+              {
+                "id": "generator-room",
+                "label": "Generator Room",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Clone Wars fusion core — vaulted chamber, conduit channels"
+              },
+              {
+                "id": "turbolift-stairs",
+                "label": "Turbolift & Stairs",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "dim",
+                "terrain": "turbolift car + spiral stair to Level 2"
+              },
+              {
+                "id": "east-passage",
+                "label": "East Passage",
                 "passable": true,
                 "cover": "light",
                 "lighting": "dim",
-                "terrain": "Dense jungle treeline. Light cover, heavy concealment. Shadow Troopers favor this zone — stealth suits work best where it's already dark and broken."
+                "terrain": "narrower corridor toward sluice entry"
               },
               {
-                "id": "B1",
-                "label": "Outer Perimeter",
+                "id": "detention-corridor",
+                "label": "Detention Corridor",
                 "passable": true,
                 "cover": "light",
                 "lighting": "normal",
-                "terrain": "Crumbling perimeter wall, half-collapsed. Light cover. The first defensive line — Imperials will hold this perimeter once the firefight starts."
+                "terrain": "short approach to cell block — bright lights, no shadows"
               },
               {
-                "id": "C1",
-                "label": "Watchtower",
+                "id": "detention-block",
+                "label": "Detention Block",
                 "passable": true,
-                "cover": "hard",
+                "cover": "medium",
                 "lighting": "normal",
-                "terrain": "Half-ruined stone watchtower. Hard cover from the base. Climbable (Athletics) for elevated firing position with sightlines across the entire courtyard."
+                "terrain": "four cells, mag-lock doors — guard table at entrance, Varth in cell 3"
               },
               {
-                "id": "D1",
-                "label": "Treeline (Northeast)",
+                "id": "east-wing-pens",
+                "label": "East Wing Pens",
                 "passable": true,
-                "cover": "light",
-                "lighting": "dim",
-                "terrain": "More treeline. Light cover, heavy concealment. The mercenaries' likely retreat lane."
+                "cover": "medium",
+                "lighting": "red-hum",
+                "terrain": "three pens behind laser fences — Klosari prisoners"
               },
               {
-                "id": "A2",
-                "label": "Courtyard (West)",
+                "id": "exterior-staging",
+                "label": "Exterior Staging Area",
                 "passable": true,
-                "cover": "none",
+                "cover": "medium",
                 "lighting": "normal",
-                "terrain": "Open ferrocrete courtyard. No cover. Sightlines to every other zone — the kill zone for any of the three factions caught here."
+                "terrain": "cleared ground, stacked crates — stormtrooper squad here"
               },
               {
-                "id": "B2",
-                "label": "Rendezvous Bunker",
-                "passable": true,
-                "cover": "hard",
+                "id": "turret-west",
+                "label": "Gun Turret — West",
+                "passable": false,
+                "cover": "heavy",
                 "lighting": "normal",
-                "terrain": "Squat ferrocrete bunker — the rendezvous point itself. Hard cover. Holds the deal's contraband. Doors can be sealed (Engineering check) to deny it to either faction."
+                "terrain": "automated turret on west wall — generator-powered"
               },
               {
-                "id": "C2",
-                "label": "Comms Tower",
-                "passable": true,
-                "cover": "light",
+                "id": "turret-east",
+                "label": "Gun Turret — East",
+                "passable": false,
+                "cover": "heavy",
                 "lighting": "normal",
-                "terrain": "Imperial comms relay. Light cover from the support struts. SABOTAGE TARGET: destroy this and Imperial reinforcement calls go silent — fewer waves arrive."
+                "terrain": "automated turret on east wall — covers sluice approach"
               },
               {
-                "id": "D2",
-                "label": "Courtyard (East)",
-                "passable": true,
-                "cover": "none",
-                "lighting": "normal",
-                "terrain": "Open ground. No cover. Mercenaries and Imperials trade fire across this space."
-              },
-              {
-                "id": "A3",
-                "label": "Stone Outbuildings",
-                "passable": true,
-                "cover": "hard",
-                "lighting": "normal",
-                "terrain": "Cluster of small stone outbuildings. Hard cover. Interior provides concealment for short flanking moves."
-              },
-              {
-                "id": "B3",
-                "label": "Pathway to Ship",
-                "passable": true,
-                "cover": "light",
-                "lighting": "normal",
-                "terrain": "Overgrown trail leading offsite. Light cover from low brush. The PCs' escape route — anyone who reaches B3 and presses south is one move from extraction."
-              },
-              {
-                "id": "C3",
-                "label": "Mercenary Position",
-                "passable": true,
-                "cover": "hard",
-                "lighting": "normal",
-                "terrain": "Hastily fortified mercenary firing line — sandbags and crates. Hard cover. Mercs hold this against Imperial assault."
-              },
-              {
-                "id": "D3",
-                "label": "Treeline (South)",
+                "id": "turbolift-arrival-l2",
+                "label": "Turbolift Arrival — Level 2",
                 "passable": true,
                 "cover": "light",
                 "lighting": "dim",
-                "terrain": "Jungle to the south. Light cover, heavy concealment. The other Shadow Trooper approach lane and the PCs' likely exfil direction."
+                "terrain": "upper sanctum entry from turbolift"
+              },
+              {
+                "id": "command-area-l2",
+                "label": "Command Area — Level 2",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "normal",
+                "terrain": "holo-table, tactical displays — Skarn officers + Imperial advance team"
+              },
+              {
+                "id": "rooftop-pad",
+                "label": "Rooftop Landing Pad",
+                "passable": true,
+                "cover": "light",
+                "lighting": "open",
+                "terrain": "open stone platform, Lambda shuttle parked — Maya lands here if turrets down"
               }
             ],
             "startingPositions": [
               {
-                "who": "PCs",
-                "zone": "Rendezvous Bunker",
-                "notes": "Caught at the deal site when the firefight erupts on all sides. Hard cover initially — but staying means getting pinched."
+                "who": "PCs (with Varth)",
+                "zone": "Detention Block",
+                "notes": "Where s7 ended. Routes to extraction depend on turret state — see GM notes."
               },
               {
-                "who": "Imperial Strike Team",
-                "zone": "Outer Perimeter",
-                "notes": "Push south from the perimeter wall. Working to seize the bunker and capture/kill anyone inside."
+                "who": "Maya / The Banshee",
+                "zone": "Rooftop Landing Pad",
+                "notes": "Lands here if turrets are down (clean extraction). Otherwise diverts to Exterior Staging Area under fire."
               },
               {
-                "who": "Mercenary Defenders",
-                "zone": "Mercenary Position",
-                "notes": "Hold the southern firing line. Trading shots with Imperials across the courtyard. Will fight either faction that closes on them."
+                "who": "Inquisitor Draco",
+                "zone": "Rooftop Landing Pad",
+                "notes": "Arrives via Lambda. Solo nemesis encounter. Use rooftop or treeline encounter — not both."
               },
               {
-                "who": "Shadow Troopers",
-                "zone": "Treeline (Northwest)",
-                "notes": "Concealed in the treeline. Hunt anyone trying to leave — track from the trees, strike when PCs cross open ground."
+                "who": "Shadow Troopers (×4)",
+                "zone": "Exterior Staging Area",
+                "notes": "Drop from treeline beyond the staging area. Precision fire from concealment. Use if Draco fight is on rooftop (perimeter ambush instead)."
+              },
+              {
+                "who": "Stormtroopers (residual)",
+                "zone": "Exterior Staging Area",
+                "notes": "Whatever survived s5/s6 of the original 6-trooper squad. Form-up in two-rank fire teams."
+              },
+              {
+                "who": "Skarn Mercs (interior)",
+                "zone": "Central Junction",
+                "notes": "Whatever survived earlier scenes. Defending in 2–3 person waves from interior zones."
+              },
+              {
+                "who": "Mandrake (if alive)",
+                "zone": "East Wing Pens",
+                "notes": "Moving freed Klosari toward Drainage Sluice exit. His fate decision resolves here."
               }
             ],
-            "gmTacticalNotes": "SCENE TACTICS (NPC-agnostic): THREE-WAY FIREFIGHT — Imperials north, mercenaries south, PCs in the middle. The PCs win by SLIPPING THROUGH, not by winning. The courtyard zones (A2, D2) are the kill zone — fire crosses from both sides. The hard-cover positions (watchtower, bunker, outbuildings, mercenary position) define each faction's anchor. PCs can advance south using the outbuildings (A3) and pathway (B3) for cover. ENVIRONMENTAL LEVERS: (1) comms tower — sabotage to cut Imperial reinforcement calls; (2) bunker doors — seal to deny contraband to whoever arrives; (3) watchtower — elevated position grants sightlines but is a sniper magnet. SHADOW TROOPER LAYER: when the PCs commit to leaving, the treeline ambush triggers — concealed enemies who specifically hunt anyone breaking off the engagement. They are the real obstacle, not the crossfire. Encourage smoke, distractions, and pitting the two factions against each other while the PCs slip out.",
             "gmStartingPositions": {
               "PCs": {
-                "x": 440,
-                "y": 280
+                "x": 524,
+                "y": 389
               },
-              "npc_0": {
-                "x": 100,
-                "y": 100
+              "Maya": {
+                "x": 806,
+                "y": 346
               },
-              "npc_1": {
-                "x": 700,
-                "y": 100
+              "Draco": {
+                "x": 806,
+                "y": 346
               },
-              "npc_2": {
-                "x": 100,
-                "y": 460
+              "Shadow-Troopers": {
+                "x": 230,
+                "y": 345
               },
-              "npc_3": {
-                "x": 700,
-                "y": 460
+              "Stormtroopers": {
+                "x": 230,
+                "y": 345
+              },
+              "Mercs": {
+                "x": 541,
+                "y": 196
+              },
+              "Mandrake": {
+                "x": 424,
+                "y": 459
               }
             }
           }
