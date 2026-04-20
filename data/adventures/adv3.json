@@ -3772,7 +3772,7 @@
           "number": 2,
           "title": "Hutt's Hangar",
           "subtitle": "Docking Bay 4414",
-          "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nDominating the center is Varga's personal luxury yacht — the Glorious Chariot. Gold and purple, engines whining with a turbine squeal that vibrates in your teeth. Six Z-95 Headhunters idle on the deck, pilots scrambling into cockpits.\n\nVarga stands at the base of the ramp, screaming at his loading crews. When he sees you, fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads!\"",
+          "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nSix Z-95 Headhunters line the walls — two along the port side, four along the starboard, nose-out toward the center. The rearmost crimson-trimmed fighter on the starboard line carries a Huttese glyph on the fuselage. Varga's personal stable. Pilots are already sprinting the open floor toward their cockpits, ladders down, engines cycling. Stacked cargo crates clutter the center of the bay — Trandoshan manifests, Guild Tibanna-gas hazard placards, still warm from the offload.\n\nVarga's voice booms from the bay's intercom — he is staging the Glorious Chariot in the adjacent launch cradle, ramp already closing. When the screens cut to a live feed, he sees you. Fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads!\"",
           "gmNotes": "The final confrontation with Varga. The Glorious Chariot is priming for launch. Six Z-95 fighters are scrambling — if they get airborne, they'll strafe the hangar. Savvy heroes might shoot pilots on ladders to hijack fighters. Varga retreats up the ramp as mercenaries fall. Heroes must breach the ship or disable its engines. If they board, they fight Varga in the yacht's narrow corridors where his massive bulk is a weapon.",
           "npcs": [
             {
@@ -4239,7 +4239,118 @@
               "power": 4,
               "tier": 1
             }
-          ]
+          ],
+          "tacticalMap": {
+            "mapKey": "hutts-hangar",
+            "gmTacticalNotes": "FOCAL ZONES: Cargo Crates (primary cover cluster), Starboard Fighter Line (four Z-95s including Varga's crimson personal craft), and Hangar Floor (deadly open ground connecting them).\n\nHERO ENTRY: Hangar Entrance (south). The crew rolls in hot from the Gauntlet (s1) and must decide in the first beat: push straight up the floor (fastest, fully exposed), hug the port fighter line (cover but bypassed by starboard fire), or make the cargo crate cluster (primary cover but a pilot scramble race).\n\nVARGA'S PILOTS: Mercenary pilots sprint from the starboard entrance (or were already in the Starboard Fighter Line) toward their Z-95 cockpits. Each Z-95 that launches = one TIE-equivalent harrier in s5 (Skirmish Over Bespin). Grounding pilots on the deck in s2 directly reduces the swarm size in s5. Make this explicit to the table — every shot that drops a scrambling pilot is a fighter that doesn't launch.\n\nVARGA'S PERSONAL Z-95: Rearmost fighter in the Starboard Fighter Line. Crimson detailing, Huttese glyph on fuselage. If heroes want to STEAL a ship for the s4 'Grand Theft Starship' beat, this is the prestige target — fully fueled, hot-swap ready, Varga's own. Alternative: any of the other Z-95s works, but taking Varga's specifically has downstream narrative weight (Varga screams about it on comms, adds +1 to Grief pool in s6).\n\nREAR EXHAUST HAZARD: Rear Exhaust Wall vents cycle every 2 beats. PCs or NPCs in the zone when vents fire take flue-gas damage AND audibility drops to zero — shouted coordination fails for one beat. Good for narrative swings when a pilot tries to reach a Z-95 by running the rear.\n\nCARGO CRATE FIRE RISK: Crates are Guild-marked Tibanna gas. A stray sustained-fire hit OR a deliberate tech/ranged check can ignite one — area explosion, [Concealment] smoke wall for 2 beats, random damage to anyone adjacent. Table should know the crates are volatile before they take cover there. Mercenary fire will eventually ignite them if the fight drags — use this as a clock.\n\nLOCKDOWN PANEL: Hangar Entrance has an emergency lockdown panel. Tech check (Hard) seals the main door. This can SAVE the crew from reinforcements coming in from the concourse — or TRAP them in with whatever is already in the hangar. Hard tradeoff worth offering explicitly.\n\nPATROL GEOMETRY: Port Fighter Line and Starboard Fighter Line cross-fire the open floor. Taking cover in the port line means losing sightlines to the starboard line and vice-versa. Crew either splits the room or commits to one side.\n\nEXIT VECTOR: s4 (Grand Theft Starship) begins the moment a PC reaches a Z-95 cockpit and powers up. If the hangar bay doors are sealed by the lockdown panel, a PC must also hit the external bay-door control (another Tech beat) before liftoff.",
+            "zones": [
+              {
+                "id": "rear-exhaust-wall",
+                "label": "Rear Exhaust Wall",
+                "passable": true,
+                "cover": "medium",
+                "lighting": "harsh",
+                "terrain": "Three thruster exhaust ports — heat haze and loud vent cycles. Cover behind grating, hot flue gas on bad rolls."
+              },
+              {
+                "id": "port-fighter-line",
+                "label": "Port Fighter Line",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Two Z-95 Headhunters along the west wall. Wingtips + engine housings = heavy cover. Fuel hoses snake across deck."
+              },
+              {
+                "id": "starboard-fighter-line",
+                "label": "Starboard Fighter Line",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Four Z-95 Headhunters along the east wall in tight formation. Rearmost is Varga's personal craft (crimson detailing). Tight quarters between them."
+              },
+              {
+                "id": "hangar-floor",
+                "label": "Hangar Floor — Open",
+                "passable": true,
+                "cover": "none",
+                "lighting": "harsh",
+                "terrain": "Central deck, scratched durasteel. NO COVER. Exposed from port line, starboard line, and rear wall simultaneously."
+              },
+              {
+                "id": "cargo-crates",
+                "label": "Cargo Crates",
+                "passable": true,
+                "cover": "heavy",
+                "lighting": "normal",
+                "terrain": "Three crate clusters with cross-firing lanes. Trandoshan manifests + Tibanna gas hazard placards. Heavy enough to stop blaster fire."
+              },
+              {
+                "id": "south-approach",
+                "label": "South Approach",
+                "passable": true,
+                "cover": "light",
+                "lighting": "dim",
+                "terrain": "Between cargo cluster and entrance. Equipment lockers along south wall. Partial cover from rear fire only."
+              },
+              {
+                "id": "hangar-entrance",
+                "label": "Hangar Entrance",
+                "passable": true,
+                "cover": "light",
+                "lighting": "normal",
+                "terrain": "Main access door, wide enough for two sleds. Lockdown panel in left wall — seal in or seal out. Heroes enter here."
+              }
+            ],
+            "startingPositions": [
+              {
+                "who": "PCs (entry)",
+                "zone": "Hangar Entrance",
+                "notes": "Arriving from the s1 Gauntlet chase. Crew makes first move here."
+              },
+              {
+                "who": "Varga's Mercenary Pilots",
+                "zone": "Starboard Fighter Line",
+                "notes": "Sprinting to Z-95 cockpits. Each that reaches a ship launches one harrier into s5."
+              },
+              {
+                "who": "Ground Defenders (Mercs)",
+                "zone": "Cargo Crates",
+                "notes": "Already in position behind the cargo cluster. Opening fire as heroes cross the entrance threshold."
+              },
+              {
+                "who": "Port Guard Team",
+                "zone": "Port Fighter Line",
+                "notes": "Smaller team covering the west flank. Cross-fires with cargo defenders onto the open floor."
+              },
+              {
+                "who": "Varga's Personal Z-95",
+                "zone": "Starboard Fighter Line",
+                "notes": "Rearmost craft. Prestige steal target for s4. Crimson detailing, Huttese glyph."
+              }
+            ],
+            "gmStartingPositions": {
+              "PCs": {
+                "x": 510,
+                "y": 870
+              },
+              "Pilots": {
+                "x": 890,
+                "y": 460
+              },
+              "Cargo-Defenders": {
+                "x": 370,
+                "y": 610
+              },
+              "Port-Guards": {
+                "x": 160,
+                "y": 470
+              },
+              "Varga-Z95": {
+                "x": 890,
+                "y": 460
+              }
+            }
+          }
         },
         {
           "id": "adv3-p3-s3",
