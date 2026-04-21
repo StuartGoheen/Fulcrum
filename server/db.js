@@ -304,6 +304,11 @@ async function initSchema() {
       await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS impacts JSONB`);
     } catch (e) {}
     try {
+      await client.query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_journal_entries_tournament_day1_recap
+        ON journal_entries (source_scene_id)
+        WHERE source_scene_id IS NOT NULL AND title = 'Sabacc Tournament — Day 1 Recap'`);
+    } catch (e) {}
+    try {
       const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);
       if (existingIdx.rows.length > 0) {
         const def = existingIdx.rows[0].indexdef || '';

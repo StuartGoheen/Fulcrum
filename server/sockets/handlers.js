@@ -254,6 +254,137 @@ function _formatCombatLogBody(summary) {
   return lines.join('\n');
 }
 
+const TOURNAMENT_RECAP_TITLE = 'Sabacc Tournament — Day 1 Recap';
+const TOURNAMENT_NAMED_NPCS = [
+  { id: 'arandis', name: 'Arandis' },
+  { id: 'fioro', name: 'Lady Fioro' },
+  { id: 'draver', name: 'Silas Draver' },
+  { id: 'creeska', name: 'Creeska' },
+  { id: 'moro', name: 'Koroma Moro' }
+];
+const TOURNAMENT_BUY_IN = 10000;
+const TOURNAMENT_BUY_BACK = 2000;
+
+function _formatTournamentRecapBody(state) {
+  const seating = (state && state.seating) || {};
+  let alive = 0, eliminated = 0;
+  let pcAlive = 0, pcEliminated = 0, pcBoughtBack = 0;
+  const namedStatus = {};
+  TOURNAMENT_NAMED_NPCS.forEach(n => { namedStatus[n.id] = { name: n.name, status: 'Not seated' }; });
+
+  Object.keys(seating).forEach(t => {
+    (seating[t] || []).forEach(seat => {
+      if (!seat || seat.kind === 'empty') return;
+      if (seat.status === 'Eliminated') eliminated++; else alive++;
+      if (seat.kind === 'pc') {
+        if (seat.status === 'Eliminated') pcEliminated++; else pcAlive++;
+        if (seat.status === 'Bought Back In') pcBoughtBack++;
+      }
+      if (seat.kind === 'npc' && seat.id && namedStatus[seat.id]) {
+        namedStatus[seat.id].status = seat.status || 'Healthy';
+        namedStatus[seat.id].name = seat.name || namedStatus[seat.id].name;
+      }
+    });
+  });
+
+  const competitorPcs = Object.values((state && state.roster) || {}).filter(p => p === 'competitor').length;
+  const buyInTotal = competitorPcs * TOURNAMENT_BUY_IN;
+  const buyBackTotal = pcBoughtBack * TOURNAMENT_BUY_BACK;
+  const creditDelta = -(buyInTotal + buyBackTotal);
+
+  const cheatCatch = (state && state.day1 && state.day1.cheatCatch) || 'none';
+  const cheatLine = cheatCatch === 'marker'
+    ? "Marker spotted cleanly — Creeska expelled, no fallout."
+    : cheatCatch === 'accusation'
+      ? "Public accusation without evidence — Mandelbrot took the heat."
+      : "Cheat-catch unresolved (no marker spotted, no accusation made).";
+  const rapport = (state && state.mandelbrotRapportTier) || 0;
+
+  const lines = [];
+  lines.push('Day 1 of the Cloud City Sabacc Tournament has closed.');
+  lines.push('');
+  lines.push('Field Status:');
+  lines.push('  Surviving: ' + alive + ' / ' + (alive + eliminated));
+  lines.push('  Eliminated: ' + eliminated);
+  lines.push('  Crew PCs still in: ' + pcAlive + (pcEliminated ? ' (eliminated: ' + pcEliminated + ')' : ''));
+  lines.push('');
+  lines.push('Named NPCs:');
+  TOURNAMENT_NAMED_NPCS.forEach(n => {
+    lines.push('  • ' + namedStatus[n.id].name + ' — ' + namedStatus[n.id].status);
+  });
+  lines.push('');
+  lines.push('Cheat-Catch (Creeska): ' + cheatCatch.toUpperCase());
+  lines.push('  ' + cheatLine);
+  lines.push('');
+  lines.push('Mandelbrot Rapport: Tier ' + rapport);
+  lines.push('');
+  lines.push('Crew Credit Delta: ' + creditDelta.toLocaleString() + ' cr');
+  lines.push('  Buy-ins: −' + buyInTotal.toLocaleString() + ' cr (' + competitorPcs + ' seat' + (competitorPcs === 1 ? '' : 's') + ')');
+  if (buyBackTotal > 0) {
+    lines.push('  Buy-backs: −' + buyBackTotal.toLocaleString() + ' cr (' + pcBoughtBack + ')');
+  }
+  lines.push('  Crew balance at close: ' + ((state && state.crewCredits) || 0).toLocaleString() + ' cr');
+  return lines.join('\n');
+}
+
+async function _saveTournamentRecapToJournal(state, sceneId) {
+  if (!sceneId) return null;
+  const body = _formatTournamentRecapBody(state || {});
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const existing = await client.query(
+      'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND title = $2 LIMIT 1',
+      [sceneId, TOURNAMENT_RECAP_TITLE]
+    );
+    if (existing.rows.length > 0) {
+      await client.query('COMMIT');
+      return { entryId: existing.rows[0].id, created: false };
+    }
+    const entryResult = await client.query(
+      `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (source_scene_id) WHERE source_scene_id IS NOT NULL AND title = 'Sabacc Tournament — Day 1 Recap' DO NOTHING
+       RETURNING id`,
+      [TOURNAMENT_RECAP_TITLE, body, 'Campaign Log', sceneId]
+    );
+    if (entryResult.rows.length === 0) {
+      const dup = await client.query(
+        'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND title = $2 LIMIT 1',
+        [sceneId, TOURNAMENT_RECAP_TITLE]
+      );
+      await client.query('COMMIT');
+      return { entryId: dup.rows[0] ? dup.rows[0].id : null, created: false };
+    }
+    const entryId = entryResult.rows[0].id;
+    const tagPairs = [
+      { name: 'Tournament', category: 'custom' },
+      { name: 'Cloud City', category: 'location' },
+      { name: 'Day 1 Recap', category: 'custom' }
+    ];
+    for (const tp of tagPairs) {
+      const tagResult = await client.query(
+        `INSERT INTO journal_tags (name, category, is_custom)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name
+         RETURNING id`,
+        [tp.name, tp.category, tp.category === 'custom']
+      );
+      await client.query(
+        'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+        [entryId, tagResult.rows[0].id]
+      );
+    }
+    await client.query('COMMIT');
+    return { entryId, created: true };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 async function _saveCombatLogToJournal(summary, sceneId) {
   if (!summary) return null;
   const encounterName = summary.encounterName || 'Combat';
@@ -1034,6 +1165,34 @@ function registerHandlers(io) {
         } catch (err) {
           console.error('[socket] combat:end journal save error:', err);
         }
+      }
+    });
+
+    socket.on('tournament:save-day1-recap', async ({ sceneId } = {}) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can save the tournament recap.' });
+        return;
+      }
+      if (!sceneId) return;
+      try {
+        const stateRow = await pool.query("SELECT value FROM campaign_state WHERE key = 'adv3_tournament'");
+        let state = null;
+        if (stateRow.rows.length > 0) {
+          try { state = JSON.parse(stateRow.rows[0].value); } catch (_) { state = null; }
+        }
+        if (!state) {
+          console.warn('[socket] tournament:save-day1-recap: no adv3_tournament state found');
+          return;
+        }
+        const result = await _saveTournamentRecapToJournal(state, String(sceneId));
+        if (result && result.created) {
+          io.emit('journal:updated', { entryId: result.entryId });
+          console.log(`[socket] Tournament Day 1 recap saved to journal entry #${result.entryId}`);
+        } else if (result) {
+          console.log(`[socket] Tournament Day 1 recap already exists (entry #${result.entryId}); skipping duplicate.`);
+        }
+      } catch (err) {
+        console.error('[socket] tournament:save-day1-recap error:', err);
       }
     });
 

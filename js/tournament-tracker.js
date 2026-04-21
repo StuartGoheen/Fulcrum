@@ -500,6 +500,9 @@
           pushLog(s, 'Beat marked complete: ' + lbl);
         }
         save(s, socket);
+        if (chk.dataset.beat === 'day1_close' && chk.checked && socket) {
+          socket.emit('tournament:save-day1-recap', { sceneId: scene.id });
+        }
         refresh();
       });
     });
