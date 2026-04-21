@@ -11621,6 +11621,12 @@
             "conflict-zone",
             "deep-space-freighter",
             "imperial-detention"
+          ],
+          "themeTags": [
+            "Imperial oppression",
+            "escape and survival",
+            "tactical consequences",
+            "Inquisitor pursuit"
           ]
         }
       ]
@@ -11636,7 +11642,7 @@
           "title": "The Long Way Back Home",
           "subtitle": "Epilogue — The Banshee, In Hyperspace",
           "readAloud": "The hyperdrive whine settles into its long, off-key hum and the cabin lights flicker once before they steady. Through the bulkhead you can hear Maya in the cockpit running a diagnostic, swearing quietly at the starboard engine in the tone that means a problem she can solve.\n\nThe Banshee broke atmosphere maybe ninety minutes ago. The Vanishing Place is behind you, and the only thing chasing the ship at the moment is the silence. Everyone is wounded in a small way. Nobody has eaten. The Common Room smells like ozone, blaster discharge, and sweat.\n\nVarth is on the bench seat, his back against the bulkhead, the borrowed jacket someone threw over him still buttoned wrong. He has not spoken since the ramp closed. The dejarik board flickers in the corner, abandoned. The amber overhead light has a slight flicker on the port-side fixture that nobody has fixed yet.\n\nThe next two days are yours — eight short jumps with recalculations between each, and no other ships in the void. You can sit with the Admiral while he is still off-script. You can find Maya in the galley between diagnostic passes. You can take stock of what you carried out of that fortress, and what you left behind in it. There is no clock on this scene that the GM has not chosen.",
-          "gmNotes": "EPILOGUE SCENE. The fortress is over. This is the reset breath between Adventure 1 and Adventure 2 — the moment the campaign confirms that the people in the Common Room are now a crew. Run as long or as short as the table wants. There is no combat, no roll-gated progression, and no failure state. Every beat below is optional and can be presented as a menu to the players.\n\nPACING: 20–60 minutes of table time depending on appetite. If the table is tired, run beats 1 and 2 only and exit to Adventure 2. If the table wants the full character work, all four beats land naturally over a single in-fiction evening.\n\nNO ROLLS BY DEFAULT. The whole scene is character-driven. The only rolls that should ever appear here are if a PC explicitly initiates a read on Varth or Maya — and even then, defer to the existing conversation trees (varth-aftermath, maya-banshee-galley) which handle social pressure through the Comfort meter, not the dice.\n\nWHAT THE PLAYERS LEFT BEHIND: Mandrake is dead. Skarn's mercenaries are scattered or dead. The Vanishing Place's secret is broken — it is no longer a black-site, it is a crime scene, and Imperial Intelligence is going to spend the next six months trying to understand what happened there. None of that is on screen. It is in the silence the PCs ride home in.\n\nWHAT THE PLAYERS CARRIED OUT: Varth, alive and grateful and (per varth-aftermath) more honest tonight than he will ever be again. Maya, who chose them at the cantina and chose them again at the extraction. The first faint understanding that Inquisitor Draco is now permanently in the campaign weather. Optionally — if the crew thought to copy Vischera's data slate during the breach — a routing manifest pointing at Takodana, which Varth will use to stage Adventure 2.\n\nDO NOT REDIRECT TO COMBAT. If players try to invent a threat (Imperial pursuit, a stowaway, a malfunction), absorb it into character work — Maya knows the Smuggler's Path breaks pursuit, Varth knows Draco is a long-burn problem and not a this-week problem, the engine groan is normal hyperspace stress and Maya is on it. The drama of this scene is interior. Hold the line.",
+          "gmNotes": "EPILOGUE SCENE. The fortress is over. This is the reset breath between Adventure 1 and Adventure 2 — the moment the campaign confirms that the people in the Common Room are now a crew. Run as long or as short as the table wants. There is no combat, no roll-gated progression, and no failure state. Every beat below is optional and can be presented as a menu to the players.\n\nPACING: 20–60 minutes of table time depending on appetite. If the table is tired, run beats 1 and 2 only and exit to Adventure 2. If the table wants the full character work, all four beats land naturally over a single in-fiction evening.\n\nNO ROLLS BY DEFAULT. The whole scene is character-driven. The only rolls that should ever appear here are if a PC explicitly initiates a read on Varth or Maya — and even then, defer to the existing conversation trees (varth-aftermath, maya-banshee-galley) which handle social pressure through the Comfort meter, not the dice.\n\nWHAT THE PLAYERS LEFT BEHIND: Skarn's mercenaries are scattered or dead. The Vanishing Place's secret is broken — it is no longer a black-site, it is a crime scene, and Imperial Intelligence is going to spend the next six months trying to understand what happened there. None of that is on screen. It is in the silence the PCs ride home in.\n\nWHAT THE PLAYERS CARRIED OUT: Varth, alive and grateful and (per varth-aftermath) more honest tonight than he will ever be again. Maya, who chose them at the cantina and chose them again at the extraction. The first faint understanding that Inquisitor Draco is now permanently in the campaign weather. Optionally — if the crew thought to copy Vischera's data slate during the breach — a routing manifest pointing at Takodana, which Varth will use to stage Adventure 2.\n\nDO NOT REDIRECT TO COMBAT. If players try to invent a threat (Imperial pursuit, a stowaway, a malfunction), absorb it into character work — Maya knows the Smuggler's Path breaks pursuit, Varth knows Draco is a long-burn problem and not a this-week problem, the engine groan is normal hyperspace stress and Maya is on it. The drama of this scene is interior. Hold the line.",
           "beats": [
             {
               "id": "adv1-p3-s1-b1",
@@ -11651,12 +11657,40 @@
             {
               "id": "adv1-p3-s1-b2",
               "number": 2,
-              "title": "The Mandrake Quiet",
-              "readAloud": "Sometime in the second hour, the conversation in the Common Room thins. Whoever is awake will find the silence has weight to it. The Devaronian fixer is not on the ship. He was on the cantina floor at the Burning Deck six days ago, hands open, asking for a drink. He was at the bunker on Jakku making the call that nearly got everyone killed. He was on the ramp at the Vanishing Place, behind a tipped-over crate, when the Stormtroopers opened up. He is not on the ship.\n\nThere is no body to bury. There is no message to send. There is just the chair he would have been sitting in, which is empty, and the half-finished joke he would have made about the engine groan, which nobody is making.",
-              "gmNotes": "Quiet character beat for the table to fill. Mandrake (Hunaska Mandrake — the Devaronian fixer who set up the Vanishing Place job) was killed in the climax. There is no mechanical follow-up. Allow PCs to speak about him — eulogize, blame, drink to him, or sit in the silence — without prompting beyond what is on the page.\n\nIF PLAYERS ASK 'should we have done something differently?': the honest answer is no. Mandrake walked into the firefight knowing it was a coin flip. He chose this crew over Switch's payoff. The GM may quietly award a single shared Destiny Token to the table at the end of this beat, framed as 'Mandrake's last gift' — no mechanical announcement, just place a token in the pool. If the table does not engage with this beat, do not force it. Move to beat 3.\n\nIF PLAYERS WANT TO PUSH BACK AT VARTH about Mandrake (the deal Varth never finished making): hold him to the varth-aftermath comfort track. The 'aftermath-elegant-tomorrow' branch is the place to land any 'we paid for your rescue with our friend' weight.",
-              "beatType": "roleplay",
+              "title": "The Mandrake Quiet (Conditional on Outcome)",
+              "readAloud": "(Run the variant matching the Mandrake outcome resolved in adv1-p2-s8 — see beat.variants.[survived|sacrificed|captured|betrayed]. If the outcome was not explicitly resolved, default to 'sacrificed'.)",
+              "gmNotes": "Branch on the recorded 'mandrake' impact from adv1-p2-s8's key decision. Read the matching variant's readAloud, then deliver the matching gmNote. Each variant runs in roughly the same beat-2 slot — between the Varth Off-Script conversation and the Maya in the Galley conversation. Default fallback if no decision was recorded: 'sacrificed' (the most common play outcome at this scene).",
+              "beatType": "conditional_roleplay",
               "optional": true,
-              "destinyHook": "Optional: GM may quietly add 1 Destiny Token to the shared pool, framed as 'Mandrake's last gift' to the table. No announcement."
+              "destinyHook": "Optional: GM may quietly add 1 Destiny Token to the shared pool, framed as 'Mandrake's last gift' to the table. No announcement.",
+              "gatedOn": {
+                "source": "adv1-p2-s8.decisionPoints[adv1-p2-s8-key-decision].impacts.mandrake",
+                "description": "Branch on the Mandrake outcome resolved at the climax of adv1-p2-s8. Run only the variant matching the recorded impact value."
+              },
+              "variants": {
+                "sacrificed": {
+                  "label": "Mandrake died holding the line.",
+                  "readAloud": "Sometime in the second hour, the conversation in the Common Room thins. Whoever is awake will find the silence has weight to it. The Devaronian fixer is not on the ship. He was on the cantina floor at the Burning Deck six days ago, hands open, asking for a drink. He was at the bunker on Jakku making the call that nearly got everyone killed. He was on the ramp at the Vanishing Place, behind a tipped-over crate, when the Stormtroopers opened up. He bought the seconds the crew used to clear the canopy. He is not on the ship.\n\nThere is no body to bury. There is no message to send. There is just the chair he would have been sitting in, which is empty, and the half-finished joke he would have made about the engine groan, which nobody is making.",
+                  "gmNote": "Quiet eulogy beat. Allow PCs to speak about him — eulogize, blame, drink to him, or sit in the silence — without prompting beyond what is on the page. GM may quietly add 1 shared Destiny Token to the pool, framed as 'Mandrake's last gift'. Do not announce it.",
+                  "destinyHook": "Optional: GM may quietly add 1 Destiny Token to the shared pool."
+                },
+                "survived": {
+                  "label": "Mandrake escaped with the crew.",
+                  "readAloud": "Sometime in the second hour, Mandrake comes aft from the cargo bay where he has been sitting alone in the dark, lowers himself onto the bench across from whoever is awake, and exhales long and slow.\n\n\"Well. That,\" he says, \"was significantly worse than I priced it at.\"\n\nThe Devaronian fixer is alive. His left horn is chipped near the base. There is a field-dressed scorch on his upper arm he keeps not looking at. The half-smile is real, and exhausted, and slightly haunted in a way the half-smile has never been before.\n\n\"I owe each of you a drink. The good kind. The kind I do not actually own. We will fix that on Takodana.\"",
+                  "gmNote": "Mandrake survived. He is now an aboard-the-ship NPC for the duration of the hyperspace run and a recurring ally going forward. Run as roleplay. He will not steal screen time from Varth or Maya — he is keeping his distance from Varth in particular ('the man you rescued is your prize, not mine'). Players who push him on what comes next get an honest 'I am still figuring out whether I am in this for the next job or not. Ask me on Takodana.' Adventure 2 onward should treat Mandrake as a present-and-active fixer with his own agenda.",
+                  "narrativeImpact": "Mandrake remains available as an NPC fixer in Adventures 2+."
+                },
+                "captured": {
+                  "label": "Draco took Mandrake alive.",
+                  "readAloud": "Sometime in the second hour, the conversation in the Common Room thins, and the silence that fills it has a different texture than grief. Mandrake is not on the ship. Mandrake is not dead. Mandrake is, as far as anyone can confirm, in the back of the unmarked black shuttle that was on the landing pad when the Banshee broke atmosphere.\n\nThere is no body. There is no eulogy. There is the certainty that somewhere — right now, while the hyperspace tone hums — Inquisitor Draco is sitting across from a Devaronian who knows the crew's faces, and is asking him questions in the careful methodical voice of a man who has all the time in the world.\n\nNobody says it out loud. Everyone is thinking it. The chair Mandrake would have been sitting in is empty, and it is going to keep being empty for a while, and it is also a leak.",
+                  "gmNote": "Mandrake is captured, not dead. This is the worst non-fatal outcome — every secret Mandrake knew about the crew (faces, voices, voiceprints, the Banshee's profile, Switch's bunker, the Reestkii landing site) is now in Imperial hands as fast as Draco can extract it. The campaign weather changes accordingly: Imperial entanglements arrive sooner, intelligence on the crew is sharper, and Mandrake himself may reappear in Adv 3+ as 'a broken instrument of the Inquisition.' Players should feel the weight without the GM enumerating consequences. Allow them to plan, mourn, or rage. No mechanical reward (the Destiny Token does not apply here — Mandrake's last gift was not given freely)."
+                },
+                "betrayed": {
+                  "label": "Mandrake cut a deal with Draco.",
+                  "readAloud": "Sometime in the second hour — when the silence has gone on long enough — the picture assembles itself. The way the Stormtroopers at the canopy edge had the firing angles right. The way Draco's shuttle came in on the exact bearing the crew had run extraction prep on. The way Mandrake was unaccounted for in the last five minutes before the ramp closed.\n\nNobody on the ship has said it out loud yet. Nobody is going to enjoy being the first one to say it.\n\nThe Devaronian fixer is not on the ship because the Devaronian fixer cut a deal. Whoever puts that thought into words first does not get to take it back.",
+                  "gmNote": "Mandrake's betrayal is not yet confirmed in fiction — only suspected. Allow the table to do the work of arriving at the conclusion. Whichever PC speaks the suspicion first becomes the table's narrative anchor for the betrayal arc. Do NOT confirm or deny in this scene. The full reveal is reserved for a later moment in Adventure 2 or 3, when Mandrake is sighted alive in Imperial company. The Destiny Token does not apply here. The gmNotes for the rest of Adv 1 should treat Mandrake as a hostile asset with intimate knowledge of the crew's operating profile."
+                }
+              }
             },
             {
               "id": "adv1-p3-s1-b3",
@@ -11705,8 +11739,8 @@
                   "outcome": "Run varth-aftermath conversation tree (beat 1)."
                 },
                 {
-                  "label": "Mourn Mandrake without prompting",
-                  "outcome": "Run beat 2 quietly. Optional shared Destiny Token added to the pool."
+                  "label": "Address what happened to Mandrake",
+                  "outcome": "Run beat 2, choosing the variant matching the resolved Mandrake outcome from adv1-p2-s8 (survived, sacrificed, captured, or betrayed)."
                 },
                 {
                   "label": "Find Maya in the galley",
@@ -11758,7 +11792,13 @@
             "minutes": "20-60",
             "notes": "Run as long or short as the table wants. There is no clock and no failure state. Beats 1 and 4 are the spine; beats 2 and 3 are character work. If the table is tired after beat 1, exit to Adventure 2 — varth-debrief covers the briefing."
           },
-          "disciplineChallenges": []
+          "disciplineChallenges": [],
+          "themeTags": [
+            "crew formation",
+            "aftermath",
+            "keeping promises",
+            "the cost of rescue"
+          ]
         }
       ]
     }
