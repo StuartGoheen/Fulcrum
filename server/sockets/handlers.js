@@ -102,6 +102,42 @@ async function rebuildPool(io) {
   return destinyPool;
 }
 
+// Strip GM-only fields from campaign_state before broadcasting to players.
+// Mirrors client-side TournamentTracker.filterForPlayers but enforced server-side.
+function _filterStateForPlayers(state) {
+  if (!state || typeof state !== 'object') return state;
+  const out = {};
+  for (const k of Object.keys(state)) {
+    const v = state[k];
+    if (k === 'adv3_tournament' && v && typeof v === 'object') {
+      // Allowlist approach: only emit fields safe for player view.
+      const seating = {};
+      const src = v.seating || {};
+      for (const t of Object.keys(src)) {
+        seating[t] = (src[t] || []).map(s => {
+          if (!s) return s;
+          return {
+            kind: s.kind,
+            name: s.name,
+            chips: s.chips,
+            status: s.status,
+            seatNum: s.seatNum
+          };
+        });
+      }
+      out[k] = {
+        seating,
+        fieldRemaining: v.fieldRemaining,
+        leader: v.leader,
+        active: v.active === false ? false : true
+      };
+    } else {
+      out[k] = v;
+    }
+  }
+  return out;
+}
+
 function _getPlayerCombatState() {
   if (!_combatState || !_combatState.active) return { active: false };
   var mapKey = null;
@@ -330,7 +366,8 @@ function registerHandlers(io) {
           return acc;
         }, {});
 
-        socket.emit('state:sync', { state });
+        const stateOut = role === 'gm' ? state : _filterStateForPlayers(state);
+        socket.emit('state:sync', { state: stateOut });
 
         const destinyPool = await getDestinyPool();
         const destinyLocked = await isDestinyLocked();
@@ -396,7 +433,8 @@ function registerHandlers(io) {
           catch { acc[row.key] = row.value; }
           return acc;
         }, {});
-        socket.emit('state:sync', { state });
+        const out = socket.data.role === 'gm' ? state : _filterStateForPlayers(state);
+        socket.emit('state:sync', { state: out });
       } catch (err) {
         console.error('[socket] state:request error:', err);
       }
@@ -424,7 +462,8 @@ function registerHandlers(io) {
           return acc;
         }, {});
 
-        io.emit('state:sync', { state });
+        io.to('gm').emit('state:sync', { state });
+        io.to('players').emit('state:sync', { state: _filterStateForPlayers(state) });
         console.log(`[socket] State updated by GM: ${key}`);
       } catch (err) {
         console.error('[socket] state:update error:', err);

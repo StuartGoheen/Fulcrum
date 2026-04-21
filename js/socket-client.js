@@ -172,8 +172,34 @@
       console.warn('[socket] Connection error');
     });
 
+    var _ttCachedScene = null;
+    var _ttCachedState = null;
+    function _ttRender() {
+      if (!window.TournamentTracker) return;
+      var mount = document.getElementById('tournament-strip-mount');
+      window.TournamentTracker.renderPlayerStrip(_ttCachedState || {}, mount, _ttCachedScene);
+    }
+    function _ttRefreshScene() {
+      fetch('/api/campaign/progress')
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          var sid = d && d.progress && d.progress.scene_id;
+          if (sid !== _ttCachedScene) {
+            _ttCachedScene = sid;
+            _ttRender();
+          }
+        })
+        .catch(function () {});
+    }
     socket.on('state:sync', ({ state }) => {
+      _ttCachedState = state || {};
+      _ttRender();
     });
+    // Request initial state and fetch active scene
+    socket.emit('state:request');
+    _ttRefreshScene();
+    // Re-poll scene every 8s so the strip appears/disappears as GM advances scenes
+    setInterval(_ttRefreshScene, 8000);
 
     socket.on('destiny:sync', ({ pool }) => {
       renderDestinyPool(pool);

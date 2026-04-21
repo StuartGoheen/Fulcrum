@@ -2422,6 +2422,30 @@
     if (panelId === 'groupchallenge') {
       _bindGroupChallengeEvents(panel);
     }
+    if ((panelId === 'ttroster' || panelId === 'ttday1') && window.TournamentTracker) {
+      var adv = getAdventure(currentAdventure);
+      var part = adv ? getPart(adv, currentPart) : null;
+      var sc = part ? getScene(part, currentScene) : null;
+      if (sc) {
+        var refresh = function () {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (!body) return;
+          if (panelId === 'ttroster') body.innerHTML = window.TournamentTracker.buildRosterHtml(sc, partyCache, _campaignState || {});
+          else body.innerHTML = window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
+          _bindPanelContent(panel, panelId);
+          // Refresh tile meta if Day 1 (field counter)
+          if (panelId === 'ttday1') {
+            var tile = document.querySelector('[data-panel-id="ttday1"] .cb-tile-meta');
+            if (tile) {
+              var st = window.TournamentTracker.readState(_campaignState || {});
+              tile.textContent = window.TournamentTracker.fieldRemaining(st) + '/60 alive';
+            }
+          }
+        };
+        if (panelId === 'ttroster') window.TournamentTracker.bindRoster(panel, sc, partyCache, _campaignState || {}, socket, refresh);
+        else window.TournamentTracker.bindDay1(panel, sc, partyCache, _campaignState || {}, socket, refresh);
+      }
+    }
   }
 
   function _bindTtsEvents(panel) {
@@ -3268,6 +3292,15 @@
       html += '<div class="cb-tile' + (_openPanels['pacing'] ? ' cb-tile--active' : '') + '" data-panel-id="pacing"><span class="cb-tile-icon">&#9200;</span><span class="cb-tile-label">Pacing</span><span class="cb-tile-meta">' + (scene.pacing.estimatedMinutes ? '~' + scene.pacing.estimatedMinutes + ' min' : 'Guide') + '</span></div>';
     }
     html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">Broadcast</span></div>';
+    if (window.TournamentTracker && window.TournamentTracker.isRosterScene(scene.id)) {
+      var ttRosterMeta = scene.id === window.TournamentTracker.SCENE_EVE ? 'Eve review' : 'Entry paths';
+      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['ttroster'] ? ' cb-tile--active' : '') + '" data-panel-id="ttroster"><span class="cb-tile-icon">&#127922;</span><span class="cb-tile-label">Tournament Roster</span><span class="cb-tile-meta">' + ttRosterMeta + '</span></div>';
+    }
+    if (window.TournamentTracker && window.TournamentTracker.isDay1Scene(scene.id)) {
+      var ttDay1State = window.TournamentTracker.readState(_campaignState || {});
+      var ttFieldNum = window.TournamentTracker.fieldRemaining(ttDay1State);
+      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['ttday1'] ? ' cb-tile--active' : '') + '" data-panel-id="ttday1"><span class="cb-tile-icon">&#127922;</span><span class="cb-tile-label">Day 1 Standings</span><span class="cb-tile-meta">' + ttFieldNum + '/60 alive</span></div>';
+    }
     if (hasGroupChallenge) {
       html += '<div class="cb-tile cb-tile--gc' + (_openPanels['groupchallenge'] ? ' cb-tile--active' : '') + '" data-panel-id="groupchallenge"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Group Challenge</span><span class="cb-tile-meta">' + esc(scene.groupChallenge.name) + ' \u2022 ' + scene.groupChallenge.vpThreshold + ' VP</span></div>';
     }
@@ -3337,7 +3370,7 @@
           closeFloatingPanel(panelId);
           return;
         }
-        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge' };
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', ttroster: 'Tournament Roster', ttday1: 'Day 1 Standings — Sabacc Tournament' };
         var contentMap = {
           readaloud: function () { return _buildReadAloudHtml(scene); },
           gmnotes: function () { return _buildGmNotesHtml(scene); },
@@ -3348,9 +3381,11 @@
           rewards: function () { return _buildRewardsHtml(scene); },
           pacing: function () { return _buildPacingHtml(scene); },
           holonet: function () { return _buildHoloNetHtml(); },
-          groupchallenge: function () { return _buildGroupChallengeHtml(scene); }
+          groupchallenge: function () { return _buildGroupChallengeHtml(scene); },
+          ttroster: function () { return window.TournamentTracker.buildRosterHtml(scene, partyCache, _campaignState || {}); },
+          ttday1: function () { return window.TournamentTracker.buildDay1Html(scene, partyCache, _campaignState || {}); }
         };
-        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 } };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, ttroster: { width: 720, height: 580 }, ttday1: { width: 1040, height: 720 } };
         var builder = contentMap[panelId];
         if (builder) {
           openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
@@ -4102,7 +4137,36 @@
 
     socket.on('player:connected', function () { loadPartyMonitor(); });
     socket.on('player:disconnected', function () { loadPartyMonitor(); });
-    socket.on('state:sync', function () { loadPartyMonitor(); });
+    socket.on('state:sync', function (data) {
+      if (data && data.state) _campaignState = data.state;
+      loadPartyMonitor();
+      // Re-render any open tournament-tracker panels
+      if (window.TournamentTracker) {
+        ['ttroster', 'ttday1'].forEach(function (pid) {
+          var panel = document.getElementById('fp-' + pid);
+          if (panel) {
+            var body = panel.querySelector('.cb-fpanel-body');
+            var adv = getAdventure(currentAdventure);
+            var part = adv ? getPart(adv, currentPart) : null;
+            var sc = part ? getScene(part, currentScene) : null;
+            if (body && sc) {
+              body.innerHTML = pid === 'ttroster'
+                ? window.TournamentTracker.buildRosterHtml(sc, partyCache, _campaignState || {})
+                : window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
+              _bindPanelContent(panel, pid);
+            }
+          }
+        });
+        // Refresh Day 1 tile meta
+        var ttTile = document.querySelector('[data-panel-id="ttday1"] .cb-tile-meta');
+        if (ttTile) {
+          var st = window.TournamentTracker.readState(_campaignState || {});
+          ttTile.textContent = window.TournamentTracker.fieldRemaining(st) + '/60 alive';
+        }
+      }
+    });
+    // Request initial state on connect
+    socket.emit('state:request');
     socket.on('advancement:sync', function () { loadPartyMonitor(); });
 
     socket.on('combat:state', function (data) {
