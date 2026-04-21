@@ -206,9 +206,9 @@
       "flora": [],
       "campaignNotes": {
         "adventures": ["adv3"],
-        "era": "15 BBY — Cloud City is not a polished resort. It is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms. Varga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
+        "era": "15 BBY — Cloud City has been floating in Bespin's Life Zone for nearly four centuries, built ~400 BBY by Lord Ecclessis Figg with Ugnaught labor (Figg secured the workforce by trading the Ugnaughts their freedom from slavery in exchange for constructing the saucer city). It is a long-established Tibanna gas mining colony and a haven for tourists, gamblers, and smugglers — deliberately keeping its head down to avoid drawing the full weight of the Imperial garrison, relying on its 'unimportant' status to mask its massive wealth. Varga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer. The Payday Illusion: looks like paradise, every smile is bought, the Empire's shadow hidden behind casino lights.",
         "keyLocations": {
-          "cloud_city": "A repulsorlift tibanna gas mining colony floating in Bespin's atmosphere. In this era, rough and industrial, not the gleaming resort of later decades.",
+          "cloud_city": "A repulsorlift Tibanna gas mining colony floating in Bespin's atmosphere — built ~400 BBY by Lord Ecclessis Figg with Ugnaught labor and continuously operational since. In 15 BBY it is a long-established, lucrative mining and tourism hub that deliberately keeps a low profile under Imperial scrutiny.",
           "royal_casino": "A loud, smoky, aggressive establishment where the three-day sabacc tournament drives the central heist.",
           "refinery_platform_13": "Deep in the gas giant's atmosphere. Trandoshan mercenaries and corrupt Ugnaught riggers loading gas canisters onto shuttles. Catwalks over a lethal drop.",
           "docking_bay_4414": "Where Varga keeps the Shackles of Nizon in orbit on slave circuits. The final confrontation location."
