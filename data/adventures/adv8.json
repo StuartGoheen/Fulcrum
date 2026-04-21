@@ -116,6 +116,7 @@
               "name": "Beat 3 — Behind the Curtain (Oga Conversation Overlay)",
               "type": "social",
               "trigger": "Crew tells Tugg they are going behind the curtain",
+              "conversationRef": "oga-garra-cantina",
               "description": "Tugg parts the beaded curtain. Oga is at the back booth alone, drinking something not on the menu, with a ledger pad open and three datachips in a neat row. This is the structured social scene: the Oga Garra conversation overlay. Launch the [oga-garra-cantina] conversation from the Conversation panel. Comfort starts at 3 — accept the ten-point tax cleanly to jump to 4 immediately. The conversation delivers the Iron Blockade strategic brief, the three-captain referral (Maku, Brell, Vex), the route options (Hosnian / Malpaz / Xala-Cermau), Captain Vassar's four-shift seam, and the Soren Vex history.",
               "tactics": "GM ACTION: Open the Conversation panel and launch [oga-garra-cantina]. Story topics about the blockade and Oga's loyalties HOLD comfort. Business topics about captains, contracts, and rates are neutral. Probe topics about her loyalties cost 1 comfort each. THE TEN-POINT TAX is the gate: accept cleanly = comfort to 4 and warm conversation; haggle to eight = -1 comfort but proceeds; refuse entirely = scene ends and Adv 8 becomes a much harder slog."
             },
@@ -225,6 +226,7 @@
               "name": "Beat 3a — Sitting Across from Vex (Conversation Overlay, if Vex chosen)",
               "type": "social",
               "trigger": "Crew climbs the ramp of the Requital",
+              "conversationRef": "soren-vex-requital",
               "description": "Vex has poured caf for everyone, including Maya at the ramp behind the crew. Maya is not at the table — she is at the ramp, arms folded, having come this far and no further. The fourth caf cup sits between Vex and the empty chair like a placed object in a still life. This is the structured social scene: the Soren Vex conversation overlay. Launch the [soren-vex-requital] conversation from the Conversation panel. Comfort starts at 1 — one wrong word from Maya walking off the ship and taking the contract with her. The conversation is a triangle: the crew asks, Vex answers, Maya listens.",
               "tactics": "GM ACTION (only if Vex chosen): Open the Conversation panel and launch [soren-vex-requital]. Story topics about Bestine, the partner he sold out, and the six years since HOLD or raise comfort. Business topics about contract/route/ship are neutral. Probe topics that minimize what he did cost 2 comfort each. Maya may speak via standard interjection — see the sv-to-maya root for the explicit Maya-speaks moment. At Comfort 0, Vex stands and walks to the cockpit; the contract dies; the crew leaves the Requital empty-handed and Oga will not see them again for two days. At dryLine, the contract is signed and adv8-p2 begins with Vex at the stick."
             },

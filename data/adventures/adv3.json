@@ -594,6 +594,7 @@
               "name": "Beat 2 — Sitting Down with Fyren and Krygg (Conversation Overlay)",
               "type": "social",
               "trigger": "A PC asks the first real question of the Ugnaughts",
+              "conversationRef": "fyren-krygg-the-works",
               "description": "Fyren and Krygg invite the crew's questions in earnest. This is the structured social scene — the Fyren-Krygg conversation overlay. Launch the [fyren-krygg-the-works] conversation from the Conversation panel. The two Ugnaughts share a single comfort meter; Fyren is the diplomat voice, Krygg is the pragmatist voice. The conversation can deliver tournament handover intel, the cashier (Mandelbrot) characterization, the Imperial undercover (Arandis) tell, the Nuvo wound, and — at high comfort — a Wing Guard service-corridor keycard.",
               "tactics": "GM ACTION: Open the Conversation panel and launch [fyren-krygg-the-works]. Comfort starts at 3. Story topics about the Tibanna siphon and Nuvo HOLD comfort. Business topics about the handover are neutral. Probe topics about Guild complicity cost 1 comfort each. Krygg's tell is his knuckle-cracking — when comfort drops, he cracks. When it rises, he sits. The hard exit is Krygg pulling Fyren out by the collar at Comfort 1. The conversation ends when accessible topics run out, when comfort drops to 1, or when the GM is ready to hand off to Beat 3."
             },

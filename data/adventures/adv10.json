@@ -303,6 +303,7 @@
               "name": "Beat 3 — The Last Conversation (Conversation Overlay)",
               "type": "social",
               "trigger": "A PC speaks, OR the silence becomes the silence",
+              "conversationRef": "varth-leviathan",
               "description": "Varth invites the crew to ask, or to shoot. This is the structured social scene: the final Varth conversation overlay. Launch the [varth-leviathan] conversation from the Conversation panel. Comfort starts at 5 — the HIGHEST starting comfort of any campaign conversation. Varth has rehearsed this room for six years and he is the most honest version of himself. The conversation delivers the truth of the betrayal (always the plan), the implant (Cybot Galactica Model VII courier overwritten with his own protocols), the Leviathan reveal (he stole the dreadnought program from the Empire), the fleet status (sixteen ships, twenty thousand crew, his flag), and — crucially — the FLAG QUESTION the crew now answers with him.",
               "tactics": "GM ACTION: Open the Conversation panel and launch [varth-leviathan]. THIS IS THE CAMPAIGN PAYOFF. Treat slowly. The comfort meter does NOT trigger an exit here — Varth answers everything until the timer runs out. The meter instead controls the closing: at low comfort, Varth dies cursing the crew (exitLine); at high comfort, Varth dies a partner (dryLine). The flag choice (Resistance, no flag, Banshee, private fleet, scuttle) becomes the canonical end state of the campaign. There is no wrong answer. Honor whatever the players pick."
             },
