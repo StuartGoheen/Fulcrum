@@ -290,7 +290,7 @@
     {
       "key": "drainage_sluice",
       "label": "Drainage Sluice",
-      "description": "Knee-deep runoff tunnel on the NW exterior face. The PC entry path. Three obstacles in sequence: outer grate (forced or sliced open) → embedded motion/IR sensors halfway through (Assess to spot, Tech to disable, Stealth — esp. underwater — to bypass) → inner floor grate emerging into the interior corridor. Sound carries both ways through the pipe.",
+      "description": "Underground stone runoff tunnel emerging from the NE exterior face of the fortress. The outer grate is several meters out from the compound wall, sunk in a hollow in the jungle floor — invisible from any of the perimeter posts. From the outer grate the PCs belly-crawl through knee-deep stagnant brackish water under the jungle and then under the fortress wall before the inner floor grate opens up into the interior corridor. The PC entry path. Three obstacles in sequence: outer grate (forced or sliced open) → embedded motion/IR sensors halfway through the underground crawl (Assess to spot, Tech to disable, Stealth — esp. underwater — to bypass) → inner floor grate emerging into the interior corridor. Sound carries both ways through the pipe.",
       "byTier": {
         "GREEN": {
           "state": "unguarded",
@@ -768,7 +768,7 @@
     {
       "key": "vazus_mandrake_west",
       "label": "Vazus Mandrake (Western Approach)",
-      "composition": "Vazus Mandrake — Separatist Holdout Commando, independent ally. He is NOT in the building. He circled W after parting from the PCs at the sluice mouth and shadows the Stormtrooper squad from the treeline. His combat statline is in his character sheet (ranged commando — sniper rifle + det charges).",
+      "composition": "Vazus Mandrake — Separatist Holdout Commando, independent ally. He is NOT in the building. He parted from the PCs at the outer sluice grate (NE jungle hollow) and looped south and west around the perimeter through cover he has used for years; he now shadows the Stormtrooper squad from the treeline outside the SW yard. His combat statline is in his character sheet (ranged commando — sniper rifle + det charges).",
       "byTier": {
         "GREEN": "In the treeline NW of the SW yard. Watching the squad. Holding fire — every minute the PCs are quiet is a minute he doesn't have to commit.",
         "YELLOW": "Same — holds position. The PCs still have stealth on the table; Mandrake won't burn his concealment.",
