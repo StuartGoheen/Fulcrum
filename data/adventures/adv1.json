@@ -1322,7 +1322,6 @@
           ],
           "disciplineTags": [
             "athletics",
-            "athletics",
             "ranged",
             "evasion",
             "survival"
@@ -2818,7 +2817,6 @@
           "disciplineTags": [
             "persuasion",
             "charm",
-            "investigation",
             "investigation",
             "skulduggery"
           ],
@@ -8181,8 +8179,7 @@
           "disciplineTags": [
             "skulduggery",
             "survival",
-            "piloting",
-            "survival"
+            "piloting"
           ],
           "gearFlags": [
             "starship_tool_kit"
@@ -8430,9 +8427,7 @@
             "athletics",
             "stealth",
             "investigation",
-            "survival",
-            "beast_handling",
-            "investigation"
+            "beast_handling"
           ],
           "gearFlags": [
             "Environmental"
@@ -8979,7 +8974,6 @@
           ],
           "disciplineTags": [
             "investigation",
-            "persuasion",
             "persuasion"
           ],
           "gearFlags": [],
@@ -9470,7 +9464,6 @@
           ],
           "disciplineTags": [
             "stealth",
-            "skulduggery",
             "skulduggery",
             "ranged",
             "evasion",
@@ -9992,7 +9985,6 @@
           ],
           "disciplineTags": [
             "skulduggery",
-            "skulduggery",
             "stealth",
             "ranged",
             "athletics"
@@ -10329,9 +10321,7 @@
           "disciplineTags": [
             "charm",
             "investigation",
-            "investigation",
-            "persuasion",
-            "charm"
+            "persuasion"
           ],
           "gearFlags": [],
           "encounters": [
@@ -11721,22 +11711,7 @@
               "conditional": "PC crew recovered Vischera data slate during adv1-p2-s7 fortress infiltration."
             }
           ],
-          "npcs": [
-            {
-              "id": "npc-varth-epilogue",
-              "name": "Vischera Varth",
-              "role": "Rescued Imperial admiral, off-script",
-              "behavior": "Comfort 2 starting. Polished operator persona is offline. Honest, exhausted, occasionally tactile (touches his temple when Draco comes up). Re-armors by morning.",
-              "intel": "Defer to varth-aftermath.json for the full conversation tree. He will answer almost anything tonight if asked plainly."
-            },
-            {
-              "id": "npc-maya-epilogue",
-              "name": "Maya Korr",
-              "role": "Banshee captain, decompressing",
-              "behavior": "Tracking a private Comfort meter (GM-side, invisible to players). Choosing this crew is starting to cost her something and she is figuring out whether she wants to keep paying.",
-              "intel": "Defer to maya-banshee-galley.json for the full conversation tree."
-            }
-          ],
+          "npcs": [],
           "decisionPoints": [
             {
               "id": "adv1-p3-s1-dp1",
