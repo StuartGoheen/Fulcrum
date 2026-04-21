@@ -664,6 +664,14 @@
     return { seating: seating };
   }
 
+  var ROLE_LABELS = {
+    competitor: 'Competitor',
+    security: 'Security',
+    spectator: 'Spectator',
+    dirty_money: 'Dirty Money',
+    none: 'Unassigned'
+  };
+
   function renderPlayerStrip(state, mountEl, currentSceneId) {
     if (!mountEl) return;
     var blob = (state && state[STATE_KEY]) || null;
@@ -672,18 +680,43 @@
       mountEl.innerHTML = '';
       return;
     }
+    var myRole = blob.myRole || null;
+    var mySeat = blob.mySeat || null;
+
     var html = '<div class="tt-strip">';
+    html += '<div class="tt-strip-header">';
     html += '<div class="tt-strip-title">Sabacc Tournament — Live Standings</div>';
+    if (myRole) {
+      var roleLabel = ROLE_LABELS[myRole] || myRole;
+      var seatLoc = '';
+      if (myRole === 'competitor' && mySeat) {
+        seatLoc = ' — T' + mySeat.table + 'S' + (mySeat.seat + 1);
+      }
+      html += '<div class="tt-strip-me tt-strip-me--' + esc(myRole) + '">';
+      html += '<span class="tt-strip-me-label">Your role:</span> ';
+      html += '<span class="tt-strip-me-role">' + esc(roleLabel) + seatLoc + '</span>';
+      if (mySeat && (myRole === 'competitor')) {
+        html += ' <span class="tt-strip-me-chips">' + (mySeat.chips || 0).toLocaleString() + ' chips</span>';
+        html += ' <span class="tt-strip-me-status" style="background:' + (STATUS_COLORS[mySeat.status] || '#71717a') + ';">' + esc(mySeat.status || '') + '</span>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+
     html += '<div class="tt-strip-grid">';
     for (var t = 1; t <= TABLES; t++) {
       var seats = blob.seating[t] || [];
       var alive = seats.filter(function (s) { return s && s.status !== 'Eliminated'; }).length;
-      html += '<div class="tt-strip-table"><div class="tt-strip-tnum">T' + t + '</div><div class="tt-strip-tcount">' + alive + '/5</div><div class="tt-strip-tseats">';
+      var hasMine = seats.some(function (s) { return s && s.mine; });
+      html += '<div class="tt-strip-table' + (hasMine ? ' tt-strip-table--mine' : '') + '"><div class="tt-strip-tnum">T' + t + '</div><div class="tt-strip-tcount">' + alive + '/5</div><div class="tt-strip-tseats">';
       seats.forEach(function (seat) {
         if (!seat) return;
         var color = STATUS_COLORS[seat.status] || '#71717a';
         var lbl = (seat.kind === 'pc' || seat.kind === 'npc') ? esc(seat.name) : '·';
-        html += '<span class="tt-strip-seat" style="background:' + color + ';" title="' + esc(seat.name || '') + ' — ' + esc(seat.status || '') + (seat.chips ? ' (' + seat.chips + ' chips)' : '') + '">' + lbl + '</span>';
+        var cls = 'tt-strip-seat' + (seat.mine ? ' tt-strip-seat--mine' : '');
+        var title = esc(seat.name || '') + ' — ' + esc(seat.status || '') + (seat.chips ? ' (' + seat.chips + ' chips)' : '');
+        if (seat.mine) title = 'YOU: ' + title;
+        html += '<span class="' + cls + '" style="background:' + color + ';" title="' + title + '">' + lbl + '</span>';
       });
       html += '</div></div>';
     }
@@ -771,13 +804,26 @@
   function _stripStyles() {
     return '<style>' +
       '.tt-strip{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(15,15,25,.96);border-bottom:1px solid #2a2a3a;padding:.3rem .5rem;color:#d8d8e8;font-family:Exo 2,sans-serif;}' +
-      '.tt-strip-title{font-family:Audiowide,sans-serif;font-size:.65rem;color:#f5d56b;letter-spacing:.05rem;margin-bottom:.2rem;text-align:center;}' +
+      '.tt-strip-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.2rem;flex-wrap:wrap;}' +
+      '.tt-strip-title{font-family:Audiowide,sans-serif;font-size:.65rem;color:#f5d56b;letter-spacing:.05rem;}' +
+      '.tt-strip-me{display:flex;align-items:center;gap:.4rem;font-size:.65rem;padding:.15rem .45rem;border-radius:3px;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.4);}' +
+      '.tt-strip-me--competitor{background:rgba(245,213,107,.12);border-color:rgba(245,213,107,.5);}' +
+      '.tt-strip-me--security{background:rgba(96,165,250,.12);border-color:rgba(96,165,250,.5);}' +
+      '.tt-strip-me--spectator{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.5);}' +
+      '.tt-strip-me--dirty_money{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.5);}' +
+      '.tt-strip-me-label{color:#888;text-transform:uppercase;font-size:.55rem;letter-spacing:.05rem;}' +
+      '.tt-strip-me-role{font-family:Audiowide,sans-serif;color:#f5d56b;}' +
+      '.tt-strip-me-chips{color:#22c55e;font-weight:700;}' +
+      '.tt-strip-me-status{display:inline-block;padding:.05rem .35rem;border-radius:2px;color:#000;font-weight:700;font-size:.55rem;}' +
       '.tt-strip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:.2rem;}' +
-      '.tt-strip-table{background:rgba(0,0,0,.3);border-radius:3px;padding:.15rem;text-align:center;}' +
+      '.tt-strip-table{background:rgba(0,0,0,.3);border-radius:3px;padding:.15rem;text-align:center;border:1px solid transparent;}' +
+      '.tt-strip-table--mine{border-color:#f5d56b;background:rgba(245,213,107,.08);box-shadow:0 0 4px rgba(245,213,107,.3);}' +
       '.tt-strip-tnum{font-size:.5rem;color:#666;font-family:Audiowide,sans-serif;}' +
+      '.tt-strip-table--mine .tt-strip-tnum{color:#f5d56b;}' +
       '.tt-strip-tcount{font-size:.6rem;color:#f5d56b;font-weight:700;}' +
       '.tt-strip-tseats{display:flex;justify-content:center;gap:1px;flex-wrap:wrap;margin-top:.1rem;}' +
       '.tt-strip-seat{display:inline-block;min-width:.5rem;height:.5rem;border-radius:1px;font-size:.4rem;line-height:.5rem;color:#000;font-weight:700;padding:0 .1rem;}' +
+      '.tt-strip-seat--mine{outline:1.5px solid #f5d56b;outline-offset:1px;transform:scale(1.15);}' +
       '@media (max-width:768px){.tt-strip-grid{grid-template-columns:repeat(6,1fr);}}' +
       '</style>';
   }

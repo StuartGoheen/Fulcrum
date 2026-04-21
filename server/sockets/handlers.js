@@ -104,8 +104,9 @@ async function rebuildPool(io) {
 
 // Strip GM-only fields from campaign_state before broadcasting to players.
 // Mirrors client-side TournamentTracker.filterForPlayers but enforced server-side.
-function _filterStateForPlayers(state) {
+function _filterStateForPlayers(state, characterId) {
   if (!state || typeof state !== 'object') return state;
+  const myPcSeatId = characterId ? ('pc_' + characterId) : null;
   const out = {};
   for (const k of Object.keys(state)) {
     const v = state[k];
@@ -113,23 +114,33 @@ function _filterStateForPlayers(state) {
       // Allowlist approach: only emit fields safe for player view.
       const seating = {};
       const src = v.seating || {};
+      let mySeat = null;
       for (const t of Object.keys(src)) {
-        seating[t] = (src[t] || []).map(s => {
+        seating[t] = (src[t] || []).map((s, idx) => {
           if (!s) return s;
-          return {
+          const isMine = !!(myPcSeatId && s.id === myPcSeatId);
+          if (isMine) {
+            mySeat = { table: Number(t), seat: idx, chips: s.chips, status: s.status, name: s.name };
+          }
+          const out = {
             kind: s.kind,
             name: s.name,
             chips: s.chips,
             status: s.status,
             seatNum: s.seatNum
           };
+          if (isMine) out.mine = true;
+          return out;
         });
       }
+      const myRole = (characterId && v.roster && v.roster[characterId]) || null;
       out[k] = {
         seating,
         fieldRemaining: v.fieldRemaining,
         leader: v.leader,
-        active: v.active === false ? false : true
+        active: v.active === false ? false : true,
+        myRole: myRole,
+        mySeat: mySeat
       };
     } else {
       out[k] = v;
@@ -366,7 +377,7 @@ function registerHandlers(io) {
           return acc;
         }, {});
 
-        const stateOut = role === 'gm' ? state : _filterStateForPlayers(state);
+        const stateOut = role === 'gm' ? state : _filterStateForPlayers(state, characterId);
         socket.emit('state:sync', { state: stateOut });
 
         const destinyPool = await getDestinyPool();
@@ -433,7 +444,7 @@ function registerHandlers(io) {
           catch { acc[row.key] = row.value; }
           return acc;
         }, {});
-        const out = socket.data.role === 'gm' ? state : _filterStateForPlayers(state);
+        const out = socket.data.role === 'gm' ? state : _filterStateForPlayers(state, socket.data.characterId);
         socket.emit('state:sync', { state: out });
       } catch (err) {
         console.error('[socket] state:request error:', err);
@@ -463,7 +474,10 @@ function registerHandlers(io) {
         }, {});
 
         io.to('gm').emit('state:sync', { state });
-        io.to('players').emit('state:sync', { state: _filterStateForPlayers(state) });
+        const playerSockets = await io.in('players').fetchSockets();
+        for (const ps of playerSockets) {
+          ps.emit('state:sync', { state: _filterStateForPlayers(state, ps.data && ps.data.characterId) });
+        }
         console.log(`[socket] State updated by GM: ${key}`);
       } catch (err) {
         console.error('[socket] state:update error:', err);
