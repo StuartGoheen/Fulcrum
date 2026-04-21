@@ -98,7 +98,8 @@
       day1: {
         beats: { reading_floor: false, catch_cheater: false, day1_cards: false, back_bar: false, day1_close: false },
         cheatCatch: 'none',
-        log: []
+        log: [],
+        recapNotes: ''
       }
     };
   }
@@ -113,6 +114,7 @@
     Object.keys(d).forEach(function (k) { if (s[k] == null) s[k] = d[k]; });
     if (!s.day1.beats) s.day1.beats = d.day1.beats;
     if (!s.day1.log) s.day1.log = [];
+    if (typeof s.day1.recapNotes !== 'string') s.day1.recapNotes = '';
     return s;
   }
 
@@ -343,6 +345,16 @@
     html += '<button class="tt-btn tt-btn-good" data-act="cheat-marker">Marker Spotted (clean)</button>';
     html += '<button class="tt-btn tt-btn-bad" data-act="cheat-accusation">Public Accusation (no evidence)</button>';
     html += '</div>';
+    html += '<div class="tt-recap-row">';
+    html += '<div class="tt-recap-label">Day 1 Recap (Journal Entry)</div>';
+    html += '<div class="tt-recap-hint">Notes are preserved across regenerations and appended to the auto-generated body.</div>';
+    html += '<textarea class="tt-recap-notes" rows="3" placeholder="GM narrative notes — color, callouts, side moments…">' + esc(state.day1.recapNotes || '') + '</textarea>';
+    html += '<div class="tt-recap-actions">';
+    html += '<button class="tt-btn tt-btn-sm" data-act="regenerate-recap">Regenerate Recap</button>';
+    html += '<span class="tt-recap-status" data-recap-status></span>';
+    html += '</div>';
+    html += '</div>';
+
     html += '<div class="tt-log">';
     html += '<div class="tt-log-label">Tournament Log</div>';
     if (!state.day1.log || state.day1.log.length === 0) {
@@ -626,6 +638,59 @@
         refresh();
       });
     }
+    var notes = panel.querySelector('.tt-recap-notes');
+    if (notes) {
+      var notesTimer = null;
+      notes.addEventListener('input', function () {
+        if (notesTimer) clearTimeout(notesTimer);
+        notesTimer = setTimeout(function () {
+          var s = readState(campaignState);
+          s.day1.recapNotes = notes.value;
+          save(s, socket);
+        }, 400);
+      });
+      notes.addEventListener('blur', function () {
+        if (notesTimer) { clearTimeout(notesTimer); notesTimer = null; }
+        var s = readState(campaignState);
+        if ((s.day1.recapNotes || '') !== notes.value) {
+          s.day1.recapNotes = notes.value;
+          save(s, socket);
+        }
+      });
+    }
+    var regen = panel.querySelector('[data-act="regenerate-recap"]');
+    if (regen) {
+      regen.addEventListener('click', function () {
+        if (!socket) return;
+        if (!window.confirm('Regenerate the Day 1 recap from the current tournament state? GM notes will be preserved.')) return;
+        // Send the freshest notes value directly with the regenerate event so the
+        // server uses it even if the debounced state save hasn't landed yet.
+        var liveNotes = notes ? notes.value : null;
+        if (notes) {
+          var s = readState(campaignState);
+          if ((s.day1.recapNotes || '') !== notes.value) {
+            s.day1.recapNotes = notes.value;
+            save(s, socket);
+          }
+        }
+        var status = panel.querySelector('[data-recap-status]');
+        if (status) { status.textContent = 'Regenerating…'; status.style.color = '#9ca3af'; }
+        var payload = { sceneId: scene.id };
+        if (typeof liveNotes === 'string') payload.gmNotes = liveNotes;
+        socket.emit('tournament:regenerate-day1-recap', payload);
+      });
+    }
+    if (socket && !socket._ttRecapAckBound) {
+      socket._ttRecapAckBound = true;
+      socket.on('tournament:recap-regenerated', function () {
+        var status = document.querySelector('[data-recap-status]');
+        if (!status) return;
+        status.textContent = 'Recap updated.';
+        status.style.color = '#22c55e';
+        setTimeout(function () { if (status) status.textContent = ''; }, 2500);
+      });
+    }
+
     var accuse = panel.querySelector('[data-act="cheat-accusation"]');
     if (accuse) {
       accuse.addEventListener('click', function () {
@@ -796,6 +861,12 @@
       '.tt-day1-footer{padding:.4rem;background:rgba(0,0,0,.25);border-radius:4px;}' +
       '.tt-cheat-row{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-bottom:.4rem;}' +
       '.tt-cheat-label{font-size:.65rem;color:#888;}.tt-cheat-label strong{color:#f5d56b;}' +
+      '.tt-recap-row{margin:.4rem 0;padding:.4rem;background:rgba(245,213,107,.05);border-left:2px solid #f5d56b;border-radius:3px;}' +
+      '.tt-recap-label{font-family:Audiowide,sans-serif;color:#f5d56b;font-size:.65rem;letter-spacing:.05rem;}' +
+      '.tt-recap-hint{color:#666;font-size:.55rem;margin:.15rem 0 .3rem;}' +
+      '.tt-recap-notes{width:100%;background:#15151f;color:#d8d8e8;border:1px solid #2a2a3a;border-radius:3px;padding:.3rem;font-size:.65rem;font-family:inherit;resize:vertical;min-height:3rem;}' +
+      '.tt-recap-actions{display:flex;align-items:center;gap:.5rem;margin-top:.3rem;}' +
+      '.tt-recap-status{font-size:.6rem;color:#9ca3af;}' +
       '.tt-log{margin-top:.3rem;max-height:8rem;overflow-y:auto;background:rgba(0,0,0,.3);border-radius:3px;padding:.3rem;}' +
       '.tt-log-label{font-size:.55rem;color:#666;text-transform:uppercase;letter-spacing:.05rem;margin-bottom:.2rem;}' +
       '.tt-log-empty{color:#555;font-style:italic;font-size:.6rem;}' +

@@ -4224,10 +4224,33 @@
             var part = adv ? getPart(adv, currentPart) : null;
             var sc = part ? getScene(part, currentScene) : null;
             if (body && sc) {
+              // Preserve focus/value/caret for any text input being edited (e.g. recap notes)
+              var active = document.activeElement;
+              var preserve = null;
+              if (active && body.contains(active) && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')) {
+                preserve = {
+                  selector: active.className ? '.' + active.className.split(/\s+/).join('.') : active.tagName.toLowerCase(),
+                  value: active.value,
+                  start: active.selectionStart,
+                  end: active.selectionEnd
+                };
+              }
               body.innerHTML = pid === 'ttroster'
                 ? window.TournamentTracker.buildRosterHtml(sc, partyCache, _campaignState || {})
                 : window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
               _bindPanelContent(panel, pid);
+              if (preserve) {
+                try {
+                  var restored = body.querySelector(preserve.selector);
+                  if (restored) {
+                    if (typeof preserve.value === 'string' && restored.value !== preserve.value) restored.value = preserve.value;
+                    restored.focus();
+                    if (typeof restored.setSelectionRange === 'function' && preserve.start != null) {
+                      restored.setSelectionRange(preserve.start, preserve.end);
+                    }
+                  }
+                } catch (_) { /* ignore */ }
+              }
             }
           }
         });

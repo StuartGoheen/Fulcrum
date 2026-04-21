@@ -265,6 +265,24 @@ const TOURNAMENT_NAMED_NPCS = [
 const TOURNAMENT_BUY_IN = 10000;
 const TOURNAMENT_BUY_BACK = 2000;
 
+const TOURNAMENT_RECAP_NOTES_MARKER = '\n\n——— GM Notes ———\n';
+
+function _stripGmNotes(body) {
+  if (!body || typeof body !== 'string') return { auto: body || '', notes: '' };
+  const idx = body.indexOf(TOURNAMENT_RECAP_NOTES_MARKER);
+  if (idx === -1) return { auto: body, notes: '' };
+  return {
+    auto: body.slice(0, idx),
+    notes: body.slice(idx + TOURNAMENT_RECAP_NOTES_MARKER.length)
+  };
+}
+
+function _composeRecapBody(autoBody, gmNotes) {
+  const notes = (gmNotes == null ? '' : String(gmNotes)).trim();
+  if (!notes) return autoBody;
+  return autoBody + TOURNAMENT_RECAP_NOTES_MARKER + notes;
+}
+
 function _formatTournamentRecapBody(state) {
   const seating = (state && state.seating) || {};
   let alive = 0, eliminated = 0;
@@ -327,26 +345,45 @@ function _formatTournamentRecapBody(state) {
   return lines.join('\n');
 }
 
-async function _saveTournamentRecapToJournal(state, sceneId) {
+async function _saveTournamentRecapToJournal(state, sceneId, options) {
   if (!sceneId) return null;
-  const body = _formatTournamentRecapBody(state || {});
+  const opts = options || {};
+  const regenerate = !!opts.regenerate;
+  const stateNotes = state && state.day1 && typeof state.day1.recapNotes === 'string'
+    ? state.day1.recapNotes
+    : null;
+  const autoBody = _formatTournamentRecapBody(state || {});
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     const existing = await client.query(
-      'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND title = $2 LIMIT 1',
+      'SELECT id, body FROM journal_entries WHERE source_scene_id = $1 AND title = $2 LIMIT 1',
       [sceneId, TOURNAMENT_RECAP_TITLE]
     );
     if (existing.rows.length > 0) {
+      if (!regenerate) {
+        await client.query('COMMIT');
+        return { entryId: existing.rows[0].id, created: false, updated: false };
+      }
+      // Preserve GM notes: prefer current state notes, fall back to whatever was
+      // previously appended to the existing entry body.
+      const prior = _stripGmNotes(existing.rows[0].body || '');
+      const notes = stateNotes != null ? stateNotes : prior.notes;
+      const newBody = _composeRecapBody(autoBody, notes);
+      await client.query(
+        'UPDATE journal_entries SET body = $1, updated_at = NOW() WHERE id = $2',
+        [newBody, existing.rows[0].id]
+      );
       await client.query('COMMIT');
-      return { entryId: existing.rows[0].id, created: false };
+      return { entryId: existing.rows[0].id, created: false, updated: true };
     }
+    const initialBody = _composeRecapBody(autoBody, stateNotes);
     const entryResult = await client.query(
       `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
        VALUES ($1, $2, $3, $4)
        ON CONFLICT (source_scene_id) WHERE source_scene_id IS NOT NULL AND title = 'Sabacc Tournament — Day 1 Recap' DO NOTHING
        RETURNING id`,
-      [TOURNAMENT_RECAP_TITLE, body, 'Campaign Log', sceneId]
+      [TOURNAMENT_RECAP_TITLE, initialBody, 'Campaign Log', sceneId]
     );
     if (entryResult.rows.length === 0) {
       const dup = await client.query(
@@ -354,7 +391,7 @@ async function _saveTournamentRecapToJournal(state, sceneId) {
         [sceneId, TOURNAMENT_RECAP_TITLE]
       );
       await client.query('COMMIT');
-      return { entryId: dup.rows[0] ? dup.rows[0].id : null, created: false };
+      return { entryId: dup.rows[0] ? dup.rows[0].id : null, created: false, updated: false };
     }
     const entryId = entryResult.rows[0].id;
     const tagPairs = [
@@ -1193,6 +1230,55 @@ function registerHandlers(io) {
         }
       } catch (err) {
         console.error('[socket] tournament:save-day1-recap error:', err);
+      }
+    });
+
+    socket.on('tournament:regenerate-day1-recap', async ({ sceneId, gmNotes } = {}) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can regenerate the tournament recap.' });
+        return;
+      }
+      if (!sceneId) return;
+      try {
+        const stateRow = await pool.query("SELECT value FROM campaign_state WHERE key = 'adv3_tournament'");
+        let state = null;
+        if (stateRow.rows.length > 0) {
+          try { state = JSON.parse(stateRow.rows[0].value); } catch (_) { state = null; }
+        }
+        if (!state) {
+          console.warn('[socket] tournament:regenerate-day1-recap: no adv3_tournament state found');
+          socket.emit('error', { message: 'Tournament state not found; cannot regenerate recap.' });
+          return;
+        }
+        // If the GM's freshest notes were sent in the event, trust them over the
+        // possibly-stale DB state (persists notes back to campaign_state too).
+        if (typeof gmNotes === 'string') {
+          state.day1 = state.day1 || {};
+          if (state.day1.recapNotes !== gmNotes) {
+            state.day1.recapNotes = gmNotes;
+            try {
+              await pool.query(
+                "UPDATE campaign_state SET value = $1, updated_at = NOW() WHERE key = 'adv3_tournament'",
+                [JSON.stringify(state)]
+              );
+            } catch (e) {
+              console.warn('[socket] tournament:regenerate-day1-recap: failed to persist notes:', e && e.message);
+            }
+          }
+        }
+        const result = await _saveTournamentRecapToJournal(state, String(sceneId), { regenerate: true });
+        if (result && result.entryId) {
+          io.emit('journal:updated', { entryId: result.entryId });
+          if (result.updated) {
+            console.log(`[socket] Tournament Day 1 recap regenerated (entry #${result.entryId}).`);
+          } else if (result.created) {
+            console.log(`[socket] Tournament Day 1 recap created on regenerate (entry #${result.entryId}).`);
+          }
+          socket.emit('tournament:recap-regenerated', { entryId: result.entryId, updated: !!result.updated, created: !!result.created });
+        }
+      } catch (err) {
+        console.error('[socket] tournament:regenerate-day1-recap error:', err);
+        socket.emit('error', { message: 'Failed to regenerate tournament recap.' });
       }
     });
 
