@@ -486,7 +486,9 @@
       save(seedCheck, socket);
       // Mirror into the in-memory campaignState so handlers below see it immediately,
       // before the next state:sync round-trip lands.
-      campaignState[STATE_KEY] = seedCheck;
+      if (campaignState && typeof campaignState === 'object') {
+        campaignState[STATE_KEY] = seedCheck;
+      }
     }
 
     panel.querySelectorAll('[data-beat]').forEach(function (chk) {
