@@ -3530,6 +3530,16 @@
           "gearFlags": [],
           "encounters": [
             {
+              "id": "enc-a2s3-tc663-wine",
+              "name": "Wine Inventory, Sirs?",
+              "type": "social",
+              "trigger": "DEFAULT — first time the crew is in the guest corridor between throne-room events. Run before any other encounter in this scene.",
+              "description": "TC-663 catches the crew on the walk back from the throne room with a polished, faintly desperate request to assist with the household wine inventory. The senior steward considers the cellar his personal prerogative, so it is the one errand no other staff will volunteer for — a perfect four-minute pretext to pull the heroes into a service alcove off the guest corridor and finally speak plainly. The droid has been waiting three years and seven months for someone Switch trusts to walk through this fortress's door. He intends to use the four minutes well.",
+              "tactics": "No combat. Run as the tc663-turned conversation tree (data/conversations/tc663-turned.json). TC-663 starts at Comfort 3 with a hard 4-minute clock — at Comfort 1 the senior steward arrives in the corridor and TC-663 exits politely. The Switch code phrase, if delivered cleanly at the open, lifts comfort +1 immediately (GM-applied; the conversation engine does not auto-apply positive comfort gains). Critical intel available: the Cybot Galactica Model VII Courier implant (location, factory-serial encryption key, 46-second extraction window — the engine of the entire Adventure 2 heist), Demos's coup timeline and Force-sensitivity, the Drosk watch window (0200-0400 local) for eastern-corridor exfil, a forearm chip with full rotation schedules to be handed to whichever PC is most likely to lose it last. DARK-PATH VARIANT: if the crew handed Raden to Varga in adv2-p1-s5, TC-663 opens with the darkPathOpener line — Switch will be informed, but assistance continues.",
+              "conversationRef": "tc663-turned",
+              "encounterClass": "conversation"
+            },
+            {
               "id": "enc-a2s3-kessra",
               "name": "Kessra's Aviary Ambush",
               "type": "combat",
