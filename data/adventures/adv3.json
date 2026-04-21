@@ -704,7 +704,7 @@
           "number": 3,
           "title": "The Refinery Rumble",
           "readAloud": "Refinery Platform 13 hangs deep in the gas giant's atmosphere. The wind howls across exposed catwalks, and steam vents obscure your vision. Below, there is nothing — just the infinite amber depths of Bespin.\n\nOn the platform, Trandoshan Mercenaries and corrupt Ugnaught riggers are loading gas canisters onto a shuttle. They haven't seen you yet.",
-          "gmNotes": "Tactical combat on catwalks over a lethal drop. Stray shots risk rupturing gas tanks (explosions) or steam pipes (scald damage). The objective is to defeat the Trandoshans and secure the platform. A datapad on the Trandoshan leader confirms the gas is destined for the Imperial Navy and mentions a ship called the 'Shackles of Nizon.'",
+          "gmNotes": "Tactical combat on catwalks over a lethal drop. Stray shots risk rupturing gas tanks (explosions) or steam pipes (scald damage). The objective is to defeat the Trandoshans and secure the platform. A datapad on the Trandoshan leader confirms the gas is destined for the Imperial Navy and identifies the Shackles of Nizon as the primary bulk carrier — flagged in the manifest as a slave transport. Any party that wins the fight learns that there are people in the holds.",
           "npcs": [
             {
               "name": "Trandoshan Mercenaries",
@@ -1015,20 +1015,20 @@
               "id": "sc-a3s3-investigation",
               "discipline": "investigation",
               "context": "Searching the Trandoshan leader's datapad after the fight.",
-              "isOptional": true,
+              "isOptional": false,
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Datapad is damaged. Partial data only — fragments of shipping schedules.",
+                "failure": "Datapad encryption is unfamiliar — the surface manifest reads but the deeper schedule data is locked. You confirm the gas is bound for the Imperial Navy, but the buyer chain is opaque.",
                 "success": "Refer to effect tiers.",
                 "mastery": "Full data AND you discover a shipping code that matches Project Leviathan logistics manifests from Adv1. The Tibanna fuels the superweapon."
               },
               "target": "Trandoshan datapad",
               "resist": 2,
               "effect": {
-                "fleeting": "Fragments of delivery schedules. Gas is going to Imperial ships, but destination details are corrupted.",
-                "masterful": "Gas is destined for the Imperial Navy. Mentions 'Shackles of Nizon' — a slave transport ship making regular runs.",
-                "legendary": "Complete shipping network: routes, schedules, quantities, and the Shackles of Nizon as the primary bulk carrier. Enough intel to track or intercept future shipments."
+                "fleeting": "Standard recovery: the gas is destined for the Imperial Navy, and the ship taking the bulk runs is the Shackles of Nizon — flagged in the manifest as a slave transport. Living cargo, in slave-circuit holds.",
+                "masterful": "Full Shackles of Nizon manifest: bulk-run schedule, average headcount per transport (three hundred plus), and the Tibanna load percentages per voyage. The slave-transport detail is unambiguous.",
+                "legendary": "Complete Imperial shipping network: routes, schedules, quantities, the Shackles of Nizon as the primary bulk carrier, and three sister ships running parallel. Enough intel to track or intercept future slave shipments."
               },
               "power": 3,
               "tier": 1
@@ -1040,7 +1040,7 @@
           "number": 4,
           "title": "The Imperial Mark",
           "readAloud": "The Ugnaughts pay their debt. The handover isn't happening in secret — Varga insisted it occur in plain sight during the Cloud City Sabacc Tournament.\n\nAt the Yerith Bespin Hotel, you spot the Imperial Bagman: Lieutenant Armen Arandis. Dressed in civilian luxury but moving with military stiffness, flanked by 'bodyguards' who are clearly undercover Stormtroopers.\n\nVarth's voice crackles in your ear: \"That's the Bagman. He isn't here to play cards — he's here to transfer credits to Varga's proxy by losing intentionally. We need to be at that table.\"",
-          "gmNotes": "Arandis is an Imperial math genius posing as a gambler. His job is to lose the pot intentionally to Varga's proxy. The heroes need to infiltrate the tournament to intercept the credits. The buy-in is massive (10,000 credits) — Varth provides the stake. Heroes must decide roles: The Player (gambler), The Security (hired guards), The Cheat (droid maintenance infiltrator).",
+          "gmNotes": "Arandis is an Imperial math genius posing as a gambler. His job is to lose the pot intentionally to Varga's proxy. The heroes need to infiltrate the tournament to intercept the credits — and the buy-in is the gate.\n\nWALK THE TABLE THROUGH THE FOUR ENTRY PATHS. Multiple PCs may take different paths within the same tournament — the menu is designed to support a party split. Read the four options to the table together so the choice is informed.",
           "npcs": [
             {
               "name": "Lt. Armen Arandis",
@@ -1201,22 +1201,27 @@
           "decisionPoints": [
             {
               "id": "adv3-p1-s4-key-decision",
-              "prompt": "Key Decision: The Imperial Mark",
+              "prompt": "Key Decision: Entry Path to the Tournament",
               "options": [
                 {
-                  "key": "opt-1",
-                  "label": "Enter as a tournament player",
-                  "consequence": "Direct access to the table. Requires gambling skill."
+                  "key": "opt-competitor",
+                  "label": "Competitor — pay the buy-in and play",
+                  "consequence": "10,000 credits per seat from Varth's stake. Direct access to Arandis's table at the Final Table. Wears the comm-jamming pin (no comlink contact with the crew while seated)."
                 },
                 {
-                  "key": "opt-2",
-                  "label": "Infiltrate as casino security",
-                  "consequence": "Free movement but no access to the game itself."
+                  "key": "opt-security",
+                  "label": "Security — hire on with Mandelbrot's house team",
+                  "consequence": "500 credits/day plus a Mandelbrot-issued weapons permit each PC can use to bring legal ordnance into the casino floor. Free movement, no table access."
                 },
                 {
-                  "key": "opt-3",
-                  "label": "Infiltrate the droid maintenance crew",
-                  "consequence": "Can rig dealer droids. High-tech approach."
+                  "key": "opt-spectator",
+                  "label": "Spectator — bluff in as a plus-one or Cloud City official",
+                  "consequence": "Charm or persuasion check at the velvet rope (Resist 3, failure = remembered face that comes back at the Heist scene). Free intel-relay role; cannot influence cards."
+                },
+                {
+                  "key": "opt-dirty-money",
+                  "label": "Dirty Money — take Switch's contract on Koroma Moro",
+                  "consequence": "Switch comms the Banshee Day 1 with the offer. Crew agrees in principle now, commits Day 3. Helping Moro win the Final Table = no Imperial card-arrangement transfer = no slave-circuit frequency = no Shackles of Nizon lead."
                 }
               ]
             }
@@ -1248,7 +1253,40 @@
           "gearFlags": [
             "Restricted"
           ],
-          "encounters": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p1-s4-path-competitor",
+              "name": "Path A — Competitor",
+              "type": "social",
+              "trigger": "PC wants a seat at the table",
+              "description": "Varth covers a 10,000-credit buy-in per registered seat from the Banshee's operating fund. The competitor is the only role with eyes on Arandis's actual play, but they are also the only role wearing the casino's comm-jamming pin once seated — comlinks dead, intel must be passed in person during break beats.",
+              "tactics": "NO DICE — stake commitment. Mark 10,000 credits per registered competitor off the crew sheet. The competitor PC inherits the cover-identity work from s5 prep and the comm-jamming pin (see environment mechanic in adv3-p2-s1)."
+            },
+            {
+              "id": "enc-a3-p1-s4-path-security",
+              "name": "Path B — Casino Security",
+              "type": "social",
+              "trigger": "PC pitches Mandelbrot's floor manager for a guard slot",
+              "description": "The Royal Casino's house security is hiring tournament-week temporaries. The pay is 500 credits per day per PC, paid in marked Bespin chips, AND each hire is issued a Mandelbrot weapons permit — a small ID disc that lets the bearer carry one Restricted-tier weapon onto the casino floor without confiscation. The crew can use the permits to walk concealed ordnance past the door scanners. Security PCs have free run of the floor, the back rooms, and the count-room corridor.",
+              "tactics": "NO DICE for the hire itself — Mandelbrot's manager is short-staffed and grateful. The weapons-permit detail matters: each permit-bearing PC can bring one Restricted weapon (anything legalStatus <= 2/r) onto the floor. Security PCs are also the natural intel-relay for competitor PCs once the comm-jamming pin goes live."
+            },
+            {
+              "id": "enc-a3-p1-s4-path-spectator",
+              "name": "Path C — Spectator (Bluff Entry)",
+              "type": "social",
+              "trigger": "PC tries to enter the casino without a buy-in or a guard badge",
+              "description": "The casino velvet rope admits plus-ones of registered competitors and accredited Cloud City Tourism Bureau officials. A spectator PC pitches one of those covers to the Twi'lek concierge (Vass) at the door. Charm or persuasion against Resist 3 — if the cover is plausible (rehearsed in s5 or backed by a fake Bureau credential), the bluff lands; if it is thin, Vass remembers the face and that recognition surfaces at the Heist scene as a +1 Resist on any Deception or Stealth check that passes through the lobby.",
+              "tactics": "ROLL — Charm or Persuasion vs Resist 3. Failure consequence is real (remembered face -> +1 Resist at adv3-p2-s5 lobby pass-through). Spectator PCs are the natural crowd-side intel-relay once the comm-jamming pin goes live; they can pass meatspace notes to competitor PCs during break beats."
+            },
+            {
+              "id": "enc-a3-p1-s4-path-dirty-money",
+              "name": "Path D — Dirty Money (Switch's Contract)",
+              "type": "social",
+              "trigger": "Day 1 of the tournament — Switch comms the Banshee privately",
+              "description": "Switch — the Twi'lek information broker the crew met in adv2 — opens a private comm to the Banshee on Day 1 of the tournament and forwards it to whichever crewmember answers. He pitches plainly: he has a man at the table named Koroma Moro. He wants Moro to win. Switch will pay the crew five to seven percent of Moro's take (negotiable, top of the range if Moro wins clean) for any help they can provide — feeding Moro reads, distracting his table opponents, or actively cheating on his behalf. Switch needs an answer in principle Day 1 so he knows whether to keep Moro at the table; the crew's actual commit point is Day 3, after the Maya/Varth Shackles of Nizon argument in adv3-p2-s3 has surfaced what is really on the ship Fioro's code unlocks.",
+              "tactics": "NO DICE for the pitch itself. The crew can agree in principle Day 1, defer (Switch waits until Day 2 then drops it), or refuse. Actual commit lands Day 3 — see adv3-p2-s3 (Pressure Cooker). CRITICAL: helping Moro win at the Final Table BLOCKS the slave-circuit frequency reveal. No card transfer = no 137.12 = no Shackles lead. The fork genuinely competes with the Imperial intel-grab."
+            }
+          ],
           "environmentMechanics": [
             {
               "name": "Hotel Security",
@@ -1388,117 +1426,87 @@
           "id": "adv3-p1-s5",
           "number": 5,
           "title": "The Buy-In",
-          "subtitle": "Preparation",
-          "readAloud": "As you finalize your entry strategy, Varth's voice cuts in — tight with genuine fear.\n\n\"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It's the Assiduous — Inquisitor Draco's flagship.\"\n\nA beat of silence.\n\n\"That ship is the clean-up crew. If Arandis loses the money wrong, or if Varga double-crosses them, Draco won't bother with arrests. He'll glass the city to bury the evidence. Win that pot and get the codes before Draco gets impatient.\"",
-          "gmNotes": "The Assiduous arrives — escalating the stakes dramatically. Draco is the 'clean-up crew' for Project Leviathan. If the deal goes wrong, he'll destroy Cloud City to bury the evidence. This puts a hard clock on the entire tournament arc. The heroes must win the pot and get the gas codes before Draco loses patience.",
+          "subtitle": "Tournament Eve",
+          "readAloud": "The crew spends the eve of the tournament finalizing the work of the entry-path scene — paying buy-ins where buy-ins are owed, badging in with Mandelbrot's security manager where guard slots were taken, locking down spectator covers, and (if Switch's offer was accepted in principle) opening a quiet line to a Twi'lek named Koroma Moro who will be at the table tomorrow.\n\nMandelbrot's house manager — a sun-creased Sullustan named Jacc — pulls the crew into a brick-walled office off the count room and runs through the casino's standing rules in the flat tone of a man who has given the same briefing four hundred times. Comm-jamming pins for every competitor. Buy-back-in at two thousand credits when a player gets sick mid-round. Five named players to watch, one of whom is reportedly a cheater. Three exits from the casino floor that close on lockdown. Tomorrow the doors open at standard daybreak. He shakes each crewmember's hand, wishes them a good night, and asks — politely but with weight — that they not embarrass him.",
+          "gmNotes": "TOURNAMENT-EVE BEAT. The Assiduous arrival has been moved out of this scene and into the new adv3-p2-s2 (Message from the Banshee), where it lands during the tournament itself with the Switch commit. This scene is now a clean preparation beat — final cover-checks, buy-in ledger, Mandelbrot security briefing, and one quiet round at a cantina or the Banshee galley if the table wants it. NO DICE on the Mandelbrot briefing — the rules he names are mechanics that bind the next scene (comm-jamming pin, buy-back-in, named players to watch). Surface them here so the table knows them before they sit down.",
           "npcs": [
             {
-              "name": "Inquisitor Valin Draco",
-              "type": "Nemesis (Remote Threat)",
+              "name": "Jacc Mandelbrot",
+              "type": "Casino House Manager (Sullustan)",
               "count": 1,
-              "notes": "Aboard the Assiduous in orbit. Prepared to 'glass the city' if needed.",
+              "notes": "Sullustan house manager. Runs the count room and the security floor. Recurring contact — he reappears in the Pressure Cooker scene and at the count-room hand-off in the Heist.",
               "threatBuild": {
-                "role": "controller",
-                "tier": 4,
-                "classification": "boss",
+                "role": "informant",
+                "tier": 1,
+                "classification": "standard",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 3,
-                  "reflex": 4,
-                  "grit": 4,
+                  "physique": 1,
+                  "reflex": 1,
+                  "grit": 2,
                   "wits": 3,
-                  "presence": 4
+                  "presence": 3
                 },
-                "weaponChassis": "heavy",
-                "traits": [
-                  "force_sensitive",
-                  "fearless",
-                  "iron_clad"
-                ],
+                "weaponChassis": null,
+                "traits": [],
                 "tags": [
-                  "Imperial",
-                  "Inquisitor",
-                  "Dark Side"
+                  "Sullustan",
+                  "Casino"
                 ],
                 "computed": {
-                  "power": 7,
-                  "defense": 7,
-                  "evasion": 7,
-                  "resist": 7,
-                  "vitality": 22,
-                  "initiative": 10,
-                  "controlDie": "d12",
-                  "actions": 2,
-                  "damageTiers": {
-                    "chassis": "heavy",
-                    "label": "Heavy",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
+                  "power": 3,
+                  "defense": 1,
+                  "evasion": 1,
+                  "resist": 2,
+                  "vitality": 4,
+                  "initiative": 7,
+                  "controlDie": "d6",
+                  "actions": 1
                 },
                 "roleKit": {
-                  "roleName": "Controller / Ranged",
-                  "action": {
-                    "name": "Suppressive Volley",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Suppressed]",
-                      "legendary": "Chassis damage + [Suppressed] + Controller's zone becomes [Hazard 1] until end of next round"
-                    },
-                    "isAttack": true,
-                    "arena": "reflex"
+                  "passive": {
+                    "name": "House Always Wins",
+                    "description": "Mandelbrot controls the casino. Can grant access, provide cover, or look the other way."
                   },
-                  "maneuver": {
-                    "name": "Overwatch Position",
-                    "modifies": "Overwatch",
-                    "description": "Modifies Overwatch. Declare a zone. Any PC that enters, leaves, or takes an action in that zone presents an Opening AND gains [Suppressed]."
-                  },
-                  "gambit": {
-                    "name": "Disrupt",
-                    "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Dazed] Tactical. Target loses their Maneuver next turn.",
-                    "rider": "[Dazed]"
-                  },
-                  "exploit": {
-                    "name": "Denial Fire",
-                    "trigger": "A PC enters a zone the Controller has declared as Overwatch.",
-                    "description": "Immediately attack that PC at -2 Power."
-                  },
-                  "powerSource": "ranged"
+                  "gambit": null,
+                  "exploit": null
                 },
-                "notes": "Campaign nemesis. NOT meant to be fought at this tier — he is an orbital threat. Power 8 = (Ref 5-1)+4. If the heroes face him directly, they will die. He is the reason to run.",
-                "powerSource": "ranged"
+                "notes": "Casino manager. Not a fighter. His value is access and cooperation — and the standing rules he names tonight bind tomorrow."
               }
             }
           ],
-          "hazards": "Star Destroyer in orbit. Time pressure. Draco's willingness to destroy the entire city.",
+          "hazards": "None tonight. Tomorrow the casino opens.",
           "decisionPoints": [
             {
               "id": "adv3-p1-s5-key-decision",
-              "prompt": "Key Decision: The Buy-In",
+              "prompt": "Key Decision: Tournament-Eve Final Prep",
               "options": [
                 {
                   "key": "opt-1",
-                  "label": "Proceed with the tournament plan",
-                  "consequence": "Must win the pot before Draco acts. High pressure."
+                  "label": "Take Mandelbrot's briefing seriously and run final cover-checks",
+                  "consequence": "No friction tomorrow at door checks. Crew enters cleanly. Cover work compounds."
                 },
                 {
                   "key": "opt-2",
-                  "label": "Try to grab Varga directly",
-                  "consequence": "Skips the tournament but alerts everyone. Extremely dangerous without the credits."
+                  "label": "Skip the briefing — drink, gamble, blow off steam",
+                  "consequence": "No mechanical penalty, but the Mandelbrot rapport is colder when the Pressure Cooker scene needs it. Mandelbrot gratitude tier starts one rung lower."
                 }
               ]
             }
           ],
           "loreTags": [
-            "Inquisitor Draco",
-            "The Assiduous",
             "Cloud City",
-            "Project Leviathan"
+            "Sabacc Tournament",
+            "Jacc Mandelbrot",
+            "Koroma Moro",
+            "The Banshee"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p2-s2",
+              "note": "The Assiduous arrival has been relocated to the new Day 2 scene (Message from the Banshee), where it lands inside the tournament alongside the Switch Dirty Money commit prompt."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "discovery",
@@ -1522,148 +1530,69 @@
               "id": "enc-a3-p1-s5-beat1-final-prep",
               "name": "Beat 1 — Final Pre-Tournament Prep",
               "type": "social",
-              "trigger": "Morning of the tournament, casino entry checkpoints in three hours",
-              "description": "The crew is at their lodgings or a quiet upper-level café running last-minute prep — cover identities, buy-in credits in the right pouches, verifying that the Ugnaught service-corridor keycard (if earned) actually reads at the test door. Varth is on the comm running a final intel sweep on Arandis, Lady Fioro, Silas Draver, and the cashier rotation. Maya is running diagnostics on the Banshee's exit vector. Everything is, briefly, going to plan.",
-              "tactics": "NO DICE — orientation. Players state their cover identities once more out loud (Maya prompts them on comms if they forget); the GM notes any rough edges and may apply +1 Resist on s2 audition checks for vague pitches, in keeping with the same mechanic as Adv2. Beat ends with Varth's voice cutting in, tight."
+              "trigger": "Evening before the tournament, casino entry checkpoints in twelve hours",
+              "description": "The crew is at their lodgings or a quiet upper-level cafe running last-minute prep — cover identities, buy-in credits in the right pouches, weapons-permit discs for security PCs, the Switch-Moro line confirmed (or not). Varth runs a final intel sweep on Arandis, Lady Fioro, Silas Draver, and the cashier rotation. Maya runs diagnostics on the Banshee's exit vector. Everything is, briefly, going to plan.",
+              "tactics": "NO DICE — orientation. End beat with the walk to the casino concourse."
             },
             {
-              "id": "enc-a3-p1-s5-beat2-the-spike",
-              "name": "Beat 2 — The Energy Spike",
-              "type": "tactical",
-              "trigger": "Varth reports an unscheduled hyperspace exit at the system edge",
-              "description": "Varth's voice is genuinely afraid — the first time the crew has heard real fear in him since the Vanishing Place. \"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It's the Assiduous — Inquisitor Draco's flagship.\" A beat of silence on the comm. Then, quietly: \"That ship is the clean-up crew. If Arandis loses the money wrong, or if Varga double-crosses them, Draco won't board. He'll sterilize. Cloud City — the entire city — is leverage now.\"",
-              "tactics": "NO DICE — reveal beat. The Assiduous arrival changes the stakes from heist to ticking-clock. Players should feel the fear in Varth's voice. Force-sensitive PCs may roll a free Insight at advantage to confirm what they already know — Draco himself is aboard. The temple-tap / cold-behind-the-sternum sensory beats from Adv1-2 should fire here for any PC who has felt them before."
-            },
-            {
-              "id": "enc-a3-p1-s5-beat3-the-debate",
-              "name": "Beat 3 — The Crew Decides",
+              "id": "enc-a3-p1-s5-beat2-mandelbrot-briefing",
+              "name": "Beat 2 — Mandelbrot's Standing-Rules Briefing",
               "type": "social",
-              "trigger": "After the Assiduous reveal — before the casino entry deadline",
-              "description": "Roughly twenty real minutes of player decision-making. The options are real: walk away (the Banshee is fueled, the exit vector is plotted, the Assiduous has not yet locked the system); proceed as planned (the original heist with a hard deadline now); or escalate (try to use Draco's presence as cover or pressure on Varga). Varth stays on the line but does not push. Maya states, plainly and once: \"If Cloud City is on the chopping block, walking away does not save it. Draco's already here. Whether we play the table or not, this city is leverage now.\"",
-              "tactics": "NO DICE — player decision beat. GM should let the discussion run as long as it needs. The choice the crew makes shapes Part 2: proceed (canonical path); walk away (Varth scrubs the contract, the adventure converts to a Cloud City evacuation/sabotage arc the GM improvises against the same map); escalate (the GM adjusts s2-s4 to include direct Draco-pressure beats and one early Inquisitor sighting before s5). The decision IS the beat. Honor whichever the players pick."
+              "trigger": "Crew assembles in the count-room office for the house briefing",
+              "description": "Jacc Mandelbrot — Sullustan, sun-creased, the casino's house manager and head of the count room — runs through the standing rules in the flat tone of a man who has done this hundreds of times. (1) Every competitor wears a comm-jamming pin once seated. The pin produces a vocoder static field that kills any outgoing comlink signal from within five meters of the wearer. Removal of the pin while inside the casino is grounds for immediate expulsion and forfeit of buy-in. The pin can be spotted on a competitor by anyone watching for it (skulduggery or investigation, Resist 3) but spotting it does not let you defeat it; it only confirms what is in play. (2) Buy-back-in is permitted: when a competitor gets sick mid-round (it happens; the casino looks the other way as long as the paperwork is clean), an eliminated player can re-enter for a flat 2,000-credit fee paid to the cashier. Use it as the rescue valve. (3) Five named players are entered: Lt. Armen Arandis (Imperial cover, plays cold), Lady Mirana Fioro (Hapan, plays for keeps), Silas Draver (loud, drunk-acting, sober — Mandelbrot has already flagged him to floor security), Creeska (Rodian, two prior expulsions for card-marking on other circuits — watch him), and a Twi'lek named Koroma Moro who arrived alone and paid in marked Bespin chips. (4) Three exits from the casino floor — the velvet entrance, the service corridor that runs to the count room, and the upper-deck fire stair to the air-tram platform. Lockdown closes all three on the manager's call.",
+              "tactics": "NO DICE — rules briefing. These are mechanics that bind tomorrow's scenes. End beat with Mandelbrot shaking each PC's hand and asking, politely, that they not embarrass him."
             },
             {
-              "id": "enc-a3-p1-s5-beat4-the-walk",
-              "name": "Beat 4 — The Walk to the Royal Casino",
+              "id": "enc-a3-p1-s5-beat3-quiet-night",
+              "name": "Beat 3 — One Quiet Round",
               "type": "social",
-              "trigger": "Crew commits to proceeding (or to the GM's improvised alternate path)",
-              "description": "The crew walks to the Royal Casino in cover. The walk takes nine minutes through the upper Cloudscape promenade. Lt. Arandis passes them coming the other way, in his Corellian shipping-broker disguise, on his way to the same casino. He nods politely. He does not recognize them. The crew may now confirm visually what Krygg told them: Arandis plays like a man who has been told what to do with cards and is doing it. He does not look like a card player. He looks like a man dressed as one.",
-              "tactics": "NO DICE — atmosphere and confirmation. PCs who took the Krygg conversation get the free visual confirmation as written. PCs who skipped the Ugnaught conversation get only the polite nod and have to figure out Arandis on their own at the table. End beat at the casino entrance."
-            },
-            {
-              "id": "enc-a3-p1-s5-beat5-the-buy-in",
-              "name": "Beat 5 — The Buy-In",
-              "type": "social",
-              "trigger": "Crew at the casino entry checkpoint",
-              "description": "The casino concierge — a Twi'lek named Vass with a perfect smile — verifies cover identities at the door. Buy-in is paid: 50,000 credits per registered player, in marked Bespin chips, non-refundable. Each registered crew member receives a player ID disc and a table assignment. Hand-off to Part 2 (Elimination Rounds). The clock to the Assiduous is now public knowledge among the casino staff — Vass mentions it in passing as a curiosity (\"Off-port arrival caused a stir today, did you see?\") and the GM should use her tone to land the dread again.",
-              "tactics": "RUN any pre-existing Deception or Streetwise checks for casino entry here. PCs with strong cover pitches from Beat 1 enter clean. PCs with weak pitches face +1 Resist on the entry check; failure means Vass requests a secondary verification (a small, manageable social hurdle, not a fail state). The buy-in is mechanical — note 50,000 credits per player off the crew sheet. End scene at table assignment."
+              "trigger": "After the briefing — crew has free time before standard daybreak",
+              "description": "Twenty real minutes of unstructured RP. Crew may share a drink at the Banshee galley with Maya, take one walk around the upper Cloudscape promenade, or place one optional cantina conversation. No mandatory beat.",
+              "tactics": "NO DICE — atmosphere. Honor whichever direction the players take it. End scene at standard daybreak; hand off to adv3-p2-s1 (Day 1 — Catch the Cheater)."
             }
           ],
           "environmentMechanics": [
             {
-              "name": "The Clock",
+              "name": "Mandelbrot Rapport",
               "trigger": "From this scene forward",
-              "effect": "Draco's patience is finite. The GM tracks escalation: Day 1-2 = observation. Day 3 = suspicion. Day 4+ = action.",
-              "mitigation": "Win fast. Get out faster."
+              "effect": "Mandelbrot starts at neutral. Crews who run Beat 2 attentively start at Mandelbrot Rapport tier 2 (free social win at adv3-p2-s3 Pressure Cooker if the Szygar incident is resolved quietly). Crews who skip the briefing start at tier 0.",
+              "mitigation": "Show up to the briefing."
             }
           ],
           "rewards": {
             "credits": 0,
             "xp": "Scene completion",
             "items": [],
-            "narrative": "Tournament entry secured. The clock is running."
+            "narrative": "Tournament-eve prep complete. Standing rules briefed. The doors open at daybreak."
           },
           "pacing": {
-            "openingBeat": "Final preparations. Then the Assiduous drops out of hyperspace.",
-            "risingAction": "Varth confirms: Inquisitor Draco is aboard. The stakes are existential.",
-            "climax": "The decision: go forward with the plan or abort.",
-            "resolution": "The heroes commit. Tournament begins tomorrow.",
-            "estimatedMinutes": 20
+            "openingBeat": "Final preparations the night before the tournament.",
+            "risingAction": "Mandelbrot's standing-rules briefing — comm-jamming pin, buy-back-in, the five named players, the three exits.",
+            "climax": "Mandelbrot's parting handshake.",
+            "resolution": "The crew sleeps on what they know. Daybreak comes.",
+            "estimatedMinutes": 25
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a3s5-deception",
-              "discipline": "deception",
-              "context": "Finalizing tournament entry with fabricated credentials.",
+              "id": "sc-a3p1s5-charm",
+              "discipline": "charm",
+              "context": "Final cover-identity rehearsal with Maya before the casino doors open.",
+              "isOptional": true,
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Minor discrepancy noted. Casino staff will verify — check may come back during the tournament. Clock ticking.",
+                "failure": "Cover has a visible seam. Tomorrow at the entry checkpoint, the relevant entry-path check (Spectator bluff or Competitor identity verification) takes +1 Resist. Real friction at the door.",
                 "success": "Refer to effect tiers.",
-                "mastery": "Not only clean entry but tournament staff assign you a VIP handler who grants access to restricted areas including the private high-roller lounge."
+                "mastery": "Cover is so polished that Mandelbrot's door staff treat the PC as a returning regular. -1 Resist on the entry-path check tomorrow."
               },
-              "target": "Tournament security",
+              "target": "Maya's rehearsal",
               "resist": 3,
               "effect": {
-                "fleeting": "Credentials pass initial scan. You're in, but keep a low profile.",
-                "masterful": "Entry secured. No flags raised. Standard tournament access with no restrictions.",
-                "legendary": "The fabricated Player persona has history — wins on Nar Shaddaa, losses on Canto Bight. Other players recognize the name. You're welcomed as a legitimate competitor."
-              },
-              "power": 4,
-              "tier": 1
-            },
-            {
-              "id": "sc-a3s5-tactics",
-              "discipline": "tactics",
-              "context": "Planning the overall heist approach based on available intel.",
-              "arena": "wits",
-              "actionType": "assess",
-              "control": {
-                "failure": "Plan has gaps. Improvisation will be needed. High risk of unexpected variables.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Perfect plan AND contingencies for every failure point. Each team member has a fallback role if their primary assignment goes sideways."
-              },
-              "target": "Heist plan",
-              "resist": 2,
-              "effect": {
-                "fleeting": "Basic outline: who goes where, when. No contingencies. Relies on everything going right.",
-                "masterful": "Clear plan with contingencies. Each team member knows their role, their fallback, and the extraction signal.",
-                "legendary": "Military-precision operation plan. Timing windows, communication protocols, abort signals, and three separate extraction routes depending on what goes wrong. The team moves like a machine."
+                "fleeting": "Cover holds. No bonus, no penalty.",
+                "masterful": "Cover is clean. Tomorrow's entry check passes without friction.",
+                "legendary": "Cover is air-tight. Maya stops correcting and starts complimenting. The PC walks into the casino tomorrow as if they have always belonged there."
               },
               "power": 3,
-              "tier": 1
-            },
-            {
-              "id": "sc-a3s5-tech",
-              "discipline": "tech",
-              "context": "Scanning the system for the Assiduous's capabilities.",
-              "arena": "wits",
-              "actionType": "interact",
-              "control": {
-                "failure": "Confirm it's an ISD. Details unclear. You know it's dangerous — how dangerous is the question.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Full profile AND you identify the Star Destroyer's scanning patterns — blind spots in its sensor sweep you can exploit during the escape."
-              },
-              "target": "Star Destroyer sensors",
-              "resist": 3,
-              "effect": {
-                "fleeting": "Imperial Star Destroyer confirmed. Standard armament, standard complement. Bad news but not unexpected.",
-                "masterful": "Star Destroyer identified. Full sensor profile. Draco is aboard — confirmed by command frequencies. TIE complement estimated.",
-                "legendary": "Complete tactical analysis: shield frequency, turbolaser arcs, TIE launch timing, and — critically — the Assiduous has a damaged port sensor array. Blind spot on the port quarter."
-              },
-              "power": 3,
-              "tier": 1
-            },
-            {
-              "id": "sc-a3s5-resolve",
-              "discipline": "resolve",
-              "context": "Staying focused despite the escalation — Star Destroyer in orbit.",
-              "isOptional": true,
-              "arena": "grit",
-              "actionType": "interact",
-              "control": {
-                "failure": "[Rattled] from the weight of the stakes. -1 Power on first tournament check. The fear is real.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Absolute ice. The Star Destroyer in orbit focuses you instead of scaring you. Every action from here on out is precise and deliberate."
-              },
-              "target": "Escalation pressure",
-              "effect": {
-                "fleeting": "Deep breath. Hands steady. You can operate, but the shadow of that Star Destroyer is always in the back of your mind.",
-                "masterful": "Steel nerves. The plan holds. You acknowledge the danger and move forward with professional detachment.",
-                "legendary": "The danger sharpens everything. Colors are brighter, sounds are clearer, reactions are faster. You're operating at your absolute peak because failure isn't an option."
-              },
-              "resist": 3,
-              "power": 4,
               "tier": 1
             }
           ]
@@ -1678,11 +1607,130 @@
         {
           "id": "adv3-p2-s1",
           "number": 1,
-          "title": "The Elimination Rounds",
-          "subtitle": "Days 1 & 2",
-          "readAloud": "The Royal Casino is a loud, smoky, aggressive establishment where prospectors gamble away fortunes and refugees bet their last credits. Over fifty competitors crowd the tables. The air is thick with Corellian whiskey, Ryll spice smoke, and the mechanical whir of shuffling droids.\n\nYou notice two players worth watching: a flamboyant human named Silas Draver who seems drunk but isn't, and a cold Hapan noblewoman named Lady Fioro who bankrupts a weeping Dug in the first hour.",
-          "gmNotes": "Days 1-2 of the tournament. The heroes identify key players:\n- Lt. Arandis at Table 4: plays like a machine. Folds strong hands, raises weak ones against specific opponents.\n- Silas Draver: loud and arrogant but stone cold sober. Casing the room and checking camera sightlines. He's planning a heist.\n- Lady Mirana Fioro: icy Hapan noblewoman. Keeps glancing at Arandis with calculation — she's Varga's proxy.\n\nVarth coaches via comms: 'Watch who Arandis loses to. He's not allowed to lose to anyone but Varga's proxy.'",
+          "title": "The Elimination Rounds — Day 1",
+          "subtitle": "Day 1 — Catch the Cheater",
+          "readAloud": "The Royal Casino is a loud, smoky, aggressive establishment where prospectors gamble away fortunes and refugees bet their last credits. Over fifty competitors crowd the tables. The air is thick with Corellian whiskey, Ryll spice smoke, and the mechanical whir of shuffling droids.\n\nEvery seated competitor is wearing a small black pin on their lapel — Mandelbrot named it last night. The pin produces a vocoder static field; comlink chatter dies within five meters of any wearer. Whatever you need to pass to a teammate at the table today, you pass face-to-face during the breaks.\n\nYou notice four players worth watching: a flamboyant human named Silas Draver who seems drunk but isn't, a cold Hapan noblewoman named Lady Fioro who bankrupts a weeping Dug in the first hour, a Twi'lek named Koroma Moro who keeps to himself, and a Rodian named Creeska who is, even to a casual eye, doing something with his sleeve that he should not be doing.",
+          "gmNotes": "DAY 1 of the tournament. The headline beat is Catch the Cheater (security PC) / Make a Read (competitor PC) — Creeska, the Rodian, is palming a card-marker. The forcing function is Mandelbrot's tournament-administrator gavel at end of session: tables reset, half the field is eliminated by the cashier's posted bracket, downtime block follows, Day 2 opens fresh.\n\nThe comm-jamming pin is now LIVE for every competitor PC. Intel must be passed in person during break beats. Security PCs, spectator PCs, and the Banshee crew are the relays.\n\nThe Switch Dirty Money offer (if the crew accepted in principle in adv3-p1-s4) is in play but does not commit until Day 3 (adv3-p2-s3 Pressure Cooker). Switch may send a Day 1 reminder ping if the GM wants to keep the temptation visible — flagged in Beat 4 below.",
           "npcs": [
+            {
+              "name": "Creeska",
+              "type": "Rodian Cheater",
+              "count": 1,
+              "notes": "Rodian, mid-stakes circuit washout. Two prior expulsions for card-marking. Currently palming a thumb-sized chemical marker that tags high-value cards for him as they pass through his hands.",
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 3,
+                  "presence": 2
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "agile"
+                ],
+                "tags": [
+                  "Rodian",
+                  "Cheater"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 4,
+                  "resist": 2,
+                  "vitality": 5,
+                  "initiative": 7,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "roleName": "Harrier / Social",
+                  "passive": {
+                    "name": "Sleight Hands",
+                    "description": "Creeska's skulduggery is favored. Spotting his card-marker requires a skulduggery or investigation check vs Resist 3 (his Resist)."
+                  },
+                  "gambit": {
+                    "name": "Slip the Marker",
+                    "cost": "-1 Power",
+                    "description": "When Creeska is targeted by a spotting check, he may dump the marker into a passing drinks tray. The check still surfaces the suspicion, but no physical evidence is recovered. Mandelbrot will not act without evidence."
+                  },
+                  "exploit": {
+                    "name": "Witness Plant",
+                    "trigger": "A PC publicly accuses Creeska without spotting evidence first.",
+                    "description": "Creeska gestures at a paid Bothan in the crowd who corroborates that the PC has been hovering and acting suspiciously. Mandelbrot expels the PC instead."
+                  }
+                },
+                "notes": "Not a combat threat. The threat is reputational — a public false accusation costs the accusing PC their seat. Spotting his marker first (skulduggery or investigation, Resist 3) gets him expelled cleanly and earns Mandelbrot Rapport +1."
+              }
+            },
+            {
+              "name": "Koroma Moro",
+              "type": "Twi'lek Starship Captain (Switch's Man)",
+              "count": 1,
+              "notes": "Twi'lek, mid-thirties, owns a single light freighter that Switch has been bankrolling since Switch's last Kessel-run debt collection went sideways. Moro plays a competent middle game and folds when he should. He is at the table because Switch put him there.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Twi'lek",
+                  "Captain"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 2,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Patient Player",
+                    "description": "Moro will not act on a tip from the crew unless the tip is delivered face-to-face by a teammate in the crowd or by a spectator PC during a break. The comm-jamming pin makes electronic relay impossible."
+                  },
+                  "gambit": null,
+                  "exploit": {
+                    "name": "Switch's Hand",
+                    "trigger": "The crew commits to the Dirty Money fork at the Day 3 commit point.",
+                    "description": "From that beat forward, Moro plays to a script the crew can shape — they may feed him reads, trigger distractions at competing tables, or actively cheat on his behalf (skulduggery vs Mandelbrot's house-floor Resist 4 — failure = expulsion)."
+                  }
+                },
+                "notes": "Linchpin of the Dirty Money fork. If Moro wins the Final Table, Switch pays the crew 5-7% of the pot (negotiable, top of the range if Moro wins clean) AND the Imperial card-arrangement transfer between Arandis and Fioro never happens. No 137.12. No Shackles of Nizon lead. The fork genuinely competes with the Imperial intel-grab."
+              }
+            },
             {
               "name": "Silas Draver",
               "type": "Scoundrel / Heist Planner",
@@ -1760,65 +1808,6 @@
               }
             },
             {
-              "name": "Lady Mirana Fioro",
-              "type": "Hapan Noblewoman / Varga's Proxy",
-              "count": 1,
-              "notes": "Icy and ruthless. The person Arandis is supposed to lose to.",
-              "threatBuild": {
-                "role": "informant",
-                "tier": 1,
-                "classification": "standard",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 1,
-                  "reflex": 2,
-                  "grit": 2,
-                  "wits": 3,
-                  "presence": 3
-                },
-                "weaponChassis": "light",
-                "traits": [
-                  "disciplined"
-                ],
-                "tags": [
-                  "Hapan"
-                ],
-                "computed": {
-                  "power": 3,
-                  "defense": 2,
-                  "evasion": 2,
-                  "resist": 3,
-                  "vitality": 4,
-                  "initiative": 7,
-                  "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "light",
-                    "label": "Light",
-                    "fleeting": 2,
-                    "masterful": 3,
-                    "legendary": 4
-                  }
-                },
-                "roleKit": {
-                  "passive": {
-                    "name": "Ice Queen",
-                    "description": "Immune to [Rattled] and [Shaken]. Fioro doesn't crack under pressure."
-                  },
-                  "gambit": {
-                    "name": "Reveal Identity",
-                    "cost": "-1 Power",
-                    "description": "Invoke Hapan nobility. Guards defer. Civilians back away."
-                  },
-                  "exploit": {
-                    "name": "Insurance",
-                    "description": "If captured, reveal Varga's location in exchange for freedom."
-                  }
-                },
-                "notes": "Varga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure."
-              }
-            },
-            {
               "name": "Various Competitors",
               "type": "Tournament Players",
               "count": 50,
@@ -1860,33 +1849,52 @@
               }
             }
           ],
-          "hazards": "Surveillance systems. Smugglers with hidden weapons. Spice deals. Imperial undercover agents.",
+          "hazards": "Comm-jamming pins on every competitor (no electronic relay). Casino surveillance. Mandelbrot's house security on the floor.",
           "decisionPoints": [
             {
               "id": "adv3-p2-s1-key-decision",
-              "prompt": "Key Decision: The Elimination Rounds",
+              "prompt": "Key Decision: Day 1 — Catch the Cheater",
               "options": [
                 {
                   "key": "opt-1",
-                  "label": "Focus on winning hands",
-                  "consequence": "Advance in the tournament but may miss crucial intelligence."
+                  "label": "Spot Creeska's marker quietly and hand the evidence to Mandelbrot",
+                  "consequence": "Mandelbrot Rapport +1. Creeska expelled clean. The Day 1 pulse closes with a small win and a friendly nod from house security."
                 },
                 {
                   "key": "opt-2",
-                  "label": "Focus on gathering intel on Arandis and Fioro",
-                  "consequence": "Better prepared for the heist but risk elimination from the tournament."
+                  "label": "Confront Creeska publicly without evidence",
+                  "consequence": "Creeska's witness plant flips the room. Accusing PC is expelled instead. Buy-back-in costs 2,000 credits to re-enter Day 2."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Ignore Creeska, focus on cards and reads",
+                  "consequence": "No Mandelbrot Rapport movement. Creeska remains in the field and can interfere with the Day 2 standings."
                 }
               ]
             }
           ],
           "loreTags": [
             "Sabacc Tournament",
+            "Cloud City",
+            "Creeska",
+            "Koroma Moro",
             "Silas Draver",
-            "Lady Fioro",
-            "Lt. Armen Arandis",
-            "Cloud City"
+            "Switch"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p1-s4",
+              "note": "Entry-path menu — the four PC roles set up here are now live at the table."
+            },
+            {
+              "targetScene": "adv3-p2-s2",
+              "note": "Day 1 hands off to Day 2 (Message from the Banshee) at end of session."
+            },
+            {
+              "targetScene": "adv3-p2-s3",
+              "note": "The Switch Dirty Money commit point is Day 3 (Pressure Cooker). The pitch is in play here on Day 1; the lock-in waits."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "discovery",
@@ -1894,15 +1902,15 @@
           ],
           "vocationTags": [
             "voc_grifter",
-            "voc_noble",
-            "voc_investigator"
+            "voc_investigator",
+            "voc_ghost"
           ],
           "disciplineTags": [
-            "deception",
-            "charm",
-            "insight",
+            "skulduggery",
             "investigation",
-            "skulduggery"
+            "sense_spark",
+            "charm",
+            "persuasion"
           ],
           "gearFlags": [],
           "encounters": [
@@ -1910,175 +1918,160 @@
               "id": "enc-a3-p2-s1-beat1-the-floor",
               "name": "Beat 1 — Reading the Floor",
               "type": "social",
-              "trigger": "Crew enters the Royal Casino floor, fifty-plus competitors at the tables",
-              "description": "The first hour of the tournament is observation. The crew is seated at separate tables (per registration) — Maya at Table 1, Face PC at Table 4 with Arandis, Muscle PC at Table 7, and so on. The brief is to identify the players who matter: Lt. Arandis (Imperial undercover), Silas Draver (loud, drunk-acting, stone sober — casing the room for a heist), Lady Mirana Fioro (Hapan noblewoman, Varga's plant, watching Arandis with calculation). The crew has no comms — the casino jammer makes any verbal communication between PCs visible to floor security.",
-              "tactics": "RUN: existing Insight / Streetwise discipline checks for player-reading. Each PC may identify one other player per round of observation. Krygg's \"plays like a man who has been told what to do with cards\" tell from the Ugnaught conversation grants free identification of Arandis to any PC who heard it. End beat after each PC has read at least one other player."
+              "trigger": "Crew enters the Royal Casino floor on Day 1",
+              "description": "The first hour of the tournament is observation. Competitor PCs are seated at separate tables (per registration). Security PCs walk the floor on Mandelbrot's rota. Spectator PCs work the rail. The brief is to identify the players who matter: Arandis, Fioro, Draver, Creeska, Moro. Krygg's \"plays like a man who has been told what to do with cards\" tell from the Ugnaught conversation grants free identification of Arandis to any PC who heard it.",
+              "tactics": "NO DICE for free identifications. Each PC may attempt one Sense (sense_spark) check per other named player to read deeper than the surface — Resist 3, failure = surface read only (no deeper detail). End beat after the first hour of observation."
             },
             {
-              "id": "enc-a3-p2-s1-beat2-day-one-cards",
-              "name": "Beat 2 — Day One Card Play",
+              "id": "enc-a3-p2-s1-beat2-catch-the-cheater",
+              "name": "Beat 2 — Catch the Cheater (security PC) / Make a Read (competitor PC)",
+              "type": "social",
+              "trigger": "Creeska palms his marker during a third-round hand",
+              "description": "Creeska is cheating in plain sight. The marker is a thumb-sized chemical applicator that tags high-value cards as they pass through his hands. The tell is a single repeating motion — sleeve, thumb, deck, sleeve — that takes one observation pass to spot if you know what you are looking for. Security PCs can spot it on a skulduggery or investigation check (Resist 3) and hand the evidence to Mandelbrot for a clean expulsion (Mandelbrot Rapport +1). Competitor PCs at Creeska's table can spot it from across the felt on the same check (skulduggery or investigation, Resist 3) and use it to fold strategically against him without triggering a reaction. The CRITICAL trap: if a PC accuses Creeska publicly without first surfacing the marker as evidence, Creeska's pre-paid Bothan witness corroborates that the accusing PC has been hovering and acting suspiciously, and Mandelbrot expels the accuser instead.",
+              "tactics": "ROLL — skulduggery or investigation vs Resist 3. SUCCESS: marker spotted, evidence in hand, Creeska expelled, Mandelbrot Rapport +1. FAILURE: PC reads Creeska as merely twitchy, no evidence, no movement. CRITICAL FAILURE PATH: PC who accuses Creeska without spotting the marker first is expelled by the Bothan witness plant. Buy-back-in costs 2,000 credits to re-enter Day 2."
+            },
+            {
+              "id": "enc-a3-p2-s1-beat3-day-one-cards",
+              "name": "Beat 3 — Day One Card Play",
               "type": "social",
               "trigger": "First competitive session of the tournament",
-              "description": "Sabacc is played. The crew's first real test: can they hold their cover identities under live tournament pressure? Each PC plays through six hands at their assigned table. The cards themselves matter less than the social tells — bluffs that match cover identity, betting patterns consistent with the brag-and-price the Ugnaughts coached, and the absence of crew-level coordination (no eye contact across tables, no shared bathroom breaks).",
-              "tactics": "RUN: existing Sabacc / Deception challenges here. Apply the conversation-modifier from Adv2-style cover workshops if any prep was done in s5. Each PC who survives Day One advances; each PC who busts is eliminated and joins the spectator gallery (still useful for s2-s4 events but no longer at a table). End beat with announced standings — at minimum, three crew members should advance for the heist to remain viable; if fewer do, the GM adjusts s4 to allow spectator-side intervention."
+              "description": "Sabacc is played. Each competitor PC plays through six hands at their assigned table while wearing the comm-jamming pin. The cards themselves matter less than the social tells — bluffs that match cover identity, betting patterns consistent with the brag-and-price the Ugnaughts coached, and the absence of crew-level coordination (no eye contact across tables, no shared bathroom breaks). The pin actively prevents crew comlink relay, so competitor PCs operate solo at the felt unless a security or spectator PC physically walks up and passes a note during a posted break.",
+              "tactics": "RUN: Charm or Deception vs Resist 3 per competitor PC for cover-hold under live pressure. Failure = cover slips, +1 Resist on the next Charm/Deception check at the table that day. Each PC who survives Day 1 advances to Day 2; each PC who busts is eliminated and must spend the 2,000-credit buy-back-in fee to re-enter on Day 2 (otherwise drops to spectator role for the rest of the tournament)."
             },
             {
-              "id": "enc-a3-p2-s1-beat3-the-back-bar",
-              "name": "Beat 3 — Day One Recess at the Back Bar",
+              "id": "enc-a3-p2-s1-beat4-back-bar-and-switch",
+              "name": "Beat 4 — Day One Recess at the Back Bar (and Switch's Reminder)",
               "type": "social",
               "trigger": "Tournament adjourns for evening recess",
-              "description": "The casino's back bar — open only to registered players and their plus-ones — fills up. This is the sit-down social interlude. PCs may approach Lt. Arandis (who drinks alone, badly), Lady Fioro (who holds court with a small Hapan retinue and watches Arandis from across the room), or Silas Draver (who is genuinely drunk now, having dropped the act). Each contact is a different kind of intel: Arandis is a recruit if pressed gently and Maya can confirm his Imperial cover faster than Varth can; Fioro is a manipulator who can be flipped against Varga with the right pressure; Draver wants to recruit the crew into his heist plan and may be neutralized as a distraction by accepting and then double-crossing him.",
-              "tactics": "RUN: Charm / Insight / Persuasion checks per contact. Each contact yields one named piece of intel that pays off in s2-s4 (Arandis: the exact wafer hand-off timing; Fioro: Varga's docking bay number; Draver: a half-formed heist diversion the crew can co-opt). End beat at last call — the casino closes the back bar and Day One ends. Players who took none of the contacts walk into Day Two without the named intel and must improvise at the table."
+              "description": "The casino's back bar — open only to registered players and their plus-ones — fills up. PCs may approach Lt. Arandis (drinks alone, badly), Lady Fioro (holds court with a small Hapan retinue, watches Arandis from across the room), Silas Draver (genuinely drunk now, having dropped the act), or Koroma Moro (sits alone at a corner table with a Twi'lek liqueur and a private comlink). Switch may send a private Day 1 reminder to any crewmember who took the Dirty Money offer in principle — a one-line ping confirming Moro is at the corner table and the Day 3 commit window opens after the Maya/Varth argument.",
+              "tactics": "RUN: Charm / Sense (sense_spark) / Persuasion vs Resist 3 per contact. Each contact yields one named piece of intel that pays off in adv3-p2-s2 through adv3-p2-s4 (Arandis: the exact wafer hand-off timing; Fioro: Varga's docking bay number; Draver: a half-formed heist diversion the crew can co-opt; Moro: confirmation of the Switch arrangement and his asking-price for the win). End beat at last call. Comm-jamming pins come off at the bar — comlinks work here."
             },
             {
-              "id": "enc-a3-p2-s1-beat4-the-night-call",
-              "name": "Beat 4 — Late-Night Comm with Varth",
+              "id": "enc-a3-p2-s1-beat5-day-one-close",
+              "name": "Beat 5 — Day One Closes",
               "type": "social",
-              "trigger": "Crew returns to lodgings after recess",
-              "description": "Varth waits up. He has been monitoring the casino feeds and has questions. The crew debriefs him on what they read at the tables and at the bar. He cross-references: \"Arandis is Imperial Intelligence Section 7 — confirmed, his cover documents are the third I have seen with that exact watermark pattern. He is junior. His handler is on the Assiduous and is named Captain Veen — Veen is older, smarter, will not be at any table.\" Varth also reports: the Assiduous has not moved. Draco is patient. The clock has not yet started ticking.",
-              "tactics": "NO DICE — debrief beat. Varth's intel is free. The Section 7 / Captain Veen detail seeds Adventure 6 (where Veen will surface as one of the data-center officers Varth bypasses). Players who run the Varth-Leviathan conversation in adv10 may reference Veen by name as a recurring antagonist they tracked from this beat. End beat with the crew sleeping on what they know."
-            },
-            {
-              "id": "enc-a3-p2-s1-beat5-day-two",
-              "name": "Beat 5 — Day Two: Field Narrows",
-              "type": "social",
-              "trigger": "Second tournament session",
-              "description": "Day Two is the field-narrowing day. The fifty-plus tournament drops to twenty-four players by close of session. The crew's table assignments rotate — at least one PC ends up at the same table as Arandis or Fioro, putting the crew face-to-face with their targets in live play. The cards become harder. The bluffs become subtler. Arandis loses two hands in a row that he should have won, deliberately, to set up the loss-pattern Varga's cashier needs to recognize. Lady Fioro raises a hand and Arandis reads it without looking at her — they are working together, openly, if you know how to look.",
-              "tactics": "RUN: harder Sabacc / Deception checks. The crew's tactical objective is to advance to the final eight (s2 trigger) without exposing their cover. PCs who confirmed Arandis-Fioro coordination get free Insight on s2-s3. End the scene with the announced final-eight bracket; hand off to s2."
+              "trigger": "Mandelbrot's tournament administrator calls Day 1 at midnight standard",
+              "description": "The administrator gavels Day 1 closed. The cashier posts the Day 2 bracket on the casino's marquee — half the field eliminated, the surviving PCs and named players advanced. Eliminated PCs are notified and given the 2,000-credit buy-back-in chip if they want it. Tables reset for the morning. The crew has a downtime block before Day 2 opens.",
+              "tactics": "NO DICE — forcing function. This is the Day 1 -> Day 2 transition. Note the surviving cast on the bracket; eliminated PCs decide on the buy-back-in. End scene; hand off to adv3-p2-s2 (Day 2 — Message from the Banshee)."
             }
           ],
           "environmentMechanics": [
             {
-              "name": "Tournament Structure",
-              "trigger": "Active throughout",
-              "effect": "Each day, half the players are eliminated. Heroes must win enough hands to survive while gathering intel.",
-              "mitigation": "Varth coaches via encrypted comms. +1 tier on one Sabacc check per day."
+              "name": "Comm-Jamming Pin (Active on Competitors)",
+              "trigger": "When a competitor PC is seated at a tournament table",
+              "effect": "Every seated competitor wears a small black lapel pin issued by the house. The pin produces a vocoder static field that kills any outgoing comlink signal from within five meters of the wearer. Competitor PCs cannot use comlinks during play. Spotting the pin on another competitor (to confirm what is in play, not to defeat it) requires a skulduggery or investigation check vs Resist 3 — failure on this spotting check means the PC tries to comlink during the table and gets caught by the floor manager (Mandelbrot Rapport -1, public warning). Removing or disabling the pin while inside the casino is grounds for immediate expulsion and forfeit of buy-in. The pin comes off naturally at the back bar (Beat 4) and at all posted breaks.",
+              "mitigation": "Use security and spectator PCs as meatspace intel-relays. Pass notes, hand signals, drink-tray drops during breaks. Do not try to defeat the pin."
             },
             {
-              "name": "Casino Surveillance",
-              "trigger": "Active throughout",
-              "effect": "Cameras everywhere. Suspicious behavior is flagged by security.",
-              "mitigation": "Act natural. Casino security is looking for cheaters, not spies."
+              "name": "Buy-Back-In (2,000 credits)",
+              "trigger": "When a competitor PC is eliminated mid-round and a competitor \"gets sick\"",
+              "effect": "An eliminated PC may re-enter the tournament for a flat 2,000-credit fee paid to the cashier when a competitor at any table withdraws under medical or personal pretext. The fee is non-negotiable and the slot is first-come; if more PCs than open slots want to re-enter, the GM picks based on table fiction. Use the buy-back-in as the rescue valve to keep eliminated players in the scene.",
+              "mitigation": "Pay the 2,000 and re-enter. Track the credit cost on the crew sheet."
+            },
+            {
+              "name": "Tournament Administrator (Forcing Function)",
+              "trigger": "Midnight standard, end of Day 1",
+              "effect": "Mandelbrot's tournament administrator gavels the day closed. The cashier posts the Day 2 bracket. Tables reset for the morning. The crew has a downtime block before Day 2 opens.",
+              "mitigation": "N/A — this is the time-passes mechanic that hands off to adv3-p2-s2."
             }
           ],
           "rewards": {
             "credits": 0,
             "xp": "Scene completion",
             "items": [],
-            "narrative": "Key players identified. Tournament progresses."
+            "narrative": "Day 1 closes. Half the field is eliminated. The crew's competitor PCs (or buy-back-in survivors) advance to Day 2. Creeska is either expelled or still in play depending on how the cheat-catch beat resolved."
           },
           "pacing": {
-            "openingBeat": "The Royal Casino. Fifty players. Smoke and tension.",
-            "risingAction": "Days 1-2 of play. Players identified. Patterns emerge.",
-            "climax": "Draver's suspicious behavior. Fioro's connection to Arandis.",
-            "resolution": "Advancement to the next round. Intel gathered.",
-            "estimatedMinutes": 35
+            "openingBeat": "Doors open. Comm-jamming pins go on. Five named players to read.",
+            "risingAction": "The Catch the Cheater beat — Creeska palms his marker.",
+            "climax": "Day 1 cards play out. Cover identities hold or slip.",
+            "resolution": "Back-bar recess. Switch reminder. Mandelbrot gavels Day 1 closed.",
+            "estimatedMinutes": 45
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a3s6-deception",
-              "discipline": "deception",
-              "context": "Playing Sabacc — maintaining a poker face while reading opponents.",
+              "id": "sc-a3p2s1-skulduggery",
+              "discipline": "skulduggery",
+              "context": "Spotting Creeska's card-marker from the table or the security floor.",
+              "arena": "reflex",
+              "actionType": "assess",
+              "control": {
+                "failure": "You read Creeska as merely twitchy. No marker spotted, no evidence in hand. If you publicly accuse him now, his Bothan witness flips the room and you are expelled instead.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Marker spotted AND you trace the chemical signature back to a Pyke supplier — leverage on Creeska that Mandelbrot can use across multiple casinos. Mandelbrot Rapport +2."
+              },
+              "target": "Creeska",
+              "resist": 3,
+              "effect": {
+                "fleeting": "You catch the sleeve-thumb-deck-sleeve motion once. Enough to know what to look for next pass; not enough for evidence yet. One more observation round.",
+                "masterful": "Marker confirmed and the motion is unambiguous. Quietly hand the evidence to Mandelbrot. Creeska is expelled clean. Mandelbrot Rapport +1.",
+                "legendary": "Marker spotted, the chemical applicator is photographed mid-application, and the evidence is in Mandelbrot's hand within sixty seconds. Creeska is led out the service exit before he knows he has been seen. Mandelbrot Rapport +2."
+              },
+              "power": 3,
+              "tier": 1
+            },
+            {
+              "id": "sc-a3p2s1-investigation",
+              "discipline": "investigation",
+              "context": "Watching Creeska from the rail (security or spectator PC).",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Crowd noise, cigarra smoke, table angles — you cannot get a clean line on his hands. No marker spotted. Public accusation now will trigger the witness plant.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Marker spotted AND you read the cover the Bothan witness is providing. You can intercept the Bothan and offer your own counter-bribe before Creeska deploys him."
+              },
+              "target": "Creeska from the rail",
+              "resist": 3,
+              "effect": {
+                "fleeting": "You catch one motion. Plausible suspicion; not yet evidence. Watch one more pass.",
+                "masterful": "Marker confirmed. Hand the read to a security PC or pass it to Mandelbrot directly. Creeska expelled clean. Mandelbrot Rapport +1.",
+                "legendary": "Marker confirmed and the Bothan witness is identified before Creeska can deploy him. Mandelbrot Rapport +1, and the Bothan owes you a favor."
+              },
+              "power": 3,
+              "tier": 1
+            },
+            {
+              "id": "sc-a3p2s1-charm",
+              "discipline": "charm",
+              "context": "Holding cover under live tournament pressure (competitor PC).",
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Your poker face slips. An observant opponent reads your tell. You're at a disadvantage for the rest of the round.",
+                "failure": "Cover slips. +1 Resist on the next Charm or Deception check at the table today. An observant opponent files the read away for Day 2.",
                 "success": "Refer to effect tiers.",
-                "mastery": "Your performance is so convincing that opponents misread your strategy entirely. They play into your hands without knowing it."
+                "mastery": "Cover is so polished other players defer. -1 Resist on all Charm/Deception checks at the table for the rest of Day 1."
               },
               "target": "Tournament opponents",
               "resist": 3,
               "effect": {
-                "fleeting": "Basic composure maintained. Nobody reads your hand, but you don't learn much from them either.",
-                "masterful": "Poker face holds perfectly. You project false confidence on weak hands and false uncertainty on strong ones. Opponents are off-balance.",
-                "legendary": "You control the entire table's perception. Every bluff lands, every trap springs. Opponents fold when you want them to and bet when you want them to. The elimination rounds become a performance."
+                "fleeting": "Cover holds. Six hands played. You advance to Day 2 with a thin reputation.",
+                "masterful": "Cover holds clean. Six hands played. You advance with a respectable reputation and one named opponent who wants to play you again tomorrow.",
+                "legendary": "You become a story at the rail. Bothans are betting on you to make Day 3. Two named opponents specifically request your table assignment for Day 2."
               },
               "power": 3,
               "tier": 1
             },
             {
-              "id": "sc-a3s6-insight",
-              "discipline": "insight",
-              "context": "Reading other players — identifying Varga's proxy.",
-              "arena": "presence",
-              "actionType": "assess",
-              "control": {
-                "failure": "Too many players to read. Can't identify the connection. Everyone's wearing a poker face.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Fioro identified AND you notice she's passing information via the dealer droid. She's using the casino's own system as a dead drop."
-              },
-              "target": "Tournament players",
-              "resist": 3,
-              "effect": {
-                "fleeting": "One player seems unusually interested in the tournament results beyond gambling. Could be Varga's proxy or just a serious competitor.",
-                "masterful": "Lady Fioro keeps glancing at Arandis. She's the proxy — managing Varga's interests at the table.",
-                "legendary": "Complete social map: Fioro is Varga's proxy, she's watching Arandis, and there's a third player who's an independent operator — Draver — with his own agenda for the tournament."
-              },
-              "power": 3,
-              "tier": 1
-            },
-            {
-              "id": "sc-a3s6-investigation",
-              "discipline": "investigation",
-              "context": "Analyzing Arandis's playing pattern between hands.",
-              "arena": "wits",
-              "actionType": "assess",
-              "control": {
-                "failure": "Too many shell companies. The financial trail loops back on itself.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Full network mapped AND you discover Skreev's identity: Varga's chief intelligence operative, embedded in Cloud City's Wing Guard as a lieutenant."
-              },
-              "target": "Varga's network",
-              "resist": 3,
-              "effect": {
-                "fleeting": "A pattern emerges — three shell companies all registered to the same address. Getting warmer.",
-                "masterful": "Shell company network traced to a single operator: codename Skreev. Varga's intelligence chief on Cloud City. Real identity unknown.",
-                "legendary": "Complete dossier on Skreev: real name, Wing Guard rank, personal residence on Cloud City, known associates, and communication frequencies. The hunter becomes the hunted."
-              },
-              "power": 4,
-              "tier": 1
-            },
-            {
-              "id": "sc-a3s6-stealth",
-              "discipline": "stealth",
-              "context": "Slipping away from the table to investigate Draver's activities.",
-              "arena": "reflex",
-              "actionType": "interact",
-              "control": {
-                "failure": "You're being followed. Skreev knows you're investigating. The Knife in the Dark accelerates.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Not only undetected but you identify and photograph Skreev's surveillance team. Can be used as leverage or to set a counter-trap."
-              },
-              "target": "Skreev's surveillance",
-              "resist": 3,
-              "effect": {
-                "fleeting": "Careful movement. You think you're clean but can't be certain. No obvious tails.",
-                "masterful": "Clean counter-surveillance. Skreev's watchers don't know you're investigating him.",
-                "legendary": "You turn the surveillance back on them. Every watcher is identified, photographed, and their patrol patterns logged. Skreev's network is compromised without him knowing."
-              },
-              "power": 4,
-              "tier": 1
-            },
-            {
-              "id": "sc-a3s6-charm",
-              "discipline": "charm",
-              "context": "Building rapport with other players to gather intel.",
+              "id": "sc-a3p2s1-insight",
+              "discipline": "sense_spark",
+              "context": "Reading Koroma Moro at the back bar — is he Switch's man as advertised, or is there a wrinkle?",
               "isOptional": true,
               "arena": "presence",
-              "actionType": "interact",
+              "actionType": "assess",
               "control": {
-                "failure": "Other players are guarded. Tournament atmosphere is tense. Small talk bounces off.",
+                "failure": "You read Moro as a competent middle-stakes captain who is playing his own game. The Switch arrangement does not register on him. (If Switch did pitch the crew, the GM may use this miss to plant doubt — is Switch lying about Moro, or is Moro lying to Switch?)",
                 "success": "Refer to effect tiers.",
-                "mastery": "A talkative Bothan reveals Fioro's ship registration AND mentions that a 'scary Zabrak' visited Fioro's hotel room last night. Skreev is in contact with the proxy."
+                "mastery": "Full read AND you confirm the Kessel-run debt detail Switch named — Moro owes Switch a freighter's worth and is at the table to clear it. The arrangement is exactly what Switch said."
               },
-              "target": "Tournament players",
+              "target": "Koroma Moro",
               "resist": 3,
               "effect": {
-                "fleeting": "Polite conversation but nothing of substance. Everyone's playing it close.",
-                "masterful": "A talkative Bothan reveals: Fioro arrived on a ship registered to Varga's company. Confirmed proxy.",
-                "legendary": "Multiple players open up. You learn Fioro's background (ex-Imperial bureaucrat turned fixer), her hotel room number, and the fact that she takes a specific service corridor to avoid cameras."
+                "fleeting": "Moro is a patient player carrying weight. Plausible match for Switch's description; not yet confirmed.",
+                "masterful": "Moro is Switch's man. The body language matches the pitch. The arrangement is real and Moro is committed.",
+                "legendary": "Full psychological read: Moro is a captain who lost his ship to a debt, is at the table to win it back, and would rather not cheat — but will, if the crew gives him the cover for it."
               },
-              "power": 2,
+              "power": 3,
               "tier": 1
             }
           ]
@@ -2086,6 +2079,372 @@
         {
           "id": "adv3-p2-s2",
           "number": 2,
+          "title": "The Elimination Rounds — Day 2",
+          "subtitle": "Day 2 — Message from the Banshee",
+          "readAloud": "Daybreak. The casino doors open on a thinned field — half the names from yesterday are gone, and the surviving competitors look it. Coffee. Black. Comm-jamming pins on. Tables reset.\n\nYou are an hour into the second session when Varth's voice cuts in over the crew's open channel — the spectator and security PCs hear it first; the competitor PCs at the felt do not, because the pin is doing its job.\n\n\"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It is the Assiduous — Inquisitor Draco's flagship.\"\n\nA beat of silence on the comm.\n\n\"That ship is the clean-up crew. If Arandis loses the money wrong, or if Varga double-crosses them, Draco won't bother with arrests. He'll glass the city to bury the evidence. Pass that to whoever you have at a table. Quietly.\"",
+          "gmNotes": "DAY 2 of the tournament. The headline beat is Message from the Banshee — the Assiduous arrival lands here, mid-tournament, instead of pre-tournament. The relay problem is the whole point: the news comes in over comlink, and the competitor PCs cannot hear it because the comm-jamming pin is on. The spectator/security PCs (or Maya/Varth on the Banshee) must walk it to the table during a posted break.\n\nThe Day 2 commit-prompt for the Switch Dirty Money fork is here too — Switch sends his second comm with the same offer and a request for an answer in principle, knowing the crew's actual lock-in is Day 3.\n\nThe Day 2 -> Day 3 transition hands cleanly into adv3-p2-s3 (Pressure Cooker, Day 3 morning Maya/Varth argument). Mandelbrot gavels Day 2 closed at midnight; the bracket narrows to twenty-four players; the surviving PCs advance to the Day 3 morning beat.",
+          "npcs": [
+            {
+              "name": "Inquisitor Valin Draco",
+              "type": "Nemesis (Remote Threat — aboard the Assiduous)",
+              "count": 1,
+              "notes": "Aboard the Assiduous in orbit. Prepared to glass Cloud City if needed. NOT meant to be fought at this tier; he is an orbital threat whose presence is a clock, not an encounter.",
+              "threatBuild": {
+                "role": "controller",
+                "tier": 4,
+                "classification": "boss",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 4,
+                  "grit": 4,
+                  "wits": 3,
+                  "presence": 4
+                },
+                "weaponChassis": "heavy",
+                "traits": [
+                  "force_sensitive",
+                  "fearless",
+                  "iron_clad"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Inquisitor",
+                  "Dark Side"
+                ],
+                "computed": {
+                  "power": 7,
+                  "defense": 7,
+                  "evasion": 7,
+                  "resist": 7,
+                  "vitality": 22,
+                  "initiative": 10,
+                  "controlDie": "d12",
+                  "actions": 2,
+                  "damageTiers": {
+                    "chassis": "heavy",
+                    "label": "Heavy",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "roleKit": {
+                  "roleName": "Controller / Ranged",
+                  "action": {
+                    "name": "Suppressive Volley",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + Controller's zone becomes [Hazard 1] until end of next round"
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
+                  },
+                  "maneuver": {
+                    "name": "Overwatch Position",
+                    "modifies": "Overwatch",
+                    "description": "Modifies Overwatch. Declare a zone. Any PC that enters, leaves, or takes an action in that zone presents an Opening AND gains [Suppressed]."
+                  },
+                  "gambit": {
+                    "name": "Disrupt",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Stunned] Tactical. Target Steps Down the Control Die on all rolls until cleared.",
+                    "rider": "[Stunned]"
+                  },
+                  "exploit": {
+                    "name": "Denial Fire",
+                    "trigger": "A PC enters a zone the Controller has declared as Overwatch.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
+                },
+                "notes": "Campaign nemesis. Power 7 vs PC tier — direct engagement is lethal. He is the reason to run, not the fight to win.",
+                "powerSource": "ranged"
+              }
+            },
+            {
+              "name": "Switch (Twi'lek Information Broker — Remote)",
+              "type": "Contact (Remote)",
+              "count": 1,
+              "notes": "On a private comm from his suite somewhere in the upper Cloudscape. Pitches the Day 2 reminder of the Dirty Money offer. Not at the casino, not in the scene physically.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 4,
+                  "presence": 3
+                },
+                "weaponChassis": null,
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Twi'lek",
+                  "Broker"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 1,
+                  "evasion": 1,
+                  "resist": 3,
+                  "vitality": 4,
+                  "initiative": 8,
+                  "controlDie": "d6",
+                  "actions": 1
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Information Is Currency",
+                    "description": "Switch never bluffs about what he knows. If he names a price (5-7% of Moro's pot), it is the real number."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "Remote contact. The relevant mechanic is the offer itself — see the Switch Day 2 reminder beat below."
+              }
+            }
+          ],
+          "hazards": "Comm-jamming pins still active on competitors. The Assiduous is now in orbit. Mandelbrot has not yet been told the Star Destroyer is significant, but he will hear about it before Day 3.",
+          "decisionPoints": [
+            {
+              "id": "adv3-p2-s2-key-decision",
+              "prompt": "Key Decision: Day 2 — Message from the Banshee",
+              "options": [
+                {
+                  "key": "opt-1",
+                  "label": "Get the Assiduous news to the competitor PCs at the felt during the next break",
+                  "consequence": "The crew operates on shared knowledge from here on. Competitor PCs play the rest of Day 2 with the orbital threat in mind. Tone shifts."
+                },
+                {
+                  "key": "opt-2",
+                  "label": "Sit on the news; let the competitor PCs play clean and brief them at end-of-day",
+                  "consequence": "Competitor PCs miss the live pressure. The Day 3 morning Maya/Varth argument lands harder because they walk into it cold."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "Accept Switch's reminder and signal commit to the Dirty Money fork in principle",
+                  "consequence": "Switch keeps Moro at the table. The Day 3 commit-window opens after the Maya/Varth argument. Imperial intel-grab is now genuinely in jeopardy."
+                },
+                {
+                  "key": "opt-4",
+                  "label": "Refuse Switch's reminder",
+                  "consequence": "Switch acknowledges and disengages. Moro plays his own game from here on. The Imperial card-arrangement transfer happens normally at the Final Table."
+                }
+              ]
+            }
+          ],
+          "loreTags": [
+            "Inquisitor Draco",
+            "The Assiduous",
+            "Cloud City",
+            "Project Leviathan",
+            "Switch",
+            "Koroma Moro"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p1-s5",
+              "note": "The Assiduous arrival originally lived in adv3-p1-s5 (Buy-In). It has been relocated here so it lands inside the tournament with the Switch commit prompt."
+            },
+            {
+              "targetScene": "adv3-p2-s3",
+              "note": "Day 2 hands off to Day 3 (Pressure Cooker / Maya-Varth argument) at end of session. The Switch commit window opens there."
+            }
+          ],
+          "challengeType": "social",
+          "destinyTags": [
+            "discovery",
+            "destruction",
+            "corruption"
+          ],
+          "vocationTags": [
+            "voc_grifter",
+            "voc_investigator",
+            "voc_ace"
+          ],
+          "disciplineTags": [
+            "charm",
+            "persuasion",
+            "investigation",
+            "sense_spark",
+            "skulduggery"
+          ],
+          "gearFlags": [],
+          "encounters": [
+            {
+              "id": "enc-a3-p2-s2-beat1-day-two-open",
+              "name": "Beat 1 — Day 2 Opens",
+              "type": "social",
+              "trigger": "Casino doors open Day 2 morning",
+              "description": "Half the field is gone from yesterday. The surviving competitors look it. Coffee. Black. Comm-jamming pins on. Tables reset. First session of the day runs an hour before the Banshee comm cuts in.",
+              "tactics": "NO DICE — atmosphere. The competitor PCs play one quiet hour of cards before Beat 2."
+            },
+            {
+              "id": "enc-a3-p2-s2-beat2-message-from-the-banshee",
+              "name": "Beat 2 — Message from the Banshee (Assiduous Arrival)",
+              "type": "social",
+              "trigger": "Varth's voice cuts in over the crew's open channel one hour into the session",
+              "description": "Varth's voice is genuinely afraid — the first time the crew has heard real fear in him since the Vanishing Place. He reports the Assiduous has dropped out of hyperspace and Inquisitor Draco is aboard. The competitor PCs at the felt cannot hear the comm because of the pin. The spectator/security PCs hear it first and must walk the news to the table during the next posted break — five real minutes of in-character improvisation in a casino full of people who are watching everything.",
+              "tactics": "NO DICE for the comm itself. ROLL once if a PC tries to relay during play (skulduggery vs Resist 3 to pass a coded note across the felt without a floor manager noticing — failure = floor manager warning, Mandelbrot Rapport -1). Force-sensitive PCs may roll a free Sense (sense_spark) at advantage (sense_spark, no Resist) to confirm what they already know — Draco himself is aboard. End beat after the relay lands or fails."
+            },
+            {
+              "id": "enc-a3-p2-s2-beat3-switch-day-two-reminder",
+              "name": "Beat 3 — Switch's Day Two Reminder",
+              "type": "social",
+              "trigger": "During the same break window, if the Dirty Money offer was accepted in principle (or pitched and deferred) in adv3-p1-s4",
+              "description": "Switch comms whichever crewmember answered the Day 1 pitch. He keeps it short: he wants confirmation that the offer is still live. He notes that Moro is holding the table well and could be in the final eight by end of Day 2. He is not pressuring; he is asking for an answer in principle so he knows whether to keep Moro at the felt. The actual commit is Day 3 (after the Maya/Varth argument in adv3-p2-s3).",
+              "tactics": "NO DICE — pitch reminder. If the crew commits in principle, Moro plays to script from here. If the crew defers, Switch waits until Day 3 commit window. If the crew refuses, Switch acknowledges and Moro plays his own game; the Imperial card transfer happens normally at the Final Table."
+            },
+            {
+              "id": "enc-a3-p2-s2-beat4-day-two-cards",
+              "name": "Beat 4 — Day 2 Card Play",
+              "type": "social",
+              "trigger": "Second session of Day 2",
+              "description": "Day 2 is the field-narrowing day. The remaining twenty-five players drop to twenty-four (and then to the Day 3 bracket). Table assignments rotate; at least one competitor PC ends up at the same table as Arandis or Fioro, putting the crew face-to-face with their targets in live play. Arandis loses two hands in a row that he should have won, deliberately, to set up the loss-pattern Varga's cashier needs to recognize. Fioro raises a hand and Arandis reads it without looking at her — they are working together openly, if you know how to look.",
+              "tactics": "RUN: harder Charm or Deception checks (Resist 3). The crew's tactical objective is to advance to the Day 3 bracket without exposing their cover. PCs who confirmed Arandis-Fioro coordination get -1 Resist on Sense (sense_spark) checks at adv3-p2-s4 (Final Table). End beat with the announced Day 3 bracket; hand off to adv3-p2-s3."
+            },
+            {
+              "id": "enc-a3-p2-s2-beat5-day-two-close",
+              "name": "Beat 5 — Day Two Closes",
+              "type": "social",
+              "trigger": "Mandelbrot's tournament administrator calls Day 2 at midnight standard",
+              "description": "The administrator gavels Day 2 closed. The cashier posts the Day 3 bracket. Surviving PCs advance to the morning Maya/Varth argument scene (adv3-p2-s3). The crew has a downtime block before Day 3 opens — Maya is on the Banshee with the Trandoshan datapad open in front of her, and Varth is already drafting the email she has not yet sent.",
+              "tactics": "NO DICE — forcing function. The Day 3 morning argument is loaded. End scene; hand off to adv3-p2-s3 (Pressure Cooker)."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Comm-Jamming Pin (Active on Competitors)",
+              "trigger": "When a competitor PC is seated at a tournament table",
+              "effect": "Same mechanic as Day 1. The pin produces a vocoder static field that kills any outgoing comlink signal from within five meters of the wearer. Competitor PCs cannot hear the Varth comm directly. Spotting the pin on another competitor requires a skulduggery or investigation check vs Resist 3. Removal of the pin while inside the casino is grounds for immediate expulsion and forfeit of buy-in.",
+              "mitigation": "Use security and spectator PCs as meatspace intel-relays. The Beat 2 Banshee comm is exactly this mechanic in action."
+            },
+            {
+              "name": "Buy-Back-In (2,000 credits)",
+              "trigger": "When a competitor PC is eliminated mid-round and a competitor \"gets sick\"",
+              "effect": "Same mechanic as Day 1. Eliminated PC may re-enter for 2,000 credits paid to the cashier when a slot opens. Use it as the rescue valve.",
+              "mitigation": "Pay the 2,000 and re-enter."
+            },
+            {
+              "name": "The Clock (Draco Patience)",
+              "trigger": "From the Beat 2 Assiduous arrival forward",
+              "effect": "Draco's patience is finite. The GM tracks escalation: Day 2 = observation. Day 3 = suspicion. Day 4 = action. If the tournament drags past Day 4, the Assiduous opens turbolaser fire on the upper Cloudscape and the campaign converts to evacuation/sabotage.",
+              "mitigation": "Win fast. Get out faster."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [],
+            "narrative": "Day 2 closes. Twenty-four players remain. The Assiduous is in orbit and the Switch fork is loaded. Day 3 morning waits."
+          },
+          "pacing": {
+            "openingBeat": "Day 2 opens on a thinned field.",
+            "risingAction": "The Banshee comm cuts in — Assiduous in orbit, Draco aboard. The relay problem is live.",
+            "climax": "The Day 2 break — relay the news, take or refuse Switch's reminder, hold cover.",
+            "resolution": "Mandelbrot gavels Day 2 closed. The Day 3 bracket is posted.",
+            "estimatedMinutes": 45
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3p2s2-skulduggery-relay",
+              "discipline": "skulduggery",
+              "context": "Relaying the Assiduous news to a competitor PC at the felt during play (between posted breaks).",
+              "isOptional": true,
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A floor manager spots the note pass. Mandelbrot Rapport -1 and a public warning. The relay does not land.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Note passes clean AND you slip the floor manager a coded reassurance that turns the warning into a wink. Mandelbrot Rapport +1."
+              },
+              "target": "Floor manager",
+              "resist": 3,
+              "effect": {
+                "fleeting": "The note crosses the felt. Competitor PC reads it under the table. The relay landed barely.",
+                "masterful": "Clean pass. Competitor PC has the news before the next hand opens. No house notice.",
+                "legendary": "Pass goes through three intermediaries — drink runner, dealer droid, the PC across the table — and the note reaches Hand without any floor manager seeing the chain. Mandelbrot Rapport +1."
+              },
+              "power": 3,
+              "tier": 1
+            },
+            {
+              "id": "sc-a3p2s2-sense-spark",
+              "discipline": "sense_spark",
+              "context": "Force-sensitive PC reading the orbital pressure of the Assiduous arrival.",
+              "isOptional": true,
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "You feel only the casino. The Assiduous is far enough up the gravity well that the cold-behind-the-sternum tap does not reach you.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full read AND you sense Draco is not alone — there is a second, smaller dark presence on the Assiduous, calmer and more patient. (Seed for later — do not name it yet.)"
+              },
+              "target": "The Assiduous in orbit",
+              "resist": 3,
+              "effect": {
+                "fleeting": "A faint tap behind the sternum. Familiar. He is up there.",
+                "masterful": "Confirmed: Draco is aboard, in orbit, watching. The sensation is a long cold line that runs from the casino up through the cloud layer.",
+                "legendary": "You feel the Assiduous as a column of pressure — Draco at the top, a complement of Inquisitorius staff below him, and the Star Destroyer's standard crew at the base. He is not in a hurry. He is watching."
+              },
+              "power": 3,
+              "tier": 1
+            },
+            {
+              "id": "sc-a3p2s2-charm-switch",
+              "discipline": "charm",
+              "context": "Negotiating Switch's percentage upward during the Day 2 reminder comm.",
+              "isOptional": true,
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Switch holds the line at 5%. Take it or leave it. No insult; just the floor.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Switch agrees to 7% AND throws in a one-time favor — a clean docking slip on Cloud City the crew can cash in any time over the next year."
+              },
+              "target": "Switch (remote)",
+              "resist": 3,
+              "effect": {
+                "fleeting": "Switch holds at 5%. Take it or leave it.",
+                "masterful": "Switch agrees to 6%. A real bump from the floor.",
+                "legendary": "Switch agrees to 7%. Top of the range. He likes the way the crew handles itself."
+              },
+              "power": 3,
+              "tier": 1
+            },
+            {
+              "id": "sc-a3p2s2-charm-cards",
+              "discipline": "charm",
+              "context": "Holding cover under live tournament pressure (competitor PC) on Day 2.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Cover slips. +1 Resist on the next Charm or Deception check at the table. An observant opponent files the read away for the Day 3 bracket.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover holds so cleanly that Mandelbrot personally requests your table assignment for Day 3 — top bracket. -1 Resist on Day 3 morning checks."
+              },
+              "target": "Tournament opponents",
+              "resist": 3,
+              "effect": {
+                "fleeting": "Cover holds. You advance to the Day 3 bracket with a thin margin.",
+                "masterful": "Cover holds clean. You advance with a respectable position.",
+                "legendary": "You become the story of Day 2. Two named players want to play you in the Day 3 bracket. Mandelbrot personally toasts you at last call."
+              },
+              "power": 3,
+              "tier": 1
+            }
+          ]
+        },
+        {
+          "id": "adv3-p2-s3",
+          "number": 3,
           "title": "The Pressure Cooker",
           "subtitle": "Day 3",
           "readAloud": "Before the tables open on Day 3, you catch Maya and Varth in a hushed argument near the docking bay. Maya's voice is low but furious:\n\n\"There are people on that ship, Varth. Living people in slave circuits. We have the datapad. We know where the Shackles of Nizon docks. We could —\"\n\nVarth cuts her off, cold and final: \"That is not why we are here. We are here for the money. A rescue operation against an Imperial slave transport is suicide, and I will not risk this crew on your conscience.\"\n\nMaya stares at him. Then she walks away without another word.\n\nDay three. Only two tables remain. The buy-ins have escalated, and the audience has shifted from celebration to funeral silence.\n\nMidway through the session, a Devaronian gambler named Szygar goes bust against Arandis. He snaps, leaping up and screaming accusations of cheating. A hold-out blaster appears in his hand.\n\nPanic ripples through the crowd. Arandis doesn't flinch.",
@@ -2210,7 +2569,7 @@
           "hazards": "Armed gambler in a crowded casino. Potential for mass panic. Stormtroopers ready to intervene lethally.",
           "decisionPoints": [
             {
-              "id": "adv3-p2-s2-key-decision",
+              "id": "adv3-p2-s3-key-decision",
               "prompt": "Key Decision: The Pressure Cooker",
               "options": [
                 {
@@ -2408,12 +2767,12 @@
           ]
         },
         {
-          "id": "adv3-p2-s3",
-          "number": 3,
+          "id": "adv3-p2-s4",
+          "number": 4,
           "title": "The Final Table",
           "subtitle": "Day 4",
           "readAloud": "The final day. Five players remain under a harsh spotlight: Arandis, Fioro, Draver, the Rodian Creeska, and you.\n\nArandis plays strangely — folding strong hands against everyone except Fioro. He goes All In against her. She calls.\n\nHe reveals a losing hand. The crowd erupts. But instead of sweeping his cards away, Arandis deliberately arranges them on the table: One of Coins. Three of Sabers. Seven of Flasks.\n\nVarth decodes it instantly: \"1-3-7. That's a frequency — 137.12. It's the slave circuit control code for the Shackles of Nizon. He just handed her the keys to the getaway car AND the money.\"",
-          "gmNotes": "The climax of the game. Arandis deliberately loses the massive pot to Fioro (Varga's proxy), transferring the Imperial payment. The card arrangement is a code — the slave circuit frequency for the Shackles of Nizon. Fioro now has the credits (digitally transferred to a datapad) and the ship code. The heroes must grab her before she leaves. This is the moment the heist transitions to action.",
+          "gmNotes": "The climax of the game. Two outcomes — choose at the table based on whether the crew committed to the Switch Dirty Money fork at the Day 3 commit point in adv3-p2-s3.\n\n[OUTCOME A — IMPERIAL FORK (default).] Arandis deliberately loses the massive pot to Fioro (Varga's proxy), transferring the Imperial payment. The card arrangement is a code — the slave circuit frequency for the Shackles of Nizon (137.12). Fioro now has the credits (digitally transferred to a datapad) and the ship code. The heroes must grab her before she leaves. The heist (adv3-p2-s5) and the Adv3 Part 3 sequence proceed with the Shackles lead intact.\n\n[OUTCOME B — DIRTY MONEY FORK.] The crew is actively helping Moro win. The Imperial card-arrangement transfer NEVER HAPPENS — Arandis cannot maneuver Fioro into the winning seat because Moro keeps taking the pots Arandis needs to feed her. Fioro never receives the wafer. There is NO 137.12 frequency. There is NO Shackles of Nizon lead. Switch pays the crew 5-7% of Moro's pot. Mandelbrot Rapport may shift depending on whether the crew's table-side cheating got noticed (skulduggery vs Resist 4 — failure = expulsion).\n\nWire the chosen outcome through to adv3-p3-s1 (Gauntlet) and downstream. The Part 3 entry conditions for the heist sequence change: under Outcome A, the crew chases Fioro and the wafer toward the Shackles; under Outcome B, the crew chases Moro's payout and the Imperial payment vanishes into Varga's shell network entirely.",
           "npcs": [
             {
               "name": "Lt. Armen Arandis",
@@ -2550,23 +2909,90 @@
                 },
                 "notes": "Varga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure. (Recurring — now receiving the credits.)"
               }
+            },
+            {
+              "name": "Koroma Moro",
+              "type": "Twi'lek Captain (At the Felt)",
+              "count": 1,
+              "notes": "At the Final Table seat the crew put him in. Plays under whichever script the crew chose at the Day 3 commit point. If the crew committed Dirty Money, Moro is the linchpin of the win condition that blocks the Imperial transfer.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Twi'lek",
+                  "Captain"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 2,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Patient Player",
+                    "description": "Moro will only act on tips passed to him face-to-face during posted breaks (the comm-jamming pin is on him too)."
+                  },
+                  "gambit": null,
+                  "exploit": {
+                    "name": "Switch's Hand",
+                    "trigger": "Crew committed Dirty Money in adv3-p2-s3.",
+                    "description": "Moro plays to a script the crew can shape. Reads, distractions at competing tables, or active cheating on his behalf (skulduggery vs Mandelbrot's Resist 4)."
+                  }
+                },
+                "notes": "See adv3-p2-s1 for the full Moro context block. He is here to win or lose under the crew's direction."
+              }
             }
           ],
           "hazards": "Packed casino. Security everywhere. Fioro will try to leave immediately.",
           "decisionPoints": [
             {
-              "id": "adv3-p2-s3-key-decision",
+              "id": "adv3-p2-s4-key-decision",
               "prompt": "Key Decision: The Final Table",
               "options": [
                 {
                   "key": "opt-1",
-                  "label": "Intercept Fioro immediately",
-                  "consequence": "Direct confrontation in the casino. Public and messy."
+                  "label": "[Outcome A] Let the Imperial transfer happen and intercept Fioro afterward",
+                  "consequence": "Fioro receives the 137.12 frequency wafer. The crew chases her into the heist (adv3-p2-s5). Shackles of Nizon lead intact for Part 3."
                 },
                 {
                   "key": "opt-2",
-                  "label": "Follow Fioro and grab her outside",
-                  "consequence": "Cleaner but she might reach Varga's people first."
+                  "label": "[Outcome A] Intercept Fioro inside the casino immediately after the transfer",
+                  "consequence": "Direct confrontation in the casino. Public and messy. Same Shackles intel; harder extraction."
+                },
+                {
+                  "key": "opt-3",
+                  "label": "[Outcome B] Help Moro win — actively cheat at the table for him",
+                  "consequence": "Skulduggery vs Mandelbrot's house Resist 4 — failure = expulsion. If Moro wins clean, no Imperial transfer, no 137.12, no Shackles lead. Switch pays 5-7% of pot."
+                },
+                {
+                  "key": "opt-4",
+                  "label": "[Outcome B] Help Moro win — feed him reads and run distractions only",
+                  "consequence": "No skulduggery roll required. Moro's win odds are lower than active cheating, but Mandelbrot Rapport is unaffected."
                 }
               ]
             }
@@ -2578,7 +3004,20 @@
             "Lt. Armen Arandis",
             "Varga the Hutt"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p2-s2",
+              "note": "The Switch Dirty Money fork was loaded in Day 2 (Message from the Banshee) and committed in Day 3 (Pressure Cooker). The fork resolves here at the felt."
+            },
+            {
+              "targetScene": "adv3-p2-s3",
+              "note": "The Maya/Varth Shackles of Nizon argument is the moral context for the commit. If the crew committed Dirty Money, Maya gets her win at the Final Table — no card transfer means no slaves locked into the 137.12 frequency."
+            },
+            {
+              "targetScene": "adv3-p3-s1",
+              "note": "Outcome A and Outcome B feed different Part 3 entry conditions. Mark the chosen outcome on the crew sheet before handing off to the Gauntlet."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "discovery",
@@ -2610,6 +3049,24 @@
               "trigger": "When Arandis plays his final hand",
               "effect": "The card arrangement is a coded message. Only visible for moments before cards are swept.",
               "mitigation": "Investigation or recording device to capture the arrangement."
+            },
+            {
+              "name": "The Switch Fork (Outcome A vs Outcome B)",
+              "trigger": "Active throughout the Final Table",
+              "effect": "If the crew committed Dirty Money in adv3-p2-s3, Moro plays to script and the crew can feed him reads, run distractions at competing tables, or actively cheat on his behalf (skulduggery vs Mandelbrot's Resist 4 — failure = expulsion + 2,000-credit buy-back-in fee). If Moro wins, the Imperial card transfer never happens, no 137.12 frequency, no Shackles lead. If the crew did NOT commit, Arandis maneuvers Fioro into the winning seat, the wafer transfers, the 137.12 frequency is in Fioro's datapad, and the Shackles lead is intact for Part 3.",
+              "mitigation": "Pick the outcome on purpose, not by accident. Wire the choice into the Part 3 entry conditions."
+            },
+            {
+              "name": "Comm-Jamming Pin (Active on Competitors)",
+              "trigger": "When a competitor PC is seated at the Final Table",
+              "effect": "Same mechanic as Days 1-2. Pin kills comlink signal within five meters; spotting the pin on another competitor requires skulduggery or investigation vs Resist 3; removal during play = immediate expulsion.",
+              "mitigation": "Pass intel meatspace via security/spectator PCs during the Final Table's posted breaks."
+            },
+            {
+              "name": "Buy-Back-In (2,000 credits)",
+              "trigger": "When a competitor PC is eliminated mid-round at the Final Table and a competitor \"gets sick\"",
+              "effect": "Same mechanic as Days 1-2. Eliminated PC may re-enter the Final Table for a flat 2,000-credit fee paid to the cashier when a competitor at the table withdraws under medical or personal pretext. The fee is non-negotiable; the slot is first-come. At the Final Table, the buy-back-in window is shorter (single round) — Mandelbrot will not hold the seat for long with this much money on the felt.",
+              "mitigation": "Pay the 2,000 and re-enter. Track the credit cost on the crew sheet."
             }
           ],
           "rewards": {
@@ -2718,8 +3175,8 @@
           ]
         },
         {
-          "id": "adv3-p2-s4",
-          "number": 4,
+          "id": "adv3-p2-s5",
+          "number": 5,
           "title": "The Heist",
           "subtitle": "Combat",
           "readAloud": "Just as you move to intercept Fioro, Silas Draver makes his play. He stands, pulls a heavy blaster, and fires into the ceiling.\n\n\"Nobody moves! The Empire isn't the only one getting paid today!\"\n\nThe dealer droids spin around, revealing hidden blaster cannons. Draver's men — disguised as waiters and guests — pull weapons and secure the exits. Draver grabs Fioro, pressing a blaster to her temple.\n\n\"The datapad. Now.\"",
@@ -2956,7 +3413,7 @@
           "hazards": "Three-way crossfire. Panicking civilians (difficult terrain). Overturned tables. Flying weaponized droids.",
           "decisionPoints": [
             {
-              "id": "adv3-p2-s4-key-decision",
+              "id": "adv3-p2-s5-key-decision",
               "prompt": "Key Decision: The Heist",
               "options": [
                 {
@@ -3158,8 +3615,8 @@
           ]
         },
         {
-          "id": "adv3-p2-s5",
-          "number": 5,
+          "id": "adv3-p2-s6",
+          "number": 6,
           "title": "The Aftermath",
           "readAloud": "The casino is a wreck. Sirens wail in the distance. Lady Fioro, wounded and terrified, spills everything.\n\n\"He's at the lower docks — Docking Bay 4414. He has the Shackles of Nizon holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight!\"\n\nVarth scans the system. His voice is grim: \"The Shackles just activated its engines. And... damn it. The Assiduous just entered the system. Draco is here. Get to the hangar. If Varga launches, we lose everything.\"",
           "gmNotes": "Fioro reveals Varga's location and the Shackles of Nizon's status. Varth confirms Draco has entered the system. The heroes must flee the crime scene and race through Cloud City to the industrial docks before Varga escapes. This is a transition scene — setting up Part 3.",
@@ -3227,7 +3684,7 @@
           "hazards": "Wing Guard closing in. Imperial Star Destroyer entering the system. Time pressure.",
           "decisionPoints": [
             {
-              "id": "adv3-p2-s5-key-decision",
+              "id": "adv3-p2-s6-key-decision",
               "prompt": "Key Decision: The Aftermath",
               "options": [
                 {
@@ -3412,7 +3869,7 @@
           "title": "The Gauntlet",
           "subtitle": "Streets of Cloud City",
           "readAloud": "The journey to the lower docks is a sprint through a city in lockdown. Varga has bribed the Wing Guard to declare you 'Enemy Saboteurs.'\n\nThe chase transitions from pristine white corridors into the steam-filled, rusted catwalks of the Industrial District. Tibanna gas vents hiss, obscuring vision, and the orange glow of the Bespin sunset filters through heavy industrial grates.\n\nVarth hacks door controls from the ship: \"Left at the junction! No, the other left! I'm jamming their comms, but I can't stop them from shooting at you. Move!\"",
-          "gmNotes": "Running battle through Cloud City. The heroes are pinned down by corrupt Wing Guard and Stormtroopers. This is a chase — stopping to fight every enemy means being overwhelmed. Use the environment: shoot steam pipes to scald pursuers, jump onto moving cargo skiffs, cut through maintenance ducts. Varth acts as 'The Man in the Chair,' hacking door controls.",
+          "gmNotes": "Running battle through Cloud City. The heroes are pinned down by corrupt Wing Guard and Stormtroopers. This is a chase — stopping to fight every enemy means being overwhelmed. Use the environment: shoot steam pipes to scald pursuers, jump onto moving cargo skiffs, cut through maintenance ducts. Varth acts as 'The Man in the Chair,' hacking door controls.\n\n[OUTCOME GATE — wire from adv3-p2-s4.]\n\n[OUTCOME A — IMPERIAL FORK (default).] The crew is chasing Fioro toward the air-tram with the 137.12 frequency wafer in her datapad. The Shackles of Nizon lead is intact and feeds the Part 3 sequence as written. The Wing Guard pursuit is hunting the wafer.\n\n[OUTCOME B — DIRTY MONEY FORK.] No wafer changed hands. Fioro is still at the casino arguing with Varga's on-floor handler about a payment that never arrived. The crew is instead chasing Moro's payout chips toward the Banshee while Switch confirms the 5-7% transfer en route. The Wing Guard pursuit was scrambled by Varga's payroll regardless — Varga is furious that the Imperial money is gone — so the chase still happens, but the prize is the Switch payout, not the Shackles intel. Adv3 Part 3 downstream scenes (Hutt's Hangar, Firefight, Grand Theft Starship, Skirmish Over Bespin, The Choice) proceed without the Shackles lead. The Maya rescue beat in adv3-p3-s5 is REPLACED by a Maya quiet-confirmation that the Shackles transport is no longer reachable through this lead — the slaves on that ship will require a different operation in a later adventure. Flag this in The Choice (adv3-p3-s6) so Varth's deception about Maya is recolored: he never had to let her go, because the lead never materialized.",
           "npcs": [
             {
               "name": "Elite Bespin Security Guards",
@@ -5479,7 +5936,7 @@
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv3-p2-s2",
+              "targetScene": "adv3-p2-s3",
               "note": "The argument the players overheard. Maya said she wanted to help the slaves. Varth said no. She went anyway. And now here she is — with three hundred freed people and a punch for Varth."
             },
             {

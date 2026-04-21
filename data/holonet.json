@@ -252,6 +252,24 @@
             "tibanna",
             "mining-guild"
           ]
+        },
+        {
+          "id": "hn_klosari_relief",
+          "headline": "FRONTIER RELIEF GUILD ACCEPTS KLOSARI ARRIVALS FROM AJAN KLOSS — IMPERIAL CORDON DEFLECTS GROUP TO SECONDARY WORLD",
+          "source": "Outer Rim Frontier Bulletin (free press, unaffiliated)",
+          "body": "The Frontier Relief Guild reports that a small community of Klosari — the indigenous canopy-dwellers of Ajan Kloss — has been accepted at a Guild waystation in the Sumitra system after a freelance crew quietly extracted them from the abandoned Vanishing Place fortress some weeks ago. Initial Imperial cordon protocols at Sumitra primary turned the group away on documentation grounds; a sympathetic Guild factor rerouted them to a secondary moon where Klosari elders have begun a permanent settlement under Guild protection. Guild spokesfactor Vellah Onn declined to name the extraction crew but credited \"an off-book operation that did not ask permission and did not leave anyone behind.\" The Klosari community, estimated at three hundred forty surviving members, is reported to be in good health and to have requested no further outside contact.",
+          "type": "consequence",
+          "tags": [
+            "klosari",
+            "ajan-kloss",
+            "mandrake",
+            "consequence",
+            "frontier"
+          ],
+          "conditions": {
+            "minAdventure": "adv2",
+            "requires": "klosari_freed_in_adv1"
+          }
         }
       ]
     },

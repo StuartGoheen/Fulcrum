@@ -30,7 +30,7 @@
       "type": "business",
       "comfortCost": 0,
       "response": "Krygg snorts. 'Ask the diplomat. He has the diagram.'\n\nFyren produces a flimsi from inside his vest. 'The Imperial payment is not a credit transfer. It is a coded data wafer carried by an Imperial officer playing the tournament under a cover identity. He loses, deliberately, at the final table. The wafer travels with the tournament winnings to the cashier. The cashier — who is on Varga's payroll — swaps the wafer into a private payout envelope and routes it down to Varga's offices via the air-tram on schedule 4-Beta. From wafer to Varga, twenty-seven minutes.'\n\nA short pause.\n\n'The window to intercept is the cashier's hand-off. Eleven minutes. The cashier is alone in the count room during that window because the tournament protocol requires it. If you can reach the count room in those eleven minutes — without triggering the casino's lockdown — you can take the wafer and Varga will not know it is gone until the air-tram arrives empty.'",
-      "gmNote": "The tactical brief that the heroes paid for. This is the explicit setup for the adv3-p2-s4 (The Heist) intercept. The eleven-minute window is the actual mechanic — GMs running that scene should put a visible timer on the table. The cashier is unnamed here but corresponds to Jacc Mandelbrot in adv3-p2-s2.",
+      "gmNote": "The tactical brief that the heroes paid for. This is the explicit setup for the adv3-p2-s5 (The Heist) intercept. The eleven-minute window is the actual mechanic — GMs running that scene should put a visible timer on the table. The cashier is unnamed here but corresponds to Jacc Mandelbrot in adv3-p2-s3.",
       "unlocks": ["fk-cashier", "fk-air-tram"],
       "tags": ["business", "intel", "handover"]
     },
@@ -73,7 +73,7 @@
       "type": "business",
       "comfortCost": 0,
       "response": "Fyren nods. 'Sullustan. Name is Mandelbrot. He has been in the count room for eleven years. He took the Varga retainer six years ago after his sister was hospitalized off-world and he could not pay the bills any other way. He is not a true believer. He is a man who is afraid of being audited and a man who is paying off a debt that gets bigger every year.'\n\nA pause.\n\n'If you reach him with the wafer in his hand and you tell him plainly that you can make the audit go away — he will not fight you. He will lose his job and he will not be sad about it. He has been waiting to be relieved of that count room for six years and the only person who can do it is somebody outside the system.'\n\nKrygg, dry: 'Bring him a bottle of Tihaarian brandy. He drinks alone. He misses being thanked.'",
-      "gmNote": "Concrete tactical advice for the heist beat. The Mandelbrot (Jacc Mandelbrot in adv3-p2-s2) characterization makes him a non-combat resolution at the count-room hand-off — the crew can recruit him with a pitch instead of fighting through. The brandy detail is a free social win in the Pressure Cooker scene if a PC actually buys the bottle.",
+      "gmNote": "Concrete tactical advice for the heist beat. The Mandelbrot (Jacc Mandelbrot in adv3-p2-s3) characterization makes him a non-combat resolution at the count-room hand-off — the crew can recruit him with a pitch instead of fighting through. The brandy detail is a free social win in the Pressure Cooker scene if a PC actually buys the bottle.",
       "unlocks": [],
       "tags": ["business", "mandelbrot", "tactics"]
     },
