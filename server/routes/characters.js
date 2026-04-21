@@ -95,6 +95,47 @@ function resolveBackgroundFavored(flat) {
   return favored;
 }
 
+const SPECIES_TONGUE = {
+  'Human':     null,
+  "Twi'lek":   'Ryl',
+  'Wookiee':   'Shyriiwook',
+  'Duros':     'Durese',
+  'Zabrak':    'Zabraki',
+  'Kel Dor':   'Kel Dor',
+  'Togruta':   'Togruti',
+  'Rodian':    'Rodese',
+  'Sullustan': 'Sullustese',
+  'Cathar':    'Catharese',
+};
+
+function _seedSpeciesLanguages(species) {
+  const seeded = [
+    { id: 'lang_basic', name: 'Galactic Basic', source: 'species', note: '', narrative: '', locked: true, createdAt: 0 },
+  ];
+  const tongue = SPECIES_TONGUE[species];
+  if (tongue) {
+    seeded.push({ id: 'lang_species', name: tongue, source: 'species', note: '', narrative: '', locked: true, createdAt: 0 });
+  }
+  return seeded;
+}
+
+function _resolveLanguages(flat) {
+  const seeded = _seedSpeciesLanguages(flat.species);
+  const userLangs = Array.isArray(flat.languages) ? flat.languages : [];
+  const cleaned = userLangs
+    .filter(l => l && typeof l.name === 'string' && l.name.trim() && (l.source === 'background' || l.source === 'history'))
+    .map(l => ({
+      id: typeof l.id === 'string' && l.id ? l.id : ('lang_' + Math.random().toString(36).slice(2, 10)),
+      name: String(l.name).slice(0, 80),
+      source: l.source,
+      note: typeof l.note === 'string' ? l.note.slice(0, 500) : '',
+      narrative: typeof l.narrative === 'string' ? l.narrative.slice(0, 2000) : '',
+      locked: false,
+      createdAt: typeof l.createdAt === 'number' ? l.createdAt : Date.now(),
+    }));
+  return seeded.concat(cleaned);
+}
+
 const ENGINE_DATA = {
   id: 'edge',
   name: 'The Edge',
@@ -259,6 +300,7 @@ function expandCharacterData(flat) {
     kits,
     talents: [],
     arenas,
+    languages: _resolveLanguages(flat),
     personalDestiny: flat.personalDestiny || null,
     debt: _migrateDebt(flat.debt),
     credits: flat.credits || 0,
@@ -589,6 +631,46 @@ router.post('/characters/:id/kits', async (req, res) => {
   } catch (err) {
     console.error('[POST /kits]', err);
     return res.status(500).json({ error: 'Failed to add vocation.' });
+  }
+});
+
+router.put('/characters/:id/languages', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT id, character_data, session_id FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const character = result.rows[0];
+    if (!character.session_id) {
+      return res.status(403).json({ error: 'Character is not in an active session.' });
+    }
+    const { languages } = req.body || {};
+    if (!Array.isArray(languages)) {
+      return res.status(400).json({ error: 'languages must be an array.' });
+    }
+    const data = JSON.parse(character.character_data);
+    const cleaned = [];
+    for (const l of languages) {
+      if (!l || typeof l.name !== 'string' || !l.name.trim()) continue;
+      if (l.source !== 'background' && l.source !== 'history') continue;
+      if (l.source === 'history' && (typeof l.narrative !== 'string' || !l.narrative.trim())) {
+        return res.status(400).json({ error: 'History languages require a narrative.' });
+      }
+      cleaned.push({
+        id: typeof l.id === 'string' && l.id ? l.id.slice(0, 40) : ('lang_' + Math.random().toString(36).slice(2, 10)),
+        name: l.name.trim().slice(0, 80),
+        source: l.source,
+        note: typeof l.note === 'string' ? l.note.slice(0, 500) : '',
+        narrative: typeof l.narrative === 'string' ? l.narrative.slice(0, 2000) : '',
+        createdAt: typeof l.createdAt === 'number' ? l.createdAt : Date.now(),
+      });
+    }
+    data.languages = cleaned;
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), character.id]);
+    return res.json({ ok: true, languages: _resolveLanguages(data) });
+  } catch (err) {
+    console.error('[PUT /characters/:id/languages]', err);
+    return res.status(500).json({ error: 'Failed to save languages.' });
   }
 });
 

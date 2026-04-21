@@ -52,6 +52,7 @@
       var techSection = _buildDisciplineTechniques(char, maneuversData);
       if (techSection) outer.appendChild(techSection);
     }
+    outer.appendChild(_buildLanguages(char));
     outer.appendChild(_buildSpeciesTraits(char, speciesData));
     outer.appendChild(_buildKitProgression(char));
 
@@ -485,6 +486,376 @@
     card.appendChild(rule);
 
     return card;
+  }
+
+  var SOURCE_LABELS = { species: 'Species', background: 'Background', history: 'History' };
+
+  function _saveLanguages(charId, langs) {
+    var userLangs = langs.filter(function (l) { return l.source !== 'species'; }).map(function (l) {
+      return { id: l.id, name: l.name, source: l.source, note: l.note || '', narrative: l.narrative || '', createdAt: l.createdAt || Date.now() };
+    });
+    return fetch('/api/characters/' + charId + '/languages', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ languages: userLangs }),
+    }).then(function (r) {
+      return r.json().then(function (j) {
+        if (!r.ok) throw new Error(j.error || 'Save failed');
+        return j;
+      });
+    });
+  }
+
+  function _reloadDetails() {
+    var session = null;
+    try { session = JSON.parse(sessionStorage.getItem('eote-session')); } catch (_) {}
+    var charId = session && session.characterId;
+    if (!charId) return;
+    Promise.all([
+      fetch('/api/characters/' + charId).then(function (r) { return r.json(); }),
+      fetch('/data/species.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('/data/maneuvers.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+    ]).then(function (results) {
+      buildDetailsPanel(results[0], results[1], results[2]);
+    });
+  }
+
+  function _buildLanguages(char) {
+    var langs = Array.isArray(char.languages) ? char.languages : [];
+    var charId = char.id;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'dp-languages-section';
+
+    var header = document.createElement('div');
+    header.className = 'dp-section-bar dp-section-bar--toggle';
+    header.innerHTML = '<span class="dp-section-bar-label">Languages</span>' +
+      '<span class="dp-section-bar-count">' + langs.length + ' known</span>' +
+      '<span class="dp-section-bar-chevron">\u25B8</span>';
+    header.addEventListener('click', function () {
+      wrap.classList.toggle('dp-section--closed');
+    });
+    wrap.appendChild(header);
+
+    var body = document.createElement('div');
+    body.className = 'dp-languages-body';
+
+    langs.forEach(function (lang) {
+      body.appendChild(_languageCard(lang, charId, langs));
+    });
+
+    var addBtn = document.createElement('button');
+    addBtn.className = 'dp-lang-add-btn';
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Language';
+    addBtn.addEventListener('click', function () {
+      _openAddLanguageDialog(charId, langs);
+    });
+    body.appendChild(addBtn);
+
+    wrap.appendChild(body);
+    return wrap;
+  }
+
+  function _languageCard(lang, charId, allLangs) {
+    var card = document.createElement('div');
+    card.className = 'dp-lang-card dp-lang-card--' + lang.source;
+
+    var top = document.createElement('div');
+    top.className = 'dp-lang-card-top';
+
+    var badge = document.createElement('span');
+    badge.className = 'dp-lang-badge dp-lang-badge--' + lang.source;
+    badge.textContent = SOURCE_LABELS[lang.source] || lang.source;
+    top.appendChild(badge);
+
+    var name = document.createElement('span');
+    name.className = 'dp-lang-name';
+    name.textContent = lang.name;
+    top.appendChild(name);
+
+    if (!lang.locked) {
+      var actions = document.createElement('span');
+      actions.className = 'dp-lang-actions';
+
+      var editBtn = document.createElement('button');
+      editBtn.className = 'dp-lang-act-btn';
+      editBtn.type = 'button';
+      editBtn.title = 'Edit';
+      editBtn.textContent = 'Edit';
+      editBtn.addEventListener('click', function () {
+        _openEditLanguageDialog(charId, allLangs, lang);
+      });
+      actions.appendChild(editBtn);
+
+      var delBtn = document.createElement('button');
+      delBtn.className = 'dp-lang-act-btn dp-lang-act-btn--del';
+      delBtn.type = 'button';
+      delBtn.title = 'Remove';
+      delBtn.textContent = '\u2715';
+      delBtn.addEventListener('click', function () {
+        if (!confirm('Remove "' + lang.name + '"? This does not refund Edge.')) return;
+        var next = allLangs.filter(function (l) { return l.id !== lang.id; });
+        _saveLanguages(charId, next).then(_reloadDetails).catch(function (err) {
+          alert('Failed to remove language: ' + err.message);
+        });
+      });
+      actions.appendChild(delBtn);
+
+      top.appendChild(actions);
+    }
+
+    card.appendChild(top);
+
+    var detail = '';
+    if (lang.source === 'background' && lang.note) {
+      detail = lang.note;
+    } else if (lang.source === 'history' && lang.narrative) {
+      detail = lang.narrative;
+    }
+    if (detail) {
+      var det = document.createElement('div');
+      det.className = 'dp-lang-detail';
+      det.textContent = detail;
+      card.appendChild(det);
+    } else if (lang.source === 'history') {
+      var empty = document.createElement('div');
+      empty.className = 'dp-lang-detail dp-lang-detail--empty';
+      empty.textContent = 'Narrative not yet written.';
+      card.appendChild(empty);
+    }
+
+    return card;
+  }
+
+  function _closeDialog() {
+    var existing = document.querySelector('.dp-lang-dialog-backdrop');
+    if (existing) existing.parentNode.removeChild(existing);
+  }
+
+  function _buildDialogShell(title) {
+    _closeDialog();
+    var backdrop = document.createElement('div');
+    backdrop.className = 'dp-lang-dialog-backdrop';
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) _closeDialog();
+    });
+    var dialog = document.createElement('div');
+    dialog.className = 'dp-lang-dialog';
+    var h = document.createElement('div');
+    h.className = 'dp-lang-dialog-title';
+    h.textContent = title;
+    dialog.appendChild(h);
+    backdrop.appendChild(dialog);
+    document.body.appendChild(backdrop);
+    return dialog;
+  }
+
+  function _openAddLanguageDialog(charId, allLangs) {
+    var dialog = _buildDialogShell('Add Language');
+
+    var prompt = document.createElement('div');
+    prompt.className = 'dp-lang-dialog-text';
+    prompt.textContent = 'Where did this language come from?';
+    dialog.appendChild(prompt);
+
+    var btnRow = document.createElement('div');
+    btnRow.className = 'dp-lang-dialog-btnrow';
+
+    var bgBtn = document.createElement('button');
+    bgBtn.type = 'button';
+    bgBtn.className = 'dp-lang-source-btn';
+    bgBtn.innerHTML = '<span class="dp-lang-source-btn-name">Background</span>' +
+      '<span class="dp-lang-source-btn-desc">GM hand-wave. Just name it.</span>';
+    bgBtn.addEventListener('click', function () {
+      _openEditLanguageDialog(charId, allLangs, { source: 'background' });
+    });
+    btnRow.appendChild(bgBtn);
+
+    var hisBtn = document.createElement('button');
+    hisBtn.type = 'button';
+    hisBtn.className = 'dp-lang-source-btn';
+    hisBtn.innerHTML = '<span class="dp-lang-source-btn-name">History</span>' +
+      '<span class="dp-lang-source-btn-desc">Burn 1 Edge. Mid-scene narrative.</span>';
+    hisBtn.addEventListener('click', function () {
+      _openEditLanguageDialog(charId, allLangs, { source: 'history' });
+    });
+    btnRow.appendChild(hisBtn);
+
+    dialog.appendChild(btnRow);
+
+    var closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'dp-lang-dialog-cancel';
+    closeBtn.textContent = 'Cancel';
+    closeBtn.addEventListener('click', _closeDialog);
+    dialog.appendChild(closeBtn);
+  }
+
+  function _openEditLanguageDialog(charId, allLangs, existing) {
+    var isNew = !existing.id;
+    var source = existing.source || 'background';
+    var dialog = _buildDialogShell(isNew ? 'New ' + SOURCE_LABELS[source] + ' Language' : 'Edit Language');
+
+    var nameLbl = document.createElement('label');
+    nameLbl.className = 'dp-lang-field-label';
+    nameLbl.textContent = 'Language name';
+    dialog.appendChild(nameLbl);
+
+    var nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.className = 'dp-lang-field-input';
+    nameInput.maxLength = 80;
+    nameInput.value = existing.name || '';
+    nameInput.placeholder = 'e.g. Huttese, Shyriiwook, Bocce...';
+    dialog.appendChild(nameInput);
+
+    var srcLbl = document.createElement('label');
+    srcLbl.className = 'dp-lang-field-label';
+    srcLbl.textContent = 'Source';
+    dialog.appendChild(srcLbl);
+
+    var srcRow = document.createElement('div');
+    srcRow.className = 'dp-lang-source-pills';
+    var srcOptions = [
+      { id: 'background', label: 'Background' },
+      { id: 'history',    label: 'History' },
+    ];
+    var currentSource = source;
+    var pillEls = {};
+    srcOptions.forEach(function (opt) {
+      var pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'dp-lang-source-pill' + (opt.id === currentSource ? ' dp-lang-source-pill--active' : '');
+      pill.textContent = opt.label;
+      pill.addEventListener('click', function () {
+        currentSource = opt.id;
+        Object.keys(pillEls).forEach(function (k) {
+          pillEls[k].className = 'dp-lang-source-pill' + (k === currentSource ? ' dp-lang-source-pill--active' : '');
+        });
+        renderSourceFields();
+      });
+      pillEls[opt.id] = pill;
+      srcRow.appendChild(pill);
+    });
+    dialog.appendChild(srcRow);
+
+    var fieldsWrap = document.createElement('div');
+    fieldsWrap.className = 'dp-lang-source-fields';
+    dialog.appendChild(fieldsWrap);
+
+    var noteInput, narrativeInput, edgeInfo;
+    var edgeAvail = (window.CharacterPanel && window.CharacterPanel.getEngineCurrent) ? window.CharacterPanel.getEngineCurrent() : 0;
+    var alreadyBurned = !isNew && existing.source === 'history';
+
+    function renderSourceFields() {
+      fieldsWrap.innerHTML = '';
+      if (currentSource === 'background') {
+        var nLbl = document.createElement('label');
+        nLbl.className = 'dp-lang-field-label';
+        nLbl.textContent = 'GM note (optional)';
+        fieldsWrap.appendChild(nLbl);
+        noteInput = document.createElement('textarea');
+        noteInput.className = 'dp-lang-field-textarea';
+        noteInput.rows = 2;
+        noteInput.maxLength = 500;
+        noteInput.value = existing.note || '';
+        noteInput.placeholder = 'Optional context — e.g. "Spent two cycles in a Hutt slave camp."';
+        fieldsWrap.appendChild(noteInput);
+      } else {
+        var hLbl = document.createElement('label');
+        hLbl.className = 'dp-lang-field-label';
+        hLbl.textContent = 'Narrative (where, who, what it cost)';
+        fieldsWrap.appendChild(hLbl);
+        var hint = document.createElement('div');
+        hint.className = 'dp-lang-field-hint';
+        hint.textContent = 'Required for the burn — must reference a faction, location, or person in the Western Reaches. You can save now and refine the prose later.';
+        fieldsWrap.appendChild(hint);
+        narrativeInput = document.createElement('textarea');
+        narrativeInput.className = 'dp-lang-field-textarea';
+        narrativeInput.rows = 5;
+        narrativeInput.maxLength = 2000;
+        narrativeInput.value = existing.narrative || '';
+        narrativeInput.placeholder = 'When and where did you pick this up? Who taught you, or what did you survive?';
+        fieldsWrap.appendChild(narrativeInput);
+
+        edgeInfo = document.createElement('div');
+        edgeInfo.className = 'dp-lang-edge-info';
+        if (alreadyBurned) {
+          edgeInfo.textContent = 'Edge was already burned for this entry. Saving will not burn additional Edge.';
+        } else {
+          edgeInfo.innerHTML = 'Saving will burn <strong>1 Edge</strong>. Current Edge: <strong>' + edgeAvail + '</strong>.';
+          if (edgeAvail < 1) {
+            edgeInfo.className += ' dp-lang-edge-info--blocked';
+            edgeInfo.innerHTML += '<br><span class="dp-lang-edge-block">No Edge available — cannot burn a History entry right now.</span>';
+          }
+        }
+        fieldsWrap.appendChild(edgeInfo);
+      }
+    }
+    renderSourceFields();
+
+    var errEl = document.createElement('div');
+    errEl.className = 'dp-lang-dialog-err';
+    dialog.appendChild(errEl);
+
+    var btnRow = document.createElement('div');
+    btnRow.className = 'dp-lang-dialog-btnrow dp-lang-dialog-btnrow--end';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'dp-lang-dialog-cancel';
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', _closeDialog);
+    btnRow.appendChild(cancelBtn);
+
+    var saveBtn = document.createElement('button');
+    saveBtn.type = 'button';
+    saveBtn.className = 'dp-lang-dialog-save';
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', function () {
+      errEl.textContent = '';
+      var name = nameInput.value.trim();
+      if (!name) { errEl.textContent = 'Language name is required.'; return; }
+      var willBurn = currentSource === 'history' && !alreadyBurned;
+      if (currentSource === 'history' && (!narrativeInput || !narrativeInput.value.trim())) {
+        errEl.textContent = 'History entries require a narrative — the GM needs something to pull on later.';
+        return;
+      }
+      if (willBurn) {
+        var cur = (window.CharacterPanel && window.CharacterPanel.getEngineCurrent) ? window.CharacterPanel.getEngineCurrent() : 0;
+        if (cur < 1) { errEl.textContent = 'No Edge available — cannot burn a History entry.'; return; }
+      }
+
+      var entry = {
+        id: existing.id || ('lang_' + Math.random().toString(36).slice(2, 10)),
+        name: name,
+        source: currentSource,
+        note: currentSource === 'background' && noteInput ? noteInput.value.trim() : '',
+        narrative: currentSource === 'history' && narrativeInput ? narrativeInput.value.trim() : '',
+        createdAt: existing.createdAt || Date.now(),
+      };
+
+      var next = allLangs.filter(function (l) { return l.source !== 'species' && l.id !== entry.id; });
+      next.push(entry);
+
+      saveBtn.disabled = true;
+      _saveLanguages(charId, next).then(function () {
+        if (willBurn && window.CharacterPanel && window.CharacterPanel.spendEngine) {
+          window.CharacterPanel.spendEngine(1);
+        }
+        _closeDialog();
+        _reloadDetails();
+      }).catch(function (err) {
+        saveBtn.disabled = false;
+        errEl.textContent = 'Save failed: ' + err.message;
+      });
+    });
+    btnRow.appendChild(saveBtn);
+
+    dialog.appendChild(btnRow);
+
+    setTimeout(function () { nameInput.focus(); }, 30);
   }
 
   function _buildSpeciesTraits(char, speciesData) {

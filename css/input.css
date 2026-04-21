@@ -12196,3 +12196,228 @@
     letter-spacing: 0.2em;
   }
   
+/* ── Languages section ─────────────────────────────────────────────────── */
+.dp-languages-section { margin-bottom: 4px; }
+.dp-languages-body { display: flex; flex-direction: column; }
+
+.dp-lang-card {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+.dp-lang-card-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dp-lang-name {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.62rem;
+  color: var(--color-text-primary);
+  letter-spacing: 0.04em;
+  flex: 1;
+}
+.dp-lang-badge {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  border-radius: 2px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  background: var(--color-bg-frame);
+}
+.dp-lang-badge--species   { color: #c8a44e; border-color: rgba(200, 164, 78, 0.5); }
+.dp-lang-badge--background{ color: #7fb3d5; border-color: rgba(127, 179, 213, 0.5); }
+.dp-lang-badge--history   { color: #d57f7f; border-color: rgba(213, 127, 127, 0.55); }
+
+.dp-lang-actions { display: flex; gap: 4px; }
+.dp-lang-act-btn {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.dp-lang-act-btn:hover { color: var(--color-accent-primary); border-color: var(--color-accent-primary); }
+.dp-lang-act-btn--del:hover { color: #d57f7f; border-color: #d57f7f; }
+
+.dp-lang-detail {
+  margin-top: 4px;
+  font-size: 0.50rem;
+  color: var(--color-text-secondary, var(--color-text-primary));
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+.dp-lang-detail--empty {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.dp-lang-add-btn {
+  margin: 8px;
+  padding: 6px 8px;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.50rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+  background: transparent;
+  border: 1px dashed var(--color-accent-primary);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.dp-lang-add-btn:hover { background: rgba(200, 164, 78, 0.08); }
+
+/* Dialog */
+.dp-lang-dialog-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.dp-lang-dialog {
+  background: var(--color-bg-panel, #14110c);
+  border: 1px solid var(--color-accent-primary);
+  border-radius: 3px;
+  padding: 16px;
+  width: min(440px, 92vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.dp-lang-dialog-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 6px;
+}
+.dp-lang-dialog-text {
+  font-size: 0.55rem;
+  color: var(--color-text-primary);
+}
+.dp-lang-dialog-btnrow {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.dp-lang-dialog-btnrow--end { justify-content: flex-end; margin-top: 4px; }
+.dp-lang-source-btn {
+  flex: 1 1 0;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px;
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+.dp-lang-source-btn:hover { border-color: var(--color-accent-primary); }
+.dp-lang-source-btn-name {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.60rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+.dp-lang-source-btn-desc { font-size: 0.50rem; color: var(--color-text-muted); }
+
+.dp-lang-field-label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+.dp-lang-field-input, .dp-lang-field-textarea {
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 6px 8px;
+  font-size: 0.55rem;
+  font-family: inherit;
+  border-radius: 2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.dp-lang-field-input:focus, .dp-lang-field-textarea:focus {
+  outline: none; border-color: var(--color-accent-primary);
+}
+.dp-lang-field-textarea { resize: vertical; }
+.dp-lang-field-hint {
+  font-size: 0.46rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.dp-lang-source-pills { display: flex; gap: 6px; }
+.dp-lang-source-pill {
+  flex: 1;
+  padding: 5px 8px;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.dp-lang-source-pill--active {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+  background: rgba(200, 164, 78, 0.06);
+}
+
+.dp-lang-edge-info {
+  margin-top: 4px;
+  padding: 6px 8px;
+  background: rgba(200, 164, 78, 0.05);
+  border-left: 2px solid var(--color-accent-primary);
+  font-size: 0.50rem;
+  color: var(--color-text-primary);
+}
+.dp-lang-edge-info--blocked {
+  background: rgba(213, 127, 127, 0.08);
+  border-left-color: #d57f7f;
+}
+.dp-lang-edge-block {
+  display: inline-block; margin-top: 4px;
+  color: #d57f7f; font-weight: bold;
+}
+
+.dp-lang-dialog-err {
+  font-size: 0.50rem;
+  color: #d57f7f;
+  min-height: 0.7rem;
+}
+.dp-lang-dialog-cancel, .dp-lang-dialog-save {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.50rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+.dp-lang-dialog-save {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+.dp-lang-dialog-save:hover { background: rgba(200, 164, 78, 0.1); }
+.dp-lang-dialog-save:disabled { opacity: 0.5; cursor: not-allowed; }
+.dp-lang-dialog-cancel:hover { color: var(--color-text-primary); }

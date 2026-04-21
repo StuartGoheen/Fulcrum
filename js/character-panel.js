@@ -839,6 +839,24 @@
     _dispatchStateChanged();
   };
 
+  window.CharacterPanel.getEngineCurrent = function () {
+    return _engineState.current || 0;
+  };
+
+  window.CharacterPanel.getEngineMax = function () {
+    return _engineState.max || 0;
+  };
+
+  window.CharacterPanel.spendEngine = function (n) {
+    var amt = parseInt(n, 10) || 1;
+    var cur = _engineState.current || 0;
+    if (cur < amt) return false;
+    _engineState.current = cur - amt;
+    _refreshEngine();
+    _dispatchStateChanged();
+    return true;
+  };
+
   window.CharacterPanel.refresh = function () {
     _refreshFront();
     _refreshStatus();
