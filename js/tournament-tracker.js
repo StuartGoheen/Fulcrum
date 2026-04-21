@@ -479,6 +479,16 @@
   }
 
   function bindDay1(panel, scene, partyCache, campaignState, socket, refresh) {
+    // Persist auto-seeded seating on first open so handlers operate on real state.
+    var seedCheck = readState(campaignState);
+    if (!seedCheck.seating || !seedCheck.seating[1]) {
+      seedCheck.seating = seedSeating(seedCheck, partyCache);
+      save(seedCheck, socket);
+      // Mirror into the in-memory campaignState so handlers below see it immediately,
+      // before the next state:sync round-trip lands.
+      campaignState[STATE_KEY] = seedCheck;
+    }
+
     panel.querySelectorAll('[data-beat]').forEach(function (chk) {
       chk.addEventListener('change', function () {
         var s = readState(campaignState);
@@ -496,6 +506,7 @@
       btn.addEventListener('click', function () {
         var s = readState(campaignState);
         var t = btn.dataset.table, si = btn.dataset.seat;
+        if (!s.seating || !s.seating[t] || !s.seating[t][si]) return;
         var seat = s.seating[t][si];
         var i = STATUSES.indexOf(seat.status);
         seat.status = STATUSES[(i + 1) % STATUSES.length];
@@ -511,6 +522,7 @@
       btn.addEventListener('click', function () {
         var s = readState(campaignState);
         var t = btn.dataset.table, si = btn.dataset.seat;
+        if (!s.seating || !s.seating[t] || !s.seating[t][si]) return;
         var seat = s.seating[t][si];
         var step = btn.dataset.act === 'chip-up' ? 500 : -500;
         seat.chips = Math.max(0, (seat.chips || 0) + step);
@@ -521,7 +533,9 @@
     panel.querySelectorAll('.tt-chip-input').forEach(function (inp) {
       inp.addEventListener('change', function () {
         var s = readState(campaignState);
-        var seat = s.seating[inp.dataset.table][inp.dataset.seat];
+        var t = inp.dataset.table, si = inp.dataset.seat;
+        if (!s.seating || !s.seating[t] || !s.seating[t][si]) return;
+        var seat = s.seating[t][si];
         seat.chips = Math.max(0, parseInt(inp.value, 10) || 0);
         save(s, socket);
       });
@@ -531,6 +545,7 @@
       btn.addEventListener('click', function () {
         var s = readState(campaignState);
         var t = btn.dataset.table, si = btn.dataset.seat;
+        if (!s.seating || !s.seating[t] || !s.seating[t][si]) return;
         var seat = s.seating[t][si];
         if (s.crewCredits < BUY_BACK) {
           if (!window.confirm('Crew has only ' + s.crewCredits.toLocaleString() + ' cr. Charge buy-back anyway (negative balance)?')) return;
@@ -548,12 +563,14 @@
     if (bulk) {
       bulk.addEventListener('click', function () {
         var s = readState(campaignState);
+        if (!s.seating) return;
         var killed = 0;
         outer:
         for (var t = 1; t <= TABLES; t++) {
+          var row = s.seating[t] || [];
           for (var si = 0; si < SEATS_PER_TABLE; si++) {
-            var seat = s.seating[t][si];
-            if (seat.kind === 'generic' && seat.status !== 'Eliminated') {
+            var seat = row[si];
+            if (seat && seat.kind === 'generic' && seat.status !== 'Eliminated') {
               seat.status = 'Eliminated';
               killed++;
               if (killed >= 5) break outer;
@@ -586,12 +603,15 @@
         s.day1.cheatCatch = 'marker';
         s.mandelbrotRapportTier = (s.mandelbrotRapportTier || 0) + 1;
         // mark Creeska eliminated
-        for (var t = 1; t <= TABLES; t++) {
-          for (var si = 0; si < SEATS_PER_TABLE; si++) {
-            var seat = s.seating[t][si];
-            if (seat.kind === 'npc' && seat.id === 'creeska') {
-              seat.status = 'Eliminated';
-              seat.note = 'Caught marking — escorted out.';
+        if (s.seating) {
+          for (var t = 1; t <= TABLES; t++) {
+            var row = s.seating[t] || [];
+            for (var si = 0; si < SEATS_PER_TABLE; si++) {
+              var seat = row[si];
+              if (seat && seat.kind === 'npc' && seat.id === 'creeska') {
+                seat.status = 'Eliminated';
+                seat.note = 'Caught marking — escorted out.';
+              }
             }
           }
         }
