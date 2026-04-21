@@ -44,7 +44,7 @@
       "flora": ["Tuanulberry", "Spine-barrel cactus"],
       "campaignNotes": {
         "adventures": ["adv1"],
-        "era": "17 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Varga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
+        "era": "15 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Varga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
         "keyLocations": {
           "reestkii": "A sun-bleached settlement squatting on the desert flats like something the sand is trying to swallow. Drifters, smugglers, moisture farmers with nothing left to farm. Varga the Hutt's people collect debts and keep the peace — such as it is.",
           "the_burning_deck": "The local cantina. Where the campaign begins — a crew waiting on a no-show fixer, a wounded stranger who crashes into the wrong table, and Varga the Hutt's enforcers filling the doorway.",
@@ -99,7 +99,7 @@
       "flora": ["Fungal overgrowth", "Massive ancient trees", "Toxic fungal spores"],
       "campaignNotes": {
         "adventures": ["adv1"],
-        "era": "17 BBY — a remote jungle moon deep in the Cademimu sector. A Victory-class Star Destroyer hangs in orbit. Warlord Skarn runs a secret prison called The Vanishing Place from his jungle fortress. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.",
+        "era": "15 BBY — a remote jungle moon deep in the Cademimu sector. A Victory-class Star Destroyer hangs in orbit. Warlord Skarn runs a secret prison called The Vanishing Place from his jungle fortress. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.",
         "keyLocations": {
           "the_vanishing_place": "Skarn's fortress. Where Admiral Varth is imprisoned. A compound hidden deep in the jungle, accessible only after a brutal 12-klick trek through hostile wilderness.",
           "crash_site": "Where the heroes' ship goes down after clipping a perimeter turret. The Banshee (or the heroes' ship) skids through the treeline and bogs in the mud, miles from the fortress."
@@ -151,7 +151,7 @@
       "flora": ["Dense forest canopy"],
       "campaignNotes": {
         "adventures": ["adv2"],
-        "era": "17 BBY — a popular departure point offering easy access between the Inner and Outer Rim. For those heading outward, a last taste of civilization. For those heading Corewards, a last grasp of frontier living. Takodana's neutrality attracts fugitives, smugglers, and explorers. Maz Kanata enforces a 'no politics, no war' rule at her castle — but across the lake, at Blackwind Point, there are no rules at all.",
+        "era": "15 BBY — a popular departure point offering easy access between the Inner and Outer Rim. For those heading outward, a last taste of civilization. For those heading Corewards, a last grasp of frontier living. Takodana's neutrality attracts fugitives, smugglers, and explorers. Maz Kanata enforces a 'no politics, no war' rule at her castle — but across the lake, at Blackwind Point, there are no rules at all.",
         "keyLocations": {
           "blackwind_point": "A muddy, desperate shantytown on the far shore of Nymeve Lake. Refugees, criminals, and swoop gangs. The Vipers demand a landing tax from everyone who touches down.",
           "dargas_fortress": "The Hutt crime lord's palace on Takodana. A den of debauchery where the heroes must infiltrate to learn about Varga's Imperial connections."
