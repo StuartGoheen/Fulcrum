@@ -2968,7 +2968,7 @@
       html += _formatProse(beat.readAloud);
       html += '</div></div>';
     }
-    if (beat.description) html += '<div class="cb-rs-beat-desc">' + linkify(beat.description) + '</div>';
+    if (beat.description) html += '<div class="cb-rs-beat-desc cb-prose">' + _formatProse(beat.description) + '</div>';
     if (beat.gmNotes) {
       var beatNotesKey = scene.id + ':b' + beatIdx + ':beat-notes';
       var beatNotesCollapsed = _runSceneCollapsed[beatNotesKey] !== false; // default collapsed
@@ -2978,7 +2978,7 @@
       html += _formatProse(beat.gmNotes);
       html += '</div></div>';
     }
-    if (beat.tactics) html += '<div class="cb-rs-beat-tactics"><div class="cb-rs-beat-tactics-label">GM Tactics</div>' + linkify(beat.tactics) + '</div>';
+    if (beat.tactics) html += '<div class="cb-rs-beat-tactics cb-prose"><div class="cb-rs-beat-tactics-label">GM Tactics</div>' + _formatProse(beat.tactics) + '</div>';
     if (beat.composition) {
       html += '<div class="cb-rs-comp">';
       if (beat.composition.enemies) {
