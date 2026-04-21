@@ -1051,6 +1051,10 @@
         h += '<button class="ct-start-encounter-btn" data-enc-idx="' + thisEncIdx + '">&#9876; Start Encounter</button>';
       }
       h += '<button class="cb-edit-escalation-btn" data-enc-idx="' + thisEncIdx + '" style="font-size:0.6rem;padding:0.25rem 0.5rem;background:rgba(245,158,11,0.15);color:#f59e0b;border:1px solid #f59e0b;border-radius:3px;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.05em;">&#9999; Edit Script</button>';
+      var encConvSlug = enc.conversationRef || enc.conversationSlug;
+      if (encConvSlug) {
+        h += '<button class="cb-conversation-link" data-conv-slug="' + esc(encConvSlug) + '" style="font-size:0.6rem;padding:0.25rem 0.5rem;background:rgba(192,132,252,0.15);color:#c084fc;border:1px solid #c084fc;border-radius:3px;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.05em;" title="Launch conversation overlay">&#128172; Launch ' + esc(_slugToTitle(encConvSlug)) + '</button>';
+      }
       h += '</div>';
       h += '</div>';
     });
@@ -2939,6 +2943,10 @@
         html += '<div class="cb-rs-hooks"><div class="cb-rs-hook-label">Quick Launch</div>';
         encs.forEach(function (e) {
           html += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(e.id) + '">&#9876; ' + esc(e.name || e.id) + '</button>';
+          var eConv = e.conversationRef || e.conversationSlug;
+          if (eConv) {
+            html += '<button class="cb-rs-hook-btn cb-conversation-link" data-conv-slug="' + esc(eConv) + '" title="Launch ' + esc(_slugToTitle(eConv)) + '">&#128172; ' + esc(_slugToTitle(eConv)) + '</button>';
+          }
         });
         tokens.forEach(function (t) {
           if (t.kind === 'conversation') {
@@ -2997,6 +3005,10 @@
     var beatHooks = '';
     if (beat.type === 'combat' && window.CombatTracker) {
       beatHooks += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(beat.id) + '">&#9876; Start ' + esc(beat.name || 'Encounter') + '</button>';
+    }
+    var beatConvSlug = beat.conversationRef || beat.conversationSlug;
+    if (beatConvSlug) {
+      beatHooks += '<button class="cb-rs-hook-btn cb-conversation-link" data-conv-slug="' + esc(beatConvSlug) + '" title="Launch conversation overlay">&#128172; Launch ' + esc(_slugToTitle(beatConvSlug)) + '</button>';
     }
     if (beatHooks) {
       html += '<div class="cb-rs-hooks"><div class="cb-rs-hook-label">Run This Beat</div>' + beatHooks + '</div>';
