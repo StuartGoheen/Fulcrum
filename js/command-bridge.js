@@ -783,10 +783,45 @@
   var _openPanels = {};
   var _panelZCounter = 121;
 
+  var TT_PERSIST_PANEL_IDS = { ttroster: true, ttday1: true };
+  var TT_PERSIST_KEY = 'cb_tt_open_panels';
+
   function _panelTypeKey(panelId) {
     if (panelId.indexOf('lore-') === 0) return 'lore';
     if (panelId === 'assess-guide') return 'assess-guide';
     return panelId;
+  }
+
+  function _loadPersistedTtPanels(sceneId) {
+    if (!sceneId) return [];
+    try {
+      var store = JSON.parse(localStorage.getItem(TT_PERSIST_KEY) || '{}');
+      var arr = store[sceneId];
+      return Array.isArray(arr) ? arr.slice() : [];
+    } catch (e) { return []; }
+  }
+
+  function _writePersistedTtPanels(sceneId, list) {
+    if (!sceneId) return;
+    try {
+      var store = JSON.parse(localStorage.getItem(TT_PERSIST_KEY) || '{}');
+      if (list && list.length) store[sceneId] = list;
+      else delete store[sceneId];
+      localStorage.setItem(TT_PERSIST_KEY, JSON.stringify(store));
+    } catch (e) { /* ignore */ }
+  }
+
+  function _addPersistedTtPanel(sceneId, panelId) {
+    if (!TT_PERSIST_PANEL_IDS[panelId]) return;
+    var list = _loadPersistedTtPanels(sceneId);
+    if (list.indexOf(panelId) === -1) list.push(panelId);
+    _writePersistedTtPanels(sceneId, list);
+  }
+
+  function _removePersistedTtPanel(sceneId, panelId) {
+    if (!TT_PERSIST_PANEL_IDS[panelId]) return;
+    var list = _loadPersistedTtPanels(sceneId).filter(function (id) { return id !== panelId; });
+    _writePersistedTtPanels(sceneId, list);
   }
 
   function _loadPanelGeometry(panelId) {
@@ -2232,6 +2267,7 @@
       return;
     }
     _openPanels[panelId] = true;
+    if (TT_PERSIST_PANEL_IDS[panelId]) _addPersistedTtPanel(currentScene, panelId);
     var tile = document.querySelector('[data-panel-id="' + panelId + '"]');
     if (tile) tile.classList.add('cb-tile--active');
 
@@ -2279,13 +2315,17 @@
     _bindPanelContent(panel, panelId);
   }
 
-  function closeFloatingPanel(panelId) {
+  function closeFloatingPanel(panelId, opts) {
+    opts = opts || {};
     var panel = document.getElementById('fp-' + panelId);
     if (panel) {
       _captureAndSaveGeo(panel, panelId);
       panel.remove();
     }
     delete _openPanels[panelId];
+    if (TT_PERSIST_PANEL_IDS[panelId] && !opts.keepPersisted) {
+      _removePersistedTtPanel(currentScene, panelId);
+    }
     var tile = document.querySelector('[data-panel-id="' + panelId + '"]');
     if (tile) tile.classList.remove('cb-tile--active');
     if (panelId === 'readaloud' && window.TtsNarration) {
@@ -2295,7 +2335,7 @@
 
   function closeAllFloatingPanels() {
     Object.keys(_openPanels).forEach(function (id) {
-      closeFloatingPanel(id);
+      closeFloatingPanel(id, { keepPersisted: true });
     });
   }
 
@@ -3375,6 +3415,13 @@
 
     container.innerHTML = html;
 
+    var ttTitleMap = { ttroster: 'Tournament Roster', ttday1: 'Day 1 Standings — Sabacc Tournament' };
+    var ttContentMap = {
+      ttroster: function () { return window.TournamentTracker.buildRosterHtml(scene, partyCache, _campaignState || {}); },
+      ttday1: function () { return window.TournamentTracker.buildDay1Html(scene, partyCache, _campaignState || {}); }
+    };
+    var ttSizeMap = { ttroster: { width: 720, height: 580 }, ttday1: { width: 1040, height: 720 } };
+
     container.querySelectorAll('.cb-tile').forEach(function (tile) {
       tile.addEventListener('click', function () {
         var panelId = tile.dataset.panelId;
@@ -3382,7 +3429,7 @@
           closeFloatingPanel(panelId);
           return;
         }
-        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', ttroster: 'Tournament Roster', ttday1: 'Day 1 Standings — Sabacc Tournament' };
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', ttroster: ttTitleMap.ttroster, ttday1: ttTitleMap.ttday1 };
         var contentMap = {
           readaloud: function () { return _buildReadAloudHtml(scene); },
           gmnotes: function () { return _buildGmNotesHtml(scene); },
@@ -3394,16 +3441,31 @@
           pacing: function () { return _buildPacingHtml(scene); },
           holonet: function () { return _buildHoloNetHtml(); },
           groupchallenge: function () { return _buildGroupChallengeHtml(scene); },
-          ttroster: function () { return window.TournamentTracker.buildRosterHtml(scene, partyCache, _campaignState || {}); },
-          ttday1: function () { return window.TournamentTracker.buildDay1Html(scene, partyCache, _campaignState || {}); }
+          ttroster: ttContentMap.ttroster,
+          ttday1: ttContentMap.ttday1
         };
-        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, ttroster: { width: 720, height: 580 }, ttday1: { width: 1040, height: 720 } };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, ttroster: ttSizeMap.ttroster, ttday1: ttSizeMap.ttday1 };
         var builder = contentMap[panelId];
         if (builder) {
           openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
         }
       });
     });
+
+    // Restore previously open tournament panels (after reload). Only re-open
+    // panels whose tile is currently visible for this scene and that aren't
+    // already open in-memory.
+    if (window.TournamentTracker) {
+      var persistedTt = _loadPersistedTtPanels(scene.id);
+      persistedTt.forEach(function (panelId) {
+        if (_openPanels[panelId]) return;
+        var tileEl = container.querySelector('[data-panel-id="' + panelId + '"]');
+        if (!tileEl) return;
+        var builder = ttContentMap[panelId];
+        if (!builder) return;
+        openFloatingPanel(panelId, ttTitleMap[panelId] || panelId, builder(), ttSizeMap[panelId]);
+      });
+    }
 
     container.querySelectorAll('.cb-dash-dp-option').forEach(function (opt) {
       opt.style.cursor = 'pointer';
