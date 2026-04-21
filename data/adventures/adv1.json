@@ -1321,11 +1321,11 @@
             "voc_duelist"
           ],
           "disciplineTags": [
-            "brawl",
-            "melee",
+            "athletics",
+            "athletics",
             "ranged",
             "evasion",
-            "endure"
+            "survival"
           ],
           "gearFlags": [],
           "encounters": [
@@ -1596,7 +1596,7 @@
             {
               "id": "sc-s1-read-maya",
               "actionType": "assess",
-              "discipline": "insight",
+              "discipline": "investigation",
               "arena": "presence",
               "target": "Maya",
               "defense": "resist",
@@ -1617,7 +1617,7 @@
             {
               "id": "sc-s1-intimidate",
               "actionType": "interact",
-              "discipline": "intimidate",
+              "discipline": "persuasion",
               "arena": "grit",
               "target": "Krev Tosk",
               "defense": "resist",
@@ -1659,7 +1659,7 @@
             {
               "id": "sc-s1-deception",
               "actionType": "interact",
-              "discipline": "deception",
+              "discipline": "charm",
               "arena": "presence",
               "target": "Krev Tosk",
               "defense": "resist",
@@ -1795,8 +1795,8 @@
             "voc_sawbones"
           ],
           "disciplineTags": [
-            "medicine",
-            "insight",
+            "survival",
+            "investigation",
             "persuasion"
           ],
           "gearFlags": [
@@ -1849,7 +1849,7 @@
             {
               "id": "sc-s2-medicine",
               "actionType": "interact",
-              "discipline": "medicine",
+              "discipline": "survival",
               "arena": "wits",
               "target": "Maya (blaster wound)",
               "tier": 1,
@@ -1870,7 +1870,7 @@
             {
               "id": "sc-s2-insight",
               "actionType": "assess",
-              "discipline": "insight",
+              "discipline": "investigation",
               "arena": "presence",
               "target": "Maya",
               "defense": "resist",
@@ -2817,10 +2817,10 @@
           ],
           "disciplineTags": [
             "persuasion",
-            "deception",
-            "insight",
+            "charm",
             "investigation",
-            "tech"
+            "investigation",
+            "skulduggery"
           ],
           "gearFlags": [],
           "encounters": [
@@ -2901,7 +2901,7 @@
             {
               "id": "sc-s3-insight",
               "actionType": "assess",
-              "discipline": "insight",
+              "discipline": "investigation",
               "arena": "presence",
               "target": "Switch",
               "defense": "resist",
@@ -2944,7 +2944,7 @@
             {
               "id": "sc-s3-tech",
               "actionType": "interact",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Switch's analysis equipment",
               "tier": 1,
@@ -5299,11 +5299,11 @@
             "voc_shockboxer"
           ],
           "disciplineTags": [
-            "brawl",
+            "athletics",
             "ranged",
             "evasion",
-            "endure",
-            "tech"
+            "survival",
+            "skulduggery"
           ],
           "gearFlags": [],
           "encounters": [
@@ -5389,7 +5389,7 @@
             {
               "id": "sc-s4-turrets",
               "actionType": "interact",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Switch's security turrets",
               "context": "Activating Switch's ceiling turrets against the intruders during combat.",
@@ -6701,9 +6701,9 @@
           ],
           "disciplineTags": [
             "stealth",
-            "deception",
+            "charm",
             "ranged",
-            "tech",
+            "skulduggery",
             "piloting"
           ],
           "gearFlags": [
@@ -6911,7 +6911,7 @@
                 "role": "primary"
               },
               {
-                "discipline": "deception",
+                "discipline": "charm",
                 "approach": "Impersonating Imperial maintenance crew or bluffing past checkpoints to open gaps in the security net.",
                 "role": "primary"
               },
@@ -6956,7 +6956,7 @@
                 "narrativeText": "The crew breaches the perimeter and reaches the Lambda shuttle. The mission shifts from infiltration to data extraction and escape — the nav computer is right there, but the clock is ticking.",
                 "eligibleDisciplines": [
                   {
-                    "discipline": "tech",
+                    "discipline": "skulduggery",
                     "approach": "Slicing into the Lambda shuttle's nav computer, downloading hyperspace coordinates, and covering digital tracks.",
                     "role": "primary"
                   },
@@ -6976,7 +6976,7 @@
                     "role": "secondary",
                     "support": {
                       "type": "optimized",
-                      "targetDiscipline": "tech",
+                      "targetDiscipline": "skulduggery",
                       "description": "Step up Control die on ally's next Tech roll"
                     }
                   },
@@ -7035,7 +7035,7 @@
             {
               "id": "sc-s5-deception",
               "actionType": "interact",
-              "discipline": "deception",
+              "discipline": "charm",
               "arena": "presence",
               "target": "Perimeter Guards",
               "resist": 2,
@@ -7077,7 +7077,7 @@
             {
               "id": "sc-s5-tech",
               "actionType": "interact",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Lambda shuttle nav computer",
               "context": "Accessing the shuttle nav computer with the code cylinder. This is the critical data extraction.",
@@ -7524,7 +7524,7 @@
           ],
           "disciplineTags": [
             "piloting",
-            "tech",
+            "skulduggery",
             "survival"
           ],
           "gearFlags": [],
@@ -7647,7 +7647,7 @@
             {
               "id": "sc-s5-tech-sensors",
               "actionType": "assess",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Imperial sensor sweeps",
               "context": "Monitoring Imperial sensor sweeps during approach to identify gaps.",
@@ -8179,10 +8179,10 @@
             "voc_mechanic"
           ],
           "disciplineTags": [
-            "tech",
+            "skulduggery",
             "survival",
             "piloting",
-            "medicine"
+            "survival"
           ],
           "gearFlags": [
             "starship_tool_kit"
@@ -8311,7 +8311,7 @@
             {
               "id": "sc-s6-tech",
               "actionType": "assess",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Banshee hull damage",
               "context": "Assessing Banshee damage and estimating repair time.",
@@ -8331,7 +8331,7 @@
             {
               "id": "sc-s6-medicine",
               "actionType": "interact",
-              "discipline": "medicine",
+              "discipline": "survival",
               "arena": "wits",
               "target": "Crash injuries",
               "context": "Treating injuries from the crash landing.",
@@ -8430,9 +8430,9 @@
             "athletics",
             "stealth",
             "investigation",
-            "medicine",
+            "survival",
             "beast_handling",
-            "insight"
+            "investigation"
           ],
           "gearFlags": [
             "Environmental"
@@ -8518,7 +8518,7 @@
                 "role": "primary"
               },
               {
-                "discipline": "medicine",
+                "discipline": "survival",
                 "approach": "Treating acid burns, neutralizing spore exposure, managing fatigue, and keeping everyone combat-ready despite the jungle's toll.",
                 "role": "primary"
               },
@@ -8543,7 +8543,7 @@
                 }
               },
               {
-                "discipline": "insight",
+                "discipline": "investigation",
                 "approach": "Reading animal behavior for early warning of predators, sensing shifts in the jungle's mood and alerting the crew before danger materializes.",
                 "role": "secondary",
                 "support": {
@@ -8978,9 +8978,9 @@
             "voc_ghost"
           ],
           "disciplineTags": [
-            "insight",
+            "investigation",
             "persuasion",
-            "intimidate"
+            "persuasion"
           ],
           "gearFlags": [],
           "encounters": [
@@ -9029,7 +9029,7 @@
             {
               "id": "sc-s4-insight-mandrake",
               "actionType": "assess",
-              "discipline": "insight",
+              "discipline": "investigation",
               "arena": "presence",
               "target": "Mandrake",
               "resist": 3,
@@ -9470,7 +9470,7 @@
           ],
           "disciplineTags": [
             "stealth",
-            "tech",
+            "skulduggery",
             "skulduggery",
             "ranged",
             "evasion",
@@ -9653,7 +9653,7 @@
             {
               "id": "sc-s8-tech-comms",
               "actionType": "interact",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Fortress communications center",
               "context": "Hacking the communications center to intercept transmissions about Inquisitor Draco's arrival.",
@@ -9991,11 +9991,11 @@
             "voc_engineer"
           ],
           "disciplineTags": [
-            "tech",
+            "skulduggery",
             "skulduggery",
             "stealth",
             "ranged",
-            "brawl"
+            "athletics"
           ],
           "gearFlags": [
             "Restricted"
@@ -10076,7 +10076,7 @@
             {
               "id": "sc-s9-tech-generator",
               "actionType": "interact",
-              "discipline": "tech",
+              "discipline": "skulduggery",
               "arena": "wits",
               "target": "Fortress backup generator",
               "complexity": "set-piece",
@@ -10328,10 +10328,10 @@
           ],
           "disciplineTags": [
             "charm",
-            "insight",
+            "investigation",
             "investigation",
             "persuasion",
-            "deception"
+            "charm"
           ],
           "gearFlags": [],
           "encounters": [
@@ -10391,7 +10391,7 @@
             {
               "id": "sc-s10-insight",
               "actionType": "assess",
-              "discipline": "insight",
+              "discipline": "investigation",
               "arena": "presence",
               "target": "Admiral Varth",
               "resist": 4,
@@ -10479,7 +10479,7 @@
             {
               "id": "sc-s10-deception-cover",
               "actionType": "interact",
-              "discipline": "deception",
+              "discipline": "charm",
               "arena": "presence",
               "target": "Admiral Varth",
               "resist": 4,
@@ -11147,8 +11147,8 @@
             "ranged",
             "evasion",
             "piloting",
-            "tactics",
-            "endure",
+            "investigation",
+            "survival",
             "athletics"
           ],
           "gearFlags": [
@@ -11272,7 +11272,7 @@
             {
               "id": "sc-s11-tactics-chaos",
               "actionType": "assess",
-              "discipline": "tactics",
+              "discipline": "investigation",
               "arena": "wits",
               "target": "Three-way battle (Imperials vs Mercenaries vs PCs)",
               "context": "Reading the three-way battle to find the safest extraction path. Chaos everywhere.",
@@ -11627,7 +11627,15 @@
             "escape and survival",
             "tactical consequences",
             "Inquisitor pursuit"
-          ]
+          ],
+          "readAloudVariants": {
+            "_selector": "Read the variant whose flag-set matches the fortress-state `flags` object (see `data/adventures/vanishing-place-fortress.json` → `sabotageCascade`). The fortress widget is the single source of truth; DO NOT judge by narrative memory. Open the Reactive Fortress widget, read the Active Flags row, and pick the matching variant below.",
+            "full_cascade": "From the east wing, you hear shouting — Mandrake's voice, barking orders in a language you don't recognize. He's moving. His people are moving. The laser fences are DOWN [laser_fences_dropped], the mag-locks have POPPED [mag_locks_open], the sensor grid is BLIND [sensor_grid_blind], and the turret emplacements sit dark and dead on the walls [turrets_offline]. Whatever you did to that generator, it worked — all four cascade effects fired.",
+            "partial_cascade": "The generator took damage but kept breathing. SOME of the fortress is bleeding out — the GM reads each active flag aloud as a concrete sensory detail (fences DOWN = klaxon without fence-crackle; mag-locks OPEN = prisoners running; sensors BLIND = no thermal read; turrets OFFLINE = silent barrels). The OTHER flags still hold, and every unbroken system is a piece of the kill box Maya is about to fly through.",
+            "failed_cascade": "The turret emplacements on the walls are still tracking [turrets_offline=false], barrels sweeping the sky. The laser fences are still humming [laser_fences_dropped=false]. The mag-locks are still sealed [mag_locks_open=false]. The sensor grid is still reading every heartbeat in the compound [sensor_grid_blind=false]. Maya's going to fly into a kill box. From somewhere in the fortress, you hear Mandrake's voice — frustrated, urgent — still trying to reach his people through locked doors and active fences. The generator is still running. The plan didn't come together.",
+            "generatorSabotaged": "[LEGACY KEY — kept for compatibility; prefer `full_cascade` above. Routes to full_cascade text.] From the east wing, you hear shouting — Mandrake's voice, barking orders in a language you don't recognize. He's moving. His people are moving. The laser fences are down, the security doors are open, and the turret emplacements sit dark and dead on the walls. Whatever you did to that generator, it worked.",
+            "generatorIntact": "[LEGACY KEY — kept for compatibility; prefer `failed_cascade` above. Routes to failed_cascade text.] The turret emplacements on the walls are still tracking, barrels sweeping the sky. Maya's going to fly into a kill box. From somewhere in the fortress, you hear Mandrake's voice — frustrated, urgent — still trying to reach his people through locked doors and active fences. The generator is still running. The plan didn't come together."
+          }
         }
       ]
     },
