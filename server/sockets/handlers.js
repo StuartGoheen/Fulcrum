@@ -417,6 +417,8 @@ function _formatTournamentDay2RecapBody(state) {
 
   const switchCommit = day2.switchCommit || 'pending';
   const crewPayout = day2.crewPayout || 0;
+  const payoutPaid = !!day2.payoutPaid;
+  const payoutPaidAmount = day2.payoutPaidAmount || 0;
   const crewBalance = (state && state.crewCredits) || 0;
 
   const lines = [];
@@ -446,7 +448,23 @@ function _formatTournamentDay2RecapBody(state) {
   lines.push('');
   lines.push('Switch (Dirty Money) Day 2 Commit: ' + switchCommit.toUpperCase());
   lines.push('');
-  lines.push('Crew Payout from championship pot: +' + crewPayout.toLocaleString() + ' cr');
+  if (payoutPaid && payoutPaidAmount === crewPayout) {
+    lines.push('Crew Payout from championship pot: +' + payoutPaidAmount.toLocaleString() + ' cr (applied to crew credits)');
+  } else if (payoutPaid && payoutPaidAmount !== crewPayout) {
+    const unpaid = crewPayout - payoutPaidAmount;
+    lines.push('Crew Payout from championship pot: ' + crewPayout.toLocaleString() + ' cr entered');
+    lines.push('  Applied to crew credits: +' + payoutPaidAmount.toLocaleString() + ' cr');
+    if (unpaid > 0) {
+      lines.push('  ⚠ Unpaid balance: ' + unpaid.toLocaleString() + ' cr (NOT applied)');
+    } else {
+      lines.push('  ⚠ Overpaid by: ' + Math.abs(unpaid).toLocaleString() + ' cr');
+    }
+  } else if (crewPayout > 0) {
+    lines.push('Crew Payout from championship pot: ' + crewPayout.toLocaleString() + ' cr entered');
+    lines.push('  ⚠ NOT applied to crew credits — GM closed Day 2 without paying out the pot.');
+  } else {
+    lines.push('Crew Payout from championship pot: 0 cr (none entered)');
+  }
   lines.push('Crew balance at close: ' + crewBalance.toLocaleString() + ' cr');
   if (Array.isArray(day2.log) && day2.log.length) {
     lines.push('');

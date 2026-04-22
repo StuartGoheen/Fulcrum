@@ -118,6 +118,8 @@
         seating: {},
         winnerSeatId: null,
         crewPayout: 0,
+        payoutPaid: false,
+        payoutPaidAmount: 0,
         switchCommit: 'pending',
         log: []
       }
@@ -141,6 +143,8 @@
     if (!s.day2.log) s.day2.log = [];
     if (s.day2.winnerSeatId === undefined) s.day2.winnerSeatId = null;
     if (s.day2.crewPayout == null) s.day2.crewPayout = 0;
+    if (typeof s.day2.payoutPaid !== 'boolean') s.day2.payoutPaid = false;
+    if (s.day2.payoutPaidAmount == null) s.day2.payoutPaidAmount = 0;
     if (!s.day2.switchCommit) s.day2.switchCommit = 'pending';
     return s;
   }
@@ -321,6 +325,29 @@
     });
     html += '</select></label>';
     html += '<label>Crew Payout (championship pot share): <input type="number" class="tt-d2-payout" value="' + (state.day2.crewPayout || 0) + '" step="500" min="0" /> cr</label>';
+    var payoutAmt = state.day2.crewPayout || 0;
+    var paid = !!state.day2.payoutPaid;
+    var paidMatches = paid && (state.day2.payoutPaidAmount || 0) === payoutAmt;
+    var btnLabel, btnDisabled, btnClass;
+    if (paidMatches) {
+      btnLabel = 'Paid ✓ (' + (state.day2.payoutPaidAmount || 0).toLocaleString() + ' cr) — Reverse';
+      btnDisabled = '';
+      btnClass = 'tt-btn tt-btn-sm tt-btn-bad';
+    } else if (paid && !paidMatches) {
+      var diff = payoutAmt - (state.day2.payoutPaidAmount || 0);
+      if (diff > 0) {
+        btnLabel = 'Pay Difference (+' + diff.toLocaleString() + ' cr)';
+      } else {
+        btnLabel = 'Adjust Payout (' + diff.toLocaleString() + ' cr from crew)';
+      }
+      btnDisabled = '';
+      btnClass = 'tt-btn tt-btn-sm tt-btn-primary';
+    } else {
+      btnLabel = 'Pay Out Champion Pot (+' + payoutAmt.toLocaleString() + ' cr)';
+      btnDisabled = payoutAmt > 0 ? '' : 'disabled';
+      btnClass = 'tt-btn tt-btn-sm tt-btn-primary';
+    }
+    html += '<button class="' + btnClass + '" data-act="d2-payout" ' + btnDisabled + '>' + esc(btnLabel) + '</button>';
     var winnerName = '—';
     if (state.day2.winnerSeatId) {
       // find seat by id
@@ -414,6 +441,21 @@
           var lbl = chk.parentElement.textContent.trim();
           pushLog2(s, 'Beat marked complete: ' + lbl);
         }
+        if (chk.dataset.beat2 === 'day2_close' && chk.checked) {
+          var amt = Math.max(0, parseInt(s.day2.crewPayout, 10) || 0);
+          var paidAmt = s.day2.payoutPaidAmount || 0;
+          var unpaidDelta = amt - (s.day2.payoutPaid ? paidAmt : 0);
+          if (amt > 0 && unpaidDelta > 0) {
+            if (window.confirm('Day 2 is closing with an unpaid champion-pot payout of ' + unpaidDelta.toLocaleString() + ' cr. Apply it to crew credits now?')) {
+              s.crewCredits = (s.crewCredits || 0) + unpaidDelta;
+              s.day2.payoutPaid = true;
+              s.day2.payoutPaidAmount = amt;
+              pushLog2(s, 'Champion pot paid out at Day 2 close: +' + unpaidDelta.toLocaleString() + ' cr to crew credits (now ' + s.crewCredits.toLocaleString() + ' cr).');
+            } else {
+              pushLog2(s, 'Day 2 closed WITHOUT applying ' + unpaidDelta.toLocaleString() + ' cr champion-pot payout.');
+            }
+          }
+        }
         save(s, socket);
         if (chk.dataset.beat2 === 'day2_close' && chk.checked && socket) {
           socket.emit('tournament:save-day2-recap', { sceneId: scene.id });
@@ -495,6 +537,42 @@
         var s = readState(campaignState);
         s.day2.crewPayout = Math.max(0, parseInt(payout.value, 10) || 0);
         save(s, socket);
+        refresh();
+      });
+    }
+
+    var payoutBtn = panel.querySelector('[data-act="d2-payout"]');
+    if (payoutBtn) {
+      payoutBtn.addEventListener('click', function () {
+        var s = readState(campaignState);
+        var amt = Math.max(0, parseInt(s.day2.crewPayout, 10) || 0);
+        var alreadyPaid = !!s.day2.payoutPaid;
+        var paidAmt = s.day2.payoutPaidAmount || 0;
+        if (alreadyPaid && paidAmt === amt) {
+          if (!window.confirm('Reverse the ' + paidAmt.toLocaleString() + ' cr champion-pot payout? This subtracts it back from crew credits.')) return;
+          s.crewCredits = Math.max(0, (s.crewCredits || 0) - paidAmt);
+          s.day2.payoutPaid = false;
+          s.day2.payoutPaidAmount = 0;
+          pushLog2(s, 'Champion pot payout REVERSED: −' + paidAmt.toLocaleString() + ' cr from crew credits (now ' + s.crewCredits.toLocaleString() + ' cr).');
+        } else {
+          var delta = amt - (alreadyPaid ? paidAmt : 0);
+          if (delta === 0) return;
+          if (delta < 0) {
+            var pull = Math.abs(delta);
+            if (!window.confirm('Lower the applied champion-pot payout by ' + pull.toLocaleString() + ' cr? This subtracts that amount from crew credits.')) return;
+            s.crewCredits = Math.max(0, (s.crewCredits || 0) + delta);
+            s.day2.payoutPaid = amt > 0;
+            s.day2.payoutPaidAmount = amt;
+            pushLog2(s, 'Champion pot payout adjusted DOWN: −' + pull.toLocaleString() + ' cr from crew credits (applied total now ' + amt.toLocaleString() + ' cr; crew balance ' + s.crewCredits.toLocaleString() + ' cr).');
+          } else {
+            s.crewCredits = (s.crewCredits || 0) + delta;
+            s.day2.payoutPaid = true;
+            s.day2.payoutPaidAmount = amt;
+            pushLog2(s, 'Champion pot paid out: +' + delta.toLocaleString() + ' cr to crew credits (now ' + s.crewCredits.toLocaleString() + ' cr).');
+          }
+        }
+        save(s, socket);
+        refresh();
       });
     }
 
