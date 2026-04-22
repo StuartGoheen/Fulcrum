@@ -5029,9 +5029,19 @@
     display: none !important;
   }
 
-  /* Remove the border from the single remaining slot */
+  /* Remove the border from the single remaining slot, and force it to
+     fill the freed space. column-resize.js sets `flex: 0.5 1 0%` inline
+     (the saved desktop split), so without this override the lone visible
+     slot only occupies its half of the row. */
   #slot-left {
     border-right: none !important;
+    flex: 1 1 auto !important;
+  }
+
+  /* Hide the divider between slot-left and the (now hidden) slot-right —
+     it becomes a useless vertical bar at the right edge of the panel. */
+  #center-resize-handle {
+    display: none !important;
   }
 
   /* Hide right slot nav controls in navbar */
