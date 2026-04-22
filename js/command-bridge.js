@@ -264,6 +264,8 @@
     var adv = getAdventure(advId);
     if (!adv || !(adv.parts || []).length) return;
     closeAllFloatingPanels();
+    var prevAdventure = currentAdventure;
+    var prevScene = currentScene;
     currentAdventure = advId;
     currentPart = adv.parts[0].id;
     var firstScene = (adv.parts[0].scenes || [])[0];
@@ -275,6 +277,77 @@
     renderScene();
     renderSceneCounter();
     if (currentScene) saveProgress();
+    // Task #198 — offer to set the in-universe clock to the adventure's
+    // suggested start date (only on actual switch, not on initial mount).
+    if (prevAdventure && prevAdventure !== advId) {
+      // If the previous adventure's last scene was the one we were on, treat
+      // this switch as adventure completion and prompt for a downtime jump.
+      _maybePromptAdventureCompletion(prevAdventure, prevScene);
+      if (adv.startDate && window.GalacticClock && window.GalacticCalendar) {
+        _maybePromptStartDate(adv);
+      }
+    }
+  }
+
+  // ─── Clock prompt helpers (Task #198) ────────────────────────────────
+  function _maybePromptStartDate(adv) {
+    try {
+      var parsed = window.GalacticCalendar.parseImperialString(adv.startDate);
+      if (!parsed) return;
+      var msg = 'Adventure "' + (adv.title || adv.id) + '" suggests starting on:\n\n  ' +
+        adv.startDate + '\n\nSet the campaign clock to that date now?';
+      if (window.confirm(msg)) {
+        fetch('/api/campaign/clock/set', {
+          method: 'POST', credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dayIndex: parsed.dayIndex, hour: parsed.hour != null ? parsed.hour : 8 })
+        }).catch(function () {});
+      }
+    } catch (e) { /* parser missing or input malformed — silently skip */ }
+  }
+
+  function _maybePromptSceneTimeAdvance(sceneId) {
+    if (!sceneId || !window.GalacticClock) return;
+    var adv = getAdventure(currentAdventure);
+    if (!adv) return;
+    var scene = null;
+    for (var i = 0; i < (adv.parts || []).length && !scene; i++) {
+      var ss = adv.parts[i].scenes || [];
+      for (var j = 0; j < ss.length && !scene; j++) if (ss[j].id === sceneId) scene = ss[j];
+    }
+    if (!scene || !scene.timeAdvance) return;
+    var ta = scene.timeAdvance;
+    var bits = [];
+    if (ta.days) bits.push(ta.days + ' day' + (ta.days === 1 ? '' : 's'));
+    if (ta.hours) bits.push(ta.hours + ' hour' + (ta.hours === 1 ? '' : 's'));
+    if (!bits.length) return;
+    var msg = 'Scene "' + (scene.title || sceneId) + '" suggests advancing the clock by:\n\n  +' +
+      bits.join(' ') + (ta.label ? '  (' + ta.label + ')' : '') + '\n\nApply now?';
+    if (window.confirm(msg)) {
+      fetch('/api/campaign/clock/advance', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hours: ta.hours || 0, days: ta.days || 0, label: ta.label || ('Scene ' + sceneId) })
+      }).catch(function () {});
+    }
+  }
+
+  function _maybePromptAdventureCompletion(prevAdvId, prevSceneId) {
+    var adv = getAdventure(prevAdvId);
+    if (!adv || !window.GalacticClock) return;
+    // Was prevSceneId the last scene of the last part?
+    var parts = adv.parts || [];
+    var lastPart = parts[parts.length - 1];
+    if (!lastPart) return;
+    var scenes = lastPart.scenes || [];
+    var lastScene = scenes[scenes.length - 1];
+    if (!lastScene || lastScene.id !== prevSceneId) return;
+    var msg = 'Adventure "' + (adv.title || prevAdvId) + '" complete.\n\n' +
+      'Advance the in-universe clock before the next adventure (downtime, travel, recovery)?';
+    if (window.confirm(msg)) {
+      // Open the clock advance modal so the GM picks the duration.
+      try { document.getElementById('cb-clock-widget').click(); } catch (e) {}
+    }
   }
 
   function renderAdvSelect() {
@@ -363,6 +436,8 @@
     // decisionPoints and none have been logged yet for this adventure).
     // Captured before the swap so openDecisionModal sees the correct scene.
     if (leavingSceneId) promptDecisionOnComplete(leavingSceneId);
+    // Task #198 — offer to advance the in-universe clock per scene metadata.
+    if (dir > 0 && leavingSceneId) _maybePromptSceneTimeAdvance(leavingSceneId);
     currentScene = scenes[next].id;
     closeAllFloatingPanels();
     renderScene();

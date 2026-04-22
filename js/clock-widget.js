@@ -79,18 +79,48 @@
   }
 
   // ─── GM widget ─────────────────────────────────────────────────────────
+  // Holiday-type → banner color mapping (per task spec)
+  var HOLIDAY_TYPE_COLORS = {
+    'anchor':              { bg: 'rgba(120,200,140,0.18)', border: 'rgba(160,220,170,0.6)', fg: '#cfe9d6' },
+    'imperial-mandatory':  { bg: 'rgba(200,60,60,0.22)',   border: 'rgba(220,90,90,0.7)',   fg: '#f8c8c8' },
+    'imperial-shadow':     { bg: 'rgba(180,80,80,0.16)',   border: 'rgba(200,100,100,0.5)', fg: '#f0c0c0' },
+    'imperial-oppression': { bg: 'rgba(200,90,40,0.2)',    border: 'rgba(220,120,60,0.6)',  fg: '#f8d4b0' },
+    'imperial-atrocity':   { bg: 'rgba(160,30,30,0.28)',   border: 'rgba(200,60,60,0.7)',   fg: '#ffb8b8' },
+    'suppressed':          { bg: 'rgba(220,180,80,0.2)',   border: 'rgba(240,200,100,0.6)', fg: '#f6e0a0' },
+    'suppressed-trauma':   { bg: 'rgba(180,140,60,0.24)',  border: 'rgba(220,180,80,0.7)',  fg: '#f8e6b0' },
+    'rebel-emergence':     { bg: 'rgba(80,180,200,0.2)',   border: 'rgba(100,200,220,0.6)', fg: '#b8e8f4' },
+    'hutt-cover':          { bg: 'rgba(140,80,200,0.22)',  border: 'rgba(170,110,220,0.7)', fg: '#dcc4f4' },
+    'hutt-economy':        { bg: 'rgba(120,80,180,0.18)',  border: 'rgba(150,110,200,0.55)', fg: '#d4c0ec' },
+    'festival':            { bg: 'rgba(200,164,78,0.22)',  border: 'rgba(220,184,98,0.7)',  fg: '#f8e0b0' }
+  };
+
   function _renderGmWidget() {
     var primary = document.getElementById('cb-clock-primary');
     var secondary = document.getElementById('cb-clock-secondary');
+    var banner = document.getElementById('cb-clock-banner');
     if (!primary || !_state) return;
     primary.textContent = _state.weekday + ' \u00B7 ' + _state.imperial.replace(/\s*\([^)]*\)\s*$/, '') +
       ' \u00B7 ' + _state.time;
     var bits = [_state.crcTapani.replace(/\s*\([^)]*\)\s*$/, ''), _state.bbyFootnote];
-    if (_state.holiday) bits.push('\u2605 ' + _state.holiday.name);
-    else if (_state.upcomingHoliday && _state.upcomingHolidayDays != null && _state.upcomingHolidayDays <= 14) {
-      bits.push(_state.upcomingHoliday.name + ' in ' + _state.upcomingHolidayDays + 'd');
-    }
     if (secondary) secondary.textContent = bits.join('  \u2022  ');
+
+    // Holiday banner — color-coded by type (or upcoming hint within 14 days).
+    if (banner) {
+      if (_state.holiday) {
+        var c = HOLIDAY_TYPE_COLORS[_state.holiday.type] || HOLIDAY_TYPE_COLORS.festival;
+        banner.style.cssText = 'display:block;margin-top:4px;padding:4px 8px;border-radius:3px;font-size:10.5px;letter-spacing:0.5px;background:' + c.bg + ';border:1px solid ' + c.border + ';color:' + c.fg + ';';
+        banner.textContent = '\u2605 Today is ' + _state.holiday.name + (_state.holiday.significance ? ' \u2014 ' + _state.holiday.significance.split('.')[0] : '');
+        banner.title = _state.holiday.gmHook || _state.holiday.significance || '';
+      } else if (_state.upcomingHoliday && _state.upcomingHolidayDays != null && _state.upcomingHolidayDays <= 14) {
+        var c2 = HOLIDAY_TYPE_COLORS[_state.upcomingHoliday.type] || HOLIDAY_TYPE_COLORS.festival;
+        banner.style.cssText = 'display:block;margin-top:4px;padding:3px 8px;border-radius:3px;font-size:10px;opacity:0.85;background:' + c2.bg + ';border:1px solid ' + c2.border + ';color:' + c2.fg + ';';
+        banner.textContent = _state.upcomingHoliday.name + ' in ' + _state.upcomingHolidayDays + 'd';
+        banner.title = _state.upcomingHoliday.significance || '';
+      } else {
+        banner.style.cssText = 'display:none;';
+        banner.textContent = '';
+      }
+    }
   }
 
   function _wireGmWidget() {

@@ -235,6 +235,12 @@
     if (existing) {
       var prevLog = existing.querySelector('#conv-p-log-col');
       if (prevLog) prevScroll = prevLog.scrollTop;
+      // Always release the live clock subscription before discarding the node,
+      // otherwise GalacticClock.onChange listeners accumulate across re-renders.
+      if (typeof existing.__convClockUnsub === 'function') {
+        try { existing.__convClockUnsub(); } catch (e) {}
+        existing.__convClockUnsub = null;
+      }
       existing.remove();
     }
     if (!state.active) return;
@@ -261,21 +267,31 @@
     var header = document.createElement('div');
     header.className = 'conv-p-header';
     var convVoice = def.voice || (def.npc && def.npc.voice) || 'citizen';
-    var convDateLine = '';
-    if (window.GalacticClock && typeof window.GalacticClock.formatForVoice === 'function') {
+    function _renderConvDate() {
+      if (!(window.GalacticClock && typeof window.GalacticClock.formatForVoice === 'function')) return '';
       var voiced = window.GalacticClock.formatForVoice(convVoice);
-      if (voiced) convDateLine = '<div class="conv-p-date" data-voice="' + escHtml(convVoice) + '">' + escHtml(voiced) + '</div>';
+      return voiced ? '<div class="conv-p-date" data-voice="' + escHtml(convVoice) + '">' + escHtml(voiced) + '</div>' : '';
     }
     header.innerHTML =
       '<div class="conv-p-header-text">' +
         '<div class="conv-p-title">' + escHtml(def.title || 'Conversation') + '</div>' +
         (npcName || def.subtitle ? '<div class="conv-p-subtitle">' + escHtml(def.subtitle || npcName) + '</div>' : '') +
-        convDateLine +
+        '<div class="conv-p-date-mount">' + _renderConvDate() + '</div>' +
       '</div>' +
       '<div class="conv-p-header-btns">' +
         '<button class="conv-p-icon-btn" id="conv-p-hide" title="Hide window">Hide</button>' +
       '</div>';
     win.appendChild(header);
+    // Subscribe to clock changes so the date line stays current while the
+    // overlay is open. Unsubscribe is bound to the close button below.
+    var _convClockUnsub = null;
+    if (window.GalacticClock && typeof window.GalacticClock.onChange === 'function') {
+      _convClockUnsub = window.GalacticClock.onChange(function () {
+        var mount = header.querySelector('.conv-p-date-mount');
+        if (mount) mount.innerHTML = _renderConvDate();
+      });
+    }
+    win.__convClockUnsub = _convClockUnsub;
 
     // ===== Body: two columns =====
     var body = document.createElement('div');
@@ -394,6 +410,7 @@
     // ===== Wire interactions =====
     document.getElementById('conv-p-hide').addEventListener('click', function () {
       state.hidden = true;
+      if (typeof win.__convClockUnsub === 'function') { try { win.__convClockUnsub(); } catch (e) {} win.__convClockUnsub = null; }
       win.remove();
       state.overlay = null;
       showPeekButton();

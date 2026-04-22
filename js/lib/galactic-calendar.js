@@ -75,9 +75,18 @@
   // {year, month, day} -> dayIndex (0-based since Y1 d1).
   function dayIndexFromDate(date) {
     var y = (date.year != null) ? date.year : 4;
+    var yearStart = (y - 1) * DAYS_PER_YEAR;
+    if (date.isFete) {
+      var fd = date.feteDay != null ? date.feteDay : 1;
+      return yearStart + MONTHS_PER_YEAR * DAYS_PER_MONTH + (fd - 1);
+    }
+    if (date.isStandalone) {
+      var sd = date.standaloneDay != null ? date.standaloneDay : 1;
+      return yearStart + MONTHS_PER_YEAR * DAYS_PER_MONTH + FETE_DAYS + (sd - 1);
+    }
     var m = (date.month != null) ? date.month : 1;
     var d = (date.day != null) ? date.day : 1;
-    return (y - 1) * DAYS_PER_YEAR + (m - 1) * DAYS_PER_MONTH + (d - 1);
+    return yearStart + (m - 1) * DAYS_PER_MONTH + (d - 1);
   }
 
   function bbyForYear(year) {
@@ -231,6 +240,57 @@
     return { dayIndex: d, hour: h };
   }
 
+  // Parse an Imperial-dialect date string back into a dayIndex.
+  // Accepted forms:
+  //   "Primeday, 4 Elona, Year 4"
+  //   "4 Elona, Year 4"
+  //   "Day 4, Month 5, Year 4"
+  //   "Day 4, Month 5, Year 4 (Primeday)"
+  //   "Fete Week, Day 2, Year 4"        / "Fete Week Day 2, Year 4"
+  //   "Festival Day 1, Year 4"
+  // Returns { dayIndex, hour } or null on failure. hour defaults to 8.
+  function parseImperialString(str) {
+    if (!str || typeof str !== 'string') return null;
+    var s = str.trim();
+    var m;
+    // Fete Week
+    m = s.match(/Fete\s+Week[,\s]+Day\s+(\d+)[,\s]+Year\s+(-?\d+)/i);
+    if (m) {
+      try {
+        return { dayIndex: dayIndexFromDate({ year: +m[2], isFete: true, feteDay: +m[1] }), hour: 8 };
+      } catch (e) { return null; }
+    }
+    // Festival Day (standalone)
+    m = s.match(/Festival\s+Day\s+(\d+)[,\s]+Year\s+(-?\d+)/i);
+    if (m) {
+      try {
+        return { dayIndex: dayIndexFromDate({ year: +m[2], isStandalone: true, standaloneDay: +m[1] }), hour: 8 };
+      } catch (e) { return null; }
+    }
+    // "Day D, Month M, Year Y"
+    m = s.match(/Day\s+(\d+)[,\s]+Month\s+(\d+)[,\s]+Year\s+(-?\d+)/i);
+    if (m) {
+      try {
+        return { dayIndex: dayIndexFromDate({ year: +m[3], month: +m[2], day: +m[1] }), hour: 8 };
+      } catch (e) { return null; }
+    }
+    // "[Weekday, ]D MonthName, Year Y"
+    m = s.match(/(?:[A-Za-z]+day,\s+)?(\d+)\s+([A-Za-z]+)[,\s]+Year\s+(-?\d+)/i);
+    if (m) {
+      var monthIdx = -1;
+      var name = m[2].toLowerCase();
+      for (var i = 0; i < MONTHS.length; i++) {
+        if (MONTHS[i].toLowerCase() === name) { monthIdx = i; break; }
+      }
+      if (monthIdx >= 0) {
+        try {
+          return { dayIndex: dayIndexFromDate({ year: +m[3], month: monthIdx + 1, day: +m[1] }), hour: 8 };
+        } catch (e) { return null; }
+      }
+    }
+    return null;
+  }
+
   return {
     WEEKDAYS: WEEKDAYS.slice(),
     MONTHS: MONTHS.slice(),
@@ -247,6 +307,7 @@
     bbyForYear: bbyForYear,
     crcForYear: crcForYear,
     formatImperial: formatImperial,
+    parseImperialString: parseImperialString,
     formatCRCTapani: formatCRCTapani,
     formatCitizen: formatCitizen,
     formatScholar: formatScholar,
