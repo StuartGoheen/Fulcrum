@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="/css/tactical-map.css" />
   <link rel="stylesheet" href="/css/vanishing-place-fortress.css" />
   <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/lib/galactic-calendar.js"></script>
+  <script src="/js/clock-widget.js" defer></script>
 </head>
 <body>
   <div class="forge-sparks">
@@ -42,6 +44,10 @@
       <span class="cb-header-part-title" id="cb-header-part" title="Click to change part"></span>
     </div>
     <div class="cb-header-right">
+      <div id="cb-clock-widget" class="cb-clock-widget" title="Click to advance the in-universe clock">
+        <div class="cb-clock-line cb-clock-line--primary" id="cb-clock-primary">&mdash;</div>
+        <div class="cb-clock-line cb-clock-line--secondary" id="cb-clock-secondary"></div>
+      </div>
       <button class="cb-header-btn" id="cb-logout">Logout</button>
     </div>
   </header>

@@ -1706,3 +1706,50 @@ body.player-body {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ─── Player date strip (Task #198) ──────────────────────────────────── */
+.player-clock-strip {
+  margin: 6px 0 8px;
+  padding: 6px 10px;
+  border: 1px solid rgba(200, 164, 78, 0.3);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: 'Courier New', monospace;
+}
+.player-clock-strip-main {
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: #f0e0b0;
+}
+.player-clock-strip-sub {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: rgba(200, 164, 78, 0.8);
+  margin-top: 2px;
+}
+.conv-p-date {
+  font-size: 10px;
+  font-style: italic;
+  color: rgba(200, 164, 78, 0.7);
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+.journal-entry-date.in-universe {
+  color: rgba(200, 164, 78, 0.9);
+  font-style: italic;
+}
+
+/* Task #198 — Imperial transponder flash + mode tint */
+.player-clock-strip.imperial-mode {
+  background: rgba(180, 60, 60, 0.08);
+  border-color: rgba(220, 100, 100, 0.4);
+}
+.player-clock-strip.imperial-mode .player-clock-strip-main { color: #f6d4a8; letter-spacing: 0.5px; }
+.player-clock-strip.cb-clock-flash {
+  animation: cb-clock-flash-anim 0.4s ease-out;
+}
+@keyframes cb-clock-flash-anim {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 220, 140, 0.85), inset 0 0 12px rgba(255, 220, 140, 0.6); }
+  100% { box-shadow: 0 0 0 8px rgba(255, 220, 140, 0);   inset 0 0 0 rgba(255, 220, 140, 0); }
+}

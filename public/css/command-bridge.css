@@ -7087,3 +7087,40 @@
   border: 0;
   margin-top: 0.4rem;
 }
+
+/* ─── Galactic Clock Widget (Task #198) ──────────────────────────────── */
+.cb-clock-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 4px 12px;
+  margin-right: 10px;
+  border: 1px solid rgba(200, 164, 78, 0.35);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  min-width: 320px;
+  max-width: 460px;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+.cb-clock-widget:hover {
+  background: rgba(200, 164, 78, 0.12);
+  border-color: rgba(200, 164, 78, 0.6);
+}
+.cb-clock-line {
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  text-align: right;
+}
+.cb-clock-line--primary {
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: #f0e0b0;
+}
+.cb-clock-line--secondary {
+  font-size: 9.5px;
+  letter-spacing: 0.4px;
+  color: rgba(200, 164, 78, 0.85);
+  margin-top: 1px;
+}

@@ -2,6 +2,7 @@
   "id": "soren-vex-requital",
   "title": "The Old Partner",
   "subtitle": "Soren Vex — The Requital, Slip 14, Black Spire Outpost",
+  "voice": "imperial",
   "setting": "The cargo bay of the Requital — a battered Corellian gunship at slip 14. The bay smells like coolant and old caf. A folding table, three folding chairs, a pot of caf cooling in the middle. Vex sits on one side. Maya stands at the open ramp behind the crew, arms folded, having come this far and no further. Black Spire Outpost is half-lit by floodlamps outside.",
   "context": "The crew came to slip 14 on Oga's referral. Maya came because she insisted, because if the crew was going to sit across a table from Soren Vex she was going to be in the room. She is not at the table. She is at the ramp. Vex did not flinch when she walked aboard. He poured caf for everyone, including her, before he sat down. The cup he set out for Maya is untouched on the corner of the table. She has not looked at it. She has not looked at him. Vex knows. Vex is doing this anyway.",
   "readAloud": "Vex is in his fifties. Spacer's leathers. Hair gone all the way gray. His hands are scarred in the specific pattern of someone who has crawled around inside engine compartments for thirty years. He pours the caf carefully, with the precision of a man who has been steadying his hands for an hour to make sure he does not spill it.\n\n\"Sit. Please. I made the caf when I heard you were coming. It's not great. Most things on this ship aren't.\"\n\nHe slides cups across.\n\nHe does not look at Maya at the ramp. He has not, the crew gradually realizes, looked at her since they came aboard. She has not looked at him. The fourth cup sits between them like a placed object in a still life.\n\n\"Oga told you what I am. So I am not going to use her time or yours pretending to be something else. I will run your blockade run. I will run it well. I have been waiting for a contract worth dying on for six years and yours sounds close enough.\"\n\nHe lifts his cup. Drinks. Sets it down.\n\n\"Now. Ask. The crew at the ramp can ask too. I'm not going to flinch.\"",
@@ -21,8 +22,16 @@
       "comfortCost": 0,
       "response": "He does not look at Maya. He looks at his hands.\n\n'We were running refugee charters out of Bestine. Mostly Felucia evacuees, some Outer Rim families that had crossed the wrong officer in some port. Clean work. We did it for three years and we made enough to keep the Requital running and a small house on Bestine and a future that looked like it might keep being a future.'\n\nA pause.\n\n'There was a bounty on Mai — on Maya. Six figures, Imperial. Issued because she had been seen helping a Twi'lek who turned out to be on a no-fly list. The bounty was specifically for her, alive. I had three weeks of warning before the bounty hunter market sent someone serious.'\n\nHe sets the cup down.\n\n'I sold her to an Imperial collector on day eighteen. I told myself I was getting a smaller buyer in front of the bigger ones — that the smaller buyer would route her to a labor camp and the labor camp could be broken out of, and the bigger buyer would route her to an Imperial black site that could not. That was the version I told myself for years.'\n\n'The truer version is that I needed the credits. The Requital was failing. The house was leveraged. I had a child by a previous marriage who needed surgery on Coruscant. I made a calculation and I made it badly and the calculation included a person I loved.'\n\nA long pause.\n\n'She broke out of the labor camp two years later, on her own, without my help. She has never spoken to me since. She is correct not to. That is the answer to your question.'",
       "gmNote": "DEEP TONAL MOMENT. Comfort holds — Vex is doing the thing the conversation exists to do. The 'truer version' framing is character-true: he is performing the apology he has rehearsed and naming the rehearsal at the same time. Maya, at the ramp, may visibly react — her arms tighten, she may look at Vex for the first time. GM should narrate her body language without making her speak. If a player turns to her and says anything kind, comfort gain (small). If they push past her toward the next question, no penalty but the moment is lost.",
-      "unlocks": ["sv-the-credits", "sv-the-child", "sv-six-years"],
-      "tags": ["story", "bestine", "load-bearing"]
+      "unlocks": [
+        "sv-the-credits",
+        "sv-the-child",
+        "sv-six-years"
+      ],
+      "tags": [
+        "story",
+        "bestine",
+        "load-bearing"
+      ]
     },
     {
       "id": "sv-the-contract",
@@ -31,8 +40,15 @@
       "comfortCost": 0,
       "response": "He pulls a folded sheet of flimsi from his coat. Slides it across.\n\n'My rate is half of what Oga said. I do not need negotiating room. The Requital is in fighting condition — the engines are five years out of spec but I rebuilt them last winter and they will hold for one blockade run. Two if you are gentle. I will not be gentle.'\n\nA pause.\n\n'My terms are three. One — I fly. I do not take orders on flying. You crew the guns and the cargo and the comms and I will listen, but the stick is mine. Two — if anyone on this contract is in a position where I have to choose between the contract and them, I choose them. Every time. I have made the other choice once and I will not make it again. Three — if Maya is on the deck during the run, she gives orders. I follow them. If she is not on the deck, I follow yours. That is the only place she gets to choose tonight, but she chooses it.'\n\nHe meets the crew's eyes.\n\n'Those are the terms. They are not negotiable. The price is.'",
       "gmNote": "The contract is real. Term Three is the structural payoff: Vex has handed Maya conditional command of the run, regardless of what she does at the table tonight. If Maya joins the run (she does, in adv8-p2-s1 and onward), GMs should honor this — Maya gives the flight orders during the cordon run and Vex defers visibly. This sets up adv10's Soren Vex sacrifice (intercepting the missile aimed at the Banshee) as the completion of his second chance: he chose her over the contract.",
-      "unlocks": ["sv-the-route", "sv-the-ship"],
-      "tags": ["business", "contract", "terms"]
+      "unlocks": [
+        "sv-the-route",
+        "sv-the-ship"
+      ],
+      "tags": [
+        "business",
+        "contract",
+        "terms"
+      ]
     },
     {
       "id": "sv-six-years",
@@ -41,8 +57,14 @@
       "comfortCost": 0,
       "response": "A short, dry exhale.\n\n'Drinking, badly. Working, when there was work. Taking contracts no one else would take. Running medical supplies into systems that didn't have any, sometimes for free, sometimes for whatever the families could pay. Trying to put a number on it. There isn't a number that gets to it. I learned that early. I kept trying anyway because the trying was the only thing I had left to do.'\n\nA pause.\n\n'I do not believe in absolution. I do not believe in being forgiven. I believe in showing up to a thing that is hard and doing it as well as I can and not asking for anything for it. That has been the whole strategy. I have not improved it.'\n\nHe glances briefly toward Maya. Does not hold the look.\n\n'When Oga told me there was a contract that needed running through the Iron Cordon, I said yes before she finished the sentence. I did not know who the crew was. I would have said yes for any crew. I am — relieved — that the crew is the one it is. That was not a thing I was prepared to feel. It is uncomfortable. It does not change anything.'",
       "gmNote": "Vex's six-year arc in his own words. The 'no absolution' framing is character-true and load-bearing: it sets up his sacrifice in adv10 as not a redemption arc completion but as the only kind of action that ever made sense to him. If a player tries to offer absolution here, Vex will refuse it gently: 'That is not yours to give. It is not anyone's to give. Thank you, but no.' The 'relieved' admission is small and real — the first emotional truth he has spoken in the conversation.",
-      "unlocks": ["sv-the-credits"],
-      "tags": ["story", "six-years", "honest"]
+      "unlocks": [
+        "sv-the-credits"
+      ],
+      "tags": [
+        "story",
+        "six-years",
+        "honest"
+      ]
     },
     {
       "id": "sv-why-not-walk-away",
@@ -51,8 +73,14 @@
       "comfortCost": -1,
       "response": "A long beat.\n\n'Because she would have followed me. And I would have made her run me down through the docking ring at second hour to say what she came to say, instead of letting her say it from the ramp on her own ground. I have done that to her once already. I did not want to do it again.'\n\nA pause.\n\n'Because the contract is real and you need the run and walking off would have been a smaller cowardice than the one she is here for. I am not interested in performing courage. I am interested in not adding more cost to a debt that is already past math.'\n\nHe finally looks toward Maya at the ramp.\n\n'And because I have wanted to be in a room with her for six years and I am not going to waste this one by being the person who left first.'",
       "gmNote": "Comfort drops by 1 — the question is the question. But the answer is honest in three layers and the third layer (the look at Maya) is the one that matters. Maya may, at the GM's discretion, take a single step away from the ramp on this answer. Not yet to the table. But closer. GMs should watch player faces and let the moment land before moving on.",
-      "unlocks": ["sv-she-deserves"],
-      "tags": ["probe", "honest", "maya-pivot"]
+      "unlocks": [
+        "sv-she-deserves"
+      ],
+      "tags": [
+        "probe",
+        "honest",
+        "maya-pivot"
+      ]
     },
     {
       "id": "sv-to-maya",
@@ -62,7 +90,11 @@
       "response": "Maya does not answer for a long count. The bay is very quiet. Vex does not turn. He looks at his cup.\n\nWhen Maya speaks, her voice is even. Not soft. Not cruel.\n\n'I want him on this run. I want him in that cockpit. I want him to fly the Requital through the Cordon and I want him to do it well, because the alternative is dying out there, and I have done my dying for this lifetime.'\n\nA pause.\n\n'I do not want to be in a room with him. I am in this one because the contract is yours and you needed me to look at him before you signed. I have looked at him. He is — older. He is also the same. I do not know what to do with both of those things at once. I am going to need some time.'\n\nA short beat.\n\n'After this run, we'll see. He doesn't owe me an answer. I don't owe him a chair. Tonight is — tonight is enough.'",
       "gmNote": "MAYA SPEAKS. This is the only Maya line in the conversation that matters and it should be played slow. Comfort jumps from current value to 4 immediately on the player asking — the question itself is the comfort gain because it routes the decision through Maya's authority. After this answer, the conversation has effectively closed: any remaining questions can be asked, but the contract is signed in fact. Maya does NOT sit down at the table after this — she stays at the ramp, but she has spoken across it. Vex does not respond. He does not turn. He nods, once, to no one in particular. The cup of caf for Maya stays on the corner of the table. It will still be there in the morning when the crew comes to load the cargo.",
       "unlocks": [],
-      "tags": ["story", "maya", "load-bearing"]
+      "tags": [
+        "story",
+        "maya",
+        "load-bearing"
+      ]
     }
   ],
   "followUps": {
@@ -75,7 +107,11 @@
       "response": "He does not look up.\n\n'Forty-two thousand.'\n\nA pause.\n\n'I want you to hear the number. I made myself remember it for six years because the worst part of the thing was how little it was. Not enough to fix the ship. Not enough to pay off the house. Enough for one round of the surgery. The second round we paid for from a different debt I am also still paying.'\n\nA brief, dry look.\n\n'People think the betrayals that destroy lives must be enormous. They are usually small. Mine was small. That is part of the answer to the question you actually asked.'",
       "gmNote": "Comfort drops by 1 but the answer is bone-honest. The number is concrete and small. Players who absorb the cost without comment earn an implicit comfort gain. Maya, at the ramp, will not visibly react to this answer — she has known the number for years.",
       "unlocks": [],
-      "tags": ["probe", "money", "true"]
+      "tags": [
+        "probe",
+        "money",
+        "true"
+      ]
     },
     "sv-the-child": {
       "id": "sv-the-child",
@@ -86,7 +122,11 @@
       "response": "A small, real exhale — closer to relief than to grief.\n\n'She lived. She is twenty-three now. Lives on Chandrila, works as a junior architect on a housing project for displaced Outer Rim families. She knows what I did. She does not speak to me either. That is — also correct.'\n\nA pause.\n\n'She sends one letter a year. On the anniversary of the surgery. She tells me she is alive. She does not sign her name. I keep them all.'\n\nHe meets the crew's eyes.\n\n'I want you to know that the cost of what I did landed everywhere. Not just on the partner I sold. On the daughter I bought a life for and on me and on the man I would have been if I had picked the other answer that night. That is the full receipt. I am not asking you to pity any of it. I am answering your question.'",
       "gmNote": "The full moral cost. Players who handle this gently see Vex relax slightly — he has been carrying the daughter's existence as a fact no one in his life has asked about. Comfort holds. The Chandrila daughter is a campaign hook if the GM ever wants to play out a Vex-survives-adv10 epilogue. By default, Vex dies in adv10 and the daughter never receives the final letter. Worth tracking quietly.",
       "unlocks": [],
-      "tags": ["story", "daughter", "honest"]
+      "tags": [
+        "story",
+        "daughter",
+        "honest"
+      ]
     },
     "sv-she-deserves": {
       "id": "sv-she-deserves",
@@ -97,7 +137,11 @@
       "response": "He thinks about it for a long time.\n\n'Whatever she asks for. Up to and including a clean shot to the head, if that is what she names. Down to and including a folded list of every excuse I have ever told myself, so she can read them and put them down.'\n\nA pause.\n\n'Right now she is not asking for any of those. She is asking for the run to go well and for me to be quiet and for there to be a chair at the table that she is allowed to refuse to sit in. So I am being quiet, and I am leaving the chair, and the run will go as well as I can fly it.'\n\n'Tonight, what she deserves is the smallest version of me. The version that does not perform. The version that does not ask. The version that pours the caf and stays out of the way. That is all I have to offer her tonight. Whatever else she deserves from me, she gets to decide the timing of, not me.'",
       "gmNote": "Comfort drops by 1 but Vex names his own constraints clearly. This response also confirms that Maya has been the one setting the rules of this evening — the chair, the caf, the silence — and Vex is following them. If the players have not yet asked Maya directly (the sv-to-maya root), this answer makes it obvious that they should.",
       "unlocks": [],
-      "tags": ["probe", "honest", "maya-pivot"]
+      "tags": [
+        "probe",
+        "honest",
+        "maya-pivot"
+      ]
     },
     "sv-the-route": {
       "id": "sv-the-route",
@@ -108,7 +152,11 @@
       "response": "'Malpaz. The corridor that nobody else takes because it goes through an interdictor field. The Requital has a modified hyperdrive that can recalculate fast enough to slip the gravity well at the right vector. I have done it twice. I have a third in me.'\n\nA pause.\n\n'The cost is — Malpaz is contested. There may be Imperial picket ships in-system. There may be insurgent activity. There may be both, fighting each other, while we are trying to pass through. I will fly under whatever banner needs to be flown. I will fly under no banner if that works better. The cargo gets through. That is the only metric.'",
       "gmNote": "Sets up adv10-p1-s2 (the Malpaz Corridor) as the canonical route Vex flies. The 'two times before' framing makes him the right captain for it. The 'third in me' is the campaign foreshadow — there is no fourth. If players choose Vex over Maku/Brell at this point, they have selected the captain whose arc completes in adv10 with the missile sacrifice.",
       "unlocks": [],
-      "tags": ["business", "route", "malpaz"]
+      "tags": [
+        "business",
+        "route",
+        "malpaz"
+      ]
     },
     "sv-the-ship": {
       "id": "sv-the-ship",
@@ -119,7 +167,10 @@
       "response": "A small, real smile — the first of the conversation.\n\n'YT-2400 Corellian gunship, modified. Forward dual-laser turret, dorsal quad-laser, ventral concussion missile launcher with eight tubes. Eight tubes is a lot. I rarely have eight things to shoot at, but when I do I am ready.'\n\n'Hyperdrive is class one-and-a-half — modified down from class two. The recalculation buffer is three times standard, which is what makes the interdictor slip work. The shield generator is military-grade, salvaged from a wrecked customs frigate I helped strip off Bestine. The shields will hold. The hull will not, in places. The starboard cargo door has a patch over a patch over a patch. Do not lean on it.'\n\nA pause.\n\n'She is not pretty. She is not new. She is mine. I have flown her for thirty-one years. She will get you through.'",
       "gmNote": "Concrete ship description for the GM running the Cordon run. The eight concussion missile tubes are real — GMs should let players use them aggressively in adv8-p2-s1. The 'starboard cargo door' detail is a free Chekhov's gun if the GM wants to use it later. The 'thirty-one years' is the tell — Vex and the Requital are the same age, same wear, same patched-over history.",
       "unlocks": [],
-      "tags": ["business", "ship"]
+      "tags": [
+        "business",
+        "ship"
+      ]
     }
   }
 }

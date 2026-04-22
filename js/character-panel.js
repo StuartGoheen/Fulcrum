@@ -219,6 +219,7 @@
           '</button>' +
         '</div>' +
         subtitleHtml +
+        '<div class="player-clock-strip" id="cb-player-clock-strip"></div>' +
       '</div>';
 
     // Arena / discipline grid

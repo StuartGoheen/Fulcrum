@@ -656,3 +656,29 @@ The Vanishing Place (adv1 Part 2 scenes S5–S8) now has a dynamic fortress-stat
 **GM widget:** `js/vanishing-place-fortress.js` + `public/css/vanishing-place-fortress.css`. Wired into `js/command-bridge.js` `loadMapInPanel` — attaches when the Vanishing Place tactical map is opened, detaches otherwise. Widget header shows tier chip, one-liner, escalate/de-escalate/sabotage/reset/reference buttons; body shows patrol tempo, tier summary, active sabotage flags, reinforcement/Draco clock with Tick button, per-zone state, per-NPC-group behavior. State persists via socket `state:update` with key `adv1_vanishing_place_alert`; all GMs stay in sync via `state:sync`. Escalation button opens a confirm modal showing the read-aloud cue for the triggering event and the per-NPC behavior preview of the destination tier. Sabotage button opens a 3-option chooser that sets tier + flags atomically. "How it reacts" button opens a full reference modal with all tiers, triggers, de-escalation paths, ratchet rules, both clocks, and the sabotage cascade table.
 
 **Hitbox cleanup:** `public/maps/vanishing-place.html` — 5 fictional corridor zones (Central Junction / Central Passage / East Passage / West Corridor / Detention Corridor) collapsed into one accurate "Central Hall" zone. Old "Detention Block" split into "Detention Guard Post" (west half, where the 2 guards play cards) and "Varth's Cell" (east half, walled and mag-locked separate from the pens). Zone total: 16.
+
+## Galactic Calendar & Voice Audit (Task #198)
+
+**Anchor:** Primeday, 4 Elona, Year 4 IE = 4 Elona, 7981 C.R.C. = ~16 BBY (designer shorthand "~15 BBY"). Day index 1107, hour 8.
+
+**Calendar engine:** `js/lib/galactic-calendar.js` (UMD — used server + browser). Persists in `campaign_state` (`current_day_index`, `current_hour`); BEFORE INSERT trigger `stamp_journal_clock` auto-stamps `journal_entries.in_universe_day_index/hour` from campaign_state. REST: `GET/POST /api/campaign/clock[/advance|/set]`. Socket broadcast: `clock:updated`.
+
+**Schema additions:** `data/adventures/adv1.json` now carries root `startDate: "Primeday, 4 Elona, Year 4"` + `startDateNote`. All 12 conversation files in `data/conversations/` carry a `voice` field (citizen / scholar / imperial). Adventures and conversations without these fields still load.
+
+**Prose audit — adv1–3 voice-rule compliance:**
+- `adv1.json` S1 read-alouds: relative phrasing kept ("twelve hours ago", "an hour ago", "tonight", "fixer is an hour late", "twice a standard year") — narrator voice, no specific Imperial date implied. Devaronian gmNote (NPC citizen) "since the Lambda landed two days ago" annotated `(Day 2, Month 1, Year 4 — GM clarity only)` in both occurrences (S1 and S1B variant).
+- `adv2.json` S2 read-aloud "dead before dawn" + S2 vpThresholds NPC quotes ("three, four days ago", "Two days ago", "Saw smoke yesterday morning") — already in citizen voice (NPC speech), confirmed consistent; no rewrites needed per audit spec.
+- `adv3.json` S1 read-aloud — replaced the pro-Republic phrasing "back when the Republic was still young" with Imperial-acceptable historical framing: "back in the early centuries of the Old Republic" (factual era reference, no Republic-positive editorializing).
+- `adv3.json` Lt. customs quote — "recited four hundred times this week" → "recited four hundred times since the start of the month" (Imperial NPC voice).
+- `adv3.json` Varth comm quote — "pinged Cloud City spaceport sixteen days ago" left as-is per spec (Varth is precise but informal in conversation).
+- `adv3.json` Beat 1 tactics aside — "Calrissian does not run Cloud City for another twelve years; this is 15 BBY" → "In Year 4 IE (~15 BBY for designer reference), Calrissian is still twelve years out from running Cloud City; today the city is governed by..." (per spec verbatim).
+- `vanishing-place-fortress.json` — no player-visible date references that violate the voice rule; not modified.
+- 12 conversation files: `voice` set to `citizen` (Maya, Oga, Mandrake, Fyren/Krygg, Raden, the Storyteller's framing kept scholar for Maz's-Castle elder), `scholar` (Master Thorla, TC-663, the Storyteller), `imperial` (Varth ×3, Soren Vex). Conversation-overlay header reads `def.voice` (default `citizen` if absent) to render the in-universe date in the right dialect.
+
+**Player-side surfacing:** `#cb-player-clock-strip` mounted in character-panel `char-identity` block (C.R.C./Tapani default, hover/tap to flip Imperial). Conversation-overlay header line uses voice-aware formatter. Glossary/journal viewer uses `_formatJournalEntryDate` which prefers `in_universe_day_index/hour` when present and falls back to real-world `created_at` for legacy entries.
+
+### Post-review fixes (Task #198)
+- **Holiday data integrity:** auto-recomputed `dayOfWeek` for all 13 dated holidays in `data/galactic-holidays.json` against the calendar utility (10 entries corrected; campaign-start, subjugation-of-kashyyyk, day-of-the-purge already matched). 0 mismatches remaining.
+- **Player-visible BBY violation:** Maya's "Off the line in 44 BBY" → "Off the line in 7953 C.R.C." (citizen voice; player-visible response in `maya-banshee-galley.json`). Remaining BBY references in adv1/adv3 audited and confirmed GM-only (gmNotes / startDateNote / tactics / KEY LORE).
+- **GM advance modal:** presets aligned to spec (+1h / +6h short rest / +8h long rest / Sleep→dawn / +1d). Added explicit Manual Set section (Day Index + Hour) and a session-local Recent Changes log (8 entries, label + from/to).
+- **Player date strip:** added Imperial-mode toggle (tap to flip between citizen C.R.C./Tapani and Imperial readings) with brief Imperial-cog flash animation (`cb-clock-flash` keyframes in `public/css/player.css`); BBY never rendered on player surfaces.

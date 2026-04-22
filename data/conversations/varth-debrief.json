@@ -2,13 +2,11 @@
   "id": "varth-first-supper",
   "title": "The First Supper",
   "subtitle": "Getting Acquainted with Varth",
+  "voice": "imperial",
   "setting": "The Banshee's Common Room — first night in hyperspace after escaping Ajan Kloss",
   "context": "The crew just broke Varth out of an Imperial fortress, survived a three-way firefight, and escaped an Inquisitor. They are exhausted, wounded, and sharing a ship with a stranger. Varth has cooked dinner in the galley and carried it to the Common Room. The bolted-down table is set. The dejarik board flickers in the corner. Amber light overhead.",
-
   "readAloud": "The Common Room smells like fire pepper and something Varth found in the back of Maya's cold storage that he swears is still good. The bolted-down table is set — mismatched plates, chipped mugs, and a bottle of something amber that Varth produced from a coat pocket with the air of a man who always keeps a bottle somewhere.\n\nHe sits at the head of the table like he built the ship.\n\n\"First real meal in twenty-six months,\" he says, raising his mug. \"I want you to know I appreciate the rescue. The cell had better lighting, but the company is a significant upgrade.\"\n\nHe drinks. Looks around the table. Takes his time — studying each face the way a sabacc player reads a hand.\n\n\"So. You broke into an Imperial fortress, fought a warlord's private army, and stared down an Inquisitor — all for a man you've never met.\"\n\nA beat. That half-smile.\n\n\"I imagine you have questions.\"",
-
   "gmNotes": "This is a structured social scene using a conversation tree. The crew asks questions; Varth answers. No dice required unless a player specifically requests an Insight check (Varth's Resist is 5 — nearly unbeatable at this tier).\n\nVarth starts at Comfort 5 (relaxed, generous, volunteering detail). Story topics hold or raise comfort. Business topics are neutral. Probe topics cost 1 comfort each. At Comfort 2, some follow-ups lock out. At Comfort 1, Varth gracefully exits.\n\nThe crew does NOT see the comfort meter. The GM signals it through Varth's tone — how much detail he offers, whether he volunteers extras, whether his humor feels natural or performed.\n\nMAYA: Present but quiet. Eating. Watching the crew's reaction more than watching Varth. She's already formed her opinion. If asked directly, she says: 'He talks well. That's not the same as talking straight.' Then goes back to eating.\n\nTHE TEMPLE TAP: Varth touches his temple when he mentions the authentication key. This is an unconscious tell that recurs across the campaign. Note it but don't draw attention.\n\nENDING: The scene ends when (a) all accessible topics are explored, (b) comfort hits 1 and Varth exits, or (c) the crew decides they've heard enough. Varth's closing line if the tree runs dry: 'Well. You're thorough. I respect that.' If comfort forces exit: 'I think that's enough for tonight. We have time.' Either way, he clears the plates himself.",
-
   "comfort": {
     "starting": 5,
     "max": 5,
@@ -16,7 +14,6 @@
     "exitLine": "Varth sets down his mug carefully. The warmth doesn't leave his face — it just stops reaching his eyes. 'I think that's enough for tonight. We have time.' He stands, collects the plates without being asked, and carries them to the galley. The conversation is over. Not hostile — just closed.",
     "dryLine": "Varth sits back and looks around the table. The mug is empty. The bottle is lighter. 'Well. You're thorough. I respect that.' A beat. 'Tomorrow I'll walk you through the job. Tonight — get some rest. You've earned it.' He clears the plates himself."
   },
-
   "roots": [
     {
       "id": "who-are-you",
@@ -25,8 +22,15 @@
       "comfortCost": 0,
       "response": "He leans back. Not defensive — comfortable. Like he's been waiting for this one.\n\n\"Gilder Varth. Admiral, technically, though the rank doesn't mean much when the institution that gave it to you buried you in a jungle. Born on Anaxes — old Republic Navy world. My father was logistics. My mother hosted salons for politicians. I entered the Naval Academy at sixteen and spent the Clone Wars behind a desk on Coruscant managing fleet supply operations.\"\n\nHe picks up his mug, turns it in his hands.\n\n\"I never fired a shot in combat. Never had to. My weapon was always the requisition form, the supply manifest, the well-timed memo. When the Republic became the Empire, I didn't flinch. I didn't celebrate either. The machine changed management. I kept doing my job.\"\n\nA dry smile. \"I was promoted because I was competent and quiet. The Empire needed people who could move things without asking what they were moving. I was exceptional at not asking.\"",
       "gmNote": "This is Varth performing his origin story — polished, self-aware, a little self-deprecating. It's all true. The key omission is WHY he started skimming. He frames himself as apolitical and practical. That framing is itself a choice the players might notice later.",
-      "unlocks": ["anaxes-family", "clone-wars-desk", "empire-transition"],
-      "tags": ["backstory", "ego"]
+      "unlocks": [
+        "anaxes-family",
+        "clone-wars-desk",
+        "empire-transition"
+      ],
+      "tags": [
+        "backstory",
+        "ego"
+      ]
     },
     {
       "id": "why-prison",
@@ -35,8 +39,17 @@
       "comfortCost": 0,
       "response": "\"Because I got caught.\"\n\nHe says it simply. No drama.\n\n\"I was assigned to a classified logistics pipeline — something enormous, out in the Unknown Regions. The officers running it were political appointees. Ideologues. The kind of men who get promoted for knowing the right people, not for knowing anything useful. The waste was staggering. Credits pouring into a black hole.\"\n\nHe sets down his mug.\n\n\"So I skimmed. Not impulsively — methodically. I used a Hutt crime lord's existing supply infrastructure to create a parallel accounting layer. Credits flowing to the project were diverted through the Hutt's network into an encrypted account that only I could access.\"\n\nA beat. That half-smile again.\n\n\"I stole millions over eighteen months. And I would have gotten away with it, except a routine ISB audit flagged an anomaly that traced back to my requisition patterns. Bad luck. Not bad work.\"\n\nHe taps the table once.\n\n\"They arrested me. Stripped my rank. Buried me at the Vanishing Place on Ajan Kloss. No trial. No record. Just — gone. The Empire doesn't execute admirals who embarrass it. That generates paperwork. Missing admirals don't.\"",
       "gmNote": "Varth is PROUD of the skimming. He considers it elegant work undone by bad luck, not bad judgment. The phrase 'bad luck, not bad work' is his self-assessment. He genuinely believes he was smarter than everyone around him. He's right — and that's the problem.",
-      "unlocks": ["how-skimming", "what-project", "surviving-prison", "code-cylinder-breadcrumb"],
-      "tags": ["backstory", "ego", "pride"]
+      "unlocks": [
+        "how-skimming",
+        "what-project",
+        "surviving-prison",
+        "code-cylinder-breadcrumb"
+      ],
+      "tags": [
+        "backstory",
+        "ego",
+        "pride"
+      ]
     },
     {
       "id": "whats-the-job",
@@ -45,8 +58,16 @@
       "comfortCost": 0,
       "response": "Varth's posture changes. Subtly — but if you're watching, you see it. The storyteller becomes the officer.\n\n\"The money I embezzled is locked inside a Hutt crime lord's financial network. Varga Besadii Drokko. He runs his operation from a fortress on the far shore of Nymeve Lake on Takodana. My authentication key unlocks the account\" — he taps his temple — \"but Varga moved the routing data after I was captured. Without the routing data, my key opens nothing.\"\n\nHe spreads his hands on the table.\n\n\"We need to get inside his operation. Find the routing data. Then we take the money and disappear.\"\n\nA pause.\n\n\"There's a fixer — a Devaronian named Warrick Raden. He used to work Varga's financial network. He knows the court, the layout, the players. He's hiding somewhere near the fortress — probably Blackwind Point, the shantytown across the lake. Raden can get us in.\"\n\n\"Varga hosts constantly — gladiators, entertainers, mercenaries, gamblers. That's our cover. We go in as hired talent, find the routing data, and get out before anyone realizes what we took.\"",
       "gmNote": "This is the operational briefing that Adventure 2 Scene 1 assumes already happened. Varth shifts into officer mode — precise, structured, mission-focused. Note the temple tap when he mentions the authentication key. This should feel like watching a general lay out a battle plan over a dinner table.",
-      "unlocks": ["who-is-raden", "cover-story", "how-long-infiltration", "whats-the-plan-b"],
-      "tags": ["mission", "planning"]
+      "unlocks": [
+        "who-is-raden",
+        "cover-story",
+        "how-long-infiltration",
+        "whats-the-plan-b"
+      ],
+      "tags": [
+        "mission",
+        "planning"
+      ]
     },
     {
       "id": "whats-the-money",
@@ -55,8 +76,15 @@
       "comfortCost": 0,
       "response": "\"Enough to retire on. Each of you.\"\n\nHe lets that sit for a moment.\n\n\"I skimmed millions over eighteen months from one of the Empire's most expensive projects. The account is encrypted and the authentication key is here\" — the temple tap again — \"which means no one can access it without me. Not Varga. Not the Empire. Not anyone.\"\n\nHe looks around the table.\n\n\"Equal split. I take a share, you each take a share. I'm not negotiating percentages — I'm offering a partnership. You already proved you can handle the work. Now we do one more job, and everyone walks away rich.\"\n\nA beat.\n\n\"I don't expect you to trust me. I expect you to trust the math. I can't access the money without you. You can't access the money without me. That's better than trust. That's alignment.\"",
       "gmNote": "The 'alignment not trust' line is pure Varth — he reframes relationships in transactional terms and makes it sound reasonable. The equal split offer is genuine; in Adventures 1-3, Varth pays up every time. He builds trust by honoring the deal. That's what makes the Adv6 betrayal devastating — he always paid before.",
-      "unlocks": ["how-much-exactly", "what-if-double-cross"],
-      "tags": ["money", "trust", "deal"]
+      "unlocks": [
+        "how-much-exactly",
+        "what-if-double-cross"
+      ],
+      "tags": [
+        "money",
+        "trust",
+        "deal"
+      ]
     },
     {
       "id": "who-is-varga",
@@ -65,8 +93,16 @@
       "comfortCost": 0,
       "response": "\"Varga Besadii Drokko. Besadii clan — old money, old grudges. He runs a fortress on Takodana, on the far shore of Nymeve Lake. It's a retrofitted stone ruin — moss-covered walls fitted with blaster turrets, gaudy banners, and enough security to make a Moff nervous.\"\n\nVarth takes a drink.\n\n\"Varga is smart for a Hutt. Paranoid, which makes him smarter. He doesn't trust technology he doesn't control — all his critical data is stored in systems with no external network access. You have to be physically inside the fortress to touch his financial infrastructure.\"\n\nHe leans forward.\n\n\"He hosts a permanent court — gladiators, slavers, gamblers, Imperial delegations, bounty hunters, entertainers. It's a power display. Everyone who matters in the Western Reaches passes through Varga's court eventually. That's how he controls the region — not through force, but through being the room everyone wants to be in.\"\n\n\"He's also the man I funneled my skimming operation through. Which means he knows who I am, what I stole, and roughly how much. He doesn't know I'm free. That's our advantage — for now.\"",
       "gmNote": "Varth's assessment of Varga is professional and accurate. He respects Varga's intelligence — which is notable because Varth doesn't respect most people's intelligence. The detail about no external network access sets up why infiltration is necessary.",
-      "unlocks": ["varga-dangerous", "varga-court-politics", "varga-know-about-us"],
-      "tags": ["mission", "intel", "varga"]
+      "unlocks": [
+        "varga-dangerous",
+        "varga-court-politics",
+        "varga-know-about-us"
+      ],
+      "tags": [
+        "mission",
+        "intel",
+        "varga"
+      ]
     },
     {
       "id": "what-was-draco",
@@ -75,8 +111,16 @@
       "comfortCost": 0,
       "response": "Varth doesn't answer immediately. The first real pause of the evening.\n\n\"Inquisitor Draco. One of the Emperor's Force-sensitive enforcers. They recruit from... various sources. Failed Jedi. Broken prisoners. People with the gift who were given a choice between service and death.\"\n\nHe turns his mug slowly.\n\n\"Draco was assigned to the Vanishing Place. Not as my jailer — I wasn't important enough for an Inquisitor. He was there for other reasons. Projects I wasn't cleared for. But I saw him. Twice. From a distance. That was enough.\"\n\nHe looks at the table.\n\n\"He doesn't negotiate. He doesn't threaten. He arrives, and then people are dead or gone. The troopers at the fortress — the good ones, the veterans — they were afraid of their own commander. That tells you everything you need to know.\"\n\nA beat.\n\n\"He was there for me — or for whatever I represent to whatever project he's running. The fact that he arrived too late is the only reason we're having this conversation.\"",
       "gmNote": "This is Varth being genuinely honest. Draco frightens him — not in a way he'll fully admit, but the pause before answering is real. His assessment is accurate and professional. Force-sensitive PCs who felt Draco's presence should connect to Varth's description. The line 'he doesn't negotiate, he collects' from the Detention Block intel echoes here.",
-      "unlocks": ["draco-force-users", "draco-come-after-us", "draco-projects"],
-      "tags": ["threat", "draco", "honest"]
+      "unlocks": [
+        "draco-force-users",
+        "draco-come-after-us",
+        "draco-projects"
+      ],
+      "tags": [
+        "threat",
+        "draco",
+        "honest"
+      ]
     },
     {
       "id": "why-trust-you",
@@ -85,11 +129,17 @@
       "comfortCost": -1,
       "response": "He doesn't flinch. Doesn't try to sell it.\n\n\"You shouldn't.\"\n\nHe lets that sit.\n\n\"I was an Imperial admiral who stole money from a classified weapons program. That is not a character reference.\"\n\nHe picks up the bottle, refills his mug, offers the bottle around.\n\n\"But my intel was good on Jakku. It was good at the fortress. And I don't have anyone else. That's not sentiment — that's math. I need you more than you need me right now. You can use that.\"\n\nA pause. Quieter.\n\n\"I've spent twenty-six months in a cell with nothing to do but think about what comes next. I'm not improvising. I have a plan. And the plan requires all of us at the table — which is, conveniently, where we are.\"\n\nHe drinks.\n\n\"Trust the plan. Trust the money. Trust me or don't — but walk with me long enough to get paid.\"",
       "gmNote": "This is the first probe and it costs 1 comfort. Varth handles it gracefully but the crew should notice he stopped performing for a moment. The 'you shouldn't' is disarming because it's honest. The 'trust the math' reframe is his signature move — converting emotional questions into transactional ones. If this is the FIRST question asked, it sets a more guarded tone for the whole evening.",
-      "unlocks": ["what-not-telling-us", "what-want-after"],
-      "tags": ["trust", "probe", "deflection"]
+      "unlocks": [
+        "what-not-telling-us",
+        "what-want-after"
+      ],
+      "tags": [
+        "trust",
+        "probe",
+        "deflection"
+      ]
     }
   ],
-
   "followUps": {
     "anaxes-family": {
       "id": "anaxes-family",
@@ -100,7 +150,11 @@
       "response": "The half-smile stays, but something behind it shifts.\n\n\"My mother died during the Clone Wars. Natural causes — which, on Anaxes during a galactic conflict, was almost an achievement. My father retired from the Republic Navy and drank himself into a quiet ending on a pension that didn't cover his tab.\"\n\nHe waves a hand — dismissing it.\n\n\"No siblings. No spouse. No children. The Navy was my family. Then the Empire was my family. Then a prison cell was my family.\" He raises his mug in a mock toast. \"Now it's you. I'm clearly trading up.\"\n\nThe humor lands, but it's a door closing.",
       "gmNote": "This is a real answer — rare for Varth. The facts are true. The emotional content is sealed behind humor. If anyone pushes further on the personal angle, Varth is done with this branch. The mock toast is his exit move — acknowledging the question, rewarding the asker, and shutting the door simultaneously.",
       "unlocks": [],
-      "tags": ["personal", "family", "deflection"]
+      "tags": [
+        "personal",
+        "family",
+        "deflection"
+      ]
     },
     "clone-wars-desk": {
       "id": "clone-wars-desk",
@@ -111,7 +165,12 @@
       "response": "\"Don't say it like that. The desk won battles.\"\n\nHe leans forward, warming to it.\n\n\"I coordinated fleet supply operations for the entire Outer Rim Sector campaign — fuel, munitions, spare parts, rations, medical supplies. Seventeen thousand individual line items moving through four hundred supply points across thirty systems.\"\n\nHe ticks off his fingers.\n\n\"The Battle of Ryloth? The Republic won because I got three fuel convoys rerouted through Christophsis twelve hours before the Separatists blockaded the primary lane. The Siege of Saleucami? Our ground forces held because I requisitioned cold-weather gear that wasn't in the original manifest — because I read the terrain reports and someone in procurement didn't.\"\n\nThat proud smile.\n\n\"Generals get the credit. Logistics officers get the war won. I never minded. The spreadsheet was always more interesting than the medal.\"",
       "gmNote": "This is Varth at his most genuine — animated, specific, proud of real accomplishments. The details are true. He WAS good at this. The crew should see a man who is genuinely brilliant at systems thinking. That's also exactly why he's dangerous — he treats everything as a system, including people.",
       "unlocks": [],
-      "tags": ["backstory", "ego", "pride", "genuine"]
+      "tags": [
+        "backstory",
+        "ego",
+        "pride",
+        "genuine"
+      ]
     },
     "empire-transition": {
       "id": "empire-transition",
@@ -122,7 +181,12 @@
       "response": "He considers this longer than most questions.\n\n\"The galaxy is a machine. Someone has to keep it running. I don't pretend the machine is good. I just know how the gears turn.\"\n\nA pause.\n\n\"Did I have a problem? I had observations. The Republic was inefficient, corrupt, and collapsing under its own weight. The Empire was efficient, corrupt, and held together by fear. I didn't see a moral upgrade. I saw a management change.\"\n\nHe meets the asker's eyes directly.\n\n\"If you're asking whether I'm a true believer — no. I've never believed in anything that couldn't be audited. The Empire was my employer. They paid well and promoted competence. When they stopped doing both, I started stealing from them.\"\n\nHe picks up his mug.\n\n\"That's not a philosophy. It's a spreadsheet.\"",
       "gmNote": "This is chilling if the players are listening. Varth has just told them — plainly — that his morality is transactional. 'I've never believed in anything that couldn't be audited' is the most honest thing he says all night. It's also a massive red flag that most players will rationalize away because the delivery is so smooth.",
       "unlocks": [],
-      "tags": ["philosophy", "probe", "red-flag", "honest"]
+      "tags": [
+        "philosophy",
+        "probe",
+        "red-flag",
+        "honest"
+      ]
     },
     "how-skimming": {
       "id": "how-skimming",
@@ -132,8 +196,15 @@
       "parentId": "why-prison",
       "response": "Now he lights up. This is the story he wants to tell.\n\n\"The Empire was already contracting Besadii logistics — that's Varga's Hutt clan — for Outer Rim materiel transport. Fuel, raw materials, construction components. Thousands of shipments a month, all flowing through legitimate Besadii infrastructure.\"\n\nHe draws invisible lines on the table with his finger.\n\n\"I created a parallel accounting layer inside that existing flow. Every tenth shipment — fuel, durasteel, tibanna gas — I generated a duplicate requisition. The Empire thought it was paying for one shipment. Varga's system processed two. The delta went into an encrypted account.\"\n\nHe taps his temple.\n\n\"The key is here. The only copy. No datapad, no chip, no backup. I memorized a 64-character authentication string and destroyed every other record.\"\n\nThat smile — the one that says I know exactly how good this is.\n\n\"Eighteen months. Millions of credits. And the only reason it stopped is because some junior ISB analyst ran a pattern-match on requisition timestamps that nobody should have been looking at. Bad luck.\"\n\nHe shakes his head, almost admiringly.\n\n\"She was good, whoever she was. I'd have hired her.\"",
       "gmNote": "This is pure ego fuel. Varth is performing his greatest hit and he knows it. The '64-character authentication string' detail is important — it's why he's indispensable and why cutting him out of the deal is impossible. The admiration for the analyst who caught him is genuine — he respects competence wherever he finds it. That's actually one of his better qualities.",
-      "unlocks": ["varga-know-about-skimming"],
-      "tags": ["ego", "pride", "skimming", "genuine"]
+      "unlocks": [
+        "varga-know-about-skimming"
+      ],
+      "tags": [
+        "ego",
+        "pride",
+        "skimming",
+        "genuine"
+      ]
     },
     "what-project": {
       "id": "what-project",
@@ -143,8 +214,14 @@
       "parentId": "why-prison",
       "response": "The pause is fractional — but it's there.\n\n\"Something big. Classified at levels I didn't have clearance for, and I had clearance for most things.\"\n\nHe takes a drink.\n\n\"A gravity well platform. Siege-class. They called it 'The Maw' in the shipping manifests. Beyond that, I was logistics. I moved crates. I didn't open them.\"\n\nHe sets the mug down.\n\n\"I can tell you what the supply chain looked like — the volume of durasteel, the power cell specifications, the scale of the reactor components. Whatever they were building, it was the size of a small moon and it ate resources like nothing I've ever seen. The waste alone could have funded a fleet.\"\n\nA shrug.\n\n\"But I didn't ask what it was. Asking questions about classified projects is how you end up in a cell on Ajan Kloss.\" A dry look. \"As I learned anyway.\"",
       "gmNote": "This is Varth's biggest lie-by-omission of the evening. He knows FAR more about the Leviathan than he's saying. 'Gravity well platform' is technically accurate and massively understated. 'I didn't ask what it was' is a lie — he studied Leviathan data extensively during his imprisonment and formulated his entire plan around it. The shrug and the joke at the end are deflection — classic Varth redirect to humor when the truth gets close.",
-      "unlocks": ["push-on-project"],
-      "tags": ["leviathan", "deflection", "lie-by-omission"]
+      "unlocks": [
+        "push-on-project"
+      ],
+      "tags": [
+        "leviathan",
+        "deflection",
+        "lie-by-omission"
+      ]
     },
     "push-on-project": {
       "id": "push-on-project",
@@ -156,7 +233,11 @@
       "response": "The warmth doesn't leave. But something behind it hardens.\n\n\"I'm telling you what I know that's relevant to getting paid. The project is classified. The Empire is building something expensive in the Unknown Regions. That's not our problem.\"\n\nHe looks at the asker steadily.\n\n\"Our problem is a Hutt on Takodana who has routing data I need. Everything else is background noise.\"\n\nA beat.\n\n\"I understand the impulse to want the full picture. I respect it. But some pictures are dangerous to have in your head when the wrong people start asking questions. I'm doing you a favor.\"\n\nHe picks up the bottle. Pours. Changes the subject with the ease of a man who's been doing it for thirty years.",
       "gmNote": "This is Varth shutting a door — firmly but not angrily. 'I'm doing you a favor' is simultaneously a deflection and genuinely how he sees it. He DOES think ignorance protects them. He's also protecting himself. The 'changes the subject' direction means the GM should prompt the crew to pick a new topic. This branch is dead.",
       "unlocks": [],
-      "tags": ["deflection", "shutdown", "red-flag"]
+      "tags": [
+        "deflection",
+        "shutdown",
+        "red-flag"
+      ]
     },
     "surviving-prison": {
       "id": "surviving-prison",
@@ -166,8 +247,15 @@
       "parentId": "why-prison",
       "response": "He chuckles.\n\n\"Badly.\"\n\nA pause, then he settles into it.\n\n\"The first month was the hardest. No information, no schedule, no patterns. The guards changed randomly — or what felt like randomly until I started counting. It took me three weeks to realize the rotation was a 19-hour cycle, not 24. They were running the facility on a non-standard clock to disorient the prisoners. Once I figured that out, everything got easier.\"\n\nHe counts on his fingers.\n\n\"I catalogued the guard rotations. I mapped the facility layout from sound alone — footsteps, door mechanisms, ventilation patterns. I calculated shift overlaps, meal delivery schedules, and waste extraction timing. I built a complete operational picture of the facility without leaving my cell.\"\n\nThat half-smile.\n\n\"By month six, I knew that facility better than the warden did. By month twelve, I'd figured out three escape routes — two of which were viable. By month eighteen, I was gambling with the guards because I'd run out of things to optimize.\"\n\nHe raises his mug.\n\n\"The mind needs work. I gave it work.\"",
       "gmNote": "This is genuinely impressive — and genuinely Varth. He responded to imprisonment not with despair but with systems analysis. The crew should see a man whose response to being caged is to map the cage. It's admirable. It's also the mind of someone who treats every environment — including relationships — as a system to be understood and optimized.",
-      "unlocks": ["why-not-escape"],
-      "tags": ["backstory", "ego", "prison", "genuine"]
+      "unlocks": [
+        "why-not-escape"
+      ],
+      "tags": [
+        "backstory",
+        "ego",
+        "prison",
+        "genuine"
+      ]
     },
     "why-not-escape": {
       "id": "why-not-escape",
@@ -178,7 +266,11 @@
       "response": "\"Because escaping a cell and escaping a planet are different problems.\"\n\nHe taps the table.\n\n\"The Vanishing Place is on Ajan Kloss — a jungle moon with an Imperial Star Destroyer in orbit and V-wing patrols running constant sweeps. Even if I got out of the facility, I had no ship, no comms, no navigation data, and a jungle full of things that wanted to eat me.\"\n\nHe spreads his hands.\n\n\"An escape without extraction is a death with extra steps. I needed someone on the outside with a ship and a reason to come get me.\"\n\nHe glances toward the cockpit — toward Maya.\n\n\"I arranged the breadcrumb before they arrested me. A code cylinder, smuggled out through intermediaries. Designed to eventually find its way into the right hands. It took longer than I expected. But it worked.\"\n\nA quiet nod.\n\n\"She found it. You followed it. Here we are.\"",
       "gmNote": "The glance toward Maya is important. Varth respects Maya's competence — she found the breadcrumb, she followed it, she flew into an Inquisitor's shadow to get him out. That respect is real. It coexists perfectly with his willingness to sacrifice her later. That's who Varth is.",
       "unlocks": [],
-      "tags": ["backstory", "maya", "genuine"]
+      "tags": [
+        "backstory",
+        "maya",
+        "genuine"
+      ]
     },
     "code-cylinder-breadcrumb": {
       "id": "code-cylinder-breadcrumb",
@@ -189,7 +281,11 @@
       "response": "\"Always have a failsafe. First thing they teach you in logistics — redundancy.\"\n\nHe leans forward.\n\n\"Before the ISB came for me, I had a window. Maybe six hours between the audit flag and the arrest. I used four of them destroying records and one of them arranging for a ghost transfer authorization — the code cylinder — to be smuggled out through intermediaries.\"\n\nHe holds up a finger.\n\n\"The cylinder itself was useless without an Imperial shuttle to plug it into. But anyone smart enough to figure out what it was would be smart enough to find a shuttle. And the shuttle's nav computer would point them to Ajan Kloss. And Ajan Kloss would point them to me.\"\n\nHe leans back.\n\n\"A breadcrumb trail. Not for anyone — for someone resourceful, capable, and desperate enough to follow a thread into the Unknown. It bounced through the underworld for months. Changed hands. Got lost. Got found.\"\n\nHe looks around the table.\n\n\"And here you are. Exactly the kind of people I designed it for.\"",
       "gmNote": "The 'designed it for' line is layered. It's flattering — he's telling the crew they're special. It's also telling — he designed a system to recruit operatives, and they're the ones who bit. The crew should feel proud AND slightly unsettled if they think about it. Most won't — not yet.",
       "unlocks": [],
-      "tags": ["backstory", "planning", "manipulation"]
+      "tags": [
+        "backstory",
+        "planning",
+        "manipulation"
+      ]
     },
     "who-is-raden": {
       "id": "who-is-raden",
@@ -199,8 +295,14 @@
       "parentId": "whats-the-job",
       "response": "\"Warrick Raden. Devaronian. Forties. Used to be a middleman in Varga's financial network — managed transactions, moved money, kept the books clean enough to not attract Imperial attention.\"\n\nVarth's tone is professional — briefing mode.\n\n\"After I was captured, Raden got nervous. He'd been close enough to my operation to be implicated if anyone looked hard enough. So he did what nervous accountants do — he skimmed a little for himself. Insurance money.\"\n\nA thin smile.\n\n\"Varga found out. Varga always finds out. Raden's been running ever since. Last I heard, he was hiding somewhere near the fortress — probably Blackwind Point, the shantytown across the lake. Too scared to leave the planet, too scared to stay in one place.\"\n\nHe taps the table.\n\n\"Raden knows Varga's fortress — the layout, the guard rotations, the court protocols, the players. He knows how to get us in. He's also terrified and desperate, which makes him useful and predictable.\"",
       "gmNote": "'Useful and predictable' — note how Varth categorizes people by their operational value. Raden is a tool, not a person, in Varth's assessment. This is the same lens he applies to the crew — he just wraps it in warmth when he's looking at them. The dark path (delivering Raden to Varga) originates from this same assessment: Raden is worth more as leverage than as an ally.",
-      "unlocks": ["raden-trust-him"],
-      "tags": ["mission", "raden", "intel"]
+      "unlocks": [
+        "raden-trust-him"
+      ],
+      "tags": [
+        "mission",
+        "raden",
+        "intel"
+      ]
     },
     "raden-trust-him": {
       "id": "raden-trust-him",
@@ -211,7 +313,11 @@
       "response": "\"You can trust that he's afraid. Fear is reliable.\"\n\nVarth turns his mug slowly.\n\n\"Raden won't betray you inside the fortress because Varga would kill him for it. He won't run because he has nowhere to go. He'll cooperate because cooperation is his only path to survival.\"\n\nA beat.\n\n\"Do I trust him? No. But I understand him. He's a man who got in over his head and is drowning slowly. Hand him a rope and he'll grab it. Just don't expect him to thank you for the rescue.\"\n\nHe meets the asker's eyes.\n\n\"Sound familiar?\"",
       "gmNote": "The 'sound familiar?' line is Varth drawing a deliberate parallel between Raden and himself — both men the crew is rescuing/helping, both in over their heads. It's disarming because it's self-aware. It's also a distraction — Varth and Raden are nothing alike. Raden is a frightened middleman. Varth is a strategist executing a long-term plan.",
       "unlocks": [],
-      "tags": ["raden", "trust", "deflection"]
+      "tags": [
+        "raden",
+        "trust",
+        "deflection"
+      ]
     },
     "cover-story": {
       "id": "cover-story",
@@ -222,7 +328,11 @@
       "response": "\"Varga hosts a permanent court. Gladiators, entertainers, mercenaries, gamblers — anyone who can fight, perform, or spend credits is welcome. The fortress runs on spectacle.\"\n\nVarth gestures around the table.\n\n\"You're a crew of capable, armed, dangerous-looking people who just fought their way out of an Imperial fortress. That's not a liability — that's a résumé.\"\n\nHe starts pointing around the table, reading each person.\n\n\"Gladiators. Mercenaries looking for contract work. A tech looking to sell services. A pilot between runs. Whatever fits your particular skill set. Raden will help shape the specifics — he knows what roles Varga is currently hiring for.\"\n\nA beat.\n\n\"The important thing is: you do NOT mention my name. You do not mention an embezzled fortune. You do not mention the Vanishing Place. You are strangers looking for work on a lawless world. That's all.\"\n\nHe holds up a finger.\n\n\"I'll be coaching you from outside via encrypted comlink. You'll need one — open comms in a Hutt fortress means blown cover.\"",
       "gmNote": "Varth's read of the crew — pointing around the table and assigning cover roles — is him demonstrating that he's already been studying them. He's been aboard for hours and he already knows who does what. This should feel flattering and slightly invasive. The encrypted comlink requirement is a hard gear gate for Adventure 2.",
       "unlocks": [],
-      "tags": ["mission", "planning", "cover"]
+      "tags": [
+        "mission",
+        "planning",
+        "cover"
+      ]
     },
     "how-long-infiltration": {
       "id": "how-long-infiltration",
@@ -233,7 +343,10 @@
       "response": "\"Days. Not hours.\"\n\nHe says it flatly.\n\n\"This isn't a raid. You can't smash through the front door and grab the data — it's locked behind systems I can't access remotely. You need to embed, learn the court, figure out where Varga keeps his financial infrastructure, and then find a way to access it without getting caught.\"\n\nA pause.\n\n\"Varga's court is a performance. Everyone in it is playing a role. You'll need to play yours well enough to stay alive and invisible long enough to find what we need.\"\n\nHe looks around the table.\n\n\"This isn't the jungle. This is patience. Can you do patience?\"",
       "gmNote": "The 'can you do patience?' line is Varth testing the crew. If anyone bristles, he notes it. He's assessing who will struggle with the infiltration and who will thrive. This is cognitive profiling disguised as mission briefing.",
       "unlocks": [],
-      "tags": ["mission", "planning"]
+      "tags": [
+        "mission",
+        "planning"
+      ]
     },
     "whats-the-plan-b": {
       "id": "whats-the-plan-b",
@@ -244,7 +357,11 @@
       "response": "\"Then you improvise. You've demonstrated a talent for it.\"\n\nHe says it lightly, but there's steel underneath.\n\n\"I'll be outside with the comlink. If the cover is blown, I can coordinate extraction from a distance. Maya has the Banshee — she proved on Ajan Kloss that she'll fly into hell to pull you out.\"\n\nA beat.\n\n\"But let's be clear: if it goes wrong inside Varga's fortress, it goes wrong fast. The Hutt has guards, gladiators, security droids, and a dungeon that people don't come back from. The plan is to not need a Plan B.\"\n\nHe refills his mug.\n\n\"Plan B is always more expensive than Plan A. I say this as the man who spent eighteen months on Plan A and two years paying for Plan B.\"",
       "gmNote": "The Plan B/prison joke is Varth being self-deprecating — but it's also him establishing that he's been in desperate situations before and survived. The Maya reference is important — he's positioning her as the crew's safety net, which she is. He's also establishing his own position: outside, coaching, not at risk. This is always Varth's preferred position.",
       "unlocks": [],
-      "tags": ["mission", "planning", "maya"]
+      "tags": [
+        "mission",
+        "planning",
+        "maya"
+      ]
     },
     "how-much-exactly": {
       "id": "how-much-exactly",
@@ -255,7 +372,10 @@
       "response": "He smiles. Not the half-smile — the full one.\n\n\"Enough that the number stops mattering. You stop counting when you realize you could buy a ship. Then a fleet. Then a small moon.\"\n\nA beat.\n\n\"The exact figure depends on what Varga's done with the account since I was captured. He may have skimmed from my skim — which would be ironic and entirely in character. But even a fraction of what I moved is life-changing money for everyone at this table.\"\n\nHe spreads his hands.\n\n\"I'm not going to name a number and then have you disappointed when the reality is merely extraordinary instead of legendary. Let's call it 'enough' and let the account speak for itself when we crack it.\"",
       "gmNote": "Varth is deliberately vague about the exact number. The truth is he knows approximately what he stole but not what remains after two years. He's also managing expectations — underpromise, overdeliver. When he DOES pay up in Adventure 3, the amount is genuinely impressive. That's the trust-builder.",
       "unlocks": [],
-      "tags": ["money", "deal"]
+      "tags": [
+        "money",
+        "deal"
+      ]
     },
     "what-if-double-cross": {
       "id": "what-if-double-cross",
@@ -266,7 +386,11 @@
       "response": "He considers this. Nods slowly — not offended, appreciative.\n\n\"Fair question.\"\n\nHe holds up one finger.\n\n\"First: I need you to get the routing data. I can't get inside Varga's fortress myself — he knows my face. So you're essential until the data is in hand.\"\n\nSecond finger.\n\n\"Second: once I unlock the account, the transfer takes time. Encrypted financial infrastructure doesn't move millions in minutes. You'll be standing right there while it happens.\"\n\nThird finger.\n\n\"Third: I just spent two years in a cell because I got caught working alone. I'm not eager to repeat the experience. Partners are insurance.\"\n\nHe lowers his hand.\n\n\"I'm a thief, not a fool. Cutting out the people who keep you alive is the kind of thinking that gets you a cell on Ajan Kloss. I've already furnished that room. I don't need to go back.\"",
       "gmNote": "Every word of this is true — and every word is also calculated to make the crew feel secure in the partnership. Varth IS dependent on them for the Varga job. He WILL pay them in Adventure 3. The double-cross comes much later, and it's not about money — it's about power. None of these assurances are lies. They're just not about the right thing.",
       "unlocks": [],
-      "tags": ["trust", "probe", "money"]
+      "tags": [
+        "trust",
+        "probe",
+        "money"
+      ]
     },
     "varga-dangerous": {
       "id": "varga-dangerous",
@@ -277,7 +401,11 @@
       "response": "\"Dangerous the way a Hutt is always dangerous — not because he'll fight you himself, but because he'll have six people fighting you before you realize you've been offensive.\"\n\nVarth ticks off points.\n\n\"He has a private guard force — mercenaries, ex-military, a few very good shooters. He keeps gladiators on retainer — arena fighters who double as enforcers. He has security droids in the lower levels. And he has a dungeon.\"\n\nA pause.\n\n\"The dungeon is the real threat. Varga doesn't execute people who cross him — he puts them in the pit and lets them fight for the court's entertainment. It's more effective than killing them. A dead enemy is forgotten. A broken enemy is a cautionary tale.\"\n\nHe meets the asker's eyes.\n\n\"Don't cross him inside his own house. Don't get caught. And don't assume his hospitality means safety. A Hutt invites you to dinner for the same reason a krayt dragon watches the waterhole — to see what walks in.\"",
       "gmNote": "The dungeon detail foreshadows Denia's imprisonment. The gladiator detail sets up the arena scenes in Part 2. The krayt dragon metaphor is Varth being literary — he does this when he's comfortable.",
       "unlocks": [],
-      "tags": ["varga", "threat", "intel"]
+      "tags": [
+        "varga",
+        "threat",
+        "intel"
+      ]
     },
     "varga-court-politics": {
       "id": "varga-court-politics",
@@ -288,7 +416,12 @@
       "response": "\"A Hutt court is a marketplace of ambition. Everyone is there for something, and everyone is watching everyone else.\"\n\nVarth counts on his fingers.\n\n\"Gladiators — the entertainment. They fight, they bleed, the court cheers. Some are volunteers, some are prisoners. All of them are expendable.\"\n\n\"Slavers — the Iron Ring delegation. They supply Varga with labor and product. They're business partners, not guests.\"\n\n\"Imperial contacts — and yes, the Empire does business with Hutts. Trade agreements, supply contracts, looking the other way. There may be someone official inside. Keep your distance.\"\n\n\"Fixers, merchants, bounty hunters, grifters — the background radiation of any Outer Rim court. Some are useful. Some are dangerous. All of them are watching.\"\n\nHe leans back.\n\n\"Your job is to fit in with that crowd. Be interesting enough to stay, quiet enough to not attract the wrong attention, and useful enough that Varga sees you as an asset rather than a guest.\"",
       "gmNote": "This overview seeds every major Adv2 NPC group: the gladiators (Part 2 arena), the Iron Ring (Part 2 slavers), the Imperial contact (Lady Sinde, ISB), and the general court population. Varth doesn't name names because he's been in a cell for two years — his intel is structural, not current.",
       "unlocks": [],
-      "tags": ["varga", "court", "intel", "mission"]
+      "tags": [
+        "varga",
+        "court",
+        "intel",
+        "mission"
+      ]
     },
     "varga-know-about-us": {
       "id": "varga-know-about-us",
@@ -299,7 +432,11 @@
       "response": "\"He doesn't know I'm free. That's our window.\"\n\nVarth sets down his mug.\n\n\"Varga knows someone killed Ganga Lor on Jakku — his local enforcer. He'll know the code cylinder was in play. He may have heard about the Vanishing Place assault — Imperial comms chatter travels through underworld channels fast.\"\n\nA beat.\n\n\"But he doesn't have names. He doesn't have faces. And he doesn't know I'm the one who sent the cylinder into circulation. As far as Varga knows, I'm still rotting in an Imperial cell.\"\n\nHe taps the table.\n\n\"That changes the moment anyone inside that fortress connects you to Jakku, to the cylinder, or to me. Which is why the cover identities matter. You're not the crew who broke into the Vanishing Place. You're strangers looking for work. Clean. Unconnected. Forgettable.\"\n\nA dry look.\n\n\"Some of you will have to work harder at forgettable than others.\"",
       "gmNote": "The 'harder at forgettable' joke lands differently for different characters — the Wookiee, the heavily armed one, anyone with distinctive features. It's Varth demonstrating that he's already sizing up who will struggle with the cover. He's profiling them. Playfully. But profiling.",
       "unlocks": [],
-      "tags": ["varga", "mission", "intel"]
+      "tags": [
+        "varga",
+        "mission",
+        "intel"
+      ]
     },
     "varga-know-about-skimming": {
       "id": "varga-know-about-skimming",
@@ -310,7 +447,11 @@
       "response": "\"Oh, he knows.\"\n\nVarth says it matter-of-factly.\n\n\"Varga isn't stupid. He figured out the parallel accounting layer within weeks of my arrest — probably had his own people audit the pipeline the moment I disappeared. He knows the money passed through his infrastructure. He knows I set it up. He knows the account exists.\"\n\nA thin smile.\n\n\"What he doesn't know is how to open it. The authentication key is mine. Without it, the account is a locked vault with no door. Varga can see the money. He can't touch it. That fact has been eating him alive for two years.\"\n\nHe raises his mug.\n\n\"Which is another reason my name doesn't enter his fortress. If Varga learns I'm free and coming for the account, he'll burn the routing data out of spite rather than let me have it. Hutts are patient about many things. Being stolen from is not one of them.\"",
       "gmNote": "This explains why the infiltration must be covert — Varga would destroy the routing data rather than let Varth access the account. It also reveals something about Varth: he stole from a Hutt crime lord and considers it a professional accomplishment, not a reckless act. His risk calculus is excellent. His ego just runs higher than his caution.",
       "unlocks": [],
-      "tags": ["varga", "skimming", "intel"]
+      "tags": [
+        "varga",
+        "skimming",
+        "intel"
+      ]
     },
     "draco-force-users": {
       "id": "draco-force-users",
@@ -321,7 +462,12 @@
       "response": "\"The Inquisitors hunt whatever the Emperor tells them to hunt. Usually, yes — Force-sensitives. Jedi survivors. Force-touched children. Anyone the Empire considers a threat to its monopoly on power.\"\n\nHe pauses.\n\n\"Draco is... focused. The other Inquisitors I heard about were blunt instruments — show up, kill the target, leave. Draco is different. He collects. He studies. The troopers at the Vanishing Place called him 'the Collector' when they thought no one was listening.\"\n\nVarth looks at the table.\n\n\"I don't know what he was doing on Ajan Kloss besides holding me. But the facility had other wings. Other prisoners. I heard things through the walls that I don't have explanations for.\"\n\nQuietly: \"If anyone at this table is Force-sensitive, they should know that Draco felt them on that landing pad. He knows now. And he will remember.\"",
       "gmNote": "The warning about Force-sensitive PCs is critical. Draco DID sense them. This is a long fuse that pays off across multiple adventures. Varth is being genuinely protective here — he gains nothing from this warning. It's one of the moments where his concern for the crew is real. Which makes it worse later.",
       "unlocks": [],
-      "tags": ["draco", "force", "warning", "genuine"]
+      "tags": [
+        "draco",
+        "force",
+        "warning",
+        "genuine"
+      ]
     },
     "draco-come-after-us": {
       "id": "draco-come-after-us",
@@ -332,7 +478,11 @@
       "response": "\"He came after the facility. We happened to be there.\"\n\nA pause.\n\n\"But — yes. Eventually. An Inquisitor doesn't lose a prisoner and shrug. His reputation depends on results. I escaped his facility. That makes me a loose thread, and Draco does not leave loose threads.\"\n\nHe looks around the table.\n\n\"The good news is that Inquisitors are not bloodhounds. They don't track individual people across the galaxy — they respond to intelligence reports, pattern analysis, and the Force. As long as we don't broadcast our location and don't give ISB anything to triangulate, we're background noise.\"\n\nA beat.\n\n\"The bad news is that we just killed an Imperial garrison on Ajan Kloss. That generates reports. Reports generate patterns. And Draco reads patterns.\"\n\nHe drains his mug.\n\n\"We have a window. Let's use it.\"",
       "gmNote": "Varth's assessment is accurate but incomplete. Draco WILL track them — not through conventional means, but through the Force and through his own obsessive methodology. The 'window' Varth mentions is real but shorter than he thinks. This creates urgency for the Takodana job without making it feel rushed.",
       "unlocks": [],
-      "tags": ["draco", "threat", "urgency"]
+      "tags": [
+        "draco",
+        "threat",
+        "urgency"
+      ]
     },
     "draco-projects": {
       "id": "draco-projects",
@@ -343,7 +493,12 @@
       "response": "Varth is quiet for a moment. When he speaks, it's measured.\n\n\"I know what I heard through walls. Machinery. Screaming. Chanting — I think. Sounds that didn't have obvious sources.\"\n\nHe sets down his mug.\n\n\"The Vanishing Place had three wings. I was in the detention wing — standard cells, standard guards. The second wing was sealed. Military-grade blast doors, separate access, separate guard rotation. I never saw who went in or out.\"\n\nA pause.\n\n\"The third wing... the guards wouldn't go near it voluntarily. They drew straws for patrols. One of them — the one I was gambling with — told me it was 'the Collector's workshop.' He didn't explain what that meant. I didn't ask.\"\n\nHe looks at the asker directly.\n\n\"I don't know what Draco was doing in that wing. I don't want to know. And respectfully — neither do you. We're focused on Takodana. That's enough problems for one crew.\"",
       "gmNote": "This is Varth being genuinely disturbed — rare. The Collector's workshop references are honest — he really doesn't know the details. But the sounds through the walls left an impression. This seeds Draco's characterization for later adventures without revealing specifics. The 'neither do you' is protective deflection — partly shutting down the conversation, partly genuine concern.",
       "unlocks": [],
-      "tags": ["draco", "probe", "genuine", "dark"]
+      "tags": [
+        "draco",
+        "probe",
+        "genuine",
+        "dark"
+      ]
     },
     "what-not-telling-us": {
       "id": "what-not-telling-us",
@@ -355,7 +510,12 @@
       "response": "The warmth stays. The eyes change.\n\n\"Everything that isn't relevant to getting paid.\"\n\nHe says it simply. No deflection. No humor.\n\n\"I'm telling you what you need to know to do the job, survive the job, and walk away rich. The rest is my business. You have your secrets — I have mine. That's how partnerships work when the partners are honest about not being friends.\"\n\nA beat.\n\n\"If something I'm holding back becomes relevant to your safety, I'll tell you. That's my promise. Beyond that — my past, my politics, my reasons — those are mine.\"\n\nHe picks up the bottle. Finds it empty. Sets it down.\n\n\"We're not family. We're aligned. That's enough for now.\"",
       "gmNote": "This is Cold Varth — the mask slips for exactly as long as the answer takes, then slides back. 'Everything that isn't relevant to getting paid' is the most honest thing he says all night — because he genuinely believes the crew doesn't need to know about Leviathan, about his real plan, about any of it. He's not hiding things out of malice. He's hiding them because they're 'not relevant.' By his calculus, that's true. By any humane standard, it's monstrous.",
       "unlocks": [],
-      "tags": ["probe", "cold-varth", "red-flag", "honest"]
+      "tags": [
+        "probe",
+        "cold-varth",
+        "red-flag",
+        "honest"
+      ]
     },
     "what-want-after": {
       "id": "what-want-after",
@@ -367,10 +527,14 @@
       "response": "He looks at the mug in his hands for a long time.\n\n\"A beach. Somewhere warm. No requisition forms.\"\n\nQuiet. Almost convincing.\n\nThen the half-smile comes back — smaller than usual.\n\n\"I want to never be in a position where someone else decides whether I eat, sleep, or breathe. That's what prison teaches you. Not philosophy — just a very clear understanding of what freedom costs.\"\n\nHe sets the mug down.\n\n\"The money buys that. For all of us. A life where nobody tells you where to stand.\"\n\nA beat. Something flickers behind his eyes — there and gone.\n\n\"That's what I want.\"",
       "gmNote": "The beach line is a lie. The freedom line is true — devastatingly true. Varth wants control. He wants to never be powerless again. That's genuine and sympathetic. But his definition of 'never powerless' leads to commanding the Leviathan. The 'something flickers' moment is the closest the crew gets to seeing the real Varth tonight — the man who looked at a superweapon and saw a chair he deserved to sit in. It passes too quickly to read. But it was there.",
       "unlocks": [],
-      "tags": ["probe", "personal", "lie", "genuine-core"]
+      "tags": [
+        "probe",
+        "personal",
+        "lie",
+        "genuine-core"
+      ]
     }
   },
-
   "mayaInterjections": [
     {
       "trigger": "After any 3 questions have been answered",
@@ -393,7 +557,6 @@
       "gmNote": "Maya has better social instincts than anyone at the table except Varth. She can feel the temperature dropping and she's giving the crew an off-ramp before they burn the evening. A wise crew takes the hint."
     }
   ],
-
   "insightCheck": {
     "resist": 5,
     "failureRead": "Varth seems genuine. Warm. A man who's been through hell and is grateful to be out. Nothing sets off alarm bells.",

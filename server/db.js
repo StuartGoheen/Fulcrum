@@ -308,6 +308,52 @@ async function initSchema() {
         ON journal_entries (source_scene_id)
         WHERE source_scene_id IS NOT NULL AND title = 'Sabacc Tournament — Day 1 Recap'`);
     } catch (e) {}
+    // ── Galactic calendar / time tracking (Task #198) ─────────────────────
+    try {
+      await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS in_universe_day_index INTEGER`);
+      await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS in_universe_hour INTEGER`);
+    } catch (e) {}
+    try {
+      // Seed defaults if missing: Primeday, 4 Elona, Year 4 IE = dayIndex 1107, hour 8 (morning).
+      await client.query(`
+        INSERT INTO campaign_state (key, value)
+        VALUES ('current_day_index', '1107')
+        ON CONFLICT (key) DO NOTHING`);
+      await client.query(`
+        INSERT INTO campaign_state (key, value)
+        VALUES ('current_hour', '8')
+        ON CONFLICT (key) DO NOTHING`);
+    } catch (e) {}
+    try {
+      await client.query(`
+        CREATE OR REPLACE FUNCTION stamp_journal_clock()
+        RETURNS TRIGGER AS $func$
+        DECLARE v_day TEXT; v_hour TEXT;
+        BEGIN
+          IF NEW.in_universe_day_index IS NULL THEN
+            SELECT value INTO v_day FROM campaign_state WHERE key = 'current_day_index';
+            IF v_day IS NOT NULL THEN
+              BEGIN NEW.in_universe_day_index := v_day::int; EXCEPTION WHEN OTHERS THEN NULL; END;
+            END IF;
+          END IF;
+          IF NEW.in_universe_hour IS NULL THEN
+            SELECT value INTO v_hour FROM campaign_state WHERE key = 'current_hour';
+            IF v_hour IS NOT NULL THEN
+              BEGIN NEW.in_universe_hour := v_hour::int; EXCEPTION WHEN OTHERS THEN NULL; END;
+            END IF;
+          END IF;
+          RETURN NEW;
+        END;
+        $func$ LANGUAGE plpgsql;
+      `);
+      await client.query(`DROP TRIGGER IF EXISTS trg_stamp_journal_clock ON journal_entries`);
+      await client.query(`
+        CREATE TRIGGER trg_stamp_journal_clock
+          BEFORE INSERT ON journal_entries
+          FOR EACH ROW EXECUTE FUNCTION stamp_journal_clock()
+      `);
+    } catch (e) { console.error('[db] journal clock trigger setup failed:', e.message); }
+
     try {
       const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);
       if (existingIdx.rows.length > 0) {

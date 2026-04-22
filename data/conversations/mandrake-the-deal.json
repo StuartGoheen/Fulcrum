@@ -2,6 +2,7 @@
   "id": "mandrake-the-deal",
   "title": "The Deal in the Sluice",
   "subtitle": "Negotiating with Vazus Mandrake",
+  "voice": "citizen",
   "setting": "A moss-choked culvert mouth several meters out from the northeast face of the Vanishing Place, hidden in a hollow in the jungle floor — the outflow of the drainage sluice Mandrake has scouted for years. The grate sits below ground level; the tunnel runs back under the jungle through a low underground crawlspace of stagnant, knee-deep water before it surfaces inside the perimeter. Steam from fortress runoff drifts past the bars. The fortress hum is faint through the rock above.",
   "context": "Mandrake has lowered his rifle but not slung it. He's brought the heroes off the trail and into a hollow where the jungle gives way to old, mossy stonework — the outflow of a drainage tunnel that runs under the fortress wall. He crouches with his back against the stone, indigenous beadwork visible at the edges of his patched commando gear, and waits for the heroes to sit down. He won't talk standing up. He's not in a rush. Skarn's people are inside, and Mandrake has been planning this for years. Tonight is the night somebody finally comes through with him — or it's another year of waiting.",
   "readAloud": "Mandrake settles back against the stones with the easy patience of a man who has learned the precise difference between waiting and dying. The rifle rests across his knees. Up close you can see the beadwork — woven plant fiber, dyed shells, knotted cord — stitched over the seams of a Separatist commando jacket so old the CIS insignia has weathered to a ghost.\n\nHe waits until you're seated. Then he speaks, and his Basic is good but slow, like he uses another language more often these days.\n\n\"All right. You came through the jungle without dying. That tells me what kind of crew you are. Now I tell you what I want, and you tell me whether we walk together or you find your own door.\"\n\nHe nods at the grate behind him.\n\n\"This is the way in. Drainage sluice. Mouth is here, jungle floor — runs underground a few meters, then under the northeast wall, then comes up inside the perimeter. Stagnant water the whole crawl. Dark. Cold. Belly low. I have walked it twice. It is mine. I will give it to you. You will give me the generator.\"\n\nA pause. He watches each face in turn — the way a man watches a fire to see which way the wind is going to take it.\n\n\"Ask what you need to ask. We have time for that. Then we move.\"",
@@ -21,8 +22,15 @@
       "comfortCost": 0,
       "response": "He turns the bead between his fingers once, then stills it.\n\n\"Vazus Mandrake. I was a captain in a Separatist holdout commando unit. Acclimation specialist — meaning I was the man they sent in first, to live somewhere long enough to learn it before the rest of the unit arrived.\"\n\nA short pause.\n\n\"The war ended. Nobody told me. The shutdown order came down from the Confederacy and my unit obeyed and I did not, because I did not believe an order from a voice on a recording. By the time I understood it was real, my unit was dead in their barracks on Raxus and I was four months into living on a moon nobody on either side cared about.\"\n\nHe shrugs — a small, contained motion.\n\n\"That was four years ago. The man you are looking at is what is left after four years of being the only person who did not get the message.\"",
       "gmNote": "Mandrake's intro — flat, factual, grief packed under it like a charge that didn't go off. The 'shutdown order' line is the Order 66 / Republic equivalent for the CIS — Separatist commando units were ordered to surrender or stand down by Mina Bonteri's loyalist remnants, and most who refused were hunted down. Mandrake is the rare survivor of an obsolete war. The crew should hear a man whose entire context was deleted.",
-      "unlocks": ["mandrake-old-unit", "mandrake-still-separatist"],
-      "tags": ["backstory", "separatist", "guarded"]
+      "unlocks": [
+        "mandrake-old-unit",
+        "mandrake-still-separatist"
+      ],
+      "tags": [
+        "backstory",
+        "separatist",
+        "guarded"
+      ]
     },
     {
       "id": "mandrake-your-people",
@@ -31,8 +39,16 @@
       "comfortCost": 0,
       "response": "His face changes. Not warmth — something more careful than warmth. The bead stops moving.\n\n\"They are Klosari. The people of this moon. They have lived in the canopy and in the high caves for longer than the Republic has had a name. I do not know the exact number — five hundred, maybe six. Three families that are really one family. Two elders. A handful of children. A boy who can climb anything. A girl who gave me this.\"\n\nHe lifts the bead briefly. Sets it back into his hand.\n\n\"When Skarn's mercenaries built the Vanishing Place over their west valley, the Klosari did what people do when somebody fences off the place they get water. They resisted. Skarn rounded up the ones who fought — the elders, the hunters, the women who threw rocks at the troopers — and put them behind laser fences inside that fortress. They have been there fourteen months.\"\n\nA flat look.\n\n\"The ones who are left — the ones not in the cages — are scattered in the high caves, eating less every season because they cannot reach the lowland gathering grounds. If those fences come down, they go home. If they do not, the Klosari are a memory inside another two winters.\"",
       "gmNote": "This is Mandrake's heart. Note the indigenous people now have a name — Klosari — and a structure: families, elders, children, a specific girl. Concrete details deepen the stakes. Comfort gain implicit (do not announce) for asking. If a player follows up about the girl who gave him the bead, he closes that thread quickly — 'her name is hers, not for this conversation' — and tugs the bead once more.",
-      "unlocks": ["mandrake-bead", "mandrake-klosari-future", "mandrake-fences"],
-      "tags": ["klosari", "stakes", "warmth"]
+      "unlocks": [
+        "mandrake-bead",
+        "mandrake-klosari-future",
+        "mandrake-fences"
+      ],
+      "tags": [
+        "klosari",
+        "stakes",
+        "warmth"
+      ]
     },
     {
       "id": "mandrake-the-generator",
@@ -41,8 +57,15 @@
       "comfortCost": 0,
       "response": "He nods — this is the question he wanted asked.\n\n\"One reactor, central core of the fortress, sub-level two. It powers four systems that all matter to you.\"\n\nHe ticks them on his fingers.\n\n\"One. Perimeter turret defenses — three heavy emplacements on the canyon rim. The same guns that shot at your ship coming in.\"\n\nA brief pause to let that land.\n\n\"Two. Laser fences in the east wing. The cages where the Klosari are. No power, no fence.\n\nThree. Magnetic security doors on the detention block and the medical bay. No power, no doors.\n\nFour. The internal sensor grid. Heat, motion, biometric. With the grid up, you cannot move inside without somebody knowing. With it down, the fortress is half-blind.\"\n\nHe lets the count finish.\n\n\"One target. Four payoffs. Your turrets go quiet. My fences come down. Your doors open. Their eyes close. That is why I do not need a war party. I need a crew that can put a charge on one piece of equipment without dying on the way to it.\"",
       "gmNote": "THE FOUR-PURPOSE MOMENT. Read this slowly. Pause after the turret line specifically — that is the beat where the table connects this to Maya's warning from Scene 2. Players who didn't catch the convergence on their own catch it here. If nobody reacts, the GM can have Mandrake glance toward the crash site direction and say 'your ship is in the canyon, yes? Then you understand.'",
-      "unlocks": ["mandrake-charge-spec", "mandrake-getting-there"],
-      "tags": ["mission", "convergence", "intel"]
+      "unlocks": [
+        "mandrake-charge-spec",
+        "mandrake-getting-there"
+      ],
+      "tags": [
+        "mission",
+        "convergence",
+        "intel"
+      ]
     },
     {
       "id": "mandrake-the-sluice",
@@ -51,8 +74,16 @@
       "comfortCost": 0,
       "response": "He gestures over his shoulder at the grate.\n\n\"Four hundred meters of stone tunnel, sloping up at maybe ten degrees, knee-deep in fortress runoff that you do not want in your eyes or in any open wound. Smells like a chemical fire mated with a swamp.\"\n\nA dry beat.\n\n\"There is an old grating about halfway in — rusted through on one side, can be moved by hand if you are quiet about it. Past that, two side branches. Take the left both times. The right branches end in sealed bulkheads or in the recyc plant, and the recyc plant is loud and full of droids.\"\n\nHe taps the stone.\n\n\"At the end, the sluice opens into a maintenance well in sub-level two. There is a ladder. The ladder comes up inside a utility room that nobody patrols because the smell convinces them nobody could be in there. From that room, the generator is twenty meters of corridor away through one door.\"\n\nA pause.\n\n\"I have walked the whole route twice. Once to know it. Once to be sure I knew it. The third time will be tonight. With you.\"",
       "gmNote": "Operational walkthrough. This is Mandrake's competence on display — concrete details, specific hazards, no bravado. Players should leave this answer with a clear mental map and a reasonable expectation that the route holds. If the crew skips this question and the GM later wants to give the sluice scene more friction, that's a legitimate reason to step down their first stealth roll inside.",
-      "unlocks": ["mandrake-runoff", "mandrake-droids", "mandrake-walked-twice"],
-      "tags": ["mission", "infiltration", "intel"]
+      "unlocks": [
+        "mandrake-runoff",
+        "mandrake-droids",
+        "mandrake-walked-twice"
+      ],
+      "tags": [
+        "mission",
+        "infiltration",
+        "intel"
+      ]
     },
     {
       "id": "mandrake-after-deal",
@@ -61,8 +92,14 @@
       "comfortCost": -1,
       "response": "The bead stops between his fingers. Doesn't move for a long beat.\n\n\"That depends on whether my people get out. If the fences fall and they walk free, I lead them up to the high caves and we eat for the first time in a season and I sleep in a hut instead of a hollow log. That is the plan I have.\"\n\nA brief, careful pause.\n\n\"If the fences fall and Skarn's people kill mine in the chaos before they can run — then I do whatever a man does after he watches that happen. I have not made that plan. I do not let myself make that plan.\"\n\nHe meets your eyes — direct, level.\n\n\"I am not asking you to take me with you. The Klosari are mine to lead out, not yours. After the generator, I disappear into the trees. Whether you ever see me again is a question I cannot answer until I see whether the trees still have my people in them.\"",
       "gmNote": "This is the real cost question. Mandrake's plan does not include himself as a survivor in any meaningful way past the rescue. He's been holding on for this one operation. The 'I have not made that plan' line is honest — he genuinely cannot let himself imagine the failure case. This sets up the destiny-gated fate at the end of Scene 7 (s7-Deal Gone Bad). If the players ASK Mandrake to come with them after Skarn falls, he refuses — but flag it. That moment can echo in later adventures.",
-      "unlocks": ["mandrake-come-with-us"],
-      "tags": ["probe", "personal", "stakes"]
+      "unlocks": [
+        "mandrake-come-with-us"
+      ],
+      "tags": [
+        "probe",
+        "personal",
+        "stakes"
+      ]
     },
     {
       "id": "mandrake-why-trust-us",
@@ -71,8 +108,15 @@
       "comfortCost": -1,
       "response": "He almost smiles. Almost. The bead turns once, slow.\n\n\"I do not trust you. I am betting on you. Those are different.\"\n\nA short breath.\n\n\"You came through the Green Hell without anyone dying and without burning the jungle down to do it. That tells me you are competent and you are careful. I watched you from the canopy for two hours before I dropped. You took your wounded. You did not abandon gear. You spoke to each other like a unit, not like a contract.\"\n\nHe sets the bead flat against his palm.\n\n\"And I have run out of seasons to be choosy. The only crew worse than the wrong crew is no crew. You walked into my jungle on the right night. That is my whole reason. I am not going to dress it up.\"",
       "gmNote": "Mandrake refusing to flatter the crew is itself the compliment. The 'two hours of watching from the canopy' is true — he has been tracking them since the river crossing (per his ambush dialogue in Scene 3). The 'right night' framing is also honest — he was going to take whoever was capable and willing. It just happened to be them. This is the most disarming Mandrake gets in the conversation.",
-      "unlocks": ["mandrake-watched-us", "mandrake-other-crews"],
-      "tags": ["probe", "trust", "honest"]
+      "unlocks": [
+        "mandrake-watched-us",
+        "mandrake-other-crews"
+      ],
+      "tags": [
+        "probe",
+        "trust",
+        "honest"
+      ]
     },
     {
       "id": "mandrake-betray-deal",
@@ -82,7 +126,11 @@
       "response": "His expression does not change. The bead is suddenly very still.\n\n\"Then I am a fool, and my people stay in cages, and you are men and women I do not know anymore.\"\n\nA pause that is not quite a threat. Quite.\n\n\"I do not have the firepower to make you keep your word. I will not pretend I do. If you walk through that grate and forget the deal, I cannot reach you in time to make it cost.\"\n\nHe looks at each of you, one at a time, unhurried.\n\n\"But the Klosari can climb anything and they can wait forever and they have very long memories. If you do this — if you use my route and leave my people in the fences — you should never come back to this moon. Not ever. Not for any reason. The trees will know your faces.\"\n\nA beat.\n\n\"That is not a threat. That is just how it will be.\"",
       "gmNote": "Mandrake giving the dark-path warning honestly. He's not posturing — the Klosari will absolutely identify and avoid (or attack) the crew on any future visit to Ajan Kloss. Worth flagging if the campaign ever returns. The line 'I will not pretend I do' is Mandrake at his most sober. He is laying down the moral terms because he cannot lay down the operational ones.",
       "unlocks": [],
-      "tags": ["probe", "warning", "stakes"]
+      "tags": [
+        "probe",
+        "warning",
+        "stakes"
+      ]
     }
   ],
   "followUps": {
@@ -95,7 +143,11 @@
       "response": "A long beat. The bead turns once.\n\n\"Eleven men and women. Two of them I had served with since I enlisted. One of them was my wife's brother. We trained together on Raxus, we deployed together to a dozen worlds, and we were good — good enough that the Confederacy kept us alive when better units burned.\"\n\nA short breath.\n\n\"They obeyed the shutdown order because they were soldiers and that is what soldiers do when the war is over. They went back to barracks and they were killed by the people who came to collect their weapons. I learned this from a transmission I intercepted nine months later, sitting in a tree with a fever.\"\n\nHe looks at the grate, not at you.\n\n\"That is what they were like. They were the kind of unit that obeyed the order. I was the kind of officer who did not. Everyone got what their character earned.\"",
       "gmNote": "The bitterness here is calibrated — Mandrake blames himself as much as the war. 'Everyone got what their character earned' is the line he tells himself. It is not true and he knows it. Do not push him to admit that. Let it sit.",
       "unlocks": [],
-      "tags": ["backstory", "grief", "true"]
+      "tags": [
+        "backstory",
+        "grief",
+        "true"
+      ]
     },
     "mandrake-still-separatist": {
       "id": "mandrake-still-separatist",
@@ -106,7 +158,11 @@
       "response": "The smallest exhale.\n\n\"The Confederacy I swore to does not exist. The cause it fought for has been ground into propaganda by both sides. I am a man who used to wear a uniform that nobody wears anymore.\"\n\nA pause.\n\n\"I am Klosari now. Not by birth. By debt. They fed me through a winter when I was supposed to die. That is the only allegiance I have left, and it is the only one I am going to accept being asked about.\"\n\nThe bead is very still.\n\n\"If you need to know whether I will sell you to an Imperial because of an old uniform — no. I will not. The Empire killed my unit too, in a manner of speaking. We agree on that much.\"",
       "gmNote": "Mandrake refusing the framing of the question. The 'we agree on that much' is the closest he comes to political alignment with the crew. Note that the answer commits to a present-tense identity (Klosari) rather than a past one (CIS). That is intentional self-definition.",
       "unlocks": [],
-      "tags": ["probe", "identity", "honest"]
+      "tags": [
+        "probe",
+        "identity",
+        "honest"
+      ]
     },
     "mandrake-bead": {
       "id": "mandrake-bead",
@@ -117,7 +173,11 @@
       "response": "His fingers close around it.\n\n\"A child. That is all I will say about her in this conversation. Her name is hers and the giving was hers. It is not a story for tonight.\"\n\nA pause. Softer than it should be.\n\n\"If she is in those cages — and I do not know yet whether she is — then your charge on that generator is the difference between her seeing another season and her not. That is what you are carrying when you carry it. I wanted you to know.\"",
       "gmNote": "Mandrake closing the door on the personal detail while opening the door on the stakes. The girl IS in the cages — but he genuinely does not know that yet. If the players free the prisoners in Scene 6, the GM may have a small Klosari child press a similar bead into Mandrake's hand at the extraction, off-screen. Echo only — do not narrate unless players ask after.",
       "unlocks": [],
-      "tags": ["probe", "personal", "true"]
+      "tags": [
+        "probe",
+        "personal",
+        "true"
+      ]
     },
     "mandrake-klosari-future": {
       "id": "mandrake-klosari-future",
@@ -128,7 +188,11 @@
       "response": "He nods, slow. He has thought about this.\n\n\"Skarn's mercenaries are not the Empire. They are paid men with a contract. When their warlord is dead and his fortress is dark, the contract pays no longer, and paid men go home. Within a season, this side of the moon is ours again.\"\n\nA brief pause.\n\n\"The Empire is the harder question. They came for your admiral. If they come back for the moon — for the Vanishing Place itself — we go higher. The Klosari have lived in canopies the Empire cannot map. We will outlast another occupation. We have outlasted others.\"\n\nA flat, quiet certainty.\n\n\"My people do not need rescuing twice. They need rescuing once. After that, the moon takes care of its own.\"",
       "gmNote": "Important worldbuilding answer. Sets up that Skarn is a transient warlord, not a permanent fixture, and that the Klosari are a culturally rooted people with deep environmental knowledge. Useful context if the campaign ever returns to Ajan Kloss in Adv 3+ (Mandrake-Hope ending) — there is a community to find.",
       "unlocks": [],
-      "tags": ["klosari", "future", "worldbuilding"]
+      "tags": [
+        "klosari",
+        "future",
+        "worldbuilding"
+      ]
     },
     "mandrake-fences": {
       "id": "mandrake-fences",
@@ -139,7 +203,10 @@
       "response": "His jaw works for a beat.\n\n\"Coral-style laser pens. Four corner emitters, ceiling beams, no roof. Holds maybe forty per pen. There are six pens. They are kept hungry and cold but not actively beaten — Skarn wants them as labor leverage for the locals who are still free, and broken slaves do not work.\"\n\nA short, controlled breath.\n\n\"Three deaths I know about in the last month. One elder of cold, one hunter who tried to climb the beams, one child of a fever they did not treat. There may be more I have not heard about. The fortress does not announce its losses.\"\n\nHe looks at you.\n\n\"They are not destroyed. They are diminished. There is still a people there to free. There will not be in another season.\"",
       "gmNote": "Concrete detail on the prisoners. Useful for Scene 6 (the fence-down beat) and for any RP with Klosari prisoners after the rescue. The 'diminished, not destroyed' framing is Mandrake at his most measured — he is calibrating the crew's expectations so they don't expect a feel-good rescue.",
       "unlocks": [],
-      "tags": ["klosari", "stakes"]
+      "tags": [
+        "klosari",
+        "stakes"
+      ]
     },
     "mandrake-charge-spec": {
       "id": "mandrake-charge-spec",
@@ -150,7 +217,10 @@
       "response": "\"Anything that breaches the primary coolant line. The reactor itself is shielded — you will not crack it with what you carry. But the coolant assembly on the south face is exposed for maintenance access. Breach the line, the reactor scrams within two minutes, and the whole grid drops.\"\n\nA pause.\n\n\"A standard demolition charge will do it. So will a sustained burst from any heavy weapon at close range, if you have one and do not mind the noise. So will a clever Tech with a hydrospanner and twenty seconds of nobody shooting at them.\"\n\nA slight nod toward the crew's gear.\n\n\"You have what you need. I do not need to lend you anything. What I need from you is the will to use it where I tell you and to leave before the room becomes a furnace.\"",
       "gmNote": "Mandrake gives the crew permission to solve the sabotage with whatever tools they brought. This is intentional — the generator scene (s5) supports multiple approaches. The 'leave before the room becomes a furnace' line is a real warning — coolant breach + reactor scram = significant heat bloom in the chamber within ~60 seconds.",
       "unlocks": [],
-      "tags": ["mission", "intel"]
+      "tags": [
+        "mission",
+        "intel"
+      ]
     },
     "mandrake-getting-there": {
       "id": "mandrake-getting-there",
@@ -161,7 +231,10 @@
       "response": "\"Twenty meters of corridor. One door — magnetic, but unguarded because the room beyond is the generator room and Skarn's people assume nobody walks in there casually. Past the door, the chamber itself. Four mercenary technicians on shift, no soldiers. They are not there to fight. They are there to monitor the gauges.\"\n\nA beat.\n\n\"If you go quiet, you can be in and out before any of them reach a comm. If you go loud, the alarm reaches the south barracks in maybe ninety seconds and you have a corridor fight on the way back to the sluice.\"\n\nA flat look.\n\n\"Quiet is better. Quiet means the Klosari get out before Skarn's people understand what happened. Loud means the cages turn into a hostage situation. I would prefer quiet.\"",
       "gmNote": "Sets the tactical layer for the sabotage scene. Quiet sabotage = clean fence drop. Loud sabotage = some chance of mercenary reprisal against the Klosari before they can clear the pens. Use this to incentivize stealth approaches in Scene 5 without forcing them.",
       "unlocks": [],
-      "tags": ["mission", "tactics"]
+      "tags": [
+        "mission",
+        "tactics"
+      ]
     },
     "mandrake-runoff": {
       "id": "mandrake-runoff",
@@ -172,7 +245,11 @@
       "response": "A short, dry exhale.\n\n\"Industrial cleanser, coolant flush, biological waste, and whatever Vischera's medical bay rinses down its drains. I do not have the chemistry to give you the percentages. I have the experience to tell you that two minutes of it on bare skin starts a rash and ten minutes of it in an eye is a problem you will not finish this mission with.\"\n\nA pause.\n\n\"Wear what you have. Boots over the trousers. Sleeves down. If you have a breath mask, use it — the air in the tunnel is not friendly either. Klosari weave a paste from the canopy fungus that protects against most of it. I do not have enough for everyone, but I have enough to share with the crew member most likely to fall.\"\n\nA brief, almost amused look.\n\n\"You will know which one of you that is.\"",
       "gmNote": "The fungal paste offer is real — Mandrake has enough for one PC. The crew should pick whichever PC has the worst Athletics or who they expect to slip. That PC gets one re-roll on a single Sluice scene check involving the runoff. Small mechanical reward for engaging with this question.",
       "unlocks": [],
-      "tags": ["mission", "klosari", "gear"]
+      "tags": [
+        "mission",
+        "klosari",
+        "gear"
+      ]
     },
     "mandrake-droids": {
       "id": "mandrake-droids",
@@ -183,7 +260,10 @@
       "response": "\"Old pit droids, salvaged. Six of them. They run sorting algorithms on whatever the fortress dumps. Not aggressive, but they are networked to the central security grid — if one of them registers an unauthorized presence, the alarm goes up just the same as if a soldier saw you.\"\n\nA pause.\n\n\"The plant is loud because the sorting drum runs constantly and the room has no acoustic damping. You will not be heard inside the room. You will also not be able to hear yourselves think. That is why we go LEFT at the branches. The right way ends in either a sealed bulkhead or in that drum, and the drum is a bad place to find out you took the wrong turn.\"",
       "gmNote": "Standard intel. If a player decides to be clever and sabotage the recyc plant, that's a viable distraction option — but it consumes the time window for the generator hit. GM discretion.",
       "unlocks": [],
-      "tags": ["mission", "intel"]
+      "tags": [
+        "mission",
+        "intel"
+      ]
     },
     "mandrake-walked-twice": {
       "id": "mandrake-walked-twice",
@@ -194,7 +274,10 @@
       "response": "A long, unhurried beat.\n\n\"Because one man with a charge can blow a generator. One man with a charge cannot also walk the Klosari out of six pens, through a fortress full of mercenaries, and into the high caves before Skarn's reinforcements reach them.\"\n\nThe bead turns once.\n\n\"I needed a crew. I have spent four years waiting for a crew. The kind that comes through that jungle on the right night, that talks to each other like a unit, and that does not look at me as if I am a story they will tell over a drink later.\"\n\nA short, flat exhale.\n\n\"You are the crew. I do the walking out. You do the breaking in. That is the math. I do not have a more poetic answer than the math.\"",
       "gmNote": "Most honest Mandrake gets. The 'four years waiting for a crew' is true — he has watched smugglers, scavengers, and at least one Imperial survey team pass through and discarded each as the wrong instrument. The crew is not flattered. They are selected. There is a difference and Mandrake respects them enough to say so.",
       "unlocks": [],
-      "tags": ["probe", "honest"]
+      "tags": [
+        "probe",
+        "honest"
+      ]
     },
     "mandrake-come-with-us": {
       "id": "mandrake-come-with-us",
@@ -206,7 +289,11 @@
       "response": "The bead stops moving entirely.\n\n\"No.\"\n\nA pause. Softer than the word.\n\n\"I am thanking you for asking. I want you to hear that. It is the kindest thing said to me in some time. But the Klosari are not free yet, and even if they are free tonight, they are still in a winter that will try to kill them, and the man who can lead them out of it is the one who knows where the high caves keep their food caches.\"\n\nA brief, controlled breath.\n\n\"If everything I love on this moon dies tonight — then I might come with you. Or I might walk into Skarn's fortress alone and use what is left of my charge on whoever is in the throne room. I do not know which man I will be in that hour. So do not plan around me being on your ship. Plan around me being where I belong, which is here, with what is left.\"",
       "gmNote": "Mandrake refusing extraction is a load-bearing answer for the Hope/Toll destiny gate at the end of Scene 7. He is committed to the moon. If the crew has Hope-dominant destiny and Mandrake survives, he goes back to the Klosari. If they have Toll-dominant and he dies, this conversation is the eulogy he wrote in advance. Either way, he meant it. Do not let the players bargain him off the moon.",
       "unlocks": [],
-      "tags": ["probe", "personal", "long-thread"]
+      "tags": [
+        "probe",
+        "personal",
+        "long-thread"
+      ]
     },
     "mandrake-watched-us": {
       "id": "mandrake-watched-us",
@@ -217,7 +304,11 @@
       "response": "A small, almost-smile.\n\n\"I saw who carries what. I saw who reads the ground and who reads the canopy. I saw who steps in when somebody slows. I saw which one of you cracked the joke when the spores went off — that one I was not sure about, but the joke landed, and the joke kept the rest of you moving, which is its own kind of competence.\"\n\nA pause.\n\n\"I saw a crew. Not a contract. A contract argues over the share. A crew argues over who carries the heavy thing. You were arguing about the heavy thing.\"\n\nA brief, dry beat.\n\n\"Also — and you may not want to hear this — I saw who flinched at the second fungus burst and pretended they did not. That is a thing I respect. Pretending well is half of being ready.\"",
       "gmNote": "Soft observational compliment to the crew. The GM should pick the actual PCs at the table for the references — who actually cracked a joke during the Green Hell, who actually pulled point, who flinched. Personal callouts make this answer LAND. Improv this against the actual table.",
       "unlocks": [],
-      "tags": ["story", "warmth", "improv"]
+      "tags": [
+        "story",
+        "warmth",
+        "improv"
+      ]
     },
     "mandrake-other-crews": {
       "id": "mandrake-other-crews",
@@ -228,7 +319,10 @@
       "response": "He counts in his head. Doesn't bother to disguise the counting.\n\n\"Seven. Three smuggler crews moving spice through the canyon — none of them careful enough. Two scavenger teams pulling parts out of crashed ships — not enough firepower. One Imperial survey team I watched without ever showing myself, because they would have shot me and asked questions of my body. And one bounty crew that came after a fugitive in the high caves and that I helped the caves keep.\"\n\nA short pause.\n\n\"Each of them I let go past, because each of them was the wrong crew. You are the eighth. You are not the wrong crew. That is not a compliment to be smug about — it is a circumstance. Wear it lightly.\"",
       "gmNote": "Mandrake's selection process. The 'helped the caves keep' line — he killed the bounty crew and let the Klosari take the bodies. He is not advertising it. He is also not hiding it. The 'wear it lightly' is Mandrake at his driest.",
       "unlocks": [],
-      "tags": ["story", "honest"]
+      "tags": [
+        "story",
+        "honest"
+      ]
     }
   },
   "mayaInterjections": [],

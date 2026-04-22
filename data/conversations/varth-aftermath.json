@@ -2,6 +2,7 @@
   "id": "varth-aftermath",
   "title": "The First Night Out",
   "subtitle": "Varth, Immediately After Ajan Kloss",
+  "voice": "imperial",
   "setting": "The Banshee's Common Room — first hour into hyperspace after the escape from the Vanishing Place. The hyperdrive whine is still settling.",
   "context": "The Banshee broke atmosphere maybe ninety minutes ago. Maya is in the cockpit running diagnostics on the starboard engine. The hyperdrive caught on the second try. Everyone is wounded in a small way and nobody has eaten. The Common Room smells like ozone, blaster discharge, and sweat. Varth is sitting on the bolted-down bench seat with his back against the bulkhead, his hands loose on his knees, the borrowed jacket someone threw over him still buttoned wrong. He has not spoken since the ramp closed. The dejarik board flickers in the corner, abandoned. The amber overhead light has a slight flicker on the port-side fixture that nobody has fixed yet.",
   "readAloud": "The hyperspace tone is still settling — that low, off-key whine that means a hyperdrive was asked to do more than it wanted to. The cabin lights flicker once and steady. Through the bulkhead you can hear Maya in the cockpit, swearing quietly at a diagnostic readout, the tone that means a problem she can solve.\n\nVarth is on the bench. He has not moved in some time. The borrowed jacket is buttoned wrong. There is a thin line of dried blood at his hairline that he has not noticed yet. His hands are open on his knees, which is not how he holds his hands when he is performing.\n\nHe is looking at a point on the deck about a meter in front of his boots.\n\nWhen the silence has gone on long enough that it stops being a pause and starts being a state, he speaks. Quietly. Not to anyone in particular.\n\n\"Twenty-six months. And then — that. In one hour.\"\n\nHe looks up. The half-smile is there but it is not warm. It is mechanical, the way you put on a coat in a cold room.\n\n\"I owe you a great deal more than I have on me. Ask what you need to ask. I am not going anywhere. The ship is not going anywhere either, until Maya finishes shouting at the engine.\"",
@@ -21,8 +22,15 @@
       "comfortCost": 0,
       "response": "He looks at the question for a beat. As if running it through a translator.\n\n\"That is not a question I have been asked in some time. I am not sure of the protocol.\"\n\nHe lets the joke land — small, gentle, more real than most of his jokes. Then his hand drifts to his temple. Touches once. Drops away.\n\n\"I am not injured, in the way the question usually means. I am — overwhelmed. Which is a word I have not had occasion to use in a while. Twenty-six months in a cell does not prepare you for a firefight, or for a rescue, or for being on a ship with people I do not know who have already decided to keep me alive.\"\n\nA pause.\n\n\"I have not eaten food I chose to eat in two years. I have not been outside. I have not been touched, except by guards. And then today there was — all of that. So when you ask if I am okay — I will say yes, because that is the only useful answer for tonight. But I will also tell you the truthful answer is I do not yet know.\"",
       "gmNote": "This is the most honest Varth gets in any conversation in the campaign. The 'I do not yet know' is real. He is genuinely off-balance. Comfort gain implicit (do not announce) — the crew asking after his wellbeing, ahead of the job, is a kindness he was not expecting and does not know how to file. If a player follows up tactilely (water, food, blanket), allow a small additional comfort gain.",
-      "unlocks": ["aftermath-the-cell", "aftermath-the-touch"],
-      "tags": ["honest", "rare", "open"]
+      "unlocks": [
+        "aftermath-the-cell",
+        "aftermath-the-touch"
+      ],
+      "tags": [
+        "honest",
+        "rare",
+        "open"
+      ]
     },
     {
       "id": "aftermath-draco",
@@ -31,8 +39,15 @@
       "comfortCost": 0,
       "response": "His hand goes to his temple. Stays there longer this time before it drops.\n\n\"Inquisitor Draco.\"\n\nA pause.\n\n\"I told you what I knew of him in the cell. Force-sensitive Imperial enforcer. Recruits from broken Jedi and prisoners with the gift. Does not negotiate, does not threaten, just — arrives. I told you what I had heard. I had not, until today, seen him.\"\n\nA short, tight breath.\n\n\"Seeing him is — different from hearing about him. I felt him before I saw him. Like a temperature drop in my own chest. Like something behind my eyes that did not belong there. I am not Force-sensitive. I should not have felt anything. I felt something.\"\n\nHe looks up. Meets your eyes for the first time in the conversation.\n\n\"He came for me specifically. He is going to keep coming. I — am — I am not used to being the prey. I have spent thirty years being the man who watches the prey. This is going to take some adjustment.\"",
       "gmNote": "Varth admitting fear out loud. He does not do this. The 'I should not have felt anything. I felt something.' line is critical — it confirms for any Force-sensitive PCs that Draco's presence radiated through non-sensitives too, and it sets up Draco as a recurring sensory haunting, not just a stat block. The 'thirty years being the man who watches the prey' is a tell about how Varth conceives of himself professionally.",
-      "unlocks": ["aftermath-draco-coming", "aftermath-felt-it"],
-      "tags": ["draco", "fear", "honest"]
+      "unlocks": [
+        "aftermath-draco-coming",
+        "aftermath-felt-it"
+      ],
+      "tags": [
+        "draco",
+        "fear",
+        "honest"
+      ]
     },
     {
       "id": "aftermath-the-rescue",
@@ -41,8 +56,15 @@
       "comfortCost": 0,
       "response": "A small, mechanical half-smile.\n\n\"I did not. I trusted the math of the underworld. A code cylinder with the correct shape and the correct routing and a hint of profit will move through enough hands that eventually it lands in the hands of someone capable. The variable was the timing, not the outcome.\"\n\nA pause. Quieter.\n\n\"What I did not calculate — what I want to say to you tonight, while I still have the honesty to say it — is that I imagined the people who came for me would be opportunists. Mercenaries. People I would have to manage carefully and pay quickly and never trust.\"\n\nHe looks at his hands.\n\n\"Then you walked into that cell. And I watched you, in the firefight on the way out, take care of each other. And on the landing pad, when Draco arrived — none of you ran. None of you left me. I had a contingency for being abandoned in the chaos. I did not have a contingency for being protected.\"\n\nA slow exhale.\n\n\"So. Thank you. I am sure I will say it more elegantly tomorrow. Tonight, this is the version you get.\"",
       "gmNote": "Varth thanking the crew without polish. This is the moment that earns him the trust he will spend across Adventures 1-3 — and the moment that makes the Adv 6 betrayal devastating, because the gratitude was real. He really did expect mercenaries. He really was surprised by the crew's cohesion. The 'I did not have a contingency for being protected' is honest and also operational — he is filing the data point for later.",
-      "unlocks": ["aftermath-contingency", "aftermath-elegant-tomorrow"],
-      "tags": ["thanks", "honest", "rare"]
+      "unlocks": [
+        "aftermath-contingency",
+        "aftermath-elegant-tomorrow"
+      ],
+      "tags": [
+        "thanks",
+        "honest",
+        "rare"
+      ]
     },
     {
       "id": "aftermath-the-job",
@@ -51,8 +73,15 @@
       "comfortCost": -1,
       "response": "He closes his eyes for a beat. When he opens them, the half-smile is back — but thinner. The operator is being asked to come back into the room, and he is not ready, and he is doing it anyway.\n\n\"The job is on Takodana. A Hutt named Varga Besadii Drokko. He has the routing data for an account that has my money in it. We get inside his fortress, we find the routing, we leave with what we came for, we split it.\"\n\nA pause. He waves a hand — an apology.\n\n\"I will brief it properly tomorrow. With detail. With a map. With the fixer's name and the cover identities and the contingency rosters. Tonight is not — tonight is not when I do that. Tonight what I will say is: it is a real job. The money is real. The plan is real. And it is enough money that none of you ever has to do another job after, if you do not want to.\"\n\nThe hand drifts to his temple. Touches.\n\n\"Ask me tomorrow. The version I give you tonight will not be the one I have rehearsed, and I would rather you have the rehearsed one. You earned it.\"",
       "gmNote": "Varth deferring the briefing. This is character-true — he WANTS to perform the briefing, but he genuinely cannot tonight. The 'rehearsed one' line is a small, honest admission that he rehearses his briefings. Players who notice should file it. The deferral itself sets up the First Supper scene as the actual mission briefing.",
-      "unlocks": ["aftermath-money-real", "aftermath-rehearsed"],
-      "tags": ["mission", "deferred", "tired"]
+      "unlocks": [
+        "aftermath-money-real",
+        "aftermath-rehearsed"
+      ],
+      "tags": [
+        "mission",
+        "deferred",
+        "tired"
+      ]
     },
     {
       "id": "aftermath-what-now",
@@ -62,7 +91,10 @@
       "response": "He thinks about it. Genuinely.\n\n\"We are on the Smuggler's Path — eight short jumps with recalculations between each. Two days, maybe three. Maya knows the route. We will not see another ship. We will see hyperspace, and the inside of this Common Room, and the inside of each other's nerves.\"\n\nA brief, dry beat.\n\n\"Tomorrow night we eat together — properly, at this table — and I tell you the job. The night after, we plan. The third day we drop out at Takodana and become other people for a while. The cover identities will need rehearsal. So will the entry approach. So will the exit.\"\n\nA short, real exhale.\n\n\"Tonight is none of those things. Tonight is — I do not know what tonight is. I have not had a tonight in twenty-six months. I am improvising.\"\n\nA brief glance up.\n\n\"That is not a sentence I say often. You have caught me in an unusual mood. Do not get used to it.\"",
       "gmNote": "Varth giving the crew a roadmap of the next 72 hours. This is also the seed for the maya-banshee-galley scene (mid-transit) and the varth-debrief 'First Supper' scene (tomorrow night). All three Adv1 conversation scenes now form a connected sequence: aftermath tonight, galley tomorrow, supper tomorrow night. Use the answer to set table expectations for the mini-arc.",
       "unlocks": [],
-      "tags": ["mission", "pacing"]
+      "tags": [
+        "mission",
+        "pacing"
+      ]
     },
     {
       "id": "aftermath-holding-back",
@@ -72,7 +104,12 @@
       "response": "A long beat. The half-smile drops entirely.\n\n\"Many things. That answer is not the deflection it sounds like.\"\n\nHis hand goes to his temple. Stays.\n\n\"The Empire does not bury a logistics admiral and then send an Inquisitor to retrieve him because of embezzled credits. They send accountants for credits. They send Draco for something that matters more than money. I know what I was working on before I was caught. I know roughly why someone like Draco might be assigned to a facility holding someone like me. I am not telling you what those things are tonight, because I have not finished deciding which version of them I am going to tell you.\"\n\nHe looks up, and for a moment the rehearsed warmth is entirely absent.\n\n\"I will tell you this. Whatever I am holding back is not aimed at you. It is aimed at me. The danger of it falls on me first. By the time it could reach you, you will be long since paid and gone, if that is what you choose. That is the only reassurance I can offer in the state I am in tonight, and I am offering it because you asked plainly and you deserve a plain answer.\"\n\nA slow exhale.\n\n\"Ask me again in a week. I may have a different answer then.\"",
       "gmNote": "This is the BIGGEST tonal moment in this conversation. Varth, off-script, admits there is a Draco-relevant secret he is holding. The 'Inquisitor for credits doesn't add up' framing is an honest read of his own situation — and a confession the polished Varth would NEVER make. Players who get this answer should treat it as priority intel for the campaign. This costs 2 comfort because it punctures him. If asked early, it may end the conversation; if asked late, it lands as a parting gift. Either way, the answer is REAL — it foreshadows the Leviathan reveal in later adventures without spoiling it.",
       "unlocks": [],
-      "tags": ["probe", "leviathan-foreshadow", "honest", "red-flag"]
+      "tags": [
+        "probe",
+        "leviathan-foreshadow",
+        "honest",
+        "red-flag"
+      ]
     }
   ],
   "followUps": {
@@ -85,7 +122,11 @@
       "response": "A pause.\n\n\"Quiet. The Vanishing Place was always quiet — that was its nature. But that morning was specifically quiet. The guard rotation had broken pattern. The 19-hour cycle had skipped a turn. I noticed and I did not understand and I did not sleep.\"\n\nA short breath.\n\n\"And then — I heard you. Not you specifically. I heard a firefight in a facility that does not have firefights, and I understood in one moment that either I was being executed in the next ten minutes, or I was being rescued, and I could not tell which.\"\n\nA brief, almost amused look.\n\n\"I sat on the bunk and I made my face into the face I would want my last face to be. The door opened, and the face I had prepared was not the right one for the room. So I improvised.\"\n\nA pause.\n\n\"Thank you for the door opening the right way.\"",
       "gmNote": "The 'I made my face into the face I would want my last face to be' is bone-honest and slightly devastating. Varth had two faces ready — the dignified-execution face and the contingency. He shows neither. He shows the third face, which is the surprised one. That third face is the one the crew is sitting with right now.",
       "unlocks": [],
-      "tags": ["story", "honest", "true"]
+      "tags": [
+        "story",
+        "honest",
+        "true"
+      ]
     },
     "aftermath-the-touch": {
       "id": "aftermath-the-touch",
@@ -96,7 +137,11 @@
       "response": "A long, quiet beat. Something behind his face shifts.\n\n\"That is — a kind question. I am not sure I have a graceful answer.\"\n\nHe looks at his own hand for a moment.\n\n\"A handshake, yes. I would — appreciate that. From whoever offered. The shoulder may be too much tonight. I do not know where my edges are right now. I would not want to startle, or to startle you.\"\n\nIf a PC offers a hand: He takes it. The grip is firm but the hand is cold. He holds the contact a beat longer than a handshake usually lasts. Lets go before it becomes awkward. Looks at the floor for a moment afterward.\n\n\"Thank you. That helped. More than I expected. I will not need to ask for it again.\"",
       "gmNote": "Genuine emotional moment. Varth's 'I do not know where my edges are' is uncharacteristically self-aware about his own state. If a PC actually extends a hand, GM narrates as written — the cold hand and the held beat are the character work. Comfort gain for the offering PC implicit. This moment can be referenced quietly in the First Supper if either party wants to.",
       "unlocks": [],
-      "tags": ["story", "intimate", "rare"]
+      "tags": [
+        "story",
+        "intimate",
+        "rare"
+      ]
     },
     "aftermath-draco-coming": {
       "id": "aftermath-draco-coming",
@@ -107,7 +152,11 @@
       "response": "A short, careful exhale.\n\n\"He is going to try. The methodology Inquisitors use is not one I fully understand — I am told it involves the Force, and pattern analysis through Imperial intelligence channels, and an obsessive personal touch from the individual hunter.\"\n\nA pause. Hand to temple.\n\n\"Maya took the Smuggler's Path off Ajan Kloss. Eight jumps with recalculations. That breaks any standard pursuit because the recalculation points cannot be predicted from the entry vector. Draco is going to land at the Vanishing Place, find a generator that does not work and a fortress full of dead Skarn mercenaries and freed prisoners and a missing admiral, and he is going to be — angry. The kind of angry that makes him careful, which is the worst kind.\"\n\nA brief, almost-smile that is entirely without warmth.\n\n\"He will not catch us this week. He may catch us this year. The job on Takodana needs to happen before that 'this year' arrives. That is part of why I am not relaxing about the timeline.\"",
       "gmNote": "Sets up Draco as a long-burn pursuit, not an immediate one. Useful pacing for the campaign — players should feel the clock without feeling chased. The 'careful' framing of Draco's anger is correct: he becomes more methodical, not more reckless, when he loses. Foreshadow accordingly.",
       "unlocks": [],
-      "tags": ["draco", "pacing", "intel"]
+      "tags": [
+        "draco",
+        "pacing",
+        "intel"
+      ]
     },
     "aftermath-felt-it": {
       "id": "aftermath-felt-it",
@@ -118,7 +167,11 @@
       "response": "He thinks. Wants to be precise.\n\n\"Cold. Specifically — cold in the chest, behind the sternum, the kind of cold you get from a fever about to break, not from a temperature drop. A pressure behind the eyes that I associate with grief, but I was not grieving. A taste in my mouth like — old metal. Copper, perhaps. I have only ever tasted that during certain audits when I knew I was about to be exposed.\"\n\nA pause.\n\n\"And underneath all of it — the certainty, without evidence, that he was looking at me specifically. Not at the fortress. Not at the situation. At me. As if he had walked into the room with my name in his mouth.\"\n\nA brief, controlled breath.\n\n\"I am told that the Force-sensitive among you may have felt it more sharply. I am sorry, in advance, for whatever it cost you. He is the price of being near me. I want you to understand what that price is so that you can decide whether the money is enough.\"",
       "gmNote": "Force-sensitive PCs should compare notes here — the 'cold/pressure/copper' triad is the recurring Draco sensory signature for the campaign. Varth's offer ('decide whether the money is enough') is an out — and he is genuine in offering it. Players who refuse the offer are explicitly choosing the path forward. Worth noting for ongoing party loyalty arc.",
       "unlocks": [],
-      "tags": ["draco", "force", "honest"]
+      "tags": [
+        "draco",
+        "force",
+        "honest"
+      ]
     },
     "aftermath-contingency": {
       "id": "aftermath-contingency",
@@ -129,7 +182,11 @@
       "response": "A short, dry beat.\n\n\"A bad one. I would have surrendered to whichever faction was winning the firefight, on the assumption that someone with a use for me would emerge from the chaos. I had identified two: a Skarn lieutenant I judged to be an opportunist, and a stormtrooper sergeant I judged to be smart. Either of them, presented with the right offer, could have moved me to a less terminal cell.\"\n\nA pause.\n\n\"It was not a plan I expected to enjoy. It was a plan I expected to survive, which at that point was the only metric that mattered. I am — relieved — that I did not have to use it.\"\n\nA brief, mechanical half-smile.\n\n\"Operating from a position of being protected is novel for me. I will adjust.\"",
       "gmNote": "Varth has contingencies on contingencies. The 'opportunist lieutenant + smart sergeant' identifications are real — he had read the firefight in real time and identified two extraction vectors. This is the systems-thinker mind at work even in a panic. Players should hear both the competence and the chill.",
       "unlocks": [],
-      "tags": ["probe", "calculating", "red-flag"]
+      "tags": [
+        "probe",
+        "calculating",
+        "red-flag"
+      ]
     },
     "aftermath-elegant-tomorrow": {
       "id": "aftermath-elegant-tomorrow",
@@ -140,7 +197,11 @@
       "response": "He looks at the speaker for a long beat. Something behind his eyes recalibrates.\n\n\"That is — that is the harder ask. Truth is more expensive than elegance for me. Elegance I can produce on demand. Truth requires a particular set of conditions I have not been in for some time.\"\n\nA pause.\n\n\"I will try. Not tonight — tonight is not the night for promises. But I will try. You have asked for a thing I do not give easily. I want you to know I heard the asking.\"\n\nA brief, real, tired smile.\n\n\"Tomorrow you may notice me being elegant again. That will not be a betrayal of this. It will be how I rest. Forgive the elegance when it returns. Underneath it, I will have heard you.\"",
       "gmNote": "Powerful character moment — the player has named Varth's deflection mechanism out loud, and Varth has acknowledged it. The 'forgive the elegance when it returns' is honest and also load-bearing for the rest of Adventure 1-2: when Varth seems performative at the First Supper or on Takodana, this moment is the receipt that he KNOWS he is performing. Players who hold this in their pocket get to read him better in every subsequent scene.",
       "unlocks": [],
-      "tags": ["story", "intimate", "load-bearing"]
+      "tags": [
+        "story",
+        "intimate",
+        "load-bearing"
+      ]
     },
     "aftermath-money-real": {
       "id": "aftermath-money-real",
@@ -151,7 +212,10 @@
       "response": "A short, certain nod.\n\n\"It is real. It is in an encrypted account with my authentication key as the only opener, and a routing layer that Varga has the keys to. The credits have been earning interest in a Hutt clan's financial substrate for two years. They are real and they are larger than they were when I went to prison.\"\n\nA pause.\n\n\"What is uncertain is what fraction Varga has skimmed off the routing in my absence. He almost certainly has. He is a Hutt and the opportunity was extended. But even the diminished version is — I will not name a number tonight. Tomorrow, with a clearer head. But it is the kind of number that makes the question 'is the money real' an unkind question to leave unanswered. Yes. It is real.\"",
       "gmNote": "Concrete reassurance. Varth is willing to confirm reality even when not willing to confirm magnitude tonight. The First Supper scene will give the magnitude in the 'how-much-exactly' follow-up. Use this answer to seed credibility for the larger conversation tomorrow.",
       "unlocks": [],
-      "tags": ["business", "credibility"]
+      "tags": [
+        "business",
+        "credibility"
+      ]
     },
     "aftermath-rehearsed": {
       "id": "aftermath-rehearsed",
@@ -162,7 +226,11 @@
       "response": "He almost laughs. Almost.\n\n\"I rehearse everything. I have rehearsed answers to questions you have not asked yet. I rehearsed the speech I planned to give in the cell if my executioner ever opened the door. I rehearsed the toast I gave at my own promotion to admiral. I rehearse, because rehearsal is how I survive being looked at.\"\n\nA pause. Quieter.\n\n\"Tonight is one of the few times in my adult life when I have spoken to people without a script. It is — uncomfortable. I want you to know I am aware of how visible the scaffolding is.\"\n\nA brief, dry exhale.\n\n\"Tomorrow the scaffolding will be invisible again. It is still there. You have just seen it in the daylight tonight. Whether that changes how you read me going forward — that is your business, not mine.\"",
       "gmNote": "Varth admitting his entire conversational mode is constructed. The crew now knows, on the record, that the polished Varth is performance. They can decide whether to call him on it later. This is also the most direct character key for the campaign — every Varth scene from here forward is a man behind scaffolding, and this is the night he showed them the bolts.",
       "unlocks": [],
-      "tags": ["probe", "load-bearing", "honest"]
+      "tags": [
+        "probe",
+        "load-bearing",
+        "honest"
+      ]
     }
   },
   "mayaInterjections": [],

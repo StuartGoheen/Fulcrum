@@ -2,6 +2,7 @@
   "id": "varth-leviathan",
   "title": "The Last Conversation",
   "subtitle": "Admiral Gilder Varth — Command Deck of the Leviathan",
+  "voice": "imperial",
   "setting": "The command deck of the Imperial dreadnought Leviathan, mid-jump, the viewport showing hyperspace as a still gray field. The deck is empty except for Varth at the central holotable and one TIE escort officer who steps out when the crew arrives. The lighting is low — Varth's preference. A datapad on the holotable is open. He was working when the crew came up the lift. He has not closed it.",
   "context": "The crew has fought their way through the Leviathan, killed Draco's apprentices in earlier scenes, and reached the command deck of the dreadnought Varth has been building for the last six adventures. Varth is here. He is not surprised. He has been waiting for the crew to arrive — he tracked their progress through the ship on internal sensors and he ordered the stormtroopers to fall back from the last two corridors so they could come up the lift unimpeded. He did this because he wants this conversation. He has needed it for a long time.\n\nVarth is older than the crew remembers. Six years of wartime grind has put gray in his hair and a stoop in his shoulders. The Cybot Galactica Model VII implant scar is still visible behind his right temple. He is wearing an Imperial admiral's full dress for the first time the crew has ever seen — black, gold trim, no rank pin. He is barefoot. He looks at the crew when they come off the lift and he smiles, briefly. The smile is not mechanical this time. It is tired and very real.",
   "readAloud": "The lift doors open onto the command deck. Varth is at the holotable. He looks up. He smiles.\n\n\"You took Deck 7 faster than I bet you would. I owe my chief gunnery officer a hundred credits.\"\n\nThe smile fades, but does not become anything else. He gestures at the empty deck.\n\n\"I sent them away. The bridge crew, the security detail, the comms officers. They are in the lifeboats. The Leviathan is on autopilot for the next ninety minutes. After that the gravity well array deploys and we will find out together what kind of weapon I built.\"\n\nHe steps away from the holotable. Walks to the viewport. Hyperspace is a flat gray that does not move.\n\n\"You may want to shoot me. I will not stop you. I will ask, before you do, if I may have the conversation I have been planning for six years. I would have it on a porch with a glass of Tihaarian and the rain coming down. I do not get the porch. I get this.\"\n\nHe turns back. The dress uniform is meticulously kept. The bare feet are a detail he has chosen.\n\n\"Ask. Or shoot. The choice belongs to you. It always did. I just stopped admitting it.\"",
@@ -21,8 +22,16 @@
       "comfortCost": 0,
       "response": "He nods. Not defensive. Not proud. Just answering.\n\n'Yes. From the first time I met you in the Vanishing Place cell. I needed a crew that could survive the route I was going to walk. I needed people loyal enough to follow me past the point where the briefing stopped making sense. I needed Maya specifically because the Banshee was the ship that could fly the route. I auditioned you over the course of the first five adventures. I betrayed you on the sixth because the seventh required a betrayal — there was no version of this story in which I reached this command deck without going through that data-center alone, and there was no version in which I could go alone without making you choose to stay behind.'\n\nA pause.\n\n'The choice you made — to keep coming after me anyway — was not in my model. I had built three contingencies for what you would do. None of them was \"hunt me across four sectors for two years to ask me this question to my face.\" I am — proud of you for that, in a way I do not think I have the right to be proud of you. I am saying it out loud because if I do not say it now I will not get to.'",
       "gmNote": "The first honest answer of the conversation. Confirms the betrayal was always the plan AND that the crew exceeded his model — both true. Comfort holds. The 'I am proud of you' line is the most affectionate thing Varth has ever said to the crew. It should land like a wound and a gift at the same time.",
-      "unlocks": ["vl-the-implant", "vl-the-data", "vl-loved-us"],
-      "tags": ["story", "betrayal", "load-bearing"]
+      "unlocks": [
+        "vl-the-implant",
+        "vl-the-data",
+        "vl-loved-us"
+      ],
+      "tags": [
+        "story",
+        "betrayal",
+        "load-bearing"
+      ]
     },
     {
       "id": "vl-the-implant",
@@ -31,8 +40,15 @@
       "comfortCost": 0,
       "response": "His hand does NOT go to his temple. It stays open on the holotable. The crew may notice the absence.\n\n'A Cybot Galactica Model VII courier. Bonded to my brainstem during my eighteenth month of imprisonment, by Imperial neurosurgeons working under Draco's supervision. Its function is to store and transmit the encrypted protocol set for the Leviathan-class dreadnought program. The protocols cannot be moved. They cannot be copied. They cannot be transmitted any other way. The implant will broadcast the activation sequence when its host carries it within twenty-five kilometers of an active gravity well array. Once broadcast, the array can be targeted at any inhabited world.'\n\nA pause.\n\n'Draco believed he was using me as the courier. He was correct. He believed I would surrender the implant under sufficient pressure. He was wrong. He believed, more importantly, that the implant would only ever broadcast the Imperial activation sequence. He was wrong about that too. I learned the protocol set inside out over four years. I overwrote the activation sequence two months ago. The Leviathan is mine. The gravity well array is mine. The fleet outside the viewport — sixteen ships, three Star Destroyers, twenty thousand crew — is mine. They were the Empire's six months ago. They are now under my flag and my flag has not been raised yet because I wanted to raise it with you in the room.'\n\nA short, real exhale.\n\n'That is the implant. That is what it does. That is what I am.'",
       "gmNote": "THE FULL REVEAL. Varth is not betraying the crew for the Empire. He has stolen the dreadnought program from the Empire and built a private fleet using their own infrastructure. The 'flag I wanted to raise with you in the room' line is the entire campaign converging — Varth's six-year betrayal arc was always a long con against the Empire, and the crew was the only audience he ever wanted for the unveiling. Comfort holds. The flag question is the players' next move.",
-      "unlocks": ["vl-the-flag", "vl-draco-fooled"],
-      "tags": ["story", "implant", "reveal"]
+      "unlocks": [
+        "vl-the-flag",
+        "vl-draco-fooled"
+      ],
+      "tags": [
+        "story",
+        "implant",
+        "reveal"
+      ]
     },
     {
       "id": "vl-the-flag",
@@ -41,8 +57,15 @@
       "comfortCost": 0,
       "response": "He looks at the holotable for a long beat. Then back up.\n\n'I have not chosen yet. That is the truth. I have a list. I have been carrying the list since the first month after Eriadu. There are seven possibilities and none of them is good enough to be the right answer.'\n\n'I could fly Resistance colors and put the fleet under Mon Mothma's command. The fleet would be useful to her and she might not ask me questions I do not want to answer. I could fly no colors and become a private fleet — a roving deterrent in the Outer Rim that the Empire could not afford to engage. I could scuttle the Leviathan and disperse the fleet to whatever crew loyalty would carry them home. I could fly Maya's colors — there are no Banshee colors, but I would commission them, and the fleet would be hers and you would inherit her share. I could fly your colors. I could fly any of them.'\n\nA pause. Quieter.\n\n'I came to the room without choosing because I wanted you to choose with me. The fleet is real. The choice is real. You have until the gravity well array deploys to give me the answer I am going to key in.'",
       "gmNote": "THE PLAYERS NOW HOLD THE CAMPAIGN ENDING. This is the Varth campaign payoff: he hands the crew the choice he has been carrying for six years. GM should pause here, let the players actually discuss it, and let the discussion run as long as it wants to run. Whatever the crew decides becomes the canonical end state of the campaign. There is no wrong answer. There are only the consequences of each — which the GM may sketch on the fly using the seven options Varth named or any new option a player invents. If the crew invents an option Varth did not name, he should consider it for a beat and then nod: 'I had not seen that one. Yes. That is the answer.' Comfort holds.",
-      "unlocks": ["vl-no-flag", "vl-mons-flag"],
-      "tags": ["story", "flag", "campaign-payoff"]
+      "unlocks": [
+        "vl-no-flag",
+        "vl-mons-flag"
+      ],
+      "tags": [
+        "story",
+        "flag",
+        "campaign-payoff"
+      ]
     },
     {
       "id": "vl-the-leviathan",
@@ -51,8 +74,15 @@
       "comfortCost": 0,
       "response": "He gestures at the holotable. It lights up with a schematic of the Leviathan.\n\n'Eighteen kilometers from prow to stern. Forty-three thousand crew at full complement. Two hundred and eighty turbolaser batteries, ninety ion cannons, sixty tractor beam projectors. Six TIE wings in internal hangars. A primary axial weapon — the Gravity Well Array — that does not exist on any other Imperial dreadnought. The array can lock a planetary gravity field, hold a world in place, and selectively interdict any ship attempting to leave its surface. It can also, if pushed past its design tolerances, collapse a small moon. The Empire built it to interdict planetary populations. I built it to interdict Imperial fleets. Same physics. Different choice of target.'\n\nA pause.\n\n'It is the largest single weapon the Empire has built since the second Death Star. There are three of these in production. This one is finished. The other two are six months from launch. If the Empire takes this one back tonight, they will use it against the worlds the Resistance is hiding on. If we keep it tonight, the question becomes what we do with it — and the question of the other two becomes mine to answer with this ship's guns. That is the strategic situation. You may make of it what you will.'",
       "gmNote": "Concrete strategic stakes. The 'three in production' is a campaign-future hook — if the GM wants a sequel arc, the other two Leviathans are still building. If the campaign ends here, the crew's choice in this conversation determines whether the existing Leviathan goes after them or not. The 'collapse a small moon' is the worst-case use of the array — players choosing to keep the array intact are choosing to inherit that capacity.",
-      "unlocks": ["vl-the-array", "vl-the-fleet"],
-      "tags": ["business", "leviathan", "stakes"]
+      "unlocks": [
+        "vl-the-array",
+        "vl-the-fleet"
+      ],
+      "tags": [
+        "business",
+        "leviathan",
+        "stakes"
+      ]
     },
     {
       "id": "vl-loved-us",
@@ -61,8 +91,15 @@
       "comfortCost": -1,
       "response": "A long beat. He does not look away.\n\n'Yes.'\n\nA pause.\n\n'I am going to give you the longer answer because the short one is not enough. The performance was real and the affection was real and they were not the same thing and they were both me. The First Supper on the Banshee — I rehearsed every line of that briefing for a week and I meant every line of the toast at the end. The aftermath conversation, the night of the rescue — I had not rehearsed any of it and I meant all of it. The Adventure 4 extraction — when Maya pulled the ramp up under fire and I felt the deck close — I sat in the bunkroom for an hour afterward and I did not move. That was not performance. That was the part of me that did not know what to do with being saved.'\n\nA pause.\n\n'The betrayal was real. The affection was real. Both of those sentences are true at the same time. I have not found a way to make them resolve into a single sentence and I do not believe one exists. I am sorry that the answer is not cleaner. I owed you the messy one.'",
       "gmNote": "THE QUESTION THE WHOLE CAMPAIGN HAS BEEN BUILDING TO. Comfort drops by 1 because the question costs Varth visibly to answer — but he answers it without deflection. The 'both sentences true at the same time' framing is the moral resolution Varth has reached: he is not asking forgiveness, he is naming the contradiction. Players who absorb this in silence get an implicit comfort gain. Players who push for a cleaner answer learn that there isn't one. This is the conversation's emotional core; let it land.",
-      "unlocks": ["vl-the-toast", "vl-the-bunkroom"],
-      "tags": ["probe", "love", "load-bearing"]
+      "unlocks": [
+        "vl-the-toast",
+        "vl-the-bunkroom"
+      ],
+      "tags": [
+        "probe",
+        "love",
+        "load-bearing"
+      ]
     }
   ],
   "followUps": {
@@ -75,7 +112,11 @@
       "response": "'The protocol overwrite for the Leviathan-class implants. Without it the fleet I am standing on does not respond to me. With it, every officer aboard answers to my codes instead of the Imperial chain of command. Six months from data-center to bridge — fast for the work. The Empire still does not know the overwrite happened. They believe the implant in my head is broadcasting their codes to the Leviathan right now. They will discover otherwise when they try to recall the ship and it does not respond.'\n\nA pause.\n\n'That is what I left you behind for. I am not asking you to forgive the leaving. I am answering what I took.'",
       "gmNote": "Concrete tactical reveal. The Empire still doesn't know the protocol was flipped — when the recall order goes out (in the campaign endgame), the silence will be the moment the Empire learns Varth has gone independent. This is the engine of every consequence to follow. Players asking what's next can use this as the pivot.",
       "unlocks": [],
-      "tags": ["story", "data", "intel"]
+      "tags": [
+        "story",
+        "data",
+        "intel"
+      ]
     },
     "vl-draco-fooled": {
       "id": "vl-draco-fooled",
@@ -86,7 +127,11 @@
       "response": "A small, almost-smile.\n\n'Draco died in the corridor outside this command deck twenty-seven minutes ago. Your crew did that. He did not know about the overwrite. He believed, to the last, that he was hunting a fleeing fugitive. The most expensive thing about Draco was always his certainty. It served him well for a long time. It was the lever.'\n\nA pause.\n\n'I would have liked to tell him myself. I would have liked the look. Your crew earned the look instead. I am not — bitter — about that. I am only noting it. He died believing the wrong thing about me. There are worse things to die believing.'",
       "gmNote": "Closes the Draco arc cleanly — the apprentice fight in adv10-p2-s2 has now had its meaning expanded retroactively. Varth's lever was Draco's certainty; the players doing the killing instead of Varth is itself a small comfort beat. GMs should let the moment land before moving on.",
       "unlocks": [],
-      "tags": ["business", "draco", "closure"]
+      "tags": [
+        "business",
+        "draco",
+        "closure"
+      ]
     },
     "vl-no-flag": {
       "id": "vl-no-flag",
@@ -97,7 +142,11 @@
       "response": "He looks at the holotable. At the schematic. At the crew.\n\n'It is on the list. I considered it. I would not argue against it.'\n\nA pause.\n\n'The cost is — the fleet outside has twenty thousand crew. Most of them came aboard knowing only that the captains had switched flags. They are not Imperial true believers. They are professionals who took a posting. If I scuttle the Leviathan I scuttle the fleet, and twenty thousand crew die in lifeboats too far from inhabited worlds to make landfall.'\n\n'If you choose scuttle, I will scuttle in a way that preserves the fleet. I will give them the Outer Rim and let them go pirate or homestead or whatever they choose. I will go down with this ship because I will not leave this command deck and you should not ask me to. The array, the protocols, the implant — all destroyed. The Empire learns nothing. The fleet scatters. The threat ends.'\n\nA short pause.\n\n'It is a clean ending. It is also the ending in which I am the last one to leave the room. If that is what you choose — I would like to know it before you go down to the lifeboat. I would like to be told.'",
       "gmNote": "If players pick 'no flag,' Varth dies on the bridge. He named it himself. The 20k crew survive in the dispersed fleet — a smaller, kinder ending. GMs should honor the request: the player who delivers the final scuttle decision tells Varth in person, on the deck, before going down to the lifeboat. The moment is the ending of the campaign for that arc.",
       "unlocks": [],
-      "tags": ["flag", "scuttle", "ending"]
+      "tags": [
+        "flag",
+        "scuttle",
+        "ending"
+      ]
     },
     "vl-mons-flag": {
       "id": "vl-mons-flag",
@@ -108,7 +157,11 @@
       "response": "He thinks about it.\n\n'It is a usable answer. It is also the answer that requires the most of you. The Resistance does not yet have a fleet capable of using a Leviathan, and they do not have the chain of command to absorb sixteen ships and three Star Destroyers without political damage. If you give the fleet to Mon Mothma, you will need to broker the handoff personally and you will need to stay involved through the integration — months, possibly years. That is a job you would inherit by handing me your answer.'\n\n'I would deliver the fleet to her gladly. I would even brief her in person if you wanted me to. The cost is that the fleet's existence becomes public the moment Mothma takes it, and the political shape of this war changes overnight. The Empire would respond. The two unfinished Leviathans would launch on accelerated timelines. The next year would be — louder.'\n\nA pause.\n\n'I do not say any of that to dissuade you. I say it because you should know what you are choosing.'",
       "gmNote": "If players pick 'Mothma flag,' Varth lives long enough to broker the handoff and then disappears into anonymity — possibly resurfacing in a sequel arc. The campaign ends with the fleet integrated into the Resistance and the war visibly escalating. Larger ending, larger ongoing responsibility for the crew. The GM should sketch the immediate next scenes if the players ask but otherwise leave the long arc open.",
       "unlocks": [],
-      "tags": ["flag", "mothma", "ending"]
+      "tags": [
+        "flag",
+        "mothma",
+        "ending"
+      ]
     },
     "vl-the-array": {
       "id": "vl-the-array",
@@ -119,7 +172,11 @@
       "response": "He considers.\n\n'Yes. With twelve hours of work and a competent engineering team. The array is integrated but not bonded. I designed it that way deliberately because I did not trust myself to keep it once it was built. The removal sequence is in the protocol set in my implant. If you want the array gone, I can key the disassembly before I do anything else. The fleet keeps every other capability. The single-weapon-of-mass-destruction comes off and goes into a lifeboat for whatever you want to do with it next.'\n\nA pause.\n\n'I would prefer that, if I am being honest. The array was always the bargain I made with myself I would unmake at the end. This is the end. Take it off.'",
       "gmNote": "Players can elect to keep the fleet AND remove the array — the cleanest middle option. Varth volunteers the disassembly sequence willingly. The array, removed, becomes a campaign McGuffin in a lifeboat — destroy it, gift it, hide it. GMs should honor whichever the players pick. The 'I would prefer that' line is Varth showing his hand: the array was the cost he paid, not the prize he sought.",
       "unlocks": [],
-      "tags": ["business", "array", "removal"]
+      "tags": [
+        "business",
+        "array",
+        "removal"
+      ]
     },
     "vl-the-fleet": {
       "id": "vl-the-fleet",
@@ -130,7 +187,10 @@
       "response": "'Sixteen ships. Three Star Destroyers — Reckoner, Long Argument, Quiet Hand. Six escort frigates. Four corvettes. Three support tenders. Captains chosen by me over the past two years; most were officers I served with before my imprisonment, the rest were officers Draco had passed over for promotion who had cause to come quiet to my flag. Every captain is briefed on what this ship is and what we have stolen. Every captain has agreed to follow whatever flag I raise tonight. They are professionals. They will follow your choice as readily as they would have followed mine, if you walk down to the comm and say my name first.'\n\nA pause.\n\n'The crews are unbriefed. Twenty thousand spacers and pilots and gunners who came aboard for a posting. They are not zealots. They are not insurgents. They are people with paychecks and families and they will follow the captains because the captains are the ones who feed them and pay them. If you treat them well they will fly for you. If you do not, they will desert at the first port. That is the practical reality of the fleet I am handing you.'",
       "gmNote": "Practical handover briefing. The named ships are real campaign assets — GMs running a sequel can use them by name. The 'speak my name first at the comm' is the procedural detail that makes the handoff work mechanically: the players don't have to convince the fleet, they have to be introduced by Varth. He will do that gladly if asked.",
       "unlocks": [],
-      "tags": ["business", "fleet"]
+      "tags": [
+        "business",
+        "fleet"
+      ]
     },
     "vl-the-toast": {
       "id": "vl-the-toast",
@@ -141,7 +201,11 @@
       "response": "He is silent for a long beat. The crew can see him working through the exact words.\n\n'To the people who came through a door I had no right to expect would open. To the work we have not yet done. To the trust that has not yet been earned. May we deserve each other by the end.'\n\nA pause. Quieter.\n\n'I rehearsed it for a week. I meant it the night I gave it. I mean it now, with the small correction that the trust has been earned and we have done the work and what is left is the question of whether I deserve any of you in the end. That is not a question I get to answer. That is a question you get to answer. I am — grateful — that you came up the lift to give me the chance to ask.'",
       "gmNote": "Direct callback to the varth-debrief.json toast. The repetition with the small correction is the entire campaign in one paragraph. If a PC raises a real or imagined glass at this moment, allow it — and have Varth raise his hand to mirror, empty. The gesture is the closing of the long arc. Comfort holds at maximum.",
       "unlocks": [],
-      "tags": ["story", "toast", "callback"]
+      "tags": [
+        "story",
+        "toast",
+        "callback"
+      ]
     },
     "vl-the-bunkroom": {
       "id": "vl-the-bunkroom",
@@ -152,7 +216,11 @@
       "response": "A long pause.\n\n'The thing I did not have a contingency for. I had spent two years in a cell preparing to die alone. I had spent six months on the Banshee preparing to lead a crew into a betrayal. I had not, at any point, prepared to be saved by people I had not yet decided to betray.'\n\nA pause.\n\n'When Maya pulled that ramp up over the gunfire and I felt the deck close, the thing that hit me was — I do not have a name for it. It was not gratitude. It was bigger than gratitude and uglier than it. It was the thing you feel when a calculation you made in private gets corrected by people who did not know they were correcting it. I sat in the bunkroom and I did the math again with the new variable. The math came out differently. I did not change my plan. But the math came out differently. I knew, that night, that the betrayal in the data-center was going to cost me more than I had budgeted for.'\n\n'It did. It does. That is what was happening in the bunkroom. I am sorry I could not say it then. I would not have known how.'",
       "gmNote": "Comfort drops by 1 because the answer pulls Varth through his own rib cage to deliver. But it is the most honest thing he has ever said about the crew specifically. GMs should let this one breathe. There is nothing to do with it. It is the reckoning. Players who have been on the campaign since adv1 should feel it land.",
       "unlocks": [],
-      "tags": ["probe", "love", "honest"]
+      "tags": [
+        "probe",
+        "love",
+        "honest"
+      ]
     }
   }
 }

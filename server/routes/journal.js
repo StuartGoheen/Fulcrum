@@ -146,6 +146,7 @@ router.get('/journal/entries', async (req, res) => {
     const cols = `
       e.id, e.title, e.body, e.author_character_name, e.source_scene_id,
       e.visibility, e.created_at, e.updated_at,
+      e.in_universe_day_index, e.in_universe_hour,
       COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
         FILTER (WHERE t.id IS NOT NULL), '[]') AS tags`;
     if (scene_id) {
@@ -216,6 +217,7 @@ router.post('/journal/entries', async (req, res) => {
 
     const fullResult = await pool.query(`
       SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
+        e.in_universe_day_index, e.in_universe_hour,
         COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
           FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
       FROM journal_entries e
@@ -285,6 +287,7 @@ router.put('/journal/entries/:id', async (req, res) => {
 
     const fullResult = await pool.query(`
       SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
+        e.in_universe_day_index, e.in_universe_hour,
         COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
           FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
       FROM journal_entries e

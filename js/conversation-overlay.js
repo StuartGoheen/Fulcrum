@@ -260,10 +260,17 @@
     // ===== Header (drag handle) =====
     var header = document.createElement('div');
     header.className = 'conv-p-header';
+    var convVoice = def.voice || (def.npc && def.npc.voice) || 'citizen';
+    var convDateLine = '';
+    if (window.GalacticClock && typeof window.GalacticClock.formatForVoice === 'function') {
+      var voiced = window.GalacticClock.formatForVoice(convVoice);
+      if (voiced) convDateLine = '<div class="conv-p-date" data-voice="' + escHtml(convVoice) + '">' + escHtml(voiced) + '</div>';
+    }
     header.innerHTML =
       '<div class="conv-p-header-text">' +
         '<div class="conv-p-title">' + escHtml(def.title || 'Conversation') + '</div>' +
         (npcName || def.subtitle ? '<div class="conv-p-subtitle">' + escHtml(def.subtitle || npcName) + '</div>' : '') +
+        convDateLine +
       '</div>' +
       '<div class="conv-p-header-btns">' +
         '<button class="conv-p-icon-btn" id="conv-p-hide" title="Hide window">Hide</button>' +

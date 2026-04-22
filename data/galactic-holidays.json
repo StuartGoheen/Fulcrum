@@ -1,0 +1,153 @@
+{
+  "_meta": {
+    "year": 4,
+    "ie": "Year 4 IE",
+    "crc": "7981 C.R.C.",
+    "bbyApprox": "~16 BBY (15 BBY designer shorthand)",
+    "note": "Holidays are advisory in v1 — they do not auto-fire events. The GM clock widget surfaces them so the GM can lean into them."
+  },
+  "holidays": [
+    {
+      "id": "campaign-start",
+      "name": "Campaign Start",
+      "month": 1,
+      "day": 4,
+      "dayOfWeek": "Primeday",
+      "type": "anchor",
+      "significance": "Day 0 of the campaign clock. The crew arrives on Jakku to hunt the encrypted Imperial Code Cylinder.",
+      "gmHook": "Default starting date. Use to anchor all other dates."
+    },
+    {
+      "id": "republic-foundation-day",
+      "name": "Republic Foundation Day (\"Fempire Day\")",
+      "month": 2,
+      "day": 1,
+      "dayOfWeek": "Taungsday",
+      "type": "suppressed",
+      "significance": "Outlawed by the Empire. Quiet identifier of Rebel/Republic sympathizers.",
+      "gmHook": "Whispers in Maz's Castle remember what was lost. Sympathetic NPCs may signal the date with a coded gesture."
+    },
+    {
+      "id": "tarkin-initiative-funding",
+      "name": "Tarkin Initiative Funding Day (4th Anniv.)",
+      "month": 2,
+      "day": 9,
+      "dayOfWeek": "Primeday",
+      "type": "imperial-shadow",
+      "significance": "Four years since the Emperor diverted trillions into black projects.",
+      "gmHook": "Varth is highly active around this date, pushing lucrative off-the-books jobs to intercept secret supply lines."
+    },
+    {
+      "id": "imperial-mining-edict",
+      "name": "Imperial Mining Edict (4th Anniv.)",
+      "month": 3,
+      "day": 1,
+      "dayOfWeek": "Taungsday",
+      "type": "imperial-oppression",
+      "significance": "Four years since the Mining Guild was granted total monopoly and legalized slavery in the Outer Rim.",
+      "gmHook": "Brutal crackdowns and labor strikes on Bespin and Malpaz. Carbon shipments delayed."
+    },
+    {
+      "id": "biitu-incident",
+      "name": "The Biitu Incident (Great Heep)",
+      "month": 3,
+      "day": 14,
+      "dayOfWeek": "Primeday",
+      "type": "imperial-shadow",
+      "significance": "End of Q1. Ship fuel and astromech parts quadruple in price overnight.",
+      "gmHook": "Varth uses this 'unforeseen Imperial fuel shortage' as the in-fiction pretext to rush the crew to Bespin in Act 2."
+    },
+    {
+      "id": "subjugation-of-kashyyyk",
+      "name": "Subjugation of Kashyyyk (4th Anniv.)",
+      "month": 4,
+      "day": 20,
+      "dayOfWeek": "Centaxday",
+      "type": "imperial-atrocity",
+      "significance": "Four years since Wookiees were classified non-sentient.",
+      "gmHook": "Trandoshan slavers celebrate with heavily armed hunts across the frontier."
+    },
+    {
+      "id": "jan-founding",
+      "name": "Founding of the Justice Action Network (JAN)",
+      "month": 5,
+      "day": 6,
+      "dayOfWeek": "Taungsday",
+      "type": "rebel-emergence",
+      "significance": "The HoloNet erupts with unauthorized broadcasts of Kamiel declaring war on Imperial infrastructure.",
+      "gmHook": "From this date forward, spaceport security is doubled and any explosives the crew uses are immediately blamed on JAN."
+    },
+    {
+      "id": "empire-day",
+      "name": "Empire Day (4th Anniv.)",
+      "month": 5,
+      "day": 23,
+      "dayOfWeek": "Benduday",
+      "type": "imperial-mandatory",
+      "significance": "Official birthday of the Galactic Empire.",
+      "gmHook": "Forced celebrations, doubled stormtrooper patrols, heavy curfews. Varth expects absolute compliance and silence from the crew."
+    },
+    {
+      "id": "separatist-surrender",
+      "name": "Separatist Surrender (4th Anniv.)",
+      "month": 6,
+      "day": 5,
+      "dayOfWeek": "Centaxday",
+      "type": "imperial-shadow",
+      "significance": "Four years since the droid armies shut down.",
+      "gmHook": "Black-market scrap prices surge on Jakku; holdout battle droids become dangerously unpredictable."
+    },
+    {
+      "id": "ylesian-spice-shipment",
+      "name": "Ylesian Spice — First Major Shipment",
+      "month": 7,
+      "day": 2,
+      "dayOfWeek": "Zhellday",
+      "type": "hutt-economy",
+      "significance": "The Besadii Hutts flood the market with cheap, cult-produced spice.",
+      "gmHook": "BEFORE this date: Varga the Hutt is desperate and broke, knowing the shipment is coming. AFTER: he is rabid and violent, his syndicate officially starving."
+    },
+    {
+      "id": "boonta-eve",
+      "name": "Boonta Eve + Thall Joben Speeder Race Upset",
+      "month": 8,
+      "day": 14,
+      "dayOfWeek": "Primeday",
+      "type": "hutt-cover",
+      "significance": "Hutt-sponsored night of chaos. Perfect cover for a loud heist — law enforcement looks the other way.",
+      "gmHook": "This specific Boonta Eve is more chaotic than usual: Thall Joben pulls a massive upset victory in the Boonta race. By the morning of the 15th, billions are lost, bookies are bankrupt, and the Western Reaches underworld erupts into violent debt-collection."
+    },
+    {
+      "id": "life-day",
+      "name": "Life Day",
+      "month": 9,
+      "day": 15,
+      "dayOfWeek": "Centaxday",
+      "type": "suppressed",
+      "significance": "Wookiee holiday. Celebrating it is a crime against the Empire.",
+      "gmHook": "Heartbreaking moment if the crew meets a Wookiee on this day."
+    },
+    {
+      "id": "day-of-the-purge",
+      "name": "Day of the Purge / Order 66 (4th Anniv.)",
+      "month": 10,
+      "day": 18,
+      "dayOfWeek": "Benduday",
+      "type": "suppressed-trauma",
+      "significance": "Four years to the day since the Jedi were slaughtered. The Dark Side suffocates the Light.",
+      "gmHook": "Master Denia (if rescued) is crippled by psychic echoes; Inquisitor activity spikes across the sector."
+    },
+    {
+      "id": "fete-weeks",
+      "name": "Fete Weeks",
+      "month": null,
+      "day": null,
+      "dayOfYear": 351,
+      "dayOfYearEnd": 365,
+      "dayOfWeek": null,
+      "type": "festival",
+      "significance": "Galactic core festival weeks. Trade slows; the Outer Rim mostly ignores.",
+      "gmHook": "Imperial offices reduce hours. Customs inspectors are sloppy and bribable. A good week to move freight quietly."
+    }
+  ]
+}

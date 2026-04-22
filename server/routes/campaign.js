@@ -8,6 +8,153 @@ const { resolveDecisionState, applyAdventureConditionals } = require('../utils/d
 const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
 const LOCATIONS_PATH = path.join(__dirname, '..', '..', 'data', 'locations.json');
 const HOLONET_PATH   = path.join(__dirname, '..', '..', 'data', 'holonet.json');
+const HOLIDAYS_PATH  = path.join(__dirname, '..', '..', 'data', 'galactic-holidays.json');
+const Calendar       = require('../../js/lib/galactic-calendar.js');
+
+let _holidaysCache = null;
+function loadHolidays() {
+  if (_holidaysCache) return _holidaysCache;
+  try { _holidaysCache = JSON.parse(fs.readFileSync(HOLIDAYS_PATH, 'utf8')); }
+  catch (e) { _holidaysCache = { holidays: [] }; }
+  return _holidaysCache;
+}
+
+// Resolve the absolute dayIndex of a holiday in the same year as the supplied dayIndex.
+function _holidayDayIndex(h, contextYear) {
+  if (h.dayOfYear) {
+    return (contextYear - 1) * Calendar.DAYS_PER_YEAR + (h.dayOfYear - 1);
+  }
+  return Calendar.dayIndexFromDate({ year: contextYear, month: h.month, day: h.day });
+}
+
+function _findHolidayContext(dayIndex) {
+  const data = loadHolidays();
+  const dt = Calendar.dateFromDayIndex(dayIndex);
+  let today = null;
+  let upcoming = null;
+  let upcomingDays = null;
+  for (const h of (data.holidays || [])) {
+    // Check this year and next year for a forward-looking window.
+    for (const yr of [dt.year, dt.year + 1]) {
+      const idx = _holidayDayIndex(h, yr);
+      if (idx === dayIndex) today = h;
+      // dayOfYearEnd makes it a range (Fete Weeks).
+      if (h.dayOfYearEnd) {
+        const startIdx = (yr - 1) * Calendar.DAYS_PER_YEAR + (h.dayOfYear - 1);
+        const endIdx = (yr - 1) * Calendar.DAYS_PER_YEAR + (h.dayOfYearEnd - 1);
+        if (dayIndex >= startIdx && dayIndex <= endIdx) today = h;
+      }
+      const delta = idx - dayIndex;
+      if (delta > 0 && (upcomingDays == null || delta < upcomingDays)) {
+        upcoming = h;
+        upcomingDays = delta;
+      }
+    }
+  }
+  return { today: today, upcoming: upcoming, upcomingDays: upcomingDays };
+}
+
+async function _readClockState() {
+  const result = await pool.query(
+    "SELECT key, value FROM campaign_state WHERE key IN ('current_day_index','current_hour')"
+  );
+  let dayIndex = Calendar.CAMPAIGN_ANCHOR_DAY_INDEX, hour = 8;
+  for (const r of result.rows) {
+    const n = parseInt(r.value, 10);
+    if (!isNaN(n)) {
+      if (r.key === 'current_day_index') dayIndex = n;
+      else if (r.key === 'current_hour') hour = n;
+    }
+  }
+  return { dayIndex: dayIndex, hour: hour };
+}
+
+function _renderClockResponse(state) {
+  const all = Calendar.renderAll(state.dayIndex, state.hour);
+  const ctx = _findHolidayContext(state.dayIndex);
+  return Object.assign({}, all, {
+    holiday: ctx.today,
+    upcomingHoliday: ctx.upcoming,
+    upcomingHolidayDays: ctx.upcomingDays
+  });
+}
+
+async function _writeClockState(dayIndex, hour) {
+  await pool.query(`
+    INSERT INTO campaign_state (key, value, updated_at)
+    VALUES ('current_day_index', $1, NOW())
+    ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+  `, [String(dayIndex)]);
+  await pool.query(`
+    INSERT INTO campaign_state (key, value, updated_at)
+    VALUES ('current_hour', $1, NOW())
+    ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+  `, [String(hour)]);
+}
+
+router.get('/campaign/clock', async (req, res) => {
+  try {
+    const state = await _readClockState();
+    res.json(_renderClockResponse(state));
+  } catch (err) {
+    console.error('[GET /campaign/clock]', err);
+    res.status(500).json({ error: 'Failed to load campaign clock' });
+  }
+});
+
+router.get('/campaign/holidays', (req, res) => {
+  try { res.json(loadHolidays()); }
+  catch (err) { res.status(500).json({ error: 'Failed to load holidays' }); }
+});
+
+router.post('/campaign/clock/advance', async (req, res) => {
+  if (req.userRole && req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
+  try {
+    const hours = parseInt(req.body && req.body.hours, 10) || 0;
+    const days  = parseInt(req.body && req.body.days,  10) || 0;
+    const label = (req.body && req.body.label) ? String(req.body.label).slice(0, 200) : '';
+    const cur = await _readClockState();
+    const next = Calendar.advance(cur, hours, days);
+    await _writeClockState(next.dayIndex, next.hour);
+    const payload = _renderClockResponse(next);
+    payload.advanceLabel = label;
+    payload.advanceHours = hours;
+    payload.advanceDays = days;
+    const io = req.app.get('io');
+    if (io) io.emit('clock:updated', payload);
+    res.json(payload);
+  } catch (err) {
+    console.error('[POST /campaign/clock/advance]', err);
+    res.status(500).json({ error: 'Failed to advance clock' });
+  }
+});
+
+router.post('/campaign/clock/set', async (req, res) => {
+  if (req.userRole && req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
+  try {
+    const body = req.body || {};
+    let dayIndex = (body.dayIndex != null) ? parseInt(body.dayIndex, 10) : null;
+    if (dayIndex == null && body.year != null) {
+      dayIndex = Calendar.dayIndexFromDate({
+        year: parseInt(body.year, 10),
+        month: parseInt(body.month, 10) || 1,
+        day: parseInt(body.day, 10) || 1
+      });
+    }
+    if (dayIndex == null || isNaN(dayIndex)) {
+      return res.status(400).json({ error: 'dayIndex (or year/month/day) required' });
+    }
+    const hour = body.hour != null ? Math.max(0, Math.min(23, parseInt(body.hour, 10) || 0)) : 0;
+    await _writeClockState(dayIndex, hour);
+    const payload = _renderClockResponse({ dayIndex: dayIndex, hour: hour });
+    const io = req.app.get('io');
+    if (io) io.emit('clock:updated', payload);
+    res.json(payload);
+  } catch (err) {
+    console.error('[POST /campaign/clock/set]', err);
+    res.status(500).json({ error: 'Failed to set clock' });
+  }
+});
 
 let adventuresCache = null;
 let adventuresCacheMtimes = {};

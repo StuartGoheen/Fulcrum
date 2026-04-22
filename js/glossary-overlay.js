@@ -1255,6 +1255,14 @@
     return 'journal-tag-chip--' + safe;
   }
 
+  function _formatJournalEntryDate(entry) {
+    if (entry && window.GalacticClock && typeof window.GalacticClock.formatJournalStamp === 'function') {
+      var stamp = window.GalacticClock.formatJournalStamp(entry);
+      if (stamp) return stamp;
+    }
+    return _formatDate(entry && entry.created_at);
+  }
+
   function _formatDate(dateStr) {
     if (!dateStr) return '';
     var d = new Date(dateStr);
@@ -1587,7 +1595,7 @@
           html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
           html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
           html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
-          html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+          html += '<span class="journal-entry-date">' + _formatJournalEntryDate(entry) + '</span>';
           html += '</div>';
           if (isExpanded) {
             html += '<div class="journal-entry-expanded">';
@@ -1640,7 +1648,7 @@
           html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
           html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
           html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
-          html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+          html += '<span class="journal-entry-date">' + _formatJournalEntryDate(entry) + '</span>';
           html += '</div>';
           if (isExpanded) {
             html += '<div class="journal-entry-expanded">';
@@ -1692,7 +1700,7 @@
           html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
           html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
           html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
-          html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+          html += '<span class="journal-entry-date">' + _formatJournalEntryDate(entry) + '</span>';
           html += '</div>';
           if (isExpanded) {
             html += '<div class="journal-entry-expanded">';
@@ -1758,7 +1766,7 @@
           html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
           html += '<span class="journal-scene-log-chevron">\u25B6</span>';
           html += '<span class="journal-mission-debrief-label">' + _esc(debrief.title || 'Mission Chronicle') + '</span>';
-          html += '<span class="journal-scene-log-date">' + _formatDate(debrief.created_at) + '</span>';
+          html += '<span class="journal-scene-log-date">' + _formatJournalEntryDate(debrief) + '</span>';
           html += '</div>';
           html += '<div class="journal-scene-log-body">';
           html += '<pre class="journal-mission-debrief-content">' + _esc(debrief.body || '') + '</pre>';
@@ -1836,7 +1844,7 @@
         html += '<div class="journal-scene-log-header">';
         html += '<span class="journal-scene-log-chevron">\u25B6</span>';
         html += '<span class="journal-scene-log-title">' + _esc(entry.title) + '</span>';
-        html += '<span class="journal-scene-log-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '<span class="journal-scene-log-date">' + _formatJournalEntryDate(entry) + '</span>';
         html += '</div>';
         html += '<div class="journal-scene-log-body">';
         html += '<pre class="journal-scene-log-content">' + _esc(entry.body || '') + '</pre>';
@@ -1847,7 +1855,7 @@
         html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
         html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
         html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
-        html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '<span class="journal-entry-date">' + _formatJournalEntryDate(entry) + '</span>';
         html += '</div>';
         if (isExpanded) {
           html += '<div class="journal-entry-expanded">';
@@ -1900,7 +1908,7 @@
       html += '<div class="journal-scene-log-header">';
       html += '<span class="journal-scene-log-chevron">\u25B6</span>';
       html += '<span class="journal-scene-log-title">Scene Summary</span>';
-      html += '<span class="journal-scene-log-date">' + _formatDate(campaignLog.created_at) + '</span>';
+      html += '<span class="journal-scene-log-date">' + _formatJournalEntryDate(campaignLog) + '</span>';
       html += '</div>';
       html += '<div class="journal-scene-log-body">';
       html += '<pre class="journal-scene-log-content">' + _esc(campaignLog.body || '') + '</pre>';
@@ -1925,7 +1933,7 @@
         html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
         html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
         html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
-        html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '<span class="journal-entry-date">' + _formatJournalEntryDate(entry) + '</span>';
         html += '</div>';
         if (isExpanded) {
           html += '<div class="journal-entry-expanded">';
