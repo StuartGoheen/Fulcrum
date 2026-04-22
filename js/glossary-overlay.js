@@ -1570,7 +1570,59 @@
     if (conversationEntries.length > 0) hasAnyContent = true;
     if (droidEntries.length > 0) hasAnyContent = true;
 
+    var openingLog = null;
+    for (var oi = 0; oi < _journalEntries.length; oi++) {
+      var oe = _journalEntries[oi];
+      if (oe.source_scene_id === 'adv1-p1-s1' && oe.author_character_name === 'Campaign Log') {
+        openingLog = oe;
+        break;
+      }
+    }
+
     var html = '';
+
+    if (openingLog) {
+      var isOpenExpanded = _journalExpandedEntry === openingLog.id;
+      html += '<div class="jnav-adv-group">';
+      html += '<div class="jnav-adv-header" data-jnav-adv-toggle="campaign-opening">';
+      html += '<span class="jnav-adv-chevron">\u25BC</span>';
+      html += '<div class="jnav-adv-info">';
+      html += '<span class="jnav-adv-title">\u2605 Campaign Opening</span>';
+      html += '<span class="jnav-adv-meta">Page 1 \u2014 the situation so far</span>';
+      html += '</div></div>';
+      html += '<div class="jnav-adv-body">';
+      html += '<div class="journal-entry-card' + (isOpenExpanded ? ' is-expanded' : '') + '">';
+      html += '<div class="journal-entry-card-header" data-journal-toggle="' + openingLog.id + '">';
+      html += '<span class="journal-entry-chevron">' + (isOpenExpanded ? '\u25BC' : '\u25B6') + '</span>';
+      html += '<span class="journal-entry-title">' + _esc(openingLog.title) + '</span>';
+      html += '<span class="journal-entry-date">' + _formatJournalEntryDate(openingLog) + '</span>';
+      html += '</div>';
+      if (isOpenExpanded) {
+        html += '<div class="journal-entry-expanded">';
+        html += '<div class="journal-entry-meta">';
+        html += '<span class="journal-entry-author">' + _esc(openingLog.author_character_name) + '</span>';
+        var oTags = openingLog.tags || [];
+        if (oTags.length) {
+          html += '<span class="journal-entry-tags">';
+          oTags.forEach(function (t) {
+            html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-tag-search="' + _esc(t.name) + '">' + _esc(t.name) + '</span>';
+          });
+          html += '</span>';
+        }
+        html += '</div>';
+        html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(openingLog.body || '').replace(/\n/g, '<br>')) + '</div>';
+        html += _commentsPlaceholder('journal', openingLog.id);
+        html += '</div>';
+      } else {
+        html += '<div class="journal-entry-meta-inline">';
+        html += '<span class="journal-entry-author">' + _esc(openingLog.author_character_name) + '</span>';
+        html += '</div>';
+      }
+      html += '</div>';
+      html += '</div></div>';
+      hasAnyContent = true;
+    }
+
     if (!hasAnyContent) {
       html += '<div class="journal-empty"><div class="journal-empty-text">No completed scenes yet.<br>Your journal will fill as you progress through the campaign.</div></div>';
       return html;
