@@ -660,7 +660,7 @@ The Vanishing Place (adv1 Part 2 scenes S5–S8) now has a dynamic fortress-stat
 
 ## Galactic Calendar & Voice Audit (Task #198)
 
-**Anchor:** Primeday, 4 Elona, Year 5 IE = 4 Elona, 7982 C.R.C. = 15 BBY. Day index 1475, hour 8. (Task #201 shifted the campaign anchor from Year 4 → Year 5 so `bbyForYear(5) = 15 BBY` strictly aligns with the bible's "15 BBY" setting; the prior `~16 BBY` hedge is removed.)
+**Anchor:** Primeday, 4 Elona, Year 5 IE = 4 Elona, 7982 C.R.C. = 15 BBY. Day index 1475, hour 8. (Task #201 shifted the campaign anchor from Year 4 → Year 5 so `bbyForYear(5) = 15 BBY` strictly aligns with the bible's 15 BBY setting; all prior approximate-year hedges have been removed from anchor copy and adventure asides.)
 
 **Calendar engine:** `js/lib/galactic-calendar.js` (UMD — used server + browser). Persists in `campaign_state` (`current_day_index`, `current_hour`); BEFORE INSERT trigger `stamp_journal_clock` auto-stamps `journal_entries.in_universe_day_index/hour` from campaign_state. REST: `GET/POST /api/campaign/clock[/advance|/set]`. Socket broadcast: `clock:updated`.
 
@@ -672,7 +672,7 @@ The Vanishing Place (adv1 Part 2 scenes S5–S8) now has a dynamic fortress-stat
 - `adv3.json` S1 read-aloud — replaced the pro-Republic phrasing "back when the Republic was still young" with Imperial-acceptable historical framing: "back in the early centuries of the Old Republic" (factual era reference, no Republic-positive editorializing).
 - `adv3.json` Lt. customs quote — "recited four hundred times this week" → "recited four hundred times since the start of the month" (Imperial NPC voice).
 - `adv3.json` Varth comm quote — "pinged Cloud City spaceport sixteen days ago" left as-is per spec (Varth is precise but informal in conversation).
-- `adv3.json` Beat 1 tactics aside — "Calrissian does not run Cloud City for another twelve years; this is 15 BBY" → "In Year 5 IE (15 BBY), Calrissian is still twelve years out from running Cloud City; today the city is governed by..." (Task #201 dropped the "~15 BBY designer reference" hedge after the anchor shifted to Year 5 IE).
+- `adv3.json` Beat 1 tactics aside — rewritten from a parenthetical designer reference about Calrissian's eventual rule of Cloud City into a clean in-fiction anchor: "In Year 5 IE (15 BBY), Calrissian is still twelve years out from running Cloud City; today the city is governed by..." (Task #201 also dropped the previous approximate-year hedge once the anchor shifted to Year 5 IE).
 - `vanishing-place-fortress.json` — no player-visible date references that violate the voice rule; not modified.
 - 12 conversation files: `voice` set to `citizen` (Maya, Oga, Mandrake, Fyren/Krygg, Raden, the Storyteller's framing kept scholar for Maz's-Castle elder), `scholar` (Master Thorla, TC-663, the Storyteller), `imperial` (Varth ×3, Soren Vex). Conversation-overlay header reads `def.voice` (default `citizen` if absent) to render the in-universe date in the right dialect.
 

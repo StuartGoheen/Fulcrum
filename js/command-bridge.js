@@ -2320,14 +2320,20 @@
       h += '</div>';
     }
 
+    // Build a lookup of story-ids already shown in the Ready section so we don't
+    // duplicate them in the per-feed listing below (Task #201 review nit).
+    var readyShownIds = {};
+    readyFiltered.forEach(function (s) { readyShownIds[s.id] = true; });
+
     _holonetFeeds.forEach(function (feed) {
-      var anyVisible = (feed.stories || []).some(function (s) {
+      var visibleStories = (feed.stories || []).filter(function (s) {
+        if (readyShownIds[s.id]) return false;
         return _holonetChannelFilter === 'all' || _hnChannel(s) === _holonetChannelFilter;
       });
-      if (!anyVisible) return;
+      if (visibleStories.length === 0) return;
       h += '<div class="hn-feed-group">';
       h += '<div class="hn-feed-label">' + esc(feed.label) + '</div>';
-      feed.stories.forEach(function (story) { h += renderCard(story); });
+      visibleStories.forEach(function (story) { h += renderCard(story); });
       h += '</div>';
     });
 
