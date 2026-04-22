@@ -1247,6 +1247,34 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const BIBLE_PATH = path.join(__dirname, '..', '..', 'data', 'campaign-bible.md');
 
+// Terms that must never reach the watcher-voice prompt context. Any sentence in
+// injected bible content containing one of these gets dropped, and the words
+// themselves are scrubbed from anything that survives. Keeps the model from
+// echoing GM-only identity/lore back into the player-facing debrief.
+const WATCHER_FORBIDDEN_TERMS = [
+  'quinlan', 'vos', 'hidden path', 'jedi', 'kiffar', 'kiffu',
+  'the force', 'force-sensitive', 'force sensitive', 'force-user', 'force user',
+  'holocron', 'holocrons', 'sith', 'inquisitor', 'inquisitors',
+  'lightsaber', 'lightsabers', 'padawan', 'master denia',
+];
+
+function sanitizeForWatcherVoice(text) {
+  if (!text) return '';
+  // Split on sentence boundaries while keeping the punctuation attached.
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  const kept = sentences.filter(s => {
+    const lower = s.toLowerCase();
+    return !WATCHER_FORBIDDEN_TERMS.some(t => lower.includes(t));
+  });
+  let out = kept.join(' ');
+  // Belt-and-suspenders: scrub any forbidden term that survived a sentence-less fragment.
+  for (const t of WATCHER_FORBIDDEN_TERMS) {
+    const re = new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    out = out.replace(re, '[redacted]');
+  }
+  return out.replace(/\s{2,}/g, ' ').trim();
+}
+
 function extractBibleContext(adventureId) {
   let bibleText = '';
   try {
@@ -1256,21 +1284,33 @@ function extractBibleContext(adventureId) {
   }
 
   const themesMatch = bibleText.match(/## Core Themes\n([\s\S]*?)(?=\n---|\n## )/);
-  const themes = themesMatch ? themesMatch[1].trim().substring(0, 800) : '';
+  const themesRaw = themesMatch ? themesMatch[1].trim().substring(0, 800) : '';
+  const themes = sanitizeForWatcherVoice(themesRaw);
 
   const advNum = adventureId.replace(/\D/g, '');
   const synopsisRegex = new RegExp('### Adventure ' + advNum + ':[^\n]*\n([\\s\\S]*?)(?=\\n---\\n|\\n### Adventure \\d)');
   const synopsisMatch = bibleText.match(synopsisRegex);
-  const synopsis = synopsisMatch ? synopsisMatch[1].trim().substring(0, 2000) : '';
+  const synopsisRaw = synopsisMatch ? synopsisMatch[1].trim().substring(0, 2000) : '';
+  const synopsis = sanitizeForWatcherVoice(synopsisRaw);
 
-  const characterNames = ['Maya', 'Admiral Gilder Varth', 'Jedi Master Denia', 'Varga the Hutt', 'Inquisitor Valin Draco', 'Soren Vex'];
+  // Strip GM-only honorifics from header lookups so the labels we hand to the
+  // model do not themselves leak ("Jedi Master Denia", "Inquisitor Valin Draco").
+  const characterEntries = [
+    { lookup: 'Maya', display: 'Maya' },
+    { lookup: 'Admiral Gilder Varth', display: 'Admiral Gilder Varth' },
+    { lookup: 'Jedi Master Denia', display: 'Denia' },
+    { lookup: 'Varga the Hutt', display: 'Varga the Hutt' },
+    { lookup: 'Inquisitor Valin Draco', display: 'Valin Draco' },
+    { lookup: 'Soren Vex', display: 'Soren Vex' },
+  ];
   const charSnippets = [];
-  for (const name of characterNames) {
-    const charRegex = new RegExp('### ' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\n([\\s\\S]*?)(?=\n### |\\n---\\n|\\n## )');
+  for (const entry of characterEntries) {
+    const charRegex = new RegExp('### ' + entry.lookup.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\n([\\s\\S]*?)(?=\n### |\\n---\\n|\\n## )');
     const match = bibleText.match(charRegex);
     if (match) {
-      const lines = match[1].split('\n').slice(0, 4).join('\n');
-      charSnippets.push(name + ': ' + lines.trim());
+      const lines = match[1].split('\n').slice(0, 4).join('\n').trim();
+      const cleaned = sanitizeForWatcherVoice(lines);
+      if (cleaned) charSnippets.push(entry.display + ': ' + cleaned);
     }
   }
   const characters = charSnippets.join('\n\n').substring(0, 1500);

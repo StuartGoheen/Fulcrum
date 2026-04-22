@@ -1,0 +1,52 @@
+[
+  {
+    "adv": "adv1",
+    "mix": "all-success",
+    "hits": [],
+    "chars": 2385
+  },
+  {
+    "adv": "adv2",
+    "mix": "mixed",
+    "hits": [],
+    "chars": 2523
+  },
+  {
+    "adv": "adv3",
+    "mix": "mixed",
+    "hits": [
+      "Inquisitor"
+    ],
+    "chars": 3028
+  },
+  {
+    "adv": "adv4",
+    "mix": "partial",
+    "hits": [],
+    "chars": 2557
+  },
+  {
+    "adv": "adv5",
+    "mix": "all-success",
+    "hits": [],
+    "chars": 2619
+  },
+  {
+    "adv": "adv6",
+    "mix": "partial",
+    "hits": [],
+    "chars": 3007
+  },
+  {
+    "adv": "adv7",
+    "mix": "mixed",
+    "hits": [],
+    "chars": 2215
+  },
+  {
+    "adv": "adv10",
+    "mix": "mixed",
+    "hits": [],
+    "chars": 2523
+  }
+]
