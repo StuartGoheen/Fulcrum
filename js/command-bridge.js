@@ -783,7 +783,7 @@
   var _openPanels = {};
   var _panelZCounter = 121;
 
-  var TT_PERSIST_PANEL_IDS = { ttroster: true, ttday1: true };
+  var TT_PERSIST_PANEL_IDS = { ttroster: true, ttday1: true, ttday2: true };
   var TT_PERSIST_KEY = 'cb_tt_open_panels';
 
   function _panelTypeKey(panelId) {
@@ -2466,7 +2466,7 @@
     if (panelId === 'groupchallenge') {
       _bindGroupChallengeEvents(panel);
     }
-    if ((panelId === 'ttroster' || panelId === 'ttday1') && window.TournamentTracker) {
+    if ((panelId === 'ttroster' || panelId === 'ttday1' || panelId === 'ttday2') && window.TournamentTracker) {
       var adv = getAdventure(currentAdventure);
       var part = adv ? getPart(adv, currentPart) : null;
       var sc = part ? getScene(part, currentScene) : null;
@@ -2475,19 +2475,26 @@
           var body = panel.querySelector('.cb-fpanel-body');
           if (!body) return;
           if (panelId === 'ttroster') body.innerHTML = window.TournamentTracker.buildRosterHtml(sc, partyCache, _campaignState || {});
-          else body.innerHTML = window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
+          else if (panelId === 'ttday1') body.innerHTML = window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
+          else body.innerHTML = window.TournamentTracker.buildDay2Html(sc, partyCache, _campaignState || {});
           _bindPanelContent(panel, panelId);
-          // Refresh tile meta if Day 1 (field counter)
           if (panelId === 'ttday1') {
             var tile = document.querySelector('[data-panel-id="ttday1"] .cb-tile-meta');
             if (tile) {
               var st = window.TournamentTracker.readState(_campaignState || {});
               tile.textContent = window.TournamentTracker.fieldRemaining(st) + '/60 alive';
             }
+          } else if (panelId === 'ttday2') {
+            var tile2 = document.querySelector('[data-panel-id="ttday2"] .cb-tile-meta');
+            if (tile2) {
+              var st2 = window.TournamentTracker.readState(_campaignState || {});
+              tile2.textContent = window.TournamentTracker.fieldRemainingDay2(st2) + '/24 alive';
+            }
           }
         };
         if (panelId === 'ttroster') window.TournamentTracker.bindRoster(panel, sc, partyCache, _campaignState || {}, socket, refresh);
-        else window.TournamentTracker.bindDay1(panel, sc, partyCache, _campaignState || {}, socket, refresh);
+        else if (panelId === 'ttday1') window.TournamentTracker.bindDay1(panel, sc, partyCache, _campaignState || {}, socket, refresh);
+        else window.TournamentTracker.bindDay2(panel, sc, partyCache, _campaignState || {}, socket, refresh);
       }
     }
   }
@@ -3353,6 +3360,11 @@
       var ttFieldNum = window.TournamentTracker.fieldRemaining(ttDay1State);
       html += '<div class="cb-tile cb-tile--gc' + (_openPanels['ttday1'] ? ' cb-tile--active' : '') + '" data-panel-id="ttday1"><span class="cb-tile-icon">&#127922;</span><span class="cb-tile-label">Day 1 Standings</span><span class="cb-tile-meta">' + ttFieldNum + '/60 alive</span></div>';
     }
+    if (window.TournamentTracker && window.TournamentTracker.isDay2Scene(scene.id)) {
+      var ttDay2State = window.TournamentTracker.readState(_campaignState || {});
+      var ttFieldNum2 = window.TournamentTracker.fieldRemainingDay2(ttDay2State);
+      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['ttday2'] ? ' cb-tile--active' : '') + '" data-panel-id="ttday2"><span class="cb-tile-icon">&#127942;</span><span class="cb-tile-label">Day 2 Final Tables</span><span class="cb-tile-meta">' + ttFieldNum2 + '/24 alive</span></div>';
+    }
     if (hasGroupChallenge) {
       html += '<div class="cb-tile cb-tile--gc' + (_openPanels['groupchallenge'] ? ' cb-tile--active' : '') + '" data-panel-id="groupchallenge"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Group Challenge</span><span class="cb-tile-meta">' + esc(scene.groupChallenge.name) + ' \u2022 ' + scene.groupChallenge.vpThreshold + ' VP</span></div>';
     }
@@ -3415,12 +3427,13 @@
 
     container.innerHTML = html;
 
-    var ttTitleMap = { ttroster: 'Tournament Roster', ttday1: 'Day 1 Standings — Sabacc Tournament' };
+    var ttTitleMap = { ttroster: 'Tournament Roster', ttday1: 'Day 1 Standings — Sabacc Tournament', ttday2: 'Day 2 Final Tables — Sabacc Tournament' };
     var ttContentMap = {
       ttroster: function () { return window.TournamentTracker.buildRosterHtml(scene, partyCache, _campaignState || {}); },
-      ttday1: function () { return window.TournamentTracker.buildDay1Html(scene, partyCache, _campaignState || {}); }
+      ttday1: function () { return window.TournamentTracker.buildDay1Html(scene, partyCache, _campaignState || {}); },
+      ttday2: function () { return window.TournamentTracker.buildDay2Html(scene, partyCache, _campaignState || {}); }
     };
-    var ttSizeMap = { ttroster: { width: 720, height: 580 }, ttday1: { width: 1040, height: 720 } };
+    var ttSizeMap = { ttroster: { width: 720, height: 580 }, ttday1: { width: 1040, height: 720 }, ttday2: { width: 880, height: 700 } };
 
     container.querySelectorAll('.cb-tile').forEach(function (tile) {
       tile.addEventListener('click', function () {
@@ -3429,7 +3442,7 @@
           closeFloatingPanel(panelId);
           return;
         }
-        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', ttroster: ttTitleMap.ttroster, ttday1: ttTitleMap.ttday1 };
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', ttroster: ttTitleMap.ttroster, ttday1: ttTitleMap.ttday1, ttday2: ttTitleMap.ttday2 };
         var contentMap = {
           readaloud: function () { return _buildReadAloudHtml(scene); },
           gmnotes: function () { return _buildGmNotesHtml(scene); },
@@ -3442,9 +3455,10 @@
           holonet: function () { return _buildHoloNetHtml(); },
           groupchallenge: function () { return _buildGroupChallengeHtml(scene); },
           ttroster: ttContentMap.ttroster,
-          ttday1: ttContentMap.ttday1
+          ttday1: ttContentMap.ttday1,
+          ttday2: ttContentMap.ttday2
         };
-        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, ttroster: ttSizeMap.ttroster, ttday1: ttSizeMap.ttday1 };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, ttroster: ttSizeMap.ttroster, ttday1: ttSizeMap.ttday1, ttday2: ttSizeMap.ttday2 };
         var builder = contentMap[panelId];
         if (builder) {
           openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
@@ -4216,7 +4230,7 @@
       loadPartyMonitor();
       // Re-render any open tournament-tracker panels
       if (window.TournamentTracker) {
-        ['ttroster', 'ttday1'].forEach(function (pid) {
+        ['ttroster', 'ttday1', 'ttday2'].forEach(function (pid) {
           var panel = document.getElementById('fp-' + pid);
           if (panel) {
             var body = panel.querySelector('.cb-fpanel-body');
@@ -4235,9 +4249,9 @@
                   end: active.selectionEnd
                 };
               }
-              body.innerHTML = pid === 'ttroster'
-                ? window.TournamentTracker.buildRosterHtml(sc, partyCache, _campaignState || {})
-                : window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
+              if (pid === 'ttroster') body.innerHTML = window.TournamentTracker.buildRosterHtml(sc, partyCache, _campaignState || {});
+              else if (pid === 'ttday1') body.innerHTML = window.TournamentTracker.buildDay1Html(sc, partyCache, _campaignState || {});
+              else body.innerHTML = window.TournamentTracker.buildDay2Html(sc, partyCache, _campaignState || {});
               _bindPanelContent(panel, pid);
               if (preserve) {
                 try {
@@ -4259,6 +4273,12 @@
         if (ttTile) {
           var st = window.TournamentTracker.readState(_campaignState || {});
           ttTile.textContent = window.TournamentTracker.fieldRemaining(st) + '/60 alive';
+        }
+        // Refresh Day 2 tile meta
+        var ttTile2 = document.querySelector('[data-panel-id="ttday2"] .cb-tile-meta');
+        if (ttTile2) {
+          var st2 = window.TournamentTracker.readState(_campaignState || {});
+          ttTile2.textContent = window.TournamentTracker.fieldRemainingDay2(st2) + '/24 alive';
         }
       }
     });

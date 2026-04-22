@@ -255,6 +255,7 @@ function _formatCombatLogBody(summary) {
 }
 
 const TOURNAMENT_RECAP_TITLE = 'Sabacc Tournament — Day 1 Recap';
+const TOURNAMENT_DAY2_RECAP_TITLE = 'Sabacc Tournament — Day 2 Recap';
 const TOURNAMENT_NAMED_NPCS = [
   { id: 'arandis', name: 'Arandis' },
   { id: 'fioro', name: 'Lady Fioro' },
@@ -343,6 +344,146 @@ function _formatTournamentRecapBody(state) {
   }
   lines.push('  Crew balance at close: ' + ((state && state.crewCredits) || 0).toLocaleString() + ' cr');
   return lines.join('\n');
+}
+
+function _formatTournamentDay2RecapBody(state) {
+  const day2 = (state && state.day2) || {};
+  const seating = day2.seating || {};
+  let pcAlive = 0, pcEliminated = 0, npcAlive = 0, npcEliminated = 0;
+  const standings = [];
+  let winnerSeat = null;
+  Object.keys(seating).forEach(t => {
+    (seating[t] || []).forEach((seat, sIdx) => {
+      if (!seat || seat.kind === 'empty') return;
+      if (seat.kind === 'pc') {
+        if (seat.status === 'Eliminated') pcEliminated++; else pcAlive++;
+      } else if (seat.kind === 'npc') {
+        if (seat.status === 'Eliminated') npcEliminated++; else npcAlive++;
+      }
+      if (seat.kind === 'pc' || seat.kind === 'npc') {
+        standings.push({
+          name: seat.name || '—',
+          kind: seat.kind,
+          chips: seat.chips || 0,
+          status: seat.status || 'Healthy',
+          loc: 'FT' + t + 'S' + (sIdx + 1)
+        });
+        if (day2.winnerSeatId && seat.id === day2.winnerSeatId) {
+          winnerSeat = { name: seat.name, loc: 'FT' + t + 'S' + (sIdx + 1), kind: seat.kind };
+        }
+      }
+    });
+  });
+  // Sort: champion first (handled separately), then by chips desc, eliminated last
+  standings.sort((a, b) => {
+    const aDead = a.status === 'Eliminated' ? 1 : 0;
+    const bDead = b.status === 'Eliminated' ? 1 : 0;
+    if (aDead !== bDead) return aDead - bDead;
+    return (b.chips || 0) - (a.chips || 0);
+  });
+
+  const switchCommit = day2.switchCommit || 'pending';
+  const crewPayout = day2.crewPayout || 0;
+  const crewBalance = (state && state.crewCredits) || 0;
+
+  const lines = [];
+  lines.push('Day 2 of the Cloud City Sabacc Tournament has closed.');
+  lines.push('The final tables seated ' + (pcAlive + pcEliminated + npcAlive + npcEliminated) + ' players for the championship pot.');
+  lines.push('');
+  if (winnerSeat) {
+    lines.push('Champion: ' + winnerSeat.name + ' (' + winnerSeat.loc + ')');
+  } else {
+    lines.push('Champion: undeclared (no winner marked)');
+  }
+  lines.push('');
+  lines.push('Field Status:');
+  lines.push('  Crew PCs still in: ' + pcAlive + (pcEliminated ? ' (eliminated: ' + pcEliminated + ')' : ''));
+  lines.push('  Named NPCs still in: ' + npcAlive + (npcEliminated ? ' (eliminated: ' + npcEliminated + ')' : ''));
+  lines.push('');
+  lines.push('Final Standings (chip-leader order):');
+  if (!standings.length) {
+    lines.push('  (no named seats recorded)');
+  } else {
+    standings.forEach((s, i) => {
+      const tag = s.kind === 'pc' ? '[PC]' : '[NPC]';
+      const star = (winnerSeat && s.name === winnerSeat.name && s.loc === winnerSeat.loc) ? ' ★ CHAMPION' : '';
+      lines.push('  ' + (i + 1) + '. ' + tag + ' ' + s.name + ' — ' + (s.chips || 0).toLocaleString() + ' chips — ' + s.status + ' (' + s.loc + ')' + star);
+    });
+  }
+  lines.push('');
+  lines.push('Switch (Dirty Money) Day 2 Commit: ' + switchCommit.toUpperCase());
+  lines.push('');
+  lines.push('Crew Payout from championship pot: +' + crewPayout.toLocaleString() + ' cr');
+  lines.push('Crew balance at close: ' + crewBalance.toLocaleString() + ' cr');
+  if (Array.isArray(day2.log) && day2.log.length) {
+    lines.push('');
+    lines.push('Day 2 Log:');
+    // Log is stored newest-first; emit oldest-first for narrative reading.
+    day2.log.slice().reverse().forEach(e => {
+      const when = (e.ts || '').slice(11, 16);
+      lines.push('  [' + when + '] ' + (e.text || ''));
+    });
+  }
+  return lines.join('\n');
+}
+
+async function _saveTournamentDay2RecapToJournal(state, sceneId) {
+  if (!sceneId) return null;
+  const body = _formatTournamentDay2RecapBody(state || {});
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const existing = await client.query(
+      'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND title = $2 LIMIT 1',
+      [sceneId, TOURNAMENT_DAY2_RECAP_TITLE]
+    );
+    if (existing.rows.length > 0) {
+      await client.query('COMMIT');
+      return { entryId: existing.rows[0].id, created: false };
+    }
+    let entryResult;
+    try {
+      entryResult = await client.query(
+        `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+         VALUES ($1, $2, $3, $4) RETURNING id`,
+        [TOURNAMENT_DAY2_RECAP_TITLE, body, 'Campaign Log', sceneId]
+      );
+    } catch (insertErr) {
+      // Race: another writer beat us. Fall back to existing row.
+      const dup = await client.query(
+        'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND title = $2 LIMIT 1',
+        [sceneId, TOURNAMENT_DAY2_RECAP_TITLE]
+      );
+      await client.query('COMMIT');
+      return { entryId: dup.rows[0] ? dup.rows[0].id : null, created: false };
+    }
+    const entryId = entryResult.rows[0].id;
+    const tagPairs = [
+      { name: 'Tournament', category: 'custom' },
+      { name: 'Cloud City', category: 'location' },
+      { name: 'Day 2 Recap', category: 'custom' }
+    ];
+    for (const tp of tagPairs) {
+      const tagResult = await client.query(
+        `INSERT INTO journal_tags (name, category, is_custom)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name
+         RETURNING id`,
+        [tp.name, tp.category, tp.category === 'custom']
+      );
+      await client.query(
+        'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+        [entryId, tagResult.rows[0].id]
+      );
+    }
+    await client.query('COMMIT');
+    return { entryId, created: true };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 async function _saveTournamentRecapToJournal(state, sceneId, options) {
@@ -1202,6 +1343,34 @@ function registerHandlers(io) {
         } catch (err) {
           console.error('[socket] combat:end journal save error:', err);
         }
+      }
+    });
+
+    socket.on('tournament:save-day2-recap', async ({ sceneId } = {}) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can save the tournament recap.' });
+        return;
+      }
+      if (!sceneId) return;
+      try {
+        const stateRow = await pool.query("SELECT value FROM campaign_state WHERE key = 'adv3_tournament'");
+        let state = null;
+        if (stateRow.rows.length > 0) {
+          try { state = JSON.parse(stateRow.rows[0].value); } catch (_) { state = null; }
+        }
+        if (!state) {
+          console.warn('[socket] tournament:save-day2-recap: no adv3_tournament state found');
+          return;
+        }
+        const result = await _saveTournamentDay2RecapToJournal(state, String(sceneId));
+        if (result && result.created) {
+          io.emit('journal:updated', { entryId: result.entryId });
+          console.log(`[socket] Tournament Day 2 recap saved to journal entry #${result.entryId}`);
+        } else if (result) {
+          console.log(`[socket] Tournament Day 2 recap already exists (entry #${result.entryId}); skipping duplicate.`);
+        }
+      } catch (err) {
+        console.error('[socket] tournament:save-day2-recap error:', err);
       }
     });
 

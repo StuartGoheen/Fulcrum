@@ -39,13 +39,17 @@
   var SCENE_ROSTER = 'adv3-p1-s4';
   var SCENE_EVE = 'adv3-p1-s5';
   var SCENE_DAY1 = 'adv3-p2-s1';
-  var TOURNAMENT_SCENES = [SCENE_ROSTER, SCENE_EVE, SCENE_DAY1];
+  var SCENE_DAY2 = 'adv3-p2-s2';
+  var TOURNAMENT_SCENES = [SCENE_ROSTER, SCENE_EVE, SCENE_DAY1, SCENE_DAY2];
 
   var BUY_IN = 10000;
   var BUY_BACK = 2000;
   var TABLES = 12;
   var SEATS_PER_TABLE = 5;
   var TOTAL_SEATS = TABLES * SEATS_PER_TABLE; // 60
+  var DAY2_TABLES = 4;
+  var DAY2_SEATS_PER_TABLE = 6;
+  var DAY2_TOTAL_SEATS = DAY2_TABLES * DAY2_SEATS_PER_TABLE; // 24
 
   var NAMED_NPCS = [
     { id: 'arandis', name: 'Arandis', flavor: 'The mark' },
@@ -80,6 +84,14 @@
     { key: 'day1_close', label: 'Day 1 Closes' }
   ];
 
+  var DAY2_BEATS = [
+    { key: 'day2_open', label: 'Day 2 Opens' },
+    { key: 'banshee_message', label: 'Message from the Banshee' },
+    { key: 'switch_reminder', label: 'Switch Day 2 Reminder' },
+    { key: 'day2_cards', label: 'Day 2 Card Play' },
+    { key: 'day2_close', label: 'Day 2 Closes' }
+  ];
+
   function esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -100,6 +112,14 @@
         cheatCatch: 'none',
         log: [],
         recapNotes: ''
+      },
+      day2: {
+        beats: { day2_open: false, banshee_message: false, switch_reminder: false, day2_cards: false, day2_close: false },
+        seating: {},
+        winnerSeatId: null,
+        crewPayout: 0,
+        switchCommit: 'pending',
+        log: []
       }
     };
   }
@@ -115,6 +135,13 @@
     if (!s.day1.beats) s.day1.beats = d.day1.beats;
     if (!s.day1.log) s.day1.log = [];
     if (typeof s.day1.recapNotes !== 'string') s.day1.recapNotes = '';
+    if (!s.day2) s.day2 = d.day2;
+    if (!s.day2.beats) s.day2.beats = d.day2.beats;
+    if (!s.day2.seating) s.day2.seating = {};
+    if (!s.day2.log) s.day2.log = [];
+    if (s.day2.winnerSeatId === undefined) s.day2.winnerSeatId = null;
+    if (s.day2.crewPayout == null) s.day2.crewPayout = 0;
+    if (!s.day2.switchCommit) s.day2.switchCommit = 'pending';
     return s;
   }
 
@@ -185,6 +212,304 @@
     state.day1.log = state.day1.log || [];
     state.day1.log.unshift({ ts: new Date().toISOString(), text: text });
     if (state.day1.log.length > 50) state.day1.log.length = 50;
+  }
+
+  function pushLog2(state, text) {
+    state.day2 = state.day2 || { log: [] };
+    state.day2.log = state.day2.log || [];
+    state.day2.log.unshift({ ts: new Date().toISOString(), text: text });
+    if (state.day2.log.length > 50) state.day2.log.length = 50;
+  }
+
+  // ── Day 2 seating seed ──────────────────────────────────────────────────
+  // Pull every non-eliminated PC and named NPC from Day 1 seating into the
+  // Day-2 final-table grid (4 tables x 6 seats = 24). Fill the rest with
+  // generic placeholder seats (G01..) so the GM can name late-bracket entrants.
+  function seedDay2Seating(state) {
+    var grid = {};
+    for (var t = 1; t <= DAY2_TABLES; t++) {
+      grid[t] = [];
+      for (var s = 0; s < DAY2_SEATS_PER_TABLE; s++) {
+        grid[t].push({ kind: 'empty', chips: 0, status: 'Healthy', note: '' });
+      }
+    }
+    var carry = [];
+    var d1 = (state && state.seating) || {};
+    for (var dt = 1; dt <= TABLES; dt++) {
+      var row = d1[dt] || [];
+      for (var ds = 0; ds < SEATS_PER_TABLE; ds++) {
+        var seat = row[ds];
+        if (!seat) continue;
+        if ((seat.kind === 'pc' || seat.kind === 'npc') && seat.status !== 'Eliminated') {
+          carry.push({
+            kind: seat.kind,
+            id: seat.id,
+            name: seat.name,
+            chips: seat.chips || 5000,
+            status: 'Healthy',
+            note: seat.note || ''
+          });
+        }
+      }
+    }
+    var i = 0;
+    outer:
+    for (var t2 = 1; t2 <= DAY2_TABLES; t2++) {
+      for (var s2 = 0; s2 < DAY2_SEATS_PER_TABLE; s2++) {
+        if (i >= carry.length) break outer;
+        grid[t2][s2] = carry[i++];
+      }
+    }
+    var gNum = 1;
+    for (var t3 = 1; t3 <= DAY2_TABLES; t3++) {
+      for (var s3 = 0; s3 < DAY2_SEATS_PER_TABLE; s3++) {
+        if (grid[t3][s3].kind !== 'empty') continue;
+        var label = 'G' + (gNum < 10 ? '0' + gNum : '' + gNum);
+        grid[t3][s3] = { kind: 'generic', id: label, name: label, chips: 0, status: 'Healthy', note: '' };
+        gNum++;
+      }
+    }
+    return grid;
+  }
+
+  function fieldRemainingDay2(state) {
+    var seating = (state && state.day2 && state.day2.seating) || {};
+    var alive = 0;
+    for (var t = 1; t <= DAY2_TABLES; t++) {
+      var row = seating[t] || [];
+      for (var s = 0; s < DAY2_SEATS_PER_TABLE; s++) {
+        var seat = row[s];
+        if (seat && seat.kind !== 'empty' && seat.status !== 'Eliminated') alive++;
+      }
+    }
+    return alive;
+  }
+
+  function _seatKey(t, s) { return t + ':' + s; }
+
+  // ────────────────────────────────────────────────────────────────────────
+  //  PANEL: DAY 2 STANDINGS  (adv3-p2-s2)
+  // ────────────────────────────────────────────────────────────────────────
+  function buildDay2Html(scene, partyCache, campaignState) {
+    var state = readState(campaignState);
+    if (!state.day2.seating || !state.day2.seating[1]) {
+      state.day2.seating = seedDay2Seating(state);
+    }
+    var alive = fieldRemainingDay2(state);
+    var html = '<div class="tt-panel" data-mode="day2">';
+
+    html += '<div class="tt-day1-header">';
+    html += '<div class="tt-field-counter">Final Field: <span class="tt-field-num">' + alive + '</span> / ' + DAY2_TOTAL_SEATS + '</div>';
+    html += '<div class="tt-beats">';
+    DAY2_BEATS.forEach(function (b) {
+      var done = !!(state.day2.beats && state.day2.beats[b.key]);
+      html += '<label class="tt-beat-chk' + (done ? ' on' : '') + '"><input type="checkbox" data-beat2="' + b.key + '" ' + (done ? 'checked' : '') + ' /> ' + esc(b.label) + '</label>';
+    });
+    html += '</div>';
+    html += '<div class="tt-day1-tools">';
+    html += '<button class="tt-btn tt-btn-sm" data-act="d2-reseed">Re-seed from Day 1</button>';
+    html += '<span class="tt-credits-mini">Crew: <strong>' + (state.crewCredits || 0).toLocaleString() + ' cr</strong></span>';
+    html += '</div>';
+    html += '</div>';
+
+    // Switch commit + Crew Payout row
+    html += '<div class="tt-day2-meta">';
+    html += '<label>Switch Day 2 Commit: <select class="tt-d2-switch">';
+    ['pending', 'in_principle', 'committed', 'declined'].forEach(function (k) {
+      var lbl = k === 'in_principle' ? 'In Principle' : (k.charAt(0).toUpperCase() + k.slice(1));
+      html += '<option value="' + k + '"' + (state.day2.switchCommit === k ? ' selected' : '') + '>' + lbl + '</option>';
+    });
+    html += '</select></label>';
+    html += '<label>Crew Payout (championship pot share): <input type="number" class="tt-d2-payout" value="' + (state.day2.crewPayout || 0) + '" step="500" min="0" /> cr</label>';
+    var winnerName = '—';
+    if (state.day2.winnerSeatId) {
+      // find seat by id
+      Object.keys(state.day2.seating || {}).forEach(function (t) {
+        (state.day2.seating[t] || []).forEach(function (seat) {
+          if (seat && seat.id === state.day2.winnerSeatId) winnerName = seat.name || seat.id;
+        });
+      });
+    }
+    html += '<span class="tt-d2-winner-label">Champion: <strong>' + esc(winnerName) + '</strong></span>';
+    html += '</div>';
+
+    html += '<div class="tt-tables-grid tt-tables-grid--day2">';
+    for (var t = 1; t <= DAY2_TABLES; t++) {
+      html += _day2TableCardHtml(t, state.day2.seating[t] || [], state.day2.winnerSeatId);
+    }
+    html += '</div>';
+
+    html += '<div class="tt-day1-footer">';
+    html += '<div class="tt-log">';
+    html += '<div class="tt-log-label">Day 2 Log</div>';
+    if (!state.day2.log || state.day2.log.length === 0) {
+      html += '<div class="tt-log-empty">No events yet.</div>';
+    } else {
+      state.day2.log.forEach(function (e) {
+        var when = (e.ts || '').slice(11, 16);
+        html += '<div class="tt-log-entry"><span class="tt-log-time">' + esc(when) + '</span> ' + esc(e.text) + '</div>';
+      });
+    }
+    html += '</div>';
+    html += '</div>';
+
+    html += _styleBlock();
+    html += '</div>';
+    return html;
+  }
+
+  function _day2TableCardHtml(tIdx, seats, winnerSeatId) {
+    var html = '<div class="tt-table-card" data-table="' + tIdx + '">';
+    html += '<div class="tt-table-head">FT' + tIdx + '</div>';
+    for (var s = 0; s < DAY2_SEATS_PER_TABLE; s++) {
+      var seat = seats[s] || { kind: 'empty', name: '—', chips: 0, status: 'Healthy', note: '' };
+      html += _day2SeatRowHtml(tIdx, s, seat, winnerSeatId);
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _day2SeatRowHtml(tIdx, sIdx, seat, winnerSeatId) {
+    var isWinner = !!(winnerSeatId && seat.id === winnerSeatId);
+    var nameClass = seat.kind === 'pc' ? 'tt-seat-name tt-seat-name--pc'
+      : seat.kind === 'npc' ? 'tt-seat-name tt-seat-name--npc'
+      : 'tt-seat-name tt-seat-name--gen';
+    if (isWinner) nameClass += ' tt-seat-name--winner';
+    var color = STATUS_COLORS[seat.status] || '#71717a';
+    var html = '<div class="tt-seat-row' + (isWinner ? ' tt-seat-row--winner' : '') + '" data-d2table="' + tIdx + '" data-d2seat="' + sIdx + '">';
+    html += '<span class="' + nameClass + '" title="' + esc(seat.note || '') + '">' + (isWinner ? '👑 ' : '') + esc(seat.name || '—') + '</span>';
+    if (seat.kind === 'pc' || seat.kind === 'npc') {
+      html += '<span class="tt-chips">';
+      html += '<button class="tt-chip-btn" data-act="d2-chip-down" data-d2table="' + tIdx + '" data-d2seat="' + sIdx + '">−</button>';
+      html += '<input type="number" class="tt-chip-input" value="' + (seat.chips || 0) + '" step="500" min="0" data-d2table="' + tIdx + '" data-d2seat="' + sIdx + '" />';
+      html += '<button class="tt-chip-btn" data-act="d2-chip-up" data-d2table="' + tIdx + '" data-d2seat="' + sIdx + '">+</button>';
+      html += '</span>';
+    } else {
+      html += '<span class="tt-chips tt-chips--gen">—</span>';
+    }
+    html += '<button class="tt-status-pill" data-act="d2-cycle-status" data-d2table="' + tIdx + '" data-d2seat="' + sIdx + '" style="background:' + color + ';" title="Click to cycle">' + esc(seat.status.charAt(0)) + '</button>';
+    if (seat.kind === 'pc' || seat.kind === 'npc') {
+      html += '<button class="tt-mini-btn" data-act="d2-mark-winner" data-d2table="' + tIdx + '" data-d2seat="' + sIdx + '" title="Mark as tournament champion">' + (isWinner ? '★' : '☆') + '</button>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function bindDay2(panel, scene, partyCache, campaignState, socket, refresh) {
+    // Persist seeded grid on first open.
+    var seedCheck = readState(campaignState);
+    if (!seedCheck.day2.seating || !seedCheck.day2.seating[1]) {
+      seedCheck.day2.seating = seedDay2Seating(seedCheck);
+      save(seedCheck, socket);
+      if (campaignState && typeof campaignState === 'object') {
+        campaignState[STATE_KEY] = seedCheck;
+      }
+    }
+
+    panel.querySelectorAll('[data-beat2]').forEach(function (chk) {
+      chk.addEventListener('change', function () {
+        var s = readState(campaignState);
+        s.day2.beats[chk.dataset.beat2] = chk.checked;
+        if (chk.checked) {
+          var lbl = chk.parentElement.textContent.trim();
+          pushLog2(s, 'Beat marked complete: ' + lbl);
+        }
+        save(s, socket);
+        if (chk.dataset.beat2 === 'day2_close' && chk.checked && socket) {
+          socket.emit('tournament:save-day2-recap', { sceneId: scene.id });
+        }
+        refresh();
+      });
+    });
+
+    panel.querySelectorAll('[data-act="d2-cycle-status"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var s = readState(campaignState);
+        var t = btn.dataset.d2table, si = btn.dataset.d2seat;
+        if (!s.day2.seating || !s.day2.seating[t] || !s.day2.seating[t][si]) return;
+        var seat = s.day2.seating[t][si];
+        var i = STATUSES.indexOf(seat.status);
+        seat.status = STATUSES[(i + 1) % STATUSES.length];
+        if (seat.status === 'Eliminated' && seat.kind !== 'generic') {
+          pushLog2(s, esc(seat.name) + ' eliminated at FT' + t + 'S' + (parseInt(si) + 1) + '.');
+        }
+        save(s, socket);
+        refresh();
+      });
+    });
+
+    panel.querySelectorAll('[data-act="d2-chip-up"], [data-act="d2-chip-down"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var s = readState(campaignState);
+        var t = btn.dataset.d2table, si = btn.dataset.d2seat;
+        if (!s.day2.seating || !s.day2.seating[t] || !s.day2.seating[t][si]) return;
+        var seat = s.day2.seating[t][si];
+        var step = btn.dataset.act === 'd2-chip-up' ? 500 : -500;
+        seat.chips = Math.max(0, (seat.chips || 0) + step);
+        save(s, socket);
+        refresh();
+      });
+    });
+    panel.querySelectorAll('.tt-chip-input[data-d2table]').forEach(function (inp) {
+      inp.addEventListener('change', function () {
+        var s = readState(campaignState);
+        var t = inp.dataset.d2table, si = inp.dataset.d2seat;
+        if (!s.day2.seating || !s.day2.seating[t] || !s.day2.seating[t][si]) return;
+        var seat = s.day2.seating[t][si];
+        seat.chips = Math.max(0, parseInt(inp.value, 10) || 0);
+        save(s, socket);
+      });
+    });
+
+    panel.querySelectorAll('[data-act="d2-mark-winner"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var s = readState(campaignState);
+        var t = btn.dataset.d2table, si = btn.dataset.d2seat;
+        if (!s.day2.seating || !s.day2.seating[t] || !s.day2.seating[t][si]) return;
+        var seat = s.day2.seating[t][si];
+        if (!seat.id) return;
+        if (s.day2.winnerSeatId === seat.id) {
+          s.day2.winnerSeatId = null;
+          pushLog2(s, 'Champion marker cleared (' + esc(seat.name) + ').');
+        } else {
+          s.day2.winnerSeatId = seat.id;
+          pushLog2(s, esc(seat.name) + ' marked as tournament champion.');
+        }
+        save(s, socket);
+        refresh();
+      });
+    });
+
+    var sw = panel.querySelector('.tt-d2-switch');
+    if (sw) {
+      sw.addEventListener('change', function () {
+        var s = readState(campaignState);
+        s.day2.switchCommit = sw.value;
+        pushLog2(s, 'Switch Day 2 commit: ' + sw.value + '.');
+        save(s, socket);
+      });
+    }
+    var payout = panel.querySelector('.tt-d2-payout');
+    if (payout) {
+      payout.addEventListener('change', function () {
+        var s = readState(campaignState);
+        s.day2.crewPayout = Math.max(0, parseInt(payout.value, 10) || 0);
+        save(s, socket);
+      });
+    }
+
+    var reseed = panel.querySelector('[data-act="d2-reseed"]');
+    if (reseed) {
+      reseed.addEventListener('click', function () {
+        if (!window.confirm('Re-seed the Day 2 final tables from Day 1 survivors? This resets Day 2 chips and statuses.')) return;
+        var s = readState(campaignState);
+        s.day2.seating = seedDay2Seating(s);
+        s.day2.winnerSeatId = null;
+        pushLog2(s, 'Day 2 final tables re-seeded from Day 1 survivors.');
+        save(s, socket);
+        refresh();
+      });
+    }
   }
 
   // ────────────────────────────────────────────────────────────────────────
@@ -843,6 +1168,13 @@
       '.tt-day1-tools{margin-left:auto;display:flex;gap:.4rem;align-items:center;}' +
       '.tt-credits-mini{font-size:.6rem;color:#888;}.tt-credits-mini strong{color:#f5d56b;}' +
       '.tt-tables-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-bottom:.6rem;}' +
+      '.tt-tables-grid--day2{grid-template-columns:repeat(2,1fr);gap:.6rem;}' +
+      '.tt-day2-meta{margin:.4rem 0;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;padding:.4rem .5rem;background:rgba(245,213,107,.06);border-left:2px solid #f5d56b;border-radius:3px;font-size:.65rem;color:#d8d8e8;}' +
+      '.tt-day2-meta select,.tt-d2-payout{background:#15151f;color:#d8d8e8;border:1px solid #2a2a3a;border-radius:3px;padding:.2rem .3rem;font-size:.7rem;}' +
+      '.tt-d2-payout{width:7rem;}' +
+      '.tt-d2-winner-label strong{color:#f5d56b;}' +
+      '.tt-seat-name--winner{color:#f5d56b !important;font-weight:700;}' +
+      '.tt-seat-row--winner{background:rgba(245,213,107,.08);}' +
       '.tt-table-card{background:rgba(0,0,0,.3);border:1px solid #2a2a3a;border-radius:4px;padding:.3rem;}' +
       '.tt-table-head{font-family:Audiowide,sans-serif;font-size:.65rem;color:#f5d56b;border-bottom:1px solid #2a2a3a;padding-bottom:.15rem;margin-bottom:.2rem;text-align:center;letter-spacing:.05rem;}' +
       '.tt-seat-row{display:flex;align-items:center;gap:.2rem;padding:.1rem 0;font-size:.6rem;border-bottom:1px dotted rgba(255,255,255,.04);}' +
@@ -910,18 +1242,23 @@
     SCENE_ROSTER: SCENE_ROSTER,
     SCENE_EVE: SCENE_EVE,
     SCENE_DAY1: SCENE_DAY1,
+    SCENE_DAY2: SCENE_DAY2,
     isTournamentScene: isTournamentScene,
     hasTileForScene: function (sceneId) { return isTournamentScene(sceneId); },
     isDay1Scene: function (sceneId) { return sceneId === SCENE_DAY1; },
+    isDay2Scene: function (sceneId) { return sceneId === SCENE_DAY2; },
     isRosterScene: function (sceneId) { return sceneId === SCENE_ROSTER || sceneId === SCENE_EVE; },
     buildRosterHtml: buildRosterHtml,
     buildDay1Html: buildDay1Html,
+    buildDay2Html: buildDay2Html,
     bindRoster: bindRoster,
     bindDay1: bindDay1,
+    bindDay2: bindDay2,
     renderPlayerStrip: renderPlayerStrip,
     filterForPlayers: filterForPlayers,
     readState: readState,
     defaultState: defaultState,
-    fieldRemaining: fieldRemaining
+    fieldRemaining: fieldRemaining,
+    fieldRemainingDay2: fieldRemainingDay2
   };
 })();
