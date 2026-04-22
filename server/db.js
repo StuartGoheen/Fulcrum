@@ -583,10 +583,83 @@ async function seedNpcProfiles() {
   }
 }
 
+async function seedOpeningJournalEntry() {
+  const SCENE_ID = 'adv1-p1-s1';
+  const AUTHOR = 'Campaign Log';
+  const TITLE = 'Page 1 — How We Got Here';
+  const BODY = [
+    "Four years since the Republic died. That's what they keep saying on the holonet — when the holonet reaches us out here, which isn't often. The Clone Wars are over. The Emperor calls it peace. Out on the Western Reaches, peace looks a lot like the same dust, the same debts, and the same people in charge of both.",
+    "",
+    "We came in on a rust-bucket passenger transport twelve hours ago. All of us. However it happened — a shared contact, a shared bar, a shared bad year — we walked off that ramp together and we've stayed together since. We eat together. We watch each other's backs. We argue about whose turn it is to pay for fuel. Close enough to a crew to call it one.",
+    "",
+    "The planet is Jakku. The town, if you're generous, is Reestkii — a scatter of prefabs squatting on the desert flats like the sand is trying to swallow it. Drifters. Smugglers. Moisture farmers with nothing left to farm. The Empire is a rumor here. Varga the Hutt is the economy: debt, protection, and the quiet understanding that Imperial patrols come through maybe twice a year and never stay.",
+    "",
+    "We're here for a job. A fixer named Cade Ryll put the word out through the spacer lanes — crew needed, short-haul, good pay, no questions. He named this cantina. He named a time. He's an hour late.",
+    "",
+    "The cantina is The Burning Deck. Low ceiling, failing glow-rods, the air thick with engine coolant and cheap whiskey. The regulars are nursing their drinks harder than they should. There's a Lambda-class shuttle parked out on the landing field that nobody can explain — two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason.",
+    "",
+    "Our drinks are warm. Our fixer hasn't shown. And nothing on Jakku is going the way it was supposed to."
+  ].join('\n');
+
+  const client = await pool.connect();
+  try {
+    const existing = await client.query(
+      `SELECT id FROM journal_entries
+        WHERE source_scene_id = $1 AND author_character_name = $2 AND title = $3`,
+      [SCENE_ID, AUTHOR, TITLE]
+    );
+    if (existing.rows.length > 0) return;
+
+    await client.query('BEGIN');
+    // Stamp at the campaign start (day 1475, hour 8) so it sorts as Page 1.
+    const entryRes = await client.query(
+      `INSERT INTO journal_entries
+         (title, body, author_character_name, source_scene_id, visibility,
+          in_universe_day_index, in_universe_hour)
+       VALUES ($1, $2, $3, $4, 'crew', 1475, 8)
+       RETURNING id`,
+      [TITLE, BODY, AUTHOR, SCENE_ID]
+    );
+    const entryId = entryRes.rows[0].id;
+
+    const tagPairs = [
+      { name: 'Jakku', category: 'location' },
+      { name: 'Reestkii', category: 'location' },
+      { name: 'The Burning Deck', category: 'location' },
+      { name: 'Varga the Hutt', category: 'npc' },
+      { name: 'Cade Ryll', category: 'npc' },
+      { name: 'Galactic Empire', category: 'lore' },
+      { name: 'Western Reaches', category: 'lore' }
+    ];
+    for (const tp of tagPairs) {
+      const tagRes = await client.query(
+        `INSERT INTO journal_tags (name, category, source_scene_id, is_custom)
+         VALUES ($1, $2, $3, false)
+         ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name
+         RETURNING id`,
+        [tp.name, tp.category, SCENE_ID]
+      );
+      await client.query(
+        `INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2)
+         ON CONFLICT DO NOTHING`,
+        [entryId, tagRes.rows[0].id]
+      );
+    }
+    await client.query('COMMIT');
+    console.log(`[db] Seeded opening journal entry: "${TITLE}"`);
+  } catch (err) {
+    try { await client.query('ROLLBACK'); } catch (_) {}
+    console.error('[db] Failed to seed opening journal entry:', err.message);
+  } finally {
+    client.release();
+  }
+}
+
 async function initialize() {
   await initSchema();
   await seedPregenCharacters();
   await seedNpcProfiles();
+  await seedOpeningJournalEntry();
 }
 
-module.exports = { pool, initialize, seedNpcProfiles };
+module.exports = { pool, initialize, seedNpcProfiles, seedOpeningJournalEntry };
