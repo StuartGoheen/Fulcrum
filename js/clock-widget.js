@@ -364,6 +364,15 @@
     s.__clockWired = true;
     s.on('clock:updated', function (payload) {
       if (payload && !payload.error) {
+        // Signature-based dedupe: drop redundant payloads that don't change
+        // anything we render (mirrors the overlay dedupe pattern). Avoids
+        // flicker / wasted re-renders under rapid duplicate broadcasts.
+        var sig = payload.dayIndex + '|' + payload.hour +
+                  '|' + (payload.holiday ? payload.holiday.id || payload.holiday.name : '') +
+                  '|' + (payload.upcomingHoliday ? (payload.upcomingHoliday.id || payload.upcomingHoliday.name) : '') +
+                  '|' + (payload.upcomingHolidayDays != null ? payload.upcomingHolidayDays : '');
+        if (s.__clockLastSig === sig) return;
+        s.__clockLastSig = sig;
         _state = payload;
         _renderGmWidget();
         _renderPlayerStrip();
