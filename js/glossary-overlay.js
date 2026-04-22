@@ -1584,8 +1584,7 @@
     if (openingLog) {
       var isOpenExpanded = _journalExpandedEntry === openingLog.id;
       html += '<div class="jnav-adv-group">';
-      html += '<div class="jnav-adv-header" data-jnav-adv-toggle="campaign-opening">';
-      html += '<span class="jnav-adv-chevron">\u25BC</span>';
+      html += '<div class="jnav-adv-header" style="cursor:default;">';
       html += '<div class="jnav-adv-info">';
       html += '<span class="jnav-adv-title">\u2605 Campaign Opening</span>';
       html += '<span class="jnav-adv-meta">Page 1 \u2014 the situation so far</span>';
