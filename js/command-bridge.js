@@ -5573,6 +5573,29 @@
     html += '<div class="jnav-content">';
 
     if (_crewNav.level === 'acts') {
+      var openingLog = null;
+      for (var oi = 0; oi < _crewJournalEntries.length; oi++) {
+        var oe = _crewJournalEntries[oi];
+        if (oe.source_scene_id === 'adv1-p1-s1' && oe.author_character_name === 'Campaign Log') {
+          openingLog = oe;
+          break;
+        }
+      }
+      if (openingLog) {
+        var openExpanded = _crewExpandedEntry === openingLog.id;
+        html += '<div class="journal-scene-log" data-cj-scene-log style="margin-bottom:0.75rem;">';
+        html += '<div class="journal-scene-log-header" data-cj-toggle="' + openingLog.id + '" style="cursor:pointer;">';
+        html += '<span class="journal-scene-log-chevron">' + (openExpanded ? '\u25BC' : '\u25B6') + '</span>';
+        html += '<span class="journal-scene-log-title">' + _escHtml(openingLog.title) + '</span>';
+        html += '<span class="journal-scene-log-date">Campaign Opening</span>';
+        html += '</div>';
+        if (openExpanded) {
+          html += '<div class="journal-scene-log-body">';
+          html += '<pre class="journal-scene-log-content">' + _escHtml(openingLog.body || '') + '</pre>';
+          html += '</div>';
+        }
+        html += '</div>';
+      }
       var actNums = [];
       _crewAdventures.forEach(function (a) {
         var n = typeof a.act === 'number' ? a.act : parseInt(String(a.act).replace(/\D/g, ''), 10) || 0;
