@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const path    = require('path');
 const fs      = require('fs');
-const { pool, seedNpcProfiles } = require('../db');
+const { pool, seedNpcProfiles, seedOpeningJournalEntry } = require('../db');
 const { resolveDecisionState, applyAdventureConditionals } = require('../utils/decision-resolver');
 const { roleFromCookie } = require('../auth');
 
@@ -2045,6 +2045,7 @@ router.post('/admin/wipe', async (req, res) => {
     if (cat.reseedNpcs) {
       await seedNpcProfiles();
     }
+    await seedOpeningJournalEntry();
     console.log('[admin] Wiped category:', category, '(' + cat.label + ')');
     res.json({ ok: true, category, label: cat.label });
   } catch (err) {
