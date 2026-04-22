@@ -427,6 +427,40 @@ The heroes' negotiation with Raden at the filtration plant determines his arc:
 
 ---
 
+### The Watcher
+**Cover Identity:** "Cade Ryll," freelance fixer | **Real Identity:** Quinlan Vos | **Species:** Kiffar (presents as human under cover) | **Role:** Hidden Path operative, GM safety net, the unseen hand on the scale
+
+**What the Players See:** Nothing, ideally. In Adventure 1 they hear the name **Cade Ryll** — the fixer who put out the call that brought the crew to The Burning Deck and then never showed. After that, the players see a stranger here and there: a patron in a cantina, a sabacc dealer at a side table, a face in a market crowd, a freighter pilot they ride a jump with and never see again. The same face — though no two players will ever agree on the description — keeps turning up. None of it ever resolves. He is never named. He is never thanked. He is never recognized.
+
+**What the GM Knows:** "Cade Ryll" is **Quinlan Vos** — Jedi Master, survivor of Order 66, deep-cover operative for the **Hidden Path**. He is the unseen architect of the entire campaign's first domino. He saw a Shatterpoint forming around Maya, the stolen Imperial Code Cylinder, and the cantina on Jakku — the precise convergence that, followed forward, ends at the Jedi navigational holocrons in the Ebon Spire and the Leviathan at Vel Shara. He could not be in that room himself; the Jakku Lambda and its garrison are two days into a tightening sweep, and any Force-sensitive in the Burning Deck that night dies on a Star Destroyer's deck within the week. So he set his **only** domino: he made sure the right scoundrel crew was sitting at that table when Maya walked in, and then he stepped back and let destiny take over.
+
+**Backstory (GM Only):** Vos walked off Kiffu the day Order 66 came down and never went back. He is **Shadow-trained** — the Jedi Order's covert wing, the people who ran the missions that did not get written into the Archives. He is a tracker. He learned to disappear into a crowd before he learned to use a lightsaber. After the Purge he pieced together the **Hidden Path** — what Jedi survivors there were, the network is now mostly Force-blind allies (smugglers, doctors, dock workers, archivists, and a small handful of older Force-sensitives in deep cover) moving Force-sensitive children and Jedi survivors out of the Empire's reach. He runs the chartwork. The Path's long-term plan requires the Jedi Order's old Unknown Regions navigational holocrons — the same ones Varth wants for Vel Shara. Vos has been hunting those holocrons for two years. He has never been able to get close to the Ebon Spire himself — every time he plots an approach the Force shows him only ash. Then he saw the Shatterpoint and understood: the holocrons would come *out* of the Spire, in the hands of people the Empire did not yet know to watch.
+
+**The gift:** Vos has always had an unusually clear read on **Shatterpoints** — the moments where a small push from the right place tips an enormous amount of weight. Most Force-users sense them as a vague pressure. Vos sees them as a single line of stress through the rock. He saw the Burning Deck line clearly enough, weeks out, to plant the breadcrumb (the call for "Cade Ryll") and walk away.
+
+**Why he is not in the room:** Two reasons. **First**, Imperial heat — the Lambda on the Reestkii landing field is two days into a sweep, the garrison is jumpy, and Vos's Kiffar facial markings are on a list. **Second** — and the one that matters more to him — **his presence at the table would shatter the Shatterpoint.** A trained Jedi sitting between Maya and the heroes flattens the moral pressure that needs to land on the heroes themselves. The whole point is that *they* choose to fight for a stranger. If he is there, they fight because the man with the lightsaber said to. So he is an hour late, on purpose, and he stays late. Maya took longer than he calculated — closer to ninety minutes — and that is the only beat he did not see coming.
+
+**How he watches from the edges (GM blocking notes):** From Adv 2 onward, Vos uses cover identities to be physically present in a different scene every adventure or two. He is the **patron at the back of Maz's common room** in Adv 3 who buys Maya a drink and does not introduce himself. He is the **sabacc dealer** at a side table during the Cloud City tournament in Adv 3 (different dealer than Lt. Arandis's — never near the main game). He is **on the docking platform** at Black Spire when the crew arrives in Adv 8, working as a mechanic on someone else's ship. He is the **Klosari guide** who points the heroes toward the Dead Forest if they get lost in Adv 4. He never speaks more than ten words. He never uses the same name twice. The players should never be sure he is the same person, but the GM is sure.
+
+**The "tell" to seed (pays off post-Adv 10):** A small, specific mannerism, planted as soon as Adv 1 — the GM should drop it into one cantina patron's behavior in the Burning Deck readaloud or improvisation, then quietly reuse it on every cameo afterward. Recommended: **a credit chip turned across the knuckles** (the Devaronian in the west alcove already does this in the existing Adv 1 read-aloud — claim that gesture for the watcher). Every later cameo features the same gesture, performed by a different "person." When the reveal lands post-Adv 10, the players should be able to look back and find the same hand on the chip in every memory.
+
+**Operating rules at the table:**
+- Never named. Never described as a Jedi, a Force-user, or a Kiffar. Markings always covered (cap, hood, environmental gear, dust).
+- Never wields a lightsaber on-camera. Never uses Force powers visibly. He may *redirect* a falling crate, *misdirect* a stormtrooper's gaze, *plant a thought* in a thug — always small, always deniable, always something the players will read as luck.
+- He never rescues the crew when they can rescue themselves. He is a **GM safety net** for campaign-killing collapses only — if the crew is about to TPK in a scene the campaign cannot survive, an unnamed stranger may tip the scale by exactly one beat (a falling chandelier, a power outage, a thug who suddenly thinks better of it). Use sparingly. Never twice in the same adventure.
+- He never warns the crew about Varth. The Path's intelligence has flagged Varth as dangerous, but Vos has decided the campaign's Shatterpoint *requires* the betrayal. The crew has to learn what Varth is by living it. This is the hardest call Vos makes.
+- He cannot be recognized by Denia. They never met in the old Order — Shadows did not socialize with Archive scholars — and Vos keeps a careful distance from her on the rare occasions they share a planet.
+
+**Where his hand is on the scale (cross-references — see per-adventure synopses for specifics):** Adv 1 (the cantina setup is his), Adv 2 (anonymous Hidden Path tip confirms Denia is in the dungeon — only matters if the crew is hesitating), Adv 3 (a "lucky" piece of Cloud City extraction routing that just happens to be clear), Adv 7 (an anonymous tip warns of Denia's imminent capture — the crew may or may not act on it in time), Adv 9 (an unseen intervention at Stronghold Xala — a security door fails open, a guard rotation drifts), Adv 10 (anonymous intel routes the pirate fleet around the Leviathan's first kill-zone, letting the crew survive Varth's opening salvo).
+
+**Arc (across the campaign — entirely GM-only):** Adv 1, sets the domino → Adv 2–9, watches and nudges → Adv 10, anonymous tip then withdraws → **Post-Adv 10:** finally walks up to the crew in person, in a quiet place, and introduces himself. The players see the credit chip turn across his knuckles. The reveal lands. He recruits the crew (or those who survived) into the Hidden Path, or asks one specific favor, or simply says thank you and leaves — GM's choice based on how the campaign ended.
+
+**What Varth knows about him:** Nothing. Varth has never heard the name Cade Ryll and has never connected the breadcrumb that led to his rescue to anything but Maya's luck and his own foresight. This is by design.
+
+**What Denia knows:** Nothing. She does not know the Hidden Path exists in this form. If she survives the campaign, the post-Adv 10 reveal is also her first contact with what is left of the survivor network.
+
+---
+
 ## Faction Tracker
 
 ### The Empire
@@ -447,6 +481,17 @@ The heroes' negotiation with Raden at the filtration plant determines his arc:
 ### The Proto-Rebellion / Resurgence
 **Goal:** Resist the Empire. Build a network of like-minded operators.
 **Interaction:** The Resurgence serves as the heroes' allied ship and base of operations through Act 2. Its destruction in Adventure 7 is a devastating blow that strips the heroes of their support infrastructure.
+
+### The Hidden Path (GM Only)
+**Goal:** Move Jedi survivors and Force-sensitive children out of the Empire's reach to the **Outer Reaches** beyond charted Imperial space — and, longer-term, to chart **stable hyperspace routes** through the Unknown Regions using the old Jedi navigational holocrons so the evacuation network does not depend on Imperial corridors that the Empire can close at will. The Path is small, scattered, and overwhelmingly Force-blind — its strength is patience, cover identities, and the absolute discipline never to fight when it can vanish instead.
+
+**What it is in this campaign:** The Path runs the same kind of underground railroad the Hidden Path canonically becomes by the late Imperial era — but in 15 BBY it is barely four years old, still mostly improvised, and does not yet know it will one day be the spine of every Jedi survival story in the next two decades. There are perhaps two dozen active operatives across the entire galaxy, and only a handful are themselves Force-sensitive. The Watcher (see Major Characters → The Watcher) is the most senior survivor running the network and the only one with the chartwork mandate — recover the Jedi Order's lost Unknown Regions navigational data, in any form.
+
+**Problem:** The same holocrons the Path needs are the ones Varth needs for Vel Shara. Both factions are converging on the Ebon Spire; the Empire has the resources to take it by force but lacks the Force-sensitive key, and the Path has the key (and the patience) but no army. The Watcher's solution is to let the heroes do the retrieval and then quietly take a copy of the navigational data on the way out — a goal he never achieves cleanly in the campaign, because Varth gets to the data first. The Path's long game (post-campaign) is to recover what data they can from whatever fragments survive the Leviathan affair.
+
+**The Watcher's place in it:** He is the Path's senior field operative for this region. He runs his own cell — small, deniable, mostly cover identities he can shed in an hour. He does not appear in any player-facing material. He does not name the Path. He does not name himself. See his Major Characters profile for full operating rules.
+
+**Interaction:** The Path never confronts the heroes directly. Its presence is felt only as nudges — an anonymous tip that arrives at exactly the right moment, an extraction route that is somehow clear, a stranger who turns out to be helpful before disappearing. The GM may use the Path as a soft safety net (see The Watcher's "GM safety net" rules) but should never let it solve a problem the heroes can solve themselves.
 
 ---
 
@@ -533,6 +578,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **How Varth gets them into play:** After paying the heroes in Adv3, he steers the conversation to "the bigger score at Vel Shara" and casually prompts Denia about how the Jedi navigated the Unknown Regions. She suggests the Ebon Spire. The heroes think they're charting a route to another payday.
 **Resolution:** Heroes retrieve the star charts, but they're incomplete — they need drift algorithms to account for stellar drift since the charts were made.
 
+**Behind the curtain (GM only):** The Watcher's true objective in the entire campaign is the **navigational data inside these holocrons** — not for Vel Shara, but for the Hidden Path's evacuation routes through the Unknown Regions. He cannot retrieve them himself (the Spire's approaches are clouded to him in the Force) and the Empire cannot retrieve them without a Force-sensitive key. Letting the heroes pull them out — with Denia, or with the Nightsister — is the only line that works. He intends to obtain a quiet copy of the data after the heroes return; in practice Varth moves faster and the Path leaves the campaign with only fragments. Recovering the rest is the Path's post-campaign work.
+
 ### 4. The Drift Algorithms (Adventure 5)
 **What they are:** Modern Imperial computational data that corrects ancient hyperspace charts for current stellar positions.
 **Where:** An Imperial research station on Malpaz.
@@ -565,6 +612,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **What the Players Know Going In:** Nothing. They're nobodies on a backwater planet, nursing drinks in a cantina.
 
 **What the GM Knows:** This is Varth's breadcrumb trail activating. The code cylinder was placed to eventually lead someone to him. Maya found it. Everything that follows is the first domino.
+
+**Behind the curtain (GM only):** The cantina meet itself is **the Watcher's only domino in the campaign** — and the only one he sets in person. Posing as the freelance fixer "Cade Ryll," he put the call out through the spacer lanes weeks ago to make sure exactly this crew was sitting at exactly this table when Maya walked in bleeding. Varth's breadcrumb is real and is moving on its own; what the Watcher arranged is the *room* it lands in. He never shows. He cannot be in that room — Imperial heat is too high and his presence would flatten the Shatterpoint he is trying to land. He watches the rest of the adventure from a distance (the credit-chip patron in the west alcove of the Burning Deck is his only physical cameo, and even then he leaves before the fight). See Major Characters → The Watcher.
 
 **Key Plot Beats:**
 - Maya crashes the heroes' table at The Burning Deck, fleeing Varga's retrieval crew after intercepting the Code Cylinder from his supply chain
@@ -628,6 +677,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **What the GM Knows:** Varth has a secondary objective the heroes don't know about. He's done research and knows Varga is holding a Jedi Master (Denia) in stasis. Varth knows Denia is a Jedi historian who would know where holocrons are hidden and is Force-sensitive enough to open them. He hasn't told the heroes about her.
 
+**Behind the curtain (GM only):** The Watcher is on Takodana for this entire adventure but stays well clear of Varga's fortress (it would burn his cover). He works the refugee encampment (P1 S2) under a different cover identity — recommended: a quiet Klosari medic checking on the Devaronian children — and slips an **anonymous Hidden Path note** into Nola Shar's medkit confirming "the prisoner in the dungeon is who you think she is" if and only if the crew has reached the encampment without yet committing to rescuing Denia. He never approaches the heroes himself. If they find Denia and listen to Varth instead, the Watcher does not intervene — he reads the choice as the Shatterpoint resolving the way it has to and lets the alternate path stand. He knows it costs Denia years.
+
 **Key Plot Beats:**
 
 **Part 1 — Blackwind Point to the Fortress Gates (5 scenes):**
@@ -682,6 +733,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **What the Players Know Going In:** Varga fled to Cloud City. The heroes need to find him and get the remaining routing data to unlock the encrypted account — their payday.
 
 **What the GM Knows:** Varth is playing both angles. Ostensibly this is about the money, but he's also watching the Leviathan supply chain (Varga's Tibanna gas siphoning operation). The slave ship *Shackles of Nizon* will become the moral test for the crew — and Maya specifically.
+
+**Behind the curtain (GM only):** The Watcher is on Cloud City throughout the tournament arc, working a side sabacc table on a different deck (never the main game). His one nudge for this adventure: when the heroes are running the gauntlet from the casino to Docking Bay 4414, an Ugnaught maintenance worker leaves a service corridor unlocked behind them and a service lift conveniently at their floor. The crew will read it as luck or as Fyren and Krygg's gratitude. It is the Watcher. He does *not* intervene with the Shackles of Nizon decision — the moment with Maya is hers and the crew's, and he reads it as another resolving Shatterpoint. He boards a different freighter out of Bespin within the hour and is on Endor before the heroes are.
 
 **Key Plot Beats:**
 - Brick Wall: Cloud City is locked down. Varga has bribed the Wing Guard. An anonymous threat from the Ugnaught Parliament warns the heroes off.
@@ -827,6 +880,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **What the GM Knows:** This is the heroes' lowest point. The Resurgence is destroyed. Denia is captured. Everything is taken from them.
 
+**Behind the curtain (GM only):** Hours before Draco's strike, an **anonymous burst-comm** reaches the Resurgence flagged with a Hidden Path cipher the crew does not recognize: *"Inquisitor inbound on Denia's signature within six hours. Move her or lose her."* This is the Watcher. He cannot stop the destruction of the Resurgence — the Empire has committed a Star Destroyer — but he gives the crew a window to evacuate Denia if they read the warning in time. Whether they act, ignore it, or never see it (it can be missed in the chaos) is theirs. He does not appear in person this adventure.
+
 **Key Plot Beats:**
 - Heroes fight to the rendezvous point on Eriadu
 - The *Resurgence* (their allied ship) is destroyed by a Star Destroyer
@@ -882,6 +937,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **What the GM Knows:** This is structurally optional. If the heroes skip it, they lose the narrative and mechanical advantages Denia would provide in the finale. If they go, it ends in sacrifice.
 
+**Behind the curtain (GM only):** The Watcher cannot enter Stronghold Xala — Draco would feel him a system away — but he can do small work at the edges. During the rescue attempt, an unseen intervention makes one specific thing **just barely possible**: a security door on the cell-block level fails open at the wrong moment for the guards, or a guard rotation drifts by ninety seconds, or a power conduit chooses now to short. Pick exactly one beat that the crew would otherwise lose on, and let them have it. They will read it as Denia's distant influence. It is the Watcher.
+
 **Key Plot Beats:**
 - Rescue mission to Draco's stronghold
 - The rescue attempt ends in sacrifice
@@ -903,6 +960,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **What the Players Know Going In:** The Leviathan has arrived at Malpaz. Varth commands it. The people who rebelled because of the heroes are about to be annihilated. The pirate fleet is the only thing between Malpaz and destruction.
 
 **What the GM Knows:** This is the finale. The heroes must undo what they built. Every choice from the entire campaign converges here.
+
+**Behind the curtain (GM only):** The Watcher's last anonymous intel of the campaign reaches the pirate fleet on the approach: a precise vector that routes the leading squadrons **around the Leviathan's first kill-zone** — the opening salvo that would otherwise gut Oga's fleet before the engagement begins. The crew survive Varth's first move because of it. The fleet command will assume it came from a defector inside the Imperial battle group; it did not. After this nudge, the Watcher withdraws completely. He does not appear in the finale, on any side. **Post-Adv 10**, in a quiet place after the dust settles, he finally walks up to whoever survived, introduces himself by his real name, turns a credit chip across his knuckles, and the campaign's longest setup pays off. Until that scene he stays exactly where he has been the whole campaign — at the edge of the frame.
 
 **Key Plot Beats:**
 - The Approach: Leading Oga Garra's pirate fleet against the Leviathan

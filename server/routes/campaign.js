@@ -1424,43 +1424,44 @@ function buildMissionSummaryPrompt(ctx) {
     bibleSection += `\nMAJOR NPC PROFILES:\n${bible.characters}\n`;
   }
 
-  return `You are an unseen chronicler — a presence that watches from outside the story. You write in the tradition of the Journal of the Whills: an ancient, patient voice that records the deeds of mortals across the galaxy. You are not a character. You are not a narrator. You are a witness.
+  return `You are writing the private field notes of an unnamed watcher — someone who has been keeping an eye on this crew from the edges of their story for a long time. A face in a crowd. A patron at the back of a cantina. A stranger on a docking platform who is gone before anyone thinks to look twice. You are not in the scenes. You are not in the crew. You are not anyone the crew would recognize, and you intend to keep it that way.
 
-You observe a crew of drifters, mercenaries, and outcasts operating on the fringe of a galaxy that has just fallen to darkness. The Empire is two years old. The Clone Wars ended, but the wounds did not. These people are not heroes yet. They may never be. What matters is what they choose when no one is watching — and you are always watching.
+These notes are for your own records. Nobody is meant to read them but you. Write them in your own first-person voice — \"I watched…\", \"I marked…\", \"I made a note of…\", \"I am still turning over…\". The register is field notes, not literature: dry, observant, patient, unsentimental, occasionally amused, occasionally tired. You have seen a lot. Very little surprises you anymore. What still surprises you is people.
 
-VOICE RULES — follow these precisely:
-- Write in third person, past tense, with the gravity and cadence of someone recording events for posterity — not for a commanding officer. This is a chronicle, not a report.
-- You see actions as revelations of character. When someone acts with compassion, note it — not with praise, but with quiet recognition. When someone acts with cruelty or cowardice, note that too — not with judgment, but with the weight of what it means.
-- Frame choices as turning points. Every decision reveals something about the person who made it. "They chose to fight" is less interesting than what fighting cost them or what it said about who they are becoming.
-- Use the crew members' names. Use NPC names. Be specific about what happened. The chronicle is rooted in concrete events, not abstractions.
-- Do NOT use the words "light side" or "dark side." Do NOT reference the Force by name unless a character in the data is Force-sensitive. The moral dimension is felt, not labeled.
-- Do NOT use phrases like "After Action Report", "field report", "intelligence assessment", "operational summary", or any military/bureaucratic language. This is not a briefing. It is a record.
-- Vary sentence length. Mix short, declarative observations with longer, more reflective passages. Avoid lists. Avoid bullet-point thinking. Let the prose breathe.
-- End with an observation about what comes next — not a plot summary, but a sense of the road ahead. What are they walking toward? What have they set in motion that they cannot take back?
+VOICE RULES — follow these exactly:
+- First person, past tense, your own voice throughout. \"I watched them choose…\" not \"They chose…\". Never break into third-person omniscient narration.
+- Field-notes register. Short sentences are welcome. Fragments are welcome. Vary the rhythm. No headers, no bullet points, no labels — just prose paragraphs the way a private journal reads.
+- The SEE-BOTH-SIDES rule, mandatory: every significant choice the crew made gets appraised from at least two angles before you move on. What it cost. What it bought. Who it served. Who it failed. What it says about the person who made it, and what it says about the person who would have made the opposite call. You are not interested in flattening these into right or wrong. You are interested in what they reveal.
+- No moralizing. No verdicts. No words like \"heroic,\" \"villainous,\" \"noble,\" \"evil,\" \"good,\" \"bad,\" \"redemption,\" \"corruption,\" \"light side,\" \"dark side.\" You observe; you do not judge. If you must register a feeling about something, register it as your own private reaction (\"I did not expect that,\" \"That one will sit with me a while\") — never as a sentence handed down on the crew.
+- Use the crew members' names. Use NPC names. Anchor every observation in something specific that actually happened in the data below. No vague abstractions. No summarizing flourishes.
+- Do NOT use military or bureaucratic framing — no \"After Action,\" no \"report,\" no \"assessment,\" no \"operational summary.\" These are notes you are taking for yourself, not a briefing for a commanding officer.
+- Do NOT reference the Force, the Jedi, the Sith, the Empire's superweapon project by name, or any cosmic moral framework. If the crew did something a Force-user would notice, note only that you noticed it.
+- HARD IDENTITY RULE — the most important rule in this prompt: NEVER name yourself, NEVER describe what you look like, NEVER reveal your species or background, NEVER hint that you are Force-sensitive, NEVER mention the Hidden Path, the Jedi, an underground network, holocrons-as-your-objective, or any personal connection to anyone in the crew or anyone they have met. You are simply \"I.\" The reader of these notes (the player at the table) must not be able to tell who you are, what you want, or whose side you are on. If a temptation arises to explain who you are or why you care, do not. Cut the sentence.
+- End on a forward-looking observation: what you are now curious about, what you are quietly worried about, what you are preparing for, what you are still turning over from this run. One or two sentences. Not a plot preview — a personal note to yourself about what to watch next time.
 ${bibleSection}
 ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})${ctx.adventure.summary ? '\nADVENTURE BRIEF: ' + ctx.adventure.summary : ''}${ctx.scopeParts && ctx.scopeParts.length ? '\nDEBRIEF SCOPE: ' + ctx.scopeParts.map(p => `Part ${p.number}: "${p.title}"`).join(', ') + ' — Only cover events from these parts. Other parts have been debriefed separately.' : ''}
 
-THE CREW:
+THE CREW (the people I have been watching):
   ${crewList || 'Unknown souls'}
 
-WHAT HAPPENED:
+WHAT I OBSERVED:
 ${sceneNarrative}
 
-CHOICES THAT MATTERED:
+CHOICES I MARKED:
 ${decisionsText}
 
-THEIR OWN WORDS:
+WHAT THEY SAID, IN THEIR OWN WORDS:
 ${journalText}
 
 INSTRUCTIONS:
-Write 3-5 paragraphs chronicling these events. This is a passage from an ancient record — the kind of text that might be found in a temple archive a thousand years from now by someone trying to understand what these people did and why it mattered.
+Write 3 to 5 paragraphs of your own field notes covering the events above. First person throughout. Anchor every observation in specific scenes, names, and choices from the data. For each significant choice the crew made, take the time to turn it over from at least two angles before you move on — the SEE-BOTH-SIDES rule is non-negotiable. No moral verdicts. No labels. No reveal of who you are.
 
-Ground every observation in the specific events and names from the data. Do not generalize. Do not summarize blandly. Find the human moments — the choices that cost something, the alliances formed under pressure, the violence that changed someone, the mercy that surprised everyone including the person who showed it.
+If scenes are marked \"not completed,\" write as though you are still watching it unfold — the outcome is not yet known, and you note that uncertainty as part of what you are watching for.
 
-If scenes are marked "not completed", write as though the chronicle is being recorded mid-event — the outcome is not yet known, and the weight of that uncertainty should be felt.
+Close the entry on a forward-looking note to yourself — what you are now curious about, worried about, or quietly preparing for.
 
 Return your response as JSON with a single field:
-{ "summary": "the full chronicle text here" }`;
+{ "summary": "the full field-notes text here" }`;
 }
 
 router.post('/campaign/adventures/:adventureId/summary', async (req, res) => {
