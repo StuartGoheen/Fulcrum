@@ -419,7 +419,7 @@
     var backBtn = win.querySelector('#conv-p-back-btn');
     if (backBtn) backBtn.addEventListener('click', function () {
       state.viewingFollowUps = null;
-      renderPlayerModal();
+      renderAll();
     });
 
     enableDrag(win, header);
@@ -550,7 +550,7 @@
     btn.addEventListener('click', function () {
       state.hidden = false;
       btn.remove();
-      renderPlayerModal();
+      renderAll();
     });
     document.body.appendChild(btn);
   }
@@ -863,8 +863,41 @@
   }
 
   // ====== Top-level render ======
+  // Signature of the last rendered active state, used to suppress redundant
+  // re-renders (e.g. when a socket broadcast echoes the state we just applied
+  // from our own POST response — that double-render caused the overlay to
+  // briefly close and re-render off-center on selection).
+  var lastRenderedSig = null;
+  var lastRenderedHidden = null;
+  function activeSig(a) {
+    if (!a) return '';
+    try {
+      var st = a.state || {};
+      return JSON.stringify({
+        id: a.id || a.conversationId || (a.definition && a.definition.id) || null,
+        b: a.beat,
+        s: a.status,
+        c: a.comfort,
+        q: st.queue || [],
+        l: st.log || [],
+        at: st.actedThisBeat || [],
+        u: st.unlocked || [],
+        v: a.viewingFollowUps || null
+      });
+    } catch (e) { return String(Math.random()); }
+  }
+
   function renderAll() {
     if (!state.active) return;
+    var sig = activeSig(state.active) + '|hidden=' + (state.hidden ? '1' : '0') +
+              '|view=' + (state.viewingFollowUps || '');
+    if (sig === lastRenderedSig && state.overlay && document.body.contains(state.overlay)) {
+      // Nothing meaningful changed since the last render; skip the teardown/rebuild
+      // to avoid the visible flicker on selection.
+      return;
+    }
+    lastRenderedSig = sig;
+    lastRenderedHidden = state.hidden;
     if (isGm()) {
       injectGmStyles();
       if (!state.overlay || !state.overlay.classList.contains('conv-gm-window')) {
