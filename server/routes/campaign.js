@@ -1722,6 +1722,68 @@ router.get('/campaign/holonet/history', async (req, res) => {
   }
 });
 
+const HOLONET_AUTO_CLIP_TYPES = ['consequence', 'foreshadow'];
+
+function _isAutoClipStory(story) {
+  return !!(story && HOLONET_AUTO_CLIP_TYPES.indexOf(story.type) !== -1);
+}
+
+function _buildHolonetClipBody(story) {
+  let body = '**' + story.source + '**';
+  const meta = [];
+  if (story.channel) meta.push('Channel: ' + story.channel);
+  if (story.airDate) meta.push('Aired: ' + story.airDate);
+  if (meta.length) body += '\n' + meta.join(' · ');
+  body += '\n\n' + story.body;
+  return body;
+}
+
+async function _autoClipHolonetStories(stories) {
+  const eligible = stories.filter(_isAutoClipStory);
+  if (eligible.length === 0) return { autoClippedIds: [], entriesCreated: 0 };
+
+  const playersResult = await pool.query(
+    "SELECT name FROM characters WHERE session_id IS NOT NULL AND name IS NOT NULL"
+  );
+  const players = playersResult.rows.map(r => r.name).filter(Boolean);
+  if (players.length === 0) {
+    return { autoClippedIds: eligible.map(s => s.id), entriesCreated: 0 };
+  }
+
+  let entriesCreated = 0;
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    for (const story of eligible) {
+      const title = 'HoloNet: ' + story.headline;
+      const body = _buildHolonetClipBody(story);
+      for (const playerName of players) {
+        const dup = await client.query(
+          `SELECT id FROM journal_entries
+            WHERE source_scene_id = 'holonet'
+              AND author_character_name = $1
+              AND title = $2`,
+          [playerName, title]
+        );
+        if (dup.rows.length) continue;
+        await client.query(
+          `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+           VALUES ($1, $2, $3, 'holonet')`,
+          [title, body, playerName]
+        );
+        entriesCreated++;
+      }
+    }
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+  return { autoClippedIds: eligible.map(s => s.id), entriesCreated };
+}
+
 router.post('/campaign/holonet/broadcast', async (req, res) => {
   try {
     const { storyIds } = req.body;
@@ -1741,15 +1803,31 @@ router.post('/campaign/holonet/broadcast', async (req, res) => {
       'INSERT INTO holonet_broadcasts (feed_id, story_ids, broadcast_by) VALUES ($1, $2, $3)',
       ['manual', JSON.stringify(storyIds), 'gm']
     );
+
+    let autoClippedIds = [];
+    let entriesCreated = 0;
+    try {
+      const clipResult = await _autoClipHolonetStories(stories);
+      autoClippedIds = clipResult.autoClippedIds;
+      entriesCreated = clipResult.entriesCreated;
+    } catch (clipErr) {
+      console.error('[holonet] Auto-clip failed (non-fatal):', clipErr);
+    }
+
+    const broadcastAt = new Date().toISOString();
     const io = req.app.get('io');
     if (io) {
       io.to('players').emit('holonet:incoming', {
         stories,
-        broadcastAt: new Date().toISOString()
+        broadcastAt,
+        autoClippedIds
       });
+      if (entriesCreated > 0) {
+        io.emit('journal:updated', { source: 'holonet', autoClippedIds });
+      }
       _emitHolonetQueueUpdated(io);
     }
-    res.json({ ok: true, stories });
+    res.json({ ok: true, stories, autoClippedIds, autoClippedEntries: entriesCreated });
   } catch (err) {
     console.error('[holonet] Broadcast error:', err);
     res.status(500).json({ error: 'Failed to broadcast' });

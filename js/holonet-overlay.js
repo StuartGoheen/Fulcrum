@@ -5,6 +5,12 @@
   var _overlay = null;
   var _stories = [];
   var _broadcastAt = null;
+  var _autoClippedIds = [];
+
+  function _isAutoClipped(story) {
+    if (!story || !story.id) return false;
+    return _autoClippedIds.indexOf(story.id) !== -1;
+  }
 
   function _esc(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -46,7 +52,11 @@
       h += '<div class="holonet-story-headline">' + _esc(story.headline) + '</div>';
       h += '<div class="holonet-story-source">' + _esc(story.source) + '</div>';
       h += '<div class="holonet-story-body">' + _esc(story.body) + '</div>';
-      h += '<button class="holonet-clip-btn" data-clip-index="' + idx + '">&#128203; CLIP TO JOURNAL</button>';
+      if (_isAutoClipped(story)) {
+        h += '<div class="holonet-auto-clipped" title="Saved to every player\u2019s journal automatically">&#10003; AUTO-CLIPPED TO JOURNAL</div>';
+      } else {
+        h += '<button class="holonet-clip-btn" data-clip-index="' + idx + '">&#128203; CLIP TO JOURNAL</button>';
+      }
       h += '</div>';
       if (idx < stories.length - 1) {
         h += '<div class="holonet-divider">&#9679; &#9679; &#9679;</div>';
@@ -95,9 +105,10 @@
       });
   }
 
-  function _show(stories, broadcastAt) {
+  function _show(stories, broadcastAt, autoClippedIds) {
     _stories = stories;
     _broadcastAt = broadcastAt;
+    _autoClippedIds = Array.isArray(autoClippedIds) ? autoClippedIds.slice() : [];
     _mount = document.getElementById('holonet-overlay-mount');
     if (!_mount) return;
 
@@ -146,7 +157,7 @@
 
       sock.on('holonet:incoming', function (data) {
         if (data && data.stories && data.stories.length > 0) {
-          _show(data.stories, data.broadcastAt);
+          _show(data.stories, data.broadcastAt, data.autoClippedIds);
         }
       });
     }
