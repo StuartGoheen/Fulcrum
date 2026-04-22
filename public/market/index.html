@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/output.css" />
   <link rel="stylesheet" href="/css/market.css" />
 </head>
-<body class="font-body" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
+<body class="font-body">
 <div class="starfield" aria-hidden="true"></div>
 
 <div id="char-gate" class="char-gate">
@@ -30,7 +30,7 @@
   <header class="mkt-header">
     <div class="mkt-header-left">
       <p class="mkt-header-brand">Edge of the Empire</p>
-      <h1 id="store-title" class="mkt-header-title" style="color:#CC2222;">The Black Market</h1>
+      <h1 id="store-title" class="mkt-header-title">The Black Market</h1>
     </div>
     <div class="store-toggle">
       <button id="btn-black" class="store-btn active-black">Black Market</button>
@@ -91,7 +91,7 @@
 
       <div id="loan-offer" class="loan-offer" style="display:none;"></div>
 
-      <p id="deal-panel-title" class="deal-label" style="color:#CC2222;">The Art of the Deal</p>
+      <p id="deal-panel-title" class="deal-label">The Art of the Deal</p>
 
       <div id="deal-preview" class="deal-preview-bar">
         <div class="deal-preview-info">
@@ -120,13 +120,13 @@
         <div class="dice-cell">
           <p class="deal-label">Story %</p>
           <input id="mod-in" class="dice-input" type="number" placeholder="0" />
-          <div class="dice-outcome" style="color:var(--color-text-secondary);">modifier</div>
+          <div class="dice-outcome dice-outcome--modifier">modifier</div>
         </div>
       </div>
 
       <div class="pkg-section">
         <div class="pkg-header">
-          <span class="deal-label" style="color:var(--color-accent-deep);">The Package</span>
+          <span class="deal-label deal-label--package">The Package</span>
           <button id="pkg-clear" class="pkg-clear-btn" title="Clear all">Clear</button>
         </div>
 
@@ -185,7 +185,7 @@
 <div id="sv-overlay" class="sv-overlay">
   <div class="sv-header">
     <span class="sv-title">Source DB</span>
-    <div style="display:flex;gap:0.3rem;flex-shrink:0;">
+    <div class="sv-header-tabs">
       <button class="sv-tab active" data-ds="equipment">Equipment</button>
       <button class="sv-tab" data-ds="weapons">Weapons</button>
     </div>

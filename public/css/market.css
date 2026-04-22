@@ -487,6 +487,13 @@ html, body { height: 100%; overflow: hidden; }
   color: var(--color-text-secondary);
 }
 
+/* Static color overrides previously applied inline */
+#store-title,
+#deal-panel-title { color: #CC2222; }
+.deal-label--package { color: var(--color-accent-deep); }
+.dice-outcome--modifier { color: var(--color-text-secondary); }
+.sv-header-tabs { display: flex; gap: 0.3rem; flex-shrink: 0; }
+
 .deal-preview-bar {
   display: flex;
   align-items: center;

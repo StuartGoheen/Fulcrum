@@ -14,6 +14,8 @@
 
   body {
     min-height: 100vh;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -9177,6 +9179,7 @@
       text-align: right;
       min-height: 1em;
     }
+    .sum-save-status--error { color: #ef4444; }
 
     .sum-save-btn {
       padding: 0.45rem 1rem;

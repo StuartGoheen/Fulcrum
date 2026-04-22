@@ -1966,10 +1966,10 @@
           }
           setTimeout(function () { closeFloatingPanel('escalation-' + encIdx); }, 400);
         }).catch(function (err) {
-          if (status) { status.style.color = '#ef4444'; status.textContent = 'Save failed: ' + err.message; }
+          if (status) { status.classList.add('cb-status-error'); status.textContent = 'Save failed: ' + err.message; }
         });
         }).catch(function (err) {
-          if (status) { status.style.color = '#ef4444'; status.textContent = 'Spawn resolution failed: ' + err.message; }
+          if (status) { status.classList.add('cb-status-error'); status.textContent = 'Spawn resolution failed: ' + err.message; }
         });
       });
     }

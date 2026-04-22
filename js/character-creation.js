@@ -3805,7 +3805,7 @@
       var saveName = state.charName && state.charName.trim() ? state.charName.trim() : null;
       if (!saveName) {
         var statusEl = document.getElementById('sum-save-status');
-        if (statusEl) { statusEl.textContent = 'Please set a character name on the Your Story screen first.'; statusEl.style.color = '#ef4444'; }
+        if (statusEl) { statusEl.textContent = 'Please set a character name on the Your Story screen first.'; statusEl.classList.add('sum-save-status--error'); }
         return;
       }
 
@@ -3887,14 +3887,14 @@
               }));
               window.location.href = '/player/';
             })
-            .catch(function(e) { if (statusEl) { statusEl.textContent = 'Redirect failed: ' + e.message; statusEl.style.color = '#ef4444'; } if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Launch Character Sheet'; } });
+            .catch(function(e) { if (statusEl) { statusEl.textContent = 'Redirect failed: ' + e.message; statusEl.classList.add('sum-save-status--error'); } if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Launch Character Sheet'; } });
           }, 1200);
         } else {
           throw new Error(data.error || 'Save failed');
         }
       })
       .catch(function (err) {
-        if (statusEl) { statusEl.textContent = 'Save failed: ' + err.message; statusEl.style.color = '#ef4444'; }
+        if (statusEl) { statusEl.textContent = 'Save failed: ' + err.message; statusEl.classList.add('sum-save-status--error'); }
         if (saveBtn)  { saveBtn.disabled = false; }
       });
     }

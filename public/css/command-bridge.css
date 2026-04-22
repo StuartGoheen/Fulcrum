@@ -7185,6 +7185,7 @@
 .cb-col-title--mb-half {
   margin-bottom: 0.5rem;
 }
+.cb-status-error { color: #ef4444; }
 .cb-open-journal-btn {
   background: transparent;
   border: 1px solid rgba(200, 164, 78, 0.4);

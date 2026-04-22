@@ -909,7 +909,7 @@
     menu.appendChild(viewBtn);
 
     var sep0 = document.createElement('div');
-    sep0.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
+    sep0.className = 'tm-ctx-sep';
     menu.appendChild(sep0);
 
     var editLabel = document.createElement('button');
@@ -972,12 +972,12 @@
     menu.appendChild(toggleVis);
 
     var sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
+    sep.className = 'tm-ctx-sep';
     menu.appendChild(sep);
 
     var delBtn = document.createElement('button');
     delBtn.className = 'tm-ctx-item';
-    delBtn.style.color = '#ef4444';
+    delBtn.classList.add('tm-ctx-item--danger');
     delBtn.textContent = '\u2716 Delete Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
@@ -1035,12 +1035,12 @@
     });
 
     var sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
+    sep.className = 'tm-ctx-sep';
     menu.appendChild(sep);
 
     var delBtn = document.createElement('button');
     delBtn.className = 'tm-ctx-item';
-    delBtn.style.color = '#ef4444';
+    delBtn.classList.add('tm-ctx-item--danger');
     delBtn.textContent = '\u2716 Remove Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
@@ -1102,12 +1102,12 @@
     });
 
     var sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
+    sep.className = 'tm-ctx-sep';
     menu.appendChild(sep);
 
     var delBtn = document.createElement('button');
     delBtn.className = 'tm-ctx-item';
-    delBtn.style.color = '#ef4444';
+    delBtn.classList.add('tm-ctx-item--danger');
     delBtn.textContent = '\u2716 Remove Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
