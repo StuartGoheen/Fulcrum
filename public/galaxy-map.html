@@ -15,20 +15,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="/js/galaxy-map.js" defer></script>
-  <script defer>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (window.GalaxyMap) {
-        window.GalaxyMap.open();
-        var closeBtn = document.getElementById('gm-close-map');
-        if (closeBtn) {
-          closeBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            window.location.href = '/';
-          }, true);
-        }
-      }
-    });
-  </script>
+  <script src="/js/galaxy-map-page.js" defer></script>
 </body>
 </html>
