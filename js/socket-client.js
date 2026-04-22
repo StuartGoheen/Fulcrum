@@ -256,6 +256,16 @@
       _renderPlayerCombatTokens(data);
     });
 
+    // Lightweight patch event sent when a single token moves, so we don't
+    // re-broadcast the whole combat state on every drag. We merge the new
+    // position into the cached state and re-render only the token layer.
+    socket.on('combat:token-position-patch', function (data) {
+      if (!data || !data.tokenId || !data.position) return;
+      if (!_pendingPlayerCombatState || !_pendingPlayerCombatState.tokenPositions) return;
+      _pendingPlayerCombatState.tokenPositions[data.tokenId] = data.position;
+      _renderPlayerCombatTokens(_pendingPlayerCombatState);
+    });
+
     socket.on('combat:ended', () => {
       var modal = document.getElementById('join-battle-modal');
       if (modal) modal.remove();

@@ -23,6 +23,7 @@ const npcProfileRoutes        = require('./routes/npc-profiles');
 const galaxyPinRoutes         = require('./routes/galaxy-pins');
 const crawlRoutes             = require('./routes/crawls');
 const fs = require('fs');
+const fsp = require('fs/promises');
 const socketHandlers  = require('./sockets/handlers');
 const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
 
@@ -116,17 +117,21 @@ app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market
 
 const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant', 'gladiator-pit', 'aviary', 'knife-in-the-dark', 'command-center', 'dungeons', 'throne-room', 'throne-room-court', 'varga-fortress', 'hutts-hangar'];
 
-app.post('/api/maps/save', (req, res) => {
+app.post('/api/maps/save', async (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
   const { mapKey, hitboxes, gridConfig } = req.body;
   if (!mapKey || !ALLOWED_MAPS.includes(mapKey)) return res.status(400).json({ error: 'Invalid map key.' });
   if (!Array.isArray(hitboxes) || hitboxes.length === 0) return res.status(400).json({ error: 'No hitbox data.' });
 
   const filePath = path.join(ROOT, 'public', 'maps', mapKey + '.html');
-  if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Map file not found.' });
 
   let html;
-  try { html = fs.readFileSync(filePath, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to read map file.' }); }
+  try {
+    html = await fsp.readFile(filePath, 'utf8');
+  } catch (e) {
+    if (e && e.code === 'ENOENT') return res.status(404).json({ error: 'Map file not found.' });
+    return res.status(500).json({ error: 'Failed to read map file.' });
+  }
 
   const svgOpen  = html.indexOf('<svg');
   const svgClose = html.indexOf('</svg>');
@@ -166,7 +171,11 @@ app.post('/api/maps/save', (req, res) => {
   const after  = html.substring(svgClose);
   const newHTML = before + svgTag + '\n' + newSVGContent + '  ' + after;
 
-  try { fs.writeFileSync(filePath, newHTML, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to write map file.' }); }
+  try {
+    await fsp.writeFile(filePath, newHTML, 'utf8');
+  } catch (e) {
+    return res.status(500).json({ error: 'Failed to write map file.' });
+  }
 
   res.json({ ok: true, count: hitboxes.length });
 });
@@ -191,7 +200,7 @@ const MAPS_META = {
   'hutts-hangar':     { img: 'hutts-hangar.png',               vw: 1024, vh: 895,  title: "Hutt's Hangar — Docking Bay 4414" }
 };
 
-app.get('/api/maps/:key/meta', (req, res) => {
+app.get('/api/maps/:key/meta', async (req, res) => {
   const mapKey = req.params.key;
   if (!ALLOWED_MAPS.includes(mapKey)) return res.status(400).json({ error: 'Invalid map key.' });
 
@@ -199,10 +208,14 @@ app.get('/api/maps/:key/meta', (req, res) => {
   if (!meta) return res.status(404).json({ error: 'Unknown map.' });
 
   const filePath = path.join(ROOT, 'public', 'maps', mapKey + '.html');
-  if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Map file not found.' });
 
   let html;
-  try { html = fs.readFileSync(filePath, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to read map file.' }); }
+  try {
+    html = await fsp.readFile(filePath, 'utf8');
+  } catch (e) {
+    if (e && e.code === 'ENOENT') return res.status(404).json({ error: 'Map file not found.' });
+    return res.status(500).json({ error: 'Failed to read map file.' });
+  }
 
   const gridConfig = { gridOn: false, gridSize: 40, gridOffX: 0, gridOffY: 0, gridOpacity: 40, gridColor: 'white', gridLineWidth: 1 };
   const svgMatch = html.match(/<svg[^>]*>/);

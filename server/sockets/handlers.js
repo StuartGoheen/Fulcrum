@@ -1,7 +1,42 @@
 const { pool } = require('../db');
 const crypto = require('crypto');
 const fs = require('fs');
+const fsp = require('fs/promises');
 const path = require('path');
+
+// Ship-combat reference data is static — load each JSON file once on first
+// `shipcombat:enter` and cache the parsed objects in memory. Subsequent
+// rounds reuse the cache, keeping the socket handler off synchronous disk
+// I/O (which would otherwise stall the entire event loop for every player).
+let _shipCombatRefData = null;
+let _shipCombatRefDataPromise = null;
+function loadShipCombatRefData() {
+  if (_shipCombatRefData) return Promise.resolve(_shipCombatRefData);
+  // Memoize the in-flight load promise so concurrent callers share one disk
+  // read instead of racing past the cache check and each doing their own.
+  if (_shipCombatRefDataPromise) return _shipCombatRefDataPromise;
+  const dataDir = path.join(__dirname, '..', '..', 'data');
+  const files = [
+    'default-ship.json',
+    'starship-stations.json',
+    'starship-weapons.json',
+    'starship-hardware.json',
+    'chassis.json',
+    'starship-modifications.json'
+  ];
+  _shipCombatRefDataPromise = Promise.all(
+    files.map(f => fsp.readFile(path.join(dataDir, f), 'utf8'))
+  ).then(contents => {
+    const [shipData, stationsData, weaponsData, hardwareData, chassisData, modificationsData] = contents.map(JSON.parse);
+    _shipCombatRefData = { shipData, stationsData, weaponsData, hardwareData, chassisData, modificationsData };
+    return _shipCombatRefData;
+  }).catch(err => {
+    // Clear the failed promise so a retry can attempt the load again.
+    _shipCombatRefDataPromise = null;
+    throw err;
+  });
+  return _shipCombatRefDataPromise;
+}
 
 let _shipCombatState = null;
 let _combatState = null;
@@ -78,6 +113,10 @@ async function getCharDestinyTokens(charId) {
       if (parsed.destiny) destiny = parsed.destiny;
     } catch (_) {}
   }
+  return _destinyToTokens(destiny);
+}
+
+function _destinyToTokens(destiny) {
   if (destiny === 'Two Light') return [{ side: 'hope', tapped: false }, { side: 'hope', tapped: false }];
   if (destiny === 'Two Dark') return [{ side: 'toll', tapped: false }, { side: 'toll', tapped: false }];
   return [{ side: 'hope', tapped: false }, { side: 'toll', tapped: false }];
@@ -93,9 +132,26 @@ async function rebuildPool(io) {
   });
 
   const destinyPool = [];
-  for (const charId of uniqueCharacters) {
-    const tokens = await getCharDestinyTokens(charId);
-    destinyPool.push(...tokens);
+  if (uniqueCharacters.size > 0) {
+    // Single batched query instead of one round-trip per character (was N+1).
+    const charIds = Array.from(uniqueCharacters);
+    const result = await pool.query(
+      'SELECT id, character_data FROM characters WHERE id = ANY($1::int[])',
+      [charIds]
+    );
+    const destinyByCharId = new Map();
+    for (const row of result.rows) {
+      let destiny = 'Light & Dark';
+      try {
+        const parsed = row.character_data ? JSON.parse(row.character_data) : null;
+        if (parsed && parsed.destiny) destiny = parsed.destiny;
+      } catch (_) {}
+      destinyByCharId.set(String(row.id), destiny);
+    }
+    for (const charId of charIds) {
+      const destiny = destinyByCharId.get(String(charId)) || 'Light & Dark';
+      destinyPool.push(..._destinyToTokens(destiny));
+    }
   }
 
   await saveDestinyPool(destinyPool);
@@ -1024,21 +1080,15 @@ function registerHandlers(io) {
       io.emit('inventory:added', { charId: String(charId), itemId, itemType });
     });
 
-    socket.on('shipcombat:enter', () => {
+    socket.on('shipcombat:enter', async () => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can start ship combat.' });
         return;
       }
       try {
-        const dataDir = path.join(__dirname, '..', '..', 'data');
-        const shipData = JSON.parse(fs.readFileSync(path.join(dataDir, 'default-ship.json'), 'utf8'));
-        const stationsData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-stations.json'), 'utf8'));
-        const weaponsData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-weapons.json'), 'utf8'));
-        const hardwareData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-hardware.json'), 'utf8'));
-        const chassisData = JSON.parse(fs.readFileSync(path.join(dataDir, 'chassis.json'), 'utf8'));
-        const modificationsData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-modifications.json'), 'utf8'));
-        const state = startShipCombat(shipData, stationsData, weaponsData, hardwareData, chassisData);
-        state.modifications = modificationsData;
+        const ref = await loadShipCombatRefData();
+        const state = startShipCombat(ref.shipData, ref.stationsData, ref.weaponsData, ref.hardwareData, ref.chassisData);
+        state.modifications = ref.modificationsData;
         io.emit('shipcombat:sync', {
           active: true,
           ship: state.ship,
@@ -1264,8 +1314,14 @@ function registerHandlers(io) {
       if (sanitized.x < 0 || sanitized.y < 0) return;
       if (!_combatState.tokenPositions) _combatState.tokenPositions = {};
       _combatState.tokenPositions[data.tokenId] = sanitized;
-      const playerState = _getPlayerCombatState();
-      io.to('players').emit('combat:state-update', playerState);
+      // Token drags fire frequently. Send a small position patch instead of
+      // the full combat state so we don't push ~KBs of unchanged data to every
+      // player on every drop. The canonical full state still flows through
+      // `combat:state-update` on turn changes / round advances / GM edits.
+      io.to('players').emit('combat:token-position-patch', {
+        tokenId: data.tokenId,
+        position: sanitized
+      });
       io.to('gm').emit('combat:player-token-moved', {
         tokenId: data.tokenId,
         position: sanitized,
