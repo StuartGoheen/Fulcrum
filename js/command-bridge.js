@@ -2663,6 +2663,7 @@
             setSceneNpcs(npcs);
             persistSceneNpc(idx, npc);
             _refreshNpcPanel();
+            renderScene();
           });
         }
       });
@@ -2968,6 +2969,36 @@
     });
   }
 
+  function _npcOnStageForBeat(npc, beat) {
+    if (!npc || !beat) return false;
+    var name = String(npc.name || '').trim();
+    var type = String(npc.type || '').trim();
+    if (!name && !type) return false;
+    var hay = '';
+    if (beat.readAloud) hay += ' ' + beat.readAloud;
+    if (beat.tactics) hay += ' ' + beat.tactics;
+    if (beat.gmNotes) hay += ' ' + beat.gmNotes;
+    if (beat.description) hay += ' ' + beat.description;
+    if (beat.trigger) hay += ' ' + beat.trigger;
+    if (beat.composition && Array.isArray(beat.composition.enemies)) {
+      beat.composition.enemies.forEach(function (e) { hay += ' ' + (e.type || '') + ' ' + (e.role || ''); });
+    }
+    hay = hay.toLowerCase();
+    if (name && hay.indexOf(name.toLowerCase()) !== -1) return true;
+    if (name) {
+      var first = name.split(/\s+/)[0].toLowerCase();
+      if (first.length >= 3 && hay.indexOf(first) !== -1) return true;
+    }
+    if (type) {
+      var typeWords = type.split(/\s+/);
+      for (var i = 0; i < typeWords.length; i++) {
+        var w = typeWords[i].toLowerCase();
+        if (w.length >= 4 && hay.indexOf(w) !== -1) return true;
+      }
+    }
+    return false;
+  }
+
   function _detectHookTokens(text) {
     var s = String(text || '');
     var re = /\[(conversation|map|encounter):([^\]]+)\]/g;
@@ -3120,15 +3151,33 @@
       html += '</div>';
     }
 
-    // Body: spotlight + side rail
+    // Body: spotlight + side rail (full expandable NPC cards, on-stage NPCs sorted/auto-expanded/badged)
     html += '<div class="cb-rs-body">';
     html += '<div class="cb-rs-main">' + _renderRunSceneSpotlight(scene, beatIdx) + '</div>';
     if (sceneNpcs.length) {
-      html += '<div class="cb-rs-side"><div class="cb-rs-side-label">Scene NPCs</div>';
-      sceneNpcs.forEach(function (n) {
-        html += '<div class="cb-rs-side-npc"><strong>' + esc(n.name || n.type || 'NPC') + '</strong>';
-        if (n.type && n.type !== n.name) html += '<div class="cb-rs-side-sub">' + esc(n.type) + '</div>';
-        if (n.count && n.count > 1) html += '<div class="cb-rs-side-sub">&times;' + n.count + '</div>';
+      var activeBeat = encs[beatIdx] || null;
+      var npcLabels = buildNpcLabels(sceneNpcs);
+      var npcOrder = sceneNpcs.map(function (n, i) {
+        return { npc: n, idx: i, label: npcLabels[i], onStage: _npcOnStageForBeat(n, activeBeat) };
+      });
+      npcOrder.sort(function (a, b) {
+        if (a.onStage !== b.onStage) return a.onStage ? -1 : 1;
+        return a.idx - b.idx;
+      });
+      var onStageCount = npcOrder.filter(function (e) { return e.onStage; }).length;
+      var sideLabel = activeBeat
+        ? (onStageCount ? 'On Stage &mdash; Beat ' + (beatIdx + 1) : 'Scene NPCs')
+        : 'Scene NPCs';
+      html += '<div class="cb-rs-side cb-rs-side--cards"><div class="cb-rs-side-label">' + sideLabel + '</div>';
+      npcOrder.forEach(function (entry) {
+        // Auto-expand on-stage NPCs unless GM has explicitly toggled this card
+        var expandKey = currentScene + ':' + entry.idx + ':' + (entry.npc.name || '');
+        if (entry.onStage && _npcExpandState[expandKey] === undefined) {
+          _npcExpandState[expandKey] = true;
+        }
+        html += '<div class="cb-rs-side-npc-wrap' + (entry.onStage ? ' cb-rs-onstage' : '') + '">';
+        if (entry.onStage) html += '<span class="cb-rs-onstage-badge">On Stage</span>';
+        html += renderNpcCard(entry.npc, entry.idx, entry.label);
         html += '</div>';
       });
       html += '</div>';
@@ -3206,6 +3255,9 @@
         if (!isNaN(encIdx)) _openEscalationEditor(scene, encIdx);
       });
     });
+    // Bind NPC card events (toggle expand, edit, remove, loot assign) so GMs can read
+    // social profile, stats, dialogue, etc. without leaving Run Scene mode.
+    if (typeof _bindNpcPanelEvents === 'function') _bindNpcPanelEvents(container);
     // Bind hook click handlers (conversation, encounter, map) — generic binders below also catch these.
   }
 

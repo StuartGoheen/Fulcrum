@@ -6878,8 +6878,8 @@
   white-space: nowrap;
 }
 
-.cb-rs-body { display: grid; grid-template-columns: 1fr 220px; gap: 0.85rem; }
-@media (max-width: 900px) { .cb-rs-body { grid-template-columns: 1fr; } }
+.cb-rs-body { display: grid; grid-template-columns: 1fr 360px; gap: 0.85rem; align-items: start; }
+@media (max-width: 1100px) { .cb-rs-body { grid-template-columns: 1fr; } }
 .cb-rs-main { min-width: 0; }
 .cb-rs-side {
   background: rgba(20, 18, 16, 0.55);
@@ -6901,6 +6901,34 @@
 .cb-rs-side-npc { padding: 0.35rem 0; border-bottom: 1px solid rgba(122, 112, 104, 0.18); }
 .cb-rs-side-npc:last-child { border-bottom: none; }
 .cb-rs-side-sub { font-size: 0.7rem; color: #7a7068; }
+
+/* Run Scene side rail — full expandable NPC cards */
+.cb-rs-side--cards { padding: 0.6rem 0.55rem; }
+.cb-rs-side-npc-wrap {
+  position: relative;
+  margin-bottom: 0.55rem;
+}
+.cb-rs-side-npc-wrap:last-child { margin-bottom: 0; }
+.cb-rs-side-npc-wrap .cb-npc-card { margin: 0; }
+.cb-rs-side-npc-wrap.cb-rs-onstage .cb-npc-card {
+  border-color: #c084fc;
+  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.35), 0 0 12px rgba(192, 132, 252, 0.15);
+}
+.cb-rs-onstage-badge {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  z-index: 2;
+  font-family: Audiowide, sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #c084fc;
+  color: #1a1a1a;
+  padding: 2px 7px;
+  border-radius: 3px;
+  pointer-events: none;
+}
 
 .cb-rs-spotlight {
   background: rgba(20, 18, 16, 0.7);
