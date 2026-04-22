@@ -7124,3 +7124,75 @@
   color: rgba(200, 164, 78, 0.85);
   margin-top: 1px;
 }
+
+/* ── Inline-style consolidation utilities ─────────────────────────────── */
+.cb-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cb-row-end-pad {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 8px;
+}
+.cb-muted--italic {
+  font-style: italic;
+}
+.cb-header-btn--full {
+  width: 100%;
+  justify-content: center;
+}
+.cb-header-btn--link {
+  width: 100%;
+  justify-content: center;
+  text-decoration: none;
+  display: flex;
+}
+.cb-header-btn--mini {
+  font-size: 0.55rem;
+  padding: 0.25rem 0.5rem;
+  min-height: auto;
+}
+.cb-toolbox-label--row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.cb-glossary-condition {
+  color: #c8a44e;
+}
+.cb-conv-status {
+  font-size: 0.65rem;
+  color: #888;
+  padding: 0.4rem 0;
+}
+.cb-conv-select {
+  font-size: 0.55rem;
+  padding: 0.2rem;
+  background: #15151f;
+  color: #d8d8e8;
+  border: 1px solid #2a2a3a;
+  border-radius: 3px;
+}
+.cb-conv-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+.cb-col-title--top-gap {
+  margin-top: 1rem;
+}
+.cb-col-title--mb-half {
+  margin-bottom: 0.5rem;
+}
+.cb-open-journal-btn {
+  background: transparent;
+  border: 1px solid rgba(200, 164, 78, 0.4);
+  color: #c8a44e;
+  padding: 4px 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -69,15 +69,15 @@
 
   <div id="bridge-grid">
     <div class="cb-col-left" id="cb-col-left">
-      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;">Crew Monitor <button class="cb-collapse-btn" id="cb-collapse-left" title="Collapse panel">&laquo;</button></div>
+      <div class="cb-col-title cb-row-between">Crew Monitor <button class="cb-collapse-btn" id="cb-collapse-left" title="Collapse panel">&laquo;</button></div>
       <div id="party-list">
-        <p class="cb-muted" style="font-style:italic;">Loading crew data&hellip;</p>
+        <p class="cb-muted cb-muted--italic">Loading crew data&hellip;</p>
       </div>
 
       <div class="cb-destiny-section">
         <div class="cb-col-title">Crew Destiny</div>
         <div class="gm-destiny-tokens" id="gm-destiny-tokens">
-          <span class="cb-muted" style="font-style:italic;">No crew connected</span>
+          <span class="cb-muted cb-muted--italic">No crew connected</span>
         </div>
         <div class="gm-destiny-count" id="gm-destiny-count"></div>
         <div class="cb-destiny-btns">
@@ -88,12 +88,12 @@
       </div>
 
       <div class="cb-destiny-section cb-collapsible" id="cb-journal-section">
-        <div class="cb-col-title cb-collapse-toggle" id="cb-journal-toggle" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+        <div class="cb-col-title cb-collapse-toggle cb-row-between" id="cb-journal-toggle">
           Crew Journal <span class="cb-collapse-chevron">&#9658;</span>
         </div>
         <div class="cb-collapse-body">
-          <div style="padding:6px 8px;display:flex;justify-content:flex-end;">
-            <button id="cb-open-full-journal" type="button" style="background:transparent;border:1px solid rgba(200,164,78,0.4);color:#c8a44e;padding:4px 10px;font-size:10px;text-transform:uppercase;letter-spacing:1px;border-radius:4px;cursor:pointer;">Open Full Journal</button>
+          <div class="cb-row-end-pad">
+            <button id="cb-open-full-journal" type="button" class="cb-open-journal-btn">Open Full Journal</button>
           </div>
           <div id="cb-crew-journal" class="cb-crew-journal"></div>
         </div>
@@ -114,54 +114,54 @@
     <div class="cb-drag-handle" id="drag-right" title="Drag to resize"></div>
 
     <div class="cb-col-right" id="cb-col-right">
-      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">GM Toolbox <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
+      <div class="cb-col-title cb-row-between cb-col-title--mb-half">GM Toolbox <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
 
       <div class="gm-toolbox-group">
         <div class="gm-toolbox-label">Tactical</div>
-        <button class="cb-header-btn" id="cb-tactical-map-btn" style="width:100%;justify-content:center;">Tactical Map</button>
-        <button class="cb-header-btn" id="cb-galaxy-map-btn" style="width:100%;justify-content:center;">Galaxy Map</button>
-        <a href="/maps/editor.html" target="_blank" class="cb-header-btn" style="width:100%;justify-content:center;text-decoration:none;display:flex;">Map Hitbox Editor</a>
+        <button class="cb-header-btn cb-header-btn--full" id="cb-tactical-map-btn">Tactical Map</button>
+        <button class="cb-header-btn cb-header-btn--full" id="cb-galaxy-map-btn">Galaxy Map</button>
+        <a href="/maps/editor.html" target="_blank" class="cb-header-btn cb-header-btn--link">Map Hitbox Editor</a>
       </div>
 
       <div class="gm-toolbox-group">
         <div class="gm-toolbox-label">Builders</div>
-        <button class="cb-header-btn accent" id="cb-build-threat" style="width:100%;justify-content:center;">Build Threat</button>
-        <button class="cb-header-btn" id="cb-dramatis-btn" style="width:100%;justify-content:center;">Dramatis Personae</button>
+        <button class="cb-header-btn accent cb-header-btn--full" id="cb-build-threat">Build Threat</button>
+        <button class="cb-header-btn cb-header-btn--full" id="cb-dramatis-btn">Dramatis Personae</button>
       </div>
 
       <div class="gm-toolbox-group">
         <div class="gm-toolbox-label">Narrative</div>
-        <a href="/gm/crawl-editor/" class="cb-header-btn" style="width:100%;justify-content:center;text-decoration:none;display:flex;">Opening Crawl Editor</a>
+        <a href="/gm/crawl-editor/" class="cb-header-btn cb-header-btn--link">Opening Crawl Editor</a>
       </div>
 
       <div class="gm-toolbox-group">
-        <div class="gm-toolbox-label" style="display:flex;align-items:center;gap:0.4rem;">Item Requests <span id="req-badge" class="cb-req-badge" style="display:none;"></span></div>
+        <div class="gm-toolbox-label cb-toolbox-label--row">Item Requests <span id="req-badge" class="cb-req-badge" style="display:none;"></span></div>
         <div id="item-requests-list">
-          <p class="cb-muted" style="font-style:italic;">Loading&hellip;</p>
+          <p class="cb-muted cb-muted--italic">Loading&hellip;</p>
         </div>
       </div>
 
-      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;">Glossary</div>
+      <div class="cb-col-title cb-row-between cb-col-title--top-gap">Glossary</div>
       <div id="glossary-content">
         <div class="cb-glossary-placeholder">
-          Click a <span style="color:#c8a44e;">[Condition]</span> in any scene text to view its details here.
+          Click a <span class="cb-glossary-condition">[Condition]</span> in any scene text to view its details here.
         </div>
       </div>
       <div id="cb-campaign-state-panel"></div>
-      <div class="cb-col-title" style="margin-top:1rem;display:flex;align-items:center;justify-content:space-between;">Decision Log <button class="cb-header-btn" id="cb-log-decision-btn" style="font-size:0.55rem;padding:0.25rem 0.5rem;min-height:auto;">+ Log</button></div>
+      <div class="cb-col-title cb-row-between cb-col-title--top-gap">Decision Log <button class="cb-header-btn cb-header-btn--mini" id="cb-log-decision-btn">+ Log</button></div>
       <div id="cb-decision-timeline"></div>
 
-      <div class="cb-col-title" style="margin-top:1rem;display:flex;align-items:center;justify-content:space-between;">Narrative Challenges <button class="cb-header-btn" id="cb-launch-challenge-btn" style="font-size:0.55rem;padding:0.25rem 0.5rem;min-height:auto;">+ New</button></div>
+      <div class="cb-col-title cb-row-between cb-col-title--top-gap">Narrative Challenges <button class="cb-header-btn cb-header-btn--mini" id="cb-launch-challenge-btn">+ New</button></div>
       <div id="cb-challenge-status"></div>
 
-      <div class="cb-col-title" style="margin-top:1rem;display:flex;align-items:center;justify-content:space-between;">Conversation Scenes
-        <span style="display:flex;gap:0.25rem;">
-          <select id="cb-conv-select" style="font-size:0.55rem;padding:0.2rem;background:#15151f;color:#d8d8e8;border:1px solid #2a2a3a;border-radius:3px;"></select>
-          <button class="cb-header-btn" id="cb-conv-launch-btn" style="font-size:0.55rem;padding:0.25rem 0.5rem;min-height:auto;">Launch</button>
-          <button class="cb-header-btn" id="cb-conv-open-btn" style="font-size:0.55rem;padding:0.25rem 0.5rem;min-height:auto;" title="Open active conversation">Open</button>
+      <div class="cb-col-title cb-row-between cb-col-title--top-gap">Conversation Scenes
+        <span class="cb-conv-actions">
+          <select id="cb-conv-select" class="cb-conv-select"></select>
+          <button class="cb-header-btn cb-header-btn--mini" id="cb-conv-launch-btn">Launch</button>
+          <button class="cb-header-btn cb-header-btn--mini" id="cb-conv-open-btn" title="Open active conversation">Open</button>
         </span>
       </div>
-      <div id="cb-conv-status" style="font-size:0.65rem;color:#888;padding:0.4rem 0;"></div>
+      <div id="cb-conv-status" class="cb-conv-status"></div>
     </div>
   </div>
 
