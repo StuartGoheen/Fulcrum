@@ -5041,6 +5041,16 @@
     display: none !important;
   }
 
+  /* The right-slot tab controller in the navbar drives the (now hidden)
+     right slot, so it's a dead control on mobile — hide it and the
+     leading divider so the navbar shows only the active left-slot tabs. */
+  #tabs-right {
+    display: none !important;
+  }
+  .panel-nav-row > .panel-nav-divider:not(.panel-nav-divider--triple) {
+    display: none !important;
+  }
+
   /* Center the remaining nav controls */
   #navbar {
     justify-content: space-between;

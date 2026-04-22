@@ -1708,24 +1708,26 @@ body.player-body {
 }
 
 /* ─── Player date strip (Task #198) ──────────────────────────────────── */
+/* Uses theme tokens so the strip stays readable on every theme (dark
+   themes like Vader/Holo as well as light themes like Rebellion/Fringe/R2-D2). */
 .player-clock-strip {
   margin: 6px 0 8px;
   padding: 6px 10px;
-  border: 1px solid rgba(200, 164, 78, 0.3);
+  border: 1px solid color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.25);
+  background: color-mix(in srgb, var(--color-accent-primary) 6%, transparent);
   text-align: center;
   font-family: 'Courier New', monospace;
 }
 .player-clock-strip-main {
   font-size: 11px;
   letter-spacing: 0.6px;
-  color: #f0e0b0;
+  color: var(--color-text-primary);
 }
 .player-clock-strip-sub {
   font-size: 9px;
   letter-spacing: 0.5px;
-  color: rgba(200, 164, 78, 0.8);
+  color: var(--color-text-secondary);
   margin-top: 2px;
 }
 .conv-p-date {
@@ -1740,12 +1742,18 @@ body.player-body {
   font-style: italic;
 }
 
-/* Task #198 — Imperial transponder flash + mode tint */
+/* Task #198 — Imperial transponder flash + mode tint.
+   Imperial mode is an intentional alert state, so the red tint stays —
+   but route it through the semantic --color-fail token so it tones to
+   the active theme's red instead of a fixed magenta-ish hue. */
 .player-clock-strip.imperial-mode {
-  background: rgba(180, 60, 60, 0.08);
-  border-color: rgba(220, 100, 100, 0.4);
+  background: color-mix(in srgb, var(--color-fail) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-fail) 40%, transparent);
 }
-.player-clock-strip.imperial-mode .player-clock-strip-main { color: #f6d4a8; letter-spacing: 0.5px; }
+.player-clock-strip.imperial-mode .player-clock-strip-main {
+  color: var(--color-fail);
+  letter-spacing: 0.5px;
+}
 .player-clock-strip.cb-clock-flash {
   animation: cb-clock-flash-anim 0.4s ease-out;
 }
