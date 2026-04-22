@@ -89,6 +89,19 @@ async function initSchema() {
         broadcast_by   TEXT    NOT NULL DEFAULT 'gm'
       );
 
+      CREATE TABLE IF NOT EXISTS holonet_custom_stories (
+        id             SERIAL PRIMARY KEY,
+        story_id       TEXT    NOT NULL UNIQUE,
+        headline       TEXT    NOT NULL,
+        source         TEXT    NOT NULL DEFAULT '',
+        body           TEXT    NOT NULL DEFAULT '',
+        channel        TEXT    NOT NULL DEFAULT 'imperial',
+        story_type     TEXT    NOT NULL DEFAULT 'flavor',
+        air_date       TEXT,
+        created_at     TIMESTAMP DEFAULT NOW(),
+        updated_at     TIMESTAMP DEFAULT NOW()
+      );
+
       CREATE TABLE IF NOT EXISTS item_requests (
         id             SERIAL PRIMARY KEY,
         character_name TEXT    NOT NULL,

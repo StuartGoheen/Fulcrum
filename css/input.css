@@ -12587,3 +12587,161 @@
 .holonet-story--channel-underworld   { border-left: 3px solid rgba(245, 158, 11, 0.6); padding-left: 12px; }
 .holonet-story--channel-pirate       { border-left: 3px solid rgba(180, 83, 9, 0.65);  padding-left: 12px; }
 .holonet-story--channel-fringe-trade { border-left: 3px solid rgba(45, 168, 142, 0.6); padding-left: 12px; }
+
+/* Task #205 — GM custom HoloNet story authoring form & action chips */
+.hn-new-story-btn {
+  background: rgba(91, 158, 213, 0.18);
+  color: #d8e8f5;
+  border: 1px solid rgba(91, 158, 213, 0.55);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.hn-new-story-btn:hover { background: rgba(91, 158, 213, 0.32); color: #fff; }
+
+.hn-author-form {
+  margin: 10px 12px;
+  padding: 12px;
+  border: 1px solid rgba(91, 158, 213, 0.45);
+  border-radius: 6px;
+  background: rgba(15, 25, 40, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hn-author-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #b8d4f0;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.hn-author-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: #9fb4cc;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.hn-author-hint {
+  text-transform: none;
+  letter-spacing: 0;
+  color: #6b8095;
+  font-size: 0.7rem;
+  margin-left: 4px;
+}
+.hn-author-input,
+.hn-author-textarea {
+  background: rgba(8, 14, 22, 0.85);
+  border: 1px solid rgba(91, 158, 213, 0.35);
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: #e6eef7;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+.hn-author-textarea { resize: vertical; min-height: 90px; }
+.hn-author-input:focus,
+.hn-author-textarea:focus {
+  outline: none;
+  border-color: #5b9ed5;
+  box-shadow: 0 0 0 2px rgba(91, 158, 213, 0.18);
+}
+.hn-author-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hn-author-field { flex: 1; min-width: 180px; }
+.hn-author-sublabel {
+  font-size: 0.7rem;
+  color: #9fb4cc;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.hn-author-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.hn-author-chip {
+  background: rgba(60, 70, 85, 0.35);
+  color: #c9d6e3;
+  border: 1px solid rgba(120, 140, 160, 0.35);
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.hn-author-chip:hover { color: #fff; border-color: rgba(91, 158, 213, 0.55); }
+.hn-author-chip--active {
+  background: rgba(91, 158, 213, 0.28);
+  color: #fff;
+  border-color: #5b9ed5;
+}
+.hn-author-error {
+  color: #f87171;
+  font-size: 0.78rem;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.08);
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+.hn-author-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+.hn-author-cancel,
+.hn-author-save {
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.hn-author-cancel {
+  background: transparent;
+  color: #9fb4cc;
+  border-color: rgba(120, 140, 160, 0.4);
+}
+.hn-author-cancel:hover { color: #fff; border-color: #9fb4cc; }
+.hn-author-save {
+  background: rgba(91, 158, 213, 0.32);
+  color: #fff;
+  border-color: #5b9ed5;
+}
+.hn-author-save:hover:not(:disabled) { background: rgba(91, 158, 213, 0.5); }
+.hn-author-save:disabled { opacity: 0.5; cursor: wait; }
+
+.hn-story-custom-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.hn-custom-edit-btn,
+.hn-custom-delete-btn {
+  background: rgba(60, 70, 85, 0.4);
+  color: #c9d6e3;
+  border: 1px solid rgba(120, 140, 160, 0.4);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.hn-custom-edit-btn:hover { color: #fff; border-color: #5b9ed5; }
+.hn-custom-delete-btn:hover { color: #fff; background: rgba(248, 113, 113, 0.25); border-color: #f87171; }

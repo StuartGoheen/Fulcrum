@@ -4,6 +4,7 @@ const path    = require('path');
 const fs      = require('fs');
 const { pool, seedNpcProfiles } = require('../db');
 const { resolveDecisionState, applyAdventureConditionals } = require('../utils/decision-resolver');
+const { roleFromCookie } = require('../auth');
 
 const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
 const LOCATIONS_PATH = path.join(__dirname, '..', '..', 'data', 'locations.json');
@@ -1623,14 +1624,160 @@ function loadHolonet() {
   }
 }
 
-router.get('/campaign/holonet/feeds', (req, res) => {
+router.get('/campaign/holonet/feeds', async (req, res) => {
   try {
     const data = loadHolonet();
-    res.json({ ok: true, feeds: data.feeds || [] });
+    const feeds = (data.feeds || []).slice();
+    // Task #205 — never expose unpublished GM-authored custom stories to players.
+    // The /feeds endpoint is player-readable (whitelisted in server/auth.js), so
+    // we only merge the synthetic GM custom feed when the caller is a GM. Players
+    // still receive custom stories through the normal /broadcast → players-room
+    // socket flow once the GM chooses to broadcast them.
+    if (roleFromCookie(req) === 'gm') {
+      const customStories = await _loadHolonetCustomStories();
+      if (customStories.length > 0) feeds.push(_customFeed(customStories));
+      res.json({ ok: true, feeds, customStories });
+    } else {
+      res.json({ ok: true, feeds });
+    }
   } catch (err) {
     res.status(500).json({ error: 'Failed to load holonet feeds' });
   }
 });
+
+// Task #205 — list/CRUD GM-authored custom HoloNet stories. GM-only.
+function _requireGm(req, res, next) {
+  if (roleFromCookie(req) !== 'gm') return res.status(403).json({ error: 'Forbidden' });
+  next();
+}
+
+router.get('/campaign/holonet/custom-stories', _requireGm, async (req, res) => {
+  try {
+    const stories = await _loadHolonetCustomStories();
+    res.json({ ok: true, stories });
+  } catch (err) {
+    console.error('[holonet] custom list error:', err);
+    res.status(500).json({ error: 'Failed to load custom stories' });
+  }
+});
+
+const HN_VALID_CHANNELS = ['imperial', 'underworld', 'pirate', 'fringe-trade'];
+const HN_VALID_TYPES = ['propaganda', 'lore', 'foreshadow', 'flavor'];
+
+function _validateCustomStoryPayload(body) {
+  const headline = (body && typeof body.headline === 'string') ? body.headline.trim() : '';
+  const source   = (body && typeof body.source   === 'string') ? body.source.trim()   : '';
+  const story    = (body && typeof body.body     === 'string') ? body.body.trim()     : '';
+  const channel  = (body && typeof body.channel  === 'string') ? body.channel.trim().toLowerCase() : '';
+  const type     = (body && typeof body.type     === 'string') ? body.type.trim().toLowerCase()    : 'flavor';
+  const airDateRaw = (body && typeof body.airDate === 'string') ? body.airDate.trim() : '';
+
+  if (!headline) return { error: 'Headline is required' };
+  if (!source)   return { error: 'Source is required' };
+  if (!story)    return { error: 'Body is required' };
+  if (HN_VALID_CHANNELS.indexOf(channel) < 0) return { error: 'Channel must be one of ' + HN_VALID_CHANNELS.join(', ') };
+  if (HN_VALID_TYPES.indexOf(type) < 0)       return { error: 'Type must be one of ' + HN_VALID_TYPES.join(', ') };
+
+  let airDate = null;
+  if (airDateRaw) {
+    const parsed = Calendar.parseImperialString(airDateRaw);
+    if (!parsed) return { error: 'airDate could not be parsed (e.g. "Day 4, Month 5, Year 5" or "4 Elona, Year 5")' };
+    airDate = airDateRaw;
+  }
+  return { value: { headline, source, body: story, channel, type, airDate } };
+}
+
+router.post('/campaign/holonet/custom-stories', _requireGm, async (req, res) => {
+  const v = _validateCustomStoryPayload(req.body || {});
+  if (v.error) return res.status(400).json({ error: v.error });
+  const p = v.value;
+  const storyId = 'custom_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  try {
+    const { rows } = await pool.query(
+      `INSERT INTO holonet_custom_stories (story_id, headline, source, body, channel, story_type, air_date)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       RETURNING id, story_id, headline, source, body, channel, story_type, air_date, created_at, updated_at`,
+      [storyId, p.headline, p.source, p.body, p.channel, p.type, p.airDate]
+    );
+    const io = req.app.get('io');
+    if (io) _emitHolonetQueueUpdated(io);
+    res.json({ ok: true, story: rows[0] });
+  } catch (err) {
+    console.error('[holonet] custom create error:', err);
+    res.status(500).json({ error: 'Failed to create custom story' });
+  }
+});
+
+router.patch('/campaign/holonet/custom-stories/:id', _requireGm, async (req, res) => {
+  const v = _validateCustomStoryPayload(req.body || {});
+  if (v.error) return res.status(400).json({ error: v.error });
+  const p = v.value;
+  const id = req.params.id;
+  try {
+    const { rows } = await pool.query(
+      `UPDATE holonet_custom_stories
+       SET headline=$1, source=$2, body=$3, channel=$4, story_type=$5, air_date=$6, updated_at=NOW()
+       WHERE story_id=$7 OR id::text=$7
+       RETURNING id, story_id, headline, source, body, channel, story_type, air_date, created_at, updated_at`,
+      [p.headline, p.source, p.body, p.channel, p.type, p.airDate, id]
+    );
+    if (rows.length === 0) return res.status(404).json({ error: 'Custom story not found' });
+    const io = req.app.get('io');
+    if (io) _emitHolonetQueueUpdated(io);
+    res.json({ ok: true, story: rows[0] });
+  } catch (err) {
+    console.error('[holonet] custom update error:', err);
+    res.status(500).json({ error: 'Failed to update custom story' });
+  }
+});
+
+router.delete('/campaign/holonet/custom-stories/:id', _requireGm, async (req, res) => {
+  const id = req.params.id;
+  try {
+    const { rowCount } = await pool.query(
+      'DELETE FROM holonet_custom_stories WHERE story_id=$1 OR id::text=$1',
+      [id]
+    );
+    if (rowCount === 0) return res.status(404).json({ error: 'Custom story not found' });
+    const io = req.app.get('io');
+    if (io) _emitHolonetQueueUpdated(io);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[holonet] custom delete error:', err);
+    res.status(500).json({ error: 'Failed to delete custom story' });
+  }
+});
+
+// Task #205 — load GM-authored custom stories from the DB and shape them like
+// the canonical feed entries (so the rest of the queue/partition logic doesn't care).
+async function _loadHolonetCustomStories() {
+  try {
+    const { rows } = await pool.query(
+      'SELECT story_id, headline, source, body, channel, story_type, air_date FROM holonet_custom_stories ORDER BY created_at ASC'
+    );
+    return rows.map(r => ({
+      id: r.story_id,
+      headline: r.headline,
+      source: r.source,
+      body: r.body,
+      channel: r.channel,
+      type: r.story_type,
+      airDate: r.air_date || undefined,
+      tags: ['gm-authored'],
+      isCustom: true
+    }));
+  } catch (e) {
+    console.error('[holonet] custom stories load failed:', e.message);
+    return [];
+  }
+}
+
+const HN_CUSTOM_FEED_ID = 'feed_gm_custom';
+const HN_CUSTOM_FEED_LABEL = 'GM Custom Stories';
+
+function _customFeed(stories) {
+  return { id: HN_CUSTOM_FEED_ID, label: HN_CUSTOM_FEED_LABEL, window: 'custom', stories };
+}
 
 // Task #201 — collect every story_id ever broadcast (union across history rows).
 async function _loadHolonetBroadcastedSet() {
@@ -1649,11 +1796,15 @@ async function _loadHolonetBroadcastedSet() {
 // Partition all stories into {ready, evergreen} relative to currentDayIndex.
 // ready    = airDate present, parses, airDayIndex <= currentDayIndex, not yet broadcast.
 // evergreen= no airDate, not yet broadcast.
-function _partitionHolonetQueue(currentDayIndex, broadcastedSet) {
+function _partitionHolonetQueue(currentDayIndex, broadcastedSet, customStories) {
   const data = loadHolonet();
+  const feeds = (data.feeds || []).slice();
+  if (customStories && customStories.length > 0) {
+    feeds.push(_customFeed(customStories));
+  }
   const ready = [];
   const evergreen = [];
-  for (const feed of (data.feeds || [])) {
+  for (const feed of feeds) {
     for (const story of (feed.stories || [])) {
       if (broadcastedSet.has(story.id)) continue;
       if (story.airDate) {
@@ -1678,7 +1829,8 @@ router.get('/campaign/holonet/queue', async (req, res) => {
   try {
     const state = await _readClockState();
     const broadcasted = await _loadHolonetBroadcastedSet();
-    const { ready, evergreen } = _partitionHolonetQueue(state.dayIndex, broadcasted);
+    const customStories = await _loadHolonetCustomStories();
+    const { ready, evergreen } = _partitionHolonetQueue(state.dayIndex, broadcasted, customStories);
     res.json({
       ok: true,
       currentDayIndex: state.dayIndex,
@@ -1700,8 +1852,9 @@ async function _emitHolonetQueueUpdated(io) {
   try {
     const state = await _readClockState();
     const broadcasted = await _loadHolonetBroadcastedSet();
-    const { ready } = _partitionHolonetQueue(state.dayIndex, broadcasted);
-    const signature = state.dayIndex + ':' + ready.length + ':' + broadcasted.size;
+    const customStories = await _loadHolonetCustomStories();
+    const { ready } = _partitionHolonetQueue(state.dayIndex, broadcasted, customStories);
+    const signature = state.dayIndex + ':' + ready.length + ':' + broadcasted.size + ':' + customStories.length;
     io.emit('holonet:queue-updated', {
       readyCount: ready.length,
       currentDayIndex: state.dayIndex,
@@ -1795,6 +1948,8 @@ router.post('/campaign/holonet/broadcast', async (req, res) => {
     (data.feeds || []).forEach(f => {
       (f.stories || []).forEach(s => allStories.push(s));
     });
+    const customStories = await _loadHolonetCustomStories();
+    customStories.forEach(s => allStories.push(s));
     const stories = storyIds.map(id => allStories.find(s => s.id === id)).filter(Boolean);
     if (stories.length === 0) {
       return res.status(400).json({ error: 'No valid stories found' });
@@ -1837,7 +1992,7 @@ router.post('/campaign/holonet/broadcast', async (req, res) => {
 const WIPE_CATEGORIES = {
   full: {
     label: 'Full Campaign Reset',
-    tables: ['campaign_progress', 'campaign_decisions', 'scene_completion', 'journal_entry_tags', 'journal_entries', 'journal_tags', 'holonet_broadcasts', 'npc_timeline', 'npc_profiles', 'narrative_challenge_instances', 'campaign_state', 'revealed_marks', 'adventure_marks', 'item_requests', 'equipment_status', 'protocol_droid_pins'],
+    tables: ['campaign_progress', 'campaign_decisions', 'scene_completion', 'journal_entry_tags', 'journal_entries', 'journal_tags', 'holonet_broadcasts', 'holonet_custom_stories', 'npc_timeline', 'npc_profiles', 'narrative_challenge_instances', 'campaign_state', 'revealed_marks', 'adventure_marks', 'item_requests', 'equipment_status', 'protocol_droid_pins'],
     reseedNpcs: true
   },
   journal: {
@@ -1846,7 +2001,7 @@ const WIPE_CATEGORIES = {
   },
   holonet: {
     label: 'HoloNet Broadcasts',
-    tables: ['holonet_broadcasts']
+    tables: ['holonet_broadcasts', 'holonet_custom_stories']
   },
   decisions: {
     label: 'Decision Points',

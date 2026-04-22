@@ -2185,6 +2185,18 @@
   var _holonetChannelFilter = 'all';
   var _holonetReadyCount = 0;
   var _holonetQueueSig = '';
+  // Task #205 — GM-authored custom story authoring panel state.
+  var _holonetCustomStories = [];
+  var _holonetAuthor = { open: false, editingId: null, draft: null, error: null, busy: false };
+  var HN_TYPE_OPTIONS = [
+    { id: 'propaganda', label: 'Propaganda' },
+    { id: 'lore',       label: 'Lore' },
+    { id: 'foreshadow', label: 'Foreshadow' },
+    { id: 'flavor',     label: 'Flavor' }
+  ];
+  function _hnEmptyDraft() {
+    return { headline: '', source: '', body: '', channel: 'imperial', type: 'flavor', airDate: '' };
+  }
 
   // Channels we recognize, in chip-order. Anything else falls back to 'imperial'.
   var HN_CHANNELS = [
@@ -2205,7 +2217,13 @@
     function check() { loaded++; if (loaded >= 3 && cb) cb(); }
     fetch('/api/campaign/holonet/feeds')
       .then(function (r) { return r.json(); })
-      .then(function (d) { if (d.ok) _holonetFeeds = d.feeds; check(); })
+      .then(function (d) {
+        if (d.ok) {
+          _holonetFeeds = d.feeds;
+          _holonetCustomStories = d.customStories || [];
+        }
+        check();
+      })
       .catch(function () { check(); });
     fetch('/api/campaign/holonet/history')
       .then(function (r) { return r.json(); })
@@ -2288,6 +2306,12 @@
         story.tags.forEach(function (tag) { s += '<span class="hn-tag">' + esc(tag) + '</span>'; });
         s += '</div>';
       }
+      if (story.isCustom) {
+        s += '<div class="hn-story-custom-actions">';
+        s += '<button class="hn-custom-edit-btn" data-edit-id="' + esc(story.id) + '">EDIT</button>';
+        s += '<button class="hn-custom-delete-btn" data-delete-id="' + esc(story.id) + '">DELETE</button>';
+        s += '</div>';
+      }
       s += '</div></div>';
       return s;
     }
@@ -2296,10 +2320,16 @@
     h += '<div class="hn-header">';
     h += '<span class="hn-header-logo">&#128225; IMPERIAL HOLONET — BROADCAST TERMINAL</span>';
     h += '<div class="hn-header-actions">';
+    h += '<button class="hn-new-story-btn" id="hn-new-story">&#43; NEW STORY</button>';
     h += '<button class="hn-broadcast-btn' + (selectedCount === 0 ? ' hn-btn--disabled' : '') + '" id="hn-send-broadcast"' + (selectedCount === 0 ? ' disabled' : '') + '>&#9889; BROADCAST (' + selectedCount + ')</button>';
     h += '<button class="hn-select-none-btn" id="hn-clear-selection">CLEAR</button>';
     h += '</div>';
     h += '</div>';
+
+    // Task #205 — inline GM authoring form (only visible when toggled).
+    if (_holonetAuthor.open) {
+      h += _renderHolonetAuthorForm();
+    }
 
     // Channel filter chips (Task #201 — channel rendering).
     h += '<div class="hn-channel-chips">';
@@ -2341,6 +2371,145 @@
     return h;
   }
 
+  function _renderHolonetAuthorForm() {
+    var d = _holonetAuthor.draft || _hnEmptyDraft();
+    var isEdit = !!_holonetAuthor.editingId;
+    var f = '<div class="hn-author-form" id="hn-author-form">';
+    f += '<div class="hn-author-title">' + (isEdit ? 'EDIT CUSTOM STORY' : 'COMPOSE NEW STORY') + '</div>';
+    f += '<label class="hn-author-label">Headline<input type="text" class="hn-author-input" id="hn-af-headline" value="' + esc(d.headline) + '" placeholder="ALL CAPS, NEWS-STYLE HEADLINE" /></label>';
+    f += '<label class="hn-author-label">Source<input type="text" class="hn-author-input" id="hn-af-source" value="' + esc(d.source) + '" placeholder="e.g. Alton Kastle, HoloNet News" /></label>';
+    f += '<label class="hn-author-label">Body<textarea class="hn-author-textarea" id="hn-af-body" rows="5" placeholder="Story body...">' + esc(d.body) + '</textarea></label>';
+
+    f += '<div class="hn-author-row">';
+    f += '<div class="hn-author-field"><div class="hn-author-sublabel">Channel</div><div class="hn-author-chips" data-pick="channel">';
+    HN_CHANNELS.filter(function (c) { return c.id !== 'all'; }).forEach(function (c) {
+      var active = (d.channel === c.id) ? ' hn-author-chip--active' : '';
+      f += '<button type="button" class="hn-author-chip hn-channel-chip-' + c.id + active + '" data-channel="' + esc(c.id) + '">' + esc(c.label) + '</button>';
+    });
+    f += '</div></div>';
+
+    f += '<div class="hn-author-field"><div class="hn-author-sublabel">Type</div><div class="hn-author-chips" data-pick="type">';
+    HN_TYPE_OPTIONS.forEach(function (t) {
+      var active = (d.type === t.id) ? ' hn-author-chip--active' : '';
+      f += '<button type="button" class="hn-author-chip hn-type--' + t.id + active + '" data-type="' + esc(t.id) + '">' + esc(t.label) + '</button>';
+    });
+    f += '</div></div>';
+    f += '</div>';
+
+    f += '<label class="hn-author-label">Air Date <span class="hn-author-hint">(optional — e.g. "Day 4, Month 5, Year 5" or "4 Elona, Year 5")</span>';
+    f += '<input type="text" class="hn-author-input" id="hn-af-airdate" value="' + esc(d.airDate || '') + '" placeholder="Leave blank for evergreen / no schedule" /></label>';
+
+    if (_holonetAuthor.error) {
+      f += '<div class="hn-author-error">' + esc(_holonetAuthor.error) + '</div>';
+    }
+
+    f += '<div class="hn-author-actions">';
+    f += '<button type="button" class="hn-author-cancel" id="hn-af-cancel">CANCEL</button>';
+    f += '<button type="button" class="hn-author-save" id="hn-af-save"' + (_holonetAuthor.busy ? ' disabled' : '') + '>' + (isEdit ? 'SAVE CHANGES' : 'CREATE STORY') + '</button>';
+    f += '</div>';
+    f += '</div>';
+    return f;
+  }
+
+  function _hnRerender() {
+    var panel = document.getElementById('fp-holonet');
+    if (!panel) return;
+    var body = panel.querySelector('.cb-fpanel-body');
+    if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
+  }
+
+  function _hnReadDraftFromForm(container) {
+    if (!_holonetAuthor.draft) _holonetAuthor.draft = _hnEmptyDraft();
+    var hl = container.querySelector('#hn-af-headline');
+    var sc = container.querySelector('#hn-af-source');
+    var bd = container.querySelector('#hn-af-body');
+    var ad = container.querySelector('#hn-af-airdate');
+    if (hl) _holonetAuthor.draft.headline = hl.value;
+    if (sc) _holonetAuthor.draft.source   = sc.value;
+    if (bd) _holonetAuthor.draft.body     = bd.value;
+    if (ad) _holonetAuthor.draft.airDate  = ad.value;
+  }
+
+  function _hnSubmitDraft() {
+    var d = _holonetAuthor.draft || _hnEmptyDraft();
+    var payload = {
+      headline: d.headline, source: d.source, body: d.body,
+      channel: d.channel, type: d.type, airDate: d.airDate || ''
+    };
+    var editingId = _holonetAuthor.editingId;
+    var url = editingId
+      ? '/api/campaign/holonet/custom-stories/' + encodeURIComponent(editingId)
+      : '/api/campaign/holonet/custom-stories';
+    var method = editingId ? 'PATCH' : 'POST';
+    _holonetAuthor.busy = true;
+    _holonetAuthor.error = null;
+    _hnRerender();
+    fetch(url, {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); })
+      .then(function (res) {
+        _holonetAuthor.busy = false;
+        if (res.status >= 200 && res.status < 300 && res.body && res.body.ok) {
+          _holonetAuthor = { open: false, editingId: null, draft: null, error: null, busy: false };
+          _loadHolonetData(function () { _hnRerender(); });
+        } else {
+          _holonetAuthor.error = (res.body && res.body.error) ? res.body.error : 'Save failed';
+          _hnRerender();
+        }
+      })
+      .catch(function (err) {
+        _holonetAuthor.busy = false;
+        _holonetAuthor.error = 'Network error: ' + (err && err.message ? err.message : 'unknown');
+        _hnRerender();
+      });
+  }
+
+  function _hnDeleteCustom(storyId) {
+    if (!storyId) return;
+    if (typeof window !== 'undefined' && window.confirm && !window.confirm('Delete this custom HoloNet story?')) return;
+    fetch('/api/campaign/holonet/custom-stories/' + encodeURIComponent(storyId), { method: 'DELETE' })
+      .then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); })
+      .then(function (res) {
+        if (res.status >= 200 && res.status < 300) {
+          delete _holonetSelected[storyId];
+          if (_holonetAuthor.editingId === storyId) {
+            _holonetAuthor = { open: false, editingId: null, draft: null, error: null, busy: false };
+          }
+          _loadHolonetData(function () { _hnRerender(); });
+        } else {
+          alert((res.body && res.body.error) ? res.body.error : 'Delete failed');
+        }
+      })
+      .catch(function (err) { alert('Delete failed: ' + (err && err.message ? err.message : 'unknown')); });
+  }
+
+  function _hnEditCustom(storyId) {
+    var s = (_holonetCustomStories || []).find(function (x) { return x.id === storyId; });
+    if (!s) return;
+    _holonetAuthor = {
+      open: true,
+      editingId: storyId,
+      draft: {
+        headline: s.headline || '',
+        source:   s.source   || '',
+        body:     s.body     || '',
+        channel:  s.channel  || 'imperial',
+        type:     s.type     || 'flavor',
+        airDate:  s.airDate  || ''
+      },
+      error: null,
+      busy: false
+    };
+    _hnRerender();
+    setTimeout(function () {
+      var form = document.getElementById('hn-author-form');
+      if (form && form.scrollIntoView) form.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }, 0);
+  }
+
   function _bindHolonetHandlers(container) {
     if (!container) return;
     container.querySelectorAll('.hn-story-check').forEach(function (chk) {
@@ -2356,8 +2525,23 @@
     container.querySelectorAll('.hn-story-card').forEach(function (card) {
       card.addEventListener('click', function (e) {
         if (e.target.classList.contains('hn-story-check')) return;
+        // Task #205 — don't toggle the broadcast checkbox when clicking custom-story action buttons.
+        if (e.target.closest && e.target.closest('.hn-story-custom-actions')) return;
         var chk = card.querySelector('.hn-story-check');
         if (chk) { chk.checked = !chk.checked; chk.dispatchEvent(new Event('change')); }
+      });
+    });
+    // Task #205 — custom story edit/delete actions.
+    container.querySelectorAll('.hn-custom-edit-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        _hnEditCustom(btn.dataset.editId);
+      });
+    });
+    container.querySelectorAll('.hn-custom-delete-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        _hnDeleteCustom(btn.dataset.deleteId);
       });
     });
     var sendBtn = container.querySelector('#hn-send-broadcast');
@@ -2412,6 +2596,50 @@
           if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
         }
       });
+    }
+    // Task #205 — open the inline authoring form.
+    var newStoryBtn = container.querySelector('#hn-new-story');
+    if (newStoryBtn) {
+      newStoryBtn.addEventListener('click', function () {
+        if (_holonetAuthor.open && !_holonetAuthor.editingId) {
+          _holonetAuthor = { open: false, editingId: null, draft: null, error: null, busy: false };
+        } else {
+          _holonetAuthor = { open: true, editingId: null, draft: _hnEmptyDraft(), error: null, busy: false };
+        }
+        _hnRerender();
+      });
+    }
+    // Task #205 — author form interactions.
+    var form = container.querySelector('#hn-author-form');
+    if (form) {
+      form.querySelectorAll('.hn-author-chip[data-channel]').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          _hnReadDraftFromForm(form);
+          _holonetAuthor.draft.channel = chip.dataset.channel;
+          _hnRerender();
+        });
+      });
+      form.querySelectorAll('.hn-author-chip[data-type]').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          _hnReadDraftFromForm(form);
+          _holonetAuthor.draft.type = chip.dataset.type;
+          _hnRerender();
+        });
+      });
+      var cancelBtn = form.querySelector('#hn-af-cancel');
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', function () {
+          _holonetAuthor = { open: false, editingId: null, draft: null, error: null, busy: false };
+          _hnRerender();
+        });
+      }
+      var saveBtn = form.querySelector('#hn-af-save');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function () {
+          _hnReadDraftFromForm(form);
+          _hnSubmitDraft();
+        });
+      }
     }
   }
 
