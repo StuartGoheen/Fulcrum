@@ -1,12 +1,10 @@
 /**
- * Galactic Calendar utility (Year 4 IE / 7981 C.R.C. / ~16 BBY)
+ * Galactic Calendar utility (Year 5 IE / 7982 C.R.C. / 15 BBY)
  *
  * Epoch convention:
  *   - Year 1 IE Day 1 == absolute dayIndex 0
  *   - Year 1 IE     == 19 BBY     == 7978 C.R.C.
- *   - Year N IE     == (20 - N) BBY (strict; the ~15 BBY in design notes
- *                                     is colloquial — Year 4 IE is 16 BBY
- *                                     by strict ledger and renders as such)
+ *   - Year N IE     == (20 - N) BBY (strict; Year 5 IE = 15 BBY)
  *   - Year N IE     == (7977 + N) C.R.C.
  *
  * Year structure (368 days):
@@ -15,7 +13,7 @@
  *   - 3 standalone festival days -> days 366..368
  *
  * 5-day week (Primeday, Centaxday, Taungsday, Zhellday, Benduday).
- * Anchor: campaign default day (4 Elona, Year 4 IE = absolute dayIndex 1107)
+ * Anchor: campaign default day (4 Elona, Year 5 IE = absolute dayIndex 1475)
  * is a Primeday. All weekday math is derived from this anchor.
  */
 (function (root, factory) {
@@ -38,8 +36,8 @@
   var STANDALONE_DAYS = 3;
   var DAYS_PER_YEAR = MONTHS_PER_YEAR * DAYS_PER_MONTH + FETE_DAYS + STANDALONE_DAYS; // 368
 
-  // Campaign anchor: Primeday, 4 Elona, Year 4 IE -> dayIndex 1107.
-  var CAMPAIGN_ANCHOR_DAY_INDEX = (4 - 1) * DAYS_PER_YEAR + (4 - 1); // 3*368+3 = 1107
+  // Campaign anchor: Primeday, 4 Elona, Year 5 IE -> dayIndex 1475.
+  var CAMPAIGN_ANCHOR_DAY_INDEX = (5 - 1) * DAYS_PER_YEAR + (4 - 1); // 4*368+3 = 1475
   var CAMPAIGN_ANCHOR_WEEKDAY_INDEX = 0; // Primeday
 
   // weekday(d) = WEEKDAYS[(d - anchor) mod 5]
@@ -104,7 +102,7 @@
     return 'late-' + MONTHS[month - 1];
   }
 
-  // Imperial dialect: "Day 4, Month 1, Year 4 (Primeday)"
+  // Imperial dialect: "Day 4, Month 1, Year 5 (Primeday)"
   function formatImperial(dayIndex, opts) {
     var dt = dateFromDayIndex(dayIndex);
     var wd = weekdayName(dayIndex);
@@ -119,7 +117,7 @@
     return s;
   }
 
-  // C.R.C. + Tapani: "4 Elona, 7981 C.R.C. (Primeday)"
+  // C.R.C. + Tapani: "4 Elona, 7982 C.R.C. (Primeday)"
   function formatCRCTapani(dayIndex, opts) {
     var dt = dateFromDayIndex(dayIndex);
     var wd = weekdayName(dayIndex);
@@ -144,7 +142,7 @@
     return 'a ' + wd + ' in ' + _monthShorthand(dt.month);
   }
 
-  // Scholar voice: "the 4th of the first month, 7981 C.R.C."
+  // Scholar voice: "the 4th of the first month, 7982 C.R.C."
   var ORDINAL_MONTH = ['first','second','third','fourth','fifth',
                        'sixth','seventh','eighth','ninth','tenth'];
   function _ord(n) {
@@ -242,12 +240,12 @@
 
   // Parse an Imperial-dialect date string back into a dayIndex.
   // Accepted forms:
-  //   "Primeday, 4 Elona, Year 4"
-  //   "4 Elona, Year 4"
-  //   "Day 4, Month 5, Year 4"
-  //   "Day 4, Month 5, Year 4 (Primeday)"
-  //   "Fete Week, Day 2, Year 4"        / "Fete Week Day 2, Year 4"
-  //   "Festival Day 1, Year 4"
+  //   "Primeday, 4 Elona, Year 5"
+  //   "4 Elona, Year 5"
+  //   "Day 4, Month 5, Year 5"
+  //   "Day 4, Month 5, Year 5 (Primeday)"
+  //   "Fete Week, Day 2, Year 5"        / "Fete Week Day 2, Year 5"
+  //   "Festival Day 1, Year 5"
   // Returns { dayIndex, hour } or null on failure. hour defaults to 8.
   function parseImperialString(str) {
     if (!str || typeof str !== 'string') return null;

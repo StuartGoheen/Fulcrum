@@ -314,15 +314,20 @@ async function initSchema() {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS in_universe_hour INTEGER`);
     } catch (e) {}
     try {
-      // Seed defaults if missing: Primeday, 4 Elona, Year 4 IE = dayIndex 1107, hour 8 (morning).
+      // Seed defaults if missing: Primeday, 4 Elona, Year 5 IE = dayIndex 1475, hour 8 (morning).
       await client.query(`
         INSERT INTO campaign_state (key, value)
-        VALUES ('current_day_index', '1107')
+        VALUES ('current_day_index', '1475')
         ON CONFLICT (key) DO NOTHING`);
       await client.query(`
         INSERT INTO campaign_state (key, value)
         VALUES ('current_hour', '8')
         ON CONFLICT (key) DO NOTHING`);
+      // Task #201 anchor shift: Year 4 IE (1107) -> Year 5 IE (1475). Migrate any
+      // pre-existing row still parked at the prior default; leave advanced clocks alone.
+      await client.query(`
+        UPDATE campaign_state SET value = '1475', updated_at = NOW()
+         WHERE key = 'current_day_index' AND value = '1107'`);
     } catch (e) {}
     try {
       await client.query(`

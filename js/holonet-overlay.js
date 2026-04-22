@@ -37,7 +37,12 @@
 
     h += '<div class="holonet-stories">';
     stories.forEach(function (story, idx) {
-      h += '<div class="holonet-story" data-story-index="' + idx + '">';
+      var ch = (story && story.channel) ? String(story.channel).toLowerCase() : 'imperial';
+      var knownCh = ['imperial', 'underworld', 'pirate', 'fringe-trade'];
+      if (knownCh.indexOf(ch) < 0) ch = 'imperial';
+      var chLabels = { 'imperial': 'IMPERIAL HOLONET', 'underworld': 'UNDERWORLD CHATTER', 'pirate': 'PIRATE BAND', 'fringe-trade': 'FRINGE TRADE BULLETIN' };
+      h += '<div class="holonet-story holonet-story--channel-' + ch + '" data-story-index="' + idx + '">';
+      h += '<div class="holonet-story-channel-badge holonet-channel-badge-' + ch + '">' + _esc(chLabels[ch]) + '</div>';
       h += '<div class="holonet-story-headline">' + _esc(story.headline) + '</div>';
       h += '<div class="holonet-story-source">' + _esc(story.source) + '</div>';
       h += '<div class="holonet-story-body">' + _esc(story.body) + '</div>';

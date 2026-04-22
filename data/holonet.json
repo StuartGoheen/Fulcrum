@@ -15,7 +15,9 @@
             "empire",
             "coruscant",
             "palpatine"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 24, Month 5, Year 5"
         },
         {
           "id": "hn_kashyyyk_labor",
@@ -28,7 +30,9 @@
             "wookiees",
             "slavery",
             "empire"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 21, Month 4, Year 5"
         },
         {
           "id": "hn_jedi_felucia",
@@ -40,7 +44,8 @@
             "jedi",
             "inquisitorius",
             "felucia"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_malpaz_recovery",
@@ -53,7 +58,9 @@
             "krennic",
             "death-star",
             "cover-up"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 12, Month 1, Year 5"
         },
         {
           "id": "hn_jakku_garrison",
@@ -66,7 +73,9 @@
             "empire",
             "palpatine",
             "observatory"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 9,  Month 1, Year 5"
         },
         {
           "id": "hn_fulcrum_whispers",
@@ -79,7 +88,8 @@
             "rebellion",
             "isb",
             "ahsoka"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_antar_stability",
@@ -92,7 +102,9 @@
             "tarkin",
             "atrocity",
             "organa"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 1,  Month 6, Year 5"
         },
         {
           "id": "hn_batuu_frontier",
@@ -105,7 +117,8 @@
             "black-spire",
             "frontier",
             "smuggling"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_rebel_dismissal",
@@ -118,7 +131,8 @@
             "propaganda",
             "empire",
             "editorial"
-          ]
+          ],
+          "channel": "imperial"
         }
       ]
     },
@@ -139,7 +153,8 @@
           ],
           "conditions": {
             "minAdventure": "adv1"
-          }
+          },
+          "channel": "imperial"
         },
         {
           "id": "hn_tarkin_infrastructure",
@@ -152,7 +167,8 @@
             "eriadu",
             "outer-rim",
             "death-star"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_lothal_industry",
@@ -164,7 +180,9 @@
             "lothal",
             "sienar",
             "empire"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 1,  Month 4, Year 5"
         },
         {
           "id": "hn_pod_racing",
@@ -176,7 +194,9 @@
             "malastare",
             "pod-racing",
             "entertainment"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 5,  Month 6, Year 5"
         }
       ]
     },
@@ -195,7 +215,9 @@
             "outer-rim",
             "navy",
             "trade"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 1,  Month 5, Year 5"
         },
         {
           "id": "hn_takodana_tourism",
@@ -206,7 +228,9 @@
           "tags": [
             "takodana",
             "tourism"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 8,  Month 2, Year 5"
         }
       ]
     },
@@ -227,7 +251,8 @@
           ],
           "conditions": {
             "minAdventure": "adv2"
-          }
+          },
+          "channel": "imperial"
         },
         {
           "id": "hn_inquisitor_activity",
@@ -239,7 +264,9 @@
             "inquisitorius",
             "jedi",
             "draco"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 19, Month 10, Year 5"
         },
         {
           "id": "hn_tibanna_production",
@@ -251,7 +278,9 @@
             "bespin",
             "tibanna",
             "mining-guild"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 1,  Month 7, Year 5"
         },
         {
           "id": "hn_klosari_relief",
@@ -269,7 +298,8 @@
           "conditions": {
             "minAdventure": "adv2",
             "requires": "klosari_freed_in_adv1"
-          }
+          },
+          "channel": "imperial"
         }
       ]
     },
@@ -291,7 +321,8 @@
           ],
           "conditions": {
             "minAdventure": "adv3"
-          }
+          },
+          "channel": "imperial"
         },
         {
           "id": "hn_endor_survey",
@@ -303,7 +334,8 @@
             "endor",
             "forest-moon",
             "ebon-spire"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_gerrera_partisans",
@@ -315,7 +347,8 @@
             "saw-gerrera",
             "onderon",
             "rebels"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_corellian_shipyards",
@@ -327,7 +360,9 @@
             "corellia",
             "cec",
             "imperial-navy"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 5,  Month 9, Year 5"
         }
       ]
     },
@@ -353,7 +388,8 @@
           "conditions": {
             "minAdventure": "adv6",
             "vischeraResearchLost": true
-          }
+          },
+          "channel": "imperial"
         },
         {
           "id": "hn_outer_rim_pandemic_imperial_relief",
@@ -372,7 +408,8 @@
           "conditions": {
             "minAdventure": "adv6",
             "vischeraResearchPreserved": true
-          }
+          },
+          "channel": "imperial"
         }
       ]
     },
@@ -392,7 +429,9 @@
             "organa",
             "trade",
             "smuggling"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 11, Month 1, Year 5"
         },
         {
           "id": "hn_holonet_upgrade",
@@ -404,7 +443,9 @@
             "holonet",
             "communications",
             "censorship"
-          ]
+          ],
+          "channel": "imperial",
+          "airDate": "Day 1,  Month 8, Year 5"
         },
         {
           "id": "hn_medical_breakthrough",
@@ -416,7 +457,8 @@
             "medical",
             "bacta",
             "outer-rim"
-          ]
+          ],
+          "channel": "imperial"
         },
         {
           "id": "hn_chandrila_arts",
@@ -428,7 +470,90 @@
             "chandrila",
             "culture",
             "propaganda"
+          ],
+          "channel": "imperial"
+        }
+      ]
+    },
+    {
+      "id": "feed_fringe_chatter",
+      "label": "Fringe Chatter — Off-Imperial Frequencies",
+      "window": "general",
+      "stories": [
+        {
+          "id": "hn_besadii_bounty_courier",
+          "headline": "BESADII KAJIDIC POSTS OPEN BOUNTY ON COURIER WHO LOST AN ENCRYPTED CYLINDER ON JAKKU",
+          "source": "Hutt-cant burst, intercepted on relay 4-Pelta",
+          "body": "Word from the Besadii enforcers: the Hutt who answers to Varga is paying twelve-thousand hard credits for the head — preferred, the hands — of the courier who walked out of a refueling depot on Jakku with property the kajidic considers spoken-for. No questions asked, no chain-of-custody required. The courier is described as a young human pilot, dark hair, off-the-books smuggling work out of Takodana. The Hutts are not saying what was on the cylinder. The fact that they are not saying tells you what was on the cylinder. Word to the wise: anyone moving through the Western Reaches who looks like they might know the courier should expect to be looked at twice by men who are paid not to ask politely.",
+          "type": "flavor",
+          "channel": "underworld",
+          "tags": [
+            "varga",
+            "jakku",
+            "maya",
+            "bounty",
+            "underworld"
+          ],
+          "airDate": "Day 6, Month 1, Year 5"
+        },
+        {
+          "id": "hn_blackspire_safehouse_warning",
+          "headline": "OGA'S DOORMAN PASSES THE WORD: TWO BERTHS AT BLACK SPIRE BURNED — DO NOT COCK YOUR SLUG ON THE EAST RIDGE THIS MONTH",
+          "source": "Black Spire Outpost — Oga Garra (verbal, relayed)",
+          "body": "Oga sends her regards, and her regards are these: two of the quiet berths on the east ridge of Black Spire — the ones the regulars know not to talk about — got walked through by an off-world type who did not have business there and did not have an introduction. The doormen handled it. The berths are burned for the rest of the month. If you are flying anything you do not want a stranger taking a long look at, route around. If your contact in Black Spire told you to use one of those berths, your contact in Black Spire is no longer in Black Spire. The cantina is open. The drinks are honest. Do not bring trouble to the bar.",
+          "type": "flavor",
+          "channel": "underworld",
+          "tags": [
+            "black-spire",
+            "batuu",
+            "oga-garra",
+            "safehouse",
+            "underworld"
           ]
+        },
+        {
+          "id": "hn_free_captains_prizecourt",
+          "headline": "FREE CAPTAINS' ASSEMBLY DECLARES SPLINTER PRIZE-COURT ON DEMOPHON — IMPERIAL REGISTRIES NOT RECOGNIZED",
+          "source": "Pirate broadcast, open band — Free Captains of the Carrick Drift",
+          "body": "Hear this and pass it on. The Free Captains' Assembly, met in proper session at the Demophon roads, has by show of cannon declared a splinter prize-court for the Carrick Drift sublane and points anti-spinward. We do not recognize Imperial customs registry, Imperial salvage claim, or Imperial cargo manifest. We DO recognize the old prize rules: a fair fight, a fair share, and no cargo bound for an Imperial garrison sails the Drift without paying the Court. Honest haulers passing under a Free Captain's letter of marque travel under our protection. Imperial flag-of-convenience runners — and you know who you are — should consider their routes. The Court sits the second Centaxday of every month at the Demophon roads. The black flag flies until the Empire flies the white one.",
+          "type": "foreshadow",
+          "channel": "pirate",
+          "tags": [
+            "pirates",
+            "free-captains",
+            "carrick-drift",
+            "piracy"
+          ],
+          "airDate": "Day 7, Month 2, Year 5"
+        },
+        {
+          "id": "hn_shrike_squadron_warning",
+          "headline": "SHRIKE SQUADRON WARNS IMPERIAL CONVOYS OFF THE SHAG PABOL CORRIDOR — \"WE DO NOT NEED THE WHOLE CONVOY, ONLY THE LAST HAULER\"",
+          "source": "Pirate broadcast, looped on the Shag Pabol picket beacon",
+          "body": "This is Captain Resh of the Shrike — and the rest of you on this band, you know the voice. Imperial Navy says they have eliminated piracy on the Shag Pabol Trade Route. Imperial Navy is welcome to keep saying that. We notice they only escort the front of the convoy. The middle haulers — fine, we leave them. The last hauler in any Imperial-registered string traveling Shag Pabol after second meridian is ours. We do not need the whole convoy. We only need the last hauler. Independent haulers showing the green-and-black Shrike pennant pass clean and pay nothing. Imperial-registry haulers traveling alone are reminded that the Shrike is not in the cargo business — we are in the convince-the-Empire-it-cannot-protect-its-shipping business. Stay home. Or fly with us. Out.",
+          "type": "consequence",
+          "channel": "pirate",
+          "tags": [
+            "pirates",
+            "shrike-squadron",
+            "shag-pabol",
+            "piracy"
+          ]
+        },
+        {
+          "id": "hn_free_trader_lane_compromise",
+          "headline": "FREE TRADER COOPERATIVE — LANE 73-K NEWLY COMPROMISED, REROUTE THROUGH CALL-SIGN BEKENN",
+          "source": "Free Trader Cooperative bulletin, fringe-trade encrypted relay",
+          "body": "Brief and to the point, sisters and brothers of the Cooperative. Lane 73-K, our quiet leg between the Trilon outer markers and the Klatooine drop, is compromised — Imperial Customs ran two unannounced sweeps in the last cycle and one of those sweeps had paperwork that should not have existed unless someone on our side gave it to them. We are auditing. Until the audit closes, do NOT push registered cargo through 73-K. Any Cooperative hauler with a load already inbound, kill your transponder at marker three, fall off into the Klatooine debris field, and wait for call-sign BEKENN on the agreed band — BEKENN will reroute you through the back lane at no upcharge. Independent haulers not in the Cooperative: the back lane is not yours. Do not try it. The Cooperative remembers who pays dues. Out.",
+          "type": "consequence",
+          "channel": "fringe-trade",
+          "tags": [
+            "free-traders",
+            "smuggling",
+            "lane-73k",
+            "fringe-trade"
+          ],
+          "airDate": "Day 14, Month 1, Year 5"
         }
       ]
     }

@@ -12421,3 +12421,156 @@
 .dp-lang-dialog-save:hover { background: rgba(200, 164, 78, 0.1); }
 .dp-lang-dialog-save:disabled { opacity: 0.5; cursor: not-allowed; }
 .dp-lang-dialog-cancel:hover { color: var(--color-text-primary); }
+
+/* === Task #201 — HoloNet channel rendering, ready-to-broadcast section, tile badge === */
+.hn-tile-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: #f59e0b;
+  color: #1a1a1a;
+  border-radius: 3px;
+  vertical-align: middle;
+  animation: hn-badge-pulse 2.4s ease-in-out infinite;
+}
+@keyframes hn-badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
+  50%      { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+}
+
+/* Channel filter chips */
+.hn-channel-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(91, 158, 213, 0.18);
+  background: rgba(10, 18, 30, 0.4);
+}
+.hn-channel-chip {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(91, 158, 213, 0.25);
+  background: transparent;
+  color: rgba(220, 230, 245, 0.65);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.hn-channel-chip:hover { color: #fff; border-color: rgba(91, 158, 213, 0.55); }
+.hn-channel-chip--active {
+  background: rgba(91, 158, 213, 0.2);
+  color: #fff;
+  border-color: rgba(91, 158, 213, 0.7);
+}
+.hn-channel-chip-imperial.hn-channel-chip--active     { background: rgba(91, 158, 213, 0.25); border-color: #5b9ed5; }
+.hn-channel-chip-underworld.hn-channel-chip--active   { background: rgba(245, 158, 11, 0.22); border-color: #f59e0b; color: #fde68a; }
+.hn-channel-chip-pirate.hn-channel-chip--active       { background: rgba(180, 83, 9, 0.22);   border-color: #b45309; color: #fcd9a8; }
+.hn-channel-chip-fringe-trade.hn-channel-chip--active { background: rgba(45, 168, 142, 0.22); border-color: #2da88e; color: #c2f1e3; }
+
+/* Channel chip used inside story meta row (small inline label) */
+.hn-story-channel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.hn-channel-chip-imperial     { background: rgba(91, 158, 213, 0.18); color: #b8d4f0; }
+.hn-channel-chip-underworld   { background: rgba(245, 158, 11, 0.18); color: #fde68a; }
+.hn-channel-chip-pirate       { background: rgba(180, 83, 9, 0.20);   color: #fcd9a8; }
+.hn-channel-chip-fringe-trade { background: rgba(45, 168, 142, 0.18); color: #c2f1e3; }
+
+/* Channel-keyed left border on GM story cards */
+.hn-story-card.hn-channel-imperial     { border-left: 3px solid #5b9ed5; }
+.hn-story-card.hn-channel-underworld   { border-left: 3px solid #f59e0b; background: linear-gradient(90deg, rgba(245, 158, 11, 0.04), transparent 40%); }
+.hn-story-card.hn-channel-pirate       { border-left: 3px solid #b45309; background: linear-gradient(90deg, rgba(180, 83, 9, 0.05), transparent 40%); }
+.hn-story-card.hn-channel-fringe-trade { border-left: 3px solid #2da88e; background: linear-gradient(90deg, rgba(45, 168, 142, 0.04), transparent 40%); }
+
+/* Ready-to-broadcast section */
+.hn-ready-section {
+  margin: 10px 12px;
+  padding: 10px;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.05);
+}
+.hn-ready-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #f59e0b;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(245, 158, 11, 0.3);
+}
+.hn-ready-count {
+  background: #f59e0b;
+  color: #1a1a1a;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+}
+.hn-ready-hint {
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: rgba(245, 158, 11, 0.7);
+  letter-spacing: 0;
+}
+.hn-story-card.hn-story--ready { box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.2) inset; }
+.hn-story-airdate {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #f59e0b;
+  letter-spacing: 0.04em;
+  padding: 1px 5px;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 3px;
+}
+
+/* === Player overlay channel badges === */
+.holonet-story-channel-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.holonet-channel-badge-imperial {
+  background: rgba(91, 158, 213, 0.18);
+  color: #8dc0ec;
+  border: 1px solid rgba(91, 158, 213, 0.45);
+}
+.holonet-channel-badge-underworld {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  text-shadow: 0 0 6px rgba(245, 158, 11, 0.45);
+}
+.holonet-channel-badge-pirate {
+  background: rgba(180, 83, 9, 0.18);
+  color: #fcd9a8;
+  border: 1px solid rgba(180, 83, 9, 0.55);
+  font-family: monospace;
+}
+.holonet-channel-badge-fringe-trade {
+  background: rgba(45, 168, 142, 0.15);
+  color: #6dd9bd;
+  border: 1px solid rgba(45, 168, 142, 0.5);
+}
+.holonet-story--channel-imperial     { border-left: 3px solid rgba(91, 158, 213, 0.6); padding-left: 12px; }
+.holonet-story--channel-underworld   { border-left: 3px solid rgba(245, 158, 11, 0.6); padding-left: 12px; }
+.holonet-story--channel-pirate       { border-left: 3px solid rgba(180, 83, 9, 0.65);  padding-left: 12px; }
+.holonet-story--channel-fringe-trade { border-left: 3px solid rgba(45, 168, 142, 0.6); padding-left: 12px; }

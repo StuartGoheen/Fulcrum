@@ -423,19 +423,20 @@ Defaults initialized in both branches of `expandCharacterData()`.
 
 GM-triggered in-universe Imperial propaganda broadcasts with player overlays and journal clipping.
 
-**Data:** `data/holonet.json` — ~26 stories across 6 feed groups (pre-campaign, post-adv1-3, general 15 BBY). Story types: `propaganda`, `consequence`, `foreshadow`, `lore`, `flavor`.
+**Data:** `data/holonet.json` — 34 stories across 8 feed groups (pre-campaign, post-adv1-3, post-adv6, general 15 BBY, plus the new `feed_fringe_chatter` for off-Imperial bands). Story types: `propaganda`, `consequence`, `foreshadow`, `lore`, `flavor`. Each story carries a `channel` field (Task #201): `imperial` (default, 29 stories), `underworld` (Hutt/Black Sun/Black Spire chatter), `pirate` (Free Captains, Shrike Squadron), `fringe-trade` (Free Trader Cooperative). 14 stories also carry an `airDate` (Imperial-string, round-trips through `GalacticCalendar.parseImperialString`) anchored to in-fiction events (Empire Day +1, Subjugation of Kashyyyk anniversary, Day of the Purge anniversary, quarterly production reports, etc.). Stories without `airDate` are evergreen and broadcast at GM discretion.
 
-**DB table:** `holonet_broadcasts` — tracks broadcast history (feed_id, story_ids, broadcast_by, broadcast_at).
+**DB table:** `holonet_broadcasts` — tracks broadcast history (feed_id, story_ids, broadcast_by, broadcast_at). Acts as the persistence layer for the "already-sent" set.
 
 **Server:**
-- `GET /api/campaign/holonet/feeds` — returns all feeds + broadcast history (player-accessible)
+- `GET /api/campaign/holonet/feeds` — returns all feeds (player-accessible)
 - `GET /api/campaign/holonet/history` — broadcast history
-- `POST /api/campaign/holonet/broadcast` — GM broadcasts selected stories, emits `holonet:incoming` socket event to players room server-side
-- Socket: `holonet:broadcast` event handler (GM→players room)
+- `GET /api/campaign/holonet/queue` — Task #201; partitions all not-yet-broadcast stories into `{ ready, evergreen }`. `ready` = stories whose `airDate` resolves to `airDayIndex <= currentDayIndex`. Returns `{ readyCount, currentDayIndex, ready, evergreen, broadcastedIds }`.
+- `POST /api/campaign/holonet/broadcast` — GM broadcasts selected stories, emits `holonet:incoming` socket event to players room **and** `holonet:queue-updated` (broadcast) so GM clients refresh.
+- Socket emits: `holonet:incoming` (to players room only — actual story payload), `holonet:queue-updated` (server-wide GM badge sync; carries `{readyCount, currentDayIndex, signature}` where `signature = dayIndex:readyCount:broadcastedSize` for client-side dedupe). The queue-updated event also fires after `clock:advance` and `clock:set` so the GM tile badge updates whenever in-fiction time moves past a story's airDate.
 
-**GM UI:** HoloNet tile in Command Bridge scene dashboard. Story browser with type badges, sent status, checkbox multi-select, broadcast button. Panel ID: `fp-holonet`, built via `_buildHoloNetHtml()` / `_bindHolonetHandlers()` in `js/command-bridge.js`.
+**GM UI:** HoloNet tile in Command Bridge scene dashboard with a pulsing "N READY" badge (`.hn-tile-badge`) when stories have arrived. Story browser overlay opens with a top "📢 READY TO BROADCAST" amber-bordered section listing ready stories first (each with an `AIRED [date]` chip), followed by full feed listing. Channel filter chips at the top (`All / Imperial / Underworld / Pirate / Fringe Trade`) filter both sections. Each story card carries a channel-keyed left-border accent (Imperial=ISB blue, Underworld=amber, Pirate=burnt orange, Fringe Trade=teal). GM still clicks `BROADCAST` to send — readiness is a queue indicator, never an auto-send. Built via `_buildHoloNetHtml()` / `_bindHolonetHandlers()` / `_loadHolonetData()` (3 parallel fetches now: feeds, history, queue) / `_updateHolonetTileBadge()` in `js/command-bridge.js`.
 
-**Player Overlay:** `js/holonet-overlay.js` — Imperial terminal aesthetic overlay triggered by `holonet:incoming` socket event. Features scanline animation, gold-on-dark terminal chrome, per-story "Clip to Journal" button (creates journal entry via `POST /api/journal/entries` with `source_scene_id: 'holonet'`). Close via X button or backdrop click.
+**Player Overlay:** `js/holonet-overlay.js` — Imperial terminal aesthetic overlay triggered by `holonet:incoming` socket event. Each story carries a channel badge in its header (`IMPERIAL HOLONET` / `UNDERWORLD CHATTER` / `PIRATE BAND` / `FRINGE TRADE BULLETIN`) with channel-keyed coloring and a matching left-border accent. Features scanline animation, gold-on-dark terminal chrome, per-story "Clip to Journal" button (creates journal entry via `POST /api/journal/entries` with `source_scene_id: 'holonet'`). Close via X button or backdrop click.
 
 **Auth:** Player GET access to `/api/campaign/holonet/feeds` whitelisted in `server/auth.js`.
 
@@ -659,19 +660,19 @@ The Vanishing Place (adv1 Part 2 scenes S5–S8) now has a dynamic fortress-stat
 
 ## Galactic Calendar & Voice Audit (Task #198)
 
-**Anchor:** Primeday, 4 Elona, Year 4 IE = 4 Elona, 7981 C.R.C. = ~16 BBY (designer shorthand "~15 BBY"). Day index 1107, hour 8.
+**Anchor:** Primeday, 4 Elona, Year 5 IE = 4 Elona, 7982 C.R.C. = 15 BBY. Day index 1475, hour 8. (Task #201 shifted the campaign anchor from Year 4 → Year 5 so `bbyForYear(5) = 15 BBY` strictly aligns with the bible's "15 BBY" setting; the prior `~16 BBY` hedge is removed.)
 
 **Calendar engine:** `js/lib/galactic-calendar.js` (UMD — used server + browser). Persists in `campaign_state` (`current_day_index`, `current_hour`); BEFORE INSERT trigger `stamp_journal_clock` auto-stamps `journal_entries.in_universe_day_index/hour` from campaign_state. REST: `GET/POST /api/campaign/clock[/advance|/set]`. Socket broadcast: `clock:updated`.
 
-**Schema additions:** `data/adventures/adv1.json` now carries root `startDate: "Primeday, 4 Elona, Year 4"` + `startDateNote`. All 12 conversation files in `data/conversations/` carry a `voice` field (citizen / scholar / imperial). Adventures and conversations without these fields still load.
+**Schema additions:** `data/adventures/adv1.json` now carries root `startDate: "Primeday, 4 Elona, Year 5"` + `startDateNote`. All 12 conversation files in `data/conversations/` carry a `voice` field (citizen / scholar / imperial). Adventures and conversations without these fields still load.
 
 **Prose audit — adv1–3 voice-rule compliance:**
-- `adv1.json` S1 read-alouds: relative phrasing kept ("twelve hours ago", "an hour ago", "tonight", "fixer is an hour late", "twice a standard year") — narrator voice, no specific Imperial date implied. Devaronian gmNote (NPC citizen) "since the Lambda landed two days ago" annotated `(Day 2, Month 1, Year 4 — GM clarity only)` in both occurrences (S1 and S1B variant).
+- `adv1.json` S1 read-alouds: relative phrasing kept ("twelve hours ago", "an hour ago", "tonight", "fixer is an hour late", "twice a standard year") — narrator voice, no specific Imperial date implied. Devaronian gmNote (NPC citizen) "since the Lambda landed two days ago" annotated `(Day 2, Month 1, Year 5 — GM clarity only)` in both occurrences (S1 and S1B variant).
 - `adv2.json` S2 read-aloud "dead before dawn" + S2 vpThresholds NPC quotes ("three, four days ago", "Two days ago", "Saw smoke yesterday morning") — already in citizen voice (NPC speech), confirmed consistent; no rewrites needed per audit spec.
 - `adv3.json` S1 read-aloud — replaced the pro-Republic phrasing "back when the Republic was still young" with Imperial-acceptable historical framing: "back in the early centuries of the Old Republic" (factual era reference, no Republic-positive editorializing).
 - `adv3.json` Lt. customs quote — "recited four hundred times this week" → "recited four hundred times since the start of the month" (Imperial NPC voice).
 - `adv3.json` Varth comm quote — "pinged Cloud City spaceport sixteen days ago" left as-is per spec (Varth is precise but informal in conversation).
-- `adv3.json` Beat 1 tactics aside — "Calrissian does not run Cloud City for another twelve years; this is 15 BBY" → "In Year 4 IE (~15 BBY for designer reference), Calrissian is still twelve years out from running Cloud City; today the city is governed by..." (per spec verbatim).
+- `adv3.json` Beat 1 tactics aside — "Calrissian does not run Cloud City for another twelve years; this is 15 BBY" → "In Year 5 IE (15 BBY), Calrissian is still twelve years out from running Cloud City; today the city is governed by..." (Task #201 dropped the "~15 BBY designer reference" hedge after the anchor shifted to Year 5 IE).
 - `vanishing-place-fortress.json` — no player-visible date references that violate the voice rule; not modified.
 - 12 conversation files: `voice` set to `citizen` (Maya, Oga, Mandrake, Fyren/Krygg, Raden, the Storyteller's framing kept scholar for Maz's-Castle elder), `scholar` (Master Thorla, TC-663, the Storyteller), `imperial` (Varth ×3, Soren Vex). Conversation-overlay header reads `def.voice` (default `citizen` if absent) to render the in-universe date in the right dialect.
 

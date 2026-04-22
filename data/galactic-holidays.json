@@ -1,9 +1,9 @@
 {
   "_meta": {
-    "year": 4,
-    "ie": "Year 4 IE",
-    "crc": "7981 C.R.C.",
-    "bbyApprox": "~16 BBY (15 BBY designer shorthand)",
+    "year": 5,
+    "ie": "Year 5 IE",
+    "crc": "7982 C.R.C.",
+    "bbyApprox": "15 BBY",
     "note": "Holidays are advisory in v1 — they do not auto-fire events. The GM clock widget surfaces them so the GM can lean into them."
   },
   "holidays": [

@@ -2180,10 +2180,29 @@
   var _holonetFeeds = null;
   var _holonetHistory = null;
   var _holonetSelected = {};
+  // Task #201 — queue snapshot, channel filter, badge state, dedupe signature.
+  var _holonetQueue = { ready: [], evergreen: [], readyCount: 0 };
+  var _holonetChannelFilter = 'all';
+  var _holonetReadyCount = 0;
+  var _holonetQueueSig = '';
+
+  // Channels we recognize, in chip-order. Anything else falls back to 'imperial'.
+  var HN_CHANNELS = [
+    { id: 'all',          label: 'All Channels' },
+    { id: 'imperial',     label: 'Imperial HoloNet' },
+    { id: 'underworld',   label: 'Underworld' },
+    { id: 'pirate',       label: 'Pirate Bands' },
+    { id: 'fringe-trade', label: 'Fringe Trade' }
+  ];
+  function _hnChannel(s) {
+    var c = (s && s.channel) ? String(s.channel).toLowerCase() : 'imperial';
+    var known = ['imperial', 'underworld', 'pirate', 'fringe-trade'];
+    return known.indexOf(c) >= 0 ? c : 'imperial';
+  }
 
   function _loadHolonetData(cb) {
     var loaded = 0;
-    function check() { loaded++; if (loaded >= 2 && cb) cb(); }
+    function check() { loaded++; if (loaded >= 3 && cb) cb(); }
     fetch('/api/campaign/holonet/feeds')
       .then(function (r) { return r.json(); })
       .then(function (d) { if (d.ok) _holonetFeeds = d.feeds; check(); })
@@ -2192,6 +2211,27 @@
       .then(function (r) { return r.json(); })
       .then(function (d) { if (d.ok) _holonetHistory = d.broadcasts; check(); })
       .catch(function () { check(); });
+    fetch('/api/campaign/holonet/queue')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d.ok) {
+          _holonetQueue = { ready: d.ready || [], evergreen: d.evergreen || [], readyCount: d.readyCount || 0 };
+          _holonetReadyCount = d.readyCount || 0;
+          _updateHolonetTileBadge();
+        }
+        check();
+      })
+      .catch(function () { check(); });
+  }
+
+  // Update only the tile badge in-place (no re-render of the full grid).
+  function _updateHolonetTileBadge() {
+    var tile = document.querySelector('[data-panel-id="holonet"] .cb-tile-meta');
+    if (!tile) return;
+    var n = _holonetReadyCount | 0;
+    tile.innerHTML = n > 0
+      ? 'Broadcast <span class="hn-tile-badge">' + n + ' READY</span>'
+      : 'Broadcast';
   }
 
   function _getAlreadySentIds() {
@@ -2222,6 +2262,36 @@
     var sentIds = _getAlreadySentIds();
     var selectedCount = Object.keys(_holonetSelected).filter(function (k) { return _holonetSelected[k]; }).length;
 
+    // Story card renderer (shared by Ready section + per-feed listing).
+    function renderCard(story, opts) {
+      opts = opts || {};
+      var ch = _hnChannel(story);
+      if (_holonetChannelFilter !== 'all' && ch !== _holonetChannelFilter) return '';
+      var isSent = !!sentIds[story.id];
+      var isSelected = !!_holonetSelected[story.id];
+      var typeClass = 'hn-type--' + (story.type || 'flavor');
+      var chLabel = (HN_CHANNELS.find(function (c) { return c.id === ch; }) || { label: ch }).label;
+      var s = '<div class="hn-story-card hn-channel-' + ch + (isSelected ? ' hn-story--selected' : '') + (isSent ? ' hn-story--sent' : '') + (opts.ready ? ' hn-story--ready' : '') + '" data-story-id="' + esc(story.id) + '">';
+      s += '<div class="hn-story-select"><input type="checkbox" class="hn-story-check" data-story-id="' + esc(story.id) + '"' + (isSelected ? ' checked' : '') + ' /></div>';
+      s += '<div class="hn-story-content">';
+      s += '<div class="hn-story-headline">' + esc(story.headline) + '</div>';
+      s += '<div class="hn-story-meta">';
+      s += '<span class="hn-story-source">' + esc(story.source) + '</span>';
+      s += '<span class="hn-story-type ' + typeClass + '">' + esc(story.type || 'flavor').toUpperCase() + '</span>';
+      s += '<span class="hn-story-channel hn-channel-chip-' + ch + '">' + esc(chLabel) + '</span>';
+      if (opts.ready && story.airDate) s += '<span class="hn-story-airdate">AIRED ' + esc(story.airDate) + '</span>';
+      if (isSent) s += '<span class="hn-story-sent-badge">SENT</span>';
+      s += '</div>';
+      s += '<div class="hn-story-body">' + esc(story.body) + '</div>';
+      if (story.tags && story.tags.length > 0) {
+        s += '<div class="hn-story-tags">';
+        story.tags.forEach(function (tag) { s += '<span class="hn-tag">' + esc(tag) + '</span>'; });
+        s += '</div>';
+      }
+      s += '</div></div>';
+      return s;
+    }
+
     var h = '<div class="hn-panel">';
     h += '<div class="hn-header">';
     h += '<span class="hn-header-logo">&#128225; IMPERIAL HOLONET — BROADCAST TERMINAL</span>';
@@ -2231,38 +2301,33 @@
     h += '</div>';
     h += '</div>';
 
+    // Channel filter chips (Task #201 — channel rendering).
+    h += '<div class="hn-channel-chips">';
+    HN_CHANNELS.forEach(function (c) {
+      var active = (_holonetChannelFilter === c.id) ? ' hn-channel-chip--active' : '';
+      h += '<button class="hn-channel-chip hn-channel-chip-' + c.id + active + '" data-channel="' + esc(c.id) + '">' + esc(c.label) + '</button>';
+    });
+    h += '</div>';
+
+    // Ready-to-Broadcast section (Task #201) — stories whose airDate has arrived.
+    var readyFiltered = (_holonetQueue.ready || []).filter(function (s) {
+      return !sentIds[s.id] && (_holonetChannelFilter === 'all' || _hnChannel(s) === _holonetChannelFilter);
+    });
+    if (readyFiltered.length > 0) {
+      h += '<div class="hn-ready-section">';
+      h += '<div class="hn-ready-header">&#128226; READY TO BROADCAST <span class="hn-ready-count">' + readyFiltered.length + '</span><span class="hn-ready-hint">— airDate has arrived; GM still chooses when to send</span></div>';
+      readyFiltered.forEach(function (story) { h += renderCard(story, { ready: true }); });
+      h += '</div>';
+    }
+
     _holonetFeeds.forEach(function (feed) {
+      var anyVisible = (feed.stories || []).some(function (s) {
+        return _holonetChannelFilter === 'all' || _hnChannel(s) === _holonetChannelFilter;
+      });
+      if (!anyVisible) return;
       h += '<div class="hn-feed-group">';
       h += '<div class="hn-feed-label">' + esc(feed.label) + '</div>';
-
-      feed.stories.forEach(function (story) {
-        var isSent = !!sentIds[story.id];
-        var isSelected = !!_holonetSelected[story.id];
-        var typeClass = 'hn-type--' + (story.type || 'flavor');
-
-        h += '<div class="hn-story-card' + (isSelected ? ' hn-story--selected' : '') + (isSent ? ' hn-story--sent' : '') + '" data-story-id="' + esc(story.id) + '">';
-        h += '<div class="hn-story-select">';
-        h += '<input type="checkbox" class="hn-story-check" data-story-id="' + esc(story.id) + '"' + (isSelected ? ' checked' : '') + ' />';
-        h += '</div>';
-        h += '<div class="hn-story-content">';
-        h += '<div class="hn-story-headline">' + esc(story.headline) + '</div>';
-        h += '<div class="hn-story-meta">';
-        h += '<span class="hn-story-source">' + esc(story.source) + '</span>';
-        h += '<span class="hn-story-type ' + typeClass + '">' + esc(story.type || 'flavor').toUpperCase() + '</span>';
-        if (isSent) h += '<span class="hn-story-sent-badge">SENT</span>';
-        h += '</div>';
-        h += '<div class="hn-story-body">' + esc(story.body) + '</div>';
-        if (story.tags && story.tags.length > 0) {
-          h += '<div class="hn-story-tags">';
-          story.tags.forEach(function (tag) {
-            h += '<span class="hn-tag">' + esc(tag) + '</span>';
-          });
-          h += '</div>';
-        }
-        h += '</div>';
-        h += '</div>';
-      });
-
+      feed.stories.forEach(function (story) { h += renderCard(story); });
       h += '</div>';
     });
 
@@ -2321,6 +2386,16 @@
           });
       });
     }
+    container.querySelectorAll('.hn-channel-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        _holonetChannelFilter = chip.dataset.channel || 'all';
+        var panel = document.getElementById('fp-holonet');
+        if (panel) {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
+        }
+      });
+    });
     var clearBtn = container.querySelector('#hn-clear-selection');
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
@@ -3477,7 +3552,7 @@
     if (hasPacing) {
       html += '<div class="cb-tile' + (_openPanels['pacing'] ? ' cb-tile--active' : '') + '" data-panel-id="pacing"><span class="cb-tile-icon">&#9200;</span><span class="cb-tile-label">Pacing</span><span class="cb-tile-meta">' + (scene.pacing.estimatedMinutes ? '~' + scene.pacing.estimatedMinutes + ' min' : 'Guide') + '</span></div>';
     }
-    html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">Broadcast</span></div>';
+    html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">' + (_holonetReadyCount > 0 ? 'Broadcast <span class="hn-tile-badge">' + _holonetReadyCount + ' READY</span>' : 'Broadcast') + '</span></div>';
     if (window.TournamentTracker && window.TournamentTracker.isRosterScene(scene.id)) {
       var ttRosterMeta = scene.id === window.TournamentTracker.SCENE_EVE ? 'Eve review' : 'Entry paths';
       html += '<div class="cb-tile cb-tile--gc' + (_openPanels['ttroster'] ? ' cb-tile--active' : '') + '" data-panel-id="ttroster"><span class="cb-tile-icon">&#127922;</span><span class="cb-tile-label">Tournament Roster</span><span class="cb-tile-meta">' + ttRosterMeta + '</span></div>';
@@ -4351,6 +4426,24 @@
     });
 
     socket.on('player:connected', function () { loadPartyMonitor(); });
+    // Task #201 — keep HoloNet "Ready to Broadcast" badge in sync without polling.
+    socket.on('holonet:queue-updated', function (data) {
+      if (!data) return;
+      if (data.signature && data.signature === _holonetQueueSig) return;
+      _holonetQueueSig = data.signature || '';
+      _holonetReadyCount = data.readyCount | 0;
+      _updateHolonetTileBadge();
+      // If the GM has the panel open, refresh its Ready section in place.
+      var panel = document.getElementById('fp-holonet');
+      if (panel) {
+        _loadHolonetData(function () {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
+        });
+      }
+    });
+    // Initial preload so the tile badge is correct on first paint.
+    _loadHolonetData(function () { _updateHolonetTileBadge(); });
     socket.on('player:disconnected', function () { loadPartyMonitor(); });
     socket.on('state:sync', function (data) {
       if (data && data.state) _campaignState = data.state;

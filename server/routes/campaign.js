@@ -122,6 +122,8 @@ router.post('/campaign/clock/advance', async (req, res) => {
     payload.advanceDays = days;
     const io = req.app.get('io');
     if (io) io.emit('clock:updated', payload);
+    // Task #201 — recompute and broadcast holonet ready-count after the clock moves.
+    _emitHolonetQueueUpdated(io);
     res.json(payload);
   } catch (err) {
     console.error('[POST /campaign/clock/advance]', err);
@@ -149,6 +151,7 @@ router.post('/campaign/clock/set', async (req, res) => {
     const payload = _renderClockResponse({ dayIndex: dayIndex, hour: hour });
     const io = req.app.get('io');
     if (io) io.emit('clock:updated', payload);
+    _emitHolonetQueueUpdated(io);
     res.json(payload);
   } catch (err) {
     console.error('[POST /campaign/clock/set]', err);
@@ -1589,6 +1592,84 @@ router.get('/campaign/holonet/feeds', (req, res) => {
   }
 });
 
+// Task #201 — collect every story_id ever broadcast (union across history rows).
+async function _loadHolonetBroadcastedSet() {
+  const broadcasted = new Set();
+  try {
+    const { rows } = await pool.query('SELECT story_ids FROM holonet_broadcasts');
+    for (const r of rows) {
+      let ids = r.story_ids;
+      if (typeof ids === 'string') { try { ids = JSON.parse(ids); } catch (e) { ids = []; } }
+      if (Array.isArray(ids)) ids.forEach(id => broadcasted.add(id));
+    }
+  } catch (e) { console.error('[holonet] broadcasted set load failed:', e.message); }
+  return broadcasted;
+}
+
+// Partition all stories into {ready, evergreen} relative to currentDayIndex.
+// ready    = airDate present, parses, airDayIndex <= currentDayIndex, not yet broadcast.
+// evergreen= no airDate, not yet broadcast.
+function _partitionHolonetQueue(currentDayIndex, broadcastedSet) {
+  const data = loadHolonet();
+  const ready = [];
+  const evergreen = [];
+  for (const feed of (data.feeds || [])) {
+    for (const story of (feed.stories || [])) {
+      if (broadcastedSet.has(story.id)) continue;
+      if (story.airDate) {
+        const parsed = Calendar.parseImperialString(story.airDate);
+        if (parsed && parsed.dayIndex <= currentDayIndex) {
+          ready.push(Object.assign({}, story, {
+            feedId: feed.id,
+            feedLabel: feed.label,
+            airDayIndex: parsed.dayIndex
+          }));
+        }
+      } else {
+        evergreen.push(Object.assign({}, story, { feedId: feed.id, feedLabel: feed.label }));
+      }
+    }
+  }
+  ready.sort((a, b) => a.airDayIndex - b.airDayIndex);
+  return { ready, evergreen };
+}
+
+router.get('/campaign/holonet/queue', async (req, res) => {
+  try {
+    const state = await _readClockState();
+    const broadcasted = await _loadHolonetBroadcastedSet();
+    const { ready, evergreen } = _partitionHolonetQueue(state.dayIndex, broadcasted);
+    res.json({
+      ok: true,
+      currentDayIndex: state.dayIndex,
+      readyCount: ready.length,
+      ready,
+      evergreen,
+      broadcastedIds: Array.from(broadcasted)
+    });
+  } catch (err) {
+    console.error('[holonet] queue error:', err);
+    res.status(500).json({ error: 'Failed to compute holonet queue' });
+  }
+});
+
+// Emit a small `holonet:queue-updated` payload so GM clients can refresh badges
+// without re-fetching the full queue. Carries a signature for dedupe.
+async function _emitHolonetQueueUpdated(io) {
+  if (!io) return;
+  try {
+    const state = await _readClockState();
+    const broadcasted = await _loadHolonetBroadcastedSet();
+    const { ready } = _partitionHolonetQueue(state.dayIndex, broadcasted);
+    const signature = state.dayIndex + ':' + ready.length + ':' + broadcasted.size;
+    io.emit('holonet:queue-updated', {
+      readyCount: ready.length,
+      currentDayIndex: state.dayIndex,
+      signature
+    });
+  } catch (e) { console.error('[holonet] queue-updated emit failed:', e.message); }
+}
+
 router.get('/campaign/holonet/history', async (req, res) => {
   try {
     const { rows } = await pool.query(
@@ -1626,6 +1707,7 @@ router.post('/campaign/holonet/broadcast', async (req, res) => {
         stories,
         broadcastAt: new Date().toISOString()
       });
+      _emitHolonetQueueUpdated(io);
     }
     res.json({ ok: true, stories });
   } catch (err) {
