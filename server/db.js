@@ -603,10 +603,13 @@ async function seedOpeningJournalEntry() {
 
   const client = await pool.connect();
   try {
+    // Idempotency: a single Campaign Log entry per scene is the contract
+    // (matches idx_journal_entries_scene_author). Title/body may evolve in
+    // future authoring passes — re-running seed should still be a no-op.
     const existing = await client.query(
       `SELECT id FROM journal_entries
-        WHERE source_scene_id = $1 AND author_character_name = $2 AND title = $3`,
-      [SCENE_ID, AUTHOR, TITLE]
+        WHERE source_scene_id = $1 AND author_character_name = $2`,
+      [SCENE_ID, AUTHOR]
     );
     if (existing.rows.length > 0) return;
 
