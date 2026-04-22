@@ -3311,9 +3311,26 @@
     if (_droidCooldownTimer) clearInterval(_droidCooldownTimer);
     _droidCooldownTimer = setInterval(_droidTickCooldown, 500);
     _droidTickCooldown();
+    _droidEnsureVisibilityWired();
+  }
+
+  // Refresh the cooldown UI once whenever the player returns to the tab,
+  // so the countdown isn't stale while we're skipping ticks in hidden
+  // tabs (see _droidTickCooldown).
+  var _droidVisibilityWired = false;
+  function _droidEnsureVisibilityWired() {
+    if (_droidVisibilityWired) return;
+    _droidVisibilityWired = true;
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && _droidCooldownTimer) _droidTickCooldown();
+    });
   }
 
   function _droidTickCooldown() {
+    // Skip the visual update when the tab is hidden — the cooldown is
+    // wall-clock based, so we'll catch up on the next visible tick or
+    // via the visibilitychange handler below.
+    if (document.hidden) return;
     var bar = document.getElementById('droid-cooldown');
     var btn = document.getElementById('droid-ask-btn');
     if (!bar) return;

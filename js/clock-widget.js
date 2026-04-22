@@ -388,9 +388,21 @@
     if (_attachSocket()) return;
     var tries = 0;
     var iv = setInterval(function () {
+      // Skip work in background tabs to save battery / CPU; tries counter
+      // only advances while visible so we still get the full 40-attempt
+      // window when the user comes back.
+      if (document.hidden) return;
       tries++;
       if (_attachSocket() || tries > 40) clearInterval(iv);
     }, 250);
+  }
+
+  // Refresh once whenever the player flips back to the tab so the date
+  // strip reflects any clock changes that occurred while we were idle.
+  function _wireVisibilityRefresh() {
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) _refresh();
+    });
   }
 
   // ─── Boot ──────────────────────────────────────────────────────────────
@@ -398,6 +410,7 @@
     _wireGmWidget();
     _refresh();
     _bootSocket();
+    _wireVisibilityRefresh();
   }
 
   if (document.readyState === 'loading') {

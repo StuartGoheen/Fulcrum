@@ -36,15 +36,22 @@
     var interval = durationMs / steps;
     var increment = target / steps;
     var current = 0;
-    var timer = setInterval(function () {
+    function tick() {
+      // Skip volume tweaks while the tab is hidden — the crawl isn't
+      // visible, and audio will reach its target on the next visible tick.
+      if (document.hidden) return;
       current += increment;
       if (current >= target) {
         audio.volume = target;
         clearInterval(timer);
+        document.removeEventListener('visibilitychange', onVisible);
       } else {
         audio.volume = current;
       }
-    }, interval);
+    }
+    function onVisible() { if (!document.hidden) tick(); }
+    var timer = setInterval(tick, interval);
+    document.addEventListener('visibilitychange', onVisible);
     return timer;
   }
 
