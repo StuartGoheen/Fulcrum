@@ -211,6 +211,38 @@
     socket.emit('state:update', { key: STATE_KEY, value: state });
   }
 
+  function _loadRecapEntryPreview(sceneId) {
+    var preview = document.querySelector('[data-recap-preview]');
+    if (!preview) return;
+    var body = preview.querySelector('[data-recap-preview-body]');
+    var meta = preview.querySelector('[data-recap-preview-meta]');
+    if (!body) return;
+    body.textContent = 'Loading…';
+    if (meta) meta.textContent = '';
+    fetch('/api/journal/entries?scene_id=' + encodeURIComponent(sceneId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var entries = (data && data.entries) || [];
+        var entry = entries.filter(function (e) {
+          return e.title === 'Sabacc Tournament — Day 1 Recap';
+        }).sort(function (a, b) {
+          return new Date(b.updated_at || b.created_at) - new Date(a.updated_at || a.created_at);
+        })[0];
+        if (!entry) {
+          if (meta) meta.textContent = '';
+          body.textContent = 'No recap journal entry yet. Click "Regenerate Recap" to create one.';
+          return;
+        }
+        var when = entry.updated_at || entry.created_at;
+        var whenStr = when ? new Date(when).toLocaleString() : '';
+        if (meta) meta.textContent = entry.title + (whenStr ? ' • ' + whenStr : '');
+        body.textContent = entry.body || '(empty)';
+      })
+      .catch(function () {
+        body.textContent = 'Failed to load recap entry.';
+      });
+  }
+
   function pushLog(state, text) {
     state.day1 = state.day1 || { log: [] };
     state.day1.log = state.day1.log || [];
@@ -754,7 +786,12 @@
     html += '<textarea class="tt-recap-notes" rows="3" placeholder="GM narrative notes — color, callouts, side moments…">' + esc(state.day1.recapNotes || '') + '</textarea>';
     html += '<div class="tt-recap-actions">';
     html += '<button class="tt-btn tt-btn-sm" data-act="regenerate-recap">Regenerate Recap</button>';
+    html += '<button class="tt-btn tt-btn-sm" data-act="toggle-recap-preview" data-open="0">View Recap</button>';
     html += '<span class="tt-recap-status" data-recap-status></span>';
+    html += '</div>';
+    html += '<div class="tt-recap-preview" data-recap-preview hidden>';
+    html += '<div class="tt-recap-preview-meta" data-recap-preview-meta></div>';
+    html += '<pre class="tt-recap-preview-body" data-recap-preview-body></pre>';
     html += '</div>';
     html += '</div>';
 
@@ -1083,14 +1120,39 @@
         socket.emit('tournament:regenerate-day1-recap', payload);
       });
     }
+    var previewBtn = panel.querySelector('[data-act="toggle-recap-preview"]');
+    if (previewBtn) {
+      previewBtn.addEventListener('click', function () {
+        var preview = document.querySelector('[data-recap-preview]');
+        if (!preview) return;
+        var open = previewBtn.getAttribute('data-open') === '1';
+        if (open) {
+          preview.hidden = true;
+          previewBtn.setAttribute('data-open', '0');
+          previewBtn.textContent = 'View Recap';
+        } else {
+          preview.hidden = false;
+          previewBtn.setAttribute('data-open', '1');
+          previewBtn.textContent = 'Hide Recap';
+          _loadRecapEntryPreview(scene.id);
+        }
+      });
+    }
+
     if (socket && !socket._ttRecapAckBound) {
       socket._ttRecapAckBound = true;
       socket.on('tournament:recap-regenerated', function () {
         var status = document.querySelector('[data-recap-status]');
-        if (!status) return;
-        status.textContent = 'Recap updated.';
-        status.style.color = '#22c55e';
-        setTimeout(function () { if (status) status.textContent = ''; }, 2500);
+        if (status) {
+          status.textContent = 'Recap updated.';
+          status.style.color = '#22c55e';
+          setTimeout(function () { if (status) status.textContent = ''; }, 2500);
+        }
+        var pv = document.querySelector('[data-recap-preview]');
+        var btn = document.querySelector('[data-act="toggle-recap-preview"]');
+        if (pv && !pv.hidden && btn && btn.getAttribute('data-open') === '1') {
+          _loadRecapEntryPreview(SCENE_DAY1);
+        }
       });
     }
 
@@ -1345,6 +1407,9 @@
       '.tt-recap-notes{width:100%;background:#15151f;color:#d8d8e8;border:1px solid #2a2a3a;border-radius:3px;padding:.3rem;font-size:.65rem;font-family:inherit;resize:vertical;min-height:3rem;}' +
       '.tt-recap-actions{display:flex;align-items:center;gap:.5rem;margin-top:.3rem;}' +
       '.tt-recap-status{font-size:.6rem;color:#9ca3af;}' +
+      '.tt-recap-preview{margin-top:.4rem;padding:.4rem;background:#15151f;border:1px solid #2a2a3a;border-radius:3px;max-height:14rem;overflow-y:auto;}' +
+      '.tt-recap-preview-meta{font-size:.55rem;color:#888;margin-bottom:.25rem;font-family:Audiowide,sans-serif;letter-spacing:.04rem;}' +
+      '.tt-recap-preview-body{font-size:.6rem;color:#d8d8e8;white-space:pre-wrap;word-wrap:break-word;font-family:inherit;margin:0;line-height:1.35;}' +
       '.tt-log{margin-top:.3rem;max-height:8rem;overflow-y:auto;background:rgba(0,0,0,.3);border-radius:3px;padding:.3rem;}' +
       '.tt-log-label{font-size:.55rem;color:#666;text-transform:uppercase;letter-spacing:.05rem;margin-bottom:.2rem;}' +
       '.tt-log-empty{color:#555;font-style:italic;font-size:.6rem;}' +
