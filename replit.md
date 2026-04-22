@@ -42,7 +42,6 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── css/login.css     # Login page styles (terminal theme)
 │   ├── css/map-standalone.css # Shared styles for all 15 standalone tactical map pages
 │   ├── css/map-editor.css # GM hitbox editor UI styles
-│   ├── css/galaxy-map-page.css # Galaxy map standalone page overrides
 │   ├── maps/             # Interactive tactical maps (standalone HTML pages with SVG hitbox overlays)
 │   │   ├── editor.html         # GM hitbox editor (select map → drag/resize/edit zones → save via API)
 │   │   ├── burning-deck.html   # The Burning Deck cantina (1024×635)
@@ -64,13 +63,13 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
 │   ├── market-source-viewer.js # Source DB viewer overlay
 │   ├── crawl-data.js     # Mission crawl text data (hardcoded fallback for opening crawl)
+│   ├── lib/persist.js    # Centralized namespaced localStorage helper (window.Persist)
 │   ├── crawl-editor.js  # GM Crawl Editor — adventure crawl CRUD, auto-capitalize terms, preview, active crawl toggle
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
 │   ├── tactical-map.js    # Shared TacticalMapViewer component (pan/zoom, grid overlay, zone desc panel, pin layer, personal pins via sessionStorage, GM right-click context menus, pin drag-to-reposition)
 │   ├── holonet-overlay.js # Player-side HoloNet broadcast overlay (Imperial terminal aesthetic, socket-triggered, journal clipping)
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
 │   ├── galaxy-map.js     # Interactive galaxy starmap (Leaflet.js, 65 planets, 6 hyperlanes, campaign pins, marker clustering, search, grid overlay)
-│   ├── galaxy-map-page.js # Galaxy map standalone page init (opens overlay, redirects close button)
 │   ├── map-editor.js     # GM hitbox editor logic (zone CRUD, drag/resize, save via API)
 │   ├── map-tooltip.js    # Unified tooltip handler for all 15 standalone tactical maps
 │   ├── login.js          # Login form handler (passcode submission)
@@ -106,7 +105,8 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 - `data/entanglements.json` — Entanglement tables for downtime complications. Two categories: Baggage (6 entries — debt collection, Switch's favor, bounty hunters, nightmares, reputation effects, Varth profiling; triggered by decision-registry flags or narrative state) and Travel (8 entries — distress signal, mechanical failure, Imperial checkpoint, stowaway, port complications, sensor ghost, uncharted dropout, debris field; keyed to travel type: hyperspace/planetary/station). Each has severity (low/medium/high), trigger conditions, stakes, and suggested resolution approaches.
 - `data/schemas/downtime-system.md` — Schema documentation for the two-layer downtime system (system activities + adventure interludes), entanglement structure, GM workflow, and integration with decision-registry, discipline checks, rest mechanics, and marks.
 - `data/conversations/varth-debrief.json` — "The First Supper" conversation tree. Dragon Age-style branching dialogue for Varth's debrief dinner scene (Interlude 1, Adv1→Adv2 bridge). 7 root topics, 25 follow-ups, comfort meter (starts 5, probe questions cost -1, exit at 1), Maya interjections (4 triggers), Insight check rules. Full scripted responses with GM notes, red flags, and character beats.
-- `public/conversation-test.html` — Interactive mock UI to test the First Supper conversation tree JSON. Loads varth-debrief.json, presents Dragon Age-style question menu with branching follow-ups, comfort tracking, Maya interjections, GM note toggle, and three end conditions (tree dry / comfort exit / crew stops). Bypasses auth gate for testing.
+- Player page (`public/player/index.html`) loads all of its scripts with `defer`, so parsing/render is no longer blocked by the JS bundle. Non-render-blocking scripts still execute in document order; overlays that listen for socket events at startup (glossary, holonet, starship-combat, conversation, tournament tracker) remain pre-loaded so they don't miss live events. Player page polling (scene refresh in `socket-client.js`) pauses when `document.hidden` and refreshes once on resume.
+- `js/lib/persist.js` exposes `window.Persist` (`get/set/remove/clear` over namespaced `eote.*` localStorage keys). New code should use it; legacy direct `localStorage` callsites still work and can be migrated incrementally.
 - `data/galaxy-hyperlanes.json` — 6 major hyperlane trade routes (Corellian Run, Corellian Trade Spine, Hydian Way, Perlemian Trade Route, Rimma Trade Route, Triellus Trade Route) as polyline coordinate arrays with colors. Used by the Galaxy Map.
 - `data/default-ship.json` — Default YT-1300-style ship (Krayt Fang) with hull integrity, hullRating, systems (handling/engines/shields/sensors/fire_control), weapon mounts, empty modifications array, and station assignments for starship combat mode.
 - `data/threats.json` — NPC Threat Builder data: Fulcrum rules system (Tier 0-5, Arena Scores 1-5, 5 Tactical Roles × 4 Power Sources, 4 Classifications, 64 Traits, 26 Tags, 22-entry Gambit Pool). 5 tactical function roles (Threat/Anchor/Harrier/Controller/Support) × 4 power sources (Martial/Ranged/Force/Leader) = 20 fully designed ability kits. Each role has a `passive` (e.g. Threat: +1 Power, Anchor: +1 Defense, Harrier: +1 zone movement, Controller: condition duration step-up, Support: ally defense aura). Each role+powerSource provides: action/signature (with F/M/L npcEffects track + defense type + isAttack flag + optional pipCost), `gambits` array (1-2 riders at -1 Power), exploit (reaction trigger). Non-attack signatures (isAttack:false) render conditions/buffs instead of chassis damage (Controller conditions, Support heals/buffs, Leader commands). Power source auto-suggested from highest arena but GM-overridable. NPC stat formulas: Initiative=Tier+(Wits×2)+Mods, Defense=max(Physique,Reflex)+Tier, Evasion=Reflex+Tier, Resist=Grit+Tier, Vitality=(Physique+Grit+Tier)×classMod, Power=Arena+Tier. 5 threat categories: character (scale 1), vehicle (scale 2), starship (scale 3), capital_ship (scale 4), station (scale 5). Scale traits have `autoApply: true`. Traits support `powerMod` and `initiativeMod`. Ship-flavored arena labels: Firepower/Handling/Hull/Sensors/Command for ships; Armor/Handling/Hull/Sensors/Presence for vehicles. Old role IDs auto-migrated via OLD_ROLE_MAP in npc-builder.js

@@ -105,18 +105,7 @@
 
   function _entryActions(entry) {
     if (!entry) return [];
-    if (Array.isArray(entry.actions) && entry.actions.length) return entry.actions;
-    var legacyTargets = Array.isArray(entry.targets) ? entry.targets : [];
-    var legacyConds = Array.isArray(entry.conditions) ? entry.conditions : [];
-    if (legacyTargets.length && legacyConds.length) {
-      return [{
-        type: 'applyCondition',
-        targets: legacyTargets,
-        conditions: legacyConds,
-        note: entry.note || ''
-      }];
-    }
-    return [];
+    return Array.isArray(entry.actions) ? entry.actions : [];
   }
 
   function _spawnNpcFromScene(template, count, zone) {

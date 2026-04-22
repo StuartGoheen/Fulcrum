@@ -76,12 +76,6 @@
     document.body.appendChild(overlay);
   }
 
-  function _getAdventureTriggersFallback() {
-    return [
-      { id: _currentAdventureId + '_crucible', label: 'The Crucible', value: 1, desc: 'The plan catastrophically fails and the crew improvises under fire to survive.', group: true }
-    ];
-  }
-
   var EDGE_TRIGGERS = [
     { id: 'gear_solved',     label: 'Gear Solved It',            value: 1, desc: 'Your gear helped you achieve a significant challenge that without it may not have been possible or would have been extremely dangerous.' },
     { id: 'env_weapon',      label: 'Environment Weapon',        value: 1, desc: 'You used the physical environment as a tactical tool — shot a steam pipe, toppled debris, lured someone into a hazard, used terrain to negate a disadvantage.' },
@@ -140,7 +134,7 @@
   }
 
   function _getAdventureTriggers() {
-    if (!_adventureMarksData || !_adventureMarksData.length) return _getAdventureTriggersFallback();
+    if (!_adventureMarksData || !_adventureMarksData.length) return [];
     var triggers = [];
     _adventureMarksData.forEach(function (m) {
       if (m.hidden && !_isGmView) return;

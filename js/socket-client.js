@@ -198,8 +198,15 @@
     // Request initial state and fetch active scene
     socket.emit('state:request');
     _ttRefreshScene();
-    // Re-poll scene every 8s so the strip appears/disappears as GM advances scenes
-    setInterval(_ttRefreshScene, 8000);
+    // Re-poll scene every 8s so the strip appears/disappears as GM advances scenes.
+    // Pause when the tab is hidden to avoid background work; refresh once on resume.
+    setInterval(function () {
+      if (document.hidden) return;
+      _ttRefreshScene();
+    }, 8000);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) _ttRefreshScene();
+    });
 
     socket.on('destiny:sync', ({ pool }) => {
       renderDestinyPool(pool);

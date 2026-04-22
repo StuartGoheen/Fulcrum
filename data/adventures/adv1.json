@@ -8221,27 +8221,37 @@
               "scriptedEscalation": [
                 {
                   "round": 2,
-                  "targets": [
-                    "Defense Turret T1",
-                    "Defense Turret T2",
-                    "Defense Turret T3"
-                  ],
-                  "conditions": [
-                    "optimized"
-                  ],
-                  "note": "Coordinated targeting links lock onto the Banshee."
+                  "actions": [
+                    {
+                      "type": "applyCondition",
+                      "targets": [
+                        "Defense Turret T1",
+                        "Defense Turret T2",
+                        "Defense Turret T3"
+                      ],
+                      "conditions": [
+                        "optimized"
+                      ],
+                      "note": "Coordinated targeting links lock onto the Banshee."
+                    }
+                  ]
                 },
                 {
                   "round": 3,
-                  "targets": [
-                    "Defense Turret T1",
-                    "Defense Turret T2",
-                    "Defense Turret T3"
-                  ],
-                  "conditions": [
-                    "empowered"
-                  ],
-                  "note": "Focus-fire on the starboard engine."
+                  "actions": [
+                    {
+                      "type": "applyCondition",
+                      "targets": [
+                        "Defense Turret T1",
+                        "Defense Turret T2",
+                        "Defense Turret T3"
+                      ],
+                      "conditions": [
+                        "empowered"
+                      ],
+                      "note": "Focus-fire on the starboard engine."
+                    }
+                  ]
                 }
               ],
               "composition": {
