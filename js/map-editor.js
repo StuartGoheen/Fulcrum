@@ -44,14 +44,14 @@ const canvasArea = $('canvasArea');
 function saveGridSettings() {
   if (!currentMapKey) return;
   const settings = { gridOn, gridSize, gridOffX, gridOffY, gridOpacity, gridColor, gridLineWidth };
-  try { localStorage.setItem('grid_' + currentMapKey, JSON.stringify(settings)); } catch(e) {}
+  if (window.Persist) window.Persist.set('map.grid.' + currentMapKey, settings);
 }
 
 function restoreGridSettings(key) {
   try {
-    const raw = localStorage.getItem('grid_' + key);
-    if (!raw) return;
-    const s = JSON.parse(raw);
+    if (window.Persist) window.Persist.migrate('grid_' + key, 'map.grid.' + key);
+    const s = window.Persist ? window.Persist.get('map.grid.' + key) : null;
+    if (!s) return;
     gridOn = !!s.gridOn;
     gridSize = s.gridSize || 40;
     gridOffX = s.gridOffX || 0;

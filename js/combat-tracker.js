@@ -958,41 +958,33 @@
     { id: 'round', label: 'Rounds', types: ['round', 'start', 'end'] }
   ];
 
-  var LOG_FILTER_PREFS_KEY = 'ct.gmLogFilterPrefs.v1';
+  var LOG_FILTER_PREFS_KEY = 'ct.gm-log-filter-prefs.v1';
+  if (window.Persist) window.Persist.migrate('ct.gmLogFilterPrefs.v1', LOG_FILTER_PREFS_KEY);
 
   function defaultLogFilters() {
     return { escalation: true, condition: true, vitality: true, ko: true, round: true };
   }
 
   function loadLogFilterPrefs() {
-    try {
-      var raw = window.localStorage && window.localStorage.getItem(LOG_FILTER_PREFS_KEY);
-      if (!raw) return null;
-      var parsed = JSON.parse(raw);
-      if (!parsed || typeof parsed !== 'object') return null;
-      var filters = defaultLogFilters();
-      if (parsed.filters && typeof parsed.filters === 'object') {
-        Object.keys(filters).forEach(function (k) {
-          if (parsed.filters[k] === false) filters[k] = false;
-        });
-      }
-      var search = typeof parsed.search === 'string' ? parsed.search : '';
-      return { filters: filters, search: search };
-    } catch (e) {
-      return null;
+    if (!window.Persist) return null;
+    var parsed = window.Persist.get(LOG_FILTER_PREFS_KEY);
+    if (!parsed || typeof parsed !== 'object') return null;
+    var filters = defaultLogFilters();
+    if (parsed.filters && typeof parsed.filters === 'object') {
+      Object.keys(filters).forEach(function (k) {
+        if (parsed.filters[k] === false) filters[k] = false;
+      });
     }
+    var search = typeof parsed.search === 'string' ? parsed.search : '';
+    return { filters: filters, search: search };
   }
 
   function saveLogFilterPrefs() {
-    if (!combatState) return;
-    try {
-      if (!window.localStorage) return;
-      var payload = JSON.stringify({
-        filters: combatState.logFilters || defaultLogFilters(),
-        search: combatState.logSearch || ''
-      });
-      window.localStorage.setItem(LOG_FILTER_PREFS_KEY, payload);
-    } catch (e) {}
+    if (!combatState || !window.Persist) return;
+    window.Persist.set(LOG_FILTER_PREFS_KEY, {
+      filters: combatState.logFilters || defaultLogFilters(),
+      search: combatState.logSearch || ''
+    });
   }
 
   function getLogFilterState() {

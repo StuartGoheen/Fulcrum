@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'eote-col-widths';
+  var STORAGE_KEY = 'col-widths';
+  if (window.Persist) window.Persist.migrate('eote-col-widths', STORAGE_KEY);
   var MIN_PX = 160;
   var DEFAULT_VW = 25;
 
@@ -20,14 +21,14 @@
 
   function loadSizes() {
     try {
-      var s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      var s = window.Persist.get(STORAGE_KEY);
       if (s && s.leftPx) leftPx = s.leftPx;
       if (s && s.rightPx) rightPx = s.rightPx;
     } catch (_) {}
   }
 
   function saveSizes() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ leftPx: leftPx, rightPx: rightPx })); } catch (_) {}
+    window.Persist.set(STORAGE_KEY, { leftPx: leftPx, rightPx: rightPx });
   }
 
   function isRightHidden() {
@@ -155,32 +156,32 @@
   var slotMid       = document.getElementById('slot-mid');
   var slotRight     = document.getElementById('slot-right');
 
-  var CENTER_STORAGE_KEY  = 'eote-center-split';
-  var CENTER3_STORAGE_KEY = 'eote-center-split3';
+  var CENTER_STORAGE_KEY  = 'center-split';
+  var CENTER3_STORAGE_KEY = 'center-split3';
+  if (window.Persist) {
+    window.Persist.migrate('eote-center-split', CENTER_STORAGE_KEY);
+    window.Persist.migrate('eote-center-split3', CENTER3_STORAGE_KEY);
+  }
 
   var centerRatio = 0.5;
   var split3 = { a: 0.333, b: 0.666 };
 
   function loadCenterRatio() {
-    try {
-      var v = parseFloat(localStorage.getItem(CENTER_STORAGE_KEY));
-      if (v > 0.2 && v < 0.8) centerRatio = v;
-    } catch (_) {}
-    try {
-      var s = JSON.parse(localStorage.getItem(CENTER3_STORAGE_KEY));
-      if (s && s.a > 0.15 && s.a < 0.7 && s.b > 0.3 && s.b < 0.85 && s.b > s.a + 0.1) {
-        split3.a = s.a;
-        split3.b = s.b;
-      }
-    } catch (_) {}
+    var v = parseFloat(window.Persist.get(CENTER_STORAGE_KEY));
+    if (v > 0.2 && v < 0.8) centerRatio = v;
+    var s = window.Persist.get(CENTER3_STORAGE_KEY);
+    if (s && s.a > 0.15 && s.a < 0.7 && s.b > 0.3 && s.b < 0.85 && s.b > s.a + 0.1) {
+      split3.a = s.a;
+      split3.b = s.b;
+    }
   }
 
   function saveCenterRatio() {
-    try { localStorage.setItem(CENTER_STORAGE_KEY, centerRatio.toFixed(4)); } catch (_) {}
+    window.Persist.set(CENTER_STORAGE_KEY, +centerRatio.toFixed(4));
   }
 
   function saveSplit3() {
-    try { localStorage.setItem(CENTER3_STORAGE_KEY, JSON.stringify({ a: +split3.a.toFixed(4), b: +split3.b.toFixed(4) })); } catch (_) {}
+    window.Persist.set(CENTER3_STORAGE_KEY, { a: +split3.a.toFixed(4), b: +split3.b.toFixed(4) });
   }
 
   function _isTriple() {

@@ -1049,7 +1049,8 @@
   }
 
   function applyThemeFromStorage() {
-    var saved = localStorage.getItem('eote-theme');
+    if (window.Persist) window.Persist.migrate('eote-theme', 'theme');
+    var saved = window.Persist ? window.Persist.get('theme') : null;
     if (saved) {
       document.documentElement.className = saved;
     }

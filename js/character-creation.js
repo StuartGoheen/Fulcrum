@@ -19,7 +19,8 @@
     }, 3000);
   }
 
-  var THEME_KEY     = 'eote-theme';
+  var THEME_KEY     = 'theme';
+  if (window.Persist) window.Persist.migrate('eote-theme', THEME_KEY);
   var DEFAULT_THEME = 'theme-rebellion';
   var THEMES        = ['theme-rebellion', 'theme-fringe', 'theme-r2d2', 'theme-vader', 'theme-fett', 'theme-holo'];
   var THEME_LABELS  = {
@@ -90,13 +91,13 @@
   function applyTheme(theme) {
     THEMES.forEach(function (t) { document.documentElement.classList.remove(t); });
     document.documentElement.classList.add(theme);
-    localStorage.setItem(THEME_KEY, theme);
+    window.Persist.set(THEME_KEY, theme);
     var el = document.getElementById('theme-label');
     if (el) el.textContent = THEME_LABELS[theme] || theme;
   }
 
   function loadTheme() {
-    var stored = localStorage.getItem(THEME_KEY);
+    var stored = window.Persist.get(THEME_KEY);
     applyTheme(stored && THEMES.indexOf(stored) !== -1 ? stored : DEFAULT_THEME);
   }
 

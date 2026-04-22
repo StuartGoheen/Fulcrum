@@ -6,21 +6,20 @@
 
   function _getAmmo(weaponId, clipSize) {
     if (_ammoState[weaponId] !== undefined) return _ammoState[weaponId];
-    try {
-      var stored = localStorage.getItem('ammo_' + weaponId);
-      if (stored !== null) {
-        var val = parseFloat(stored);
-        _ammoState[weaponId] = isNaN(val) ? clipSize : val;
-        return _ammoState[weaponId];
-      }
-    } catch(e) {}
+    window.Persist.migrate('ammo_' + weaponId, 'ammo.' + weaponId);
+    var stored = window.Persist.get('ammo.' + weaponId);
+    if (stored != null) {
+      var val = parseFloat(stored);
+      _ammoState[weaponId] = isNaN(val) ? clipSize : val;
+      return _ammoState[weaponId];
+    }
     _ammoState[weaponId] = clipSize;
     return clipSize;
   }
 
   function _setAmmo(weaponId, value) {
     _ammoState[weaponId] = value;
-    try { localStorage.setItem('ammo_' + weaponId, String(value)); } catch(e) {}
+    window.Persist.set('ammo.' + weaponId, value);
   }
 
   function _calcDrain(clipSize, mode) {

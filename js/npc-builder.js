@@ -71,21 +71,20 @@
     return found ? found.name : cat.charAt(0).toUpperCase() + cat.slice(1);
   }
 
-  var STORAGE_KEY = 'eote-saved-npcs';
+  var STORAGE_KEY = 'saved-npcs';
+  if (window.Persist) window.Persist.migrate('eote-saved-npcs', STORAGE_KEY);
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function loadSavedNpcs() {
-    try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      savedNpcs = raw ? JSON.parse(raw) : [];
-    } catch (e) { savedNpcs = []; }
+    savedNpcs = window.Persist.get(STORAGE_KEY, []) || [];
+    if (!Array.isArray(savedNpcs)) savedNpcs = [];
   }
 
   function persistSavedNpcs() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNpcs)); } catch (e) {}
+    window.Persist.set(STORAGE_KEY, savedNpcs);
   }
 
   var OLD_ROLE_MAP = {

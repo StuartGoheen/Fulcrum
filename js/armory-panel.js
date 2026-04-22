@@ -459,13 +459,12 @@
   }
 
   function _getAmmo(weaponId, clipSize) {
-    try {
-      var stored = localStorage.getItem('ammo_' + weaponId);
-      if (stored !== null) {
-        var val = parseFloat(stored);
-        if (!isNaN(val)) return val;
-      }
-    } catch(e) {}
+    if (window.Persist) window.Persist.migrate('ammo_' + weaponId, 'ammo.' + weaponId);
+    var stored = window.Persist ? window.Persist.get('ammo.' + weaponId) : null;
+    if (stored != null) {
+      var val = parseFloat(stored);
+      if (!isNaN(val)) return val;
+    }
     return clipSize;
   }
 

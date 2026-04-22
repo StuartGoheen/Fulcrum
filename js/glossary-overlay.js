@@ -371,32 +371,29 @@
     }
   }
 
-  var PANEL_GEO_KEY = 'handbook-panel-geo';
+  var PANEL_GEO_KEY = 'handbook.panel-geo';
+  if (window.Persist) window.Persist.migrate('handbook-panel-geo', PANEL_GEO_KEY);
 
   function _savePanelGeo() {
-    if (!_panel) return;
-    try {
-      localStorage.setItem(PANEL_GEO_KEY, JSON.stringify({
-        left: _panel.style.left,
-        top: _panel.style.top,
-        width: _panel.style.width,
-        height: _panel.style.height
-      }));
-    } catch (e) {}
+    if (!_panel || !window.Persist) return;
+    window.Persist.set(PANEL_GEO_KEY, {
+      left: _panel.style.left,
+      top: _panel.style.top,
+      width: _panel.style.width,
+      height: _panel.style.height
+    });
   }
 
   function _loadPanelGeo() {
-    try {
-      var raw = localStorage.getItem(PANEL_GEO_KEY);
-      if (raw) {
-        var geo = JSON.parse(raw);
-        if (geo.left) _panel.style.left = geo.left;
-        if (geo.top) _panel.style.top = geo.top;
-        if (geo.width) _panel.style.width = geo.width;
-        if (geo.height) _panel.style.height = geo.height;
-        if (geo.left) _panel.style.transform = 'none';
-      }
-    } catch (e) {}
+    if (!window.Persist) return;
+    var geo = window.Persist.get(PANEL_GEO_KEY);
+    if (geo) {
+      if (geo.left) _panel.style.left = geo.left;
+      if (geo.top) _panel.style.top = geo.top;
+      if (geo.width) _panel.style.width = geo.width;
+      if (geo.height) _panel.style.height = geo.height;
+      if (geo.left) _panel.style.transform = 'none';
+    }
   }
 
   function _initPanelDrag() {
@@ -2478,7 +2475,8 @@
   }
 
   function _initDraggableTrigger(btn) {
-    var STORAGE_KEY = 'handbook-trigger-pos';
+    var STORAGE_KEY = 'handbook.trigger-pos';
+    if (window.Persist) window.Persist.migrate('handbook-trigger-pos', STORAGE_KEY);
     var dragging = false;
     var didDrag = false;
     var startX, startY, origLeft, origTop;
@@ -2492,18 +2490,14 @@
     }
 
     function _savePos() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-          left: btn.style.left, top: btn.style.top
-        }));
-      } catch (e) {}
+      if (!window.Persist) return;
+      window.Persist.set(STORAGE_KEY, { left: btn.style.left, top: btn.style.top });
     }
 
     function _loadPos() {
       try {
-        var raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          var pos = JSON.parse(raw);
+        var pos = window.Persist ? window.Persist.get(STORAGE_KEY) : null;
+        if (pos) {
           btn.style.right = 'auto';
           btn.style.bottom = 'auto';
           btn.style.transform = 'none';
@@ -2511,7 +2505,7 @@
           btn.style.top = pos.top;
           var rect = btn.getBoundingClientRect();
           if (rect.left < 0 || rect.top < 0 || rect.right > window.innerWidth || rect.bottom > window.innerHeight) {
-            localStorage.removeItem(STORAGE_KEY);
+            if (window.Persist) window.Persist.remove(STORAGE_KEY);
             btn.style.left = '';
             btn.style.top = '';
             btn.style.right = '';

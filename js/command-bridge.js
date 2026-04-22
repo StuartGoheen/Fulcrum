@@ -452,36 +452,33 @@
   var _runSceneBeat = {};
   var _runSceneCollapsed = {};
 
-  function _runStorageKey(sceneId) { return 'cb-runscene:' + sceneId; }
+  function _runStorageKey(sceneId) { return 'cb.runscene.' + sceneId; }
   function _isRunSceneActive(sceneId) {
     if (sceneId in _runSceneActive) return !!_runSceneActive[sceneId];
-    try {
-      var raw = localStorage.getItem(_runStorageKey(sceneId));
-      if (raw) {
-        var parsed = JSON.parse(raw);
-        _runSceneActive[sceneId] = !!parsed.active;
-        if (typeof parsed.beat === 'number') _runSceneBeat[sceneId] = parsed.beat;
-        if (parsed.collapsed && typeof parsed.collapsed === 'object') {
-          Object.keys(parsed.collapsed).forEach(function (k) { _runSceneCollapsed[k] = !!parsed.collapsed[k]; });
-        }
-        return !!parsed.active;
+    if (window.Persist) window.Persist.migrate('cb-runscene:' + sceneId, _runStorageKey(sceneId));
+    var parsed = window.Persist ? window.Persist.get(_runStorageKey(sceneId)) : null;
+    if (parsed) {
+      _runSceneActive[sceneId] = !!parsed.active;
+      if (typeof parsed.beat === 'number') _runSceneBeat[sceneId] = parsed.beat;
+      if (parsed.collapsed && typeof parsed.collapsed === 'object') {
+        Object.keys(parsed.collapsed).forEach(function (k) { _runSceneCollapsed[k] = !!parsed.collapsed[k]; });
       }
-    } catch (_) {}
+      return !!parsed.active;
+    }
     _runSceneActive[sceneId] = false;
     return false;
   }
   function _persistRunScene(sceneId) {
-    try {
-      var collapsed = {};
-      Object.keys(_runSceneCollapsed).forEach(function (k) {
-        if (k.indexOf(sceneId + ':') === 0) collapsed[k] = _runSceneCollapsed[k];
-      });
-      localStorage.setItem(_runStorageKey(sceneId), JSON.stringify({
-        active: !!_runSceneActive[sceneId],
-        beat: _runSceneBeat[sceneId] || 0,
-        collapsed: collapsed
-      }));
-    } catch (_) {}
+    if (!window.Persist) return;
+    var collapsed = {};
+    Object.keys(_runSceneCollapsed).forEach(function (k) {
+      if (k.indexOf(sceneId + ':') === 0) collapsed[k] = _runSceneCollapsed[k];
+    });
+    window.Persist.set(_runStorageKey(sceneId), {
+      active: !!_runSceneActive[sceneId],
+      beat: _runSceneBeat[sceneId] || 0,
+      collapsed: collapsed
+    });
   }
   function _setRunSceneActive(sceneId, on) {
     _runSceneActive[sceneId] = !!on;
@@ -859,7 +856,11 @@
   var _panelZCounter = 121;
 
   var TT_PERSIST_PANEL_IDS = { ttroster: true, ttday1: true, ttday2: true };
-  var TT_PERSIST_KEY = 'cb_tt_open_panels';
+  var TT_PERSIST_KEY = 'cb.tt-open-panels';
+  if (window.Persist) {
+    window.Persist.migrate('cb_tt_open_panels', TT_PERSIST_KEY);
+    window.Persist.migrate('cb_panel_geo', 'cb.panel-geo');
+  }
 
   function _panelTypeKey(panelId) {
     if (panelId.indexOf('lore-') === 0) return 'lore';
@@ -868,22 +869,18 @@
   }
 
   function _loadPersistedTtPanels(sceneId) {
-    if (!sceneId) return [];
-    try {
-      var store = JSON.parse(localStorage.getItem(TT_PERSIST_KEY) || '{}');
-      var arr = store[sceneId];
-      return Array.isArray(arr) ? arr.slice() : [];
-    } catch (e) { return []; }
+    if (!sceneId || !window.Persist) return [];
+    var store = window.Persist.get(TT_PERSIST_KEY) || {};
+    var arr = store[sceneId];
+    return Array.isArray(arr) ? arr.slice() : [];
   }
 
   function _writePersistedTtPanels(sceneId, list) {
-    if (!sceneId) return;
-    try {
-      var store = JSON.parse(localStorage.getItem(TT_PERSIST_KEY) || '{}');
-      if (list && list.length) store[sceneId] = list;
-      else delete store[sceneId];
-      localStorage.setItem(TT_PERSIST_KEY, JSON.stringify(store));
-    } catch (e) { /* ignore */ }
+    if (!sceneId || !window.Persist) return;
+    var store = window.Persist.get(TT_PERSIST_KEY) || {};
+    if (list && list.length) store[sceneId] = list;
+    else delete store[sceneId];
+    window.Persist.set(TT_PERSIST_KEY, store);
   }
 
   function _addPersistedTtPanel(sceneId, panelId) {
@@ -900,18 +897,16 @@
   }
 
   function _loadPanelGeometry(panelId) {
-    try {
-      var store = JSON.parse(localStorage.getItem('cb_panel_geo') || '{}');
-      return store[_panelTypeKey(panelId)] || null;
-    } catch (e) { return null; }
+    if (!window.Persist) return null;
+    var store = window.Persist.get('cb.panel-geo') || {};
+    return store[_panelTypeKey(panelId)] || null;
   }
 
   function _savePanelGeometry(panelId, geo) {
-    try {
-      var store = JSON.parse(localStorage.getItem('cb_panel_geo') || '{}');
-      store[_panelTypeKey(panelId)] = geo;
-      localStorage.setItem('cb_panel_geo', JSON.stringify(store));
-    } catch (e) { /* ignore */ }
+    if (!window.Persist) return;
+    var store = window.Persist.get('cb.panel-geo') || {};
+    store[_panelTypeKey(panelId)] = geo;
+    window.Persist.set('cb.panel-geo', store);
   }
 
   function _captureAndSaveGeo(panel, panelId) {
@@ -5338,7 +5333,8 @@
 
   var _panelCollapseState = { left: false, right: false };
   var _colWidths = { left: 260, right: 300 };
-  var COLLAPSE_STORAGE_KEY = 'cb_panel_collapse';
+  var COLLAPSE_STORAGE_KEY = 'cb.panel-collapse';
+  if (window.Persist) window.Persist.migrate('cb_panel_collapse', COLLAPSE_STORAGE_KEY);
 
   function _applyGridTemplate() {
     var grid = document.getElementById('bridge-grid');
@@ -5351,15 +5347,14 @@
   }
 
   function _loadCollapseState() {
-    try {
-      var saved = JSON.parse(localStorage.getItem(COLLAPSE_STORAGE_KEY) || '{}');
-      _panelCollapseState.left = !!saved.left;
-      _panelCollapseState.right = !!saved.right;
-    } catch (e) { /* ignore */ }
+    if (!window.Persist) return;
+    var saved = window.Persist.get(COLLAPSE_STORAGE_KEY) || {};
+    _panelCollapseState.left = !!saved.left;
+    _panelCollapseState.right = !!saved.right;
   }
 
   function _saveCollapseState() {
-    try { localStorage.setItem(COLLAPSE_STORAGE_KEY, JSON.stringify(_panelCollapseState)); } catch (e) { /* ignore */ }
+    if (window.Persist) window.Persist.set(COLLAPSE_STORAGE_KEY, _panelCollapseState);
   }
 
   function collapsePanel(side) {

@@ -1111,9 +1111,12 @@
     }
     var gmInput = panel.querySelector('[data-recap-gm]');
     if (gmInput) {
-      try { gmInput.value = window.localStorage.getItem('tt_gm_handle') || ''; } catch (_) {}
+      if (window.Persist) {
+        window.Persist.migrate('tt_gm_handle', 'tt.gm-handle');
+        gmInput.value = window.Persist.get('tt.gm-handle', '') || '';
+      }
       gmInput.addEventListener('change', function () {
-        try { window.localStorage.setItem('tt_gm_handle', gmInput.value.trim()); } catch (_) {}
+        if (window.Persist) window.Persist.set('tt.gm-handle', gmInput.value.trim());
       });
     }
     var regen = panel.querySelector('[data-act="regenerate-recap"]');
@@ -1133,7 +1136,7 @@
         }
         var gmName = gmInput ? gmInput.value.trim() : '';
         if (gmName) {
-          try { window.localStorage.setItem('tt_gm_handle', gmName); } catch (_) {}
+          if (window.Persist) window.Persist.set('tt.gm-handle', gmName);
         }
         var status = panel.querySelector('[data-recap-status]');
         if (status) { status.textContent = 'Regenerating…'; status.style.color = '#9ca3af'; }

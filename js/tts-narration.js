@@ -10,18 +10,17 @@
   var _activePartId = null;
   var _voicesLoadedCallbacks = [];
 
-  var STORAGE_KEY = 'cb_tts_prefs';
+  var STORAGE_KEY = 'cb.tts-prefs';
+  if (window.Persist) window.Persist.migrate('cb_tts_prefs', STORAGE_KEY);
 
   function isSupported() { return _supported; }
 
   function _loadPrefs() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    } catch (e) { return {}; }
+    return (window.Persist && window.Persist.get(STORAGE_KEY)) || {};
   }
 
   function _savePrefs(p) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) { /* ignore */ }
+    if (window.Persist) window.Persist.set(STORAGE_KEY, p);
   }
 
   function getPrefs() {

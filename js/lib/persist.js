@@ -30,6 +30,19 @@
     catch (_) { return false; }
   }
 
+  function migrate(oldRawKey, newKey) {
+    try {
+      var ls = window.localStorage;
+      var nk = _key(newKey);
+      if (ls.getItem(nk) != null) { ls.removeItem(oldRawKey); return false; }
+      var old = ls.getItem(oldRawKey);
+      if (old == null) return false;
+      ls.setItem(nk, old);
+      ls.removeItem(oldRawKey);
+      return true;
+    } catch (_) { return false; }
+  }
+
   function clear() {
     try {
       var ls = window.localStorage;
@@ -43,5 +56,5 @@
     } catch (_) { return false; }
   }
 
-  window.Persist = { get: get, set: set, remove: remove, clear: clear, PREFIX: PREFIX };
+  window.Persist = { get: get, set: set, remove: remove, clear: clear, migrate: migrate, PREFIX: PREFIX };
 }());

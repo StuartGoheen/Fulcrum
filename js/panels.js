@@ -1,6 +1,7 @@
 (function () {
   const SESSION_PANELS_KEY = 'eote-panels';
-  const THEME_KEY          = 'eote-theme';
+  const THEME_KEY          = 'theme';
+  if (window.Persist) window.Persist.migrate('eote-theme', THEME_KEY);
   const THEMES             = ['theme-rebellion', 'theme-fringe', 'theme-r2d2', 'theme-vader', 'theme-fett', 'theme-holo'];
   const THEME_LABELS       = {
     'theme-rebellion': 'Rebellion',
@@ -213,7 +214,7 @@
   function applyTheme(theme) {
     THEMES.forEach((t) => document.documentElement.classList.remove(t));
     document.documentElement.classList.add(theme);
-    localStorage.setItem(THEME_KEY, theme);
+    window.Persist.set(THEME_KEY, theme);
   }
 
   function cycleTheme() {
@@ -223,7 +224,7 @@
   }
 
   function initTheme() {
-    const stored = localStorage.getItem(THEME_KEY);
+    const stored = window.Persist.get(THEME_KEY);
     applyTheme(stored && THEMES.includes(stored) ? stored : 'theme-rebellion');
   }
 
