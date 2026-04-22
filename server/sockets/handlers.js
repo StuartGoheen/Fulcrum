@@ -134,13 +134,46 @@ function _filterStateForPlayers(state, characterId) {
         });
       }
       const myRole = (characterId && v.roster && v.roster[characterId]) || null;
+      // Day 2 final-table seating (4 tables x 6 seats). Mirrors the Day 1
+      // shape so the player strip can render either day with the same code.
+      const day2 = {};
+      if (v.day2 && typeof v.day2 === 'object') {
+        const d2Seating = {};
+        const d2Src = v.day2.seating || {};
+        let myDay2Seat = null;
+        const winnerSeatId = v.day2.winnerSeatId || null;
+        for (const t of Object.keys(d2Src)) {
+          d2Seating[t] = (d2Src[t] || []).map((s, idx) => {
+            if (!s) return s;
+            const isMine = !!(myPcSeatId && s.id === myPcSeatId);
+            const isWinner = !!(winnerSeatId && s.id === winnerSeatId);
+            if (isMine) {
+              myDay2Seat = { table: Number(t), seat: idx, chips: s.chips, status: s.status, name: s.name };
+            }
+            const seatOut = {
+              kind: s.kind,
+              name: s.name,
+              chips: s.chips,
+              status: s.status,
+              seatNum: s.seatNum
+            };
+            if (isMine) seatOut.mine = true;
+            if (isWinner) seatOut.winner = true;
+            return seatOut;
+          });
+        }
+        day2.seating = d2Seating;
+        day2.winnerSeatId = winnerSeatId;
+        day2.mySeat = myDay2Seat;
+      }
       out[k] = {
         seating,
         fieldRemaining: v.fieldRemaining,
         leader: v.leader,
         active: v.active === false ? false : true,
         myRole: myRole,
-        mySeat: mySeat
+        mySeat: mySeat,
+        day2: day2
       };
     } else {
       out[k] = v;

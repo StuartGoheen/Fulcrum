@@ -1045,16 +1045,46 @@
       Object.keys(blob.seating).forEach(function (t) {
         seating[t] = (blob.seating[t] || []).map(function (seat) {
           if (!seat) return null;
-          return {
+          var out = {
             kind: seat.kind,
             name: seat.kind === 'generic' ? '—' : seat.name,
             chips: (seat.kind === 'pc' || seat.kind === 'npc') ? seat.chips : 0,
             status: seat.status
           };
+          if (seat.mine) out.mine = true;
+          return out;
         });
       });
     }
-    return { seating: seating };
+    var day2 = null;
+    if (blob.day2 && blob.day2.seating) {
+      var d2Seating = {};
+      var winnerSeatId = blob.day2.winnerSeatId || null;
+      Object.keys(blob.day2.seating).forEach(function (t) {
+        d2Seating[t] = (blob.day2.seating[t] || []).map(function (seat) {
+          if (!seat) return null;
+          var out = {
+            kind: seat.kind,
+            name: seat.kind === 'generic' ? '—' : seat.name,
+            chips: (seat.kind === 'pc' || seat.kind === 'npc') ? seat.chips : 0,
+            status: seat.status
+          };
+          if (seat.mine) out.mine = true;
+          if (seat.winner) out.winner = true;
+          return out;
+        });
+      });
+      day2 = {
+        seating: d2Seating,
+        winnerSeatId: winnerSeatId,
+        mySeat: blob.day2.mySeat || null
+      };
+    }
+    return {
+      seating: seating,
+      mySeat: blob.mySeat || null,
+      day2: day2
+    };
   }
 
   var ROLE_LABELS = {
@@ -1068,22 +1098,53 @@
   function renderPlayerStrip(state, mountEl, currentSceneId) {
     if (!mountEl) return;
     var blob = (state && state[STATE_KEY]) || null;
-    if (!blob || !isTournamentScene(currentSceneId) || !blob.seating) {
+    if (!blob || !isTournamentScene(currentSceneId)) {
+      mountEl.style.display = 'none';
+      mountEl.innerHTML = '';
+      return;
+    }
+    var isDay2 = (currentSceneId === SCENE_DAY2);
+    var seatingSrc = isDay2
+      ? (blob.day2 && blob.day2.seating)
+      : blob.seating;
+    if (!seatingSrc) {
       mountEl.style.display = 'none';
       mountEl.innerHTML = '';
       return;
     }
     var myRole = blob.myRole || null;
-    var mySeat = blob.mySeat || null;
+    var mySeat = isDay2
+      ? ((blob.day2 && blob.day2.mySeat) || null)
+      : (blob.mySeat || null);
+    var winnerSeatId = (isDay2 && blob.day2) ? (blob.day2.winnerSeatId || null) : null;
+    var tableCount = isDay2 ? DAY2_TABLES : TABLES;
+    var seatsPerTable = isDay2 ? DAY2_SEATS_PER_TABLE : SEATS_PER_TABLE;
+    var tableLabel = isDay2 ? 'FT' : 'T';
+    var seatLabel = isDay2 ? 'FT' : 'T';
+    var titleText = isDay2
+      ? 'Sabacc Tournament — Final Tables'
+      : 'Sabacc Tournament — Live Standings';
 
-    var html = '<div class="tt-strip">';
+    var html = '<div class="tt-strip" data-day="' + (isDay2 ? '2' : '1') + '">';
     html += '<div class="tt-strip-header">';
-    html += '<div class="tt-strip-title">Sabacc Tournament — Live Standings</div>';
+    html += '<div class="tt-strip-title">' + esc(titleText) + '</div>';
+    if (winnerSeatId) {
+      // Find champion name from seating
+      var champName = '';
+      Object.keys(seatingSrc).forEach(function (tk) {
+        (seatingSrc[tk] || []).forEach(function (s) {
+          if (s && s.winner) champName = s.name || champName;
+        });
+      });
+      if (champName) {
+        html += '<div class="tt-strip-champ">👑 Champion: <strong>' + esc(champName) + '</strong></div>';
+      }
+    }
     if (myRole) {
       var roleLabel = ROLE_LABELS[myRole] || myRole;
       var seatLoc = '';
       if (myRole === 'competitor' && mySeat) {
-        seatLoc = ' — T' + mySeat.table + 'S' + (mySeat.seat + 1);
+        seatLoc = ' — ' + seatLabel + mySeat.table + 'S' + (mySeat.seat + 1);
       }
       html += '<div class="tt-strip-me tt-strip-me--' + esc(myRole) + '">';
       html += '<span class="tt-strip-me-label">Your role:</span> ';
@@ -1096,20 +1157,27 @@
     }
     html += '</div>';
 
-    html += '<div class="tt-strip-grid">';
-    for (var t = 1; t <= TABLES; t++) {
-      var seats = blob.seating[t] || [];
-      var alive = seats.filter(function (s) { return s && s.status !== 'Eliminated'; }).length;
+    html += '<div class="tt-strip-grid' + (isDay2 ? ' tt-strip-grid--day2' : '') + '">';
+    for (var t = 1; t <= tableCount; t++) {
+      var seats = seatingSrc[t] || [];
+      var alive = seats.filter(function (s) { return s && s.kind !== 'empty' && s.status !== 'Eliminated'; }).length;
       var hasMine = seats.some(function (s) { return s && s.mine; });
-      html += '<div class="tt-strip-table' + (hasMine ? ' tt-strip-table--mine' : '') + '"><div class="tt-strip-tnum">T' + t + '</div><div class="tt-strip-tcount">' + alive + '/5</div><div class="tt-strip-tseats">';
+      var hasWinner = seats.some(function (s) { return s && s.winner; });
+      var tableCls = 'tt-strip-table';
+      if (hasMine) tableCls += ' tt-strip-table--mine';
+      if (hasWinner) tableCls += ' tt-strip-table--winner';
+      html += '<div class="' + tableCls + '"><div class="tt-strip-tnum">' + tableLabel + t + '</div><div class="tt-strip-tcount">' + alive + '/' + seatsPerTable + '</div><div class="tt-strip-tseats">';
       seats.forEach(function (seat) {
         if (!seat) return;
         var color = STATUS_COLORS[seat.status] || '#71717a';
         var lbl = (seat.kind === 'pc' || seat.kind === 'npc') ? esc(seat.name) : '·';
-        var cls = 'tt-strip-seat' + (seat.mine ? ' tt-strip-seat--mine' : '');
+        var cls = 'tt-strip-seat';
+        if (seat.mine) cls += ' tt-strip-seat--mine';
+        if (seat.winner) cls += ' tt-strip-seat--winner';
         var title = esc(seat.name || '') + ' — ' + esc(seat.status || '') + (seat.chips ? ' (' + seat.chips + ' chips)' : '');
         if (seat.mine) title = 'YOU: ' + title;
-        html += '<span class="' + cls + '" style="background:' + color + ';" title="' + title + '">' + lbl + '</span>';
+        if (seat.winner) title = '★ CHAMPION — ' + title;
+        html += '<span class="' + cls + '" style="background:' + color + ';" title="' + title + '">' + (seat.winner ? '★' : lbl) + '</span>';
       });
       html += '</div></div>';
     }
@@ -1221,9 +1289,14 @@
       '.tt-strip-me-role{font-family:Audiowide,sans-serif;color:#f5d56b;}' +
       '.tt-strip-me-chips{color:#22c55e;font-weight:700;}' +
       '.tt-strip-me-status{display:inline-block;padding:.05rem .35rem;border-radius:2px;color:#000;font-weight:700;font-size:.55rem;}' +
+      '.tt-strip-champ{font-size:.65rem;color:#f5d56b;padding:.15rem .45rem;border-radius:3px;background:rgba(245,213,107,.12);border:1px solid rgba(245,213,107,.5);}' +
+      '.tt-strip-champ strong{font-family:Audiowide,sans-serif;letter-spacing:.04rem;}' +
       '.tt-strip-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:.2rem;}' +
+      '.tt-strip-grid--day2{grid-template-columns:repeat(4,1fr);gap:.4rem;}' +
       '.tt-strip-table{background:rgba(0,0,0,.3);border-radius:3px;padding:.15rem;text-align:center;border:1px solid transparent;}' +
       '.tt-strip-table--mine{border-color:#f5d56b;background:rgba(245,213,107,.08);box-shadow:0 0 4px rgba(245,213,107,.3);}' +
+      '.tt-strip-table--winner{border-color:rgba(245,213,107,.6);background:rgba(245,213,107,.05);}' +
+      '.tt-strip-seat--winner{outline:1.5px solid #f5d56b;color:#000;background:#f5d56b !important;}' +
       '.tt-strip-tnum{font-size:.5rem;color:#666;font-family:Audiowide,sans-serif;}' +
       '.tt-strip-table--mine .tt-strip-tnum{color:#f5d56b;}' +
       '.tt-strip-tcount{font-size:.6rem;color:#f5d56b;font-weight:700;}' +
