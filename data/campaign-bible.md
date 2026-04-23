@@ -570,7 +570,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 ### 2. The Encrypted Account (Adventures 1–3)
 **What it is:** Millions of embezzled credits locked behind Varth's personal encryption inside Varga's financial network. Varga can see the money but can't access it.
 **How it works:** Varth has the **authentication key** (memorized, no physical device). Varga has the account *and* — unknown to Varth at the time of his imprisonment — the **routing data**. After Varth's capture, Varga locked the routing data inside a **Cybot Galactica Model VII courier cybernetic** surgically embedded in his own skull. The implant is a closed system: it can only be read with physical possession of the device. Varga did this so that even his own lieutenants could never move the credits without him present. The encryption requires *both* Varth's memorized key and the implant's stored routing data — neither is sufficient alone.
-**Resolution:** Heroes attempt to steal routing data from Varga's datapad in Adv2 and fail — TC-663 reveals the data isn't anywhere in the fortress network; it lives in Varga's skull. They escape with **implant specifications** from TC-663 (enough for Varth to plan the read) but no routing data. They track Varga to Bespin in Adv3, kill him in the *Glorious Chariot* hangar, and **recover the implant from his corpse**. At the Takodana rendezvous, Varth pairs the implant with his memorized key to unlock the account. He pays the heroes and Maya their promised cut — a considerable sum. Then pivots to the "bigger score."
+**Resolution:** In Adv2, the crew progressively discovers the implant through the fortress investigation phase — three convergent breadcrumbs: (1) a faint blue holographic flicker at Varga's right temple during the court audience (P1 S5), (2) Varga projecting his account ledger directly from his skull during the Iron Ring slave-auction (P2 S2, captured on a Recording Rod), and (3) TC-663's identification of the model and diagnostic-port location during Working the Court (P2 S3). The Best Laid Plans (P2 S5) consolidates the picture: the routing data is inside the Hutt's head, can only be read with physical access to the diagnostic port, and Varga is preparing to flee. The planned extraction is interrupted by the Knife in the Dark assassination (P2 S6); the crew escapes Takodana with implant specifications but no routing data. They track Varga to Bespin in Adv3, kill him in the *Glorious Chariot* hangar, and **recover the implant from his corpse**. At the Takodana rendezvous, Varth pairs the implant with his memorized key to unlock the account. He pays the heroes and Maya their promised cut — a considerable sum. Then pivots to the "bigger score."
 
 ### 3. The Holocrons (Adventure 4)
 **What they are:** Ancient Jedi/Sith navigational holocrons stored in the Ebon Spire, Revan's old forward base on the forest moon of Endor. They contain hyperspace charts for the Unknown Regions.
@@ -588,6 +588,66 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 ### 5. The Leviathan Data (Adventure 6)
 **What it is:** The combined navigation package (holocrons + drift algorithms) that Varth takes to Tarkin.
 **Resolution:** Varth hands it over and receives command of the Leviathan. The heroes witness the betrayal. Everything they retrieved was for him.
+
+---
+
+## Act 1 Lead Cascade — From Cantina to Payday
+
+This is the chain of clues, leads, and directions that propels the heroes through Adventures 1–3. Every numbered link is a beat that hands the crew their next concrete objective. If a link breaks at the table, the GM should restore it from the fallback sources noted at the end (NPC nudges, ambient breadcrumbs, Varth/Mandelbrot push lines).
+
+### Adventure 1 — The Cylinder Lead
+
+1. **The cantina meet → Maya at the table.** "Cade Ryll" (the Watcher's only personal domino) is the bait that gets the crew sitting where Maya can land on them. Maya brings the inciting object (the code cylinder) and Varga's retrieval crew brings the urgency.
+2. **Maya → Switch's bunker.** Maya knows Switch can identify what she stole. Switch becomes the recurring fixer (info-broker deal locked in here).
+3. **Switch → ghost transfer authorization reveal.** The cylinder isn't location data; it authenticates into Imperial shuttle systems. *Lead handed:* find an Imperial shuttle to crack open.
+4. **Maya → the Reestkii landing field shuttle.** Maya has been tailing a Lambda-class parked on the field. *Lead handed:* heist target identified.
+5. **Ganga Lor's attack on Switch's bunker → confirms stakes.** Varga wants the cylinder badly enough to send his enforcer. Ganga Lor dies in the fight. *Direction reinforced:* keep moving fast.
+6. **The shuttle nav heist → Vanishing Place coordinates (Ajan Kloss).** *Lead handed:* prison destination known.
+7. **Vanishing Place infiltration → Varth rescued.** Mandrake's deal threads the generator sabotage. *Lead handed (Varth's pitch on the Banshee):* "The money is locked inside Varga's network. I have the key memorized, but the Hutt moved the account after I was captured. We need to get inside his operation." → **Adv2 hook locked in.**
+
+### Adventure 2 — The Implant Reveal
+
+1. **Varth's pitch → Takodana destination.** Crew knows Varga's fortress sits on Nymeve Lake. *Direction:* infiltrate the court.
+2. **Blackwind Point + the encampment (P1 S1–S2) → Raden as inside source.** Working the encampment surfaces five intel NPCs and points at Raden hiding in the filtration plant.
+3. **Raden's intel (P1 S3, Comfort 4–5) → fortress entry plan + cybernetic breadcrumb #0.** Raden mentions an "implant he's seen Varga use" (legendary tier). *Foreshadowing planted.*
+4. **Court audience (P1 S5) → cybernetic breadcrumb #1.** Faint blue holographic flicker at Varga's right temple. Cybot Galactica passive standby indicator. Source unknown at this stage.
+5. **TC-663 activated by Switch's code phrase (P1 S5 → P2 S3) → palace maps + courier cybernetic model and diagnostic-port location.** *Lead handed:* the implant has a known model and a known access point.
+6. **Iron Ring (P2 S2) → cybernetic breadcrumb #2.** Varga projects his account ledger directly from his skull during the slave auction. Captured on Recording Rod (the only hard evidence). *Lead crystallized:* the routing data lives in his head.
+7. **Working the Court — Gome the Duros (P2 S3) → Bespin / Cloud City / Figg & Associates.** *Lead handed:* Varga's escape destination identified before he flees.
+8. **Lady Sinde's negotiations (P2 S4) → Tibanna gas + Leviathan supply chain exposure.** *Future hook:* Adv3 refinery beat and Act 2 onward.
+9. **The Best Laid Plans (P2 S5) → consolidated extraction plan.** Crew synthesizes everything. The picture is clear. *Direction:* execute the extraction. (They don't get to.)
+10. **Knife in the Dark (P2 S6) → cascade trigger.** Assassination interrupts. The investigation phase is over.
+11. **Discovering Denia (P2 S7) → Varth's first red flag + Demos/Draco holo-call (death clock).** *Lead handed:* the *Assiduous* is en route. Move now.
+12. **The Escape (P2 S8) → Demos dies; Denia senses his untrained Force sensitivity.** *Future hook for Watcher arc / Inquisitorius parity.*
+13. **The Hangar Bay (P2 S9) → trajectory lock on the *Glorious Chariot*.** Vector aligns with the Anoat Sector → Bespin → Cloud City. *Lead handed:* sensor data confirms Gome's intel. → **Adv3 hook locked in.**
+
+### Adventure 3 — The Tournament & The Strike
+
+1. **Bespin arrival (P1 S1 The Brick Wall) → wall of silence.** Wing Guard bribed. Anonymous Ugnaught Parliament threat. *Direction:* find leverage with the Ugnaughts.
+2. **Ugnaught alliance (P1 S2 The Industrial Connection — Fyren and Krygg) → Tibanna gas siphoning op revealed.** Varga is moving weapons-grade gas through the city for the Empire. *Lead handed:* hit Refinery 13 to earn full intel.
+3. **Refinery Rumble (P1 S3) → Trandoshan datapad.** Manifest names the *Shackles of Nizon* — slave ship, weapons-grade gas, low Bespin orbit, ~384 souls aboard (legendary tier adds Klosari port history and 61 children counted separately). Maya's verbatim slave-ship line drops here; Varth's careful deflection is the third red flag for attentive players. *Three leads handed simultaneously:* (a) the Shackles intel, (b) confirmation of Varga's Imperial paymaster route, (c) Maya's silent decision begins to form.
+4. **The Imperial Mark (P1 S4) → Lt. Arandis transferring to Varga's proxy at the Cloud City Sabacc Tournament.** *Direction handed:* infiltrate the tournament, ID the proxy.
+5. **The Buy-In (P1 S5) → Mandelbrot's house security briefing + the *Assiduous* arrival.** Death clock starts. Four entry paths offered (Competitor / Security / Spectator / Dirty Money). *Direction:* commit roles by noon tomorrow.
+6. **Tournament Days 1–4 (P2 S1–S4) → ID Lady Mirana Fioro as Varga's proxy.** Pot outcome is flavor; the table-read (her bodyguard rotation, seat-side comms with Arandis between hands, the way Arandis tries to feed her) makes the proxy ID regardless of who wins.
+7. **The Final Table (P2 S4) → Arandis's card-arrangement transmits 137.12.** *Tactical asset handed (canonical path):* the slave-circuit boarding code for the *Shackles*. Switch's Dirty Money fork disrupts the card-arrangement but Fioro is still ID'd by other means.
+8. **The Heist (P2 S5 Draver's three-way crossfire) → Fioro captured or tailed.** *Lead handed:* Varga's hideout — Docking Bay 4414.
+9. **Maya's silent solo run on the *Shackles*.** Acts on the manifest from P1 S3 and her dock-crew contacts. The crew may not know she's gone until the orbital climax. *Future detonator:* P3 S5 moral choice.
+10. **The Gauntlet → Hutt's Hangar → Firefight (P3 S1–S3) → Varga's last stand.** The assault is the only viable play. Varga dies; the courier implant is recovered from his corpse. *Mandatory outcome.*
+11. **Grand Theft Starship (P3 S4) → break atmosphere in the *Glorious Chariot*.** Stormtrooper countdown forces immediate liftoff.
+12. **Skirmish Over Bespin (P3 S5) — Imperial Cleanup.** Varga's death = failed op = the Empire rams the *Shackles* with an automated gas hauler to bury the slave-trade trail. Maya is on the ship. *Moral choice fires:* save Maya or jump.
+13. **The Choice (P3 S6) → Takodana rendezvous.** Banshee + captured *Glorious Chariot* set down on the lake apron together. Varth pairs the implant with his memorized key, unlocks the encrypted account, pays the crew. *Pivot:* "That was a portion. The real vault is at Vel Shara." → **Adv4 hook locked in.**
+
+### GM Safety Net — Restoring a Broken Link
+
+If the table misses or fumbles a critical handoff, use these fallbacks:
+
+- **Adv1 — cylinder ignored or undervalued:** Maya pushes the heist directly ("I can't go back to the bunker without that shuttle data — and Varga's people are an hour behind us").
+- **Adv1 — Varth's Adv2 pitch unclear:** Have Varth name Takodana, Varga, and the Nymeve Lake fortress explicitly during the Smuggler's Path scene. He's a salesman; don't make him cryptic.
+- **Adv2 — implant reveal missed in the Iron Ring:** TC-663 brings the implant model to the crew unprompted in Working the Court. Failing that, the Best Laid Plans scene surfaces the picture in synthesis.
+- **Adv2 — Bespin destination missed via Gome:** Trajectory lock in P2 S9 gives Anoat sector = Bespin regardless. Both leads converge.
+- **Adv3 — proxy ID missed at the tournament:** Mandelbrot, Maya, or Fyren's Ugnaughts surface Fioro. Failing all of those, Fioro's bodyguard names the docking bay aloud over a comm in the casino lobby.
+- **Adv3 — Docking Bay 4414 location missed in the heist:** Varth picks up Varga's encrypted yacht-hail from orbit and hands the crew the bay number from the Banshee.
+- **Adv3 — assault stalled or refused:** Varth, Mandelbrot, and Maya all push for the strike with escalating urgency. The window closes if Varga collects the payday and walks — that's the campaign-failure mode and the GM should never let it land passively.
 
 ---
 
@@ -693,8 +753,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - **P2 S2 — The Iron Ring:** Slave auction event. A Twi'lek slave attempts to poison Varga's drink; heroes can save him for instant favor. A Wookiee warrior is sold but stays as arena muscle (sleeper threat for P2 S5). Lady Sinde's ISB Imperial delegation — Sinde negotiates Tibanna gas shipments with Varga; heroes may recognize her from Organa's circle or discover her ISB identity. First exposure to the Leviathan supply chain.
 - **P2 S3 — Working the Court:** Freeform exploration. Gome the Duros moneychanger (elderly, rambling, morally indifferent) reveals Varga's departure plans and Bespin/Cloud City as his fallback headquarters. TC-663 visits the heroes at night with Demos's encrypted comms (mentioning "the prisoner" = Denia).
 - **P2 S4 — The Imperial Shadow:** Lady Sinde's formal negotiations. Heroes can eavesdrop, intercept transmissions, or discover Leviathan logistics details.
-- **P2 S5 — Knife in the Dark:** The Wookiee sleeper from the Iron Ring event teams with the Twi'lek (if saved) and a Quarren assassin for a nighttime assassination attempt on the heroes. Kessra's aviary ambush (conditional on P1 S1 outcome) may also trigger here — personal vendetta, targets 1-2 heroes by name, locks doors, releases predatory birds.
-- **P2 S6 — The Heist:** Heroes infiltrate Varga's private quarters to steal encryption keys from his datapad. The critical mission objective — or so they think. The datapad yields nothing usable; TC-663 reveals (during or after the heist) that Varga keeps the routing data **inside a Cybot Galactica Model VII courier cybernetic surgically embedded in his own skull**, and hands the heroes the implant's technical specs. Without physical possession of Varga's head, the data is unreachable. The mission's stated objective fails; the *real* objective — "find Varga and kill him" — crystallizes here.
+- **P2 S5 — The Best Laid Plans:** Night Four planning consolidation. The crew gathers what they've assembled — TC-663's implant identification (Cybot Galactica Model VII, diagnostic port behind the right ear), the Recording Rod capture from the Iron Ring scene showing Varga projecting his account ledger directly from his skull, Gome's Bespin/Cloud City/Figg & Associates intel, and the urgency from Sinde's audit accelerating Varga's departure. The picture is clear: the routing data is **inside the Hutt's head**, can only be read with physical access to the diagnostic port, and Varga is preparing to flee. The mission's stated objective ("get the routing data on Takodana") is no longer viable; the *real* objective — "find Varga and kill him on Bespin" — crystallizes here. The crew is mid-plan when Varth's voice cuts in over the comm: three armed contacts in the corridor, lock opening on a code. They're out of time.
+- **P2 S6 — Knife in the Dark:** Nighttime assassination attempt in the heroes' quarters. Grakkus the Wookiee (Iron Ring sleeper from P2 S2) leads with Skreev the Rodian bounty hunter (Vipers from P1); if Narek the poisoner was exposed or humiliated earlier he joins the hit, otherwise an additional Iron Ring enforcer takes his place. The contract was placed by Demos, not Varga. Kessra's aviary ambush (conditional on P1 S1 outcome) may trigger as a parallel beat — personal vendetta, locks doors, releases predatory birds. The crew never executes the planned extraction; everything that follows is survival, rescue, and escape.
 - **P2 S7 — Discovering Denia:** Telepathic whispers lead the heroes to the dungeon. They find Jedi Master Denia in a stasis pod. **Dark path only:** Raden is also here, beaten in a cell — the man they delivered to Varga. Varth's voice over comms: "Leave her. She's a liability. We don't have time for dead weight." — **Red flag #1.** The heroes must decide whether to rescue Denia (and Raden, if present) against Varth's advice. Heroes eavesdrop on a holo-call between Demos and Inquisitor Draco: "I am on my way, with the *Assiduous*." Death clock starts. **If Denia abandoned:** Varth secretly contacts Draco after the escape. Draco recovers Denia off-camera. The heroes never learn she survived until the Adv10 showdown.
 - **P2 S8 — The Escape:** Demos blocks the escape route with his Trandoshan bodyguard and guards. Mini-boss fight — Demos uses untrained Force Slam and his vibro-staff. **He is killed.** When Demos falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there."
 - **P2 S9 — The Hangar Bay:** Lady Sinde's Stormtroopers execute witnesses to protect Leviathan's secrecy. Varga has already fled in the *Glorious Chariot*. **Dark path only:** If Raden was delivered in chains and then rescued from the dungeons, **Varth executes him** at the ship's ramp — shoots him between the eyes. "I told you the next time I saw you, I would kill you." **Red flag #2.** **Light path:** Raden is not present — he stayed behind at the filtration plant. Varth's second red flag is deferred to Adv3. Heroes escape and track Varga's trajectory to Bespin.
