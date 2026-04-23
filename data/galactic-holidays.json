@@ -128,14 +128,14 @@
       "gmHook": "Heartbreaking moment if the crew meets a Wookiee on this day."
     },
     {
-      "id": "day-of-the-purge",
-      "name": "Day of the Purge / Order 66 (4th Anniv.)",
+      "id": "empire-day",
+      "name": "Empire Day (4th Anniv. of the New Order)",
       "month": 10,
       "day": 18,
       "dayOfWeek": "Benduday",
-      "type": "suppressed-trauma",
-      "significance": "Four years to the day since the Jedi were slaughtered. The Dark Side suffocates the Light.",
-      "gmHook": "Master Denia (if rescued) is crippled by psychic echoes; Inquisitor activity spikes across the sector."
+      "type": "imperial-civic",
+      "significance": "Public-facing: the anniversary of Emperor Palpatine's Declaration of the New Order — celebrated across the Core as the day the Republic was saved from the 'Jedi Rebellion' and civil order restored. Parades on Coruscant, naval flyovers in major sector capitals, mandatory schoolchild recitations of the Declaration. In the Outer Rim, observance is patchier — most frontier settlements treat it as a day to keep your head down because Imperial garrisons hold extra drills and ISB checkpoints get aggressive. NO public mention of Jedi extermination; the official story is that the Jedi launched a coup, the coup failed, and the Empire was the legitimate successor.",
+      "gmHook": "GM-FACING TRUTH: this is the fourth anniversary of Order 66. The public believes the 'Jedi Rebellion' was crushed in 19 BBY and the matter is closed; only Hidden Path operatives, surviving Jedi, and a handful of dark-corner historians know what actually happened. Mechanically: Master Denia (if rescued) is crippled by psychic echoes throughout the day. Inquisitor activity spikes sector-wide as Vader's people quietly hunt under cover of the parades. Force-sensitive PCs feel a heavy, suffocating pressure in the Force — the Dark Side is loud today. Any underground or Hidden Path contact the crew has will be unreachable; safehouses go silent. If the crew is in a Core city on this date, the festive atmosphere is genuinely unsettling for any PC who knows the truth — civilians cheering at parades for what they think was a heroic victory."
     },
     {
       "id": "fete-weeks",

@@ -36,16 +36,17 @@
         },
         {
           "id": "hn_jedi_felucia",
-          "headline": "JEDI FUGITIVE APPREHENDED ON FELUCIA — PUBLIC SAFETY RESTORED",
+          "headline": "PARTISAN INSURGENT NEUTRALIZED ON FELUCIA — ISB COMMENDS LOCAL VIGILANCE",
           "source": "Alton Kastle, HoloNet News",
-          "body": "Imperial forces acting on intelligence from concerned citizens have apprehended a Jedi fugitive on the agrarian world of Felucia. The suspect, wanted for sedition and conspiracy against the state, was neutralized after resisting lawful detention. No civilian casualties were reported. Citizens are reminded that harboring Jedi fugitives carries a mandatory sentence under Imperial Edict 13. If you see something, say something — your Empire thanks you for your vigilance. Contact your local ISB field office or use the anonymous Imperial tip line to report suspicious Force-related activity.",
+          "body": "The Imperial Security Bureau confirms that a violent fugitive operating with a partisan extremist cell on the agrarian world of Felucia has been neutralized. Acting on intelligence from concerned citizens, ISB field agents intercepted the suspect — wanted on charges of sedition, terrorism, and conspiracy against the state — outside a remote outback settlement. The suspect resisted lawful detention and was eliminated in the resulting action. No civilian casualties were reported. Citizens are reminded that harboring violent partisans carries a mandatory sentence under Imperial Edict 13. If you see something, say something. Contact your local ISB field office or use the anonymous Imperial tip line to report suspicious activity.",
           "type": "lore",
           "tags": [
             "jedi",
             "inquisitorius",
             "felucia"
           ],
-          "channel": "imperial"
+          "channel": "imperial",
+          "gmNote": "PUBLIC NARRATIVE vs. TRUTH. The official Imperial line in 15 BBY is that the 'Jedi Rebellion' was crushed in 19 BBY — Jedi are extinct, the war is over. Public broadcasts CANNOT name surviving Jedi as Jedi without contradicting that narrative. So when an Inquisitor kills a Jedi survivor (which is what actually happened here), the HoloNet copy reframes the action as ISB neutralizing a 'partisan insurgent' or 'violent fugitive.' The tags (jedi/inquisitorius) are preserved for GM filtering — the players will only ever hear the Partisan framing. PCs with Insight or contacts in the underground (Hidden Path, smuggler networks, surviving clones) may decode the pattern over time."
         },
         {
           "id": "hn_malpaz_recovery",
@@ -256,9 +257,9 @@
         },
         {
           "id": "hn_inquisitor_activity",
-          "headline": "JEDI-RELATED INCIDENTS DECLINE 34% — IMPERIAL INQUISITION CREDITS CITIZEN COOPERATION",
+          "headline": "PARTISAN INSURGENT INCIDENTS DOWN 34% — ISB CREDITS CITIZEN COOPERATION",
           "source": "Alton Kastle, HoloNet News",
-          "body": "The Office of the Imperial Inquisition reports a 34% decline in Jedi-related security incidents across the galaxy over the past standard year. Grand Inquisitor spokespersons attribute the success to 'sustained vigilance and the cooperation of loyal citizens who understand the Jedi threat.' The Bureau reminds the public that while the threat is diminished, it has not been eliminated. Enhanced scanning protocols remain in effect at all major spaceports. Citizens who have observed suspicious individuals displaying unnatural abilities should report to their nearest ISB field office. Your vigilance protects your neighbors.",
+          "body": "The Imperial Security Bureau reports a 34% decline in violent partisan incidents across the galaxy over the past standard year. ISB spokespersons attribute the success to 'sustained vigilance and the cooperation of loyal citizens who understand the threat that lingering Republic-era extremist cells still pose to civil order.' The Bureau reminds the public that while the threat is diminished, it has not been eliminated. Enhanced scanning protocols remain in effect at all major spaceports. Citizens who have observed suspicious individuals — particularly those engaged in unauthorized communications, weapons trafficking, or attempts to recruit children into anti-Imperial activity — should report to their nearest ISB field office. Your vigilance protects your neighbors.",
           "type": "foreshadow",
           "tags": [
             "inquisitorius",
@@ -266,7 +267,8 @@
             "draco"
           ],
           "channel": "imperial",
-          "airDate": "Day 19, Month 10, Year 5"
+          "airDate": "Day 19, Month 10, Year 5",
+          "gmNote": "PUBLIC NARRATIVE vs. TRUTH. The Inquisitorius does not exist publicly. Its operations are folded into ISB anti-partisan reporting. The '34% decline in incidents' is the public-facing veneer; the underlying truth is that Vader and the Inquisitors are quietly winnowing the surviving Jedi and Force-sensitives, and the metric is moving because there are fewer survivors to find. The phrase 'attempts to recruit children' is the closest the public copy comes to acknowledging Force-sensitives — framed as ideological recruitment, never as Force aptitude. PCs who develop Hidden Path / underground contacts can eventually read these reports as a Force-sensitive death toll."
         },
         {
           "id": "hn_tibanna_production",
