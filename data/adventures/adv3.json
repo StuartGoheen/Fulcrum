@@ -3,7 +3,7 @@
   "number": 3,
   "title": "The Queen of Air and Darkness",
   "act": 1,
-  "summary": "The heroes chase Varga the Hutt to Cloud City on Bespin, infiltrate a Sabacc tournament to intercept an Imperial payment, and face a desperate hangar bay showdown that ends with an orbital battle and a moral choice that defines the party.",
+  "summary": "The heroes chase Varga the Hutt to Cloud City on Bespin, where the Hutt is in deep hiding. Their only lead is the Cloud City Sabacc Tournament — an Imperial paymaster (Lt. Arandis) is making a transfer to one of Varga's proxies at the table. Identify the proxy, trace her back to Varga's hideout, kill the Hutt and recover the courier implant locked in his skull (the only key to the encrypted account). The op ends in a hangar showdown for the Glorious Chariot, an orbital battle over the slave ship Shackles of Nizon, and a moral choice that defines the party. Fallback rendezvous: Maz's castle on Takodana, where Varth uses the recovered implant to unlock the account and pay the crew.",
   "marks": [
     {
       "id": "adv3_arrival",
@@ -14,19 +14,19 @@
     {
       "id": "adv3_sabacc",
       "label": "The Game Within the Game",
-      "desc": "Enter the Sabacc tournament and use it to get close to the Imperial payment.",
+      "desc": "Enter the Sabacc tournament — the only place Varga's people surface in public. Watch the table for the handoff.",
       "hidden": false
     },
     {
       "id": "adv3_arandis",
       "label": "The Contact",
-      "desc": "Identify and make contact with Arandis. Not everyone at the table is who they seem.",
+      "desc": "Identify the Imperial paymaster (Arandis) and the Hutt's proxy he's transferring to. Not everyone at the table is who they seem.",
       "hidden": true
     },
     {
       "id": "adv3_intercept",
-      "label": "The Intercept",
-      "desc": "Steal or redirect the Imperial payment before it reaches Varga's accounts.",
+      "label": "Trace the Proxy",
+      "desc": "Read the handoff, lean on the proxy, and pry Varga's hideout out of her before he gets word and bolts.",
       "hidden": true
     },
     {

@@ -12,9 +12,9 @@ The following outcomes are **mandatory** for the campaign to function:
 | Outcome | Adventure | Why |
 |---|---|---|
 | **Denia is found** | Adv2 | She is found in Varga's dungeon. Varth advises: "Leave her — she's a liability." **The heroes choose.** If rescued, she serves as mentor, holocron key (Adv4), and is eventually captured by Draco (Adv7). If abandoned, Varth secretly tips off Draco, who recovers her off-camera — the heroes discover her in Draco's custody during the Adv10 showdown. Either way, Denia exists in the campaign; the question is whether the heroes have her or Draco does. If abandoned, the Church of the Force fills the lore-interpreter role (see Alternate Path notes). |
-| **Maya's survival is optional** | Adv3 | If the heroes abandon Maya on the Shackles of Nizon, the campaign continues — but they lose their pilot, their moral compass, and one of the strongest emotional threads. The Banshee is docked at Maz's castle on Takodana — Maya left it there before boarding the Shackles on her own. |
-| **Varga is killed** | Adv3 | Varga dies during the boarding of the Glorious Chariot. He is the Act 1 antagonist and his arc concludes here. He does not escape or recur. |
-| **The heroes are paid** | Adv3 | Varth unlocks the encrypted account and pays the heroes their cut. This must happen to maintain narrative trust for the Act 2 pivot. |
+| **Maya's survival is optional** | Adv3 | If the heroes abandon Maya on the Shackles of Nizon, the campaign continues — but they lose their pilot, their moral compass, and one of the strongest emotional threads. The Banshee is at Bespin throughout Adv3 with Varth running the op from on board; Maya slips aboard the *Shackles of Nizon* separately during the orbital chaos, not from Takodana. The Takodana rendezvous afterward is where the *Banshee* is flown back to Maz's castle, with the *Glorious Chariot* in tow as the prize. |
+| **Varga is killed** | Adv3 | Varga dies during the boarding of the Glorious Chariot. He is the Act 1 antagonist and his arc concludes here. He does not escape or recur. **His body — specifically his head — must be recovered**, because the courier cybernetic embedded in his skull is the only path to the encrypted account. |
+| **The heroes are paid** | Adv3 | At the Takodana rendezvous, Varth uses the courier implant recovered from Varga's skull (combined with his own memorized authentication key) to unlock the encrypted account and pays the heroes their cut. This must happen to maintain narrative trust for the Act 2 pivot. |
 
 ---
 
@@ -160,9 +160,9 @@ Then she intercepted the Code Cylinder from Varga's supply chain on Jakku. It wa
 - Adv1 P2 S2: Takes shrapnel during V-wing strafing on approach. The Ace takes the stick and crash-lands the Banshee. Maya stays behind to repair and gives the heroes a secondary objective: disable the turret defenses so she can fly extraction.
 - Adv1 P2 S6: Extraction is conditional on turrets being down. If they're destroyed, she swoops in clean. If not, she takes heavy fire. Either way, she proves she's not just a grifter — she's the crew's pilot under fire.
 - Adv2: Stays with the Banshee as extraction plan during the Varga infiltration. Denia recovers at Maz's castle on Takodana — Maya bonds with her between adventures.
-- Adv3 P2 S2: Players overhear Maya and Varth arguing about the slave ship — must-know narrative beat. Maya goes silent. Infiltrates the *Shackles of Nizon* on her own. Varth knew and said nothing.
+- Adv3 P2 S2: Players overhear Maya and Varth arguing about the slave ship — must-know narrative beat. Maya goes silent. Slips aboard the *Shackles of Nizon* on her own (working her smuggler-network contacts on the dock crew to get aboard before it lifts), leaving the *Banshee* at Bespin with Varth. Varth knew and said nothing.
 - Adv3 P3 S5: Breaks open comms during the orbital battle — "Hey — I could use a little more time here"
-- Adv3 P3 S6: (If saved) Punches Varth at the rendezvous on Takodana. The Banshee was docked there — she left it behind when she boarded the Shackles.
+- Adv3 P3 S6: (If saved) Punches Varth at the rendezvous on Takodana. The crew flew the *Banshee* (and the captured *Glorious Chariot*) from Bespin to Maz's; Maya rode down on a freed-slave shuttle from the *Shackles* once the orbital fight resolved.
 - Adv4–7: Present with the crew. Her conscience continues to sharpen. She's the first to question Varth's motives openly.
 - Adv7: The crew's situation collapses. Maya finds her way back to the crew after the destruction.
 - Adv8: Arrives on Batuu with the crew. Encounters **Soren Vex** at Black Spire Outpost — the partner who betrayed her. Unresolved history. Soren is recruited for the pirate fleet.
@@ -569,8 +569,8 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 ### 2. The Encrypted Account (Adventures 1–3)
 **What it is:** Millions of embezzled credits locked behind Varth's personal encryption inside Varga's financial network. Varga can see the money but can't access it.
-**How it works:** Varth has the key (memorized, no physical device). Varga has the account. After Varth's imprisonment, Varga moved the account within his network — so Varth needs the routing data to locate it again.
-**Resolution:** Heroes get partial routing data in Adv2 (Varga locks down the rest). They track Varga to Bespin in Adv3. After defeating Varga and taking the Glorious Chariot, Varth has enough information to unlock the account. He pays the heroes and Maya their promised cut — a considerable sum. Then pivots to the "bigger score."
+**How it works:** Varth has the **authentication key** (memorized, no physical device). Varga has the account *and* — unknown to Varth at the time of his imprisonment — the **routing data**. After Varth's capture, Varga locked the routing data inside a **Cybot Galactica Model VII courier cybernetic** surgically embedded in his own skull. The implant is a closed system: it can only be read with physical possession of the device. Varga did this so that even his own lieutenants could never move the credits without him present. The encryption requires *both* Varth's memorized key and the implant's stored routing data — neither is sufficient alone.
+**Resolution:** Heroes attempt to steal routing data from Varga's datapad in Adv2 and fail — TC-663 reveals the data isn't anywhere in the fortress network; it lives in Varga's skull. They escape with **implant specifications** from TC-663 (enough for Varth to plan the read) but no routing data. They track Varga to Bespin in Adv3, kill him in the *Glorious Chariot* hangar, and **recover the implant from his corpse**. At the Takodana rendezvous, Varth pairs the implant with his memorized key to unlock the account. He pays the heroes and Maya their promised cut — a considerable sum. Then pivots to the "bigger score."
 
 ### 3. The Holocrons (Adventure 4)
 **What they are:** Ancient Jedi/Sith navigational holocrons stored in the Ebon Spire, Revan's old forward base on the forest moon of Endor. They contain hyperspace charts for the Unknown Regions.
@@ -694,14 +694,14 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - **P2 S3 — Working the Court:** Freeform exploration. Gome the Duros moneychanger (elderly, rambling, morally indifferent) reveals Varga's departure plans and Bespin/Cloud City as his fallback headquarters. TC-663 visits the heroes at night with Demos's encrypted comms (mentioning "the prisoner" = Denia).
 - **P2 S4 — The Imperial Shadow:** Lady Sinde's formal negotiations. Heroes can eavesdrop, intercept transmissions, or discover Leviathan logistics details.
 - **P2 S5 — Knife in the Dark:** The Wookiee sleeper from the Iron Ring event teams with the Twi'lek (if saved) and a Quarren assassin for a nighttime assassination attempt on the heroes. Kessra's aviary ambush (conditional on P1 S1 outcome) may also trigger here — personal vendetta, targets 1-2 heroes by name, locks doors, releases predatory birds.
-- **P2 S6 — The Heist:** Heroes infiltrate Varga's private quarters to steal encryption keys from his datapad. The critical mission objective — the routing data they came for.
+- **P2 S6 — The Heist:** Heroes infiltrate Varga's private quarters to steal encryption keys from his datapad. The critical mission objective — or so they think. The datapad yields nothing usable; TC-663 reveals (during or after the heist) that Varga keeps the routing data **inside a Cybot Galactica Model VII courier cybernetic surgically embedded in his own skull**, and hands the heroes the implant's technical specs. Without physical possession of Varga's head, the data is unreachable. The mission's stated objective fails; the *real* objective — "find Varga and kill him" — crystallizes here.
 - **P2 S7 — Discovering Denia:** Telepathic whispers lead the heroes to the dungeon. They find Jedi Master Denia in a stasis pod. **Dark path only:** Raden is also here, beaten in a cell — the man they delivered to Varga. Varth's voice over comms: "Leave her. She's a liability. We don't have time for dead weight." — **Red flag #1.** The heroes must decide whether to rescue Denia (and Raden, if present) against Varth's advice. Heroes eavesdrop on a holo-call between Demos and Inquisitor Draco: "I am on my way, with the *Assiduous*." Death clock starts. **If Denia abandoned:** Varth secretly contacts Draco after the escape. Draco recovers Denia off-camera. The heroes never learn she survived until the Adv10 showdown.
 - **P2 S8 — The Escape:** Demos blocks the escape route with his Trandoshan bodyguard and guards. Mini-boss fight — Demos uses untrained Force Slam and his vibro-staff. **He is killed.** When Demos falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there."
 - **P2 S9 — The Hangar Bay:** Lady Sinde's Stormtroopers execute witnesses to protect Leviathan's secrecy. Varga has already fled in the *Glorious Chariot*. **Dark path only:** If Raden was delivered in chains and then rescued from the dungeons, **Varth executes him** at the ship's ramp — shoots him between the eyes. "I told you the next time I saw you, I would kill you." **Red flag #2.** **Light path:** Raden is not present — he stayed behind at the filtration plant. Varth's second red flag is deferred to Adv3. Heroes escape and track Varga's trajectory to Bespin.
 
 **What Changes by the End:**
 - Heroes have Denia — a new ally and Varth's secret instrument (if rescued against Varth's advice); OR heroes left Denia behind on Varth's recommendation (Varth secretly tips off Draco, who recovers her off-camera)
-- Partial routing data from Varga's network (not enough to unlock the account alone)
+- **Cybot Galactica Model VII implant specs from TC-663** — enough for Varth to plan the read, but no routing data. Varga's skull is the only key.
 - Varga's escape vector points to Bespin / Cloud City
 - First exposure to Leviathan supply chain through Lady Sinde's negotiations and Demos/Draco holo-call
 - **Igren Demos is dead** — killed during the escape; Denia senses his Force sensitivity
@@ -710,7 +710,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **Open Threads Carried Forward:**
 - Varga's escape to Bespin (→ Adv3)
-- Encrypted account — still locked, partial data only (→ Adv3)
+- Encrypted account — still locked. Routing data is in Varga's skull implant; only physical possession of Varga (alive or dead) will unlock it (→ Adv3)
 - Denia's knowledge of Jedi archives (→ Adv4)
 - Leviathan supply chain (→ ongoing)
 - Iron Ring / slave trade (→ Adv3)
@@ -730,7 +730,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 ### Adventure 3: The Queen of Air and Darkness
 **Act:** 1 | **Location:** Bespin / Cloud City
 
-**What the Players Know Going In:** Varga fled to Cloud City. The heroes need to find him and get the remaining routing data to unlock the encrypted account — their payday.
+**What the Players Know Going In:** Varga fled to Cloud City. The routing data for the encrypted account is locked inside a courier implant in Varga's skull (TC-663's reveal in Adv2). The heroes need to find Varga, kill him, and recover the implant — that's the payday. Varga is in deep hiding on Bespin, but Varth's intel says an Imperial paymaster is meeting one of Varga's proxies during the Cloud City Sabacc Tournament. Identify the proxy, follow her back to Varga.
 
 **What the GM Knows:** Varth is playing both angles. Ostensibly this is about the money, but he's also watching the Leviathan supply chain (Varga's Tibanna gas siphoning operation). The slave ship *Shackles of Nizon* will become the moral test for the crew — and Maya specifically.
 
@@ -751,7 +751,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - Grand Theft Starship: Commandeer the Chariot. 30-second countdown before Stormtroopers arrive.
 - **Skirmish Over Bespin:** Heroes break atmosphere in the Chariot. They see the gas hauler on collision course with the *Shackles of Nizon*. Varth comes on comms: "Set coordinates and jump. The Assiduous is launching TIEs." If heroes mention the slave ship: "It's too hot. Jump. Now." Then Maya's voice cuts in on open comms: "Hey — I could use a little more time here. I've got about three hundred people in chains and a freighter about to turn us into scrap." The heroes choose.
 - **The Choice:** If they save Maya — she comes aboard, sees Varth, and punches him. If they don't — silence on the comms. The campaign changes permanently.
-- **Payday and Pivot:** The crew jumps to Takodana — Maz Kanata's castle, their home base since the end of Adventure 2. When they drop out of hyperspace, the Shackles of Nizon is already in low orbit — a massive Imperial bulk transport, too large to land, hull scarred and ugly. Maya got here first. She's shuttling freed slaves down to Maz's. Denia is already planetside, recovering at Maz's since the end of Adventure 2. The Banshee is docked at the castle. When the crew lands, Maya walks straight to Varth and punches him in the jaw. He takes it. Varth unlocks the Varga account. The heroes and Maya get their promised cut — a considerable sum. Then Varth pivots: "That's a portion. The real vault is at Vel Shara — where the Empire is building something they don't want anyone to know about. I need a safe route through the Unknown Regions to get there." He casually looks to Denia: "How *did* the Jedi navigate this part of space?" Denia suggests the Ebon Spire on the forest moon of Endor. Varth nods like he's hearing it for the first time.
+- **Payday and Pivot:** The crew jumps to Takodana — Maz Kanata's castle, the agreed fallback. The *Banshee* and the captured *Glorious Chariot* set down on the lake apron together. When they drop out of hyperspace, the *Shackles of Nizon* is already in low orbit — a massive Imperial bulk transport, too large to land, hull scarred and ugly. Maya got here first, shuttling freed slaves down to Maz's. Denia is already planetside, recovering at Maz's since the end of Adventure 2. When the crew lands, Maya walks straight to Varth and punches him in the jaw. He takes it. Varth then takes the courier implant the heroes recovered from Varga's skull, pairs it with his memorized authentication key, and unlocks the encrypted account in front of them. The heroes and Maya get their promised cut — a considerable sum. Then Varth pivots: "That's a portion. The real vault is at Vel Shara — where the Empire is building something they don't want anyone to know about. I need a safe route through the Unknown Regions to get there." He casually looks to Denia: "How *did* the Jedi navigate this part of space?" Denia suggests the Ebon Spire on the forest moon of Endor. Varth nods like he's hearing it for the first time.
 
 **What Changes by the End:**
 - Heroes acquire the *Glorious Chariot* (new player ship)
