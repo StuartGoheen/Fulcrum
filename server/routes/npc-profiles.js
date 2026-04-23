@@ -9,7 +9,7 @@ const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
 const VALID_STATUSES = ['allied', 'neutral', 'hostile', 'unknown', 'deceased'];
 
 function requireGM(req, res, next) {
-  if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required' });
+  if (req.userRole && req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required' });
   next();
 }
 

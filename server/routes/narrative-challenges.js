@@ -7,7 +7,7 @@ const { pool } = require('../db');
 const CHALLENGES_DIR = path.join(__dirname, '..', '..', 'data', 'narrative-challenges');
 
 function gmOnly(req, res, next) {
-  if (req.userRole !== 'gm') return res.status(403).json({ error: 'Forbidden' });
+  if (req.userRole && req.userRole !== 'gm') return res.status(403).json({ error: 'Forbidden' });
   next();
 }
 
