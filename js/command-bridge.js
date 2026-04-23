@@ -2753,8 +2753,8 @@
       var t = e.touches[0];
       onStart(t.clientX, t.clientY);
       document.addEventListener('touchmove', tmove, { passive: false });
-      document.addEventListener('touchend', tend);
-    });
+      document.addEventListener('touchend', tend, { passive: true });
+    }, { passive: true });
     function tmove(e) {
       e.preventDefault();
       var t = e.touches[0];
