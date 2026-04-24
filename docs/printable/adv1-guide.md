@@ -206,6 +206,26 @@ Bar brawl in a cramped cantina. Fists, headbutts, thrown bottles, overturned tab
 - **C3 — Bar (East)** *(cover: hard)*: East end of the bar counter. Hard cover. Tap system and storage underneath. Same improvised weapon access as B3. Good defensive position with sightlines to the entrance.
 - **D3 — Store Room** *(cover: full, light: shadow)*: Closed door (requires maneuver to open). Full cover once inside. Dark — no light source. Crates of supplies, kegs. Dead end — defensible but no exit. A cornered position.
 
+**Starting positions:**
+- **PCs** @ *Main Floor — Dining Area* — Seated at their table. Central position with light cover.
+- **Maya** @ *Main Floor — Dining Area* — Crashes into the dining area. Flees to the bar (hard cover) if combat starts.
+- **Krev Tosk** @ *Main Entrance* — Enters through blast doors. Exposed — no cover. Moves into the PCs' table to threaten with Shield Slam.
+- **Kyuzo #1** @ *Main Entrance* — Behind Krev at the entrance. Moves to the booth row (Swift passive) to flank the PCs' table.
+- **Kyuzo #2** @ *Main Entrance* — Flanking the entrance. Moves to the alcove (Swift passive) to cut off the far side of the PCs' table.
+- **Patrons** @ *Private Booth — Center-West* — Scattered across booths. Flee to entrance or back hallway if weapons are drawn.
+
+**GM tactical notes:**
+
+SCENE-LEVEL TACTICAL NOTES (NPC-agnostic — applies to whatever enforcers the GM uses):
+
+• STARTING POSTURE: The lead enforcer enters through the front entrance and stays exposed there — collectors expect compliance, not a fight. The supporting hostiles fan out during the social phase, sliding silently into the booth row and the alcove to flank the PCs' table on both sides. This is positioning, not aggression — the social pressure is the weapon.
+
+• IF COMBAT TRIGGERS: Hostiles push the center floor toward the PCs' table for melee range. Flankers attack from the booth row and alcove they pre-positioned in. The open floor between the entrance and the PCs' table is the kill zone — no cover, clear sightlines. The booth row and alcove offer light cover for whoever holds them. The bar counter is the strongest defensive position (hard cover, improvised weapons within reach).
+
+• ESCAPE ROUTES: The back hallway behind the bar is the only secondary route out. The store room is a trap — full cover, no exit. The front entrance becomes contested as soon as combat starts.
+
+• ENVIRONMENT LEVERAGE: Door controls at the front entrance can cut off reinforcements OR trap PCs inside. Bottles, glasses, and chairs are improvised weapons accessible from the bar and booth row. Failing glow-rods make light unreliable — GM may rule darkness/concealment effects as the brawl moves through the room.
+
 #### Cast / Threats Present
 **Krev Tosk** — Weequay Enforcer
   - *Anchor / Martial · standard · Tier 1*
@@ -625,6 +645,16 @@ Ganga Lor and his enforcers assault Switch's bunker. Cramped quarters, environme
 - **C3 — Storage Alcove** *(cover: full, light: dim)*: Recessed storage with a closing hatch. Full cover when sealed. No exit — a trap for anyone who hides there.
 - **D3 — Rear Access Hatch** *(light: dim)*: Maintenance crawlspace exit. No cover but the only secondary route out of the bunker. Slow to traverse — costs an action to climb through.
 
+**Starting positions:**
+- **PCs** @ *Workshop Floor* — Mid-floor when the assault breaches. Light or no cover — should move on first turn.
+- **Switch (ally NPC)** @ *Switch's Command Pit* — Behind hard cover. Can manipulate the turret, blast door, and lights from this position.
+- **Attacker (Heavy)** @ *Entry Corridor (West)* — Lead breacher. Pushes into the workshop floor for melee/heavy-weapons range.
+- **Attackers (Enforcers)** @ *Blast Door* — Stack at the door, fan into the scrap piles and coolant pipes for cover.
+
+**GM tactical notes:**
+
+SCENE TACTICS (NPC-agnostic): The bunker is a one-way funnel — attackers come through the entry corridor and blast door, defenders hold the back. The workshop floor is the kill zone (no cover, clear sightlines) so neither side wants to linger there. The hard cover positions (workbench, command pit, sealed storage alcove) define the engagement geometry. ENVIRONMENTAL LEVERS: (1) coolant pipes — rupture for concealment cloud or scalding burst; (2) power junction — kill lighting to drop the whole map to dim/dark; (3) security turret — Switch (or any PC who reaches the command pit) can retarget it; (4) blast door — can be sealed mid-fight to cut off reinforcements OR trap defenders. The rear access hatch is the only escape route — slow but the only way out if the front goes bad. Note: in this scene the lead attacker is killed (mandatory outcome); enforcers flee or are mopped up afterward.
+
 #### Cast / Threats Present
 **Switch's Thugs** — Character
   - *Threat / Martial · minion*
@@ -870,6 +900,16 @@ Heroes must escape the landing field and reach Maya at the Banshee. Stormtrooper
 - **C3 — Open Tarmac (South)**: Open ground south of the ship. No cover. Pursuing troopers will arrive here.
 - **D3 — Imperial Checkpoint** *(cover: light)*: Abandoned (or freshly manned) checkpoint with a low blast wall. Light cover. Reinforcements arrive here each round combat continues.
 
+**Starting positions:**
+- **PCs** @ *Open Tarmac (Center)* — Caught in the open as the firefight breaks. Should sprint for cargo containers (A2) or fuel pumps (D1) immediately.
+- **Maya / Pilot** @ *Banshee's Pad* — Already at the ship. Has the engines spinning up. Stays at the pad waiting for the crew.
+- **Pursuing Stormtroopers** @ *Imperial Checkpoint* — Reinforcements pour in from the southeast checkpoint. Fresh squad arrives each round combat continues.
+- **Sniper (optional)** @ *Comms Tower Base* — If GM wants extra pressure: a single trooper takes the elevated position on the comms tower. Full sightlines across the tarmac.
+
+**GM tactical notes:**
+
+SCENE TACTICS (NPC-agnostic): Running firefight — this is about reaching the ship, not winning the fight. The open tarmac (B1, B2, C3) is the kill zone — anyone crossing it is exposed to overlapping fire. The container corridor (A1→A2→A3) is the safe lane: hard cover all the way to the ramp. ENVIRONMENTAL LEVERS: (1) fuel pumps — shoot for an explosion that creates burning terrain blocking pursuers; (2) maintenance shed — door can be jammed open behind PCs to slow trackers; (3) comms tower — climb for elevation OR sabotage to delay reinforcement calls. PRESSURE: each round combat continues, more troopers arrive from the Imperial checkpoint. The longer the PCs stand and fight, the worse the odds. Reward creative escape over tactical superiority — the win condition is the ramp, not bodies.
+
 #### Cast / Threats Present
 **Warlord's Guard** — Character
   - *Anchor / Martial · minion · Tier 1*
@@ -1070,15 +1110,23 @@ The viewport fills with green. Ajan Kloss — a jungle moon orbiting a gas giant
 - **Orbital Imperial Presence** — *Approaching Ajan Kloss* — Victory-class Star Destroyer and V-wing patrols. Detection means pursuit. — *Mitigation:* Canyon approach. Sensor masking from magnetic interference.
 
 #### Tactical Map
-**Map:** banshee — 0×0 grid (ship-room zones)
+**Map:** banshee — 6 hit zones (ship-room)
 
-**Notable zones:**
-- **cockpit — Cockpit** *(cover: medium)*: Pilot/co-pilot/sensors/weapons consoles. Where Maya flies from. Wraparound viewports.
-- **common-room — Common Room** *(cover: light)*: Central hub. Holotable. Where the crew gathers for the route briefing.
-- **galley — Galley** *(cover: light)*: Kitchen nook. Where Maya offers caf and the post-Switch breather happens.
-- **captains-cabin — Captain's Cabin** *(cover: medium, light: dim)*: Maya's quarters. Locked. Photos on the wall the PCs are not invited to ask about.
-- **cargo-bay — Cargo Bay** *(cover: medium)*: Main hold. Where loaded gear and the crew's personal kit live.
-- **engineering — Engineering Section** *(cover: heavy)*: Power plant + hyperdrive. Repairs happen here.
+**Hit zones:**
+- **Cockpit** *(cover: medium)*: Pilot/co-pilot/sensors/weapons consoles. Where Maya flies from. Wraparound viewports.
+- **Common Room** *(cover: light)*: Central hub. Holotable. Where the crew gathers for the route briefing.
+- **Galley** *(cover: light)*: Kitchen nook. Where Maya offers caf and the post-Switch breather happens.
+- **Captain's Cabin** *(cover: medium, light: dim)*: Maya's quarters. Locked. Photos on the wall the PCs are not invited to ask about.
+- **Cargo Bay** *(cover: medium)*: Main hold. Where loaded gear and the crew's personal kit live.
+- **Engineering Section** *(cover: heavy)*: Power plant + hyperdrive. Repairs happen here.
+
+**Starting positions:**
+- **PCs** @ *common-room* — Gathered around the holotable for the route briefing.
+- **Maya** @ *cockpit* — Pre-flight checks while the crew talks. Joins the holotable for the actual briefing.
+
+**GM tactical notes:**
+
+NON-COMBAT SCENE: This is a flight-prep / character beat scene aboard the Banshee — gear-buy, route plan, downtime conversations. The map is here so the GM can frame WHERE conversations happen (galley = informal, cockpit = pilot intimacy, captain's cabin = locked door = a question), not because a fight is expected. If combat does happen (e.g. an unannounced boarding), use the Cockpit as the choke-point and the Cargo Bay as the open kill-floor.
 
 #### Cast / Threats Present
 **Maya** — Smuggler / Pilot
@@ -1340,25 +1388,32 @@ Massive fungal formations pulse with sickly bioluminescence. Physical contact tr
 - **Hostile Fauna** — *Random encounter potential* — Ajan Kloss wildlife is territorial and predatory. Large arthropods, hunting birds, venomous ground-crawlers. — *Mitigation:* Stealth to avoid. Beast Handling to redirect. Combat as last resort — gunfire attracts attention.
 
 #### Tactical Map
-**Map:** jungle-trek — 0×0 grid (jungle-region zones)
+**Map:** jungle-trek — 16 hit zones (jungle-region)
 
-**Notable zones:**
-- **jungle-path-south — Jungle Path — South Entry** *(cover: medium, light: dim)*: Crash-site path heading north into the canopy. Starting zone.
-- **clearing — Clearing** *(cover: light)*: Open glade. Visible from the canopy. Risky to linger.
-- **shelf-fungi — Shelf Fungi** *(cover: heavy, light: dim)*: Massive shelf fungi growing from the rock. Heavy concealment, spore haze.
-- **vine-canopy-nw — Vine Canopy — Northwest** *(cover: medium, light: dim)*: Vine network through the canopy. Climbable. Mandrake will use this if combat starts in s4.
-- **flowering-grove — Flowering Grove** *(cover: light)*: Beautiful — and deceptive. Pollen fogs sensors.
-- **biolum-bloom — Bioluminescent Bloom** *(cover: light)*: Pulsing violet fungal spheres. HAZARD: shooting one releases a spore cloud (concealment + Endure check or [Hazard 1]).
-- **moss-bank — Moss Bank** *(cover: light)*: Slick moss over volcanic rock. Difficult terrain.
-- **fallen-log — Fallen Log** *(cover: medium)*: Massive fallen tree across the path — climb-over or detour.
-- **ridge-overlook — Ridge Overlook** *(cover: light)*: Elevated vantage. Macrobinoculars give partial fortress sight from here.
-- **perforated-rock — Perforated Rock** *(cover: heavy)*: Honeycombed volcanic rock. Multiple cover positions. Acid pool nearby (tox detector reveals).
-- **spiral-ferns — Spiral Ferns** *(cover: medium, light: dim)*: Dense fern wall. Slow to push through.
-- **dense-undergrowth-sw — Dense Undergrowth — Southwest** *(cover: heavy, light: dim)*: The hardest, longest route — and the safest from canopy observers.
-- **rocky-shelf-east — Rocky Shelf — East** *(cover: light)*: Exposed shelf — fast travel, but visible.
-- **dense-jungle-east — Dense Jungle — East** *(cover: heavy, light: dim)*: The slowest path — and where Mandrake reveals himself in s4.
-- **abandoned-equipment — Abandoned Equipment** *(cover: medium)*: Old crashed survey gear. Salvage check possible.
-- **west-path — West Path** *(cover: light)*: Approach to the fortress perimeter — terminus of the trek.
+**Hit zones:**
+- **Jungle Path — South Entry** *(cover: medium, light: dim)*: Crash-site path heading north into the canopy. Starting zone.
+- **Clearing** *(cover: light)*: Open glade. Visible from the canopy. Risky to linger.
+- **Shelf Fungi** *(cover: heavy, light: dim)*: Massive shelf fungi growing from the rock. Heavy concealment, spore haze.
+- **Vine Canopy — Northwest** *(cover: medium, light: dim)*: Vine network through the canopy. Climbable. Mandrake will use this if combat starts in s4.
+- **Flowering Grove** *(cover: light)*: Beautiful — and deceptive. Pollen fogs sensors.
+- **Bioluminescent Bloom** *(cover: light)*: Pulsing violet fungal spheres. HAZARD: shooting one releases a spore cloud (concealment + Endure check or [Hazard 1]).
+- **Moss Bank** *(cover: light)*: Slick moss over volcanic rock. Difficult terrain.
+- **Fallen Log** *(cover: medium)*: Massive fallen tree across the path — climb-over or detour.
+- **Ridge Overlook** *(cover: light)*: Elevated vantage. Macrobinoculars give partial fortress sight from here.
+- **Perforated Rock** *(cover: heavy)*: Honeycombed volcanic rock. Multiple cover positions. Acid pool nearby (tox detector reveals).
+- **Spiral Ferns** *(cover: medium, light: dim)*: Dense fern wall. Slow to push through.
+- **Dense Undergrowth — Southwest** *(cover: heavy, light: dim)*: The hardest, longest route — and the safest from canopy observers.
+- **Rocky Shelf — East** *(cover: light)*: Exposed shelf — fast travel, but visible.
+- **Dense Jungle — East** *(cover: heavy, light: dim)*: The slowest path — and where Mandrake reveals himself in s4.
+- **Abandoned Equipment** *(cover: medium)*: Old crashed survey gear. Salvage check possible.
+- **West Path** *(cover: light)*: Approach to the fortress perimeter — terminus of the trek.
+
+**Starting positions:**
+- **PCs** @ *jungle-path-south* — Begin at the crash-site entry. Goal: traverse to West Path / fortress approach.
+
+**GM tactical notes:**
+
+GROUP CHALLENGE FRAME: This is the Green Hell traverse — a multi-zone group challenge (already in disciplineChallenges/groupChallenge). The map is for the GM to track WHICH zones the party crossed (acid-pool brushes, spore-bloom triggers, ridge recons) and to set up s4. Mandrake is observing from Vine Canopy NW or Dense Jungle East throughout — he reveals himself in s4 once the party has "earned" his attention by surviving the trek.
 
 #### Key Checks
 **ASSESS** — survival (grit) vs Acid pools (disguised as standing water)
@@ -1462,15 +1517,25 @@ Mandrake reveals his motivation: indigenous locals who took him in are held pris
 
 
 #### Tactical Map
-**Map:** jungle-trek — 0×0 grid (jungle-region zones)
+**Map:** jungle-trek — 6 hit zones (jungle-region)
 
-**Notable zones:**
-- **vine-canopy-nw — Vine Canopy — Northwest** *(cover: heavy, light: dim)*: The vine network. Mandrake uses this for movement-without-touching-ground if things go hot. Climb (Athletics) to reach it.
-- **dense-jungle-east — Dense Jungle — East** *(cover: heavy, light: dim)*: Mandrake's reveal zone. Heavy concealment all around.
-- **ridge-overlook — Ridge Overlook** *(cover: light)*: Where the conversation usually happens — Mandrake brings them here to show them the fortress.
-- **biolum-bloom — Bioluminescent Bloom** *(cover: light)*: Mandrake will detonate one as a warning shot if the PCs turn hostile (spore barrier).
-- **perforated-rock — Perforated Rock** *(cover: heavy)*: Defensive position if combat starts — but Mandrake will not stay to fight.
-- **west-path — West Path** *(cover: light)*: Where Mandrake leads them next: the drainage sluice approach to the fortress.
+**Hit zones:**
+- **Vine Canopy — Northwest** *(cover: heavy, light: dim)*: The vine network. Mandrake uses this for movement-without-touching-ground if things go hot. Climb (Athletics) to reach it.
+- **Dense Jungle — East** *(cover: heavy, light: dim)*: Mandrake's reveal zone. Heavy concealment all around.
+- **Ridge Overlook** *(cover: light)*: Where the conversation usually happens — Mandrake brings them here to show them the fortress.
+- **Bioluminescent Bloom** *(cover: light)*: Mandrake will detonate one as a warning shot if the PCs turn hostile (spore barrier).
+- **Perforated Rock** *(cover: heavy)*: Defensive position if combat starts — but Mandrake will not stay to fight.
+- **West Path** *(cover: light)*: Where Mandrake leads them next: the drainage sluice approach to the fortress.
+
+**Starting positions:**
+- **PCs** @ *ridge-overlook* — Brought here by Mandrake (or arrive on their own and find him waiting).
+- **Vazus Mandrake** @ *vine-canopy-nw* — In the canopy on first reveal — drops down to ridge for the conversation. Returns to canopy if combat starts.
+
+**Focal zones:** vine-canopy-nw, dense-jungle-east, ridge-overlook
+
+**GM tactical notes:**
+
+CONVERSATION-FIRST SCENE: Mandrake is a Tier 2 Stalker with full home-field advantage. He should NOT be fought — he will fire warning shots, detonate a bloom, and vanish into the canopy. If the PCs accept his deal, the party gets a guide to the drainage sluice (a much easier fortress approach). If the PCs attack and survive, they lose the sluice route and must approach the fortress unguided.
 
 #### Cast / Threats Present
 **Vazus Mandrake** — Separatist Holdout Commando
@@ -1596,26 +1661,60 @@ Intercepting transmissions reveals that Inquisitor Valin Draco is en route. This
 - **Draco Clock** — *Activated when heroes intercept communications (or after 45 real-world minutes)* — Inquisitor Draco is en route. Hard deadline. If the heroes are still inside when he arrives, the difficulty escalates dramatically. — *Mitigation:* Move fast. Prioritize Varth over exploration.
 
 #### Tactical Map
-**Map:** vanishing-place — 0×0 grid ( zones)
+**Map:** vanishing-place — 19 hit zones (named)
 
-**Notable zones:**
-- **drainage-sluice — Drainage Sluice** *(cover: heavy, light: dim)*: flooded stone tunnel — knee-deep runoff, slick algae
-- **communications-center — Communications Center** *(cover: medium)*: comm equipment bolted to ancient stone — datapads, holotransceiver
-- **storage — Storage** *(cover: heavy)*: crates and supply containers stacked three high
-- **medical-bay — Medical Bay** *(cover: medium)*: specimen tanks, surgical table, bacta station — Vischera here
-- **west-corridor — West Corridor** *(cover: light)*: wide stone passage — voices carry
-- **central-passage — Central Passage** *(cover: light)*: main north-south spine — generator throb felt underfoot
-- **central-junction — Central Junction** *(cover: medium)*: crossroads — patrol notice board, rubber mats
-- **generator-room — Generator Room** *(cover: heavy)*: Clone Wars fusion core — vaulted chamber, conduit channels
-- **turbolift-stairs — Turbolift & Stairs** *(cover: medium, light: dim)*: turbolift car + spiral stair to Level 2
-- **east-passage — East Passage** *(cover: light, light: dim)*: narrower corridor toward sluice entry
-- **detention-corridor — Detention Corridor** *(cover: light)*: short approach to cell block — bright lights, no shadows
-- **detention-block — Detention Block** *(cover: medium)*: four cells, mag-lock doors — guard table at entrance, Varth in cell 3
-- **east-wing-pens — East Wing Pens** *(cover: medium, light: red-hum)*: three pens behind laser fences — Klosari prisoners
-- **exterior-staging — Exterior Staging Area** *(cover: medium)*: cleared ground, stacked crates — stormtrooper squad here
-- **turbolift-arrival-l2 — Turbolift Arrival — Level 2** *(cover: light, light: dim)*: upper sanctum entry from turbolift
-- **command-area-l2 — Command Area — Level 2** *(cover: medium)*: holo-table, tactical displays — Skarn officers + Imperial advance team
-- **rooftop-pad — Rooftop Landing Pad** *(cover: light, light: open)*: open stone platform, Lambda shuttle parked — Maya lands here if turrets down
+**Hit zones:**
+- **Drainage Sluice** *(cover: heavy, light: dim)*: flooded stone tunnel — knee-deep runoff, slick algae
+- **Communications Center** *(cover: medium)*: comm equipment bolted to ancient stone — datapads, holotransceiver
+- **Storage** *(cover: heavy)*: crates and supply containers stacked three high
+- **Medical Bay** *(cover: medium)*: specimen tanks, surgical table, bacta station — Vischera here
+- **West Corridor** *(cover: light)*: wide stone passage — voices carry
+- **Central Passage** *(cover: light)*: main north-south spine — generator throb felt underfoot
+- **Central Junction** *(cover: medium)*: crossroads — patrol notice board, rubber mats
+- **Generator Room** *(cover: heavy)*: Clone Wars fusion core — vaulted chamber, conduit channels
+- **Turbolift & Stairs** *(cover: medium, light: dim)*: turbolift car + spiral stair to Level 2
+- **East Passage** *(cover: light, light: dim)*: narrower corridor toward sluice entry
+- **Detention Corridor** *(cover: light)*: short approach to cell block — bright lights, no shadows
+- **Detention Block** *(cover: medium)*: four cells, mag-lock doors — guard table at entrance, Varth in cell 3
+- **East Wing Pens** *(cover: medium, light: red-hum)*: three pens behind laser fences — Klosari prisoners
+- **Exterior Staging Area** *(cover: medium)*: cleared ground, stacked crates — stormtrooper squad here
+- **Gun Turret — West** *(cover: heavy, impassable)*: automated turret on west wall — generator-powered
+- **Gun Turret — East** *(cover: heavy, impassable)*: automated turret on east wall — covers sluice approach
+- **Turbolift Arrival — Level 2** *(cover: light, light: dim)*: upper sanctum entry from turbolift
+- **Command Area — Level 2** *(cover: medium)*: holo-table, tactical displays — Skarn officers + Imperial advance team
+- **Rooftop Landing Pad** *(cover: light, light: open)*: open stone platform, Lambda shuttle parked — Maya lands here if turrets down
+
+**Starting positions:**
+- **PCs (entry)** @ *Drainage Sluice* — Crew enters here knee-deep in runoff. Mandrake at their shoulder for the first beat, then peels off east toward the pens.
+- **Mandrake (split-off)** @ *East Passage* — Heads east toward East Wing Pens; positions himself for the generator-blow rescue. Out of play until s6 resolves.
+- **Captain Vischera** @ *Medical Bay* — At her bench, back to the door. Surrenders if confronted; trades intel for safety.
+- **Skarn Mercenary Patrol (×4)** @ *Central Junction* — Rotating patrol — Central Junction ↔ West Corridor ↔ Storage. Loudest crossing point in the fortress.
+- **Skarn Mercenary Static (×4)** @ *Storage* — Static guard on the locked blast-rated case. Will respond to any alarm within 1 beat.
+- **Stormtrooper Squad (×6)** @ *Exterior Staging Area* — Parade rest near the west wall. Do not enter the fortress unless alarm sounds — then they breach via the reinforced west door.
+
+**GM tactical notes:**
+
+ENTRY POINT: Crew arrives via the NE Drainage Sluice — sunken outer grate in a hollow on the jungle floor several meters off the NE wall, then a stagnant-water belly-crawl underground that surfaces at an inner floor grate in the NE corner of Central Hall. Mandrake parts from them at the outer grate and loops south and west around the perimeter on his own — he is NOT inside.
+
+ROUTE OPTIONS FROM THE INNER GRATE: The PCs surface in the NE corner of the assembly hall and have three obvious lanes:
+• Central → cross the assembly hall to the generator (P2-S6 setup). Stay N to avoid the Detention Guard Post sightline through the pens fence.
+• West → Storage and the Medical Bay (Vischera intel beat). Passes the Comms Center door — closed, but the mercs inside have a holo-feed of the SW yard, not the corridor.
+• South → through the pens area toward the Detention Guard Post and Varth's Cell corridor (the two posted-pair lanes).
+
+POSTED-NPC PRESSURE: 2 Skarn soldiers in the Detention Guard Post (S corridor, line-of-sight N through the pens fence). 2 more in the corridor outside Varth's Cell. Vischera + 2 escort soldiers in the Med Bay. 2 mercs in the Comms Center. NO interior patrols of the assembly hall — Skarn is overconfident.
+
+EXTERIOR PRESSURE: Stormtrooper squad in the SW yard. They do NOT enter unless the alarm goes up — and once it does, Mandrake opens fire from the treeline and pins them outside. Optional GM tool: if the PCs trip a sluice sensor or carry loud noise through the pipe, the GM may send 1–2 troopers in to investigate (no roll, GM discretion).
+
+OPTIONAL OBJECTIVE ROOMS:
+• Medical Bay — Vischera at her bench with 2 Skarn escort soldiers. The escorts WILL NOT permit parley — they have orders to keep her on-task and silent, and they'll open fire (or alarm-trip) the moment the door opens uninvited. Vischera only becomes a usable intel source AFTER both escorts are dropped, knocked out, or otherwise neutralized — at which point she'll trade what she knows for safety. Plan the Med Bay as a fight first, conversation second.
+• Communications Center — 2 mercs at the consoles. The comms intercept that establishes the Draco hard-clock fires here. Once a PC reads the transmission log, the clock starts (3 beats: TIE patrol overhead. 6 beats: Lambda enters atmo. 9 beats: Shadow Troopers deploy early into s8).
+• Storage — quiet, occasional restocking traffic; locked blast-rated case worth a Skulduggery beat for gear or credits.
+
+SIGHTLINE WARNING: The Detention Guard Post sees N through the E fence wall of the pens. Anyone working at the generator from the S face is visible. Use the housing as cover or close the sightline first.
+
+TURRETS: Gun Turret West and Gun Turret East are visible on the map but are external threats — they matter when Maya extracts (s8). For s5 they're context: a perimeter you can see through windows or hear servos from.
+
+ESCAPE ROUTES: Drainage Sluice back the way they came; Turbolift to Level 2 (cuts off ground-floor pursuit but exposes them to the Lambda crew). The East Wing Pens corridor is one-way until the generator drops the fences.
 
 #### Cast / Threats Present
 **Captain Vischera** — Imperial Scientist (Frontier Medicine)
@@ -1743,12 +1842,28 @@ Tech check on a repurposed Clone Wars power unit. The four-purpose payoff chain 
 - **Detention Guard Post Sightline** — *PC visible at the generator while a soldier in the Detention Guard Post is looking N* — Detection. The S-pair raises the alarm. Fortress goes ORANGE. — *Mitigation:* Use the generator housing itself as cover; OR neutralize the S-pair first; OR work the generator from the N face.
 
 #### Tactical Map
-**Map:** vanishing-place — 0×0 grid ( zones)
+**Map:** vanishing-place — 4 hit zones (named)
 
-**Notable zones:**
-- **central-hall — Central Hall (assembly + generator)** *(cover: heavy)*: Vaulted basalt, unsupported ceiling. Generator housing is heavy cover in the middle of the room.
-- **north-corridor — N Corridor (sluice arrival)** *(cover: light, light: dim)*: PCs drop in here from the inner sluice grate.
-- **drainage-sluice — Drainage Sluice (NE exterior, PC entry)** *(cover: heavy, light: dim)*: Knee-deep runoff, sensor cluster mid-pipe, two grates.
+**Hit zones:**
+- **Central Hall (assembly + generator)** *(cover: heavy)*: Vaulted basalt, unsupported ceiling. Generator housing is heavy cover in the middle of the room.
+- **N Corridor (sluice arrival)** *(cover: light, light: dim)*: PCs drop in here from the inner sluice grate.
+- **Detention Guard Post (S sightline)** *(cover: n/a, impassable)*: Not enterable in this scene — but the 2 soldiers here have a S→N sightline through the pens fence wall onto the generator.
+- **Drainage Sluice (NE exterior, PC entry)** *(cover: heavy, light: dim)*: Knee-deep runoff, sensor cluster mid-pipe, two grates.
+
+**Starting positions:**
+- **PCs** @ *north-corridor* — Just dropped in through the inner floor grate. The generator is one move action away across the assembly hall. The Detention Guard Post sightline is the immediate concern.
+
+**Focal zones:** central-hall
+
+**GM tactical notes:**
+
+FOCAL ZONE: the generator housing in the middle of CENTRAL HALL (Level 1 assembly floor). No posted guards on it — Skarn is overconfident. The housing itself is heavy cover and breaks the S sightline from the Detention Guard Post if approached from the N or W face.
+
+APPROACH PATH: PCs surface from the Drainage Sluice inner grate in the NE corner of the central assembly hall → cross to the generator. Stay in the N half of the room — the S half is where the Detention Guard Post can see them through the pens fence wall.
+
+SABOTAGE OBJECTIVE: Tech check on the generator (Field Toolkit gates clean sabotage). Three outcomes drive S7/S8 — see the Reactive Fortress widget's Sabotage Cascade panel for authoritative flag handling.
+
+NO COMBAT EXPECTED HERE — this scene should resolve as quiet infiltration → tech challenge → cascade. If the PCs trigger combat, they are doing it wrong; the corridor pairs will mag-lock and shoot through their fence walls, and the Comms Center mercs will start patching a distress signal upstream.
 
 #### Key Checks
 **INTERACT** — stealth (reflex) vs Detention Guard Post sightline through the pens
@@ -1838,26 +1953,53 @@ Varth is gambling with his guard, unbothered. He introduces himself with charm a
 - **Varth's Cooperation** — *Immediate — Varth is ready to leave* — Varth carries nothing physical. His authentication key is memorized. He fully cooperates and is ready to walk immediately. No retrieval side quest — just grab him and go. — *Mitigation:* Varth is cooperative by default. He wants out.
 
 #### Tactical Map
-**Map:** vanishing-place — 0×0 grid ( zones)
+**Map:** vanishing-place — 19 hit zones (named)
 
-**Notable zones:**
-- **drainage-sluice — Drainage Sluice** *(cover: heavy, light: dim)*: flooded stone tunnel — knee-deep runoff, slick algae
-- **communications-center — Communications Center** *(cover: medium)*: comm equipment bolted to ancient stone — datapads, holotransceiver
-- **storage — Storage** *(cover: heavy)*: crates and supply containers stacked three high
-- **medical-bay — Medical Bay** *(cover: medium)*: specimen tanks, surgical table, bacta station — Vischera here
-- **west-corridor — West Corridor** *(cover: light)*: wide stone passage — voices carry
-- **central-passage — Central Passage** *(cover: light)*: main north-south spine — generator throb felt underfoot
-- **central-junction — Central Junction** *(cover: medium)*: crossroads — patrol notice board, rubber mats
-- **generator-room — Generator Room** *(cover: heavy)*: Clone Wars fusion core — vaulted chamber, conduit channels
-- **turbolift-stairs — Turbolift & Stairs** *(cover: medium, light: dim)*: turbolift car + spiral stair to Level 2
-- **east-passage — East Passage** *(cover: light, light: dim)*: narrower corridor toward sluice entry
-- **detention-corridor — Detention Corridor** *(cover: light)*: short approach to cell block — bright lights, no shadows
-- **detention-block — Detention Block** *(cover: medium)*: four cells, mag-lock doors — guard table at entrance, Varth in cell 3
-- **east-wing-pens — East Wing Pens** *(cover: medium, light: red-hum)*: three pens behind laser fences — Klosari prisoners
-- **exterior-staging — Exterior Staging Area** *(cover: medium)*: cleared ground, stacked crates — stormtrooper squad here
-- **turbolift-arrival-l2 — Turbolift Arrival — Level 2** *(cover: light, light: dim)*: upper sanctum entry from turbolift
-- **command-area-l2 — Command Area — Level 2** *(cover: medium)*: holo-table, tactical displays — Skarn officers + Imperial advance team
-- **rooftop-pad — Rooftop Landing Pad** *(cover: light, light: open)*: open stone platform, Lambda shuttle parked — Maya lands here if turrets down
+**Hit zones:**
+- **Drainage Sluice** *(cover: heavy, light: dim)*: flooded stone tunnel — knee-deep runoff, slick algae
+- **Communications Center** *(cover: medium)*: comm equipment bolted to ancient stone — datapads, holotransceiver
+- **Storage** *(cover: heavy)*: crates and supply containers stacked three high
+- **Medical Bay** *(cover: medium)*: specimen tanks, surgical table, bacta station — Vischera here
+- **West Corridor** *(cover: light)*: wide stone passage — voices carry
+- **Central Passage** *(cover: light)*: main north-south spine — generator throb felt underfoot
+- **Central Junction** *(cover: medium)*: crossroads — patrol notice board, rubber mats
+- **Generator Room** *(cover: heavy)*: Clone Wars fusion core — vaulted chamber, conduit channels
+- **Turbolift & Stairs** *(cover: medium, light: dim)*: turbolift car + spiral stair to Level 2
+- **East Passage** *(cover: light, light: dim)*: narrower corridor toward sluice entry
+- **Detention Corridor** *(cover: light)*: short approach to cell block — bright lights, no shadows
+- **Detention Block** *(cover: medium)*: four cells, mag-lock doors — guard table at entrance, Varth in cell 3
+- **East Wing Pens** *(cover: medium, light: red-hum)*: three pens behind laser fences — Klosari prisoners
+- **Exterior Staging Area** *(cover: medium)*: cleared ground, stacked crates — stormtrooper squad here
+- **Gun Turret — West** *(cover: heavy, impassable)*: automated turret on west wall — generator-powered
+- **Gun Turret — East** *(cover: heavy, impassable)*: automated turret on east wall — covers sluice approach
+- **Turbolift Arrival — Level 2** *(cover: light, light: dim)*: upper sanctum entry from turbolift
+- **Command Area — Level 2** *(cover: medium)*: holo-table, tactical displays — Skarn officers + Imperial advance team
+- **Rooftop Landing Pad** *(cover: light, light: open)*: open stone platform, Lambda shuttle parked — Maya lands here if turrets down
+
+**Starting positions:**
+- **PCs (entry)** @ *Detention Corridor* — Arriving from Turbolift & Stairs. Bright corridor — no cover.
+- **Cell Guards (×2)** @ *Detention Block* — At the table near the entrance. Card game in progress. State depends on s6 outcome — see GM notes.
+- **Admiral Varth** @ *Detention Block* — Third cell from the corridor. Standing or seated based on s6 outcome. Unarmed, unbothered.
+- **Varth's Sabacc Guard** @ *Detention Block* — Individual guard at the third cell — wildcard. Surrenders, fights, or walks away based on table tone.
+
+**GM tactical notes:**
+
+FOCAL ZONE: Detention Block (south end, off Detention Corridor). Four cells in a row, mag-lock doors, guard table at the corridor entrance.
+
+APPROACH PATH: Detention Corridor connects from Turbolift & Stairs to Detention Block. The corridor is short, straight, brightly lit, deliberately offers no shadows or blind spots — this matters for stealth. Reinforced durasteel framing around the doorway at the far end. Mag-lock housings line the walls.
+
+STATE BRANCHES THE ENCOUNTER:
+• If GENERATOR WAS SABOTAGED in s6: Mag-locks are open. Cell doors are swinging free. The two cell guards are confused and reaching for blasters — soft surprise, advantage to PCs. Varth is already standing, hands in pockets, watching the door with mild interest.
+• If GENERATOR WAS NOT SABOTAGED: Mag-locks are live. Cell guards are alert at their table — sabacc cards on the table but blasters in hand. Doors require Skulduggery (Hard) or a security kit to bypass manually. Varth is seated on his cot, gambling with the third cell's guard through the bars. Hard infiltration.
+• If PARTIAL SABOTAGE (sensor grid still up but doors open): Doors open, but the corridor's surveillance triggers an alarm at Central Junction — reinforcements arrive in 2 beats from the Turbolift & Stairs zone.
+
+CELL GUARDS (×2): Posted at the table near the corridor entrance. Use the Skarn Mercenary block. They are between PCs and Varth's cell — taking them down quietly is the goal if the doors are still locked.
+
+VARTH'S GUARD: The third cell's individual guard (the one Varth was gambling with) is a wildcard. He'll surrender if disarmed, fight if cornered, or just walk away if he sees daylight — the GM choice based on table tone.
+
+VARTH'S CELL: Third cell from the corridor. Cot, water dispenser, datapad with sabacc hands scribbled on it. Varth is unbothered — he will treat the rescue like a hired car arriving. The longer the PCs spend questioning him, the more he learns about THEM. Time pressure from the Draco clock should push them to move.
+
+EXIT: Back through Detention Corridor → Turbolift & Stairs. PCs can choose: ground floor exit toward Drainage Sluice or rooftop exit (Turbolift up to Level 2 → Rooftop Landing Pad — sets up Maya extraction in s8 if turrets are down).
 
 #### Cast / Threats Present
 **Admiral Gilder Varth** — Corrupt Imperial Admiral / Grifter
@@ -2002,26 +2144,58 @@ Maya swoops in with the Banshee. If turrets were destroyed (generator sabotaged)
 - **Mandrake's Fate (Destiny-Gated)** — *As the Banshee lifts off* — Hope-dominant crew: Mandrake escapes into the jungle with his people. Toll-dominant crew: Draco cuts Mandrake down as the Banshee lifts off. The heroes witness the outcome. — *Mitigation:* This is not a choice — it's a consequence of the crew's cumulative destiny alignment.
 
 #### Tactical Map
-**Map:** vanishing-place — 0×0 grid ( zones)
+**Map:** vanishing-place — 19 hit zones (named)
 
-**Notable zones:**
-- **drainage-sluice — Drainage Sluice** *(cover: heavy, light: dim)*: flooded stone tunnel — knee-deep runoff, slick algae
-- **communications-center — Communications Center** *(cover: medium)*: comm equipment bolted to ancient stone — datapads, holotransceiver
-- **storage — Storage** *(cover: heavy)*: crates and supply containers stacked three high
-- **medical-bay — Medical Bay** *(cover: medium)*: specimen tanks, surgical table, bacta station — Vischera here
-- **west-corridor — West Corridor** *(cover: light)*: wide stone passage — voices carry
-- **central-passage — Central Passage** *(cover: light)*: main north-south spine — generator throb felt underfoot
-- **central-junction — Central Junction** *(cover: medium)*: crossroads — patrol notice board, rubber mats
-- **generator-room — Generator Room** *(cover: heavy)*: Clone Wars fusion core — vaulted chamber, conduit channels
-- **turbolift-stairs — Turbolift & Stairs** *(cover: medium, light: dim)*: turbolift car + spiral stair to Level 2
-- **east-passage — East Passage** *(cover: light, light: dim)*: narrower corridor toward sluice entry
-- **detention-corridor — Detention Corridor** *(cover: light)*: short approach to cell block — bright lights, no shadows
-- **detention-block — Detention Block** *(cover: medium)*: four cells, mag-lock doors — guard table at entrance, Varth in cell 3
-- **east-wing-pens — East Wing Pens** *(cover: medium, light: red-hum)*: three pens behind laser fences — Klosari prisoners
-- **exterior-staging — Exterior Staging Area** *(cover: medium)*: cleared ground, stacked crates — stormtrooper squad here
-- **turbolift-arrival-l2 — Turbolift Arrival — Level 2** *(cover: light, light: dim)*: upper sanctum entry from turbolift
-- **command-area-l2 — Command Area — Level 2** *(cover: medium)*: holo-table, tactical displays — Skarn officers + Imperial advance team
-- **rooftop-pad — Rooftop Landing Pad** *(cover: light, light: open)*: open stone platform, Lambda shuttle parked — Maya lands here if turrets down
+**Hit zones:**
+- **Drainage Sluice** *(cover: heavy, light: dim)*: flooded stone tunnel — knee-deep runoff, slick algae
+- **Communications Center** *(cover: medium)*: comm equipment bolted to ancient stone — datapads, holotransceiver
+- **Storage** *(cover: heavy)*: crates and supply containers stacked three high
+- **Medical Bay** *(cover: medium)*: specimen tanks, surgical table, bacta station — Vischera here
+- **West Corridor** *(cover: light)*: wide stone passage — voices carry
+- **Central Passage** *(cover: light)*: main north-south spine — generator throb felt underfoot
+- **Central Junction** *(cover: medium)*: crossroads — patrol notice board, rubber mats
+- **Generator Room** *(cover: heavy)*: Clone Wars fusion core — vaulted chamber, conduit channels
+- **Turbolift & Stairs** *(cover: medium, light: dim)*: turbolift car + spiral stair to Level 2
+- **East Passage** *(cover: light, light: dim)*: narrower corridor toward sluice entry
+- **Detention Corridor** *(cover: light)*: short approach to cell block — bright lights, no shadows
+- **Detention Block** *(cover: medium)*: four cells, mag-lock doors — guard table at entrance, Varth in cell 3
+- **East Wing Pens** *(cover: medium, light: red-hum)*: three pens behind laser fences — Klosari prisoners
+- **Exterior Staging Area** *(cover: medium)*: cleared ground, stacked crates — stormtrooper squad here
+- **Gun Turret — West** *(cover: heavy, impassable)*: automated turret on west wall — generator-powered
+- **Gun Turret — East** *(cover: heavy, impassable)*: automated turret on east wall — covers sluice approach
+- **Turbolift Arrival — Level 2** *(cover: light, light: dim)*: upper sanctum entry from turbolift
+- **Command Area — Level 2** *(cover: medium)*: holo-table, tactical displays — Skarn officers + Imperial advance team
+- **Rooftop Landing Pad** *(cover: light, light: open)*: open stone platform, Lambda shuttle parked — Maya lands here if turrets down
+
+**Starting positions:**
+- **PCs (with Varth)** @ *Detention Block* — Where s7 ended. Routes to extraction depend on turret state — see GM notes.
+- **Maya / The Banshee** @ *Rooftop Landing Pad* — Lands here if turrets are down (clean extraction). Otherwise diverts to Exterior Staging Area under fire.
+- **Inquisitor Draco** @ *Rooftop Landing Pad* — Arrives via Lambda. Solo nemesis encounter. Use rooftop or treeline encounter — not both.
+- **Shadow Troopers (×4)** @ *Exterior Staging Area* — Drop from treeline beyond the staging area. Precision fire from concealment. Use if Draco fight is on rooftop (perimeter ambush instead).
+- **Stormtroopers (residual)** @ *Exterior Staging Area* — Whatever survived s5/s6 of the original 6-trooper squad. Form-up in two-rank fire teams.
+- **Skarn Mercs (interior)** @ *Central Junction* — Whatever survived earlier scenes. Defending in 2–3 person waves from interior zones.
+- **Mandrake (if alive)** @ *East Wing Pens* — Moving freed Klosari toward Drainage Sluice exit. His fate decision resolves here.
+
+**GM tactical notes:**
+
+FOCAL ZONES: Exterior Staging Area, Rooftop Landing Pad, and the perimeter (Gun Turrets East/West). The fight spans inside-to-outside — PCs are likely exiting via Drainage Sluice, the west reinforced door, or coming up through the Turbolift to the Rooftop Pad.
+
+THREE-WAY GEOMETRY: Three factions in this fight:
+1. PCs — getting Varth (and Mandrake if alive) to extraction.
+2. Skarn's mercenaries — defending what's left of their fortress, hitting from interior zones (Central Junction, West Corridor, Storage). Use the Skarn Mercenary block in waves of 2–3.
+3. Imperial forces — Draco's advance team (Stormtrooper Squad in Exterior Staging Area; Shadow Troopers dropping into the treeline beyond) plus the perimeter walkers approaching through the jungle (off-map but audible — the throb of repulsorlift through the canopy).
+
+FACTION CROSSFIRE: Mercs and Imperials are fighting EACH OTHER as well as the PCs. Use this — narrate stray fire from one faction taking out the other. PCs can manipulate the crossfire via the Tactics challenge to find safer routes.
+
+EXTRACTION BRANCHES (driven by s6 turret outcome):
+• TURRETS DOWN (sabotage succeeded): Maya lands clean on the Rooftop Landing Pad. PCs route Detention Block → Detention Corridor → Turbolift to Level 2 → Turbolift Arrival → Rooftop Pad. Shadow Troopers will try to hit the rooftop from the treeline — use cover (Lambda shuttle wreckage if it's still there, or the parapet).
+• TURRETS UP (sabotage skipped): Maya cannot land on the rooftop — she does a strafing pass and touches down at the Exterior Staging Area under heavy fire. PCs route ground floor: Drainage Sluice or West Corridor → Exterior Staging Area. The Banshee takes damage on every beat she's on the ground. Rolling extraction — PCs board while moving.
+
+DRACO'S ARRIVAL: Inquisitor Draco arrives at the Rooftop Landing Pad via Lambda shuttle. He is a T4 Nemesis — solo encounter, do NOT pair him with the Shadow Troopers as a single fight. Either Draco engages alone on the rooftop (extraction-blocking encounter) or the Shadow Troopers ambush from the treeline (perimeter encounter). Pick one as the climactic obstacle based on the route the PCs took.
+
+MANDRAKE'S FATE PLAYS HERE: Mandrake is in the East Wing Pens area moving freed Klosari toward the Drainage Sluice. The decision (survives / sacrifices / captured / betrayed) resolves based on PC actions during the firefight — see decisionPoint adv1-p2-s8-key-decision.
+
+SHUTTLE EXIT VECTOR: Once aboard the Banshee, Maya breaks atmo. TIE fighters scrambling from a Star Destroyer in orbit — Piloting challenge for the escape (already statted in disciplineChallenges).
 
 #### Cast / Threats Present
 **Inquisitor Valin Draco** — Nemesis

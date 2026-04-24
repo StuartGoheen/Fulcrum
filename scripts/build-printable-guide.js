@@ -135,21 +135,29 @@ function fmtEnvMech(em) {
 }
 
 function fmtTacticalMap(tm) {
-  if (!tm || !tm.zones) return '';
+  if (!tm || !tm.zones || !tm.zones.length) return '';
   const lines = [];
-  const cols = tm.gridColumns || (tm.columnLabels?.length || 0);
-  const rows = tm.gridRows || (tm.rowLabels?.length || 0);
-  lines.push(`**Map:** ${tm.mapKey || ''} — ${cols}×${rows} grid (${tm.zoneSize || ''} zones)`);
-  lines.push('');
-  // Compact zone table by row
-  const labels = tm.columnLabels || [];
+  const cols = tm.gridColumns || 0;
+  const rows = tm.gridRows || 0;
+  const colLabels = tm.columnLabels || [];
   const rowLabels = tm.rowLabels || [];
-  if (labels.length && rowLabels.length) {
-    lines.push('| | ' + labels.join(' | ') + ' |');
-    lines.push('|---' + '|---'.repeat(labels.length) + '|');
+  const isGrid = cols > 0 && rows > 0 && colLabels.length && rowLabels.length;
+
+  // Header line
+  if (isGrid) {
+    lines.push(`**Map:** ${tm.mapKey || ''} — ${cols}×${rows} grid (${tm.zoneSize || 'standard'} zones)`);
+  } else {
+    lines.push(`**Map:** ${tm.mapKey || ''} — ${tm.zones.length} hit zones (${tm.zoneSize || 'named'})`);
+  }
+  lines.push('');
+
+  if (isGrid) {
+    // Grid layout table
+    lines.push('| | ' + colLabels.join(' | ') + ' |');
+    lines.push('|---' + '|---'.repeat(colLabels.length) + '|');
     for (const r of rowLabels) {
       const row = [`**${r}**`];
-      for (const c of labels) {
+      for (const c of colLabels) {
         const z = tm.zones.find(z => z.id === `${c}${r}`);
         row.push(z ? (z.label || z.id) : '');
       }
@@ -157,17 +165,54 @@ function fmtTacticalMap(tm) {
     }
     lines.push('');
   }
-  // Notable zones
-  const notable = tm.zones.filter(z => z.terrain && z.passable !== false);
-  if (notable.length) {
-    lines.push('**Notable zones:**');
-    for (const z of notable) {
-      const meta = [z.cover && z.cover !== 'none' ? `cover: ${z.cover}` : null,
-                    z.lighting && z.lighting !== 'normal' ? `light: ${z.lighting}` : null].filter(Boolean).join(', ');
-      lines.push(`- **${z.id}${z.label ? ` — ${z.label}` : ''}**${meta ? ` *(${meta})*` : ''}: ${clean(z.terrain)}`);
+
+  // Zone list — for grids, only the "notable" ones; for named-zone maps, all of them.
+  const zoneList = isGrid
+    ? tm.zones.filter(z => z.terrain && z.passable !== false)
+    : tm.zones;
+  if (zoneList.length) {
+    lines.push(isGrid ? '**Notable zones:**' : '**Hit zones:**');
+    for (const z of zoneList) {
+      const meta = [
+        z.cover && z.cover !== 'none' ? `cover: ${z.cover}` : null,
+        z.lighting && z.lighting !== 'normal' ? `light: ${z.lighting}` : null,
+        z.passable === false ? 'impassable' : null,
+      ].filter(Boolean).join(', ');
+      const head = isGrid
+        ? `${z.id}${z.label ? ` — ${z.label}` : ''}`
+        : (z.label || z.id);
+      const terrain = clean(z.terrain || '');
+      lines.push(`- **${head}**${meta ? ` *(${meta})*` : ''}${terrain ? `: ${terrain}` : ''}`);
     }
+    lines.push('');
   }
-  return lines.join('\n');
+
+  // Starting positions
+  if (tm.startingPositions?.length) {
+    lines.push('**Starting positions:**');
+    for (const sp of tm.startingPositions) {
+      const note = sp.notes ? ` — ${clean(sp.notes)}` : '';
+      lines.push(`- **${sp.who}** @ *${sp.zone}*${note}`);
+    }
+    lines.push('');
+  }
+
+  // Focal zones (some maps mark these explicitly)
+  if (tm.focalZones?.length) {
+    const focals = tm.focalZones.map(f => typeof f === 'string' ? f : (f.label || f.id || JSON.stringify(f)));
+    lines.push(`**Focal zones:** ${focals.join(', ')}`);
+    lines.push('');
+  }
+
+  // GM tactical notes — these are scene-critical operational text; surface them.
+  if (tm.gmTacticalNotes) {
+    lines.push('**GM tactical notes:**');
+    lines.push('');
+    lines.push(clean(tm.gmTacticalNotes));
+    lines.push('');
+  }
+
+  return lines.join('\n').trimEnd();
 }
 
 function fmtRewards(r) {
