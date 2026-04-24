@@ -245,3 +245,9 @@ id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
 type = "image"
 title = "The Fulcrum — Action Resolution Infographic (Portrait PNG)"
+
+[[outputs]]
+id = "OdndprNM8DbUyWN3lhb-y"
+uri = "file://docs/printable/adv1-guide.md"
+type = "text"
+title = "Adventure 1: The Traitor's Gambit — GM Guide"
