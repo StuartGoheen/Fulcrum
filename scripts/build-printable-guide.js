@@ -5,8 +5,58 @@ const path = require('path');
 const adventureId = process.argv[2] || 'adv1';
 const inputPath = path.join(__dirname, '..', 'data', 'adventures', `${adventureId}.json`);
 const outputPath = path.join(__dirname, '..', 'docs', 'printable', `${adventureId}-guide.md`);
+const mapsDir = path.join(__dirname, '..', 'public', 'maps');
 
 const adv = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+
+// === Map hitbox loader ===
+// Reads public/maps/<mapKey>.html and extracts each <rect class="hitbox">'s
+// data-room + data-desc. These are the canonical map rooms — the JSON
+// tacticalMap.zones grid is legacy/secondary and should not drive output.
+const mapCache = new Map();
+function decodeHtmlAttr(s) {
+  if (!s) return '';
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'");
+}
+function loadMapRooms(mapKey) {
+  if (!mapKey) return null;
+  if (mapCache.has(mapKey)) return mapCache.get(mapKey);
+  const file = path.join(mapsDir, `${mapKey}.html`);
+  if (!fs.existsSync(file)) {
+    mapCache.set(mapKey, null);
+    return null;
+  }
+  const html = fs.readFileSync(file, 'utf8');
+  // Match each <rect ... class="hitbox" ... /> block (attributes can span lines)
+  const rooms = [];
+  const rectRe = /<rect\b([^>]*?class="hitbox"[^>]*?)\/?>/gs;
+  let m;
+  while ((m = rectRe.exec(html)) !== null) {
+    const attrs = m[1];
+    const room = /data-room="([^"]*)"/.exec(attrs);
+    const desc = /data-desc="([^"]*)"/.exec(attrs);
+    if (!room) continue;
+    rooms.push({
+      room: decodeHtmlAttr(room[1]),
+      desc: decodeHtmlAttr(desc ? desc[1] : ''),
+    });
+  }
+  // Pull a title if present
+  const titleMatch = /<title>([^<]+)<\/title>/.exec(html);
+  const result = {
+    title: titleMatch ? decodeHtmlAttr(titleMatch[1]).trim() : null,
+    rooms,
+    imageRel: `public/maps/${mapKey}.png`,
+  };
+  mapCache.set(mapKey, result);
+  return result;
+}
 
 const out = [];
 const w = (s = '') => out.push(s);
@@ -135,59 +185,34 @@ function fmtEnvMech(em) {
 }
 
 function fmtTacticalMap(tm) {
-  if (!tm || !tm.zones || !tm.zones.length) return '';
+  if (!tm) return '';
+  const mapKey = tm.mapKey;
+  if (!mapKey) return '';
+  const map = loadMapRooms(mapKey);
+
   const lines = [];
-  const cols = tm.gridColumns || 0;
-  const rows = tm.gridRows || 0;
-  const colLabels = tm.columnLabels || [];
-  const rowLabels = tm.rowLabels || [];
-  const isGrid = cols > 0 && rows > 0 && colLabels.length && rowLabels.length;
-
-  // Header line
-  if (isGrid) {
-    lines.push(`**Map:** ${tm.mapKey || ''} — ${cols}×${rows} grid (${tm.zoneSize || 'standard'} zones)`);
-  } else {
-    lines.push(`**Map:** ${tm.mapKey || ''} — ${tm.zones.length} hit zones (${tm.zoneSize || 'named'})`);
-  }
-  lines.push('');
-
-  if (isGrid) {
-    // Grid layout table
-    lines.push('| | ' + colLabels.join(' | ') + ' |');
-    lines.push('|---' + '|---'.repeat(colLabels.length) + '|');
-    for (const r of rowLabels) {
-      const row = [`**${r}**`];
-      for (const c of colLabels) {
-        const z = tm.zones.find(z => z.id === `${c}${r}`);
-        row.push(z ? (z.label || z.id) : '');
+  if (map && map.rooms.length) {
+    const title = map.title || mapKey;
+    lines.push(`**Map:** ${title} \`(${mapKey})\` — ${map.rooms.length} rooms`);
+    lines.push(`*Image:* \`${map.imageRel}\` · *Reference:* \`public/maps/${mapKey}.html\``);
+    lines.push('');
+    lines.push('**Rooms:**');
+    for (const r of map.rooms) {
+      const desc = clean(r.desc);
+      if (desc) {
+        lines.push(`- **${r.room}** — ${desc}`);
+      } else {
+        lines.push(`- **${r.room}**`);
       }
-      lines.push('| ' + row.join(' | ') + ' |');
     }
+    lines.push('');
+  } else {
+    // Map HTML missing — fall back to the mapKey reference only.
+    lines.push(`**Map:** \`${mapKey}\` *(map HTML not found in public/maps/)*`);
     lines.push('');
   }
 
-  // Zone list — for grids, only the "notable" ones; for named-zone maps, all of them.
-  const zoneList = isGrid
-    ? tm.zones.filter(z => z.terrain && z.passable !== false)
-    : tm.zones;
-  if (zoneList.length) {
-    lines.push(isGrid ? '**Notable zones:**' : '**Hit zones:**');
-    for (const z of zoneList) {
-      const meta = [
-        z.cover && z.cover !== 'none' ? `cover: ${z.cover}` : null,
-        z.lighting && z.lighting !== 'normal' ? `light: ${z.lighting}` : null,
-        z.passable === false ? 'impassable' : null,
-      ].filter(Boolean).join(', ');
-      const head = isGrid
-        ? `${z.id}${z.label ? ` — ${z.label}` : ''}`
-        : (z.label || z.id);
-      const terrain = clean(z.terrain || '');
-      lines.push(`- **${head}**${meta ? ` *(${meta})*` : ''}${terrain ? `: ${terrain}` : ''}`);
-    }
-    lines.push('');
-  }
-
-  // Starting positions
+  // Starting positions are scene-specific blocking notes — surface them.
   if (tm.startingPositions?.length) {
     lines.push('**Starting positions:**');
     for (const sp of tm.startingPositions) {
@@ -197,14 +222,7 @@ function fmtTacticalMap(tm) {
     lines.push('');
   }
 
-  // Focal zones (some maps mark these explicitly)
-  if (tm.focalZones?.length) {
-    const focals = tm.focalZones.map(f => typeof f === 'string' ? f : (f.label || f.id || JSON.stringify(f)));
-    lines.push(`**Focal zones:** ${focals.join(', ')}`);
-    lines.push('');
-  }
-
-  // GM tactical notes — these are scene-critical operational text; surface them.
+  // GM tactical notes — scene-critical operational text.
   if (tm.gmTacticalNotes) {
     lines.push('**GM tactical notes:**');
     lines.push('');
