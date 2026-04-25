@@ -529,6 +529,20 @@ async function seedNpcProfiles() {
       connections: JSON.stringify(['Admiral Varth — Uses her as an asset (she doesn\'t know)', 'Inquisitor Draco — Captured her in Adv7', 'The Crew — Rescued her from Varga\'s dungeon', 'Varga the Hutt — Kept her as a trophy to sell', 'Master Thorla — Fellow Order 66 survivor (Draco\'s other victim)']),
       revealed: false,
       sort_order: 7
+    },
+    {
+      npc_key: 'mandrake',
+      name: 'Vazus Mandrake',
+      species: 'Human',
+      role: 'Separatist Holdout Commando — Klosari Guide',
+      portrait_url: '/attached_assets/generated_images/mandrake_commando.png',
+      status: 'allied',
+      player_bio: 'A scarred man in patched CIS commando gear, found waiting in a hollow at the edge of the Vanishing Place — a Separatist acclimation specialist whose war ended four years ago and never told him. His unit obeyed the Confederacy\'s shutdown order and died in their barracks on Raxus while Mandrake was four months deep in the jungle, learning the moon they\'d been sent to occupy. By the time he understood the message was real, there was no one left to send it to. The Klosari — the indigenous people of Ajan Kloss — took him in. He\'s lived in their high caves ever since, threading a child\'s carved bead between his fingers when he calculates whether to trust someone. When Skarn\'s mercenaries fenced off the Klosari\'s water and caged the elders inside the fortress, Mandrake spent fourteen months scouting a drainage sluice that would let one good crew sabotage the generator and bring down the turrets, the laser fences, the security doors, and the sensor grid in a single strike. He found the crew. He gave them the way in. After the generator fell, he disappeared back into the trees with whatever was left of his people.',
+      gm_notes: 'Mandrake\'s deal in the sluice is an honest one — guidance for muscle, no double-cross. Starts every interaction at Comfort 3 (guarded but cooperative — desperate man performing calm). His Resist is 5; he is hard to read. The bead between his fingers is the recurring tell — never call it out, but a perceptive crew will start to read his moods through it. He has no plan that includes himself surviving past the rescue; that question is the one that costs comfort. Outcome flags: if the deal closed cleanly and the generator fell, Mandrake escaped with the freed Klosari and owes the crew a debt he will never name. If the crew betrayed the deal or burned the village, flip status to Hostile — he is a ghost in the trees who may surface in a later adventure with a rifle and a long memory. If the crew explicitly asked him to come with them after Skarn fell, he refused — but flag it. Speaks Basic well but slowly; uses Klosari more often these days. Never raises his voice.',
+      traits: JSON.stringify(['Patient', 'Disciplined', 'Grieving', 'Loyal (to the Klosari)', 'Quiet']),
+      connections: JSON.stringify(['The Klosari — Adopted people. The reason for everything he does.', 'The Crew — Gave them the sluice route in exchange for the generator. Owes them his people\'s lives.', 'Skarn (deceased) — Built the Vanishing Place on Klosari land. The fence, the cages, the war.', 'Captain Vischera — Skarn\'s tame doctor; the medical horror inside the fortress that the Klosari paid for.', 'His old CIS unit (deceased) — Died on Raxus obeying a shutdown order he refused to believe.']),
+      revealed: false,
+      sort_order: 8
     }
   ];
 
@@ -547,7 +561,8 @@ async function seedNpcProfiles() {
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: true },
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: true },
     { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s7', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: true },
-    { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: true }
+    { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: true },
+    { npc_key: 'mandrake', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s4', event_text: 'Made the deal in the sluice — gave us the way into the Vanishing Place in exchange for taking down the generator.', revealed: false }
   ];
 
   const newProfiles = profiles.filter(p => !seeded.has(p.npc_key));
