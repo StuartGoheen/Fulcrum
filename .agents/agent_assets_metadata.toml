@@ -240,6 +240,12 @@ uri = "file://public/maps/varga-fortress.png"
 type = "image"
 title = "varga fortress players map"
 
+[[generated]]
+id = "XUOUJIusPXMRovQdqnKzJ"
+uri = "file://attached_assets/generated_images/vischera_doctor.png"
+type = "image"
+title = "generated_image"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
