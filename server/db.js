@@ -543,6 +543,27 @@ async function seedNpcProfiles() {
       connections: JSON.stringify(['The Klosari — Adopted people. The reason for everything he does.', 'The Crew — Gave them the sluice route in exchange for the generator. Owes them his people\'s lives.', 'Skarn (deceased) — Built the Vanishing Place on Klosari land. The fence, the cages, the war.', 'Captain Vischera — Skarn\'s tame doctor; the medical horror inside the fortress that the Klosari paid for.', 'His old CIS unit (deceased) — Died on Raxus obeying a shutdown order he refused to believe.']),
       revealed: false,
       sort_order: 8
+    },
+    {
+      npc_key: 'vischera',
+      name: 'Captain Vischera',
+      species: 'Human',
+      role: 'Imperial Medical Officer — Skarn\'s Resident Doctor',
+      portrait_url: null,
+      status: 'unknown',
+      player_bio: 'An Imperial-trained physician found at her bench inside the Vanishing Place — back to the door, two helmets-off escort soldiers at the door, a Klosari villager strapped to the surgical table mid-procedure. She did not beg, did not run, did not apologize. When the escorts fell she set her instruments down, raised her hands, and offered the trade: her cure-research data and what she knew about the Inquisitor\'s approach in exchange for safe passage off-world. Captain Vischera is six months from a viable, disseminable treatment for a disease that scours civilian populations across the Outer Rim. Her test subjects are the prisoners Skarn supplies her with. She holds both truths in the same room without flinching. "Pain ends. Knowledge is permanent."',
+      gm_notes: 'Non-combatant. Defense 1, Resist 5 — she does not break under social pressure. She does not arm herself, does not run, does not lie about what she is doing. Her two escort soldiers will NOT permit parley — the Med Bay is a fight first, conversation second. Once both escorts are dropped or KO\'d, the room becomes the moral-quandary scene at enc-s8-medbay (six resolution paths: execution, Mandrake-arrives-after, recruit, take-the-data-let-her-walk, destroy-everything, hand-her-to-the-Klosari). Anchor line at the moment of surrender: "Pain ends. Knowledge is permanent." Deliver verbatim — do not soften it, do not let her take it back. SKARN COMPLICITY (background only): he supplies her with captured Klosari in exchange for medical care for his wounded mercs. Do not have Skarn dialogue this — but it is the truth behind the room. Her intel (Draco inbound, Skarn stalling the Imperial handoff, Varth has a memorized authentication key) is the lever she trades for survival. If recruited (paths 3/4), she becomes a high-value Imperial defector with a working cure roughly six months from completion and zero loyalty to anyone — future-task hook only, do not invent that subplot here.',
+      traits: JSON.stringify(['Clinical', 'Brilliant', 'Unrepentant', 'Composed under fire', 'Unflinching']),
+      connections: JSON.stringify([
+        'Skarn (deceased) — Patron and supplier; traded medical care for Klosari subjects.',
+        'The Klosari — Her test subjects. The cure is built on their suffering.',
+        'Vazus Mandrake — His enemy by every measure; if he reaches the Med Bay she meets his eyes without looking away.',
+        'Inquisitor Draco — Knew he was inbound for Varth and roughly when.',
+        'Admiral Varth — Knew about his memorized authentication key without knowing the details.',
+        'The Cure — Six months from a disseminable treatment for an Outer Rim plague that scours civilian populations. Lives in her notation; needs a working bio-lab and someone who reads it.'
+      ]),
+      revealed: false,
+      sort_order: 9
     }
   ];
 
@@ -562,7 +583,8 @@ async function seedNpcProfiles() {
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: true },
     { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s7', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: true },
     { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: true },
-    { npc_key: 'mandrake', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s4', event_text: 'Made the deal in the sluice — gave us the way into the Vanishing Place in exchange for taking down the generator.', revealed: false }
+    { npc_key: 'mandrake', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s4', event_text: 'Made the deal in the sluice — gave us the way into the Vanishing Place in exchange for taking down the generator.', revealed: false },
+    { npc_key: 'vischera', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s5', event_text: 'Found at her bench in the Med Bay, mid-procedure on a Klosari villager strapped to the surgical table. The two escorts went down. She set her instruments down, raised her hands, and offered the trade — her cure-research and what she knew about Draco for safe passage off-world. Whatever the crew chose, they chose it themselves, in a quiet room, looking at each other.', revealed: false }
   ];
 
   const newProfiles = profiles.filter(p => !seeded.has(p.npc_key));
