@@ -467,7 +467,7 @@ const ALL_SCENE_NPC_SEEDS = {
     {
       x: 515, y: 92, label: 'Maya', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
       player_desc: 'In the cockpit — a Mirialan woman running pre-flight checks without looking up from the console. Green-gold skin, flight jacket worn soft at the elbows, tattoo patterns along her cheekbones. She knows the Banshee the way some people know a language — without thinking about it.',
-      gm_notes: 'Maya. The crew\'s pilot and de facto moral compass. Freelancer who intercepted the code cylinder from Varga\'s supply chain — that one job pulled her into all of this. She is loyal to the crew but has her own ethics and will push back on Varth. Wounded during the Ajan Kloss approach (shrapnel, serious). The slave ship Shackles of Nizon will force her hand in Adv3. CAMPAIGN AXIS: her survival is optional but her absence permanently changes the campaign\'s emotional texture and removes the Ace pilot\'s most meaningful relationship.'
+      gm_notes: 'Maya. The crew\'s pilot and de facto moral compass. Freelancer who intercepted the code cylinder from Varga\'s supply chain — that one job pulled her into all of this. She is loyal to the crew but has her own ethics and will push back on Varth. Wounded during the Ajan Kloss approach (shrapnel, serious). The slave ship The Indemnity will force her hand in Adv3. CAMPAIGN AXIS: her survival is optional but her absence permanently changes the campaign\'s emotional texture and removes the Ace pilot\'s most meaningful relationship.'
     }
   ]
 };

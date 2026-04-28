@@ -2,7 +2,7 @@
   {
     "id": "resolution_math",
     "number": 0,
-    "name": "The Fulcrum — Symmetric Resolution",
+    "name": "The Fulcrum \u2014 Symmetric Resolution",
     "tag": "Core Math",
     "summary": "All task resolution uses the same symmetric math: Roll minus Risk equals Net Result. Positive net is success, negative net is failure, and the magnitude determines the tier on both sides.",
     "mechanic": "Net Result = (Control Die or Power Die) minus (Risk or Resistance). The result falls on a mirrored scale around zero (the Fulcrum). Success side: Fleeting (0-3), Masterful (4-7), Legendary (8-11), Unleashed I (12-15), Unleashed II (16-19), Unleashed III (20+). Failure side: Fleeting failure (-1 to -3), Masterful failure (-4 to -7), Legendary failure (-8 or worse). Unleashed tiers are reachable only through favored disciplines with exploding dice or stacked +1 tier effects.",
@@ -33,7 +33,7 @@
           "tier": 3,
           "name": "Legendary",
           "range": "8-11",
-          "description": "Exceptional execution. Automatic +1 Effect Tier. Near-impossible at base Risk 4 — requires a D12 roll of 12."
+          "description": "Exceptional execution. Automatic +1 Effect Tier. Near-impossible at base Risk 4 \u2014 requires a D12 roll of 12."
         },
         {
           "tier": 2,
@@ -49,10 +49,10 @@
         }
       ],
       "unleashedAccess": {
-        "rule": "Unleashed tiers (I, II, III) are not reachable through normal rolling. They require either a favored (aligned) discipline with an exploding Power die, or enough stacked +1 tier effects to push a Legendary result upward. A non-favored discipline cannot reach Unleashed through raw dice alone — this makes favoring a discipline during character creation a meaningful long-term investment.",
+        "rule": "Unleashed tiers (I, II, III) are not reachable through normal rolling. They require either a favored (aligned) discipline with an exploding Power die, or enough stacked +1 tier effects to push a Legendary result upward. A non-favored discipline cannot reach Unleashed through raw dice alone \u2014 this makes favoring a discipline during character creation a meaningful long-term investment.",
         "paths": [
-          "Favored discipline — the Power die explodes on a max roll. A D12 rolling 12 explodes, potentially reaching 12+ (Unleashed I). Multiple explosions can reach Unleashed II and III.",
-          "Stacked +1 tier effects — enough buffs, gear bonuses, destiny tokens, or ally support to push a Legendary result upward into Unleashed range."
+          "Favored discipline \u2014 the Power die explodes on a max roll. A D12 rolling 12 explodes, potentially reaching 12+ (Unleashed I). Multiple explosions can reach Unleashed II and III.",
+          "Stacked +1 tier effects \u2014 enough buffs, gear bonuses, destiny tokens, or ally support to push a Legendary result upward into Unleashed range."
         ]
       },
       "fulcrum": 0,
@@ -61,7 +61,7 @@
           "tier": 1,
           "name": "Fleeting",
           "range": "-1 to -3",
-          "description": "Minor failure. Consequence is light — a stumble, a missed opportunity."
+          "description": "Minor failure. Consequence is light \u2014 a stumble, a missed opportunity."
         },
         {
           "tier": 2,
@@ -89,11 +89,11 @@
     "name": "Dice Stepping",
     "tag": "Pre-Roll",
     "summary": "Changes the probability floor and ceiling before the dice are thrown. The foundational mathematical engine of the dual-axis system.",
-    "mechanic": "Step a die Up (e.g., D8 → D10) or Down (e.g., D10 → D8). Because each die has a fixed range, stepping directly raises or lowers both the floor and ceiling of possible outcomes before a single number is generated.",
+    "mechanic": "Step a die Up (e.g., D8 \u2192 D10) or Down (e.g., D10 \u2192 D8). Because each die has a fixed range, stepping directly raises or lowers both the floor and ceiling of possible outcomes before a single number is generated.",
     "axes": [
       {
         "axis": "Control Die",
-        "purpose": "Accuracy — modifies the chance of rolling high enough to reach a given tier threshold on the Effect Track.",
+        "purpose": "Accuracy \u2014 modifies the chance of rolling high enough to reach a given tier threshold on the Effect Track.",
         "stepUp": [
           {
             "source": "[Optimized]",
@@ -113,7 +113,7 @@
       },
       {
         "axis": "Power Die",
-        "purpose": "Impact — modifies maximum damage or effect magnitude on a successful roll.",
+        "purpose": "Impact \u2014 modifies maximum damage or effect magnitude on a successful roll.",
         "stepUp": [
           {
             "source": "[Empowered]",
@@ -145,9 +145,9 @@
       }
     ],
     "designNotes": [
-      "NPCs do not roll dice — they are the Risk. Threat level is expressed through higher Defense Resistance or Static Risk values, not by stepping down the player's Control Die automatically.",
+      "NPCs do not roll dice \u2014 they are the Risk. Threat level is expressed through higher Defense Resistance or Static Risk values, not by stepping down the player's Control Die automatically.",
       "The armor system is a deliberate trade-off expressed through this lever: heavy armor amplifies Endure Power but penalizes Dodge Control, forcing meaningful tactical decisions.",
-      "[Suppressed] is a condition-delivered version of this lever — it raises the effective Defense or Risk by 2, which functions as a pre-roll difficulty increase without modifying the physical die."
+      "[Suppressed] is a condition-delivered version of this lever \u2014 it raises the effective Defense or Risk by 2, which functions as a pre-roll difficulty increase without modifying the physical die."
     ]
   },
   {
@@ -155,19 +155,19 @@
     "number": 2,
     "name": "Tier Shifting",
     "tag": "Post-Roll",
-    "summary": "Moves the final result up or down the Effect Track after the dice are read. Bypasses probability entirely — a guaranteed outcome change.",
-    "mechanic": "Apply +1 Tier or −1 Tier to the rolled result. The Effect Track tiers are: Fleeting (0–3), Masterful (4–7), Legendary (8–11), Unleashed I (12–15), Unleashed II (16–19), Unleashed III (20+). Shifting can push a result into a higher or lower named tier, changing the entire resolution outcome. Stacking enough +1 Tier effects is one path to reaching Unleashed tiers.",
+    "summary": "Moves the final result up or down the Effect Track after the dice are read. Bypasses probability entirely \u2014 a guaranteed outcome change.",
+    "mechanic": "Apply +1 Tier or \u22121 Tier to the rolled result. The Effect Track tiers are: Fleeting (0\u20133), Masterful (4\u20137), Legendary (8\u201311), Unleashed I (12\u201315), Unleashed II (16\u201319), Unleashed III (20+). Shifting can push a result into a higher or lower named tier, changing the entire resolution outcome. Stacking enough +1 Tier effects is one path to reaching Unleashed tiers.",
     "applications": [
       {
         "direction": "Offensive (+1 Tier)",
         "sources": [
           {
             "source": "Control Die 8+ (Accuracy Threshold)",
-            "note": "When the Control Die result is 8 or higher, the action resolves at +1 Effect Tier automatically. This is the standard resolution bonus for exceptional execution — the action lands exactly where intended. Applies universally: attacks, maneuvers, defenses, and narrative rolls. This is a Tier shift, not an Opening. Openings are only created by specific kit traits or threat abilities that explicitly grant them."
+            "note": "When the Control Die result is 8 or higher, the action resolves at +1 Effect Tier automatically. This is the standard resolution bonus for exceptional execution \u2014 the action lands exactly where intended. Applies universally: attacks, maneuvers, defenses, and narrative rolls. This is a Tier shift, not an Opening. Openings are only created by specific kit traits or threat abilities that explicitly grant them."
           },
           {
             "source": "Destiny Token",
-            "note": "Shared table resource. Always 2 per player at the table (5 PCs = 10 tokens). Spent for a guaranteed +1 Tier gain. Pool is constant — it does not scale beyond headcount."
+            "note": "Shared table resource. Always 2 per player at the table (5 PCs = 10 tokens). Spent for a guaranteed +1 Tier gain. Pool is constant \u2014 it does not scale beyond headcount."
           },
           {
             "source": "[Exposed] Target",
@@ -176,7 +176,7 @@
         ]
       },
       {
-        "direction": "Defensive (−1 Tier)",
+        "direction": "Defensive (\u22121 Tier)",
         "sources": [
           {
             "source": "[Shaken]",
@@ -192,11 +192,11 @@
           },
           {
             "source": "Endure (Success)",
-            "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, still reduces by 1 tier — there is always a partial mitigation floor."
+            "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, still reduces by 1 tier \u2014 there is always a partial mitigation floor."
           },
           {
             "source": "Dodge (Success)",
-            "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, no mitigation — full effect lands."
+            "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, no mitigation \u2014 full effect lands."
           },
           {
             "source": "Gambit Cost",
@@ -206,9 +206,9 @@
       }
     ],
     "designNotes": [
-      "This is the richest lever in the system. Conditions like [Exposed] and [Shaken] are Tier Shifting delivered through the Condition Engine (Lever 3), not separate mechanics — the distinction matters for understanding stacking.",
+      "This is the richest lever in the system. Conditions like [Exposed] and [Shaken] are Tier Shifting delivered through the Condition Engine (Lever 3), not separate mechanics \u2014 the distinction matters for understanding stacking.",
       "The defense asymmetry between Endure (failure floor) and Dodge (no failure floor) is an intentional design choice: Endure is durable but slow, Dodge is swingy but mobile.",
-      "Fleeting (≤0) is the absolute floor for any successful roll. No combination of tier-down modifiers can push a success below Fleeting."
+      "Fleeting (\u22640) is the absolute floor for any successful roll. No combination of tier-down modifiers can push a success below Fleeting."
     ]
   },
   {
@@ -217,9 +217,9 @@
     "name": "Edge Reroll",
     "tag": "Post-Roll",
     "summary": "Spend 1 Edge Point after a roll to reroll either the Control die or the Power die. Favored Disciplines only. A second chance, not a guaranteed improvement.",
-    "mechanic": "After a roll is resolved, the character may spend 1 Edge Point to pick up either their Control die or their Power die and reroll it. The new result replaces the original — it may be higher or lower. This can only be used on rolls involving a favored discipline. The reroll does not stack with itself (you cannot reroll the same die twice on a single roll). Edge pool maximum equals the highest governing arena die across the character's Vocations.",
+    "mechanic": "After a roll is resolved, the character may spend 1 Edge Point to pick up either their Control die or their Power die and reroll it. The new result replaces the original \u2014 it may be higher or lower. This can only be used on rolls involving a favored discipline. The reroll does not stack with itself (you cannot reroll the same die twice on a single roll). Edge pool maximum equals the highest governing arena die across the character's Vocations.",
     "designNotes": [
-      "Edge is the personal resource — trained expertise and muscle memory. Unlike Destiny (a guaranteed +1 Tier from the shared pool), Edge is a gamble. The player risks spending a limited resource for a result that might be worse. This tension is deliberate.",
+      "Edge is the personal resource \u2014 trained expertise and muscle memory. Unlike Destiny (a guaranteed +1 Tier from the shared pool), Edge is a gamble. The player risks spending a limited resource for a result that might be worse. This tension is deliberate.",
       "Allowing the choice of Control or Power creates a tactical decision: reroll Control to chase the 8+ accuracy threshold, or reroll Power to push for a higher Effect Tier. Both are valid depending on the situation.",
       "The favored discipline restriction ensures Edge rewards specialization. Generalists have other tools; Edge belongs to characters who have committed to a discipline deeply enough for it to define them."
     ]
@@ -229,8 +229,8 @@
     "number": 4,
     "name": "The Condition Engine",
     "tag": "Tactical",
-    "summary": "Changes what characters are permitted to do, or changes how the environment responds to them. Does not directly modify dice — it modifies possibility space.",
-    "mechanic": "Apply binary states to a character for a defined duration (Immediate, Tactical, Lingering, Scene, Permanent). Conditions stack only with different conditions — the same condition cannot be applied twice simultaneously.",
+    "summary": "Changes what characters are permitted to do, or changes how the environment responds to them. Does not directly modify dice \u2014 it modifies possibility space.",
+    "mechanic": "Apply binary states to a character for a defined duration (Immediate, Tactical, Lingering, Scene, Permanent). Conditions stack only with different conditions \u2014 the same condition cannot be applied twice simultaneously.",
     "categories": [
       {
         "category": "Movement Lockouts",
@@ -245,7 +245,7 @@
           },
           {
             "condition": "[Slowed]",
-            "effect": "Maximum 1 Zone of voluntary movement per round regardless of source. Shifts become basic moves — creates Openings if Engaged."
+            "effect": "Maximum 1 Zone of voluntary movement per round regardless of source. Shifts become basic moves \u2014 creates Openings if Engaged."
           }
         ]
       },
@@ -279,7 +279,7 @@
         "conditions": [
           {
             "condition": "[Suppressed]",
-            "effect": "PC Suppressed: all opposing Defense/Risk treated as +2 higher. NPC Suppressed: their Risk (Power) reduced by 2. Tactical duration — clears at start of next turn or by spending an Action. A Lever 1 effect delivered via condition."
+            "effect": "PC Suppressed: all opposing Defense/Risk treated as +2 higher. NPC Suppressed: their Risk (Power) reduced by 2. Tactical duration \u2014 clears at start of next turn or by spending an Action. A Lever 1 effect delivered via condition."
           },
           {
             "condition": "[Exposed]",
@@ -326,7 +326,7 @@
         "conditions": [
           {
             "condition": "[Locked On]",
-            "effect": "Starship combat only. Established by winning a Dogfight and choosing the 'press' option. One-directional, single target — a ship can only have [Locked On] on one target at a time, but any number of ships can have [Locked On] on the same target. The locked-on ship's Evade reactions are [Weakened] against the locking ship (the attacker knows their evasion patterns). The locking ship's Gunners gain [Optimized] against the locked-on target (pursuit vector provides a firing solution). Cleared when the locked-on ship wins a Dogfight and chooses the disengage option, or when the locking Pilot takes an action that abandons the engagement (Evasive Maneuvers or Terrain Run outside a Dogfight). Both ships are engaged in the same zone while the Dogfight persists."
+            "effect": "Starship combat only. Established by winning a Dogfight and choosing the 'press' option. One-directional, single target \u2014 a ship can only have [Locked On] on one target at a time, but any number of ships can have [Locked On] on the same target. The locked-on ship's Evade reactions are [Weakened] against the locking ship (the attacker knows their evasion patterns). The locking ship's Gunners gain [Optimized] against the locked-on target (pursuit vector provides a firing solution). Cleared when the locked-on ship wins a Dogfight and chooses the disengage option, or when the locking Pilot takes an action that abandons the engagement (Evasive Maneuvers or Terrain Run outside a Dogfight). Both ships are engaged in the same zone while the Dogfight persists."
           }
         ]
       },
@@ -351,7 +351,7 @@
           },
           {
             "condition": "[Shut Down]",
-            "effect": "Droids only. Incapacitated — cannot take any actions. A successful Tech action may bring them back online early."
+            "effect": "Droids only. Incapacitated \u2014 cannot take any actions. A successful Tech action may bring them back online early."
           }
         ]
       },
@@ -360,16 +360,16 @@
         "conditions": [
           {
             "condition": "[Stimmed X]",
-            "effect": "Accumulated stim load from combat medicine. X begins at 1 and increments by 1 each time the character receives a Medpac (Field Dressing) or Stim Pack (Push Through). Each point of X steps down the Medicine Power die by one size on future treatment rolls for this character (D12→D10→D8→D6→D4). At D4, further medical treatment has no meaningful effect. Clears fully on Long Rest only. Cannot be reduced through short rest or field treatment."
+            "effect": "Accumulated stim load from combat medicine. X begins at 1 and increments by 1 each time the character receives a Medpac (Field Dressing) or Stim Pack (Push Through). Each point of X steps down the Medicine Power die by one size on future treatment rolls for this character (D12\u2192D10\u2192D8\u2192D6\u2192D4). At D4, further medical treatment has no meaningful effect. Clears fully on Long Rest only. Cannot be reduced through short rest or field treatment."
           }
         ]
       }
     ],
     "designNotes": [
-      "Conditions are the primary delivery vehicle for Lever 1 and Lever 2 effects in structured gameplay. [Optimized] is Lever 1, [Exposed] is Lever 2 — the Condition Engine is the wrapper, not a separate lever.",
+      "Conditions are the primary delivery vehicle for Lever 1 and Lever 2 effects in structured gameplay. [Optimized] is Lever 1, [Exposed] is Lever 2 \u2014 the Condition Engine is the wrapper, not a separate lever.",
       "Duration matters as much as the effect itself. Tactical conditions clear at the start of the affected character's next turn. Lingering conditions persist until actively cleared.",
       "The distinction between [Pinned] (prone + held) and [Restrained] (immobilized but upright) and [Prone] (on ground but free to stand) is intentional and meaningful. These are not synonyms.",
-      "[Stimmed X] is the only stacking numeric condition in the system. Every other condition is binary (present or not). The X value represents compounding chemical saturation — each point steps down Medicine Power die, making the next treatment less effective."
+      "[Stimmed X] is the only stacking numeric condition in the system. Every other condition is binary (present or not). The X value represents compounding chemical saturation \u2014 each point steps down Medicine Power die, making the next treatment less effective."
     ]
   },
   {
@@ -377,7 +377,7 @@
     "number": 5,
     "name": "The Exploding Power Die",
     "tag": "Lethality",
-    "summary": "Represents uncontained energy, illegal technology, or apex mastery. Breaks the mathematical ceiling of the system — a D6 can theoretically output 12+ damage.",
+    "summary": "Represents uncontained energy, illegal technology, or apex mastery. Breaks the mathematical ceiling of the system \u2014 a D6 can theoretically output 12+ damage.",
     "mechanic": "If the Power Die rolls its maximum natural value (e.g., a 6 on a D6, an 8 on a D8), roll it again and add the result to the total. If the reroll also hits the maximum, continue rolling and adding. This creates an uncapped damage ceiling.",
     "applications": [
       {
@@ -390,33 +390,33 @@
       },
       {
         "source": "Signature Talents",
-        "note": "Apex abilities that channel raw, focused power — a Gunslinger's Lucky Shot, a Dark Side user in freefall rage."
+        "note": "Apex abilities that channel raw, focused power \u2014 a Gunslinger's Lucky Shot, a Dark Side user in freefall rage."
       }
     ],
     "designNotes": [
-      "The Exploding Power Die does not bypass defense. When a defender Endures successfully, their Power Die result reduces the attacker's incoming damage — an exploding attack die still has to clear the defender's counter-roll. The ceiling is high, but never uncontested.",
+      "The Exploding Power Die does not bypass defense. When a defender Endures successfully, their Power Die result reduces the attacker's incoming damage \u2014 an exploding attack die still has to clear the defender's counter-roll. The ceiling is high, but never uncontested.",
       "This lever should be rare by design. When most weapons have a fixed ceiling, the exploding die creates dramatic asymmetry that signals 'this is not a normal fight.'",
-      "Combining Lever 1 ([Empowered] → Step Up Power Die) with Lever 5 (Exploding Die) creates a compounding ceiling: higher die + explosion. This is intentional for apex characters and apex weapons, but should be gated accordingly."
+      "Combining Lever 1 ([Empowered] \u2192 Step Up Power Die) with Lever 5 (Exploding Die) creates a compounding ceiling: higher die + explosion. This is intentional for apex characters and apex weapons, but should be gated accordingly."
     ]
   },
   {
     "id": "gambit_system",
     "name": "Gambits",
     "tag": "Options",
-    "summary": "Gambits are optional techniques layered onto a Maneuver, Attack, or Defense action. They trade a tier of the primary result for an effect the tier track cannot produce at that level. They are the mechanism through which skilled characters bend — and occasionally break — the rules of an encounter.",
+    "summary": "Gambits are optional techniques layered onto a Maneuver, Attack, or Defense action. They trade a tier of the primary result for an effect the tier track cannot produce at that level. They are the mechanism through which skilled characters bend \u2014 and occasionally break \u2014 the rules of an encounter.",
     "invariants": [
       "Standard Cost: -1 Tier. The base action resolves 1 tier lower so the gambit effect can fire. This is the default for all Discipline and Weapon gambits. The single exception is the Additional Cost pattern used by Gear Gambits (see Gear Gambits).",
       "Declared before rolling (PC) or before the PC defends (GM/threat).",
-      "Minimum result to gambit: Masterful. You cannot gambit from Fleeting — there is no tier below the floor to pay with. This minimum applies to standard gambits only. Additional Cost gambits (which do not reduce the tier) have no floor restriction.",
+      "Minimum result to gambit: Masterful. You cannot gambit from Fleeting \u2014 there is no tier below the floor to pay with. This minimum applies to standard gambits only. Additional Cost gambits (which do not reduce the tier) have no floor restriction.",
       "The base action still resolves at -1 Tier. Gambits supplement; they never replace.",
-      "The unlockDie is an access threshold, not a use gate. A character with D12 in the discipline has unlocked the D12 gambit. They may then declare it on any roll — including one that results in Masterful — paying -1 Tier as always. The unlockDie marks when the technique becomes available, not when it can fire."
+      "The unlockDie is an access threshold, not a use gate. A character with D12 in the discipline has unlocked the D12 gambit. They may then declare it on any roll \u2014 including one that results in Masterful \u2014 paying -1 Tier as always. The unlockDie marks when the technique becomes available, not when it can fire."
     ],
     "actionTypes": {
       "note": "Gambits are not limited to Discipline Maneuvers. They may supplement any of the following action types when the fiction and the discipline support it.",
       "types": [
         {
           "type": "Maneuver",
-          "description": "A Discipline Maneuver. Most gambits live here — attached to the maneuver that unlocks them."
+          "description": "A Discipline Maneuver. Most gambits live here \u2014 attached to the maneuver that unlocks them."
         },
         {
           "type": "Attack",
@@ -424,12 +424,12 @@
         },
         {
           "type": "Defense",
-          "description": "A Dodge or Endure response. Defense gambits supplement the defensive action — trading a tier of mitigation for a counter-effect, a repositioning, or a disruption."
+          "description": "A Dodge or Endure response. Defense gambits supplement the defensive action \u2014 trading a tier of mitigation for a counter-effect, a repositioning, or a disruption."
         }
       ]
     },
     "effectTargets": {
-      "note": "The roll target and the gambit effect target are independent. A gambit attached to an attack against an enemy may produce an effect that benefits self, an ally, or an entire zone — as long as the fiction supports it.",
+      "note": "The roll target and the gambit effect target are independent. A gambit attached to an attack against an enemy may produce an effect that benefits self, an ally, or an entire zone \u2014 as long as the fiction supports it.",
       "targets": [
         {
           "target": "Self",
@@ -441,54 +441,54 @@
         },
         {
           "target": "Ally",
-          "example": "Vanguard (Endure): you braced — your ally gets the protection."
+          "example": "Vanguard (Endure): you braced \u2014 your ally gets the protection."
         },
         {
           "target": "Zone",
-          "example": "Weather the Storm (Survival): you identified the cover and called it — everyone in your Zone benefits."
+          "example": "Weather the Storm (Survival): you identified the cover and called it \u2014 everyone in your Zone benefits."
         },
         {
           "target": "AOE/Blast",
-          "example": "Thermal Detonator (Zone Blast): all characters in the target zone defend. Cover does not apply within the blast zone — only to targets outside it. AOE effects resolve the Effect Tier once; all targets in the zone receive the same tier result."
+          "example": "Thermal Detonator (Zone Blast): all characters in the target zone defend. Cover does not apply within the blast zone \u2014 only to targets outside it. AOE effects resolve the Effect Tier once; all targets in the zone receive the same tier result."
         },
         {
           "target": "Witnesses",
-          "example": "The Ultimatum (The Loom): all characters within 5 squares who can see and hear the threat. Narrative spread — not a zone in the tactical grid sense, but a line-of-sight and line-of-hearing radius."
+          "example": "The Ultimatum (The Loom): all characters within 5 squares who can see and hear the threat. Narrative spread \u2014 not a zone in the tactical grid sense, but a line-of-sight and line-of-hearing radius."
         }
       ]
     },
     "physicalLogic": {
       "roundDuration": "~6 seconds",
       "note": "A gambit must be physically plausible within a single ~6-second round of action, using Star Wars-normal physics (excluding the Force). The primary action and the gambit effect must both be achievable simultaneously or in rapid sequence by one person in that window.",
-      "scale": "1 Zone ≈ 15 feet. Moving 1 Zone takes most of a round at a brisk pace. Moving 2 Zones is a full sprint. A blaster bolt is near-instantaneous — the 6 seconds is acquisition, positioning, and trigger. A melee exchange is 1–3 committed strikes.",
+      "scale": "1 Zone \u2248 15 feet. Moving 1 Zone takes most of a round at a brisk pace. Moving 2 Zones is a full sprint. A blaster bolt is near-instantaneous \u2014 the 6 seconds is acquisition, positioning, and trigger. A melee exchange is 1\u20133 committed strikes.",
       "tests": [
         "Can the gambit effect happen *as part of* the same physical motion as the primary action?",
         "Does the effect target (self/enemy/ally/zone) make sense given what the character is physically doing?",
-        "If the gambit breaks a rule — what does the character's expertise (D10 or D12) physically enable that a novice cannot do?",
+        "If the gambit breaks a rule \u2014 what does the character's expertise (D10 or D12) physically enable that a novice cannot do?",
         "Is -1 Tier a fair price? Broader or more disruptive effects belong at D12 unlock, not a higher tier cost."
       ],
       "examples": [
-        "Bantha Rush + Breakneck Pace (+1 Zone): the momentum carried you through — you didn't plant after the tackle. Plausible.",
+        "Bantha Rush + Breakneck Pace (+1 Zone): the momentum carried you through \u2014 you didn't plant after the tackle. Plausible.",
         "Bantha Rush + The Disarm: your hands generated impact force. No free hand to twist a weapon simultaneously. Not plausible.",
         "Blaster shot + Trick Shot (environmental target): still one trigger pull, just a different target. Plausible.",
         "Blaster shot + Zone of Denial (cover the Zone): 6 seconds of 'weapon raised and ready' is exactly suppressing a corridor. Plausible."
       ]
     },
     "permissionGambits": {
-      "note": "Some gambits are not conditions — they are permissions. They allow something normally locked by the rules. The permission is earned by the fiction: the character is skilled enough that they can do both things within the physical constraints of 6 seconds. A novice cannot. An expert can.",
+      "note": "Some gambits are not conditions \u2014 they are permissions. They allow something normally locked by the rules. The permission is earned by the fiction: the character is skilled enough that they can do both things within the physical constraints of 6 seconds. A novice cannot. An expert can.",
       "examples": [
-        "Zone of Denial: normally you act on your turn — this grants a free off-turn action because the weapon is already trained on the Zone.",
-        "Recovery (Evasion): normally [Pinned] requires an opposed Physique check — Evasion expertise means you didn't panic, you used technique to slip free.",
-        "Rigged (Skulduggery): normally planting a charge costs your Primary Action — expertise means you concealed it while doing something else."
+        "Zone of Denial: normally you act on your turn \u2014 this grants a free off-turn action because the weapon is already trained on the Zone.",
+        "Recovery (Evasion): normally [Pinned] requires an opposed Physique check \u2014 Evasion expertise means you didn't panic, you used technique to slip free.",
+        "Rigged (Skulduggery): normally planting a charge costs your Primary Action \u2014 expertise means you concealed it while doing something else."
       ]
     },
     "conditionalGambits": {
-      "note": "Some gambits require permissive fiction — a situation that must exist before the gambit can be declared. The condition is not a mechanical gate on the die; it is a narrative gate on whether the technique applies.",
+      "note": "Some gambits require permissive fiction \u2014 a situation that must exist before the gambit can be declared. The condition is not a mechanical gate on the die; it is a narrative gate on whether the technique applies.",
       "example": "A gambit that reads 'when the target is [Exposed]' cannot fire unless the target genuinely is [Exposed]. The player must earn the setup before the gambit becomes available."
     },
     "unlockTiers": {
-      "note": "The unlockDie marks the discipline threshold at which the gambit becomes part of the character's toolkit. It reflects the sophistication of the technique — not the power die used to execute it.",
-      "D10": "Advanced technique. Narrow scope: single target, immediate duration, personal benefit, or one condition. These gambits improve the *next beat* — they are setup, not payoff.",
+      "note": "The unlockDie marks the discipline threshold at which the gambit becomes part of the character's toolkit. It reflects the sophistication of the technique \u2014 not the power die used to execute it.",
+      "D10": "Advanced technique. Narrow scope: single target, immediate duration, personal benefit, or one condition. These gambits improve the *next beat* \u2014 they are setup, not payoff.",
       "D12": "Expert technique. Broader scope: zone-wide conditions, double conditions, action economy disruption, persistent threats, or cross-scene effects. These gambits *change the shape* of the fight."
     }
   },
@@ -496,11 +496,11 @@
     "id": "gear_gambits",
     "name": "Gear Gambits",
     "tag": "Options",
-    "summary": "Gear can provide gambits in two ways: attached to the gear item itself (firing on weapon or use actions) or attached to an existing Discipline Maneuver via the targetManeuver property. Gear gambits introduce the Additional Cost pattern — the only exception to the standard -1 Tier cost rule.",
+    "summary": "Gear can provide gambits in two ways: attached to the gear item itself (firing on weapon or use actions) or attached to an existing Discipline Maneuver via the targetManeuver property. Gear gambits introduce the Additional Cost pattern \u2014 the only exception to the standard -1 Tier cost rule.",
     "patterns": [
       {
         "pattern": "Weapon Gambit",
-        "description": "Attached directly to a weapon or gear item with a weaponProfile. Fires on the attack or use action for that item. Follows the standard -1 Tier cost. The gambit is available to any character carrying the item — no discipline threshold.",
+        "description": "Attached directly to a weapon or gear item with a weaponProfile. Fires on the attack or use action for that item. Follows the standard -1 Tier cost. The gambit is available to any character carrying the item \u2014 no discipline threshold.",
         "examples": [
           "Dead Drop (Thermal Detonator): -1 Tier, place as proximity mine instead of throwing.",
           "Skip (Thermal Detonator): -1 Tier, indirect arc into a zone without line-of-sight.",
@@ -509,15 +509,15 @@
       },
       {
         "pattern": "Additional Cost Gambit",
-        "description": "The gear gambit does NOT reduce the Effect Tier. Instead, it replaces the -1 Tier cost with a bundle of resource costs. The full effect of the underlying maneuver resolves unchanged. This pattern represents tools that augment skilled action rather than trade off against it — but the costs are heavier than a simple tier reduction. Required cost components: (1) the item is exhausted (consumed), (2) at least one additional narrative/mechanical cost that creates meaningful pressure.",
+        "description": "The gear gambit does NOT reduce the Effect Tier. Instead, it replaces the -1 Tier cost with a bundle of resource costs. The full effect of the underlying maneuver resolves unchanged. This pattern represents tools that augment skilled action rather than trade off against it \u2014 but the costs are heavier than a simple tier reduction. Required cost components: (1) the item is exhausted (consumed), (2) at least one additional narrative/mechanical cost that creates meaningful pressure.",
         "additionalCostComponents": [
           {
             "cost": "Item Exhausted",
-            "note": "Always required. One use of the gear is consumed. This is the primary economic cost — the item is gone."
+            "note": "Always required. One use of the gear is consumed. This is the primary economic cost \u2014 the item is gone."
           },
           {
             "cost": "Action Economy",
-            "note": "The most common secondary cost. Consuming the Primary Action means the gambit cannot be 'free' on a Maneuver turn — you pay with your full round. This prevents stacking the gambit with an attack in the same turn."
+            "note": "The most common secondary cost. Consuming the Primary Action means the gambit cannot be 'free' on a Maneuver turn \u2014 you pay with your full round. This prevents stacking the gambit with an attack in the same turn."
           },
           {
             "cost": "Condition Applied",
@@ -525,7 +525,7 @@
           },
           {
             "cost": "Opening Presented",
-            "note": "If the character is Engaged when applying the gambit, they create an Opening. Punishes using a medical tool in melee range — contextually appropriate and tactically meaningful."
+            "note": "If the character is Engaged when applying the gambit, they create an Opening. Punishes using a medical tool in melee range \u2014 contextually appropriate and tactically meaningful."
           }
         ],
         "examples": [
@@ -535,29 +535,29 @@
       },
       {
         "pattern": "Maneuver-Attached Gambit (targetManeuver)",
-        "description": "A gear gambit that binds to an existing Discipline Maneuver rather than the gear item itself. The gambit appears in that maneuver's gambit list when the character carries the item. This is used when the gear amplifies a specific technique rather than being used independently. The gambit follows whichever cost pattern the maneuver context demands — Additional Cost or standard -1 Tier.",
+        "description": "A gear gambit that binds to an existing Discipline Maneuver rather than the gear item itself. The gambit appears in that maneuver's gambit list when the character carries the item. This is used when the gear amplifies a specific technique rather than being used independently. The gambit follows whichever cost pattern the maneuver context demands \u2014 Additional Cost or standard -1 Tier.",
         "rule": "The gear must be carried (not merely owned) for the gambit to appear. The gambit is only available when the item is in the character's carried gear slots. The maneuver still requires the discipline threshold; the gear does not lower that gate.",
         "examples": [
-          "Field Dressing (targetManeuver: action_treat_injury): The Medpac gambit binds to Treat Injury — consuming it during treatment adds +1 Tier and applies [Stimmed] +1. The gear enhances an existing healing action rather than standing alone.",
+          "Field Dressing (targetManeuver: action_treat_injury): The Medpac gambit binds to Treat Injury \u2014 consuming it during treatment adds +1 Tier and applies [Stimmed] +1. The gear enhances an existing healing action rather than standing alone.",
           "The Ultimatum (targetManeuver: manv_intimidate_the_loom, D12 threshold): A Thermal Detonator carried by an Intimidate D12 character adds The Ultimatum to The Loom's gambit list. The detonator enables the technique; the discipline expertise enables the composure to execute it."
         ]
       },
       {
         "pattern": "Cross-Maneuver Gambit (The Ultimatum Pattern)",
-        "description": "A gear gambit that belongs to a Discipline Maneuver the gear does not directly power. The gear is a prop that enables a social/narrative technique, not a weapon being used as a weapon. This pattern is used when the fiction of the item — its threat value, its narrative weight — is more relevant than its mechanical output.",
+        "description": "A gear gambit that belongs to a Discipline Maneuver the gear does not directly power. The gear is a prop that enables a social/narrative technique, not a weapon being used as a weapon. This pattern is used when the fiction of the item \u2014 its threat value, its narrative weight \u2014 is more relevant than its mechanical output.",
         "rule": "Requires both: (1) the character carries the item, and (2) the character meets the discipline threshold of the host maneuver. The gambit is not available from the item alone. Both gates must be open.",
         "cost": "Standard -1 Tier on the host maneuver. The item is not consumed unless the gambit fires in its destructive mode (the dead-man's switch is released).",
-        "sceneLimit": "Once per scene. The threat only works once — a repeated ultimatum in the same scene loses all credibility and mechanical force.",
+        "sceneLimit": "Once per scene. The threat only works once \u2014 a repeated ultimatum in the same scene loses all credibility and mechanical force.",
         "examples": [
-          "The Ultimatum (Thermal Detonator + The Loom D12): The detonator's dead-man's switch transforms an Intimidate action into a MAD scenario. -1 Tier on the Loom result. Grants [Optimized] and [Empowered] on all Intimidate (Grit) actions against witnesses while holding. The detonator is not thrown — it is leverage."
+          "The Ultimatum (Thermal Detonator + The Loom D12): The detonator's dead-man's switch transforms an Intimidate action into a MAD scenario. -1 Tier on the Loom result. Grants [Optimized] and [Empowered] on all Intimidate (Grit) actions against witnesses while holding. The detonator is not thrown \u2014 it is leverage."
         ]
       }
     ],
     "designNotes": [
-      "The Additional Cost pattern exists because some items should make skilled characters better at what they already do — not trade off against it. A medpac in the hands of a field medic should augment the Medicine roll, not replace it with a weaker version. The cost is in resources and positioning, not in the quality of the result.",
-      "When a gear gambit belongs to a Discipline Maneuver (targetManeuver), the discipline expertise gates access. This preserves the design principle that powerful techniques require investment — you cannot buy a shortcut to D12 effects.",
-      "The Ultimatum is the canonical example of narrative weight converting to mechanical advantage. The detonator is not the weapon in this context — the threat of the detonator is the weapon. Design gear with narrative threat value using this pattern, not the standard weapon gambit pattern.",
-      "Consumable gear gambits create natural session-level pacing. A party with three medpacs and a stim pack has six uses of the Additional Cost pattern before they run dry. This is intentional economy pressure — not a resource to ignore."
+      "The Additional Cost pattern exists because some items should make skilled characters better at what they already do \u2014 not trade off against it. A medpac in the hands of a field medic should augment the Medicine roll, not replace it with a weaker version. The cost is in resources and positioning, not in the quality of the result.",
+      "When a gear gambit belongs to a Discipline Maneuver (targetManeuver), the discipline expertise gates access. This preserves the design principle that powerful techniques require investment \u2014 you cannot buy a shortcut to D12 effects.",
+      "The Ultimatum is the canonical example of narrative weight converting to mechanical advantage. The detonator is not the weapon in this context \u2014 the threat of the detonator is the weapon. Design gear with narrative threat value using this pattern, not the standard weapon gambit pattern.",
+      "Consumable gear gambits create natural session-level pacing. A party with three medpacs and a stim pack has six uses of the Additional Cost pattern before they run dry. This is intentional economy pressure \u2014 not a resource to ignore."
     ]
   },
   {
@@ -566,14 +566,14 @@
     "tag": "GM Reference",
     "summary": "A framework for creating or converting gear items into the system. Covers the four mechanical expression options (Trait, Gambit, Maneuver, Damage Modification) and the Fixed Power Die concept. Use this to ensure new gear is balanced, legible, and consistent with existing design decisions.",
     "gearGambitSourceRule": {
-      "rule": "Gear gambits represent the equipment's physical features and tactical options — not the user's expertise. If removing the item from the character would also remove the gambit's physical basis, it belongs on the gear. If the gambit describes what a skilled user knows to do with any tool, it belongs on a Discipline Maneuver.",
-      "test": "Ask: does this gambit require the item to have a specific physical feature? A trigger mode dial (Impact Detonation), a magnetic clamp (Magnetic Attachment), an audible arming mechanism (Clear Out) — these are gear features. Knowing the right angle to throw a grenade, masking an intrusion signature mid-splice, planting false data through a terminal — these are character skills.",
+      "rule": "Gear gambits represent the equipment's physical features and tactical options \u2014 not the user's expertise. If removing the item from the character would also remove the gambit's physical basis, it belongs on the gear. If the gambit describes what a skilled user knows to do with any tool, it belongs on a Discipline Maneuver.",
+      "test": "Ask: does this gambit require the item to have a specific physical feature? A trigger mode dial (Impact Detonation), a magnetic clamp (Magnetic Attachment), an audible arming mechanism (Clear Out) \u2014 these are gear features. Knowing the right angle to throw a grenade, masking an intrusion signature mid-splice, planting false data through a terminal \u2014 these are character skills.",
       "auditedRemovals": [
         "Skip (Thermal Detonator): throwing technique, not a device feature. Removed.",
         "Bounce (Smoke Grenade): same arc technique. Removed.",
         "Field Research (Datapad): cross-referencing data is a character's Investigation skill. The datapad stores the data. Removed.",
         "Dead Drop (Datapad): planting false intel is Deception skill. The datapad is the medium. Removed.",
-        "Clean Pull (Slicer Spike): masking an intrusion signature is expertise. The spike's own trait states it alerts the system — Clean Pull directly contradicted the item's defined nature. Removed.",
+        "Clean Pull (Slicer Spike): masking an intrusion signature is expertise. The spike's own trait states it alerts the system \u2014 Clean Pull directly contradicted the item's defined nature. Removed.",
         "Backdoor (Slicer Spike): persistent remote terminal access has no basis in Star Wars lore. Slicing is always physical and hands-on. Remote backdoors are a modern cyberpunk concept, not a galaxy far, far away concept. Removed."
       ],
       "gambitsCountRule": "There is no target gambit count. An item should have exactly as many gambits as its physical features genuinely support. Bacta Patch: zero. Slicer Spike: one. Thermal Detonator: four. Padding to reach a number produces skill-based gambits that violate the source rule above."
@@ -581,63 +581,63 @@
     "expressionOptions": [
       {
         "option": "Trait",
-        "use": "Always-on passive rules that change how the item works in any scene. No action cost, no gambit cost — the trait simply defines what the item does and does not do.",
+        "use": "Always-on passive rules that change how the item works in any scene. No action cost, no gambit cost \u2014 the trait simply defines what the item does and does not do.",
         "when": "Use a trait when the rule applies every time the item is used, with no player decision involved. Traits describe capability and limitation, not choice.",
-        "permissionTraits": "Some traits grant no bonus — they grant permission. Without the Disguise Kit, a disguise attempt is impossible or heavily penalized. The kit's trait removes that gate. The character still has to succeed. Permission items correctly have zero gambits; their entire value is in the trait.",
+        "permissionTraits": "Some traits grant no bonus \u2014 they grant permission. Without the Disguise Kit, a disguise attempt is impossible or heavily penalized. The kit's trait removes that gate. The character still has to succeed. Permission items correctly have zero gambits; their entire value is in the trait.",
         "examples": [
-          "Zone Blast (Thermal Detonator): always uses AOE targeting, always targets Evasion, always resolves once for the whole zone. No decision — this is the item.",
-          "Variable Yield (Thermal Detonator): the dial exists and changes scale. Not a combat action — a narrative setting the GM adjudicates.",
-          "Proper Disguise (Disguise Kit): removes the gate on disguised Deception attempts. Zero gambits — the permission IS the value.",
+          "Zone Blast (Thermal Detonator): always uses AOE targeting, always targets Evasion, always resolves once for the whole zone. No decision \u2014 this is the item.",
+          "Variable Yield (Thermal Detonator): the dial exists and changes scale. Not a combat action \u2014 a narrative setting the GM adjudicates.",
+          "Proper Disguise (Disguise Kit): removes the gate on disguised Deception attempts. Zero gambits \u2014 the permission IS the value.",
           "Environmental Seal (Breath Mask): always active when worn. No toggle.",
-          "Ion Discharge (Ion Grenade): always-on rule about how ion damage resolves differently against organics vs. droids/cybernetics. No player decision — it is the item's physics."
+          "Ion Discharge (Ion Grenade): always-on rule about how ion damage resolves differently against organics vs. droids/cybernetics. No player decision \u2014 it is the item's physics."
         ],
         "antiPattern": "Do not use a trait for something the player should choose to activate. If it requires a decision each round, it is a gambit or maneuver, not a trait."
       },
       {
         "option": "Gambit",
         "use": "Optional cost-exchange techniques that fire on the use or attack action. Standard gambit: -1 Tier for an effect. Additional Cost gambit: item consumed + heavier costs for full effect preservation.",
-        "when": "Use a standard gambit when the item enables an alternate application of the same action — same roll, different outcome. Use the Additional Cost pattern when the item augments an existing skilled action without diminishing it, but the resource and positioning cost must be real.",
+        "when": "Use a standard gambit when the item enables an alternate application of the same action \u2014 same roll, different outcome. Use the Additional Cost pattern when the item augments an existing skilled action without diminishing it, but the resource and positioning cost must be real.",
         "examples": [
-          "Dead Drop (Thermal Detonator): -1 Tier, same throw action, different deployment mode — the device has a proximity trigger mode. Standard gear gambit.",
+          "Dead Drop (Thermal Detonator): -1 Tier, same throw action, different deployment mode \u2014 the device has a proximity trigger mode. Standard gear gambit.",
           "Field Dressing (Medpac): enhances Treat Injury with +1 Tier, item consumed + [Stimmed] +1. Augments existing rest-time healing action.",
-          "Combat Splice (Slicer Spike): one gambit, Additional Cost — the spike's brute-force bypass IS its entire identity. Fast, loud, single-use. One gambit is correct."
+          "Combat Splice (Slicer Spike): one gambit, Additional Cost \u2014 the spike's brute-force bypass IS its entire identity. Fast, loud, single-use. One gambit is correct."
         ],
-        "balanceCheck": "A standard gambit at D10 should deliver a single, immediate, narrow effect. A D12 gambit can be broader, longer-lasting, or action-economy-disrupting. An Additional Cost gambit should feel like spending a significant resource — if the cost does not hurt, the item is overtuned.",
-        "antiPattern": "Do not use a gambit for something that always applies (use a trait). Do not use a gambit for something that requires its own complete action sequence (use a maneuver). Do not create a gear gambit with no cost pattern — every gambit pays something."
+        "balanceCheck": "A standard gambit at D10 should deliver a single, immediate, narrow effect. A D12 gambit can be broader, longer-lasting, or action-economy-disrupting. An Additional Cost gambit should feel like spending a significant resource \u2014 if the cost does not hurt, the item is overtuned.",
+        "antiPattern": "Do not use a gambit for something that always applies (use a trait). Do not use a gambit for something that requires its own complete action sequence (use a maneuver). Do not create a gear gambit with no cost pattern \u2014 every gambit pays something."
       },
       {
         "option": "Discipline Maneuver",
         "use": "A named, structured action with a full Effect Track and roll. Maneuvers are introduced when a new item creates an entirely new class of action that has no existing discipline home.",
-        "when": "Introduce a new maneuver when: (1) the item's use does not map to any existing discipline, (2) the item requires its own Effect Track to express multiple levels of success, and (3) the action is repeatable across sessions — not a one-time-use item.",
+        "when": "Introduce a new maneuver when: (1) the item's use does not map to any existing discipline, (2) the item requires its own Effect Track to express multiple levels of success, and (3) the action is repeatable across sessions \u2014 not a one-time-use item.",
         "examples": [
-          "Combat Triage is NOT a new maneuver — it is a gambit on the existing Medicine maneuver. Medicine already handles trauma and conditions. The medpac augments it.",
+          "Combat Triage is NOT a new maneuver \u2014 it is a gambit on the existing Medicine maneuver. Medicine already handles trauma and conditions. The medpac augments it.",
           "A new Demolitions discipline could justify a Maneuver if the system were to support controlled charges, structural breaching, and sequential detonations as a repeatable class of action."
         ],
         "antiPattern": "Do not create a new maneuver for a single consumable item. Consumables are gambits or traits. Maneuvers belong to disciplines and characters, not gear."
       },
       {
         "option": "Damage Modification",
-        "use": "Adjusting the damage output of a weapon — either via customDamage (fixed values per tier) or fixedPowerDie (always roll a specified die regardless of the character's arena die).",
+        "use": "Adjusting the damage output of a weapon \u2014 either via customDamage (fixed values per tier) or fixedPowerDie (always roll a specified die regardless of the character's arena die).",
         "when": {
-          "customDamage": "Use when the item's damage is fixed at specific values independent of character investment. Appropriate for weapons that are equally deadly regardless of who fires them — legal, civilian, or purpose-built tools. Example: a blaster with unusual power cell chemistry that always hits a fixed value.",
-          "fixedPowerDie": "Use when the item's damage is variable but always uses a specific die — decoupled from the character's arena die. Appropriate for weapons whose destructive potential is intrinsic to the item, not the wielder's physique or training. Example: Thermal Detonator (2D12 take highest) — the baradium does not care who threw it."
+          "customDamage": "Use when the item's damage is fixed at specific values independent of character investment. Appropriate for weapons that are equally deadly regardless of who fires them \u2014 legal, civilian, or purpose-built tools. Example: a blaster with unusual power cell chemistry that always hits a fixed value.",
+          "fixedPowerDie": "Use when the item's damage is variable but always uses a specific die \u2014 decoupled from the character's arena die. Appropriate for weapons whose destructive potential is intrinsic to the item, not the wielder's physique or training. Example: Thermal Detonator (2D12 take highest) \u2014 the baradium does not care who threw it."
         },
         "fixedPowerDieRules": [
-          "The attack roll still uses the relevant Discipline + Arena dice (e.g., Ranged Reflex for the detonator throw). The character's skill determines accuracy — placement, timing, arc.",
+          "The attack roll still uses the relevant Discipline + Arena dice (e.g., Ranged Reflex for the detonator throw). The character's skill determines accuracy \u2014 placement, timing, arc.",
           "The power die is always the fixed value regardless of character stats. A novice and an expert both deal 2D12 on a successful hit.",
-          "Two dice take highest (2D12↑) is the system's representation of devastation with a safety floor. The second die prevents catastrophic low rolls on a weapon of mass destruction while preserving the ceiling.",
-          "The fixed power die renders on the weapon card as a stacked double-die icon with an up arrow — visually distinct from standard weapon damage tracks."
+          "Two dice take highest (2D12\u2191) is the system's representation of devastation with a safety floor. The second die prevents catastrophic low rolls on a weapon of mass destruction while preserving the ceiling.",
+          "The fixed power die renders on the weapon card as a stacked double-die icon with an up arrow \u2014 visually distinct from standard weapon damage tracks."
         ],
         "antiPattern": "Do not use fixedPowerDie for standard weapons. Most weapons should use chassis damage or customDamage, creating a clear link between character investment (arena die) and weapon output. fixedPowerDie is reserved for items that are dangerous independent of the wielder."
       }
     ],
     "balanceFramework": {
-      "question1": "Is this always on, or is it a choice? Always-on → Trait. Choice → Gambit or Maneuver.",
-      "question2": "Does it require its own roll, or does it fire on an existing roll? Its own roll → Maneuver. Fires on existing → Gambit or Trait.",
-      "question3": "Does it trade quality of the primary action for a side effect? Yes → Standard Gambit (-1 Tier). No → Additional Cost Gambit (item consumed + costs) or Trait.",
-      "question4": "Does it belong to the item, or does it belong to a discipline the character must master? Item → Weapon Gambit or Trait. Discipline + item → Maneuver-Attached Gambit (targetManeuver). Discipline only, item as prop → Cross-Maneuver Gambit (The Ultimatum Pattern).",
-      "question5": "Is the item's power intrinsic to the item or derived from the wielder? Intrinsic → fixedPowerDie. Derived → chassis or customDamage.",
-      "question6": "Is this a one-scene or one-use item? Yes → consumable flag, Additional Cost gambits appropriate. No → traits and standard gambits appropriate, maneuver possible."
+      "question1": "Is this always on, or is it a choice? Always-on \u2192 Trait. Choice \u2192 Gambit or Maneuver.",
+      "question2": "Does it require its own roll, or does it fire on an existing roll? Its own roll \u2192 Maneuver. Fires on existing \u2192 Gambit or Trait.",
+      "question3": "Does it trade quality of the primary action for a side effect? Yes \u2192 Standard Gambit (-1 Tier). No \u2192 Additional Cost Gambit (item consumed + costs) or Trait.",
+      "question4": "Does it belong to the item, or does it belong to a discipline the character must master? Item \u2192 Weapon Gambit or Trait. Discipline + item \u2192 Maneuver-Attached Gambit (targetManeuver). Discipline only, item as prop \u2192 Cross-Maneuver Gambit (The Ultimatum Pattern).",
+      "question5": "Is the item's power intrinsic to the item or derived from the wielder? Intrinsic \u2192 fixedPowerDie. Derived \u2192 chassis or customDamage.",
+      "question6": "Is this a one-scene or one-use item? Yes \u2192 consumable flag, Additional Cost gambits appropriate. No \u2192 traits and standard gambits appropriate, maneuver possible."
     },
     "newGearChecklist": [
       "Define the item's category (medical, explosive, tool, communication, survival, tech, weapon).",
@@ -649,58 +649,58 @@
       "If it has gambits: determine cost pattern (standard -1 Tier, Additional Cost, or Cross-Maneuver).",
       "If it is consumable: ensure at least one gambit uses the item-exhausted cost. Do not make consumables reusable through standard gambits.",
       "If the damage is intrinsic to the item (not the wielder): use fixedPowerDie. Confirm the render shows attack die / stacked power die.",
-      "Check [Stimmed X]: any medical consumable that clears Trauma must apply [Stimmed X+1]. This is non-negotiable — it is the compounding cost that prevents combat medicine from being free. Each point steps down Medicine Power die for future treatment.",
+      "Check [Stimmed X]: any medical consumable that clears Trauma must apply [Stimmed X+1]. This is non-negotiable \u2014 it is the compounding cost that prevents combat medicine from being free. Each point steps down Medicine Power die for future treatment.",
       "Ion damage rule: if adding any ion-type weapon, verify the trait correctly states: against organics without cybernetics, reduce Effect Tier by 1 and stun conditions never apply; against droids and cybernetically-augmented targets, full tier + stun applies.",
       "Assign tags accurately. Tags drive gambit inheritance (character talents that match item tags add their gambits to the weapon card). Incorrect tags break the system silently.",
-      "Set availability: 1 = common, 2 = restricted, 3 = rare, 4 = black market. The /X suffix means it cannot be legally purchased at all — only found or stolen."
+      "Set availability: 1 = common, 2 = restricted, 3 = rare, 4 = black market. The /X suffix means it cannot be legally purchased at all \u2014 only found or stolen."
     ],
     "designNotes": [
-      "The system's gear philosophy is: items are tools that extend what a skilled character can do, not shortcuts that bypass skill investment. A medpac in the hands of a non-medic should be useful but costly. In the hands of a field medic, it should be powerful — but the costs ensure it is never free.",
-      "The Thermal Detonator is the system's hardest gear item to balance: it is a consumable weapon with AOE, a fixedPowerDie, a Maneuver-Attached gambit (Dead Drop), and a Cross-Maneuver gambit (The Ultimatum). Use it as the reference case for complex gear — each of its capabilities maps to a different design pattern.",
-      "Gear should have narrative weight proportional to its mechanical weight. An encrypted comlink has no gambits — its value is entirely narrative and handled through descriptive traits. A thermal detonator has four gambits — every gambit reflects a real physical feature of the weapon. Do not add gambits to items that do not need them.",
+      "The system's gear philosophy is: items are tools that extend what a skilled character can do, not shortcuts that bypass skill investment. A medpac in the hands of a non-medic should be useful but costly. In the hands of a field medic, it should be powerful \u2014 but the costs ensure it is never free.",
+      "The Thermal Detonator is the system's hardest gear item to balance: it is a consumable weapon with AOE, a fixedPowerDie, a Maneuver-Attached gambit (Dead Drop), and a Cross-Maneuver gambit (The Ultimatum). Use it as the reference case for complex gear \u2014 each of its capabilities maps to a different design pattern.",
+      "Gear should have narrative weight proportional to its mechanical weight. An encrypted comlink has no gambits \u2014 its value is entirely narrative and handled through descriptive traits. A thermal detonator has four gambits \u2014 every gambit reflects a real physical feature of the weapon. Do not add gambits to items that do not need them.",
       "When converting source material gear, ask: what did this item do in the fiction? Then ask: which of the four expression options captures that faithfully? Resist the temptation to add gambits because the item 'should be cool.' Cool is in the trait. Gambits are for decisions.",
-      "The 'brute force' pattern (Slicer Spike): some items have a single gambit that IS the item's entire identity — fast, loud, unconventional. One gambit is not underpowered. It is honest.",
+      "The 'brute force' pattern (Slicer Spike): some items have a single gambit that IS the item's entire identity \u2014 fast, loud, unconventional. One gambit is not underpowered. It is honest.",
       "customEffectRows is the correct structure for AOE items that produce conditions or zone effects rather than numeric damage (Smoke Grenade). It renders as a labeled Effect Track in both the armory panel and GM view. Do not force a customDamage structure onto non-damage items.",
-      "Grenade pattern for future reference: all thrown AOE items use weaponProfile with discipline:ranged, arena:reflex, defense:evasion or static, and a range array. Zone Blast is always a Trait, not a gambit — it defines how the item works, not a choice the player makes. Gambits on grenades represent physical device features: trigger modes, attachment mechanisms, yield modifiers."
+      "Grenade pattern for future reference: all thrown AOE items use weaponProfile with discipline:ranged, arena:reflex, defense:evasion or static, and a range array. Zone Blast is always a Trait, not a gambit \u2014 it defines how the item works, not a choice the player makes. Gambits on grenades represent physical device features: trigger modes, attachment mechanisms, yield modifiers."
     ]
   },
   {
     "id": "destiny_pool",
     "name": "The Destiny Pool",
     "tag": "Meta-Currency",
-    "summary": "A shared pool of double-sided tokens representing the crew's collective reputation and moral standing. 2 tokens per player, any side up at campaign start. The ratio persists between sessions — it is a running ledger, not a mood ring.",
+    "summary": "A shared pool of double-sided tokens representing the crew's collective reputation and moral standing. 2 tokens per player, any side up at campaign start. The ratio persists between sessions \u2014 it is a running ledger, not a mood ring.",
     "setup": "Each player contributes 2 tokens at campaign start, placed any side up. A 4-player table has 8 tokens in the pool. The ratio never resets between sessions.",
     "karmaState": {
-      "note": "The current Hope/Toll ratio grants passive bonuses to social actions based on which side is dominant. Since each token flip shifts the difference by 2, thresholds are set at even intervals: ±2 for the small effect, ±4 for the full effect with penalty.",
+      "note": "The current Hope/Toll ratio grants passive bonuses to social actions based on which side is dominant. Since each token flip shifts the difference by 2, thresholds are set at even intervals: \u00b12 for the small effect, \u00b14 for the full effect with penalty.",
       "hopeDominant": "Hope leads by 2+ tokens: +1 Tier on Charm/Persuasion vs. honorable or neutral contacts.",
       "tollDominant": "Toll leads by 2+ tokens: +1 Tier on Intimidate/Deception vs. the underworld.",
-      "infamyPenalty": "When one side leads by 4 or more tokens, the dominant side also imposes a penalty on the opposite social approach. Soft Touch (Hope leads by 4+): −1 Tier on Intimidate/Deception. The Monster (Toll leads by 4+): −1 Tier on Charm/Persuasion."
+      "infamyPenalty": "When one side leads by 4 or more tokens, the dominant side also imposes a penalty on the opposite social approach. Soft Touch (Hope leads by 4+): \u22121 Tier on Intimidate/Deception. The Monster (Toll leads by 4+): \u22121 Tier on Charm/Persuasion."
     },
     "tapping": {
-      "rule": "Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene — they do not flip.",
+      "rule": "Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene \u2014 they do not flip.",
       "note": "Tapping is post-roll and guaranteed. It bypasses probability entirely. This is the same mechanic as Lever 2 (Tier Shifting), sourced from the shared pool rather than a personal resource."
     },
     "lockout": {
       "note": "The path to the dark is a steep drop. Redemption is a hard climb. The Lockout Rule enforces this asymmetry.",
-      "tollToHope": "A Toll token can only flip to Hope if it is currently untapped. Tap a dark token to survive a fight — the guilt of that method is sealed in. A sacrifice later in the scene cannot undo it.",
+      "tollToHope": "A Toll token can only flip to Hope if it is currently untapped. Tap a dark token to survive a fight \u2014 the guilt of that method is sealed in. A sacrifice later in the scene cannot undo it.",
       "hopeToToll": "A Hope token can flip to Toll regardless of tap state. A dark deed taints whether or not the character was focused. If a tapped Hope token falls, it immediately becomes a tapped Toll token."
     },
     "flipping": {
       "note": "Tokens flip only when the crew makes a profound moral choice that permanently alters their standing.",
-      "theFall": "Hope → Toll. An act of unmitigated cruelty with no tactical necessity: executing a prisoner, torture, abandoning innocents, betrayal for credits.",
-      "redemption": "Toll → Hope. Accepting a severe, concrete disadvantage to stay clean: sparing a villain who will return, surrendering a major payday, deliberately failing an objective to avoid crossing a moral line."
+      "theFall": "Hope \u2192 Toll. An act of unmitigated cruelty with no tactical necessity: executing a prisoner, torture, abandoning innocents, betrayal for credits.",
+      "redemption": "Toll \u2192 Hope. Accepting a severe, concrete disadvantage to stay clean: sparing a villain who will return, surrendering a major payday, deliberately failing an objective to avoid crossing a moral line."
     },
     "theCrossroads": {
       "trigger": "When a player declares an action that would trigger The Fall, the GM pauses before it resolves.",
       "intervention": "Any crewmate may intervene out-of-turn. They must tap an available Hope token and make a Social Maneuver (Charm, Persuasion, or Intimidate) against the acting player.",
-      "relent": "The acting player stands down. Because a Hope token was spent and the threat walks free, the crew immediately flips one Toll → Hope.",
-      "pullTheTrigger": "The acting player ignores the plea. The Fall resolves. Flip one Hope → Toll. The intervening player's Hope token remains tapped — they tried. The galaxy did not listen.",
-      "note": "The Crossroads only fires when an action would trigger The Fall. It does not pause every morally grey moment — only the line-crossing ones."
+      "relent": "The acting player stands down. Because a Hope token was spent and the threat walks free, the crew immediately flips one Toll \u2192 Hope.",
+      "pullTheTrigger": "The acting player ignores the plea. The Fall resolves. Flip one Hope \u2192 Toll. The intervening player's Hope token remains tapped \u2014 they tried. The galaxy did not listen.",
+      "note": "The Crossroads only fires when an action would trigger The Fall. It does not pause every morally grey moment \u2014 only the line-crossing ones."
     },
     "designNotes": [
-      "The pool is shared, not individual — it tracks the crew's collective moral ledger, not personal alignment. One character's atrocity is the whole table's problem.",
-      "The asymmetrical Lockout is intentional. Tapping a dark token makes it irredeemable for the session. Tapping a light token does not protect it from falling — you can be heroic and still lose your soul in the same scene.",
-      "The Crossroads is not a veto system. The acting player always has final say. The intervention mechanic exists to create a moment — to make the choice deliberate and witnessed rather than casual.",
+      "The pool is shared, not individual \u2014 it tracks the crew's collective moral ledger, not personal alignment. One character's atrocity is the whole table's problem.",
+      "The asymmetrical Lockout is intentional. Tapping a dark token makes it irredeemable for the session. Tapping a light token does not protect it from falling \u2014 you can be heroic and still lose your soul in the same scene.",
+      "The Crossroads is not a veto system. The acting player always has final say. The intervention mechanic exists to create a moment \u2014 to make the choice deliberate and witnessed rather than casual.",
       "Tapping either side should feel meaningful. A player spending a Hope token to survive a fight is burning a piece of the crew's light. A player spending a Toll token to press an advantage is leaning into who they are becoming. Neither should be mechanical filler."
     ]
   },
@@ -708,22 +708,22 @@
     "id": "modes_of_play",
     "name": "Modes of Play",
     "tag": "Core Framework",
-    "summary": "The game operates in three distinct modes: Combat, Challenge, and Narrative. All three use the same Fulcrum resolution math — the difference is structure, pacing, and which actions are available. Combat maneuvers (Attack, Dodge, Endure, Force offensive powers) are exclusive to Combat mode.",
+    "summary": "The game operates in three distinct modes: Combat, Challenge, and Narrative. All three use the same Fulcrum resolution math \u2014 the difference is structure, pacing, and which actions are available. Combat maneuvers (Attack, Dodge, Endure, Force offensive powers) are exclusive to Combat mode.",
     "modes": [
       {
         "mode": "Combat",
         "structure": "Structured rounds with dice-based initiative (Join Battle). Each character has a defined turn with Action, Maneuver, and Exploit pips. Defenses (Dodge, Endure, Resist) are free reactive rolls.",
-        "initiative": "Roll Tactics (Wits) for turn order. Control Die is stepped down by the highest enemy Tier in the scene. Power Die result = initiative slot (higher acts first). NPCs act at static Initiative (Tier + Wits×2 + Mods). Failed Control (1-3): PC is surprised ([Disoriented] + [Exposed]). Control 8+: PC designates one enemy as surprised ([Disoriented] + [Exposed]).",
+        "initiative": "Roll Tactics (Wits) for turn order. Control Die is stepped down by the highest enemy Tier in the scene. Power Die result = initiative slot (higher acts first). NPCs act at static Initiative (Tier + Wits\u00d72 + Mods). Failed Control (1-3): PC is surprised ([Disoriented] + [Exposed]). Control 8+: PC designates one enemy as surprised ([Disoriented] + [Exposed]).",
         "availableActions": "All universal actions, Force maneuvers, discipline gambits, weapon attacks, Defenses (Dodge, Endure, Resist), Exploits. The full tactical toolkit.",
         "resolution": "Discipline roll vs target Defense or Evasion (contested). Power die determines damage/effect magnitude.",
         "when": "Violence has broken out or is about to. The situation demands tactical precision and turn-by-turn accountability."
       },
       {
         "mode": "Challenge",
-        "structure": "Structured rounds with sequential order. The GM picks who acts each round — no dice-based initiative. Each player gets 1 meaningful action per round.",
+        "structure": "Structured rounds with sequential order. The GM picks who acts each round \u2014 no dice-based initiative. Each player gets 1 meaningful action per round.",
         "initiative": "None. The GM directs the sequence based on narrative logic and dramatic pacing.",
         "availableActions": "Discipline rolls, Assess, Interact, Coordinate, Command Beast, [Narrative]-tagged gambits. No Attack, Dodge, Endure, or Force offensive maneuvers. Combat maneuvers are off the table.",
-        "resolution": "Discipline roll vs GM-set Presence (Control resistance) and Power resistance. The same Fulcrum math applies — net result determines tier.",
+        "resolution": "Discipline roll vs GM-set Presence (Control resistance) and Power resistance. The same Fulcrum math applies \u2014 net result determines tier.",
         "when": "A tense, time-pressured situation that is not combat: a chase, a heist, a collapsing building, a social confrontation with structured stakes, a ticking-clock puzzle. The situation has rounds because timing and sequence matter, but no one is swinging a weapon.",
         "roundStructure": "Each round, the GM describes the evolving situation, then calls on each player in turn. The player declares their action, the GM sets the resistance, and the roll resolves. After all players have acted, the GM advances the situation (the timer ticks, the building shifts, the NPC responds)."
       },
@@ -774,11 +774,11 @@
       "Travel Hazard: Survival (Grit) vs Presence 2 to navigate a toxic swamp. Fleeting = you find the path but take 1 Vitality from exposure. Masterful = clean passage, you also identify medicinal plants along the route."
     ],
     "designNotes": [
-      "The three modes share the same resolution engine. A Charm roll in Narrative mode uses the same math as a Charm roll in Challenge mode — the only difference is whether the GM imposes round structure.",
+      "The three modes share the same resolution engine. A Charm roll in Narrative mode uses the same math as a Charm roll in Challenge mode \u2014 the only difference is whether the GM imposes round structure.",
       "Challenge mode exists for scenes that need structure but not violence. A heist has rounds because timing matters. A bar conversation does not. The GM chooses the mode based on whether sequence and pacing are mechanically relevant.",
       "Combat maneuvers are mode-locked to Combat. Attack, Dodge, Endure, Resist, and Force offensive powers require the tactical infrastructure of initiative, action economy, and reactive mechanics. Pulling them out of that context breaks the assumptions they are built on.",
-      "The GM sets Presence based on the caliber of skill required, not the character's level. Presence 2 is 'demands real expertise' regardless of whether the party is level 1 or level 10. The characters grow into the challenges — the challenges do not scale to the characters.",
-      "Challenge mode's 1-action-per-round constraint prevents analysis paralysis and ensures every player contributes meaningfully. It also makes each action feel weighty — you get one shot per round to move the needle."
+      "The GM sets Presence based on the caliber of skill required, not the character's level. Presence 2 is 'demands real expertise' regardless of whether the party is level 1 or level 10. The characters grow into the challenges \u2014 the challenges do not scale to the characters.",
+      "Challenge mode's 1-action-per-round constraint prevents analysis paralysis and ensures every player contributes meaningfully. It also makes each action feel weighty \u2014 you get one shot per round to move the needle."
     ]
   },
   {
@@ -787,11 +787,11 @@
     "tag": "Reactive Economy",
     "summary": "The reactive action economy governs what happens outside your turn. Openings are moments of vulnerability. Exploits are offensive reactions that cost your Exploit pip. Defenses are free reactive rolls you make when attacked.",
     "openings": {
-      "definition": "An Opening is a moment of vulnerability — a gap in a target's guard that allows a reactive response. Openings are presented by the fiction, not declared by the reacting character.",
+      "definition": "An Opening is a moment of vulnerability \u2014 a gap in a target's guard that allows a reactive response. Openings are presented by the fiction, not declared by the reacting character.",
       "systemSources": [
         "Move when Engaged: failing to disengage presents an Opening to all enemies in your Engaged Zone.",
         "Ranged attack while Engaged: firing a ranged weapon while Engaged presents an Opening to all enemies in your Engaged Zone.",
-        "Treat Injury in Combat: administering medical treatment during combat presents an Opening — you are distracted and vulnerable."
+        "Treat Injury in Combat: administering medical treatment during combat presents an Opening \u2014 you are distracted and vulnerable."
       ],
       "otherSources": [
         "Discipline gambits (e.g. Exposing Strike) can create Openings as part of their effect.",
@@ -799,17 +799,17 @@
         "Conditions (e.g. [Suppressed]) can present Openings on specific actions.",
         "GM adjudication: the GM may rule that specific narrative circumstances present an Opening."
       ],
-      "scopeModel": "Openings are not paired to specific Exploits. When an Opening is presented, any character who can perceive it and has an Exploit pip available may react — the response is not limited to a specific type of attack or ability."
+      "scopeModel": "Openings are not paired to specific Exploits. When an Opening is presented, any character who can perceive it and has an Exploit pip available may react \u2014 the response is not limited to a specific type of attack or ability."
     },
     "exploits": {
       "definition": "An Exploit is an offensive reaction taken when an Opening is presented. It costs 1 Exploit pip per round.",
-      "defaultExploit": "When an Opening is presented, spend your Exploit pip to make a Basic attack against the target at -1 Effect Tier. This works at any range — melee, ranged, or Force — as long as the character can target the enemy.",
+      "defaultExploit": "When an Opening is presented, spend your Exploit pip to make a Basic attack against the target at -1 Effect Tier. This works at any range \u2014 melee, ranged, or Force \u2014 as long as the character can target the enemy.",
       "cost": "1 Exploit pip per round. Each character starts with 1 Exploit pip. Some kit abilities increase this maximum.",
       "pipLabel": "E",
-      "restrictions": "You must be able to perceive the Opening and have a valid attack against the target. The -1 Effect Tier penalty applies to the Default Exploit only — kit-granted Exploits may modify or remove this penalty."
+      "restrictions": "You must be able to perceive the Opening and have a valid attack against the target. The -1 Effect Tier penalty applies to the Default Exploit only \u2014 kit-granted Exploits may modify or remove this penalty."
     },
     "defenses": {
-      "definition": "Defenses are free reactive rolls made when you are targeted by an attack. They do not cost your Exploit pip — Exploit pips are reserved for offensive reactions only.",
+      "definition": "Defenses are free reactive rolls made when you are targeted by an attack. They do not cost your Exploit pip \u2014 Exploit pips are reserved for offensive reactions only.",
       "types": [
         {
           "name": "Dodge",
@@ -836,12 +836,12 @@
         "maneuver": 1,
         "exploit": 1
       },
-      "note": "Hero Tier progression increases Exploit pip maximums: HT2 (Veteran, 55 marks) grants 2E per round, HT5 (The Name, 150 marks) grants 3E per round. The Exploit pip is consumed only by offensive reactions — Defenses never cost a pip."
+      "note": "Hero Tier progression increases Exploit pip maximums: HT2 (Veteran, 55 marks) grants 2E per round, HT5 (The Name, 150 marks) grants 3E per round. The Exploit pip is consumed only by offensive reactions \u2014 Defenses never cost a pip."
     },
     "designNotes": [
       "The separation of Openings (conditions), Exploits (offensive reactions), and Defenses (free reactive rolls) creates clean decision points: when you are attacked, you always defend. When an enemy is vulnerable, you choose whether to spend your Exploit pip.",
-      "The Default Exploit's -1 Effect Tier penalty ensures that reactive attacks are weaker than deliberate ones. Kit-granted Exploits can modify this baseline — that is the primary way kits interact with the reactive economy.",
-      "Defenses being free means combat always has back-and-forth. The GM never rolls dice — when a threat attacks a PC, the PC always rolls a Defense. This keeps players engaged on every attack, not just their own turn."
+      "The Default Exploit's -1 Effect Tier penalty ensures that reactive attacks are weaker than deliberate ones. Kit-granted Exploits can modify this baseline \u2014 that is the primary way kits interact with the reactive economy.",
+      "Defenses being free means combat always has back-and-forth. The GM never rolls dice \u2014 when a threat attacks a PC, the PC always rolls a Defense. This keeps players engaged on every attack, not just their own turn."
     ]
   },
   {
@@ -850,9 +850,9 @@
     "name": "Dual Wielding",
     "tag": "System Rule",
     "summary": "Wielding two weapons simultaneously trades accuracy for power. Specialists (via Vocations) can overcome the accuracy penalty.",
-    "mechanic": "When a character attacks while wielding two weapons of any type: Step down the Control die (reduced accuracy — splitting focus between two weapons). Step up the Power die (increased force — volume of fire or dual impact). Both weapons spend ammo or durability on each attack. Gambits from either equipped weapon may be declared on the attack.",
+    "mechanic": "When a character attacks while wielding two weapons of any type: Step down the Control die (reduced accuracy \u2014 splitting focus between two weapons). Step up the Power die (increased force \u2014 volume of fire or dual impact). Both weapons spend ammo or durability on each attack. Gambits from either equipped weapon may be declared on the attack.",
     "designNotes": [
-      "Dual wielding is a risk/reward tradeoff at the system level: higher ceiling (stepped-up Power), lower floor (stepped-down Control). The net result is more volatile — you hit harder when you connect but connect less often.",
+      "Dual wielding is a risk/reward tradeoff at the system level: higher ceiling (stepped-up Power), lower floor (stepped-down Control). The net result is more volatile \u2014 you hit harder when you connect but connect less often.",
       "Vocation abilities (e.g. Akimbo from The Gunslinger) can remove the Control die step-down, making dual wielding purely beneficial for the specialist. This is the primary incentive for investing in a dual-wield-capable Vocation.",
       "Dual wielding does not grant extra attacks. It modifies the single attack action. Extra attacks come from Exploits, gambits, or specific Vocation abilities.",
       "The 'both weapons spend ammo' cost ensures dual wielding has resource pressure even when optimized."
@@ -863,14 +863,14 @@
     "number": 13,
     "name": "Concealment",
     "tag": "System Rule",
-    "summary": "Visual obscurity that makes targets harder to pin down. Unlike Cover, concealment does not physically stop attacks — it disrupts targeting.",
-    "mechanic": "Concealment represents visual obscurity — smoke, darkness, dense foliage, crowd cover. When attacking a concealed target, the attack cannot benefit from [Optimized]. Concealment can be negated by technology (thermal optics, sensor suites, enhanced visor modes on trooper helmets, etc.).",
-    "concealmentVsCover": "Cover (the [Cover X] condition) physically blocks incoming fire by reducing attacker Power (PC) or increasing Defense (NPC). Concealment disrupts targeting but does not reduce damage. A character can benefit from both simultaneously — behind a barricade ([Cover 3]) in a smoke-filled room (concealment).",
-    "targetSpecific": "Concealment from Vocation abilities (e.g. Slip, Vanishing Act) is target-specific — you are concealed from a particular enemy, not from the entire battlefield. Environmental concealment (smoke, darkness) is zone-wide and applies to all targets.",
+    "summary": "Visual obscurity that makes targets harder to pin down. Unlike Cover, concealment does not physically stop attacks \u2014 it disrupts targeting.",
+    "mechanic": "Concealment represents visual obscurity \u2014 smoke, darkness, dense foliage, crowd cover. When attacking a concealed target, the attack cannot benefit from [Optimized]. Concealment can be negated by technology (thermal optics, sensor suites, enhanced visor modes on trooper helmets, etc.).",
+    "concealmentVsCover": "Cover (the [Cover X] condition) physically blocks incoming fire by reducing attacker Power (PC) or increasing Defense (NPC). Concealment disrupts targeting but does not reduce damage. A character can benefit from both simultaneously \u2014 behind a barricade ([Cover 3]) in a smoke-filled room (concealment).",
+    "targetSpecific": "Concealment from Vocation abilities (e.g. Slip, Vanishing Act) is target-specific \u2014 you are concealed from a particular enemy, not from the entire battlefield. Environmental concealment (smoke, darkness) is zone-wide and applies to all targets.",
     "designNotes": [
-      "Concealment's baseline effect is deliberately light — stripping [Optimized] from attackers. This prevents aim-based setups from working but does not penalize baseline attacks. Vocation abilities (The Ghost) are what make concealment mechanically powerful.",
+      "Concealment's baseline effect is deliberately light \u2014 stripping [Optimized] from attackers. This prevents aim-based setups from working but does not penalize baseline attacks. Vocation abilities (The Ghost) are what make concealment mechanically powerful.",
       "Target-specific concealment from Vocation abilities creates interesting tactical decisions: you may be concealed from the enemy you Slipped, but their ally across the room sees you just fine.",
-      "Technology negating concealment is thematically important for Star Wars — stormtrooper helmets, droid sensors, and bounty hunter gear should all counter darkness and smoke. This keeps concealment situational rather than universally dominant."
+      "Technology negating concealment is thematically important for Star Wars \u2014 stormtrooper helmets, droid sensors, and bounty hunter gear should all counter darkness and smoke. This keeps concealment situational rather than universally dominant."
     ]
   },
   {
@@ -878,8 +878,8 @@
     "number": 14,
     "name": "Hero Tier",
     "tag": "Character Progression",
-    "summary": "As characters accumulate career marks across adventures, they cross Hero Tier thresholds that grant permanent meta-progression benefits. These are not abilities — they are expansions of what the character can do per round, how efficiently they spend resources, and how the galaxy recognizes them.",
-    "mechanic": "Hero Tier is determined by total career marks earned (cumulative across all adventures). Each threshold grants a permanent benefit. Benefits are cumulative — a character at HT3 has HT1, HT2, and HT3 benefits.",
+    "summary": "As characters accumulate career marks across adventures, they cross Hero Tier thresholds that grant permanent meta-progression benefits. These are not abilities \u2014 they are expansions of what the character can do per round, how efficiently they spend resources, and how the galaxy recognizes them.",
+    "mechanic": "Hero Tier is determined by total career marks earned (cumulative across all adventures). Each threshold grants a permanent benefit. Benefits are cumulative \u2014 a character at HT3 has HT1, HT2, and HT3 benefits.",
     "tiers": [
       {
         "tier": 0,
@@ -893,7 +893,7 @@
         "name": "Survivor",
         "threshold": 30,
         "benefit": "Adaptability. One-time respec: step down any single arena die to step up a lower arena die, OR step down any discipline die to step up a lower discipline die, OR reduce one vocation tier to increase another vocation you already possess by one tier. Does not bypass discipline gates. This fires once, when the character first crosses 30 career marks during an advancement phase.",
-        "designNote": "By 30 marks the player knows what they actually want their character to be. The system gives them a course correction — narratively, they have been out in the galaxy long enough to know who they really are."
+        "designNote": "By 30 marks the player knows what they actually want their character to be. The system gives them a course correction \u2014 narratively, they have been out in the galaxy long enough to know who they really are."
       },
       {
         "tier": 2,
@@ -901,7 +901,7 @@
         "threshold": 55,
         "benefit": "+1 Exploit pip (2E per round). The character has seen enough fights that their body responds before their brain catches up.",
         "exploitPips": 2,
-        "designNote": "The action economy opens up. Multi-vocation builds come online — a character can now Reflect a bolt and Exploit a Vornskyr Opening in the same round."
+        "designNote": "The action economy opens up. Multi-vocation builds come online \u2014 a character can now Reflect a bolt and Exploit a Vornskyr Opening in the same round."
       },
       {
         "tier": 3,
@@ -921,16 +921,16 @@
         "tier": 5,
         "name": "The Name",
         "threshold": 150,
-        "benefit": "+1 Exploit pip (3E per round). Choose one Arena — all disciplines that use that arena as their Power die are treated as Favored Disciplines (eligible for Unleashed exploding dice and Edge spend rerolls). The player chooses a personal moniker — they have earned the right to name themselves.",
+        "benefit": "+1 Exploit pip (3E per round). Choose one Arena \u2014 all disciplines that use that arena as their Power die are treated as Favored Disciplines (eligible for Unleashed exploding dice and Edge spend rerolls). The player chooses a personal moniker \u2014 they have earned the right to name themselves.",
         "exploitPips": 3,
         "customMoniker": true,
-        "designNote": "Domain mastery. If you choose Physique, then Melee, Endure, Brawl, Athletics — every discipline rolling Physique as Power — all become favored. Combined with HT4 double-reroll, every Edge spend on that arena is devastating."
+        "designNote": "Domain mastery. If you choose Physique, then Melee, Endure, Brawl, Athletics \u2014 every discipline rolling Physique as Power \u2014 all become favored. Combined with HT4 double-reroll, every Edge spend on that arena is devastating."
       }
     ],
     "designNotes": [
-      "Marks have diminishing returns — track level escalation means each successive advance costs more marks. Early marks are efficient, late marks are expensive. The Hero Tier thresholds (30/55/80/115/150) reflect this: front-loaded gaps match the mark-to-power efficiency curve.",
+      "Marks have diminishing returns \u2014 track level escalation means each successive advance costs more marks. Early marks are efficient, late marks are expensive. The Hero Tier thresholds (30/55/80/115/150) reflect this: front-loaded gaps match the mark-to-power efficiency curve.",
       "Each tier hits a different system lever: respec (HT1), action economy (HT2), narrative identity (HT3), resource efficiency (HT4), action economy + discipline scope (HT5). No two tiers feel the same.",
-      "The Exploit pip increases at HT2 and HT5 are the primary action economy expansions in the entire system. They are deliberately rare — going from 1E to 2E is a massive power spike.",
+      "The Exploit pip increases at HT2 and HT5 are the primary action economy expansions in the entire system. They are deliberately rare \u2014 going from 1E to 2E is a massive power spike.",
       "HT5's arena-wide Favored status is the capstone because it breaks the fundamental assumption that Favored status is discipline-specific. It turns a specialist into a domain master."
     ]
   },
@@ -941,8 +941,8 @@
     "tag": "Character Progression",
     "summary": "Vocations are 5-tier ability trees that define a character's combat and narrative identity. Each Vocation grants a favored discipline, Edge spending permissions, and a progression of abilities from Tier 1 to Tier 5. Background phases also grant favored disciplines.",
     "mechanic": "Each Vocation has 5 tiers, purchased 1 point per tier. Characters start with a 5-point creation budget. Tier access is capped by the character's discipline die in the Vocation's favored discipline: D6 = Tier 2 max, D8 = Tier 3 max, D10 = Tier 4 max, D12 = Tier 5 max. There is no limit on the number of Vocations a character may invest in.",
-    "favoredDiscipline": "Favored disciplines come from two sources: Background (one from each phase during character creation) and Vocations (one per Vocation at Tier 1). This is the key to the Unleashed mechanic — the favored discipline's die explodes (on max result, reroll and add). Additionally, the character may spend 1 Edge to reroll either their Control die or their Power die on any roll using a favored discipline. Background favored disciplines follow the same rules as Vocation favored disciplines.",
-    "edgeEngine": "Edge pool max = highest governing arena die across Vocations. Reroll: Spend 1 Edge after a roll to reroll either your Control die or your Power die. Favored Disciplines only. At Hero Tier 4 (Heavy Hitter, 115 marks), Edge spend rerolls BOTH Control and Power — keep the best of each independently.",
+    "favoredDiscipline": "Favored disciplines come from two sources: Background (one from each phase during character creation) and Vocations (one per Vocation at Tier 1). This is the key to the Unleashed mechanic \u2014 the favored discipline's die explodes (on max result, reroll and add). Additionally, the character may spend 1 Edge to reroll either their Control die or their Power die on any roll using a favored discipline. Background favored disciplines follow the same rules as Vocation favored disciplines.",
+    "edgeEngine": "Edge pool max = highest governing arena die across Vocations. Reroll: Spend 1 Edge after a roll to reroll either your Control die or your Power die. Favored Disciplines only. At Hero Tier 4 (Heavy Hitter, 115 marks), Edge spend rerolls BOTH Control and Power \u2014 keep the best of each independently.",
     "abilityTypes": {
       "passive": "Always-on permissions or conditional triggers. No action cost.",
       "gambit": "Active choice during play. Spend 1 tier from a roll result to gain an additional effect. Requires a decision point.",
@@ -951,7 +951,7 @@
       "permission": "A rare, powerful ability that grants a unique narrative or mechanical permission. Usually once per scene or once per Act."
     },
     "designNotes": [
-      "Tier 1 abilities define the Vocation's identity and should make the character feel competent immediately. They are not just 'favored discipline' — that permission is baked into every Vocation. Tier 1 is the first real mechanical ability.",
+      "Tier 1 abilities define the Vocation's identity and should make the character feel competent immediately. They are not just 'favored discipline' \u2014 that permission is baked into every Vocation. Tier 1 is the first real mechanical ability.",
       "The 5-tier structure allows meaningful progression without bloat. A starting character at Tier 3 has a clear identity and toolkit. Tiers 4-5 are mid-to-late game power spikes gated by discipline die advancement.",
       "Ability type variety prevents passive bloat. Each Vocation should mix passives, gambits, maneuvers, exploits, and/or permissions to create active decision points during play.",
       "Vocations interact with the existing systems (Openings, Exploits, Defenses, Conditions) rather than creating parallel mechanics. This keeps the core resolution math intact while layering specialist capabilities on top."
@@ -962,9 +962,9 @@
     "number": 16,
     "name": "Starship Combat",
     "tag": "System Rule",
-    "summary": "Starship combat governs space combat encounters using the same Fulcrum resolution math as character combat — adapted for crew stations aboard a starship. Ship combat runs as Challenge Mode: one meaningful action per crew member per round, free defensive reactions. Hardware dice replace personal Power dice. System impairment mirrors the character trauma/impairment model.",
-    "mode": "Challenge",
-    "modeNote": "Starship combat uses Challenge Mode structure. Each crew member gets one meaningful action per round. The GM calls on stations in dramatic order. Defensive reactions (Evade, Angle Deflector Shields, Resist, Countermeasures) are free and do not consume the station's action.",
+    "summary": "Starship combat governs space combat encounters using the same Fulcrum resolution math as character combat \u2014 adapted for crew stations aboard a starship. Initiative is rolled identically to character combat (Tactics or Wits Join Battle), with one slot per PC and one slot per enemy hull. Hardware dice replace personal Power dice. System impairment mirrors the character trauma/impairment model.",
+    "mode": "Combat (Initiative parity with character combat)",
+    "modeNote": "Starship combat runs on the same initiative spine as character combat. Each PC rolls Tactics (Wits) as a Join Battle to determine their slot in the round; each enemy ship gets one static slot (NPC initiative = Tier + Wits\u00d72 + Mods). On a multi-station PC ship, every PC keeps their own slot \u2014 the Pilot acts on the Pilot's slot, the Gunner on the Gunner's slot, etc. \u2014 so each PC plays one meaningful action per round exactly like personal combat. Defensive reactions (Evade, Angle Deflector Shields, Resist, Countermeasures) are free and do not consume the station's slot.",
     "scale": {
       "rule": "When ships of different sizes engage, Scale modifies the dice. Larger target = step up attacker's Control die, step down attacker's Power die (easier to hit, harder to damage meaningfully). Smaller target = step down attacker's Control die, step up attacker's Power die (harder to hit, but devastating if it connects).",
       "categories": [
@@ -994,8 +994,9 @@
           "examples": "Imperial Star Destroyer, MC80, Venator"
         }
       ],
-      "modifierPerStep": "Per step of Scale difference: +1 step to Control die toward the larger target, -1 step to Power die. Reverse when targeting smaller. Example: a Starfighter (Scale 1) attacking a Corvette (Scale 3) = 2 Scale steps difference → Control stepped up twice (easy to hit), Power stepped down twice (hard to hurt).",
-      "designNote": "Scale ensures that a lone starfighter cannot casually destroy a capital ship through raw dice. The Control bonus means you will hit — the Power penalty means your hits barely scratch the hull. Conversely, a capital ship's turbolaser can obliterate a starfighter with a single hit, but tracking the small target is the challenge."
+      "modifierPerStep": "Per step of Scale difference: +1 step to Control die toward the larger target, -1 step to Power die. Reverse when targeting smaller. Example: a Starfighter (Scale 1) attacking a Corvette (Scale 3) = 2 Scale steps difference \u2192 Control stepped up twice (easy to hit), Power stepped down twice (hard to hurt).",
+      "designNote": "Scale ensures that a lone starfighter cannot casually destroy a capital ship through raw dice. The Control bonus means you will hit \u2014 the Power penalty means your hits barely scratch the hull. Conversely, a capital ship's turbolaser can obliterate a starfighter with a single hit, but tracking the small target is the challenge.",
+      "lexicon": "Canonical Scale lexicon (per gamesystem): Character (Scale 0, personal combat), Vehicle (Scale 1, Starfighters and atmospheric craft), Starship (Scales 2\u20133, Patrol Craft through Corvette), Capital (Scales 4\u20135, Frigate through Capital Ship), Station (Scale 6+, large fixed installations \u2014 combat-irrelevant for PC scale, treated as terrain). The Scale categories below are the in-fiction vessel examples; the Character/Vehicle/Starship/Capital/Station band names are the rulebook lexicon."
     },
     "stations": {
       "note": "Each crew member occupies one station. A station defines which discipline provides the Control die and which hardware system provides the Power die. Stations are detailed in starship-stations.json.",
@@ -1033,7 +1034,7 @@
       ]
     },
     "hardwareDice": {
-      "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems, not the character's personal arena die. A character's discipline die still serves as the Control die — their personal skill matters. The hardware die replaces the arena die as the Power die.",
+      "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems, not the character's personal arena die. A character's discipline die still serves as the Control die \u2014 their personal skill matters. The hardware die replaces the arena die as the Power die.",
       "systems": [
         "Handling",
         "Engines",
@@ -1045,10 +1046,10 @@
     },
     "integrity": {
       "rule": "Integrity is the ship's equivalent of Vitality. When a ship takes hull damage, Integrity decreases. At 0 Integrity, the ship is destroyed or disabled (GM determines based on narrative).",
-      "hullRating": "Hull Rating is the soak value per impairment. Each system impairment absorbs UP TO Hull Rating points of damage. Excess damage beyond Hull Rating is wasted — the system took its hit, nothing more. On a Hull 2 ship, each impairment absorbs exactly 2 damage. Capital ships with high Hull Ratings soak each hit fully, but must spend entire impairments even on small hits — swarm tactics exploit this by forcing multiple small impairments that each waste soak capacity."
+      "hullRating": "Hull Rating is the soak value per impairment. Each system impairment absorbs UP TO Hull Rating points of damage. Excess damage beyond Hull Rating is wasted \u2014 the system took its hit, nothing more. On a Hull 2 ship, each impairment absorbs exactly 2 damage. Capital ships with high Hull Ratings soak each hit fully, but must spend entire impairments even on small hits \u2014 swarm tactics exploit this by forcing multiple small impairments that each waste soak capacity."
     },
     "systemImpairment": {
-      "rule": "System impairment is the starship mirror of character trauma. When a ship takes damage that exceeds its Hull Rating, the crew may choose to impair a system to soak the excess damage. This is a player choice — exactly like choosing to take a Trauma in character combat.",
+      "rule": "System impairment is the starship mirror of character trauma. When a ship takes damage that exceeds its Hull Rating, the crew may choose to impair a system to soak the excess damage. This is a player choice \u2014 exactly like choosing to take a Trauma in character combat.",
       "levels": [
         {
           "level": "Impaired",
@@ -1073,13 +1074,13 @@
           "name": "Evade",
           "station": "Pilot",
           "discipline": "Piloting (Reflex) + Handling",
-          "description": "The ship's Dodge equivalent. On success, Power die result reduces attacker's Effect Tier. On failure, no mitigation — full effect lands. On Control 8+, the evasion generates an Opening for the ship's Gunners. When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the pursuer knows the ship's evasion patterns."
+          "description": "The ship's Dodge equivalent. On success, Power die result reduces attacker's Effect Tier. On failure, no mitigation \u2014 full effect lands. On Control 8+, the evasion generates an Opening for the ship's Gunners. When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] \u2014 the pursuer knows the ship's evasion patterns."
         },
         {
           "name": "Angle Deflector Shields",
           "station": "Operator",
           "discipline": "Tech (Wits) + Shields",
-          "description": "The ship's Endure equivalent. The Operator angles the shield envelope to absorb incoming fire. On success, the Shields Power die result reduces the attacker's Effect Tier. On failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection (same as character Endure)."
+          "description": "The ship's Endure equivalent. The Operator angles the shield envelope to absorb incoming fire. On success, the Shields Power die result reduces the attacker's Effect Tier. On failure, reduces the attacker's Effect Tier by 1 \u2014 the shields always provide a minimum floor of protection (same as character Endure)."
         },
         {
           "name": "Resist",
@@ -1091,51 +1092,51 @@
       "choiceRule": "When the ship is attacked with physical weapons, the crew chooses between Evade (Pilot rolls, no floor on failure) or Angle Deflector Shields (Operator rolls, floor on failure). When attacked with electronic/ion weapons, Resist applies passively. This mirrors the character Dodge vs Endure choice exactly."
     },
     "dogfight": {
-      "rule": "Dogfight is the starship equivalent of melee grapple. When a Pilot uses the Dogfight action against a target in their zone, both ships become engaged — locked in the same zone in a close-quarters positional contest. The Dogfight winner declares intent: press the attack (establish [Locked On]) or break free (clear [Locked On], move 1 zone). Dogfight is resolved as Piloting (Reflex) vs the target's Piloting defense, with Handling as the Power die.",
+      "rule": "Dogfight is the starship equivalent of melee grapple. When a Pilot uses the Dogfight action against a target in their zone, both ships become engaged \u2014 locked in the same zone in a close-quarters positional contest. The Dogfight winner declares intent: press the attack (establish [Locked On]) or break free (clear [Locked On], move 1 zone). Dogfight is resolved as Piloting (Reflex) vs the target's Piloting defense, with Handling as the Power die.",
       "engagement": {
         "entering": "Using the Dogfight action against a target in your zone begins the engagement. Both ships are now locked in the same zone.",
-        "constraints": "While engaged in a Dogfight: the Pilot CANNOT use Fly (locked in zone) or Attack Run (pre-engagement action only). The Pilot CAN use Dogfight (press or disengage), Evasive Maneuvers (survival — concedes positional contest), or Terrain Run (exploit environment — concedes positional contest). The Evade reaction is always available.",
+        "constraints": "While engaged in a Dogfight: the Pilot CANNOT use Fly (locked in zone) or Attack Run (pre-engagement action only). The Pilot CAN use Dogfight (press or disengage), Evasive Maneuvers (survival \u2014 concedes positional contest), or Terrain Run (exploit environment \u2014 concedes positional contest). The Evade reaction is always available.",
         "stuckUntilYouWin": "To disengage from a Dogfight, the Pilot must win a Dogfight and choose the disengage option. There is no separate Disengage action.",
         "gunnerIndependence": "Gunners act independently on their own turns regardless of the Pilot's Dogfight choices. They can fire at targets in range. Gunners receive Dogfight positioning bonuses ([Locked On] buffs, Openings) only when the Pilot actively presses the Dogfight."
       },
       "lockedOn": {
         "rule": "[Locked On] is one-directional, single target. A ship can only have [Locked On] on one target at a time. Any number of ships can have [Locked On] on the same target.",
         "effects": "The locked-on ship's Evade reactions are [Weakened] against the locking ship. The locking ship's Gunners gain [Optimized] against the locked-on target. These effects apply whenever [Locked On] is active, regardless of what action the locking Pilot takes on their turn.",
-        "clearing": "Cleared when the locked-on ship wins a Dogfight and chooses the disengage option, or when the locking Pilot takes an action that abandons the engagement (Evasive Maneuvers or Terrain Run while not in a Dogfight — i.e., the locking ship chose to stop pursuing). [Locked On] is NOT cleared when the locking Pilot takes Evasive Maneuvers or Terrain Run inside a Dogfight — both ships are still in the engagement zone and the lock persists. The locking Pilot concedes the positional contest for that round but does not lose the lock.",
-        "lockingPilotSurvivalActions": "If the locking Pilot uses Evasive Maneuvers or Terrain Run inside a Dogfight, [Locked On] persists (both ships are still in the engagement zone), but the Gunners do not receive Openings that round since the Pilot chose survival over pressing the advantage. [Locked On]'s passive effects ([Weakened] Evade, [Optimized] Gunners) remain active — the lock was established and has not been broken."
+        "clearing": "Cleared when the locked-on ship wins a Dogfight and chooses the disengage option, or when the locking Pilot takes an action that abandons the engagement (Evasive Maneuvers or Terrain Run while not in a Dogfight \u2014 i.e., the locking ship chose to stop pursuing). [Locked On] is NOT cleared when the locking Pilot takes Evasive Maneuvers or Terrain Run inside a Dogfight \u2014 both ships are still in the engagement zone and the lock persists. The locking Pilot concedes the positional contest for that round but does not lose the lock.",
+        "lockingPilotSurvivalActions": "If the locking Pilot uses Evasive Maneuvers or Terrain Run inside a Dogfight, [Locked On] persists (both ships are still in the engagement zone), but the Gunners do not receive Openings that round since the Pilot chose survival over pressing the advantage. [Locked On]'s passive effects ([Weakened] Evade, [Optimized] Gunners) remain active \u2014 the lock was established and has not been broken."
       },
       "swarming": {
-        "rule": "Multiple ships CAN Dogfight the same target. Each rolls separately against the target's Piloting defense. The target can only actively Dogfight one opponent per round — the rest roll against the target's static defense.",
+        "rule": "Multiple ships CAN Dogfight the same target. Each rolls separately against the target's Piloting defense. The target can only actively Dogfight one opponent per round \u2014 the rest roll against the target's static defense.",
         "cost": "Every ship that enters a Dogfight is also stuck in the engagement zone. Swarming has a cost: all attacking ships are committed and cannot be elsewhere.",
-        "counterplay": "The answer to a swarm is crew coordination — Gunners shoot the engaged fighters while the Pilot survives or contests one at a time. The wingman dynamic: escorts Dogfight the interceptors while the bomber makes its run."
+        "counterplay": "The answer to a swarm is crew coordination \u2014 Gunners shoot the engaged fighters while the Pilot survives or contests one at a time. The wingman dynamic: escorts Dogfight the interceptors while the bomber makes its run."
       },
       "zoneDrift": {
-        "rule": "When ships are locked in a Dogfight, the engagement can drift through space. The Dogfight winner may choose to drag the fight to an adjacent zone instead of holding position — all engaged ships drift together. This is Zone Drift.",
-        "narrative": "Zone Drift is the furball moving across the tactical display. Two ships pulling Gs, burning fuel, spiraling around each other — the fight moves without either pilot intentionally repositioning. Drift into hazardous terrain sets up Terrain Run opportunities for the following round."
+        "rule": "When ships are locked in a Dogfight, the engagement can drift through space. The Dogfight winner may choose to drag the fight to an adjacent zone instead of holding position \u2014 all engaged ships drift together. This is Zone Drift.",
+        "narrative": "Zone Drift is the furball moving across the tactical display. Two ships pulling Gs, burning fuel, spiraling around each other \u2014 the fight moves without either pilot intentionally repositioning. Drift into hazardous terrain sets up Terrain Run opportunities for the following round."
       }
     },
     "combatFlow": {
       "roundStructure": [
-        "1. GM describes the tactical situation — range, positioning, environmental hazards, enemy actions.",
-        "2. GM calls on each crew station in dramatic order (not fixed initiative — this is Challenge Mode).",
-        "3. Each crew member declares their one meaningful action for the round.",
+        "1. GM describes the tactical situation \u2014 range, positioning, environmental hazards, enemy actions.",
+        "2. Initiative resolves identically to character combat: PCs roll Tactics (Wits) Join Battle for their slot, enemy ships act at static initiative (Scale + Wits\u00d72 + Mods).",
+        "3. Acting in initiative order, each crew member declares their one meaningful action for their slot.",
         "4. Roll resolution using Fulcrum math: Control die (discipline) minus Risk (enemy defense or static difficulty) = Net Result.",
         "5. Power die (hardware system) determines effect magnitude on success.",
         "6. Defensive reactions (Evade, Angle Deflector Shields, Resist, Countermeasures) are free and triggered when the ship is attacked.",
-        "7. After all crew have acted, the GM advances the situation — enemy ships act, environmental changes occur, timers tick."
+        "7. After all slots have acted, the GM advances the situation \u2014 environmental changes occur, timers tick, the next round opens with a fresh round of initiative if the table prefers re-rolling per round (default: roll once at the start of the scene)."
       ],
-      "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. All Gunners use the ship's single Fire Control Power die — individual weapons define chassis (damage table), arc, range, and traits, but the Power die is shared. This is the primary way to increase offensive output — more crew = more guns."
+      "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. All Gunners use the ship's single Fire Control Power die \u2014 individual weapons define chassis (damage table), arc, range, and traits, but the Power die is shared. This is the primary way to increase offensive output \u2014 more crew = more guns."
     },
     "rangeBands": {
       "note": "Starship range bands define zones of engagement in space. They function identically to personal combat zones but at ship scale.",
       "bands": [
         {
           "band": "Engaged",
-          "description": "Ships are in extremely close proximity — docking range, collision risk, boarding possible. Rare in open space combat."
+          "description": "Ships are in extremely close proximity \u2014 docking range, collision risk, boarding possible. Rare in open space combat."
         },
         {
           "band": "Close",
-          "description": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers happen here."
+          "description": "Standard combat range. Most weapons are effective. Maneuvering matters \u2014 Attack Runs and Evasive Maneuvers happen here."
         },
         {
           "band": "Far",
@@ -1144,27 +1145,32 @@
       ]
     },
     "modifications": {
-      "rule": "Starship modifications are upgrades installed on hardware systems. Each system (Handling, Engines, Shields) has 6 available mods gated by die size: 2 at D8, 2 at D10, 2 at D12. A ship can only install mods at or below its system die level. At D12, two exclusive passives are offered — pick one. This choice defines the ship's identity.",
+      "rule": "Starship modifications are upgrades installed on hardware systems. Each system (Handling, Engines, Shields) has 6 available mods gated by die size: 2 at D8, 2 at D10, 2 at D12. A ship can only install mods at or below its system die level. At D12, two exclusive passives are offered \u2014 pick one. This choice defines the ship's identity.",
       "gates": [
         "D8 (entry-level)",
         "D10 (military-grade)",
-        "D12 (ship identity — pick one of two exclusive passives)"
+        "D12 (ship identity \u2014 pick one of two exclusive passives)"
       ],
       "designRules": [
         "No [Weakened] as self-cost on gambits.",
-        "Gambits must enable something the base maneuver cannot do alone — not just a numerical bonus.",
+        "Gambits must enable something the base maneuver cannot do alone \u2014 not just a numerical bonus.",
         "Same-name conditions never stack.",
         "D12 gate = two exclusive passives, pick one = ship identity. Only one system can be D12 per ship."
       ],
       "reference": "Full modification definitions in starship-modifications.json."
     },
     "designNotes": [
-      "Starship combat uses the same Fulcrum math as character combat — Control minus Risk equals Net Result. The only difference is the source of the Power die: hardware systems instead of personal arena dice.",
-      "Challenge Mode (one action per round, free reactions) prevents starship combat from becoming a sub-game with its own action economy. Each crew member makes one meaningful decision per round. This keeps pacing tight and ensures every player contributes.",
+      "Starship combat uses the same initiative spine and Fulcrum math as character combat \u2014 Tactics (Wits) Join Battle, Control minus Risk equals Net Result, one slot per PC and one slot per enemy hull. The only difference is the source of the Power die: hardware systems instead of personal arena dice.",
+      "Initiative parity with character combat is the design priority \u2014 the GM should never have to switch action-economy rule systems mid-session when the crew goes orbital.",
       "System impairment mirrors character trauma exactly: take a permanent penalty to absorb damage that would otherwise destroy you. Called Shots give attackers tactical influence over which system degrades, adding a layer of strategic targeting.",
-      "The Scale system ensures that ship-to-ship engagements respect size differences without making them impossible. A starfighter CAN damage a capital ship — it just needs to find the right angle, the right moment, and probably a torpedo.",
-      "Ship defenses mirror character defenses to reduce cognitive load. Players already know Dodge vs Endure — Evade vs Angle Deflector Shields is the same choice at ship scale. Resist handles the electronic dimension that does not exist in personal combat.",
+      "The Scale system ensures that ship-to-ship engagements respect size differences without making them impossible. A starfighter CAN damage a capital ship \u2014 it just needs to find the right angle, the right moment, and probably a torpedo.",
+      "Ship defenses mirror character defenses to reduce cognitive load. Players already know Dodge vs Endure \u2014 Evade vs Angle Deflector Shields is the same choice at ship scale. Resist handles the electronic dimension that does not exist in personal combat.",
       "The five stations are designed so that each crew member has a distinct role with no mechanical overlap. The Pilot flies. The Gunner shoots. The Operator sees. The Engineer fixes. The Co-Pilot coordinates. No station can do another station's job."
-    ]
+    ],
+    "initiative": {
+      "rule": "Identical to character combat. Each PC rolls Tactics (Wits) Join Battle for their slot in the round. Control die is stepped down by the highest enemy Scale in the scene (treating Scale as an initiative-only Tier proxy). Power die result = initiative slot (higher acts first). Failed Control (1\u20133): the PC's ship is surprised ([Disoriented] + [Exposed] applied to its Pilot). Control 8+: the PC designates one enemy ship as surprised. NPC ships act at static initiative (Scale + Wits\u00d72 + Mods).",
+      "slotsPerShip": "One slot per PC (each station gets its own slot on a multi-station PC ship \u2014 the player whose PC mans that station acts on it). One slot per enemy hull regardless of crew. The Pilot does not get extra slots for the rest of their crew.",
+      "designNote": "This intentionally mirrors character combat so a GM running the orbital scene does not switch rule systems mid-session. The only difference at the table: the Power die is the ship's hardware system, not the PC's arena. Everything else is the same Fulcrum loop."
+    }
   }
 ]

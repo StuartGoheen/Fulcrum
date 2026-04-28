@@ -3799,6 +3799,10 @@
     if (hasGroupChallenge) {
       html += '<div class="cb-tile cb-tile--gc' + (_openPanels['groupchallenge'] ? ' cb-tile--active' : '') + '" data-panel-id="groupchallenge"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Group Challenge</span><span class="cb-tile-meta">' + esc(scene.groupChallenge.name) + ' \u2022 ' + scene.groupChallenge.vpThreshold + ' VP</span></div>';
     }
+    if (scene.starshipCombat && scene.starshipCombat.enabled) {
+      var scStatus = scene.starshipCombat.status === 'scaffolded' ? 'Scaffolded' : 'Ready';
+      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['starshipcombat'] ? ' cb-tile--active' : '') + '" data-panel-id="starshipcombat"><span class="cb-tile-icon">&#128640;</span><span class="cb-tile-label">Begin Skirmish</span><span class="cb-tile-meta">Starship Combat \u2022 ' + esc(scStatus) + '</span></div>';
+    }
     html += '</div>';
 
     if (hasDecisionPoints) {
@@ -3873,7 +3877,7 @@
           closeFloatingPanel(panelId);
           return;
         }
-        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', ttroster: ttTitleMap.ttroster, ttday1: ttTitleMap.ttday1, ttday2: ttTitleMap.ttday2 };
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge', starshipcombat: 'Starship Skirmish — Scaffolded', ttroster: ttTitleMap.ttroster, ttday1: ttTitleMap.ttday1, ttday2: ttTitleMap.ttday2 };
         var contentMap = {
           readaloud: function () { return _buildReadAloudHtml(scene); },
           gmnotes: function () { return _buildGmNotesHtml(scene); },
@@ -3885,11 +3889,12 @@
           pacing: function () { return _buildPacingHtml(scene); },
           holonet: function () { return _buildHoloNetHtml(); },
           groupchallenge: function () { return _buildGroupChallengeHtml(scene); },
+          starshipcombat: function () { return _buildStarshipCombatNoticeHtml(scene); },
           ttroster: ttContentMap.ttroster,
           ttday1: ttContentMap.ttday1,
           ttday2: ttContentMap.ttday2
         };
-        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, ttroster: ttSizeMap.ttroster, ttday1: ttSizeMap.ttday1, ttday2: ttSizeMap.ttday2 };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 }, starshipcombat: { width: 560, height: 480 }, ttroster: ttSizeMap.ttroster, ttday1: ttSizeMap.ttday1, ttday2: ttSizeMap.ttday2 };
         var builder = contentMap[panelId];
         if (builder) {
           openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
@@ -4920,6 +4925,26 @@
   var _gcVpThreshold = 0;
   var _gcCrewSize = 0;
   var _gcResolvedThresholds = [];
+
+  function _buildStarshipCombatNoticeHtml(scene) {
+    var sc = scene.starshipCombat || {};
+    var ships = Array.isArray(sc.ships) ? sc.ships : [];
+    var html = '<div style="padding:1rem;line-height:1.55;color:var(--color-text-primary);font-size:0.92rem;">';
+    html += '<div style="font-weight:600;color:var(--color-accent-amber, #f59e0b);margin-bottom:0.5rem;">Starship Combat &mdash; Scaffolded</div>';
+    html += '<p>The starship combat engine is wired in, but this scene\'s fight logic is intentionally <strong>not yet hooked up</strong>. Run the skirmish as the narrative scaffold described in the GM Notes &mdash; standard initiative parity with character combat (Tactics/Wits Join Battle, one slot per PC, one slot per enemy hull), 5-round dramatic clock, Operator-Chariot diminishing-returns lane vs Maya\'s hard-line override.</p>';
+    if (sc.note) html += '<p style="opacity:0.85;">' + esc(sc.note) + '</p>';
+    if (ships.length) {
+      html += '<div style="margin-top:0.75rem;font-weight:600;">Ships on the board</div>';
+      html += '<ul style="margin:0.4rem 0 0 1.1rem;padding:0;">';
+      ships.forEach(function (s) {
+        html += '<li style="margin-bottom:0.3rem;"><strong>' + esc(s.name || '?') + '</strong> &mdash; Scale ' + esc(String(s.scale != null ? s.scale : '?')) + (s.role ? ' &middot; ' + esc(s.role) : '') + (s.stations ? '<br><span style="opacity:0.75;font-size:0.88em;">Stations: ' + esc(s.stations) + '</span>' : '') + '</li>';
+      });
+      html += '</ul>';
+    }
+    html += '<p style="margin-top:0.75rem;opacity:0.7;font-size:0.86em;">Statblocks for the PC-side ships are deferred to the GM &mdash; fill in to taste before running.</p>';
+    html += '</div>';
+    return html;
+  }
 
   function _buildGroupChallengeHtml(scene) {
     var gc = scene.groupChallenge;

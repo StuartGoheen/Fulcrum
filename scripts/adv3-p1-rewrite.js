@@ -150,13 +150,13 @@ Hand off to adv3-p1-s3 (The Refinery Rumble) once the deal is struck. Krygg will
 const s3 = byId('adv3-p1-s3');
 s3.readAloud = `Refinery Platform 13 hangs three kilometers below the main city, suspended by atmospheric repulsors in the gas giant's roiling cloud band. The transit pod ride down takes nine minutes through alternating bands of amber and bruised purple cloud, the platform's running lights barely visible until you're a hundred meters out. The wind is a continuous low howl across exposed catwalks — not violent, but constant, the kind of sound that makes conversation a chore inside the first hour.`;
 
-s3.gmNotes = `Three-beat scene. Beat 1 is recon (intel-gathering checks live). Beat 2 forks into STRIKE or PARLEY based on the table's choice — both branches converge at Beat 3. Beat 3 is the Shackles of Nizon reveal — the most important narrative beat in p1, plants the seed Maya will detonate in adv3-p2-s2.
+s3.gmNotes = `Three-beat scene. Beat 1 is recon (intel-gathering checks live). Beat 2 forks into STRIKE or PARLEY based on the table's choice — both branches converge at Beat 3. Beat 3 is the The Indemnity reveal — the most important narrative beat in p1, plants the seed Maya will detonate in adv3-p2-s2.
 
 PARLEY PATH: Restored from the DoD original. The corrupt rigger boss Greel Trask (named in s2 if the table earned the Sullustan clerk's tip) is genuinely terrified — he took the bribe eight months ago for his family and has been living with the cost. He'll surrender in exchange for safe passage off Cloud City. The Trandoshan mercenaries he hired don't care about Ugnaught politics — once Trask folds and stops paying, they'll lift off rather than die for an Ugnaught who won't honor the contract.
 
 STRIKE PATH: Runs the existing combat encounter exactly as designed — see encounters block. Trandoshan mercenaries plus corrupt Ugnaught riggers, catwalk terrain, environmental hazards (rupture splash zones, steam pipes).
 
-VARTH'S ROLE: Coordinates from the Banshee. Updates the team on the loading progress every two minutes during Beat 1 (creates time pressure). Goes silent during combat (Beat 2 STRIKE). Re-engages at Beat 3 for the Shackles read — and his careful word-choice when Maya asks the slave-ship question is THE moment that flags him to attentive players.
+VARTH'S ROLE: Coordinates from the Banshee. Updates the team on the loading progress every two minutes during Beat 1 (creates time pressure). Goes silent during combat (Beat 2 STRIKE). Re-engages at Beat 3 for the Indemnity read — and his careful word-choice when Maya asks the slave-ship question is THE moment that flags him to attentive players.
 
 MAYA'S ROLE: Quiet through Beats 1-2. Speaks at Beat 3, reading the manifest. HER LINE IS VERBATIM AND NON-NEGOTIABLE — the campaign hinges on the players hearing her ask the question.`;
 
@@ -234,23 +234,23 @@ Converges at Beat 3.`,
 
 On the platform foreman's body — or in Greel Trask's surrendered datapad, depending on your route — you find the manifest. The destination tag isn't a unit. It isn't a quartermaster. It isn't an Imperial fuel depot. It's a single ship name, repeated on every canister:
 
-SHACKLES OF NIZON — BULK CARRIER — IMPERIAL NAVY — LOW BESPIN ORBIT.
+THE INDEMNITY — BULK CARRIER — IMPERIAL NAVY — LOW BESPIN ORBIT.
 
 Maya's voice on comm. Quiet:
 
-"That's a slave ship. The Shackles class are converted bulk haulers — they don't need armed guards because the cargo is in chains. Why is the Empire sending weapons-grade Tibanna gas to a slave transport?"
+"That's a slave ship. The Indemnity-class are converted bulk haulers — they don't need armed guards because the cargo is in chains. Why is the Empire sending weapons-grade Tibanna gas to a slave transport?"
 
 A long pause. Then Varth, careful, choosing his words:
 
 "That's a question for later. We have what we came for. Get back to the lift. The Ugnaughts owe us a tournament briefing."`,
-    gmNotes: `THE SHACKLES OF NIZON REVEAL is the most important narrative beat in p1. It plants the seed Maya will detonate in adv3-p2-s2 and act on alone in adv3-p3 (per campaign-bible.md "Maya's silence about the slave ship" / "Maya's fate is optional").
+    gmNotes: `THE THE INDEMNITY REVEAL is the most important narrative beat in p1. It plants the seed Maya will detonate in adv3-p2-s2 and act on alone in adv3-p3 (per campaign-bible.md "Maya's silence about the slave ship" / "Maya's fate is optional").
 
 LIVE CHALLENGE (one final use of s3's investigation):
-• sc-a3s3-investigation lives here ONE LAST TIME for any PC who wants to dig deeper. Fleeting tier confirms the destination tag and the orbital position. Masterful tier pulls the Shackles' last seven port calls (every one a slave-trade hub — Kessel, Klatooine, the Gozanti exchange at Sriluur). Legendary tier finds a passenger manifest fragment — three hundred and eighty-four numbered "units," no names, all logged as boarded at Klatooine four standard days ago. Children counted separately (sixty-one).
+• sc-a3s3-investigation lives here ONE LAST TIME for any PC who wants to dig deeper. Fleeting tier confirms the destination tag and the orbital position. Masterful tier pulls the Indemnity's last seven port calls (every one a slave-trade hub — Kessel, Klatooine, the Gozanti exchange at Sriluur). Legendary tier finds a passenger manifest fragment — three hundred and eighty-four numbered "units," no names, all logged as boarded at Klatooine four standard days ago. Children counted separately (sixty-one).
 
 DELIVER MAYA'S LINE VERBATIM. The campaign hinges on the players hearing her ask the question. Her tone is not horrified — it's clinical. The horror is what she is NOT saying.
 
-DELIVER VARTH'S DEFLECTION VERBATIM. He knows what the Shackles is. He is choosing to wait. Players who notice — particularly anyone running an Insight check unprompted — should be told privately: "Varth's voice was different on that line. Not warmer. Not colder. Just careful, the way a man speaks when he's choosing each word." Note Varth's deflection in the campaign log. This is foreshadowing for adv3-p3 and beyond.
+DELIVER VARTH'S DEFLECTION VERBATIM. He knows what The Indemnity is. He is choosing to wait. Players who notice — particularly anyone running an Insight check unprompted — should be told privately: "Varth's voice was different on that line. Not warmer. Not colder. Just careful, the way a man speaks when he's choosing each word." Note Varth's deflection in the campaign log. This is foreshadowing for adv3-p3 and beyond.
 
 Hand off to adv3-p1-s4 (The Imperial Mark) when the lift starts climbing back to Cloud City proper.`,
     beatType: 'narrative',
@@ -262,7 +262,7 @@ Hand off to adv3-p1-s4 (The Imperial Mark) when the lift starts climbing back to
 // SCENE 4 — THE IMPERIAL MARK (4 beats, full rebuild)
 // ============================================================================
 const s4 = byId('adv3-p1-s4');
-s4.readAloud = `The lift back from The Works takes the same forty minutes the descent took, in reverse. Nobody speaks much. The Shackles of Nizon manifest sits on three of the crew's datapads, the destination tag glowing in the reader-light: a slave ship in low Bespin orbit, expecting weapons-grade Tibanna gas it will not receive.
+s4.readAloud = `The lift back from The Works takes the same forty minutes the descent took, in reverse. Nobody speaks much. The The Indemnity manifest sits on three of the crew's datapads, the destination tag glowing in the reader-light: a slave ship in low Bespin orbit, expecting weapons-grade Tibanna gas it will not receive.
 
 By the time you reach Sector U357 again, Fyren is already waiting for you in his office. He has been waiting, you suspect, since the moment the lift began to climb.`;
 
