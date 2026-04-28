@@ -664,4 +664,17 @@ router.delete('/protocol-droid/pins/:id', async (req, res) => {
   }
 });
 
+// Boot-time warmup: load and audit both role corpora up front so the per-role
+// sizes (and any leak-guard warning) appear in the startup log, not on the
+// first request. Wrapped in try/catch so a corpus load failure can't take down
+// the server.
+(function warmupRulesCorpora() {
+  try {
+    loadRulesCorpus(false);
+    loadRulesCorpus(true);
+  } catch (e) {
+    console.error('[protocol-droid] startup warmup failed:', e.message);
+  }
+})();
+
 module.exports = router;
