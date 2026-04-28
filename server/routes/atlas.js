@@ -40,18 +40,18 @@ function applyRoleAndReveal(entry, isGM, revealed) {
     x: entry.x,
     y: entry.y,
     type: entry.type || 'planet',
-    isCampaignWorld: !!entry.isCampaignWorld,
     image: entry.image || null,
-    campaignNotes: entry.campaignNotes || null,
     common: entry.common || {},
     revealed: !!revealed
   };
   if (isGM) {
+    out.isCampaignWorld = !!entry.isCampaignWorld;
+    out.campaignNotes = entry.campaignNotes || null;
     out.insider = entry.insider || {};
     out.gm = entry.gm || {};
   } else if (revealed) {
     out.insider = entry.insider || {};
-    // GM tier never visible to player.
+    // GM tier and campaign metadata never visible to players.
   }
   return out;
 }

@@ -32,6 +32,34 @@
     });
   }
 
+  // Lightweight markdown renderer for journal entries.
+  // Input is raw text; output is HTML with <strong>/<em>/<u>/<h2-h4>/<ul><li>/<br>.
+  // Always escape first so user content can never inject tags.
+  function _renderJournalBody(body) {
+    if (!body) return '';
+    var s = _esc(String(body));
+    // Headings (line-anchored)
+    s = s.replace(/^### (.+)$/gm, '<h4 class="je-h4">$1</h4>');
+    s = s.replace(/^## (.+)$/gm, '<h3 class="je-h3">$1</h3>');
+    s = s.replace(/^# (.+)$/gm, '<h2 class="je-h2">$1</h2>');
+    // Bullet lists: collapse runs of "- " lines into a <ul>
+    s = s.replace(/(?:^|\n)((?:- [^\n]+(?:\n|$))+)/g, function (_m, block) {
+      var items = block.trim().split(/\n/).map(function (l) {
+        return '<li>' + l.replace(/^- /, '') + '</li>';
+      }).join('');
+      return '\n<ul class="je-ul">' + items + '</ul>';
+    });
+    // Inline emphasis (run after blocks so list/heading text gets formatted too)
+    s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/__([^_\n]+)__/g, '<u>$1</u>');
+    s = s.replace(/(^|[^*\w])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+    // Newlines → <br>, then strip <br>s adjacent to block-level tags
+    s = s.replace(/\n/g, '<br>');
+    s = s.replace(/<br>\s*(<(?:h2|h3|h4|ul|li)\b)/g, '$1');
+    s = s.replace(/(<\/(?:h2|h3|h4|ul|li)>)\s*<br>/g, '$1');
+    return s;
+  }
+
   var _GLOSSARY_CONDITION_MAP = {
     'disoriented': 'condition_disoriented', 'rattled': 'condition_rattled',
     'optimized': 'condition_optimized', 'weakened': 'condition_weakened',
@@ -1393,6 +1421,55 @@
         }).catch(function (err) { console.error('[Journal] Create tag failed:', err); });
       });
     });
+
+    form.querySelectorAll('[data-je-fmt]').forEach(function (btn) {
+      btn.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        _applyJournalFormat(btn.getAttribute('data-je-fmt'));
+      });
+    });
+  }
+
+  function _applyJournalFormat(kind) {
+    var ta = document.getElementById('journal-form-body');
+    if (!ta) return;
+    var start = ta.selectionStart, end = ta.selectionEnd;
+    var sel = ta.value.substring(start, end);
+    var before = ta.value.substring(0, start);
+    var after = ta.value.substring(end);
+    var inline = function (mark, placeholder) {
+      var inner = sel || placeholder;
+      var newText = before + mark + inner + mark + after;
+      ta.value = newText;
+      var caret = before.length + mark.length;
+      ta.setSelectionRange(caret, caret + inner.length);
+    };
+    var lineWrap = function (prefix, placeholder) {
+      // Apply prefix at the start of each selected line (or insert one line if nothing selected).
+      var text = sel || placeholder;
+      var lines = text.split(/\n/);
+      var rebuilt = lines.map(function (l) { return prefix + l; }).join('\n');
+      // Make sure the prefix sits at the start of the first selected line.
+      var lineStart = before.lastIndexOf('\n') + 1;
+      var pre = ta.value.substring(0, lineStart);
+      var midOriginal = ta.value.substring(lineStart, end);
+      var rebuiltMid;
+      if (sel) {
+        rebuiltMid = midOriginal.replace(text, rebuilt);
+      } else {
+        rebuiltMid = midOriginal + (midOriginal.length && !midOriginal.endsWith('\n') ? '\n' : '') + rebuilt;
+      }
+      ta.value = pre + rebuiltMid + after;
+      var caret = pre.length + rebuiltMid.length;
+      ta.setSelectionRange(caret, caret);
+    };
+    if (kind === 'bold') inline('**', 'bold text');
+    else if (kind === 'italic') inline('*', 'italic text');
+    else if (kind === 'underline') inline('__', 'underlined text');
+    else if (kind === 'h2') lineWrap('# ', 'Heading');
+    else if (kind === 'h3') lineWrap('## ', 'Subheading');
+    else if (kind === 'bullet') lineWrap('- ', 'list item');
+    ta.focus();
   }
 
   function _renderJournalForm() {
@@ -1411,6 +1488,16 @@
 
     html += '<div class="journal-form-row">';
     html += '<label class="journal-form-label">Body</label>';
+    html += '<div class="journal-form-toolbar" role="toolbar" aria-label="Formatting">';
+    html += '<button type="button" class="je-tb-btn" data-je-fmt="bold" title="Bold (wraps with **)"><strong>B</strong></button>';
+    html += '<button type="button" class="je-tb-btn" data-je-fmt="italic" title="Italic (wraps with *)"><em>I</em></button>';
+    html += '<button type="button" class="je-tb-btn" data-je-fmt="underline" title="Underline (wraps with __)"><u>U</u></button>';
+    html += '<span class="je-tb-sep"></span>';
+    html += '<button type="button" class="je-tb-btn" data-je-fmt="h2" title="Heading">H</button>';
+    html += '<button type="button" class="je-tb-btn" data-je-fmt="h3" title="Subheading">h</button>';
+    html += '<button type="button" class="je-tb-btn" data-je-fmt="bullet" title="Bullet list">&bull;</button>';
+    html += '<span class="je-tb-hint">Markdown: **bold** *italic* __under__ # H ## h - bullet</span>';
+    html += '</div>';
     html += '<textarea class="journal-form-textarea" id="journal-form-body" placeholder="Write your notes...">' + _esc(entry ? entry.body : '') + '</textarea>';
     html += '</div>';
 
@@ -1612,7 +1699,7 @@
           html += '</span>';
         }
         html += '</div>';
-        html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(openingLog.body || '').replace(/\n/g, '<br>')) + '</div>';
+        html += '<div class="journal-entry-body">' + _renderMapLinks(_renderJournalBody(openingLog.body || '')) + '</div>';
         html += _commentsPlaceholder('journal', openingLog.id);
         html += '</div>';
       } else {
@@ -1665,7 +1752,7 @@
               html += '</span>';
             }
             html += '</div>';
-            html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+            html += '<div class="journal-entry-body">' + _renderMapLinks(_renderJournalBody(entry.body || '')) + '</div>';
             html += _commentsPlaceholder('journal', entry.id);
             html += '</div>';
           } else {
@@ -1718,7 +1805,7 @@
               html += '</span>';
             }
             html += '</div>';
-            html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+            html += '<div class="journal-entry-body">' + _renderMapLinks(_renderJournalBody(entry.body || '')) + '</div>';
             html += _commentsPlaceholder('journal', entry.id);
             html += '</div>';
           } else {
@@ -1770,7 +1857,7 @@
               html += '</span>';
             }
             html += '</div>';
-            html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+            html += '<div class="journal-entry-body">' + _renderMapLinks(_renderJournalBody(entry.body || '')) + '</div>';
             html += _commentsPlaceholder('journal', entry.id);
             html += '</div>';
           } else {
@@ -1927,7 +2014,7 @@
             html += '</span>';
           }
           html += '</div>';
-          html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+          html += '<div class="journal-entry-body">' + _renderMapLinks(_renderJournalBody(entry.body || '')) + '</div>';
           html += _commentsPlaceholder('journal', entry.id);
           html += '</div>';
         } else {
@@ -2002,7 +2089,7 @@
             html += '</span>';
           }
           html += '</div>';
-          html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
+          html += '<div class="journal-entry-body">' + _renderMapLinks(_renderJournalBody(entry.body || '')) + '</div>';
           html += '<div class="journal-entry-actions">';
           html += '<button class="journal-edit-btn" data-journal-edit="' + entry.id + '">Edit</button>';
           html += '</div>';
@@ -3277,7 +3364,7 @@
         html += '<div class="dp-player-placeholder atlas-placeholder">' + _esc(firstChar) + '</div>';
       }
       html += '<div class="dp-player-info">';
-      html += '<div class="dp-player-name">' + _esc(e.name) + (isCampaign ? ' <span class="atlas-campaign-pill">CAMPAIGN</span>' : '') + '</div>';
+      html += '<div class="dp-player-name">' + _esc(e.name) + '</div>';
       html += '<div class="dp-player-sub">' + _esc(sub) + (gov ? ' \u2014 ' + _esc(gov) : '') + '</div>';
       html += '</div>';
       if (e.revealed) {
