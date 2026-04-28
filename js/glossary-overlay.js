@@ -3446,7 +3446,7 @@
     fetch('/api/protocol-droid/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ characterName: _characterName, scope: 'private', question: q })
+      body: JSON.stringify({ characterName: _characterName, scope: 'both', question: q })
     })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, body: j }; }); })
       .then(function (res) {
@@ -3491,7 +3491,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           characterName: _characterName,
-          scope: 'private',
+          scope: 'both',
           question: live.question,
           answer: live.answer,
           sources: live.sources,

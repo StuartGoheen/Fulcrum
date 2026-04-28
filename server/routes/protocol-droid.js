@@ -21,29 +21,44 @@ const RULES_FILES = [
   { id: 'entanglements',    file: 'entanglements.json',    label: 'Entanglements' },
   { id: 'species',          file: 'species.json',          label: 'Species' },
   { id: 'chassis',          file: 'chassis.json',          label: 'NPC Chassis' },
-  { id: 'campaign-bible',   file: 'campaign-bible.md',     label: 'Campaign Bible (lore)' },
+  { id: 'campaign-bible',   file: 'campaign-bible.md',     label: 'Campaign Bible (lore)', gmOnly: true },
   { id: 'scum-and-villainy',file: 'scum-and-villainy.md',  label: 'NPC Roles (Scum & Villainy)' },
 ];
 
-let _rulesCache = null;
-function loadRulesCorpus() {
-  if (_rulesCache) return _rulesCache;
+const _rulesCacheByRole = { player: null, gm: null };
+function loadRulesCorpus(isGmCaller) {
+  const roleKey = isGmCaller ? 'gm' : 'player';
+  if (_rulesCacheByRole[roleKey]) return _rulesCacheByRole[roleKey];
   const sections = [];
+  let blockedCount = 0;
   for (const r of RULES_FILES) {
+    if (!isGmCaller && r.gmOnly) {
+      blockedCount++;
+      continue;
+    }
     try {
       const p = path.join(DATA_DIR, r.file);
       if (!fs.existsSync(p)) continue;
       const raw = fs.readFileSync(p, 'utf8');
-      sections.push({ id: r.id, label: r.label, content: raw });
+      sections.push({ id: r.id, label: r.label, content: raw, gmOnly: !!r.gmOnly });
     } catch (e) {
       console.warn('[protocol-droid] failed to load', r.file, e.message);
     }
   }
-  _rulesCache = sections;
-  console.log('[protocol-droid] rules corpus loaded:',
+  // Defensive audit: a GM-only file must never end up in the player corpus.
+  if (!isGmCaller) {
+    const leaked = sections.filter(s => s.gmOnly);
+    if (leaked.length) {
+      console.error('[protocol-droid] LEAK GUARD TRIPPED — GM-only files in player corpus:',
+        leaked.map(s => s.id).join(', '));
+    }
+  }
+  _rulesCacheByRole[roleKey] = sections;
+  console.log('[protocol-droid] rules corpus loaded for ' + roleKey + ':',
     sections.length, 'files,',
-    sections.reduce((a, s) => a + s.content.length, 0), 'chars');
-  return _rulesCache;
+    sections.reduce((a, s) => a + s.content.length, 0), 'chars' +
+    (isGmCaller ? '' : ' (gm-only blocked: ' + blockedCount + ')'));
+  return _rulesCacheByRole[roleKey];
 }
 
 // --- Topic prefilter for the rules corpus ---
@@ -60,25 +75,26 @@ function tokenize(s) {
   return String(s == null ? '' : s).toLowerCase().match(/[a-z0-9_]{3,}/g) || [];
 }
 
-let _rulesIndex = null;
-function buildRulesIndex() {
-  if (_rulesIndex) return _rulesIndex;
-  const sections = loadRulesCorpus();
-  _rulesIndex = sections.map(s => {
+const _rulesIndexByRole = { player: null, gm: null };
+function buildRulesIndex(isGmCaller) {
+  const roleKey = isGmCaller ? 'gm' : 'player';
+  if (_rulesIndexByRole[roleKey]) return _rulesIndexByRole[roleKey];
+  const sections = loadRulesCorpus(isGmCaller);
+  _rulesIndexByRole[roleKey] = sections.map(s => {
     const tokens = tokenize(s.label + ' ' + s.content);
     const freq = new Map();
     for (const t of tokens) freq.set(t, (freq.get(t) || 0) + 1);
     const labelTokens = new Set(tokenize(s.label));
     return { id: s.id, label: s.label, content: s.content, freq, labelTokens };
   });
-  return _rulesIndex;
+  return _rulesIndexByRole[roleKey];
 }
 
 function selectRulesSections(question, opts) {
   opts = opts || {};
   const topN = opts.topN || 6;
   const always = opts.always || ['gamesystem', 'glossary'];
-  const idx = buildRulesIndex();
+  const idx = buildRulesIndex(!!opts.isGmCaller);
   const qTokens = tokenize(question).filter(t => !STOPWORDS.has(t));
   if (!qTokens.length) {
     // Pure-stopword questions (e.g. "who are you?") — give it the anchors only,
@@ -249,7 +265,7 @@ function buildDramatisSection(profiles, isGmCaller) {
 }
 
 function buildPrompt({ characterName, scope, question, journalEntries, rulesSections, dramatisProfiles, isGmCaller }) {
-  const useJournal = scope === 'crew' || scope === 'both';
+  const useJournal = scope === 'crew' || scope === 'both' || scope === 'private';
   const useRules   = scope === 'rules' || scope === 'both';
   const useDramatis = scope === 'crew' || scope === 'both';
 
@@ -380,7 +396,11 @@ router.post('/protocol-droid/ask', async (req, res) => {
 
   const { characterName, scope, question } = req.body || {};
   const q = (question || '').toString().trim();
-  const sc = ['crew', 'rules', 'both'].includes(scope) ? scope : 'both';
+  const VALID_SCOPES = ['crew', 'rules', 'both', 'private'];
+  if (scope != null && !VALID_SCOPES.includes(scope)) {
+    return res.status(400).json({ error: 'Invalid scope: ' + scope + '. Must be one of: ' + VALID_SCOPES.join(', ') + '.' });
+  }
+  const sc = VALID_SCOPES.includes(scope) ? scope : 'both';
   if (!q) return res.status(400).json({ error: 'question is required.' });
   if (q.length > 1000) return res.status(400).json({ error: 'question too long (max 1000 chars).' });
 
@@ -400,14 +420,20 @@ router.post('/protocol-droid/ask', async (req, res) => {
   }
 
   try {
-    const wantCrew = (sc === 'crew' || sc === 'both');
+    // Scope semantics:
+    //   crew    → journal + revealed dramatis (no rules)
+    //   rules   → rules only (role-filtered: bible is GM-only)
+    //   both    → everything the caller is allowed to see
+    //   private → journal only (no dramatis, no rules)
+    const wantJournal  = (sc === 'crew' || sc === 'both' || sc === 'private');
+    const wantDramatis = (sc === 'crew' || sc === 'both');
+    const wantRules    = (sc === 'rules' || sc === 'both');
     const [journalEntries, dramatisProfiles] = await Promise.all([
-      wantCrew ? loadJournalCorpus(characterName) : Promise.resolve([]),
-      wantCrew ? loadDramatisCorpus(isGmCaller)   : Promise.resolve([]),
+      wantJournal  ? loadJournalCorpus(characterName) : Promise.resolve([]),
+      wantDramatis ? loadDramatisCorpus(isGmCaller)   : Promise.resolve([]),
     ]);
-    const wantRules = (sc === 'rules' || sc === 'both');
     const rulesPick = wantRules
-      ? selectRulesSections(q)
+      ? selectRulesSections(q, { isGmCaller })
       : { sections: [], selected: 0, total: 0, mode: 'skipped' };
     const rulesSections = rulesPick.sections;
 
@@ -453,6 +479,7 @@ router.post('/protocol-droid/ask', async (req, res) => {
       sources: Array.isArray(parsed.sources) ? parsed.sources : [],
       meta: {
         scope: sc,
+        role: isGmCaller ? 'gm' : 'player',
         characterName: characterName || null,
         journalEntryCount: journalEntries.length,
         dramatisProfileCount: dramatisProfiles.length,
@@ -460,6 +487,7 @@ router.post('/protocol-droid/ask', async (req, res) => {
         rulesSelected: rulesPick.selected,
         rulesTotal: rulesPick.total,
         rulesMode: rulesPick.mode,
+        rulesSourcesUsed: rulesSections.map(function (s) { return s.id; }),
         promptChars: prompt.length,
         elapsedMs,
       },
@@ -510,7 +538,7 @@ router.post('/protocol-droid/pins', async (req, res) => {
     if (!name) return res.status(400).json({ error: 'characterName is required.' });
     if (!q || !a) return res.status(400).json({ error: 'question and answer are required.' });
     if (a.length > PIN_ANSWER_MAX) return res.status(400).json({ error: 'Answer too large to pin.' });
-    const sc = ['crew', 'rules', 'both'].includes(scope) ? scope : 'both';
+    const sc = ['crew', 'rules', 'both', 'private'].includes(scope) ? scope : 'both';
 
     // Pin cap.
     const cnt = await pool.query(
