@@ -23,33 +23,7 @@
     ],
     "famousFor": "Glitterstim spice. The mines. The fact that a sentence to Kessel is functionally a death sentence.",
     "cantinaReputation": "Nobody drinks at Kessel. Nobody is at Kessel by choice.",
-    "standingCurrency": "Imperial scrip (mining)",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Kessel",
-      "system": "Kessel",
-      "gridSquare": "L-16"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Trace (artificial sealed environments)",
-      "climate": "Cold"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Kessurian (extinct?)"
-      ],
-      "otherSpecies": [
-        "Wookiee (slave labor)",
-        "Human (slave labor)",
-        "Pyke administrators"
-      ],
-      "population": "Slave labor + administrative cadre",
-      "majorSettlements": [
-        "Kessendra (administrative)",
-        "Mine 13 (largest active)"
-      ]
-    }
+    "standingCurrency": "Imperial scrip (mining)"
   },
   "insider": {
     "localContacts": [

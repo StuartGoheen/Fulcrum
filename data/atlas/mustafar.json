@@ -8,18 +8,21 @@
   "y": 0.881,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Volcanic forge-world of fire rivers and Imperial mining concerns.",
+    "government": "Imperial mining concession; pre-Imperial Mustafarian clans tolerated",
+    "affiliation": "Galactic Empire",
+    "climate": "Volcanic",
+    "terrain": [
+      "Lava rivers",
+      "Obsidian plains",
+      "Mining platforms above magma"
+    ],
+    "hyperlanes": [
+      "Mustafar spur off the Triellus Trade Route"
+    ],
+    "famousFor": "Lava-mined ores, ancient Sith ruins (officially denied), and a black tower no one is permitted to ask about.",
     "cantinaReputation": "Hellscape of lava rivers and volcanic eruptions. Darth Vader's fortress looms over the molten surface. In 15 BBY, the mining operations continue under heavy Imperial security. Nobody comes here voluntarily — if you crash-land on Mustafar, the lava is the least of your problems.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

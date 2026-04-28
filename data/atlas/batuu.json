@@ -23,33 +23,7 @@
     ],
     "famousFor": "Black Spire Outpost. Oga Garra. The cantinas. The kind of trading post where 'where did you come from' is considered an accusation.",
     "cantinaReputation": "Oga's Cantina serves anyone with credits. Behaving in Oga's Cantina is wise. Drawing in Oga's Cantina is suicide.",
-    "standingCurrency": "Imperial credits, Old Republic credits, hard goods",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Trilon",
-      "system": "Batuu",
-      "gridSquare": "G-15",
-      "suns": 3
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type I",
-      "climate": "Temperate-arid"
-    },
-    "society": {
-      "nativeSpecies": [],
-      "otherSpecies": [
-        "Human",
-        "Ithorian",
-        "Twi'lek",
-        "Trandoshan",
-        "many"
-      ],
-      "population": "Sparse outside BSO",
-      "majorSettlements": [
-        "Black Spire Outpost"
-      ]
-    }
+    "standingCurrency": "Imperial credits, Old Republic credits, hard goods"
   },
   "insider": {
     "localContacts": [

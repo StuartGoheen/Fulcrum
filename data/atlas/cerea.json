@@ -8,18 +8,21 @@
   "y": 0.738,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Pastoral homeworld of the Cereans — low-tech by choice.",
+    "government": "Cerean Council of Elders",
+    "affiliation": "Independent (Imperial trade observer only)",
+    "climate": "Temperate",
+    "terrain": [
+      "Rolling grasslands",
+      "River valleys",
+      "Stilted Cerean villages"
+    ],
+    "hyperlanes": [
+      "Cerean spur off the Hydian Way"
+    ],
+    "famousFor": "Cereans, Jedi sympathies in the Clone Wars, and a culture that politely refuses most off-world tech.",
     "cantinaReputation": "Lush, mountainous world home to the Cereans. In 15 BBY, Cerea maintains strict isolationist policies — no offworld technology permitted in most settlements. The few spaceports cater to desperate travelers. Good place to disappear, terrible place to find spare parts.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

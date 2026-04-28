@@ -23,29 +23,7 @@
     ],
     "famousFor": "Tarkin. The Citadel. The factories. The fact that nothing happens in the Outer Rim without Eriadu's tacit nod.",
     "cantinaReputation": "Drink at home. Eriadu's bars are full of Imperial Intelligence ears.",
-    "standingCurrency": "Imperial credits (only)",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Seswenna",
-      "system": "Eriadu",
-      "gridSquare": "M-18"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type II (industrially polluted)",
-      "climate": "Temperate"
-    },
-    "society": {
-      "nativeSpecies": [],
-      "otherSpecies": [
-        "Human (overwhelming majority)"
-      ],
-      "population": "Billions",
-      "majorSettlements": [
-        "The Citadel district",
-        "Phelar Port"
-      ]
-    }
+    "standingCurrency": "Imperial credits (only)"
   },
   "insider": {
     "localContacts": [

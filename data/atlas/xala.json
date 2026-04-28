@@ -23,22 +23,7 @@
     ],
     "famousFor": "Nothing publicly. The few who have gone do not return.",
     "cantinaReputation": "If a navigator quotes you a route to Xala, walk away.",
-    "standingCurrency": "N/A",
-    "astrography": {
-      "region": "Wild Space",
-      "sector": "Unknown",
-      "system": "Xala",
-      "gridSquare": "H-14"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Thin (rebreather required for extended exposure)",
-      "climate": "Cold"
-    },
-    "society": {
-      "nativeSpecies": [],
-      "population": "Inquisitorial garrison only"
-    }
+    "standingCurrency": "N/A"
   },
   "insider": {
     "localContacts": [

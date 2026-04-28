@@ -8,18 +8,21 @@
   "y": 0.857,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Bith homeworld scarred by a long-ago bioweapon catastrophe.",
+    "government": "Bith Council under domed-city charter",
+    "affiliation": "Independent (Imperial protectorate in title only)",
+    "climate": "Toxic atmosphere outside the bio-domes",
+    "terrain": [
+      "Toxic plains",
+      "Bio-domed cities",
+      "Ancient ruined surface settlements"
+    ],
+    "hyperlanes": [
+      "Colundra Sector trunk off the Hydian Way"
+    ],
+    "famousFor": "Bith musicians and acoustic engineers. Refined dome cities. The lingering scars of a bioweapon disaster.",
     "cantinaReputation": "Homeworld of the Bith. Once a center of art, music, and science, Clak'dor VII was devastated by a chemical war centuries ago. The surviving Bith live in sealed cities and are renowned across the galaxy as musicians and engineers. In 15 BBY, the planet's orbital stations offer competent technical services and cantinas with the best live music in the sector.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

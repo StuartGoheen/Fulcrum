@@ -8,18 +8,21 @@
   "y": 0.262,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Red-skied haunted world of the Nightsister witches.",
+    "government": "Nightsister clans (decimated); Zabrak nomads",
+    "affiliation": "Independent (avoided by Imperial patrols)",
+    "climate": "Temperate, perpetually red-skied",
+    "terrain": [
+      "Bone-strewn forests",
+      "Fog plateaus",
+      "Singing Mountain ridges"
+    ],
+    "hyperlanes": [
+      "Off-lane spur from the Quelii sector"
+    ],
+    "famousFor": "Nightsister magicks, rancor herds, and a planetary mood that drives spacers to the bottle.",
     "cantinaReputation": "Mysterious world shrouded in red mist. Home to the Nightsisters — Force-wielding witches who survived the Clone Wars purge. In 15 BBY, Dathomir is avoided by anyone with sense. Dense forests, hostile wildlife, and dark side energy make it a last-resort landing site.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

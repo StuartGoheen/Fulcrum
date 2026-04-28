@@ -23,31 +23,7 @@
     ],
     "famousFor": "The Krennic reactor 'accident' of 17 BBY. The Empire blamed Separatist holdouts. The locals know better.",
     "cantinaReputation": "Bring your own air filter. The drinks are worse than the smog.",
-    "standingCurrency": "Imperial credits",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Wazta",
-      "system": "Malpaz",
-      "gridSquare": "I-17"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type II (filtered breathing recommended)",
-      "climate": "Temperate"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Malpazan (avian)"
-      ],
-      "otherSpecies": [
-        "Human"
-      ],
-      "population": "Moderate",
-      "majorSettlements": [
-        "Reactor Town",
-        "The Citadel District"
-      ]
-    }
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [

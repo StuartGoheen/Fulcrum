@@ -8,18 +8,21 @@
   "y": 0.548,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Mud-soaked world of trench warfare and Imperial hyperbarride mining.",
+    "government": "Imperial military governorship (martial law)",
+    "affiliation": "Galactic Empire — active warfront",
+    "climate": "Perpetual rain",
+    "terrain": [
+      "Endless mud trenches",
+      "Jungle highlands",
+      "Hyperbarride mine pits"
+    ],
+    "hyperlanes": [
+      "Carida-Mimban supply lane"
+    ],
+    "famousFor": "The Mimban Campaign — a slow grinding war the Empire pretends is over. Coaxium-grade mineral mines.",
     "cantinaReputation": "Swamp world locked in perpetual war. The Empire runs brutal mining operations, drafting locals as laborers. Endless mud, rain, and misery. Not where you want to crash-land, but the abandoned Clone Wars-era bases scattered across the surface sometimes have working fuel cells and med supplies.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

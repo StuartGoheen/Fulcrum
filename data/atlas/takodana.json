@@ -23,28 +23,7 @@
     ],
     "famousFor": "Maz Kanata's castle on the shore of Nymeve Lake — pirates, smugglers, and travelers drink at the same bar without bleeding on each other.",
     "cantinaReputation": "Old. Quiet. Maz sees you. Don't draw a blaster in her place — she has thrown the door at people for less.",
-    "standingCurrency": "Imperial credits, Old Republic credits, barter, favors",
-    "astrography": {
-      "region": "Mid Rim",
-      "sector": "Tashtor",
-      "system": "Takodana",
-      "gridSquare": "J-16"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type I",
-      "climate": "Temperate"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Various"
-      ],
-      "population": "Sparse",
-      "majorSettlements": [
-        "Maz Kanata's castle (Nymeve Lake)",
-        "Blackwind Point"
-      ]
-    }
+    "standingCurrency": "Imperial credits, Old Republic credits, barter, favors"
   },
   "insider": {
     "localContacts": [

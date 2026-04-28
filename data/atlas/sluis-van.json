@@ -8,18 +8,21 @@
   "y": 0.833,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Civilian shipyard hub of the Sluis sector.",
+    "government": "Sluissi Shipwrights' Guild administration (Imperial-licensed)",
+    "affiliation": "Galactic Empire (contracted)",
+    "climate": "Temperate",
+    "terrain": [
+      "Coastal yard cities",
+      "Floating drydocks",
+      "Inland reef estuaries"
+    ],
+    "hyperlanes": [
+      "Rimma Trade Route major node"
+    ],
+    "famousFor": "The Sluis Van orbital drydocks — civilian retrofits, custom freighter conversions, and Imperial overflow contracts.",
     "cantinaReputation": "Major shipyard world in the Sluis sector. The Sluis Van shipyards are one of the largest repair and construction facilities in the Outer Rim — a sprawling orbital complex servicing everything from bulk freighters to capital ships. In 15 BBY, the Empire contracts heavily with the yards. For independent spacers, Sluis Van means fast repairs, quality parts, and mechanics who know their trade. Expensive, but worth it.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

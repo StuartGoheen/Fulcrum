@@ -8,18 +8,22 @@
   "y": 0.786,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Twin-civilization world of human plains-cities and underwater Gungan domes.",
+    "government": "Naboo Royal House (Imperial-aligned monarchy) and Gungan High Council",
+    "affiliation": "Galactic Empire (politically aligned)",
+    "climate": "Temperate",
+    "terrain": [
+      "Lake country",
+      "Swamps",
+      "Plains cities (Theed)"
+    ],
+    "hyperlanes": [
+      "Enarc Run",
+      "Rimma Trade Route connector"
+    ],
+    "famousFor": "Theed Royal Palace. Plasma refineries. The Emperor's birthworld (a fact the Naboo do not advertise).",
     "cantinaReputation": "Idyllic world of rolling green hills, deep ocean cores, and gleaming cities. Emperor Palpatine's homeworld. In 15 BBY, the Empire keeps a firm but velvet-gloved grip here — visible oppression would embarrass the Emperor. Theed's spaceport is well-maintained and relatively safe, but Imperial surveillance is everywhere.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

@@ -23,24 +23,7 @@
     ],
     "famousFor": "Nothing the galaxy talks about. Nobody comes here.",
     "cantinaReputation": "Endor is the answer to 'where would you hide a thing nobody can ever find?'",
-    "standingCurrency": "N/A",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Moddell",
-      "system": "Endor",
-      "gridSquare": "H-16"
-    },
-    "physical": {
-      "class": "Forest moon",
-      "atmosphere": "Type I",
-      "climate": "Temperate"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Ewok"
-      ],
-      "population": "Tribal"
-    }
+    "standingCurrency": "N/A"
   },
   "insider": {
     "localContacts": [

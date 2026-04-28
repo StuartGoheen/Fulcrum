@@ -24,31 +24,7 @@
     ],
     "famousFor": "Nothing publicly. The few spacers who've heard the name have heard it whispered.",
     "cantinaReputation": "If you can find Ajan Kloss in the nav charts, your nav charts are stolen.",
-    "standingCurrency": "N/A — not a settled world",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Cademimu",
-      "system": "Ajan Kloss",
-      "gridSquare": "L-5",
-      "moons": 0
-    },
-    "physical": {
-      "class": "Terrestrial moon",
-      "atmosphere": "Type I",
-      "climate": "Tropical",
-      "terrain": [
-        "Jungle",
-        "Ravines",
-        "Bioluminescent flora"
-      ]
-    },
-    "society": {
-      "nativeSpecies": [],
-      "population": "None native",
-      "majorSettlements": [
-        "The Vanishing Place (covert)"
-      ]
-    }
+    "standingCurrency": "N/A — not a settled world"
   },
   "insider": {
     "localContacts": [

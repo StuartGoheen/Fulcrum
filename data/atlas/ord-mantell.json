@@ -8,18 +8,21 @@
   "y": 0.31,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Ancient Ordnance Regional Depot world — now a galaxy-famous criminal port.",
+    "government": "Mantellian planetary council (corrupt; bought by syndicates)",
+    "affiliation": "Galactic Empire (lightly governed)",
+    "climate": "Warm temperate",
+    "terrain": [
+      "Coastal port cities (Worlport)",
+      "Junkfields",
+      "Old Ordnance bunker hills"
+    ],
+    "hyperlanes": [
+      "Hydian Way junction; Bormea-Mantell trunk"
+    ],
+    "famousFor": "Bounty hunters. Smugglers. The Worlport black markets. More wanted notices on its boards than any other Mid Rim world.",
     "cantinaReputation": "Sprawling junkyard world turned trading hub. In 15 BBY, Ord Mantell is a haven for bounty hunters, scrappers, and black marketeers. The capital city's open-air bazaars sell everything from stolen blasters to forged identchips. Cheap fuel, cheaper morals — just watch your credits.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

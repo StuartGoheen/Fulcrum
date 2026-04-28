@@ -8,18 +8,21 @@
   "y": 0.8,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Junkworld where everyone — including the planet — is broken.",
+    "government": "None — gang factions among the scrap",
+    "affiliation": "Unaligned (avoided by Imperial Customs)",
+    "climate": "Toxic temperate",
+    "terrain": [
+      "Continent-deep junk strata",
+      "Acid pools",
+      "Rusted skyhook ruins"
+    ],
+    "hyperlanes": [
+      "Off-lane; reached via salvage convoys"
+    ],
+    "famousFor": "Salvage. Lost things. The Junkers — lifelong scavengers who never leave.",
     "cantinaReputation": "Junk world. Mountains of discarded starship hulls, droid parts, and industrial waste stretch to every horizon. Scavenger clans trade in salvage. In 15 BBY, it's technically Imperial territory but nobody bothers enforcing it. Perfect for emergency repairs if you don't mind the smell — or the fire-breathers.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

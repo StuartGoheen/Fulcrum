@@ -8,18 +8,21 @@
   "y": 0.786,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Volcanic homeworld of the Sullustans and SoroSuub Corporation.",
+    "government": "SoroSuub Corporation (effective rule); Sullustan Council in title",
+    "affiliation": "Galactic Empire (corporate-aligned)",
+    "climate": "Volcanic; survivable in subsurface cavern cities",
+    "terrain": [
+      "Lava plains",
+      "Cavern cities",
+      "Tunnel networks"
+    ],
+    "hyperlanes": [
+      "Rimma Trade Route major node"
+    ],
+    "famousFor": "SoroSuub starship and blaster manufacturing. The greatest underground cities in the Outer Rim.",
     "cantinaReputation": "Volcanic world riddled with underground cities. The SoroSuub Corporation runs everything — fuel, weapons, ship components. If you can afford their prices and dodge the Imperial inspectors, Sullust is the best place in the sector to refit a ship. Massive lava tube networks make excellent hiding spots.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

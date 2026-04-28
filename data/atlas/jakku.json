@@ -25,44 +25,7 @@
     ],
     "famousFor": "Crashed Separatist hulks half-buried in the dunes; the Burning Deck cantina in Cratertown",
     "cantinaReputation": "If you have to ask why anyone goes to Jakku, you don't. Hot. Empty. Cheap. Nobody looking for you here.",
-    "standingCurrency": "Imperial credits, water rations, scavenged metal",
-    "astrography": {
-      "region": "Inner Rim (Western Reaches)",
-      "sector": "Arkanis",
-      "system": "Jakku",
-      "gridSquare": "I-13",
-      "suns": 1,
-      "moons": 0,
-      "rotationPeriod": "26 standard hours",
-      "orbitalPeriod": "340 standard days"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type I (breathable)",
-      "climate": "Arid",
-      "surfaceWater": "Minimal",
-      "gravity": "Standard"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Teedo",
-        "Uthuthma"
-      ],
-      "otherSpecies": [
-        "Human",
-        "Weequay",
-        "Kyuzo"
-      ],
-      "population": "Sparse",
-      "majorSettlements": [
-        "Reestkii",
-        "Tuanul",
-        "Cratertown"
-      ],
-      "majorExports": [
-        "Nothing worth taxing"
-      ]
-    }
+    "standingCurrency": "Imperial credits, water rations, scavenged metal"
   },
   "insider": {
     "localContacts": [

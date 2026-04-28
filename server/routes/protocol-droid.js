@@ -315,14 +315,11 @@ function buildAtlasSection(entries, isGmCaller) {
     if (c.government) lines.push(`Government: ${c.government}`);
     if (c.affiliation && c.affiliation !== c.government) lines.push(`Affiliation: ${c.affiliation}`);
     if (c.climate) lines.push(`Climate: ${c.climate}`);
-    if (c.terrain) lines.push(`Terrain: ${c.terrain}`);
+    if (c.terrain) lines.push(`Terrain: ${Array.isArray(c.terrain) ? c.terrain.join(', ') : c.terrain}`);
     if (c.standingCurrency) lines.push(`Currency: ${c.standingCurrency}`);
     if (c.hyperlanes) lines.push(`Hyperlanes: ${Array.isArray(c.hyperlanes) ? c.hyperlanes.join(', ') : c.hyperlanes}`);
     if (c.famousFor) lines.push(`Famous For: ${c.famousFor}`);
     if (c.cantinaReputation) lines.push(`Cantina Reputation: ${c.cantinaReputation}`);
-    if (c.astrography) lines.push(`Astrography: ${c.astrography}`);
-    if (c.physical) lines.push(`Physical: ${c.physical}`);
-    if (c.society) lines.push(`Society: ${c.society}`);
 
     if (e.insider) {
       const ins = e.insider;

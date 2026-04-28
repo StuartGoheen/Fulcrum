@@ -8,18 +8,22 @@
   "y": 0.69,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Pirate-haven moon at a key intersection of Outer Rim hyperlanes.",
+    "government": "None — pirate captaincies in loose confederation",
+    "affiliation": "Unaligned (Imperial patrols rare)",
+    "climate": "Tropical",
+    "terrain": [
+      "Coral atolls",
+      "Volcanic ridges",
+      "Shanty-port towns"
+    ],
+    "hyperlanes": [
+      "Rishi Maze gateway",
+      "Hydian Way southern spur"
+    ],
+    "famousFor": "Pirates, smugglers, and the kind of cantinas where the Imperial Navy declines to follow.",
     "cantinaReputation": "Moon at the edge of the Rishi Maze. A listening outpost and small settlement cling to the rocky coast. In 15 BBY, Rishi is a waypoint for ships heading to or from the Corporate Sector. The cantina at Rishi Station serves terrible food but has reliable fuel pumps and mechanics who don't ask questions.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

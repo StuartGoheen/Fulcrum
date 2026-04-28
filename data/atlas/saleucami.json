@@ -8,18 +8,21 @@
   "y": 0.357,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Hot scrubland world of pacifist farmers and Imperial agro-corp leases.",
+    "government": "Imperial governor over Saleucamian farmsteader councils",
+    "affiliation": "Galactic Empire",
+    "climate": "Hot arid with monsoon belts",
+    "terrain": [
+      "Thorn savannah",
+      "Volcanic uplands",
+      "Riverside farmsteads"
+    ],
+    "hyperlanes": [
+      "Quelii sector trunk off the Triellus Trade Route"
+    ],
+    "famousFor": "Clone Wars veterans who settled here as homesteaders. Quiet farmland. Imperial agribusiness annexations.",
     "cantinaReputation": "Arid world dotted with bulbous caldera lakes. Clone deserter Cut Lawquane's farm is here — or was. In 15 BBY, Saleucami is a quiet backwater where settlers scratch out a living. Small settlements offer basic supplies and fuel. The Empire barely bothers with this place, making it a decent spot to lay low.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

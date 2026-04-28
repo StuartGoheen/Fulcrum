@@ -27,28 +27,7 @@
     ],
     "famousFor": "Everything. The Imperial Palace, the Senate, the Jedi Temple ruins, the underlevels.",
     "cantinaReputation": "The cantinas at Level 1313 will sell anything. The cantinas in the upper levels will report anything. Choose wisely.",
-    "standingCurrency": "Imperial credits (universal)",
-    "astrography": {
-      "region": "Core Worlds",
-      "sector": "Corusca",
-      "system": "Coruscant",
-      "gridSquare": "L-9"
-    },
-    "physical": {
-      "class": "Terrestrial (planetwide city)",
-      "atmosphere": "Type I (climate-controlled)",
-      "climate": "Artificial"
-    },
-    "society": {
-      "nativeSpecies": [],
-      "otherSpecies": [
-        "Every species in the galaxy"
-      ],
-      "population": "One trillion+",
-      "majorSettlements": [
-        "Galactic City (planetwide)"
-      ]
-    }
+    "standingCurrency": "Imperial credits (universal)"
   },
   "insider": {
     "localContacts": [

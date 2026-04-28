@@ -3369,7 +3369,7 @@
     if (c.government) rows.push(['Government', c.government]);
     if (c.affiliation && c.affiliation !== c.government) rows.push(['Affiliation', c.affiliation]);
     if (c.climate) rows.push(['Climate', c.climate]);
-    if (c.terrain) rows.push(['Terrain', c.terrain]);
+    if (c.terrain) rows.push(['Terrain', Array.isArray(c.terrain) ? c.terrain.join(', ') : c.terrain]);
     if (c.standingCurrency) rows.push(['Currency', c.standingCurrency]);
     if (c.hyperlanes) rows.push(['Hyperlanes', Array.isArray(c.hyperlanes) ? c.hyperlanes.join(', ') : c.hyperlanes]);
     if (!rows.length) return '';
@@ -3385,9 +3385,6 @@
     var h = '';
     if (c.famousFor) h += '<div class="dp-player-section-title">Famous For</div><div class="dp-player-bio">' + _esc(c.famousFor) + '</div>';
     if (c.cantinaReputation) h += '<div class="dp-player-section-title">Cantina Reputation</div><div class="dp-player-bio">' + _esc(c.cantinaReputation) + '</div>';
-    if (c.astrography) h += '<div class="dp-player-section-title">Astrography</div><div class="dp-player-bio">' + _esc(c.astrography) + '</div>';
-    if (c.physical) h += '<div class="dp-player-section-title">Physical</div><div class="dp-player-bio">' + _esc(c.physical) + '</div>';
-    if (c.society) h += '<div class="dp-player-section-title">Society</div><div class="dp-player-bio">' + _esc(c.society) + '</div>';
     return h;
   }
 

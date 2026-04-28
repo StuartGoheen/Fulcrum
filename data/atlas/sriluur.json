@@ -24,33 +24,7 @@
     ],
     "famousFor": "The Gozanti exchange. The Weequay swordsmiths. The fact that nothing illegal in Hutt Space is illegal on Sriluur.",
     "cantinaReputation": "Don't comment on the merchandise.",
-    "standingCurrency": "Wupiupi, Imperial credits",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Si'Klaata",
-      "system": "Sriluur",
-      "gridSquare": "M-15"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type I",
-      "climate": "Arid"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Weequay"
-      ],
-      "otherSpecies": [
-        "Hutt",
-        "Nikto",
-        "Klatooinian"
-      ],
-      "population": "Moderate",
-      "majorSettlements": [
-        "Al'Nasrl (capital)",
-        "The Gozanti exchange (orbital + ground)"
-      ]
-    }
+    "standingCurrency": "Wupiupi, Imperial credits"
   },
   "insider": {
     "localContacts": [

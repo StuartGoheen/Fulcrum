@@ -24,33 +24,7 @@
     ],
     "famousFor": "The Treaty of Vontor (binding Klatooinians to the Hutts). The Sacred Fountain. The slave markets that exist in violation of the treaty's spirit and within its letter.",
     "cantinaReputation": "Drink at the Klatooinian quarter. The Hutt-run quarters are watched.",
-    "standingCurrency": "Wupiupi, Imperial credits",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Si'Klaata",
-      "system": "Klatooine",
-      "gridSquare": "M-15"
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type I",
-      "climate": "Arid"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Klatooinian"
-      ],
-      "otherSpecies": [
-        "Hutt",
-        "Nikto",
-        "Vodran"
-      ],
-      "population": "Moderate",
-      "majorSettlements": [
-        "Tolea Biqua (Hutt enclave)",
-        "Klatoo (Klatooinian capital)"
-      ]
-    }
+    "standingCurrency": "Wupiupi, Imperial credits"
   },
   "insider": {
     "localContacts": [

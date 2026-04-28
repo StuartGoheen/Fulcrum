@@ -8,18 +8,21 @@
   "y": 0.738,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Givin homeworld of geometric architects, in tense Imperial protectorate.",
+    "government": "Givin Body Calculus (mathematical theocracy)",
+    "affiliation": "Independent (Imperial protectorate by treaty)",
+    "climate": "Thin atmosphere; extreme tides",
+    "terrain": [
+      "Dome cities",
+      "Tide-scoured coasts",
+      "Crystal escarpments"
+    ],
+    "hyperlanes": [
+      "Sanrafsix Corridor"
+    ],
+    "famousFor": "Givin shipwrights and structural engineers. The most precise mathematics in the Outer Rim.",
     "cantinaReputation": "Homeworld of the Givin — vacuum-adapted mathematicians with sealed exoskeletons. Yag'Dhul's three moons create extreme tidal forces that periodically strip the atmosphere from low-lying areas. The Givin are master shipwrights and hyperspace theorists. In 15 BBY, Yag'Dhul Station is a refueling stop on the Rimma Trade Route, and Givin navigators can be hired for complex route calculations.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

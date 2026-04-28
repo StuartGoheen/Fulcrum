@@ -25,39 +25,7 @@
     ],
     "famousFor": "Mos Eisley spaceport, Jabba the Hutt's palace, twin sunsets, podracing at Mos Espa.",
     "cantinaReputation": "Mos Eisley's cantinas serve everyone. Watch the corners. The bartender saw what happened. He will not say.",
-    "standingCurrency": "Imperial credits, wupiupi (Hutt currency), water credits",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Arkanis",
-      "system": "Tatoo",
-      "gridSquare": "J-13",
-      "suns": 2,
-      "moons": 3
-    },
-    "physical": {
-      "class": "Terrestrial",
-      "atmosphere": "Type I",
-      "climate": "Hyper-arid",
-      "surfaceWater": "None"
-    },
-    "society": {
-      "nativeSpecies": [
-        "Jawa",
-        "Tusken Raider"
-      ],
-      "otherSpecies": [
-        "Human",
-        "Rodian",
-        "Twi'lek"
-      ],
-      "population": "Sparse",
-      "majorSettlements": [
-        "Mos Eisley",
-        "Mos Espa",
-        "Anchorhead",
-        "Bestine"
-      ]
-    }
+    "standingCurrency": "Imperial credits, wupiupi (Hutt currency), water credits"
   },
   "insider": {
     "localContacts": [

@@ -8,18 +8,21 @@
   "y": 0.905,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Fog-drowned swamp world strong with the Force — and most spacers can't see why.",
+    "government": "None",
+    "affiliation": "Unaligned (uncharted)",
+    "climate": "Humid swamp",
+    "terrain": [
+      "Fungal swamps",
+      "Mangrove root cathedrals",
+      "Murky pools"
+    ],
+    "hyperlanes": [
+      "None on standard charts"
+    ],
+    "famousFor": "Almost nothing. Survey crews report nav-instruments going odd in low orbit and turn back.",
     "cantinaReputation": "Swamp world. Dense fog, massive gnarltrees, and aggressive fauna make Dagobah inhospitable to settlement. No cities, no spaceports, no Imperial presence. In 15 BBY, Dagobah is a dead end on the nav charts — a place ships pass over, not through. Sensors read poorly in the atmosphere. A perfect place to disappear, if you could survive.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

@@ -22,30 +22,7 @@
     ],
     "famousFor": "Tibanna gas, Cloud City's Royal Casino sabacc tournament, mid-tier luxury, and a Wing Guard that can be bought if you know the price.",
     "cantinaReputation": "If your money's good and your blaster stays holstered, Cloud City will sell you a perfect view. Bring your own clean ID.",
-    "standingCurrency": "Imperial credits, sector scrip",
-    "astrography": {
-      "region": "Outer Rim",
-      "sector": "Anoat",
-      "system": "Bespin",
-      "gridSquare": "K-18"
-    },
-    "physical": {
-      "class": "Gas giant",
-      "atmosphere": "Tibanna-rich; breathable in the Cloud City altitude band",
-      "climate": "Temperate at colony altitude"
-    },
-    "society": {
-      "nativeSpecies": [],
-      "otherSpecies": [
-        "Human",
-        "Ugnaught",
-        "Sullustan"
-      ],
-      "population": "Cloud City: ~6 million",
-      "majorSettlements": [
-        "Cloud City"
-      ]
-    }
+    "standingCurrency": "Imperial credits, sector scrip"
   },
   "insider": {
     "localContacts": [

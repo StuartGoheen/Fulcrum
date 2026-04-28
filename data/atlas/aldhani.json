@@ -8,18 +8,21 @@
   "y": 0.262,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Remote highland world famous for the Eye of Aldhani celestial event.",
+    "government": "Imperial governor; pre-Imperial highland clans displaced",
+    "affiliation": "Galactic Empire — payroll garrison",
+    "climate": "Cold temperate, mountainous",
+    "terrain": [
+      "High mountain plateaus",
+      "River-carved gorges",
+      "Heather moors"
+    ],
+    "hyperlanes": [
+      "Spur off the Hydian Way through the Cademimu sector"
+    ],
+    "famousFor": "The Eye of Aldhani — a meteor-shower spectacle every three years. Imperial payroll vault and a navigation relay.",
     "cantinaReputation": "Remote mountainous world in the Cademimu sector. The Empire maintains a garrison here guarding a payroll hub and a secret hyperspace navigation facility. In 15 BBY, Aldhani is lightly populated — herders and Imperial staff. The Eye of Aldhani — a spectacular celestial event — draws tourists once every three years. A risky but necessary waypoint for anyone heading to the Cademimu sector via back channels.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

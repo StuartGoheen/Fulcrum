@@ -8,18 +8,21 @@
   "y": 0.643,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Snowbound mountain world straddling Coaxium freight routes.",
+    "government": "Imperial mountain district administration",
+    "affiliation": "Galactic Empire",
+    "climate": "Cold; alpine",
+    "terrain": [
+      "Snow ranges",
+      "Glacial valleys",
+      "Conveyex rail viaducts"
+    ],
+    "hyperlanes": [
+      "Coaxium freight spur off the Hydian Way"
+    ],
+    "famousFor": "Imperial Conveyex trains hauling Coaxium. Cliff-edge railroads. Failed train heists nobody admits to.",
     "cantinaReputation": "Frigid mountain world. Fort Ypso is a rough frontier town where smugglers, miners, and outlaws trade goods and information. The Conveyex rail system hauls coaxium through mountain passes. In 15 BBY, it's a lawless boomtown — perfect for under-the-table deals and refueling with no questions asked.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

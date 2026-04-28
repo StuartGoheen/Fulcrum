@@ -8,18 +8,22 @@
   "y": 0.69,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Imperial shipyard world — second only to Kuat in tonnage launched.",
+    "government": "Fondorian Naval Authority (Imperial-administered)",
+    "affiliation": "Galactic Empire",
+    "climate": "Industrial temperate",
+    "terrain": [
+      "Orbital shipyard rings",
+      "Heavy industrial coast",
+      "Refinery cities"
+    ],
+    "hyperlanes": [
+      "Rimma Trade Route junction",
+      "Coreward leg toward Sullust"
+    ],
+    "famousFor": "Capital-ship construction. The Fondor naval drydocks are visible from orbit as a second ring around the planet.",
     "cantinaReputation": "Major shipyard world in the Core-ward colonies. Fondor's orbital shipyards rival Kuat in scale, producing Star Destroyers and heavy cruisers for the Imperial Navy. In 15 BBY, the yards are running triple shifts. The planet below is heavily industrialized — smog-choked cities serve a workforce devoted to military production. Not a place to linger unless you have business with the yards.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

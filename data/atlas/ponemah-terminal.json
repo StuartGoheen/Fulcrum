@@ -8,18 +8,21 @@
   "y": 0.75,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Decrepit deep-space refueling station the Empire can't quite be bothered to scrap.",
+    "government": "Station administrator (Imperial appointee)",
+    "affiliation": "Galactic Empire (administrative drift)",
+    "climate": "Vacuum (life-support only)",
+    "terrain": [
+      "Hub-and-spoke station modules",
+      "Disused docking arms",
+      "Cargo holds repurposed as dwellings"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route waypoint"
+    ],
+    "famousFor": "Long-haul refueling for ships skipping Imperial customs. Cheap berthing for ships nobody is looking for.",
     "cantinaReputation": "Desert world near Endor. The Crumbling Spires — remnants of a long-dead civilization — dot the endless salt flats. Treasure hunters and desperate spacers pick through the ruins. A backwater fuel depot serves ships that wandered too far off the beaten path.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],

@@ -8,18 +8,22 @@
   "y": 0.405,
   "isCampaignWorld": false,
   "common": {
-    "tagline": "",
-    "government": "",
-    "affiliation": "",
-    "climate": "",
-    "terrain": [],
-    "hyperlanes": [],
-    "famousFor": "",
+    "tagline": "Wroshyr-tree homeworld of the Wookiees — and an Imperial slave colony.",
+    "government": "Imperial Occupation Authority over scattered Wookiee elders' councils",
+    "affiliation": "Galactic Empire (occupied)",
+    "climate": "Tropical",
+    "terrain": [
+      "Wroshyr canopy cities",
+      "Beach fortresses",
+      "Shadowlands jungle floor"
+    ],
+    "hyperlanes": [
+      "Randon Run",
+      "Bothan Run connector"
+    ],
+    "famousFor": "Wookiees. Wroshyr trees a kilometer tall. Imperial slaver garrisons that sailors avoid being asked about.",
     "cantinaReputation": "Wookiee homeworld. Towering wroshyr trees form a vertical ecosystem kilometers high. In 15 BBY, the Empire occupies Kashyyyk, enslaving Wookiees for labor. Trandoshan slavers operate openly. The Wookiee resistance runs a dangerous underground — sympathetic spacers can find fuel and repairs in hidden tree-city docks, but getting caught means a one-way trip to the spice mines of Kessel.",
-    "standingCurrency": "Imperial credits",
-    "astrography": null,
-    "physical": null,
-    "society": null
+    "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [],
