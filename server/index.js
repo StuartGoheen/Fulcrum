@@ -78,6 +78,10 @@ app.use(gate);
 
 app.use(express.static(path.join(ROOT, 'public')));
 app.use('/js',     express.static(path.join(ROOT, 'js')));
+
+app.use('/data/atlas', (_req, res) => {
+  res.status(403).json({ error: 'Atlas canon files are not directly accessible. Use /api/atlas.' });
+});
 app.use('/data',   express.static(path.join(ROOT, 'data')));
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
 app.use('/attached_assets', express.static(path.join(ROOT, 'attached_assets')));
