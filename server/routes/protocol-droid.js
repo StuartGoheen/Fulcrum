@@ -169,6 +169,46 @@ async function loadDramatisCorpus(isGmCaller) {
   return profiles;
 }
 
+async function loadAtlasCorpus(isGmCaller) {
+  // Mirror dramatis pattern: read JSON canon from disk + DB reveal flags;
+  // role/reveal-gate the tiers before returning.
+  const fs = require('fs');
+  const path = require('path');
+  const dir = path.join(__dirname, '..', '..', 'data', 'atlas');
+  let manifest = [];
+  try {
+    const m = JSON.parse(fs.readFileSync(path.join(dir, '_manifest.json'), 'utf8'));
+    manifest = Array.isArray(m) ? m : (m.slugs || []);
+  } catch (_e) { return []; }
+  if (!manifest.length) return [];
+
+  let revealedSet = new Set();
+  try {
+    const r = await pool.query('SELECT slug FROM atlas_reveals WHERE revealed = true');
+    revealedSet = new Set(r.rows.map(row => row.slug));
+  } catch (_e) { /* table may not exist yet */ }
+
+  const out = [];
+  for (const slug of manifest) {
+    let raw;
+    try { raw = JSON.parse(fs.readFileSync(path.join(dir, slug + '.json'), 'utf8')); }
+    catch (_e) { continue; }
+    const revealed = revealedSet.has(slug);
+    const entry = {
+      slug,
+      name: raw.name,
+      region: raw.region || '',
+      sector: raw.sector || '',
+      common: raw.common || {},
+      revealed: revealed,
+    };
+    if (isGmCaller || revealed) entry.insider = raw.insider || null;
+    if (isGmCaller) entry.gm = raw.gm || null;
+    out.push(entry);
+  }
+  return out;
+}
+
 async function loadJournalCorpus(viewerName) {
   const v = (viewerName || '').toString().trim();
   if (!v) return [];
@@ -264,16 +304,98 @@ function buildDramatisSection(profiles, isGmCaller) {
   return lines.join('\n');
 }
 
-function buildPrompt({ characterName, scope, question, journalEntries, rulesSections, dramatisProfiles, isGmCaller }) {
+function buildAtlasSection(entries, isGmCaller) {
+  if (!entries || !entries.length) return '(No atlas entries available.)';
+  const lines = [];
+  for (const e of entries) {
+    lines.push(`--- LOCATION slug=${e.slug} ---`);
+    lines.push(`Name: ${e.name}` + (e.region ? `  |  Region: ${e.region}` : '') + (e.sector ? `  |  Sector: ${e.sector}` : ''));
+    const c = e.common || {};
+    if (c.tagline) lines.push(`Tagline: ${c.tagline}`);
+    if (c.government) lines.push(`Government: ${c.government}`);
+    if (c.affiliation && c.affiliation !== c.government) lines.push(`Affiliation: ${c.affiliation}`);
+    if (c.climate) lines.push(`Climate: ${c.climate}`);
+    if (c.terrain) lines.push(`Terrain: ${c.terrain}`);
+    if (c.standingCurrency) lines.push(`Currency: ${c.standingCurrency}`);
+    if (c.hyperlanes) lines.push(`Hyperlanes: ${Array.isArray(c.hyperlanes) ? c.hyperlanes.join(', ') : c.hyperlanes}`);
+    if (c.famousFor) lines.push(`Famous For: ${c.famousFor}`);
+    if (c.cantinaReputation) lines.push(`Cantina Reputation: ${c.cantinaReputation}`);
+    if (c.astrography) lines.push(`Astrography: ${c.astrography}`);
+    if (c.physical) lines.push(`Physical: ${c.physical}`);
+    if (c.society) lines.push(`Society: ${c.society}`);
+
+    if (e.insider) {
+      const ins = e.insider;
+      lines.push('');
+      lines.push('Local Knowledge (revealed):');
+      const dump = (label, val) => {
+        if (!val) return;
+        if (Array.isArray(val) && val.length) {
+          lines.push(`  ${label}:`);
+          for (const v of val) {
+            if (v && typeof v === 'object') {
+              const nm = v.name || v.title || '';
+              const ds = v.description || v.note || v.desc || '';
+              lines.push(`    - ${nm}${ds ? ' — ' + ds : ''}`);
+            } else {
+              lines.push(`    - ${v}`);
+            }
+          }
+        } else if (typeof val === 'string') {
+          lines.push(`  ${label}: ${val}`);
+        }
+      };
+      dump('Local Contacts', ins.localContacts);
+      dump('Points of Interest', ins.pointsOfInterest);
+      dump('Political Tensions', ins.politicalTensions);
+      dump('Smuggler Routes', ins.smugglerRoutes);
+      dump('Who Runs the Docks', ins.whoRunsTheDocks);
+    }
+
+    if (isGmCaller && e.gm) {
+      const gm = e.gm;
+      lines.push('');
+      lines.push('GM Notes (private):');
+      const dump = (label, val) => {
+        if (!val) return;
+        if (Array.isArray(val) && val.length) {
+          lines.push(`  ${label}:`);
+          for (const v of val) {
+            if (v && typeof v === 'object') {
+              const nm = v.name || v.title || '';
+              const ds = v.description || v.note || v.desc || '';
+              lines.push(`    - ${nm}${ds ? ' — ' + ds : ''}`);
+            } else {
+              lines.push(`    - ${v}`);
+            }
+          }
+        } else if (typeof val === 'string') {
+          lines.push(`  ${label}: ${val}`);
+        }
+      };
+      dump('Plot Hooks', gm.plotHooks);
+      dump('Hidden Truths', gm.hiddenTruths);
+      dump('Secret Factions', gm.secretFactions);
+      if (gm.gmNotes) lines.push(`  GM Notes: ${gm.gmNotes}`);
+    }
+
+    lines.push('');
+  }
+  return lines.join('\n');
+}
+
+function buildPrompt({ characterName, scope, question, journalEntries, rulesSections, dramatisProfiles, atlasEntries, isGmCaller }) {
   const useJournal = scope === 'crew' || scope === 'both' || scope === 'private';
   const useRules   = scope === 'rules' || scope === 'both';
   const useDramatis = scope === 'crew' || scope === 'both';
+  const useAtlas    = scope === 'crew' || scope === 'both';
 
   const persona = `You are a Protocol Droid serving the crew. You speak in-character: courteous, slightly formal, with a touch of dry wit. You address ${characterName || 'the operator'} respectfully.`;
 
   const rules = [
-    'You have three memory banks: CREW LOGS (the character\'s personal journal — private + crew entries they can see), DRAMATIS PERSONAE (curated dossiers on known NPCs the crew has encountered — these are authoritative for who an NPC is, their species, role, status, traits, affiliations, and timeline of encounters), and STANDARD PROTOCOL (the official rules, lore, gear, weapons, maneuvers, NPC archetypes for the Fulcrum / Edge of the Empire game system).',
+    'You have four memory banks: CREW LOGS (the character\'s personal journal — private + crew entries they can see), DRAMATIS PERSONAE (curated dossiers on known NPCs the crew has encountered — these are authoritative for who an NPC is, their species, role, status, traits, affiliations, and timeline of encounters), SPACER\'S ATLAS (curated location entries: planets, moons, stations, sectors, hyperlanes — these are authoritative for where a place is, who governs it, the climate, and what the crew knows about it; tiered as Public/Local Knowledge/GM), and STANDARD PROTOCOL (the official rules, lore, gear, weapons, maneuvers, NPC archetypes for the Fulcrum / Edge of the Empire game system).',
     'For questions about a specific NPC, prefer the DRAMATIS dossier as the canonical fact source, then enrich with relevant CREW LOGS for the crew\'s direct experience and quotes.',
+    'For questions about a location (planet, sector, station, hyperlane, moon), prefer the ATLAS entry as the canonical fact source, then enrich with relevant CREW LOGS for the crew\'s direct experience there.',
     'Answer ONLY using information found in the provided memory banks.',
     'If the answer is not in the available memory, say so plainly and offer what is available adjacent. Do NOT invent facts, NPCs, dates, locations, or rules.',
     '',
@@ -285,6 +407,7 @@ function buildPrompt({ characterName, scope, question, journalEntries, rulesSect
     'Each citation goes in the "sources" array as one of:',
     '  { "type": "journal",  "refId": <entry id from CREW LOGS>, "label": "<2-6 word topic, NOT the verbatim entry title>" }',
     '  { "type": "dramatis", "refId": "<npc_key from DRAMATIS, e.g. varth>", "label": "<2-6 word topic, e.g. Varth dossier — bio>" }',
+    '  { "type": "atlas",    "refId": "<slug from ATLAS, e.g. tatooine>", "label": "<2-6 word topic, e.g. Tatooine — Hutt control>" }',
     '  { "type": "rules",    "refId": "<rules source id, e.g. gamesystem>", "label": "<2-6 word reference, e.g. Symmetric Resolution>" }',
     'The label is what the player sees on a chip — make it a useful summary of WHY this source supports your answer (e.g. "Varth\'s prison survival", "Trust pitch — routing data", "Aim maneuver bonuses"). Never copy the full entry title.',
     '',
@@ -296,6 +419,10 @@ function buildPrompt({ characterName, scope, question, journalEntries, rulesSect
   if (useDramatis) {
     banks.push('===== MEMORY BANK: DRAMATIS PERSONAE =====');
     banks.push(buildDramatisSection(dramatisProfiles || [], !!isGmCaller));
+  }
+  if (useAtlas) {
+    banks.push('===== MEMORY BANK: SPACER\'S ATLAS =====');
+    banks.push(buildAtlasSection(atlasEntries || [], !!isGmCaller));
   }
   if (useJournal) {
     banks.push('===== MEMORY BANK: CREW LOGS =====');
@@ -427,10 +554,12 @@ router.post('/protocol-droid/ask', async (req, res) => {
     //   private → journal only (no dramatis, no rules)
     const wantJournal  = (sc === 'crew' || sc === 'both' || sc === 'private');
     const wantDramatis = (sc === 'crew' || sc === 'both');
+    const wantAtlas    = (sc === 'crew' || sc === 'both');
     const wantRules    = (sc === 'rules' || sc === 'both');
-    const [journalEntries, dramatisProfiles] = await Promise.all([
+    const [journalEntries, dramatisProfiles, atlasEntries] = await Promise.all([
       wantJournal  ? loadJournalCorpus(characterName) : Promise.resolve([]),
       wantDramatis ? loadDramatisCorpus(isGmCaller)   : Promise.resolve([]),
+      wantAtlas    ? loadAtlasCorpus(isGmCaller)      : Promise.resolve([]),
     ]);
     const rulesPick = wantRules
       ? selectRulesSections(q, { isGmCaller })
@@ -439,7 +568,7 @@ router.post('/protocol-droid/ask', async (req, res) => {
 
     const prompt = buildPrompt({
       characterName, scope: sc, question: q,
-      journalEntries, rulesSections, dramatisProfiles, isGmCaller,
+      journalEntries, rulesSections, dramatisProfiles, atlasEntries, isGmCaller,
     });
 
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -483,6 +612,9 @@ router.post('/protocol-droid/ask', async (req, res) => {
         characterName: characterName || null,
         journalEntryCount: journalEntries.length,
         dramatisProfileCount: dramatisProfiles.length,
+        atlasEntryCount: atlasEntries.length,
+        atlasRevealedCount: atlasEntries.filter(function (e) { return e.revealed; }).length,
+        atlasSourcesUsed: atlasEntries.map(function (e) { return e.slug; }),
         rulesSectionCount: rulesSections.length,
         rulesSelected: rulesPick.selected,
         rulesTotal: rulesPick.total,

@@ -1,0 +1,51 @@
+{
+  "slug": "kashyyyk",
+  "name": "Kashyyyk",
+  "region": "Mid Rim",
+  "sector": "Mytaranor",
+  "gridSquare": "P-9",
+  "x": 0.738,
+  "y": 0.405,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Wookiee homeworld. Towering wroshyr trees form a vertical ecosystem kilometers high. In 15 BBY, the Empire occupies Kashyyyk, enslaving Wookiees for labor. Trandoshan slavers operate openly. The Wookiee resistance runs a dangerous underground — sympathetic spacers can find fuel and repairs in hidden tree-city docks, but getting caught means a one-way trip to the spice mines of Kessel.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Kashyyyk"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

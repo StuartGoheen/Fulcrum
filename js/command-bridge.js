@@ -7457,6 +7457,182 @@
     setTimeout(function () { toast.classList.remove('active'); }, 2500);
   }
 
+  // ───────────────────────── Spacer's Atlas (GM admin) ─────────────────────────
+  var _atlasEntriesGm = [];
+  var _atlasExpandedGm = null;
+  var _atlasFilterGm = '';
+
+  function initSpacersAtlas() {
+    var btn = document.getElementById('cb-atlas-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () { openAtlasPanel(); });
+  }
+
+  function openAtlasPanel() {
+    var panelId = 'atlas';
+    var existing = document.getElementById('fp-' + panelId);
+    if (existing) {
+      existing.style.zIndex = ++_panelZCounter;
+      return;
+    }
+    openFloatingPanel(panelId, "Spacer's Atlas", '<div class="dp-loading" style="padding:1rem;color:var(--color-text-secondary);font-style:italic;">Loading atlas\u2026</div>', { width: 640, height: 580 });
+    _loadAtlasEntriesGm();
+  }
+
+  function _loadAtlasEntriesGm() {
+    fetch('/api/atlas')
+      .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
+      .then(function (data) {
+        _atlasEntriesGm = data.entries || [];
+        _renderAtlasPanel();
+      })
+      .catch(function () {
+        var body = document.querySelector('#fp-atlas .cb-fpanel-body');
+        if (body) body.innerHTML = '<div style="padding:1rem;color:var(--color-danger);">Failed to load atlas.</div>';
+      });
+  }
+
+  function _renderAtlasPanel() {
+    var body = document.querySelector('#fp-atlas .cb-fpanel-body');
+    if (!body) return;
+
+    var filter = _atlasFilterGm.toLowerCase().trim();
+    var entries = _atlasEntriesGm.filter(function (e) {
+      if (!filter) return true;
+      var hay = (e.name + ' ' + (e.region || '') + ' ' + (e.sector || '') + ' ' + e.slug).toLowerCase();
+      return hay.indexOf(filter) !== -1;
+    });
+
+    var revealedCount = _atlasEntriesGm.filter(function (e) { return e.revealed; }).length;
+
+    var html = '<div class="dp-toolbar">';
+    html += '<input class="dp-input" id="atlas-filter" placeholder="Filter by name, region, sector\u2026" value="' + esc(_atlasFilterGm) + '" style="flex:1;" />';
+    html += '<span style="color:var(--color-text-secondary);font-size:0.8rem;align-self:center;">' + revealedCount + ' / ' + _atlasEntriesGm.length + ' revealed</span>';
+    html += '</div>';
+    html += '<div class="dp-roster" id="atlas-roster">';
+
+    if (!entries.length) {
+      html += '<div class="dp-empty">No matching atlas entries.</div>';
+    } else {
+      entries.forEach(function (e) {
+        var isExp = _atlasExpandedGm === e.slug;
+        var isCampaign = !!(e.campaignNotes && e.campaignNotes.adventures && e.campaignNotes.adventures.length);
+        var c = e.common || {};
+        var img = e.image && e.image.src ? e.image.src : null;
+        var firstChar = (e.name || '?').charAt(0).toUpperCase();
+        var subBits = [];
+        if (e.region) subBits.push(e.region);
+        if (e.sector) subBits.push(e.sector + ' Sector');
+        var sub = subBits.join(' \u2014 ');
+
+        html += '<div class="dp-card' + (isExp ? ' dp-card--expanded' : '') + '" data-atlas-slug="' + esc(e.slug) + '">';
+        html += '<div class="dp-card-header" data-atlas-toggle="' + esc(e.slug) + '">';
+        if (img) {
+          html += '<img class="dp-portrait-thumb" src="' + esc(img) + '" alt="' + esc(e.name) + '" />';
+        } else {
+          html += '<div class="dp-portrait-placeholder">' + esc(firstChar) + '</div>';
+        }
+        html += '<div class="dp-card-info">';
+        html += '<div class="dp-card-name">' + esc(e.name) + (isCampaign ? ' <span class="atlas-campaign-pill">CAMPAIGN</span>' : '') + '</div>';
+        html += '<div class="dp-card-sub">' + esc(sub) + '</div>';
+        html += '</div>';
+        html += '<span class="dp-status-badge" style="background:' + (e.revealed ? '#22c55e' : '#6b7280') + ';">' + (e.revealed ? 'INSIDER' : 'COMMON') + '</span>';
+        html += '<span class="dp-reveal-indicator" style="color:' + (e.revealed ? '#22c55e' : '#6b7280') + ';">' + (e.revealed ? '\u25C9' : '\u25CB') + '</span>';
+        html += '</div>';
+
+        if (isExp) {
+          html += '<div class="dp-card-detail">';
+          if (c.tagline) html += '<div class="dp-detail-row"><label>Tagline</label><div class="dp-readonly">' + esc(c.tagline) + '</div></div>';
+          if (c.government) html += '<div class="dp-detail-row"><label>Government</label><div class="dp-readonly">' + esc(c.government) + '</div></div>';
+
+          html += '<div class="dp-detail-row"><label>Insider Tier</label>';
+          html += '<button class="dp-btn dp-btn--small" data-atlas-reveal="' + esc(e.slug) + '" data-revealed="' + (e.revealed ? '1' : '0') + '">' + (e.revealed ? 'Hide from Players' : 'Reveal to Players') + '</button>';
+          html += '</div>';
+
+          var insider = e.insider || {};
+          var insBits = [];
+          if (insider.localContacts && insider.localContacts.length) insBits.push(insider.localContacts.length + ' contact(s)');
+          if (insider.pointsOfInterest && insider.pointsOfInterest.length) insBits.push(insider.pointsOfInterest.length + ' POI(s)');
+          if (insider.smugglerRoutes && insider.smugglerRoutes.length) insBits.push(insider.smugglerRoutes.length + ' route(s)');
+          if (insBits.length) {
+            html += '<div class="dp-detail-row"><label>Insider Content</label><div class="dp-readonly">' + esc(insBits.join(', ')) + '</div></div>';
+          } else {
+            html += '<div class="dp-detail-row"><label>Insider Content</label><div class="dp-readonly" style="font-style:italic;color:var(--color-text-secondary);">(none authored yet)</div></div>';
+          }
+
+          var gm = e.gm || {};
+          var gmBits = [];
+          if (gm.plotHooks && gm.plotHooks.length) gmBits.push(gm.plotHooks.length + ' hook(s)');
+          if (gm.hiddenTruths && gm.hiddenTruths.length) gmBits.push(gm.hiddenTruths.length + ' hidden truth(s)');
+          if (gm.secretFactions && gm.secretFactions.length) gmBits.push(gm.secretFactions.length + ' faction(s)');
+          if (gm.gmNotes) gmBits.push('notes');
+          if (gmBits.length) {
+            html += '<div class="dp-detail-row"><label>GM Tier</label><div class="dp-readonly">' + esc(gmBits.join(', ')) + '</div></div>';
+          }
+
+          if (e.campaignNotes && (e.campaignNotes.adventures || e.campaignNotes.era)) {
+            var campTxt = (e.campaignNotes.era ? e.campaignNotes.era + ' \u2014 ' : '') + ((e.campaignNotes.adventures || []).join(', '));
+            html += '<div class="dp-detail-row"><label>Campaign</label><div class="dp-readonly">' + esc(campTxt) + '</div></div>';
+          }
+
+          html += '</div>';
+        }
+        html += '</div>';
+      });
+    }
+
+    html += '</div>';
+    body.innerHTML = html;
+    _bindAtlasEvents(body);
+  }
+
+  function _bindAtlasEvents(body) {
+    var filterInput = body.querySelector('#atlas-filter');
+    if (filterInput) {
+      filterInput.addEventListener('input', function () {
+        _atlasFilterGm = filterInput.value;
+        var roster = body.querySelector('#atlas-roster');
+        if (!roster) return;
+        // Re-render but preserve focus
+        var pos = filterInput.selectionStart;
+        _renderAtlasPanel();
+        var fi = body.querySelector('#atlas-filter');
+        if (fi) { fi.focus(); try { fi.setSelectionRange(pos, pos); } catch (_) {} }
+      });
+    }
+
+    body.querySelectorAll('[data-atlas-toggle]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var slug = el.dataset.atlasToggle;
+        _atlasExpandedGm = (_atlasExpandedGm === slug) ? null : slug;
+        _renderAtlasPanel();
+      });
+    });
+
+    body.querySelectorAll('[data-atlas-reveal]').forEach(function (btn) {
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        var slug = btn.dataset.atlasReveal;
+        var current = btn.dataset.revealed === '1';
+        btn.disabled = true;
+        fetch('/api/atlas/' + encodeURIComponent(slug) + '/reveal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ revealed: !current })
+        })
+          .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
+          .then(function () {
+            _showNpcToast(!current ? 'Revealed insider tier to players' : 'Hid insider tier from players');
+            _loadAtlasEntriesGm();
+          })
+          .catch(function () {
+            btn.disabled = false;
+            _showNpcToast('Failed to toggle reveal');
+          });
+      });
+    });
+  }
+
   initDragHandles();
   initCollapsiblePanels();
   initSockets();
@@ -7468,6 +7644,7 @@
   initNarrativeChallenges();
   initConversationScenes();
   initDramatisPersonae();
+  initSpacersAtlas();
 
   var galaxyMapBtn = document.getElementById('cb-galaxy-map-btn');
   if (galaxyMapBtn) {

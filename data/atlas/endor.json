@@ -1,0 +1,86 @@
+{
+  "slug": "endor",
+  "name": "Endor",
+  "region": "Outer Rim",
+  "sector": "Moddell",
+  "gridSquare": "H-16",
+  "x": 0.357,
+  "y": 0.738,
+  "isCampaignWorld": true,
+  "type": "moon",
+  "common": {
+    "tagline": "Forest moon. Hyperspace anomalies make the Moddell sector effectively unreachable without specific route data.",
+    "government": "None (Ewok tribal; uncontacted by Imperial authority in 15 BBY)",
+    "affiliation": "Unaligned",
+    "climate": "Temperate forest",
+    "terrain": [
+      "Forest canopy",
+      "Dead Forest (interior)",
+      "Mountain ridges"
+    ],
+    "hyperlanes": [
+      "None mapped; the Monsua Nebula and surrounding ion clouds disrupt navigation"
+    ],
+    "famousFor": "Nothing the galaxy talks about. Nobody comes here.",
+    "cantinaReputation": "Endor is the answer to 'where would you hide a thing nobody can ever find?'",
+    "standingCurrency": "N/A",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Moddell",
+      "system": "Endor",
+      "gridSquare": "H-16"
+    },
+    "physical": {
+      "class": "Forest moon",
+      "atmosphere": "Type I",
+      "climate": "Temperate"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Ewok"
+      ],
+      "population": "Tribal"
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "No reliable contacts. Ewok tribes are not unified and are deeply suspicious of offworlders."
+    ],
+    "pointsOfInterest": [
+      "The Dead Forest (Ebon Spire location)",
+      "Monsua Nebula (sector-wide nav hazard)"
+    ],
+    "politicalTensions": "The sector itself fights you. Hyperspace anomalies eat ships. Imperial probe droids dispatched here in the past have not returned.",
+    "smugglerRoutes": [
+      "None public. Specific route data is the entire prize."
+    ],
+    "whoRunsTheDocks": "There are no docks."
+  },
+  "gm": {
+    "plotHooks": [
+      "Adv4 — the Ebon Spire holocrons. Revan's ancient forward base, sealed for a thousand years.",
+      "The drift algorithms recovered from Malpaz unlock the Moddell sector's hyperspace approach."
+    ],
+    "hiddenTruths": [
+      "The Empire will choose this moon for the second Death Star three years from now precisely because of these anomalies. In 15 BBY, that decision has not been made.",
+      "The Ebon Spire's Force-locked vault is the navigation chart Varth needs for Vel Shara."
+    ],
+    "secretFactions": [
+      "Revan's archive caretakers (extinct, but their wards persist)"
+    ],
+    "gmNotes": "Adv4 is the campaign's first Force-heavy beat. Endor should feel old and listening."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Forest_Moon_of_Endor",
+    "alt": "Endor"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv4"
+    ],
+    "era": "15 BBY — uncontacted by the Empire."
+  }
+}

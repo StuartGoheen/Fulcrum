@@ -1,0 +1,51 @@
+{
+  "slug": "sluis-van",
+  "name": "Sluis Van",
+  "region": "Outer Rim",
+  "sector": "Sluis",
+  "gridSquare": "N-18",
+  "x": 0.643,
+  "y": 0.833,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Major shipyard world in the Sluis sector. The Sluis Van shipyards are one of the largest repair and construction facilities in the Outer Rim — a sprawling orbital complex servicing everything from bulk freighters to capital ships. In 15 BBY, the Empire contracts heavily with the yards. For independent spacers, Sluis Van means fast repairs, quality parts, and mechanics who know their trade. Expensive, but worth it.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Sluis Van"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

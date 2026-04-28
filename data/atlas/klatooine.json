@@ -1,0 +1,103 @@
+{
+  "slug": "klatooine",
+  "name": "Klatooine",
+  "region": "Outer Rim",
+  "sector": "Si'Klaata",
+  "gridSquare": "M-15",
+  "x": 0.65,
+  "y": 0.55,
+  "isCampaignWorld": false,
+  "type": "planet",
+  "common": {
+    "tagline": "Klatooinian homeworld. Bound by ancient treaty to serve the Hutts.",
+    "government": "Hutt overlordship via Klatooinian client-state council",
+    "affiliation": "Hutt Space",
+    "climate": "Arid to temperate",
+    "terrain": [
+      "Plains",
+      "Stone valleys",
+      "Sacred Fountain (centerpiece)"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route",
+      "Pabol Sleheyron (Hutt internal)"
+    ],
+    "famousFor": "The Treaty of Vontor (binding Klatooinians to the Hutts). The Sacred Fountain. The slave markets that exist in violation of the treaty's spirit and within its letter.",
+    "cantinaReputation": "Drink at the Klatooinian quarter. The Hutt-run quarters are watched.",
+    "standingCurrency": "Wupiupi, Imperial credits",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Si'Klaata",
+      "system": "Klatooine",
+      "gridSquare": "M-15"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type I",
+      "climate": "Arid"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Klatooinian"
+      ],
+      "otherSpecies": [
+        "Hutt",
+        "Nikto",
+        "Vodran"
+      ],
+      "population": "Moderate",
+      "majorSettlements": [
+        "Tolea Biqua (Hutt enclave)",
+        "Klatoo (Klatooinian capital)"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Bargon Tula — Klatooinian dock-master at Tolea Biqua. Hates the Hutts; cannot show it.",
+      "Drevoss the Hutt — local boss, mid-tier. Runs slave-shipment intake at Tolea Biqua.",
+      "The Sacred Fountain custodian council — refuses to deal with Hutts on principle. May help offworlders who respect the treaty."
+    ],
+    "pointsOfInterest": [
+      "Tolea Biqua spaceport (Hutt-controlled)",
+      "The Sacred Fountain",
+      "The Klatoo highlands (treaty council seat)",
+      "The slave-intake pens (north of Tolea Biqua)"
+    ],
+    "politicalTensions": "Klatooinian resentment of Hutt rule has burned for generations. The Sacred Fountain is the symbol; the treaty is the chain. Imperial presence is light — Hutts pay the tribute, the Empire stays out.",
+    "smugglerRoutes": [
+      "Triellus → Sriluur → Klatooine is the standard slave-shipment routing",
+      "Pabol Sleheyron is Hutt-internal and harder for offworlders to access"
+    ],
+    "whoRunsTheDocks": "Hutt-aligned dock authority at Tolea Biqua. Klatooinian dock workers everywhere else."
+  },
+  "gm": {
+    "plotHooks": [
+      "Klatooine is one of the Indemnity's last seven port calls (Adv3 P1 reveal). The 384 slaves aboard the Indemnity boarded here, four standard days before the Bespin climax.",
+      "A Klatooinian liberation cell is forming in the Klatoo highlands — they will not act in 15 BBY, but a connection here can pay off in Act 3.",
+      "Bargon Tula will help the heroes liberate slaves from the Tolea Biqua pens if they convince him the operation will not get the Klatooinian quarter burned down in retaliation."
+    ],
+    "hiddenTruths": [
+      "The Treaty of Vontor's modern enforcement is a Hutt confidence trick — the original Klatooinian binding-oath has been ritually invalidated by the Sacred Fountain custodians for two generations. The Klatooinians as a people are technically free; they have not realized this collectively.",
+      "The Empire knows the Hutts are technically violating slave-trade prohibitions on Klatooine. The Empire does not care."
+    ],
+    "secretFactions": [
+      "Klatooinian liberation cell (highlands)",
+      "Hutt slave-trade syndicate"
+    ],
+    "gmNotes": "If the campaign ever pulls on the slave-trade thread Maya started in Adv3, Klatooine is where it leads. Treat it as the campaign's quiet moral debt."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Klatooine",
+    "alt": "Klatooine"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv3"
+    ],
+    "era": "15 BBY — Hutt slave-trade is operating openly under Imperial indifference."
+  }
+}

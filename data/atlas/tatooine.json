@@ -1,0 +1,108 @@
+{
+  "slug": "tatooine",
+  "name": "Tatooine",
+  "region": "Outer Rim",
+  "sector": "Arkanis",
+  "gridSquare": "J-13",
+  "x": 0.43,
+  "y": 0.62,
+  "isCampaignWorld": false,
+  "type": "planet",
+  "common": {
+    "tagline": "Twin-sun desert world. Hutt rule, moisture farms, and the worst spaceport in the galaxy.",
+    "government": "Hutt cartel (Jabba) with Imperial nominal oversight",
+    "affiliation": "Hutt Space-aligned (Imperial nominal)",
+    "climate": "Hyper-arid",
+    "terrain": [
+      "Desert",
+      "Salt flats",
+      "Jundland Wastes",
+      "Dune Sea"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route (Hutt artery)",
+      "Salin Corridor (minor)"
+    ],
+    "famousFor": "Mos Eisley spaceport, Jabba the Hutt's palace, twin sunsets, podracing at Mos Espa.",
+    "cantinaReputation": "Mos Eisley's cantinas serve everyone. Watch the corners. The bartender saw what happened. He will not say.",
+    "standingCurrency": "Imperial credits, wupiupi (Hutt currency), water credits",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Arkanis",
+      "system": "Tatoo",
+      "gridSquare": "J-13",
+      "suns": 2,
+      "moons": 3
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type I",
+      "climate": "Hyper-arid",
+      "surfaceWater": "None"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Jawa",
+        "Tusken Raider"
+      ],
+      "otherSpecies": [
+        "Human",
+        "Rodian",
+        "Twi'lek"
+      ],
+      "population": "Sparse",
+      "majorSettlements": [
+        "Mos Eisley",
+        "Mos Espa",
+        "Anchorhead",
+        "Bestine"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Jabba Desilijic Tiure — Hutt clan head; runs Tatooine de facto.",
+      "Wuher — Mos Eisley cantina barkeep. Sees everything. Says nothing.",
+      "Ranzar Malk — pre-Mandalorian-era fence working out of Mos Espa."
+    ],
+    "pointsOfInterest": [
+      "Mos Eisley spaceport",
+      "Mos Espa (podracing arena)",
+      "Jabba's palace (Northern Dune Sea)",
+      "Anchorhead",
+      "Tosche Station"
+    ],
+    "politicalTensions": "Jabba runs Tatooine. The Empire pretends to. Tusken raids on outlying farms are a fact of life. Jawas trade in everyone else's salvage.",
+    "smugglerRoutes": [
+      "Triellus Trade Route is the spice highway between Kessel and Nal Hutta",
+      "Salin Corridor connects to the southern Outer Rim"
+    ],
+    "whoRunsTheDocks": "Mos Eisley dock-master is technically Imperial — practically Jabba's. Pay the docking fee twice."
+  },
+  "gm": {
+    "plotHooks": [
+      "Tatooine is the spice corridor's western anchor — the slave shipments routed through Indemnity-class haulers (Adv3) pass within a parsec.",
+      "Jabba and Varga are technically rivals. Varga's slave trade exists at Jabba's sufferance."
+    ],
+    "hiddenTruths": [
+      "Jabba's palace contains a Force-sensitive prisoner whose origin Jabba does not understand. Decades-old Imperial contract.",
+      "The Empire has standing orders to ignore Hutt activity on Tatooine — too expensive to police, too far from anywhere that matters."
+    ],
+    "secretFactions": [
+      "Jabba's clan",
+      "Tusken war-band confederacies"
+    ],
+    "gmNotes": "If the heroes detour to Tatooine in pursuit of Varga's supply chain, treat it as a Hutt-territory consequence chain. Jabba does not love Varga; he tolerates him."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Tatooine",
+    "alt": "Tatooine"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": "15 BBY — Jabba runs everything that matters. Anakin Skywalker has been freed for years and his name is half-forgotten here."
+  }
+}

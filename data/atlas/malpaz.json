@@ -1,0 +1,100 @@
+{
+  "slug": "malpaz",
+  "name": "Malpaz",
+  "region": "Outer Rim",
+  "sector": "Wazta",
+  "gridSquare": "I-17",
+  "x": 0.405,
+  "y": 0.786,
+  "isCampaignWorld": true,
+  "type": "planet",
+  "common": {
+    "tagline": "Scarred industrial world. The Empire buried its mistakes here.",
+    "government": "Imperial Sector Authority (Wazta)",
+    "affiliation": "Galactic Empire",
+    "climate": "Temperate, choked by industrial smog and reactor fallout",
+    "terrain": [
+      "Industrial plains",
+      "Contaminated zones",
+      "Native avian rookeries"
+    ],
+    "hyperlanes": [
+      "Lipsec Run (minor)"
+    ],
+    "famousFor": "The Krennic reactor 'accident' of 17 BBY. The Empire blamed Separatist holdouts. The locals know better.",
+    "cantinaReputation": "Bring your own air filter. The drinks are worse than the smog.",
+    "standingCurrency": "Imperial credits",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Wazta",
+      "system": "Malpaz",
+      "gridSquare": "I-17"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type II (filtered breathing recommended)",
+      "climate": "Temperate"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Malpazan (avian)"
+      ],
+      "otherSpecies": [
+        "Human"
+      ],
+      "population": "Moderate",
+      "majorSettlements": [
+        "Reactor Town",
+        "The Citadel District"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Verla Vrass — Malpazan resistance organizer. Lost her brood to the reactor. Will help anyone who hurts the Empire.",
+      "Imperial Lieutenant Daro Vex — career officer at the research station. Compromisable through old gambling debts.",
+      "The Resurgence cell — proto-rebel network, currently dormant on Malpaz."
+    ],
+    "pointsOfInterest": [
+      "The Imperial Research Station (drift algorithm vault)",
+      "Reactor Town (the contaminated zone)",
+      "Verla's safehouse (the avian rookery)"
+    ],
+    "politicalTensions": "Two years of contaminated ground, dead children, and Imperial gaslighting. The fuse is soaked in fuel; someone just needs to light it.",
+    "smugglerRoutes": [
+      "Lipsec Run → Sluis Van; the reactor zone is an unmonitored landing field for ships willing to risk the rad count"
+    ],
+    "whoRunsTheDocks": "Imperial Customs at the Citadel District. Resistance dockworkers at every other field."
+  },
+  "gm": {
+    "plotHooks": [
+      "Adv5 — the heroes spark the insurrection. The fuse Tarkin lit in 17 BBY ignites here.",
+      "The drift algorithm data at the research station is the second-to-last piece Varth needs for the Vel Shara approach.",
+      "Adv10 — Malpaz becomes the target of the Leviathan's demonstration strike. The fires the heroes light here become the fires the heroes try to put out."
+    ],
+    "hiddenTruths": [
+      "Krennic personally signed off on the reactor configuration that failed. The classified post-incident report names him; it is buried in the Wazta sector archive.",
+      "The drift algorithms in the research station vault were intended for the Death Star's hyperspace approach. Their 'transfer to Leviathan supply chain' was the cover story Varth used to access them."
+    ],
+    "secretFactions": [
+      "Resurgence cell (proto-rebel)",
+      "ISB embedded surveillance",
+      "Krennic-loyal research staff"
+    ],
+    "gmNotes": "Malpaz is the campaign's moral pivot. Adv5's insurrection is real and earned. Adv10's strike is the campaign's emotional climax. Make the players hear the children's names in the second act and lose them in the third."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Malpaz",
+    "alt": "Malpaz"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv5",
+      "adv10"
+    ],
+    "era": "15 BBY — two years post-Krennic-meltdown. Resentment is total and patient."
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "yagdhul",
+  "name": "Yag'Dhul",
+  "region": "Inner Rim",
+  "sector": "Givin",
+  "gridSquare": "N-16",
+  "x": 0.643,
+  "y": 0.738,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Homeworld of the Givin — vacuum-adapted mathematicians with sealed exoskeletons. Yag'Dhul's three moons create extreme tidal forces that periodically strip the atmosphere from low-lying areas. The Givin are master shipwrights and hyperspace theorists. In 15 BBY, Yag'Dhul Station is a refueling stop on the Rimma Trade Route, and Givin navigators can be hired for complex route calculations.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Yag'Dhul"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

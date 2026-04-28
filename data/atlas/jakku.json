@@ -1,0 +1,112 @@
+{
+  "slug": "jakku",
+  "name": "Jakku",
+  "region": "Inner Rim",
+  "sector": "Arkanis",
+  "gridSquare": "I-13",
+  "x": 0.405,
+  "y": 0.595,
+  "isCampaignWorld": true,
+  "type": "planet",
+  "common": {
+    "tagline": "A sun-bleached desert nowhere on the Western Reaches — the galaxy forgot it years ago.",
+    "government": "None (de facto Hutt control via Varga the Hutt)",
+    "affiliation": "Galactic Empire (nominal)",
+    "climate": "Arid",
+    "terrain": [
+      "Deserts",
+      "Badlands",
+      "Dunes",
+      "Mesas",
+      "Salt flats"
+    ],
+    "hyperlanes": [
+      "Off the major lanes; reached via scavenger trails branching off the Smuggler's Path"
+    ],
+    "famousFor": "Crashed Separatist hulks half-buried in the dunes; the Burning Deck cantina in Cratertown",
+    "cantinaReputation": "If you have to ask why anyone goes to Jakku, you don't. Hot. Empty. Cheap. Nobody looking for you here.",
+    "standingCurrency": "Imperial credits, water rations, scavenged metal",
+    "astrography": {
+      "region": "Inner Rim (Western Reaches)",
+      "sector": "Arkanis",
+      "system": "Jakku",
+      "gridSquare": "I-13",
+      "suns": 1,
+      "moons": 0,
+      "rotationPeriod": "26 standard hours",
+      "orbitalPeriod": "340 standard days"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type I (breathable)",
+      "climate": "Arid",
+      "surfaceWater": "Minimal",
+      "gravity": "Standard"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Teedo",
+        "Uthuthma"
+      ],
+      "otherSpecies": [
+        "Human",
+        "Weequay",
+        "Kyuzo"
+      ],
+      "population": "Sparse",
+      "majorSettlements": [
+        "Reestkii",
+        "Tuanul",
+        "Cratertown"
+      ],
+      "majorExports": [
+        "Nothing worth taxing"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Maya — independent smuggler, owner-operator of the Banshee. Met the crew at the Burning Deck.",
+      "Switch — droid fixer running The Sinkhole bunker outside Reestkii. Will sell anyone anything if the credits are clean.",
+      "Varga the Hutt — controls the local economy through debt and protection. His enforcers walk like they own the rocks."
+    ],
+    "pointsOfInterest": [
+      "The Burning Deck (cantina, Cratertown)",
+      "The Sinkhole (Switch's bunker)",
+      "Reestkii Landing Field",
+      "The Steelpecker hunting grounds (badlands south of Reestkii)"
+    ],
+    "politicalTensions": "Imperial patrols from Arkanis Sector come through maybe twice a standard year. The garrison at Carbon Ridge is undermanned and bored. Locals know to bury contraband in the dunes when the patrol horns sound.",
+    "smugglerRoutes": [
+      "Scavenger trails branch off the Smuggler's Path; jump-window onto the Western Reaches edge of the Hydian Way is open most months"
+    ],
+    "whoRunsTheDocks": "Reestkii Landing Field has no harbormaster — first to land claims the pad, last to leave pays the local kid running the manual fuel pump."
+  },
+  "gm": {
+    "plotHooks": [
+      "Jakku Observatory (Gallius Rax / Palpatine secret facility) is active in 15 BBY. Unusual Imperial presence that has nothing to do with the players.",
+      "Maya's broken Code Cylinder is the campaign's first thread — pulling on it leads to Varga, then Varth, then the Vanishing Place."
+    ],
+    "hiddenTruths": [
+      "The Lambda shuttle and unmarked garrison some scavengers have whispered about belong to the Observatory. The Empire will never explain its presence here.",
+      "Varga's local enforcement is a 7-being skeleton crew — the entire Jakku operation is a rounding error in his books."
+    ],
+    "secretFactions": [
+      "Imperial Observatory garrison (Rax loyalists)"
+    ],
+    "gmNotes": "Jakku is the campaign's quiet open. Make the table feel its emptiness. The Burning Deck should smell of dust and sour ale; Maya's wound should bleed onto the table when she pitches the job."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Jakku",
+    "alt": "Jakku"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv1"
+    ],
+    "era": "15 BBY — pre-Battle of Jakku. Varga the Hutt runs what passes for an economy through debt and protection."
+  }
+}

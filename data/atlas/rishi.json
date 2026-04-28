@@ -1,0 +1,51 @@
+{
+  "slug": "rishi",
+  "name": "Rishi",
+  "region": "Outer Rim",
+  "sector": "Abrion",
+  "gridSquare": "S-15",
+  "x": 0.881,
+  "y": 0.69,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Moon at the edge of the Rishi Maze. A listening outpost and small settlement cling to the rocky coast. In 15 BBY, Rishi is a waypoint for ships heading to or from the Corporate Sector. The cantina at Rishi Station serves terrible food but has reliable fuel pumps and mechanics who don't ask questions.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Rishi"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

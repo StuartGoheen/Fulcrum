@@ -1,0 +1,51 @@
+{
+  "slug": "mustafar",
+  "name": "Mustafar",
+  "region": "Outer Rim",
+  "sector": "Atravis",
+  "gridSquare": "L-19",
+  "x": 0.548,
+  "y": 0.881,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Hellscape of lava rivers and volcanic eruptions. Darth Vader's fortress looms over the molten surface. In 15 BBY, the mining operations continue under heavy Imperial security. Nobody comes here voluntarily — if you crash-land on Mustafar, the lava is the least of your problems.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Mustafar"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

@@ -4,6 +4,7 @@
   var map = null;
   var planetData = [];
   var hyperlaneData = [];
+  var atlasBySlug = {};
   var nebulaeData = [];
   var campaignPins = [];
   var planetMarkers = [];
@@ -178,10 +179,14 @@
       safeFetch('/data/galaxy-planets.json'),
       safeFetch('/data/galaxy-hyperlanes.json'),
       safeFetch('/data/galaxy-nebulae.json').catch(function () { return []; }),
-      safeFetch('/api/galaxy-pins').catch(function () { return []; })
+      safeFetch('/api/galaxy-pins').catch(function () { return []; }),
+      safeFetch('/api/atlas').catch(function () { return { entries: [] }; })
     ]).then(function (results) {
       planetData = results[0];
       hyperlaneData = results[1];
+      var atlasResp = results[4] || { entries: [] };
+      atlasBySlug = {};
+      (atlasResp.entries || []).forEach(function (e) { atlasBySlug[e.slug] = e; });
       nebulaeData = results[2];
       campaignPins = results[3];
       renderNebulae();
@@ -313,6 +318,24 @@
       var marker = L.marker(ll, { icon: icon });
       marker.bindPopup(buildPopup(p), { className: 'gm-popup', maxWidth: 320 });
       marker._planetData = p;
+      marker.on('popupopen', function () {
+        var popup = marker.getPopup();
+        var container = popup && popup.getElement();
+        if (!container) return;
+        var link = container.querySelector('.gm-popup-atlas-link');
+        if (!link) return;
+        link.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          var slug = link.getAttribute('data-atlas-slug');
+          marker.closePopup();
+          if (window.GalaxyMap && typeof window.GalaxyMap.close === 'function') {
+            window.GalaxyMap.close();
+          }
+          if (window.GlossaryOverlay && typeof window.GlossaryOverlay.openAtlas === 'function') {
+            window.GlossaryOverlay.openAtlas(slug);
+          }
+        });
+      });
       markerClusterGroup.addLayer(marker);
       planetMarkers.push(marker);
     });
@@ -323,13 +346,22 @@
   function buildPopup(p) {
     var isCampaign = !!p.campaign;
     var regionColor = REGION_COLORS[p.region] || '#aaa';
+    var atlas = (p.slug && atlasBySlug[p.slug]) || null;
+    var common = (atlas && atlas.common) || {};
+    var tagline = common.tagline || p.desc || '';
+    var gov = common.government || common.affiliation || '';
+
     var h = '<div class="gm-popup-inner">';
     h += '<div class="gm-popup-name">' + esc(p.name) + (isCampaign ? ' <span class="gm-popup-campaign">CAMPAIGN</span>' : '') + '</div>';
     h += '<div class="gm-popup-meta"><span style="color:' + regionColor + ';">' + esc(p.region) + '</span>';
     if (p.sector) h += ' &mdash; ' + esc(p.sector) + ' Sector';
     if (p.gridSquare) h += ' &mdash; Grid ' + esc(p.gridSquare);
     h += '</div>';
-    h += '<div class="gm-popup-desc">' + esc(p.desc) + '</div>';
+    if (gov) h += '<div class="gm-popup-meta gm-popup-gov">' + esc(gov) + '</div>';
+    if (tagline) h += '<div class="gm-popup-desc">' + esc(tagline) + '</div>';
+    if (atlas && p.slug) {
+      h += '<div class="gm-popup-actions"><a href="#" class="gm-popup-atlas-link" data-atlas-slug="' + esc(p.slug) + '">Read more in Atlas \u2192</a></div>';
+    }
     h += '</div>';
     return h;
   }

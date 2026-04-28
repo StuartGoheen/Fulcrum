@@ -1,0 +1,51 @@
+{
+  "slug": "ord-mantell",
+  "name": "Ord Mantell",
+  "region": "Mid Rim",
+  "sector": "Bright Jewel",
+  "gridSquare": "L-7",
+  "x": 0.548,
+  "y": 0.31,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Sprawling junkyard world turned trading hub. In 15 BBY, Ord Mantell is a haven for bounty hunters, scrappers, and black marketeers. The capital city's open-air bazaars sell everything from stolen blasters to forged identchips. Cheap fuel, cheaper morals — just watch your credits.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Ord Mantell"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

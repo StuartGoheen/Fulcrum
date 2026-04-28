@@ -1,0 +1,51 @@
+{
+  "slug": "ponemah-terminal",
+  "name": "Ponemah Terminal",
+  "region": "Outer Rim",
+  "sector": "Moddell",
+  "gridSquare": "H-16",
+  "x": 0.37,
+  "y": 0.75,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Desert world near Endor. The Crumbling Spires — remnants of a long-dead civilization — dot the endless salt flats. Treasure hunters and desperate spacers pick through the ruins. A backwater fuel depot serves ships that wandered too far off the beaten path.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Ponemah Terminal"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

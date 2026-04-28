@@ -1,0 +1,104 @@
+{
+  "slug": "sriluur",
+  "name": "Sriluur",
+  "region": "Outer Rim",
+  "sector": "Si'Klaata",
+  "gridSquare": "M-15",
+  "x": 0.66,
+  "y": 0.54,
+  "isCampaignWorld": false,
+  "type": "planet",
+  "common": {
+    "tagline": "Weequay homeworld. The Gozanti exchange is the largest legal slave market in Hutt Space — by slim definition of legal.",
+    "government": "Hutt overlordship via Weequay clan councils",
+    "affiliation": "Hutt Space",
+    "climate": "Arid; double-sun exposure",
+    "terrain": [
+      "Desert",
+      "Mesa cities",
+      "Coastal salt-trade towns"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route",
+      "Sisar Run"
+    ],
+    "famousFor": "The Gozanti exchange. The Weequay swordsmiths. The fact that nothing illegal in Hutt Space is illegal on Sriluur.",
+    "cantinaReputation": "Don't comment on the merchandise.",
+    "standingCurrency": "Wupiupi, Imperial credits",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Si'Klaata",
+      "system": "Sriluur",
+      "gridSquare": "M-15"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type I",
+      "climate": "Arid"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Weequay"
+      ],
+      "otherSpecies": [
+        "Hutt",
+        "Nikto",
+        "Klatooinian"
+      ],
+      "population": "Moderate",
+      "majorSettlements": [
+        "Al'Nasrl (capital)",
+        "The Gozanti exchange (orbital + ground)"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Vrok the Weequay — exchange floor-master at Gozanti. Old, fair-by-his-standards, and dangerous.",
+      "The Three Sisters — Weequay clan-council representatives who have collectively decided the Hutts have outstayed their welcome.",
+      "Drevoss the Hutt's regional lieutenant (overlap with Klatooine intel)."
+    ],
+    "pointsOfInterest": [
+      "Al'Nasrl (capital)",
+      "The Gozanti exchange (orbital staging)",
+      "The salt-trade coast",
+      "The Weequay swordsmiths' guild hall"
+    ],
+    "politicalTensions": "Three Weequay councils, one Hutt overlord, no Imperial presence. The councils are quietly aligning against the Hutts. The exchange is the symbol they will eventually burn.",
+    "smugglerRoutes": [
+      "Sisar Run is Hutt-internal but accessible with the right contacts",
+      "Triellus → Klatooine → Sriluur is the standard slave-trade triangle"
+    ],
+    "whoRunsTheDocks": "Hutt-controlled at the Gozanti exchange. Weequay clan-controlled everywhere else."
+  },
+  "gm": {
+    "plotHooks": [
+      "Sriluur is one of the Indemnity's last seven port calls (Adv3 P1 reveal). The Gozanti exchange is where the Indemnity's intake manifest was filed.",
+      "If the heroes ever expose the Gozanti exchange's role in the slave trade publicly (Holonet leak, Resurgence broadcast), the Three Sisters will move openly against the Hutts.",
+      "Vrok will sell information to the heroes if they amuse him. He cannot help with anything that costs him exchange revenue."
+    ],
+    "hiddenTruths": [
+      "The Empire is aware of the Gozanti exchange. ISB has at least two embedded agents on the floor. The Empire does not act because the slave economy serves Imperial labor needs (Kessel, Geonosis).",
+      "The Three Sisters' insurrection plan has a five-year horizon. Anything the heroes do to accelerate it changes the Hutt Space political map."
+    ],
+    "secretFactions": [
+      "Weequay clan-council insurgency (forming)",
+      "ISB Hutt-Space surveillance",
+      "Hutt slave-trade syndicate"
+    ],
+    "gmNotes": "Sriluur is the second leg of the Adv3 slave-trade investigation if Maya pulls on the thread post-Bespin. Treat it as a Hutt-Space heist setting, not a battlefield."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Sriluur",
+    "alt": "Sriluur"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv3"
+    ],
+    "era": "15 BBY — Gozanti exchange operating openly under Hutt protection."
+  }
+}

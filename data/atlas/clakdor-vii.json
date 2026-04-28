@@ -1,0 +1,51 @@
+{
+  "slug": "clakdor-vii",
+  "name": "Clak'dor VII",
+  "region": "Outer Rim",
+  "sector": "Mayagil",
+  "gridSquare": "L-18",
+  "x": 0.548,
+  "y": 0.857,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Homeworld of the Bith. Once a center of art, music, and science, Clak'dor VII was devastated by a chemical war centuries ago. The surviving Bith live in sealed cities and are renowned across the galaxy as musicians and engineers. In 15 BBY, the planet's orbital stations offer competent technical services and cantinas with the best live music in the sector.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Clak'dor VII"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

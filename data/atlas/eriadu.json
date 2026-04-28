@@ -1,0 +1,101 @@
+{
+  "slug": "eriadu",
+  "name": "Eriadu",
+  "region": "Outer Rim",
+  "sector": "Seswenna",
+  "gridSquare": "M-18",
+  "x": 0.595,
+  "y": 0.833,
+  "isCampaignWorld": true,
+  "type": "planet",
+  "common": {
+    "tagline": "Tarkin's capital. Black armor-plating, red refineries, ten thousand weapons factories.",
+    "government": "Imperial Sector Authority — Moff Tarkin",
+    "affiliation": "Galactic Empire (heart of Tarkin doctrine)",
+    "climate": "Choked industrial; sky permanently exhaust-stained",
+    "terrain": [
+      "Refinery cities",
+      "Armor-plate megacorridors",
+      "The Citadel district"
+    ],
+    "hyperlanes": [
+      "Hydian Way (major), Rimma Spur (minor)"
+    ],
+    "famousFor": "Tarkin. The Citadel. The factories. The fact that nothing happens in the Outer Rim without Eriadu's tacit nod.",
+    "cantinaReputation": "Drink at home. Eriadu's bars are full of Imperial Intelligence ears.",
+    "standingCurrency": "Imperial credits (only)",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Seswenna",
+      "system": "Eriadu",
+      "gridSquare": "M-18"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type II (industrially polluted)",
+      "climate": "Temperate"
+    },
+    "society": {
+      "nativeSpecies": [],
+      "otherSpecies": [
+        "Human (overwhelming majority)"
+      ],
+      "population": "Billions",
+      "majorSettlements": [
+        "The Citadel district",
+        "Phelar Port"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Captain Solyne Quass — Tarkin's adjutant. Ambitious, careful, transactional.",
+      "Phelar Port harbormaster Bex Tarrin — known to look the other way for the right cargo manifest.",
+      "The Ebon Aviary — high-end sabacc club where Imperial officers settle their off-books debts."
+    ],
+    "pointsOfInterest": [
+      "The Citadel (Tarkin's headquarters)",
+      "Phelar Port",
+      "The Ebon Aviary (sabacc club)",
+      "Old Town (pre-Imperial market district)"
+    ],
+    "politicalTensions": "Tarkin is Moff. He is reaching for Grand Moff. Every officer below him is angling for a piece of his ascent. Loyalty is performed; ambition is sincere.",
+    "smugglerRoutes": [
+      "Phelar Port back-channels — the only way clean cargo moves on Eriadu",
+      "Hydian Way south to the Anoat sector"
+    ],
+    "whoRunsTheDocks": "Imperial Customs at every legal pad. Bex Tarrin in practice at Phelar Port — the harbormaster everyone bribes."
+  },
+  "gm": {
+    "plotHooks": [
+      "Adv6-7 — the heroes operate in Tarkin's capital. The endgame setup for Varth's betrayal lands here.",
+      "Tarkin's Grand Moff promotion (14 BBY) is one or two demonstrations of competence away. The Leviathan navigation data Varth delivers may be the final demonstration.",
+      "Denia is captured by Inquisitor Draco during this arc — or she has been for months, depending on Adv2 outcome."
+    ],
+    "hiddenTruths": [
+      "Tarkin's office is already aware of the Vel Shara superweapon program. He is competing for command of it; he does not yet have it.",
+      "The Antar Atrocity (16 BBY) was Tarkin's solution to a political problem. Anyone who lived through Antar 4 and ended up on Eriadu is here under Imperial duress.",
+      "Wullf Yularen's ISB has agents inside the Phelar Port black market. Every smuggler the heroes work with on Eriadu is being watched."
+    ],
+    "secretFactions": [
+      "Tarkin loyalists (career officers angling for promotion)",
+      "ISB Bureau of Operations (Yularen)",
+      "Inquisitorius detachment (Draco)"
+    ],
+    "gmNotes": "Eriadu is Tarkin made physical. Cold, efficient, monumental. The players should feel the weight of what he has already done before they meet him."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Eriadu",
+    "alt": "Eriadu"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv6",
+      "adv7"
+    ],
+    "era": "15 BBY — Tarkin is Moff, one rung from Grand Moff. The Leviathan data is his ticket up."
+  }
+}

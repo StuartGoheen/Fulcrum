@@ -1,0 +1,102 @@
+{
+  "slug": "kessel",
+  "name": "Kessel",
+  "region": "Outer Rim",
+  "sector": "Kessel",
+  "gridSquare": "L-16",
+  "x": 0.62,
+  "y": 0.62,
+  "isCampaignWorld": false,
+  "type": "planet",
+  "common": {
+    "tagline": "Spice-mining hellworld. The ultimate Imperial penal posting.",
+    "government": "Empire-licensed Pyke Syndicate operations; nominal Imperial oversight",
+    "affiliation": "Galactic Empire (penal labor)",
+    "climate": "Thin-atmosphere; sealed-environment surface",
+    "terrain": [
+      "Spice mines (extensive subsurface)",
+      "Sealed surface installations"
+    ],
+    "hyperlanes": [
+      "The Kessel Run (notorious smugglers' shortcut through the Akkadese Maelstrom)",
+      "Sisar Run (Hutt-internal)"
+    ],
+    "famousFor": "Glitterstim spice. The mines. The fact that a sentence to Kessel is functionally a death sentence.",
+    "cantinaReputation": "Nobody drinks at Kessel. Nobody is at Kessel by choice.",
+    "standingCurrency": "Imperial scrip (mining)",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Kessel",
+      "system": "Kessel",
+      "gridSquare": "L-16"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Trace (artificial sealed environments)",
+      "climate": "Cold"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Kessurian (extinct?)"
+      ],
+      "otherSpecies": [
+        "Wookiee (slave labor)",
+        "Human (slave labor)",
+        "Pyke administrators"
+      ],
+      "population": "Slave labor + administrative cadre",
+      "majorSettlements": [
+        "Kessendra (administrative)",
+        "Mine 13 (largest active)"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Quay Tolsite — Pyke administrator, Mine 13. Bribable.",
+      "Drelka — Wookiee senior slave; remembers Kashyyyk. The unofficial leader of the Kashyyyk-deportee slave block.",
+      "Lieutenant Vorne — Imperial liaison officer, Kessendra. Reportedly addicted to glitterstim he is supposed to be regulating."
+    ],
+    "pointsOfInterest": [
+      "Mine 13 (active)",
+      "Kessendra administrative complex",
+      "The Akkadese Maelstrom (the Run)",
+      "The slave processing block (Kessendra surface)"
+    ],
+    "politicalTensions": "Pyke Syndicate runs the mines; the Empire rents the planet to them. Slaves outnumber administrators 200:1; the only thing keeping the system from collapsing is air.",
+    "smugglerRoutes": [
+      "The Kessel Run — fastest known shortcut, lethally dangerous",
+      "Sisar Run for Hutt-internal traffic"
+    ],
+    "whoRunsTheDocks": "Pyke administrators at the surface; nobody goes below the surface and comes back fast."
+  },
+  "gm": {
+    "plotHooks": [
+      "Kessel is one of the Indemnity's last seven port calls (Adv3 P1 reveal). The Empire moves Wookiee slaves between Kashyyyk and Kessel via Indemnity-class haulers.",
+      "If the heroes ever liberate a slave block on Kessel, they have started a Wookiee-led insurgency the Empire will not be able to contain.",
+      "The Akkadese Maelstrom is the only piloting set-piece in the campaign that rivals the Adv3 Skirmish for scale."
+    ],
+    "hiddenTruths": [
+      "The slaves on Kessel are not just labor — they are a strategic resource. Glitterstim demand inside the Imperial officer corps has tripled in the past two years.",
+      "Quay Tolsite is keeping a black ledger of every officer whose spice habit he subsidizes. He believes it is leverage. He is partially correct."
+    ],
+    "secretFactions": [
+      "Pyke Syndicate",
+      "Kashyyyk-deportee slave underground"
+    ],
+    "gmNotes": "Kessel is the campaign's worst place. Run it cold and starless. The Run itself can be a Reflex-Pilot Resist 5 set-piece if a player wants the legend."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Kessel",
+    "alt": "Kessel"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv3"
+    ],
+    "era": "15 BBY — Pyke Syndicate operations at peak under Imperial license."
+  }
+}

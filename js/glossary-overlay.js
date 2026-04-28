@@ -444,6 +444,7 @@
         '<button class="handbook-tab-btn is-active" data-hb-tab="handbook">Handbook</button>' +
         '<button class="handbook-tab-btn" data-hb-tab="journal">Journal</button>' +
         '<button class="handbook-tab-btn" data-hb-tab="dramatis">Dramatis Personae</button>' +
+        '<button class="handbook-tab-btn" data-hb-tab="atlas">Spacer\'s Atlas</button>' +
         '<button class="handbook-tab-btn" data-hb-tab="droid">\u{1F916} Protocol Droid</button>' +
       '</div>' +
       '<div class="handbook-tab-content is-active" data-hb-tab-content="handbook">' +
@@ -486,6 +487,11 @@
       '<div class="handbook-tab-content" data-hb-tab-content="dramatis">' +
         '<div class="dramatis-tab-wrap" id="dramatis-tab-wrap">' +
           '<div class="dp-player-empty">Loading dossiers\u2026</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="handbook-tab-content" data-hb-tab-content="atlas">' +
+        '<div class="atlas-tab-wrap" id="atlas-tab-wrap">' +
+          '<div class="dp-player-empty">Loading atlas\u2026</div>' +
         '</div>' +
       '</div>' +
       '<div class="handbook-tab-content" data-hb-tab-content="droid">' +
@@ -2408,6 +2414,9 @@
     if (tabName === 'dramatis') {
       _loadDramatisData();
     }
+    if (tabName === 'atlas') {
+      _loadAtlasData();
+    }
     if (tabName === 'droid') {
       _loadDroidTab();
     }
@@ -3207,6 +3216,277 @@
     });
   })();
 
+  // ───────────────────────── Spacer's Atlas tab ─────────────────────────
+  var _atlasEntries = [];
+  var _atlasExpanded = null;
+  var _atlasLoaded = false;
+  var _atlasPendingFocus = null;
+
+  function _loadAtlasData() {
+    var wrap = document.getElementById('atlas-tab-wrap');
+    if (!wrap) return;
+    if (!_atlasLoaded) wrap.innerHTML = '<div class="dp-player-empty">Loading atlas\u2026</div>';
+    fetch('/api/atlas')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _atlasEntries = data.entries || [];
+        _atlasLoaded = true;
+        _renderAtlasTab();
+        if (_atlasPendingFocus) {
+          var slug = _atlasPendingFocus;
+          _atlasPendingFocus = null;
+          _focusAtlasSlug(slug);
+        }
+      })
+      .catch(function () {
+        wrap.innerHTML = '<div class="dp-player-empty">Could not load atlas.</div>';
+      });
+  }
+
+  function _atlasGov(entry) {
+    var c = entry && entry.common ? entry.common : {};
+    return c.government || c.affiliation || '';
+  }
+
+  function _renderAtlasTab() {
+    var wrap = document.getElementById('atlas-tab-wrap');
+    if (!wrap) return;
+    if (!_atlasEntries.length) {
+      wrap.innerHTML = '<div class="dp-player-empty">No atlas entries available.</div>';
+      return;
+    }
+
+    var html = '';
+    _atlasEntries.forEach(function (e) {
+      var c = e.common || {};
+      var isExp = _atlasExpanded === e.slug;
+      var isCampaign = !!(e.campaignNotes && e.campaignNotes.adventures && e.campaignNotes.adventures.length);
+      var img = e.image && e.image.src ? e.image.src : null;
+      var firstChar = (e.name || '?').charAt(0).toUpperCase();
+      var subBits = [];
+      if (e.region) subBits.push(e.region);
+      if (e.sector) subBits.push(e.sector + ' Sector');
+      var sub = subBits.join(' \u2014 ');
+      var gov = _atlasGov(e);
+
+      html += '<div class="dp-player-card atlas-card' + (isExp ? ' dp-player-card--expanded' : '') + (isCampaign ? ' atlas-card--campaign' : '') + '" data-atlas-toggle="' + _esc(e.slug) + '" id="atlas-card-' + _esc(e.slug) + '">';
+      html += '<div class="dp-player-header">';
+      if (img) {
+        html += '<img class="dp-player-portrait" src="' + _esc(img) + '" alt="' + _esc((e.image && e.image.alt) || e.name) + '" />';
+      } else {
+        html += '<div class="dp-player-placeholder atlas-placeholder">' + _esc(firstChar) + '</div>';
+      }
+      html += '<div class="dp-player-info">';
+      html += '<div class="dp-player-name">' + _esc(e.name) + (isCampaign ? ' <span class="atlas-campaign-pill">CAMPAIGN</span>' : '') + '</div>';
+      html += '<div class="dp-player-sub">' + _esc(sub) + (gov ? ' \u2014 ' + _esc(gov) : '') + '</div>';
+      html += '</div>';
+      if (e.revealed) {
+        html += '<span class="atlas-tier-badge atlas-tier-badge--insider" title="Insider tier revealed">Insider</span>';
+      }
+      html += '</div>';
+
+      if (isExp) {
+        html += '<div class="dp-player-detail atlas-detail">';
+
+        if (img) {
+          html += '<div class="dp-player-portrait-large-wrap atlas-hero-wrap">';
+          html += '<img class="dp-player-portrait-large atlas-hero-img" src="' + _esc(img) + '" alt="' + _esc((e.image && e.image.alt) || e.name) + '" data-dp-lightbox="' + _esc(img) + '" />';
+          html += '</div>';
+          if (e.image && e.image.credit) {
+            var creditTxt = 'Image: ' + (e.image.credit || '');
+            if (e.image.license) creditTxt += ' (' + e.image.license + ')';
+            html += '<div class="atlas-image-credit">' + _esc(creditTxt) + '</div>';
+          }
+        }
+
+        html += '<div class="atlas-tier-block atlas-tier-block--common">';
+        html += '<div class="atlas-tier-heading">Public Knowledge</div>';
+        if (c.tagline) html += '<div class="dp-player-bio atlas-tagline">' + _esc(c.tagline) + '</div>';
+        html += _atlasFactGrid(c);
+        html += _atlasParagraphs(c);
+        html += '</div>';
+
+        if (e.revealed && e.insider) {
+          var ins = e.insider || {};
+          html += '<div class="atlas-tier-block atlas-tier-block--insider">';
+          html += '<div class="atlas-tier-heading atlas-tier-heading--insider">Local Knowledge</div>';
+          html += _atlasInsiderBody(ins);
+          html += '</div>';
+        }
+
+        if (e.gm) {
+          var gm = e.gm || {};
+          html += '<div class="atlas-tier-block atlas-tier-block--gm">';
+          html += '<div class="atlas-tier-heading atlas-tier-heading--gm">GM Eyes Only</div>';
+          html += _atlasGmBody(gm);
+          html += '</div>';
+        }
+
+        if (e.campaignNotes && (e.campaignNotes.adventures || e.campaignNotes.era)) {
+          html += '<div class="atlas-tier-block atlas-tier-block--campaign">';
+          html += '<div class="atlas-tier-heading">Campaign Notes</div>';
+          if (e.campaignNotes.era) html += '<div class="dp-player-connection">Era: ' + _esc(e.campaignNotes.era) + '</div>';
+          if (e.campaignNotes.adventures && e.campaignNotes.adventures.length) {
+            e.campaignNotes.adventures.forEach(function (a) {
+              html += '<div class="dp-player-connection">' + _esc(a) + '</div>';
+            });
+          }
+          html += '</div>';
+        }
+
+        html += _commentsPlaceholder('atlas', e.slug);
+        html += '</div>';
+      }
+
+      html += '</div>';
+    });
+
+    wrap.innerHTML = html;
+    _hydrateComments(wrap);
+
+    wrap.querySelectorAll('[data-atlas-toggle]').forEach(function (card) {
+      var header = card.querySelector('.dp-player-header');
+      if (!header) return;
+      header.style.cursor = 'pointer';
+      header.addEventListener('click', function (ev) {
+        if (ev.target.closest('[data-dp-lightbox]')) return;
+        var slug = card.dataset.atlasToggle;
+        _atlasExpanded = (_atlasExpanded === slug) ? null : slug;
+        _renderAtlasTab();
+      });
+    });
+
+    wrap.querySelectorAll('[data-dp-lightbox]').forEach(function (img) {
+      img.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        _openDpLightbox(img.dataset.dpLightbox, img.alt);
+      });
+    });
+  }
+
+  function _atlasFactGrid(c) {
+    var rows = [];
+    if (c.government) rows.push(['Government', c.government]);
+    if (c.affiliation && c.affiliation !== c.government) rows.push(['Affiliation', c.affiliation]);
+    if (c.climate) rows.push(['Climate', c.climate]);
+    if (c.terrain) rows.push(['Terrain', c.terrain]);
+    if (c.standingCurrency) rows.push(['Currency', c.standingCurrency]);
+    if (c.hyperlanes) rows.push(['Hyperlanes', Array.isArray(c.hyperlanes) ? c.hyperlanes.join(', ') : c.hyperlanes]);
+    if (!rows.length) return '';
+    var h = '<div class="atlas-fact-grid">';
+    rows.forEach(function (r) {
+      h += '<div class="atlas-fact"><span class="atlas-fact-k">' + _esc(r[0]) + '</span><span class="atlas-fact-v">' + _esc(r[1]) + '</span></div>';
+    });
+    h += '</div>';
+    return h;
+  }
+
+  function _atlasParagraphs(c) {
+    var h = '';
+    if (c.famousFor) h += '<div class="dp-player-section-title">Famous For</div><div class="dp-player-bio">' + _esc(c.famousFor) + '</div>';
+    if (c.cantinaReputation) h += '<div class="dp-player-section-title">Cantina Reputation</div><div class="dp-player-bio">' + _esc(c.cantinaReputation) + '</div>';
+    if (c.astrography) h += '<div class="dp-player-section-title">Astrography</div><div class="dp-player-bio">' + _esc(c.astrography) + '</div>';
+    if (c.physical) h += '<div class="dp-player-section-title">Physical</div><div class="dp-player-bio">' + _esc(c.physical) + '</div>';
+    if (c.society) h += '<div class="dp-player-section-title">Society</div><div class="dp-player-bio">' + _esc(c.society) + '</div>';
+    return h;
+  }
+
+  function _atlasListBlock(label, val) {
+    if (!val) return '';
+    if (Array.isArray(val)) {
+      if (!val.length) return '';
+      var inner = '';
+      val.forEach(function (v) {
+        if (v && typeof v === 'object') {
+          var nm = v.name || v.title || '';
+          var dsc = v.description || v.note || v.desc || '';
+          inner += '<div class="dp-player-connection"><strong>' + _esc(nm) + '</strong>' + (dsc ? ' \u2014 ' + _esc(dsc) : '') + '</div>';
+        } else {
+          inner += '<div class="dp-player-connection">' + _esc(String(v)) + '</div>';
+        }
+      });
+      return '<div class="dp-player-section-title">' + _esc(label) + '</div>' + inner;
+    }
+    return '<div class="dp-player-section-title">' + _esc(label) + '</div><div class="dp-player-bio">' + _esc(String(val)) + '</div>';
+  }
+
+  function _atlasInsiderBody(ins) {
+    var h = '';
+    h += _atlasListBlock('Local Contacts', ins.localContacts);
+    h += _atlasListBlock('Points of Interest', ins.pointsOfInterest);
+    h += _atlasListBlock('Political Tensions', ins.politicalTensions);
+    h += _atlasListBlock('Smuggler Routes', ins.smugglerRoutes);
+    h += _atlasListBlock('Who Runs the Docks', ins.whoRunsTheDocks);
+    return h || '<div class="dp-player-bio dp-player-bio--muted">(No insider notes for this location yet.)</div>';
+  }
+
+  function _atlasGmBody(gm) {
+    var h = '';
+    h += _atlasListBlock('Plot Hooks', gm.plotHooks);
+    h += _atlasListBlock('Hidden Truths', gm.hiddenTruths);
+    h += _atlasListBlock('Secret Factions', gm.secretFactions);
+    if (gm.gmNotes) h += '<div class="dp-player-section-title">GM Notes</div><div class="dp-player-bio">' + _esc(gm.gmNotes) + '</div>';
+    return h || '<div class="dp-player-bio dp-player-bio--muted">(No GM notes for this location.)</div>';
+  }
+
+  function _focusAtlasSlug(slug) {
+    if (!slug) return;
+    _atlasExpanded = slug;
+    _renderAtlasTab();
+    setTimeout(function () {
+      var el = document.getElementById('atlas-card-' + slug);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 30);
+  }
+
+  function _openAtlas(slug) {
+    if (!_dataReady) {
+      // Allow opening even pre-data-ready by deferring the focus
+      _atlasPendingFocus = slug || null;
+    }
+    _panel.setAttribute('aria-hidden', 'false');
+    _panel.classList.add('is-open');
+    _isOpen = true;
+    _switchTab('atlas');
+    if (slug) {
+      if (_atlasLoaded) {
+        _focusAtlasSlug(slug);
+      } else {
+        _atlasPendingFocus = slug;
+      }
+    }
+  }
+
+  (function _listenAtlasSocket() {
+    var sock = window._socket;
+    if (!sock) { setTimeout(_listenAtlasSocket, 2000); return; }
+    sock.on('atlas:revealed', function (data) {
+      var entry = data && data.entry;
+      if (!entry || !entry.slug) return;
+      var idx = -1;
+      for (var i = 0; i < _atlasEntries.length; i++) {
+        if (_atlasEntries[i].slug === entry.slug) { idx = i; break; }
+      }
+      if (idx >= 0) {
+        _atlasEntries[idx] = entry;
+      } else {
+        _atlasEntries.push(entry);
+      }
+      if (_activeTab === 'atlas') _renderAtlasTab();
+    });
+    sock.on('atlas:hidden', function (data) {
+      var slug = data && data.slug;
+      if (!slug) return;
+      var entry = _atlasEntries.find(function (e) { return e.slug === slug; });
+      if (entry) {
+        entry.revealed = false;
+        entry.insider = null;
+      }
+      if (_atlasExpanded === slug) _atlasExpanded = null;
+      if (_activeTab === 'atlas') _renderAtlasTab();
+    });
+  })();
+
   // ───────────────────────── Protocol Droid tab ─────────────────────────
   var _droidPins = [];
   var _droidLive = [];   // last few in-session asks (newest first)
@@ -3552,5 +3832,5 @@
     });
   })();
 
-  window.GlossaryOverlay = { open: _open, close: _close, openToProvider: _openToProvider };
+  window.GlossaryOverlay = { open: _open, close: _close, openToProvider: _openToProvider, openAtlas: _openAtlas };
 }());

@@ -1,0 +1,101 @@
+{
+  "slug": "coruscant",
+  "name": "Coruscant",
+  "region": "Core Worlds",
+  "sector": "Corusca",
+  "gridSquare": "L-9",
+  "x": 0.5,
+  "y": 0.5,
+  "isCampaignWorld": false,
+  "type": "planet",
+  "common": {
+    "tagline": "The galactic capital. Ecumenopolis. The seat of the Empire.",
+    "government": "Imperial Senate (decorative); Imperial Throne (actual)",
+    "affiliation": "Galactic Empire (capital)",
+    "climate": "Fully artificial; no natural surface remains",
+    "terrain": [
+      "Planetwide city",
+      "Underlevels (1313 down)",
+      "Skydomes",
+      "The Senate district"
+    ],
+    "hyperlanes": [
+      "Hydian Way",
+      "Perlemian Trade Route",
+      "Corellian Run",
+      "Corellian Trade Spine"
+    ],
+    "famousFor": "Everything. The Imperial Palace, the Senate, the Jedi Temple ruins, the underlevels.",
+    "cantinaReputation": "The cantinas at Level 1313 will sell anything. The cantinas in the upper levels will report anything. Choose wisely.",
+    "standingCurrency": "Imperial credits (universal)",
+    "astrography": {
+      "region": "Core Worlds",
+      "sector": "Corusca",
+      "system": "Coruscant",
+      "gridSquare": "L-9"
+    },
+    "physical": {
+      "class": "Terrestrial (planetwide city)",
+      "atmosphere": "Type I (climate-controlled)",
+      "climate": "Artificial"
+    },
+    "society": {
+      "nativeSpecies": [],
+      "otherSpecies": [
+        "Every species in the galaxy"
+      ],
+      "population": "One trillion+",
+      "majorSettlements": [
+        "Galactic City (planetwide)"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Luthen Rael — Coruscanti antiquities dealer. Quiet, calculating, building something the players are not yet equipped to see.",
+      "ISB Colonel Wullf Yularen — heads the Bureau of Operations. Untouchable.",
+      "Senator Mon Mothma — distant, cautious, principled. Will not meet anyone she has not vetted for months."
+    ],
+    "pointsOfInterest": [
+      "The Imperial Palace (former Jedi Temple)",
+      "Luthen's antiquities shop (mid-levels)",
+      "The Senate district",
+      "Level 1313 (underlevels black market)"
+    ],
+    "politicalTensions": "The Senate is theatre. The ISB is everywhere. Luthen Rael's network is forming in the shadow of both. Coruscant in 15 BBY is the quietest beat before the loudest one.",
+    "smugglerRoutes": [
+      "Hydian Way is the artery; Perlemian, Corellian Run, Trade Spine are tributaries. Every smuggler route in the galaxy connects to Coruscant within three jumps."
+    ],
+    "whoRunsTheDocks": "Imperial Customs at every legal pad. Underlevel pads pay tribute to whichever syndicate runs that level."
+  },
+  "gm": {
+    "plotHooks": [
+      "If the heroes ever need to launder credits, source forged ID, or buy serious black-market intel, Coruscant is where it happens.",
+      "Luthen Rael will not recruit the heroes. He may, however, tip them — anonymously, untraceably — if their work serves his slow project.",
+      "The Jakku Observatory's funding paper trail terminates at a Coruscanti shell company. Following it is a campaign-ending detour the heroes should not take."
+    ],
+    "hiddenTruths": [
+      "The Fulcrum codename is starting to circulate in 15 BBY — Ahsoka Tano's invention, distributed through Luthen's nascent network. The campaign is named after this codename. The heroes may never learn why.",
+      "The Empire's Vel Shara superweapon program has its bureaucratic spine on Coruscant. Varth's old desk is in a sealed office in the Imperial Palace's logistics annex.",
+      "The Jedi Temple's lower vaults are sealed but not destroyed. The Empire's archive of confiscated Force-artifacts grows monthly."
+    ],
+    "secretFactions": [
+      "Luthen Rael's Axis network (forming)",
+      "ISB Bureau of Operations",
+      "Inquisitorius command staff",
+      "Vel Shara program logistics"
+    ],
+    "gmNotes": "Coruscant should feel SAFE and WRONG at the same time. Streets are clean. Sky is bright. Every conversation is being recorded by something. If the heroes detour here, treat it as a tonal scene, not a combat scene."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Coruscant",
+    "alt": "Coruscant"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": "15 BBY — the Empire is four years old. Coruscant has adjusted."
+  }
+}

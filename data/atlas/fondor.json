@@ -1,0 +1,51 @@
+{
+  "slug": "fondor",
+  "name": "Fondor",
+  "region": "Colonies",
+  "sector": "Tapani",
+  "gridSquare": "O-15",
+  "x": 0.69,
+  "y": 0.69,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Major shipyard world in the Core-ward colonies. Fondor's orbital shipyards rival Kuat in scale, producing Star Destroyers and heavy cruisers for the Imperial Navy. In 15 BBY, the yards are running triple shifts. The planet below is heavily industrialized — smog-choked cities serve a workforce devoted to military production. Not a place to linger unless you have business with the yards.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Fondor"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

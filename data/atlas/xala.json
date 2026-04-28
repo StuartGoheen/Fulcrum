@@ -1,0 +1,86 @@
+{
+  "slug": "xala",
+  "name": "Xala",
+  "region": "Wild Space",
+  "sector": "Unknown",
+  "gridSquare": "H-14",
+  "x": 0.357,
+  "y": 0.643,
+  "isCampaignWorld": true,
+  "type": "planet",
+  "common": {
+    "tagline": "The edge of known space. Reached only via the Xala-Cermau hyperlane.",
+    "government": "None public — Inquisitor Draco runs a covert stronghold",
+    "affiliation": "Galactic Empire (Inquisitorius black-site)",
+    "climate": "Cold; thin atmosphere; perpetual twilight band",
+    "terrain": [
+      "Glacial plateaus",
+      "Ravines",
+      "Inquisitorial fortress complex"
+    ],
+    "hyperlanes": [
+      "Xala-Cermau Hyperlane (minor; one of the rare navigable Wild Space routes)"
+    ],
+    "famousFor": "Nothing publicly. The few who have gone do not return.",
+    "cantinaReputation": "If a navigator quotes you a route to Xala, walk away.",
+    "standingCurrency": "N/A",
+    "astrography": {
+      "region": "Wild Space",
+      "sector": "Unknown",
+      "system": "Xala",
+      "gridSquare": "H-14"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Thin (rebreather required for extended exposure)",
+      "climate": "Cold"
+    },
+    "society": {
+      "nativeSpecies": [],
+      "population": "Inquisitorial garrison only"
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Inquisitor Valin Draco — runs the fortress. Force-user. Hunts Denia institutionally, not personally.",
+      "Senior Inquisitor's adjutant Renn Kalek — career Imperial Intelligence; the bureaucratic spine of the operation."
+    ],
+    "pointsOfInterest": [
+      "The Xala fortress (Inquisitorial detention + interrogation block)",
+      "The hyperlane terminus (only approach)"
+    ],
+    "politicalTensions": "Draco answers only to the Grand Inquisitor. No Moffs, no oversight, no witnesses. That is the entire point of choosing Xala.",
+    "smugglerRoutes": [
+      "None viable. The Xala-Cermau hyperlane is the only path; the fortress controls every navigation buoy."
+    ],
+    "whoRunsTheDocks": "The garrison. There is no civilian dock."
+  },
+  "gm": {
+    "plotHooks": [
+      "Adv9 — the heroes infiltrate the fortress. If Denia was rescued in Adv2, she is the holocron key. If she was abandoned, Draco has had her here for the entire campaign.",
+      "The Xala-Cermau hyperlane data is the second navigation prize Varth needs."
+    ],
+    "hiddenTruths": [
+      "Draco is not the Grand Inquisitor. He is junior and ambitious. His pursuit of Denia is what he has been told earns promotion.",
+      "The fortress's lower interrogation block holds at least three other surviving Jedi besides Denia. The Empire has been collecting them quietly."
+    ],
+    "secretFactions": [
+      "Inquisitorius command (Grand Inquisitor)",
+      "Imperial Intelligence overwatch"
+    ],
+    "gmNotes": "Xala is the campaign's Inquisitorial set-piece. Cold, sterile, deliberate. Draco should feel like a man performing the role of a sith — because he is."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Xala_(planet)",
+    "alt": "Xala"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv9"
+    ],
+    "era": "15 BBY — Inquisitorius has been on Xala for three years and counting."
+  }
+}

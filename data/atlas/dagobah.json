@@ -1,0 +1,51 @@
+{
+  "slug": "dagobah",
+  "name": "Dagobah",
+  "region": "Outer Rim",
+  "sector": "Sluis",
+  "gridSquare": "N-19",
+  "x": 0.643,
+  "y": 0.905,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Swamp world. Dense fog, massive gnarltrees, and aggressive fauna make Dagobah inhospitable to settlement. No cities, no spaceports, no Imperial presence. In 15 BBY, Dagobah is a dead end on the nav charts — a place ships pass over, not through. Sensors read poorly in the atmosphere. A perfect place to disappear, if you could survive.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Dagobah"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

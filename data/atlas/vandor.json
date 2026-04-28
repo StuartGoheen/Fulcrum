@@ -1,0 +1,51 @@
+{
+  "slug": "vandor",
+  "name": "Vandor",
+  "region": "Mid Rim",
+  "sector": "Sloo",
+  "gridSquare": "P-14",
+  "x": 0.738,
+  "y": 0.643,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Frigid mountain world. Fort Ypso is a rough frontier town where smugglers, miners, and outlaws trade goods and information. The Conveyex rail system hauls coaxium through mountain passes. In 15 BBY, it's a lawless boomtown — perfect for under-the-table deals and refueling with no questions asked.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Vandor"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

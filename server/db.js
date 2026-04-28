@@ -227,6 +227,14 @@ async function initSchema() {
     `);
 
     try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS atlas_reveals (
+          slug         TEXT PRIMARY KEY,
+          revealed     BOOLEAN NOT NULL DEFAULT false,
+          updated_at   TIMESTAMP DEFAULT NOW()
+        )`);
+    } catch (e) {}
+    try {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS source_scene_id TEXT`);
     } catch (e) {}
     try {

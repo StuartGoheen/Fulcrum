@@ -1,0 +1,103 @@
+{
+  "slug": "batuu",
+  "name": "Batuu",
+  "region": "Outer Rim",
+  "sector": "Trilon",
+  "gridSquare": "G-15",
+  "x": 0.31,
+  "y": 0.69,
+  "isCampaignWorld": true,
+  "type": "planet",
+  "common": {
+    "tagline": "Trading outpost on the edge of Wild Space. Three suns, petrified spire forests, and Black Spire Outpost.",
+    "government": "None (Black Spire Outpost is Oga Garra's town)",
+    "affiliation": "Unaligned — Imperial authority has not noticed",
+    "climate": "Temperate to arid; spire-forest microclimates",
+    "terrain": [
+      "Petrified spire forests",
+      "Plains",
+      "Salt-pan basins"
+    ],
+    "hyperlanes": [
+      "Off the major lanes; the Triellus Trade Route brushes by"
+    ],
+    "famousFor": "Black Spire Outpost. Oga Garra. The cantinas. The kind of trading post where 'where did you come from' is considered an accusation.",
+    "cantinaReputation": "Oga's Cantina serves anyone with credits. Behaving in Oga's Cantina is wise. Drawing in Oga's Cantina is suicide.",
+    "standingCurrency": "Imperial credits, Old Republic credits, hard goods",
+    "astrography": {
+      "region": "Outer Rim",
+      "sector": "Trilon",
+      "system": "Batuu",
+      "gridSquare": "G-15",
+      "suns": 3
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type I",
+      "climate": "Temperate-arid"
+    },
+    "society": {
+      "nativeSpecies": [],
+      "otherSpecies": [
+        "Human",
+        "Ithorian",
+        "Twi'lek",
+        "Trandoshan",
+        "many"
+      ],
+      "population": "Sparse outside BSO",
+      "majorSettlements": [
+        "Black Spire Outpost"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Oga Garra — Blutopian crime boss, runs Black Spire Outpost. Pragmatic, terrifying, fair on her own terms.",
+      "Hondo Ohnaka — present in 15 BBY, running a salvage-and-grift operation out of the spire forests.",
+      "Soren Vex — Maya's old smuggling partner. The man who sold her out. Currently working out of BSO."
+    ],
+    "pointsOfInterest": [
+      "Oga's Cantina",
+      "Dok-Ondar's Den of Antiquities",
+      "The salvage yards (north spire field)",
+      "The Resistance-friendly back room of the Mubo droid shop (proto-rebel cell)"
+    ],
+    "politicalTensions": "Three crime factions, one Blutopian arbiter. The Empire has not arrived. When it does, this entire economy ends.",
+    "smugglerRoutes": [
+      "The petrified spire forests hide entire convoys",
+      "Wild Space jump windows reachable from BSO that nobody else has charted"
+    ],
+    "whoRunsTheDocks": "Oga. The dock-master fee structure is published; deviating from it is fatal."
+  },
+  "gm": {
+    "plotHooks": [
+      "Adv8 — the heroes recruit a pirate fleet here. Soren Vex re-enters Maya's life.",
+      "Hondo will work with the heroes if they amuse him; he will betray them if they bore him.",
+      "The proto-rebel cell at Mubo's back room can be flipped to the players' side if they earn it — useful for the finale."
+    ],
+    "hiddenTruths": [
+      "Oga Garra has been quietly stockpiling Mandalorian-pattern arms for two years. She has not said why; she does not have to.",
+      "Soren Vex has spent the last three years trying to find Maya to apologize. He will not get to."
+    ],
+    "secretFactions": [
+      "Oga Garra's network (galaxy-wide)",
+      "Hondo's rotating crew",
+      "Resurgence cell sympathizers (Mubo's back room)"
+    ],
+    "gmNotes": "Batuu is the campaign's last beat of joy before the betrayal. Make BSO loud, full, and dangerous. Soren's reunion with Maya is the emotional anchor of Adv8."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Batuu",
+    "alt": "Batuu"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv8"
+    ],
+    "era": "15 BBY — Imperial authority has not yet noticed Batuu."
+  }
+}

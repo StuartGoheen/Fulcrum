@@ -1,0 +1,51 @@
+{
+  "slug": "mimban",
+  "name": "Mimban",
+  "region": "Expansion Region",
+  "sector": "Circarpous",
+  "gridSquare": "O-12",
+  "x": 0.69,
+  "y": 0.548,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Swamp world locked in perpetual war. The Empire runs brutal mining operations, drafting locals as laborers. Endless mud, rain, and misery. Not where you want to crash-land, but the abandoned Clone Wars-era bases scattered across the surface sometimes have working fuel cells and med supplies.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Mimban"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

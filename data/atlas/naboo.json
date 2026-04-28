@@ -1,0 +1,51 @@
+{
+  "slug": "naboo",
+  "name": "Naboo",
+  "region": "Mid Rim",
+  "sector": "Chommell",
+  "gridSquare": "O-17",
+  "x": 0.69,
+  "y": 0.786,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Idyllic world of rolling green hills, deep ocean cores, and gleaming cities. Emperor Palpatine's homeworld. In 15 BBY, the Empire keeps a firm but velvet-gloved grip here — visible oppression would embarrass the Emperor. Theed's spaceport is well-maintained and relatively safe, but Imperial surveillance is everywhere.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Naboo"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "cerea",
+  "name": "Cerea",
+  "region": "Mid Rim",
+  "sector": "Semagi",
+  "gridSquare": "I-16",
+  "x": 0.405,
+  "y": 0.738,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Lush, mountainous world home to the Cereans. In 15 BBY, Cerea maintains strict isolationist policies — no offworld technology permitted in most settlements. The few spaceports cater to desperate travelers. Good place to disappear, terrible place to find spare parts.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Cerea"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

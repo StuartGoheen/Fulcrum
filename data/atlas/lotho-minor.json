@@ -1,0 +1,51 @@
+{
+  "slug": "lotho-minor",
+  "name": "Lotho Minor",
+  "region": "Outer Rim",
+  "sector": "Wazta",
+  "gridSquare": "I-17",
+  "x": 0.42,
+  "y": 0.8,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Junk world. Mountains of discarded starship hulls, droid parts, and industrial waste stretch to every horizon. Scavenger clans trade in salvage. In 15 BBY, it's technically Imperial territory but nobody bothers enforcing it. Perfect for emergency repairs if you don't mind the smell — or the fire-breathers.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Lotho Minor"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

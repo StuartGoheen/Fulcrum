@@ -1,0 +1,51 @@
+{
+  "slug": "dathomir",
+  "name": "Dathomir",
+  "region": "Outer Rim",
+  "sector": "Quelii",
+  "gridSquare": "O-6",
+  "x": 0.69,
+  "y": 0.262,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Mysterious world shrouded in red mist. Home to the Nightsisters — Force-wielding witches who survived the Clone Wars purge. In 15 BBY, Dathomir is avoided by anyone with sense. Dense forests, hostile wildlife, and dark side energy make it a last-resort landing site.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Dathomir"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

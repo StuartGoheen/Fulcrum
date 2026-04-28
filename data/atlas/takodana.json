@@ -1,0 +1,99 @@
+{
+  "slug": "takodana",
+  "name": "Takodana",
+  "region": "Mid Rim",
+  "sector": "Tashtor",
+  "gridSquare": "J-16",
+  "x": 0.452,
+  "y": 0.738,
+  "isCampaignWorld": true,
+  "type": "planet",
+  "common": {
+    "tagline": "Lush forest world. Maz Kanata's castle is the Outer Rim's most reliable neutral ground.",
+    "government": "Independent (Maz Kanata enforces house rules)",
+    "affiliation": "Unaligned",
+    "climate": "Temperate",
+    "terrain": [
+      "Forests",
+      "Lakes",
+      "Stone ridges"
+    ],
+    "hyperlanes": [
+      "Sanctuary Pipeline (minor) — feeds smugglers and refugees north out of the Hutt territories"
+    ],
+    "famousFor": "Maz Kanata's castle on the shore of Nymeve Lake — pirates, smugglers, and travelers drink at the same bar without bleeding on each other.",
+    "cantinaReputation": "Old. Quiet. Maz sees you. Don't draw a blaster in her place — she has thrown the door at people for less.",
+    "standingCurrency": "Imperial credits, Old Republic credits, barter, favors",
+    "astrography": {
+      "region": "Mid Rim",
+      "sector": "Tashtor",
+      "system": "Takodana",
+      "gridSquare": "J-16"
+    },
+    "physical": {
+      "class": "Terrestrial",
+      "atmosphere": "Type I",
+      "climate": "Temperate"
+    },
+    "society": {
+      "nativeSpecies": [
+        "Various"
+      ],
+      "population": "Sparse",
+      "majorSettlements": [
+        "Maz Kanata's castle (Nymeve Lake)",
+        "Blackwind Point"
+      ]
+    }
+  },
+  "insider": {
+    "localContacts": [
+      "Maz Kanata — proprietor of the castle. Thousand-year smuggler. She knows what you want before you ask. Asking what she sees is rude; accepting what she offers is wise.",
+      "Varga the Hutt — runs Blackwind Point across the lake. A lawless shantytown built out of crashed freighter spines and Hutt money. He and Maz pretend the lake is a wall.",
+      "Fyren — Ugnaught dock-crew chief at Maz's lower piers. Will move things for the right people."
+    ],
+    "pointsOfInterest": [
+      "Maz Kanata's castle and ground floor cantina",
+      "The lower vaults (don't ask about the lower vaults)",
+      "Blackwind Point (Varga's shantytown, across the lake)",
+      "The eastern landing field (Maz's only formal pad)"
+    ],
+    "politicalTensions": "Maz and Varga maintain a mutual non-interference posture. Both know the other could end the truce. Neither wants to. The Imperial garrison knows about Blackwind Point and pretends not to — Tashtor sector's tribute payments have always been on time.",
+    "smugglerRoutes": [
+      "Sanctuary Pipeline minor branches — Takodana is a node, not a destination",
+      "Direct hop to Bespin on the right transponder code"
+    ],
+    "whoRunsTheDocks": "Maz on the castle side; Fyren in practice. Blackwind Point's docks are first-come-first-shoot."
+  },
+  "gm": {
+    "plotHooks": [
+      "Denia recovers at Maz's castle between Adv2 and Adv3 — Maya bonds with her here.",
+      "Maz reads Force-sensitives on sight. She has never said this out loud to a player. She may, eventually, to the right one.",
+      "The Adv3 Takodana rendezvous (post-Bespin payday) lands here — the Banshee returns with the Glorious Chariot in tow."
+    ],
+    "hiddenTruths": [
+      "Maz has Skywalker's lightsaber in her vault. It is not hidden well — it is hidden in plain sight, in a box she has not opened in decades.",
+      "The lower vaults contain artifacts whose origin Maz herself does not remember.",
+      "Varga the Hutt is a small Hutt. He pretends he is bigger because the pretense has worked for sixty years."
+    ],
+    "secretFactions": [
+      "Maz's network of one-time-use favor-debts (galaxy-wide)",
+      "Varga's slave-trade chain (Hutt Space ↔ Blackwind exchanges)"
+    ],
+    "gmNotes": "Maz is the bible's most important non-player ally. Play her quiet, patient, and aware. She does not bargain; she allows. If a player tries to lie to her face, she lets them — and she remembers."
+  },
+  "image": {
+    "src": null,
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Takodana",
+    "alt": "Takodana"
+  },
+  "campaignNotes": {
+    "adventures": [
+      "adv2",
+      "adv3"
+    ],
+    "era": "15 BBY — Maz has been on Takodana for centuries. The Empire has not bothered her yet."
+  }
+}

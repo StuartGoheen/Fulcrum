@@ -1,0 +1,51 @@
+{
+  "slug": "aldhani",
+  "name": "Aldhani",
+  "region": "Outer Rim",
+  "sector": "Cademimu",
+  "gridSquare": "M-6",
+  "x": 0.595,
+  "y": 0.262,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Remote mountainous world in the Cademimu sector. The Empire maintains a garrison here guarding a payroll hub and a secret hyperspace navigation facility. In 15 BBY, Aldhani is lightly populated — herders and Imperial staff. The Eye of Aldhani — a spectacular celestial event — draws tourists once every three years. A risky but necessary waypoint for anyone heading to the Cademimu sector via back channels.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Aldhani"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}

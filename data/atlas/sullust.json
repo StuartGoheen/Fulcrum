@@ -1,0 +1,51 @@
+{
+  "slug": "sullust",
+  "name": "Sullust",
+  "region": "Outer Rim",
+  "sector": "Sullust",
+  "gridSquare": "M-17",
+  "x": 0.595,
+  "y": 0.786,
+  "isCampaignWorld": false,
+  "common": {
+    "tagline": "",
+    "government": "",
+    "affiliation": "",
+    "climate": "",
+    "terrain": [],
+    "hyperlanes": [],
+    "famousFor": "",
+    "cantinaReputation": "Volcanic world riddled with underground cities. The SoroSuub Corporation runs everything — fuel, weapons, ship components. If you can afford their prices and dodge the Imperial inspectors, Sullust is the best place in the sector to refit a ship. Massive lava tube networks make excellent hiding spots.",
+    "standingCurrency": "Imperial credits",
+    "astrography": null,
+    "physical": null,
+    "society": null
+  },
+  "insider": {
+    "localContacts": [],
+    "pointsOfInterest": [],
+    "politicalTensions": "",
+    "smugglerRoutes": [],
+    "whoRunsTheDocks": "",
+    "keyLocations": {}
+  },
+  "gm": {
+    "plotHooks": [],
+    "hiddenTruths": [],
+    "secretFactions": [],
+    "gmNotes": ""
+  },
+  "image": {
+    "src": null,
+    "credit": "",
+    "license": "",
+    "attributionUrl": "",
+    "alt": "Sullust"
+  },
+  "campaignNotes": {
+    "adventures": [],
+    "era": ""
+  },
+  "fauna": [],
+  "flora": []
+}
