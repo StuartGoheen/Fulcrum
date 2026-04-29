@@ -2171,6 +2171,10 @@
 
   function _hydrateComments(rootEl) {
     if (!rootEl) return;
+    // Ensure we know who the viewing character is, regardless of which
+    // overlay tab triggered the render (Journal pre-fetches do this, but
+    // the Dramatis Personae path renders synchronously without it).
+    if (!_characterName) _detectCharacterName();
     var nodes = rootEl.querySelectorAll('.entry-comments[data-comments-parent-id]');
     nodes.forEach(function (node) {
       if (node.dataset.commentsHydrated === '1') return;
