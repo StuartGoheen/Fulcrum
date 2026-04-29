@@ -2038,6 +2038,22 @@ router.post('/admin/wipe', async (req, res) => {
     for (const table of cat.tables) {
       await client.query('DELETE FROM ' + table);
     }
+    // Clean up entry_comments orphaned by this wipe. The comments table
+    // is keyed by (parent_type, parent_id) and is NOT joined by FK, so a
+    // raw DELETE on the parent rows leaves stale comments behind. Map
+    // each wipe category to the comment parent_types it owns:
+    //   full     → all comments
+    //   journal  → parent_type='journal' (journal entries)
+    //   npcs     → parent_type='dramatis' (NPC profiles)
+    // Other categories (decisions, progress, holonet, items, etc.) do
+    // not have associated comment rows.
+    if (category === 'full') {
+      await client.query(`DELETE FROM entry_comments`);
+    } else if (category === 'journal') {
+      await client.query(`DELETE FROM entry_comments WHERE parent_type = 'journal'`);
+    } else if (category === 'npcs') {
+      await client.query(`DELETE FROM entry_comments WHERE parent_type = 'dramatis'`);
+    }
     if (category === 'full' || category === 'progress') {
       await client.query(`INSERT INTO campaign_progress (id, adventure_id, part_id, scene_id) VALUES (1, 'adv1', 'adv1-p1', 'adv1-p1-s1') ON CONFLICT (id) DO NOTHING`);
     }
