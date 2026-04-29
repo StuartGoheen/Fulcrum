@@ -1,0 +1,96 @@
+{
+  "slug": "aldhani",
+  "name": "Aldhani",
+  "sourceTitle": "Aldhani",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Aldhani",
+  "sourceTier": "Canon",
+  "canonOnlyReason": "No /Legends article on Wookieepedia — created for Andor (2022), Disney canon only. MediaWiki probe confirmed missingtitle.",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Cademimu",
+    "climate": "Cold temperate, mountainous",
+    "terrain": [
+      "High mountain plateaus",
+      "River-carved gorges",
+      "Heather moors"
+    ],
+    "hyperlanes": [
+      "Spur off the Hydian Way through the Cademimu sector"
+    ],
+    "government": "Imperial governor; pre-Imperial highland clans displaced",
+    "affiliation": "Galactic Empire — payroll garrison"
+  },
+  "legends": {
+    "region": "New Territories, Outer Rim Territories",
+    "sector": "Cademimu sector",
+    "system": "Aldhani system",
+    "suns": "",
+    "moons": "At least 2",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "Temperate",
+    "terrain": "Grassy highlands, Mountains, Valleys",
+    "atmosphere": "Type I",
+    "gravity": "",
+    "species": "",
+    "population": "",
+    "capital": "",
+    "language": "Aldhani",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "New Territories, Outer Rim Territories",
+      "missingFromOurs": [
+        "new"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Cold temperate, mountainous",
+      "legends": "Temperate",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "cold",
+        "mountainous"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "High mountain plateaus, River-carved gorges, Heather moors",
+      "legends": "Grassy highlands, Mountains, Valleys",
+      "missingFromOurs": [
+        "grassy",
+        "highlands",
+        "mountains",
+        "valleys"
+      ],
+      "missingFromLegends": [
+        "high",
+        "mountain",
+        "plateaus",
+        "river-carved",
+        "gorges",
+        "heather",
+        "moors"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/3/3c/Aldhani-Andor4.png/revision/latest/scale-to-width-down/1280?cb=20250825022107",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "aldhani.png",
+    "localPath": "/images/atlas/aldhani.png",
+    "bytes": 103460
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:39:02.473Z"
+}

@@ -1,0 +1,115 @@
+{
+  "slug": "mustafar",
+  "name": "Mustafar",
+  "sourceTitle": "Mustafar/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Mustafar%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Atravis",
+    "climate": "Volcanic",
+    "terrain": [
+      "Lava rivers",
+      "Obsidian plains",
+      "Mining platforms above magma"
+    ],
+    "hyperlanes": [
+      "Mustafar spur off the Triellus Trade Route"
+    ],
+    "government": "Imperial mining concession; pre-Imperial Mustafarian clans tolerated",
+    "affiliation": "Galactic Empire"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, Western Reaches",
+    "sector": "Atravis sector",
+    "system": "Mustafar system",
+    "suns": "1: Priate",
+    "moons": "None",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "4,200 kilometers",
+    "climate": "Hot",
+    "terrain": "Caves, Lava rivers, Mountains, Volcanoes",
+    "atmosphere": "",
+    "gravity": "Standard",
+    "species": "Northern and southern Mustafarians",
+    "population": "20,000:, *95% Mustafarian, *3% Skakoan, *2% other species",
+    "capital": "",
+    "language": "Mustafarian language",
+    "government": "Corporate, Techno Union",
+    "hyperlanes": "",
+    "affiliation": "Mustafarians, Jedi Order, Techno Union, Damask Holdings, Confederacy of Independent Systems, Geonosian Industries, Separatist holdouts, *Gizor Dellso, Galactic Empire, X1's faction, New Republic, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, Western Reaches",
+      "missingFromOurs": [
+        "western",
+        "reaches"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Volcanic",
+      "legends": "Hot",
+      "missingFromOurs": [
+        "hot"
+      ],
+      "missingFromLegends": [
+        "volcanic"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Lava rivers, Obsidian plains, Mining platforms above magma",
+      "legends": "Caves, Lava rivers, Mountains, Volcanoes",
+      "missingFromOurs": [
+        "caves",
+        "mountains",
+        "volcanoes"
+      ],
+      "missingFromLegends": [
+        "obsidian",
+        "plains",
+        "mining",
+        "platforms",
+        "above",
+        "magma"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial mining concession; pre-Imperial Mustafarian clans tolerated",
+      "legends": "Corporate, Techno Union",
+      "missingFromOurs": [
+        "corporate",
+        "techno",
+        "union"
+      ],
+      "missingFromLegends": [
+        "imperial",
+        "mining",
+        "concession",
+        "pre-imperial",
+        "mustafarian",
+        "clans",
+        "tolerated"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/b/b2/Mustafar_FFGRebellion.png/revision/latest/scale-to-width-down/1280?cb=20190819193802",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "mustafar.png",
+    "localPath": "/images/atlas/mustafar.png",
+    "bytes": 552218
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:10.003Z"
+}

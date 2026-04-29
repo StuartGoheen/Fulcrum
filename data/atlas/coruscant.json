@@ -67,10 +67,10 @@
     "gmNotes": "Coruscant should feel SAFE and WRONG at the same time. Streets are clean. Sky is bright. Every conversation is being recorded by something. If the heroes detour here, treat it as a tonal scene, not a combat scene."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/coruscant.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Coruscant",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Coruscant/Legends",
     "alt": "Coruscant"
   },
   "campaignNotes": {

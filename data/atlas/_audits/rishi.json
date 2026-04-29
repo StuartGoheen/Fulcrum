@@ -1,0 +1,102 @@
+{
+  "slug": "rishi",
+  "name": "Rishi",
+  "sourceTitle": "Rishi/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Rishi%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Abrion",
+    "climate": "Tropical",
+    "terrain": [
+      "Coral atolls",
+      "Volcanic ridges",
+      "Shanty-port towns"
+    ],
+    "hyperlanes": [
+      "Rishi Maze gateway",
+      "Hydian Way southern spur"
+    ],
+    "government": "None — pirate captaincies in loose confederation",
+    "affiliation": "Unaligned (Imperial patrols rare)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, The Slice",
+    "sector": "Abrion sector",
+    "system": "Rishi system",
+    "suns": "1: Rish",
+    "moons": "1: Rishi moon",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,030 km",
+    "climate": "Tropical",
+    "terrain": "Mountains, Swamps, Islands, Jungle",
+    "atmosphere": "Type I",
+    "gravity": "Standard",
+    "species": "Rishii",
+    "population": "2 billion:, *87% Human, *9% Rishii, *4% other",
+    "capital": "",
+    "language": "Galactic Basic Standard",
+    "government": "Theocratic colony",
+    "hyperlanes": "",
+    "affiliation": "H'kig religion, Galactic Republic, Hutt Cartel, Brotherhood of Darkness, Confederacy of Independent Systems , Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, The Slice",
+      "missingFromOurs": [
+        "slice"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Coral atolls, Volcanic ridges, Shanty-port towns",
+      "legends": "Mountains, Swamps, Islands, Jungle",
+      "missingFromOurs": [
+        "mountains",
+        "swamps",
+        "islands",
+        "jungle"
+      ],
+      "missingFromLegends": [
+        "coral",
+        "atolls",
+        "volcanic",
+        "ridges",
+        "shanty-port",
+        "towns"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "None — pirate captaincies in loose confederation",
+      "legends": "Theocratic colony",
+      "missingFromOurs": [
+        "theocratic",
+        "colony"
+      ],
+      "missingFromLegends": [
+        "none",
+        "pirate",
+        "captaincies",
+        "loose",
+        "confederation"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/2/2c/Rishi_SW_TOR.jpg/revision/latest?cb=20200405130007",
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "rishi.png",
+    "localPath": "/images/atlas/rishi.png",
+    "bytes": 225873
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:18.164Z"
+}

@@ -1,0 +1,87 @@
+{
+  "slug": "lotho-minor",
+  "name": "Lotho Minor",
+  "sourceTitle": "Lotho Minor/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Lotho_Minor%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Wazta",
+    "climate": "Toxic temperate",
+    "terrain": [
+      "Continent-deep junk strata",
+      "Acid pools",
+      "Rusted skyhook ruins"
+    ],
+    "hyperlanes": [
+      "Off-lane; reached via salvage convoys"
+    ],
+    "government": "None — gang factions among the scrap",
+    "affiliation": "Unaligned (avoided by Imperial Customs)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories",
+    "sector": "Wazta sector",
+    "system": "Lotho Minor system",
+    "suns": "",
+    "moons": "",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "Hot",
+    "terrain": "Junkyard",
+    "atmosphere": "Type I",
+    "gravity": "",
+    "species": "Junker",
+    "population": "",
+    "capital": "",
+    "language": "",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Neutral"
+  },
+  "diffs": [
+    {
+      "field": "climate",
+      "ours": "Toxic temperate",
+      "legends": "Hot",
+      "missingFromOurs": [
+        "hot"
+      ],
+      "missingFromLegends": [
+        "toxic",
+        "temperate"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Continent-deep junk strata, Acid pools, Rusted skyhook ruins",
+      "legends": "Junkyard",
+      "missingFromOurs": [
+        "junkyard"
+      ],
+      "missingFromLegends": [
+        "continent-deep",
+        "junk",
+        "strata",
+        "acid",
+        "pools",
+        "rusted",
+        "skyhook",
+        "ruins"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/4/4d/Lotho_Minor.png/revision/latest/scale-to-width-down/1280?cb=20200223171514",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "lotho-minor.png",
+    "localPath": "/images/atlas/lotho-minor.png",
+    "bytes": 42774
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:06.339Z"
+}

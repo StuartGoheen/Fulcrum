@@ -1,0 +1,100 @@
+{
+  "slug": "ponemah-terminal",
+  "name": "Ponemah Terminal",
+  "sourceTitle": "Ponemah Terminal",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Ponemah_Terminal",
+  "sourceTier": "Canon",
+  "canonOnlyReason": "No /Legends article on Wookieepedia — Disney canon only. MediaWiki probe confirmed missingtitle.",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Moddell",
+    "climate": "Vacuum (life-support only)",
+    "terrain": [
+      "Hub-and-spoke station modules",
+      "Disused docking arms",
+      "Cargo holds repurposed as dwellings"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route waypoint"
+    ],
+    "government": "Station administrator (Imperial appointee)",
+    "affiliation": "Galactic Empire (administrative drift)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories,, Western Reaches",
+    "sector": "Zuma sector, *Spar subsector",
+    "system": "Ponemah system",
+    "suns": "",
+    "moons": "",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "",
+    "terrain": "Desert",
+    "atmosphere": "Breathable",
+    "gravity": "",
+    "species": "",
+    "population": "",
+    "capital": "",
+    "language": "",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories,, Western Reaches",
+      "missingFromOurs": [
+        "western",
+        "reaches"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "sector",
+      "ours": "Moddell",
+      "legends": "Zuma sector, *Spar subsector",
+      "missingFromOurs": [
+        "zuma",
+        "spar",
+        "subsector"
+      ],
+      "missingFromLegends": [
+        "moddell"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Hub-and-spoke station modules, Disused docking arms, Cargo holds repurposed as dwellings",
+      "legends": "Desert",
+      "missingFromOurs": [
+        "desert"
+      ],
+      "missingFromLegends": [
+        "hub-and-spoke",
+        "station",
+        "modules",
+        "disused",
+        "docking",
+        "arms",
+        "cargo",
+        "holds",
+        "repurposed",
+        "dwellings"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/3/3a/Ponemah_Terminal.png/revision/latest?cb=20181223140138",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "ponemah-terminal.png",
+    "localPath": "/images/atlas/ponemah-terminal.png",
+    "bytes": 50996
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:39:04.180Z"
+}

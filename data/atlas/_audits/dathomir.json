@@ -1,0 +1,108 @@
+{
+  "slug": "dathomir",
+  "name": "Dathomir",
+  "sourceTitle": "Dathomir/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Dathomir%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Quelii",
+    "climate": "Temperate, perpetually red-skied",
+    "terrain": [
+      "Bone-strewn forests",
+      "Fog plateaus",
+      "Singing Mountain ridges"
+    ],
+    "hyperlanes": [
+      "Off-lane spur from the Quelii sector"
+    ],
+    "government": "Nightsister clans (decimated); Zabrak nomads",
+    "affiliation": "Independent (avoided by Imperial patrols)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, New Territories",
+    "sector": "Quelii sector",
+    "system": "Dathomir system",
+    "suns": "1: Domir",
+    "moons": "4, Koratas",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "10,460 kilometers",
+    "climate": "Temperate",
+    "terrain": "Deserts, Forests, Jungle, Mountains",
+    "atmosphere": "Type I",
+    "gravity": "90% standard",
+    "species": "Dathomirian, Kwa , Kwi",
+    "population": "5,200:, *97% Human, *3% other",
+    "capital": "",
+    "language": "Galactic Basic Standard, Paecian",
+    "government": "Tribal",
+    "hyperlanes": "",
+    "affiliation": "Kwa holdings, Infinite Empire, Paecian Empire, Drackmarians, Brotherhood of Darkness, Galactic Republic, Confederacy of Independent Systems, Galactic Empire, Zsinj's Empire, United Witch clans, New Republic, Galactic Federation of Free Alliances"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, New Territories",
+      "missingFromOurs": [
+        "new"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Temperate, perpetually red-skied",
+      "legends": "Temperate",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "perpetually",
+        "red-skied"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Bone-strewn forests, Fog plateaus, Singing Mountain ridges",
+      "legends": "Deserts, Forests, Jungle, Mountains",
+      "missingFromOurs": [
+        "deserts",
+        "jungle",
+        "mountains"
+      ],
+      "missingFromLegends": [
+        "bone-strewn",
+        "fog",
+        "plateaus",
+        "singing",
+        "mountain",
+        "ridges"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Nightsister clans (decimated); Zabrak nomads",
+      "legends": "Tribal",
+      "missingFromOurs": [
+        "tribal"
+      ],
+      "missingFromLegends": [
+        "nightsister",
+        "clans",
+        "zabrak",
+        "nomads"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/4/49/Dathomir.jpg/revision/latest?cb=20110208032408",
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "dathomir.png",
+    "localPath": "/images/atlas/dathomir.png",
+    "bytes": 215037
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:37:54.770Z"
+}

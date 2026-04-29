@@ -1,0 +1,122 @@
+{
+  "slug": "coruscant",
+  "name": "Coruscant",
+  "sourceTitle": "Coruscant/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Coruscant%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Core Worlds",
+    "sector": "Corusca",
+    "type": "planet",
+    "climate": "Fully artificial; no natural surface remains",
+    "terrain": [
+      "Planetwide city",
+      "Underlevels (1313 down)",
+      "Skydomes",
+      "The Senate district"
+    ],
+    "hyperlanes": [
+      "Hydian Way",
+      "Perlemian Trade Route",
+      "Corellian Run",
+      "Corellian Trade Spine"
+    ],
+    "government": "Imperial Senate (decorative); Imperial Throne (actual)",
+    "affiliation": "Galactic Empire (capital)"
+  },
+  "legends": {
+    "region": "Core Worlds",
+    "sector": "Corusca sector, *Coruscant sector",
+    "system": "Coruscant system",
+    "suns": "1: Coruscant Prime",
+    "moons": "4 moons:, *Centax-1, *Centax-2, *Centax-3, *Hesperidium, Rings of Coruscant, Artificial satellites:, *Habitation spheres, *Orbital Solar Energy Transfer Satellites, *Power sats, *Skyhooks, *Wheelworlds",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,240 kilometers",
+    "climate": "Temperate and controlled",
+    "terrain": "Urban cityscape, Mountains",
+    "atmosphere": "Type I",
+    "gravity": "Standard",
+    "species": "Coruscani ogre, Cthon, Humans , Taung , Zhell",
+    "population": "1 trillion, 68&ndash;78% Human, 22&ndash;32% other",
+    "capital": "",
+    "language": "Notron Cant, Old Coruscanti, Old Galactic Standard, Galactic Basic Standard",
+    "government": "Bureaucracy, Dictatorship, Galactic City Authority",
+    "hyperlanes": "",
+    "affiliation": "Battalions of Zhell, Infinite Empire, Galactic Republic, Jedi Order, Sith Empire, Galactic Empire, Order of the Sith Lords, New Republic, Yuuzhan Vong empire, Galactic Alliance, Fel Empire, Darth Krayt's Galactic Empire, One Sith, Galactic Federation Triumvirate"
+  },
+  "diffs": [
+    {
+      "field": "sector",
+      "ours": "Corusca",
+      "legends": "Corusca sector, *Coruscant sector",
+      "missingFromOurs": [
+        "coruscant"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Fully artificial; no natural surface remains",
+      "legends": "Temperate and controlled",
+      "missingFromOurs": [
+        "temperate",
+        "controlled"
+      ],
+      "missingFromLegends": [
+        "fully",
+        "artificial",
+        "natural",
+        "surface",
+        "remains"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Planetwide city, Underlevels (1313 down), Skydomes, The Senate district",
+      "legends": "Urban cityscape, Mountains",
+      "missingFromOurs": [
+        "urban",
+        "cityscape",
+        "mountains"
+      ],
+      "missingFromLegends": [
+        "planetwide",
+        "city",
+        "underlevels",
+        "skydomes",
+        "senate",
+        "district"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial Senate (decorative); Imperial Throne (actual)",
+      "legends": "Bureaucracy, Dictatorship, Galactic City Authority",
+      "missingFromOurs": [
+        "bureaucracy",
+        "dictatorship",
+        "galactic",
+        "city",
+        "authority"
+      ],
+      "missingFromLegends": [
+        "imperial",
+        "senate",
+        "throne"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/1/16/Coruscant-EotE.jpg/revision/latest/scale-to-width-down/1280?cb=20240118012902",
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "coruscant.png",
+    "localPath": "/images/atlas/coruscant.png",
+    "bytes": 2486498
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:37:53.020Z"
+}

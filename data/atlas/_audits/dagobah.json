@@ -1,0 +1,89 @@
+{
+  "slug": "dagobah",
+  "name": "Dagobah",
+  "sourceTitle": "Dagobah/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Dagobah%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Sluis",
+    "climate": "Humid swamp",
+    "terrain": [
+      "Fungal swamps",
+      "Mangrove root cathedrals",
+      "Murky pools"
+    ],
+    "hyperlanes": [
+      "None on standard charts"
+    ],
+    "government": "None",
+    "affiliation": "Unaligned (uncharted)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories",
+    "sector": "Sluis sector",
+    "system": "Dagobah system",
+    "suns": "1: Darlo",
+    "moons": "1",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "8,900 kilometers",
+    "climate": "Murky",
+    "terrain": "Swamp, Bogs, Jungles, Bayous",
+    "atmosphere": "Type I",
+    "gravity": "",
+    "species": "Hepsalum Tash",
+    "population": "None",
+    "capital": "",
+    "language": "",
+    "government": "None",
+    "hyperlanes": "",
+    "affiliation": "Confederacy of Independent Systems, Alliance to Restore the Republic, New Republic, Jedi Order"
+  },
+  "diffs": [
+    {
+      "field": "climate",
+      "ours": "Humid swamp",
+      "legends": "Murky",
+      "missingFromOurs": [
+        "murky"
+      ],
+      "missingFromLegends": [
+        "humid",
+        "swamp"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Fungal swamps, Mangrove root cathedrals, Murky pools",
+      "legends": "Swamp, Bogs, Jungles, Bayous",
+      "missingFromOurs": [
+        "swamp",
+        "bogs",
+        "jungles",
+        "bayous"
+      ],
+      "missingFromLegends": [
+        "fungal",
+        "swamps",
+        "mangrove",
+        "root",
+        "cathedrals",
+        "murky",
+        "pools"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/5/58/Dagobah_FDNP.png/revision/latest?cb=20160617233754",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "dagobah.png",
+    "localPath": "/images/atlas/dagobah.png",
+    "bytes": 64708
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:37:53.744Z"
+}

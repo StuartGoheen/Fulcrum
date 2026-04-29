@@ -1,0 +1,94 @@
+{
+  "slug": "cerea",
+  "name": "Cerea",
+  "sourceTitle": "Cerea/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Cerea%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Mid Rim",
+    "sector": "Semagi",
+    "climate": "Temperate",
+    "terrain": [
+      "Rolling grasslands",
+      "River valleys",
+      "Stilted Cerean villages"
+    ],
+    "hyperlanes": [
+      "Cerean spur off the Hydian Way"
+    ],
+    "government": "Cerean Council of Elders",
+    "affiliation": "Independent (Imperial trade observer only)"
+  },
+  "legends": {
+    "region": "Mid Rim",
+    "sector": "Semagi sector, Cerean Quadrant",
+    "system": "Cerean system",
+    "suns": "3",
+    "moons": "1",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "Temperate",
+    "terrain": "Farmland, Forests, Rolling hills, Rural villages",
+    "atmosphere": "Oxygen mix",
+    "gravity": "Standard",
+    "species": "Cerean",
+    "population": "450 million:, *85% Cerean, *7% Human, *4% Ithorian, *4% other",
+    "capital": "",
+    "language": "Basic, Cerean",
+    "government": "Council of Elders",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Confederacy of Independent Systems, Galactic Empire, Darth Krayt's Galactic Empire, Galactic Alliance Remnant"
+  },
+  "diffs": [
+    {
+      "field": "sector",
+      "ours": "Semagi",
+      "legends": "Semagi sector, Cerean Quadrant",
+      "missingFromOurs": [
+        "cerean",
+        "quadrant"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Rolling grasslands, River valleys, Stilted Cerean villages",
+      "legends": "Farmland, Forests, Rolling hills, Rural villages",
+      "missingFromOurs": [
+        "farmland",
+        "forests",
+        "hills",
+        "rural"
+      ],
+      "missingFromLegends": [
+        "grasslands",
+        "river",
+        "valleys",
+        "stilted",
+        "cerean"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Cerean Council of Elders",
+      "legends": "Council of Elders",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "cerean"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/c/cc/Cerea-FDCR.png/revision/latest?cb=20180501023912",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "cerea.png",
+    "localPath": "/images/atlas/cerea.png",
+    "bytes": 159670
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:36:57.308Z"
+}

@@ -1,0 +1,113 @@
+{
+  "slug": "saleucami",
+  "name": "Saleucami",
+  "sourceTitle": "Saleucami/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Saleucami%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Suolriep",
+    "climate": "Hot arid with monsoon belts",
+    "terrain": [
+      "Thorn savannah",
+      "Volcanic uplands",
+      "Riverside farmsteads"
+    ],
+    "hyperlanes": [
+      "Quelii sector trunk off the Triellus Trade Route"
+    ],
+    "government": "Imperial governor over Saleucamian farmsteader councils",
+    "affiliation": "Galactic Empire"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, The Slice",
+    "sector": "Suolriep sector",
+    "system": "Saleucami system",
+    "suns": "1: Stisste",
+    "moons": "2",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "14,920 kilometers",
+    "climate": "Hot",
+    "terrain": "Caves, Desert, Mountains, Volcanoes",
+    "atmosphere": "",
+    "gravity": "",
+    "species": "",
+    "population": "1.4 billion:, *36% Wroonian, *8% Weequay, *8% Gran, *6% Humans, *4% Twi'leks, *38% other",
+    "capital": "",
+    "language": "Basic, Wroonian",
+    "government": "Corporate",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Rift Alliance, Techno Union, Commerce Guild, Confederacy of Independent Systems, Galactic Empire, Hutt Cartel, Zann Consortium, Yuuzhan Vong empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, The Slice",
+      "missingFromOurs": [
+        "slice"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Hot arid with monsoon belts",
+      "legends": "Hot",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "arid",
+        "with",
+        "monsoon",
+        "belts"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Thorn savannah, Volcanic uplands, Riverside farmsteads",
+      "legends": "Caves, Desert, Mountains, Volcanoes",
+      "missingFromOurs": [
+        "caves",
+        "desert",
+        "mountains",
+        "volcanoes"
+      ],
+      "missingFromLegends": [
+        "thorn",
+        "savannah",
+        "volcanic",
+        "uplands",
+        "riverside",
+        "farmsteads"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial governor over Saleucamian farmsteader councils",
+      "legends": "Corporate",
+      "missingFromOurs": [
+        "corporate"
+      ],
+      "missingFromLegends": [
+        "imperial",
+        "governor",
+        "over",
+        "saleucamian",
+        "farmsteader",
+        "councils"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/a/a3/Saleucami_MPQ.png/revision/latest?cb=20180501021144",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "saleucami.png",
+    "localPath": "/images/atlas/saleucami.png",
+    "bytes": 78184
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:19.026Z"
+}

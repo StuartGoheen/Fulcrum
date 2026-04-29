@@ -1,0 +1,115 @@
+{
+  "slug": "tatooine",
+  "name": "Tatooine",
+  "sourceTitle": "Tatooine/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Tatooine%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Arkanis",
+    "type": "planet",
+    "climate": "Hyper-arid",
+    "terrain": [
+      "Desert",
+      "Salt flats",
+      "Jundland Wastes",
+      "Dune Sea"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route (Hutt artery)",
+      "Salin Corridor (minor)"
+    ],
+    "government": "Hutt cartel (Jabba) with Imperial nominal oversight",
+    "affiliation": "Hutt Space-aligned (Imperial nominal)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, The Slice",
+    "sector": "Arkanis sector",
+    "system": "Tatoo system",
+    "suns": "2:, Tatoo I, Tatoo II",
+    "moons": "3:, Ghomrassen, Guermessa, Chenini",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "10,465 kilometers",
+    "climate": "Hot and arid",
+    "terrain": "Desert, Mesas, Canyons",
+    "atmosphere": "Type I",
+    "gravity": "Standard",
+    "species": "Tusken Raider, Kumumgah, Jawas, Cliffborer worm",
+    "population": "80,000&ndash;200,000:, *70% Humans, *5% Tusken Raiders, *5% Jawas, *20% other, 5,000&ndash;10,000 settlers , *Unknown indigenous population",
+    "capital": "",
+    "language": "Bocce, Galactic Basic Standard, Huttese, Jawaese, Tusken, Historic:, *Kumumgah language, *Rakata",
+    "government": "Local councils",
+    "hyperlanes": "",
+    "affiliation": "Infinite Empire, Czerka Corporation, Hutt Cartel, *Besadii kajidic, **Gardulla the Elder's criminal empire, *Desilijic kajidic, **Jabba Desilijic Tiure's criminal empire, *Faljozic kajidic, *Jahibakti kajidic, *Nasirii kajidic, Galactic Empire, Hutt Empire, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, The Slice",
+      "missingFromOurs": [
+        "slice"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Hyper-arid",
+      "legends": "Hot and arid",
+      "missingFromOurs": [
+        "hot",
+        "arid"
+      ],
+      "missingFromLegends": [
+        "hyper-arid"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Desert, Salt flats, Jundland Wastes, Dune Sea",
+      "legends": "Desert, Mesas, Canyons",
+      "missingFromOurs": [
+        "mesas",
+        "canyons"
+      ],
+      "missingFromLegends": [
+        "salt",
+        "flats",
+        "jundland",
+        "wastes",
+        "dune",
+        "sea"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Hutt cartel (Jabba) with Imperial nominal oversight",
+      "legends": "Local councils",
+      "missingFromOurs": [
+        "local",
+        "councils"
+      ],
+      "missingFromLegends": [
+        "hutt",
+        "cartel",
+        "with",
+        "imperial",
+        "nominal",
+        "oversight"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/b/b0/Tatooine_TPM.png/revision/latest?cb=20241209041104",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "tatooine.png",
+    "localPath": "/images/atlas/tatooine.png",
+    "bytes": 128952
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:26.672Z"
+}

@@ -63,10 +63,10 @@
     "gmNotes": "If the heroes detour to Tatooine in pursuit of Varga's supply chain, treat it as a Hutt-territory consequence chain. Jabba does not love Varga; he tolerates him."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/tatooine.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Tatooine",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Tatooine/Legends",
     "alt": "Tatooine"
   },
   "campaignNotes": {

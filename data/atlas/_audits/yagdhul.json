@@ -1,0 +1,132 @@
+{
+  "slug": "yagdhul",
+  "name": "Yag'Dhul",
+  "sourceTitle": "Yag'Dhul/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Yag'Dhul%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Inner Rim",
+    "sector": "Givin",
+    "climate": "Thin atmosphere; extreme tides",
+    "terrain": [
+      "Dome cities",
+      "Tide-scoured coasts",
+      "Crystal escarpments"
+    ],
+    "hyperlanes": [
+      "Sanrafsix Corridor"
+    ],
+    "government": "Givin Body Calculus (mathematical theocracy)",
+    "affiliation": "Independent (Imperial protectorate by treaty)"
+  },
+  "legends": {
+    "region": "Inner Rim, Trailing Sectors",
+    "sector": "",
+    "system": "Yag'Dhul system",
+    "suns": "1",
+    "moons": "3",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "Hostile; from frigid polar regions to sultry equatorial areas",
+    "terrain": "It depended on the position of the atmosphere, ranging from habitable zones to frozen plains",
+    "atmosphere": "Breathable but dynamic, with areas of hard vacuum",
+    "gravity": "",
+    "species": "Givin",
+    "population": "Millions",
+    "capital": "",
+    "language": "Givin",
+    "government": "Theocratic mathematocracy, Elected planetary governor and ruling bodies known as the Body Calculus and the coalition of Factors",
+    "hyperlanes": "",
+    "affiliation": "Corellian Hegemony, Galactic Republic, Darth Revan's Sith Empire, Confederacy of Independent Systems, Galactic Empire, Eriadu Authority, New Republic, Yuuzhan Vong empire, Galactic Federation of Free Alliances, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Inner Rim",
+      "legends": "Inner Rim, Trailing Sectors",
+      "missingFromOurs": [
+        "trailing",
+        "sectors"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Thin atmosphere; extreme tides",
+      "legends": "Hostile; from frigid polar regions to sultry equatorial areas",
+      "missingFromOurs": [
+        "hostile",
+        "from",
+        "frigid",
+        "polar",
+        "regions",
+        "sultry",
+        "equatorial",
+        "areas"
+      ],
+      "missingFromLegends": [
+        "thin",
+        "atmosphere",
+        "extreme",
+        "tides"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Dome cities, Tide-scoured coasts, Crystal escarpments",
+      "legends": "It depended on the position of the atmosphere, ranging from habitable zones to frozen plains",
+      "missingFromOurs": [
+        "depended",
+        "position",
+        "atmosphere",
+        "ranging",
+        "from",
+        "habitable",
+        "zones",
+        "frozen",
+        "plains"
+      ],
+      "missingFromLegends": [
+        "dome",
+        "cities",
+        "tide-scoured",
+        "coasts",
+        "crystal",
+        "escarpments"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Givin Body Calculus (mathematical theocracy)",
+      "legends": "Theocratic mathematocracy, Elected planetary governor and ruling bodies known as the Body Calculus and the coalition of Factors",
+      "missingFromOurs": [
+        "theocratic",
+        "mathematocracy",
+        "elected",
+        "planetary",
+        "governor",
+        "ruling",
+        "bodies",
+        "known",
+        "coalition",
+        "factors"
+      ],
+      "missingFromLegends": [
+        "givin"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/2/21/YagDhul-NEGAS.jpg/revision/latest?cb=20070701111138",
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "yagdhul.png",
+    "localPath": "/images/atlas/yagdhul.png",
+    "bytes": 514401
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:28.581Z"
+}

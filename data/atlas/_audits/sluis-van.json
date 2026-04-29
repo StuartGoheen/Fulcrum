@@ -1,0 +1,100 @@
+{
+  "slug": "sluis-van",
+  "name": "Sluis Van",
+  "sourceTitle": "Sluis Van/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Sluis_Van%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Sluis",
+    "climate": "Temperate",
+    "terrain": [
+      "Coastal yard cities",
+      "Floating drydocks",
+      "Inland reef estuaries"
+    ],
+    "hyperlanes": [
+      "Rimma Trade Route major node"
+    ],
+    "government": "Sluissi Shipwrights' Guild administration (Imperial-licensed)",
+    "affiliation": "Galactic Empire (contracted)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, Trailing Sectors",
+    "sector": "Sluis sector",
+    "system": "Sluis system",
+    "suns": "",
+    "moons": "",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "",
+    "terrain": "Rocky, Industrial",
+    "atmosphere": "",
+    "gravity": "",
+    "species": "Sluissi",
+    "population": "",
+    "capital": "",
+    "language": "Sluissese, Basic",
+    "government": "Khedive",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Sith Empire, Confederacy of Independent Systems, Galactic Empire, Eriadu Authority, New Republic, Galactic Federation of Free Alliances, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, Trailing Sectors",
+      "missingFromOurs": [
+        "trailing",
+        "sectors"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Coastal yard cities, Floating drydocks, Inland reef estuaries",
+      "legends": "Rocky, Industrial",
+      "missingFromOurs": [
+        "rocky",
+        "industrial"
+      ],
+      "missingFromLegends": [
+        "coastal",
+        "yard",
+        "cities",
+        "floating",
+        "drydocks",
+        "inland",
+        "reef",
+        "estuaries"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Sluissi Shipwrights' Guild administration (Imperial-licensed)",
+      "legends": "Khedive",
+      "missingFromOurs": [
+        "khedive"
+      ],
+      "missingFromLegends": [
+        "sluissi",
+        "shipwrights'",
+        "guild",
+        "administration"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/b/bd/Sluis_Van_FF56.jpg/revision/latest?cb=20070715105427",
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "sluis-van.png",
+    "localPath": "/images/atlas/sluis-van.png",
+    "bytes": 472223
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:20.321Z"
+}

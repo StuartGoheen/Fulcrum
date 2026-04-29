@@ -1,0 +1,111 @@
+{
+  "slug": "mimban",
+  "name": "Mimban",
+  "sourceTitle": "Mimban/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Mimban%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Expansion Region",
+    "sector": "Circarpous",
+    "climate": "Perpetual rain",
+    "terrain": [
+      "Endless mud trenches",
+      "Jungle highlands",
+      "Hyperbarride mine pits"
+    ],
+    "hyperlanes": [
+      "Carida-Mimban supply lane"
+    ],
+    "government": "Imperial military governorship (martial law)",
+    "affiliation": "Galactic Empire — active warfront"
+  },
+  "legends": {
+    "region": "Expansion Region, The Slice",
+    "sector": "Circarpous sector",
+    "system": "Circarpous system",
+    "suns": "1: Circarpous Major",
+    "moons": "2",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "7,042 km",
+    "climate": "Temperate",
+    "terrain": "Jungles, Swamps, Quickclay",
+    "atmosphere": "",
+    "gravity": "",
+    "species": "Coway, Mimbanite, Previously: Thrella",
+    "population": "1 million:, *75% Mimbanite, *22% Coway, *3% Human",
+    "capital": "",
+    "language": "Mimbanite, Coway, Galactic Basic Standard",
+    "government": "None",
+    "hyperlanes": "",
+    "affiliation": "Confederacy of Independent Systems, Galactic Empire, New Republic, Yuuzhan Vong empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Expansion Region",
+      "legends": "Expansion Region, The Slice",
+      "missingFromOurs": [
+        "slice"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Perpetual rain",
+      "legends": "Temperate",
+      "missingFromOurs": [
+        "temperate"
+      ],
+      "missingFromLegends": [
+        "perpetual",
+        "rain"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Endless mud trenches, Jungle highlands, Hyperbarride mine pits",
+      "legends": "Jungles, Swamps, Quickclay",
+      "missingFromOurs": [
+        "jungles",
+        "swamps",
+        "quickclay"
+      ],
+      "missingFromLegends": [
+        "endless",
+        "mud",
+        "trenches",
+        "jungle",
+        "highlands",
+        "hyperbarride",
+        "mine",
+        "pits"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial military governorship (martial law)",
+      "legends": "None",
+      "missingFromOurs": [
+        "none"
+      ],
+      "missingFromLegends": [
+        "imperial",
+        "military",
+        "governorship"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/c/c7/Circarpous_V_TEA.png/revision/latest?cb=20180325201300",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "mimban.png",
+    "localPath": "/images/atlas/mimban.png",
+    "bytes": 242540
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:07.205Z"
+}

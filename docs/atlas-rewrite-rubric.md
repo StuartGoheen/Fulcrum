@@ -161,12 +161,15 @@ The Legends infobox is the mandatory comparison standard for every priority
 or background world. Canon is permitted **only** for slugs on this allowlist
 (maintained in `scripts/atlas-wookieepedia-audit.js` as `CANON_ONLY`):
 
-| Slug         | Reason                                                                                  |
-|--------------|------------------------------------------------------------------------------------------|
-| `batuu`      | No /Legends article on Wookieepedia — created for Galaxy's Edge (2019), Disney canon only. |
-| `ajan-kloss` | No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only. |
-| `jakku`      | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
-| `takodana`   | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
+| Slug                | Reason                                                                                  |
+|---------------------|------------------------------------------------------------------------------------------|
+| `batuu`             | No /Legends article on Wookieepedia — created for Galaxy's Edge (2019), Disney canon only. |
+| `ajan-kloss`        | No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only. |
+| `jakku`             | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
+| `takodana`          | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
+| `aldhani`           | No /Legends article on Wookieepedia — created for Andor (2022), Disney canon only. Added during the Task #233 sweep. |
+| `vandor`            | No /Legends article on Wookieepedia — created for Solo: A Star Wars Story (2018), Disney canon only. Added during the Task #233 sweep. |
+| `ponemah-terminal`  | No /Legends article on Wookieepedia — Disney canon only. Added during the Task #233 sweep. |
 
 The audit script refuses to audit any non-allowlisted slug whose /Legends
 page does not resolve: it logs a `POLICY VIOLATION` line, skips the slug,

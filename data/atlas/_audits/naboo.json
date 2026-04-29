@@ -1,0 +1,103 @@
+{
+  "slug": "naboo",
+  "name": "Naboo",
+  "sourceTitle": "Naboo/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Naboo%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Mid Rim",
+    "sector": "Chommell",
+    "climate": "Temperate",
+    "terrain": [
+      "Lake country",
+      "Swamps",
+      "Plains cities (Theed)"
+    ],
+    "hyperlanes": [
+      "Enarc Run",
+      "Rimma Trade Route connector"
+    ],
+    "government": "Naboo Royal House (Imperial-aligned monarchy) and Gungan High Council",
+    "affiliation": "Galactic Empire (politically aligned)"
+  },
+  "legends": {
+    "region": "Mid Rim, Trailing Sectors",
+    "sector": "Chommell sector",
+    "system": "Naboo system",
+    "suns": "1: Naboo",
+    "moons": "3, Ohma-D'un, Rori, Third moon of Naboo",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,120 kilometers",
+    "climate": "Temperate",
+    "terrain": "Rolling grassy plains, Swamps, Grassy hills, Forests, Mountains",
+    "atmosphere": "Oxygen mix, Type I",
+    "gravity": "Standard",
+    "species": "Gungan",
+    "population": "4.5 billion:, *72% Gungan, *27% Human, *1% other",
+    "capital": "",
+    "language": "Naboo, Galactic Basic Standard, Gungan Basic, Old Gungan",
+    "government": "Hereditary Monarchy , Elected Monarchy , Monarchy",
+    "hyperlanes": "",
+    "affiliation": "Gungan society, Elders, Royal House of Naboo, Galactic Republic, Trade Federation , Galactic Empire, Alliance to Restore the Republic , Nal Raka Criminal Empire, New Republic, Galactic Alliance, Fel Empire, Darth Krayt's Galactic Empire, Galactic Alliance Remnant , Empire-in-exile , Galactic Federation Triumvirate"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Mid Rim",
+      "legends": "Mid Rim, Trailing Sectors",
+      "missingFromOurs": [
+        "trailing",
+        "sectors"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Lake country, Swamps, Plains cities (Theed)",
+      "legends": "Rolling grassy plains, Swamps, Grassy hills, Forests, Mountains",
+      "missingFromOurs": [
+        "rolling",
+        "grassy",
+        "hills",
+        "forests",
+        "mountains"
+      ],
+      "missingFromLegends": [
+        "lake",
+        "country",
+        "cities"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Naboo Royal House (Imperial-aligned monarchy) and Gungan High Council",
+      "legends": "Hereditary Monarchy , Elected Monarchy , Monarchy",
+      "missingFromOurs": [
+        "hereditary",
+        "monarchy",
+        "elected"
+      ],
+      "missingFromLegends": [
+        "naboo",
+        "royal",
+        "house",
+        "gungan",
+        "high",
+        "council"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f0/Naboo_planet.png/revision/latest?cb=20251122020213",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "naboo.png",
+    "localPath": "/images/atlas/naboo.png",
+    "bytes": 114698
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:10.852Z"
+}

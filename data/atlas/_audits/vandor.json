@@ -1,0 +1,89 @@
+{
+  "slug": "vandor",
+  "name": "Vandor",
+  "sourceTitle": "Vandor",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Vandor",
+  "sourceTier": "Canon",
+  "canonOnlyReason": "No /Legends article on Wookieepedia — created for Solo: A Star Wars Story (2018), Disney canon only. MediaWiki probe confirmed missingtitle.",
+  "ours": {
+    "region": "Mid Rim",
+    "sector": "Sloo",
+    "climate": "Cold; alpine",
+    "terrain": [
+      "Snow ranges",
+      "Glacial valleys",
+      "Conveyex rail viaducts"
+    ],
+    "hyperlanes": [
+      "Coaxium freight spur off the Hydian Way"
+    ],
+    "government": "Imperial mountain district administration",
+    "affiliation": "Galactic Empire"
+  },
+  "legends": {
+    "region": "Mid Rim Territories",
+    "sector": "Sloo sector",
+    "system": "Vandor system",
+    "suns": "At least 1",
+    "moons": "2",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,500 km",
+    "climate": "Frigid",
+    "terrain": "Mountains, Plains, Fast-flowing rivers",
+    "atmosphere": "Breathable",
+    "gravity": "",
+    "species": "",
+    "population": "25,000",
+    "capital": "",
+    "language": "",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "InterGalactic Banking Clan, Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "climate",
+      "ours": "Cold; alpine",
+      "legends": "Frigid",
+      "missingFromOurs": [
+        "frigid"
+      ],
+      "missingFromLegends": [
+        "cold",
+        "alpine"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Snow ranges, Glacial valleys, Conveyex rail viaducts",
+      "legends": "Mountains, Plains, Fast-flowing rivers",
+      "missingFromOurs": [
+        "mountains",
+        "plains",
+        "fast-flowing",
+        "rivers"
+      ],
+      "missingFromLegends": [
+        "snow",
+        "ranges",
+        "glacial",
+        "valleys",
+        "conveyex",
+        "rail",
+        "viaducts"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/c/cb/Vandor.png/revision/latest?cb=20181015054828",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "vandor.png",
+    "localPath": "/images/atlas/vandor.png",
+    "bytes": 64688
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:39:03.339Z"
+}

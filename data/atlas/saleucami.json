@@ -39,10 +39,10 @@
     "gmNotes": ""
   },
   "image": {
-    "src": null,
-    "credit": "",
-    "license": "",
-    "attributionUrl": "",
+    "src": "/images/atlas/saleucami.png",
+    "credit": "Wookieepedia (starwars.fandom.com)",
+    "license": "CC BY-SA 3.0",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Saleucami/Legends",
     "alt": "Saleucami"
   },
   "campaignNotes": {

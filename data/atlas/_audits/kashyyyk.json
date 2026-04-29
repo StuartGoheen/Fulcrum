@@ -1,0 +1,107 @@
+{
+  "slug": "kashyyyk",
+  "name": "Kashyyyk",
+  "sourceTitle": "Kashyyyk/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Kashyyyk%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Mid Rim",
+    "sector": "Mytaranor",
+    "climate": "Tropical",
+    "terrain": [
+      "Wroshyr canopy cities",
+      "Beach fortresses",
+      "Shadowlands jungle floor"
+    ],
+    "hyperlanes": [
+      "Randon Run",
+      "Bothan Run connector"
+    ],
+    "government": "Imperial Occupation Authority over scattered Wookiee elders' councils",
+    "affiliation": "Galactic Empire (occupied)"
+  },
+  "legends": {
+    "region": "Mid Rim, *Kashyyyk Region",
+    "sector": "Mytaranor sector",
+    "system": "Kashyyyk system",
+    "suns": "Kashyyyk",
+    "moons": "3: Unidentified farming moon",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,765 kilometers",
+    "climate": "Tropical",
+    "terrain": "Immense jungles and forests, Seas, lakes, and rivers",
+    "atmosphere": "Type I",
+    "gravity": "",
+    "species": "Wookiee",
+    "population": "Historic : 6 million, Modern: 45 million",
+    "capital": "",
+    "language": "Shyriiwook",
+    "government": "Wookiee council",
+    "hyperlanes": "",
+    "affiliation": "Wookiees, Infinite Empire, Czerka Corporation, Galactic Republic, Galactic Empire, Alliance to Restore the Republic, Alliance of Free Planets, New Republic, Galactic Federation of Free Alliances, Jedi Coalition"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Mid Rim",
+      "legends": "Mid Rim, *Kashyyyk Region",
+      "missingFromOurs": [
+        "kashyyyk"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Wroshyr canopy cities, Beach fortresses, Shadowlands jungle floor",
+      "legends": "Immense jungles and forests, Seas, lakes, and rivers",
+      "missingFromOurs": [
+        "immense",
+        "jungles",
+        "forests",
+        "seas",
+        "lakes",
+        "rivers"
+      ],
+      "missingFromLegends": [
+        "wroshyr",
+        "canopy",
+        "cities",
+        "beach",
+        "fortresses",
+        "shadowlands",
+        "jungle",
+        "floor"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial Occupation Authority over scattered Wookiee elders' councils",
+      "legends": "Wookiee council",
+      "missingFromOurs": [
+        "council"
+      ],
+      "missingFromLegends": [
+        "imperial",
+        "occupation",
+        "authority",
+        "over",
+        "scattered",
+        "elders'",
+        "councils"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/d/d0/Kashyyyk_FFGRebellion.png/revision/latest?cb=20170529040615",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "kashyyyk.png",
+    "localPath": "/images/atlas/kashyyyk.png",
+    "bytes": 122892
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:37:56.537Z"
+}

@@ -1,0 +1,127 @@
+{
+  "slug": "ord-mantell",
+  "name": "Ord Mantell",
+  "sourceTitle": "Ord Mantell/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Ord_Mantell%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Mid Rim",
+    "sector": "Bright Jewel",
+    "climate": "Warm temperate",
+    "terrain": [
+      "Coastal port cities (Worlport)",
+      "Junkfields",
+      "Old Ordnance bunker hills"
+    ],
+    "hyperlanes": [
+      "Hydian Way junction; Bormea-Mantell trunk"
+    ],
+    "government": "Mantellian planetary council (corrupt; bought by syndicates)",
+    "affiliation": "Galactic Empire (lightly governed)"
+  },
+  "legends": {
+    "region": "Mid Rim, New Territories",
+    "sector": "Bright Jewel sector, Bright Jewel Cluster",
+    "system": "Bright Jewel system",
+    "suns": "1: Bright Jewel",
+    "moons": "15",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "14,050 kilometers",
+    "climate": "Temperate",
+    "terrain": "Plains, Jungles, Seas, Mesas, Volcanic islands, Urban",
+    "atmosphere": "Oxygen mix",
+    "gravity": "Standard",
+    "species": "Mantellian Savrip",
+    "population": "4 billion",
+    "capital": "",
+    "language": "Galactic Basic Standard",
+    "government": "Ord Mantell Central Authority, New Republic governorship",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Brotherhood of Darkness, Galactic Empire, New Republic, Yuuzhan Vong empire, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Mid Rim",
+      "legends": "Mid Rim, New Territories",
+      "missingFromOurs": [
+        "new"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "sector",
+      "ours": "Bright Jewel",
+      "legends": "Bright Jewel sector, Bright Jewel Cluster",
+      "missingFromOurs": [
+        "cluster"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Warm temperate",
+      "legends": "Temperate",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "warm"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Coastal port cities (Worlport), Junkfields, Old Ordnance bunker hills",
+      "legends": "Plains, Jungles, Seas, Mesas, Volcanic islands, Urban",
+      "missingFromOurs": [
+        "plains",
+        "jungles",
+        "seas",
+        "mesas",
+        "volcanic",
+        "islands",
+        "urban"
+      ],
+      "missingFromLegends": [
+        "coastal",
+        "port",
+        "cities",
+        "junkfields",
+        "old",
+        "ordnance",
+        "bunker",
+        "hills"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Mantellian planetary council (corrupt; bought by syndicates)",
+      "legends": "Ord Mantell Central Authority, New Republic governorship",
+      "missingFromOurs": [
+        "ord",
+        "mantell",
+        "central",
+        "authority",
+        "new",
+        "republic",
+        "governorship"
+      ],
+      "missingFromLegends": [
+        "mantellian",
+        "planetary",
+        "council"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/3/36/Ord_Mantell_EotECR.png/revision/latest?cb=20170222012958",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "ord-mantell.png",
+    "localPath": "/images/atlas/ord-mantell.png",
+    "bytes": 244442
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:11.612Z"
+}

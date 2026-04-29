@@ -1,0 +1,116 @@
+{
+  "slug": "clakdor-vii",
+  "name": "Clak'dor VII",
+  "sourceTitle": "Clak'dor VII/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Clak'dor_VII%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Mayagil",
+    "climate": "Toxic atmosphere outside the bio-domes",
+    "terrain": [
+      "Toxic plains",
+      "Bio-domed cities",
+      "Ancient ruined surface settlements"
+    ],
+    "hyperlanes": [
+      "Colundra Sector trunk off the Hydian Way"
+    ],
+    "government": "Bith Council under domed-city charter",
+    "affiliation": "Independent (Imperial protectorate in title only)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, Trailing Sectors",
+    "sector": "Mayagil sector",
+    "system": "Colu system",
+    "suns": "1: Colu",
+    "moons": "0",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "9,881 kilometers",
+    "climate": "Temperate",
+    "terrain": "Jungle, Swamp",
+    "atmosphere": "Type III",
+    "gravity": "Standard",
+    "species": "Aalagar, Bith, *Y'bith",
+    "population": "3.4 billion:, *99% Bith, *1% other",
+    "capital": "",
+    "language": "Bith, Galactic Basic Standard",
+    "government": "Government Assembly",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Confederacy of Independent Systems, Galactic Empire, Eriadu Authority, New Republic, Galactic Federation of Free Alliances"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, Trailing Sectors",
+      "missingFromOurs": [
+        "trailing",
+        "sectors"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Toxic atmosphere outside the bio-domes",
+      "legends": "Temperate",
+      "missingFromOurs": [
+        "temperate"
+      ],
+      "missingFromLegends": [
+        "toxic",
+        "atmosphere",
+        "outside",
+        "bio-domes"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Toxic plains, Bio-domed cities, Ancient ruined surface settlements",
+      "legends": "Jungle, Swamp",
+      "missingFromOurs": [
+        "jungle",
+        "swamp"
+      ],
+      "missingFromLegends": [
+        "toxic",
+        "plains",
+        "bio-domed",
+        "cities",
+        "ancient",
+        "ruined",
+        "surface",
+        "settlements"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Bith Council under domed-city charter",
+      "legends": "Government Assembly",
+      "missingFromOurs": [
+        "government",
+        "assembly"
+      ],
+      "missingFromLegends": [
+        "bith",
+        "council",
+        "under",
+        "domed-city",
+        "charter"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/7/7f/ClakdorVII.jpg/revision/latest?cb=20071218163743",
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "clakdor-vii.png",
+    "localPath": "/images/atlas/clakdor-vii.png",
+    "bytes": 141409
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:36:58.425Z"
+}

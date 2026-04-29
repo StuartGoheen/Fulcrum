@@ -1,0 +1,121 @@
+{
+  "slug": "fondor",
+  "name": "Fondor",
+  "sourceTitle": "Fondor/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Fondor%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Colonies",
+    "sector": "Tapani",
+    "climate": "Industrial temperate",
+    "terrain": [
+      "Orbital shipyard rings",
+      "Heavy industrial coast",
+      "Refinery cities"
+    ],
+    "hyperlanes": [
+      "Rimma Trade Route junction",
+      "Coreward leg toward Sullust"
+    ],
+    "government": "Fondorian Naval Authority (Imperial-administered)",
+    "affiliation": "Galactic Empire"
+  },
+  "legends": {
+    "region": "Colonies, Southern Core",
+    "sector": "Tapani sector; Freeworlds Territory",
+    "system": "Fondor system",
+    "suns": "Fondor",
+    "moons": "6",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "9,100 km",
+    "climate": "Temperate",
+    "terrain": "Desert, Wasteland, Urban sprawl",
+    "atmosphere": "Oxygen mix, Type I",
+    "gravity": "Standard",
+    "species": "Fondorian",
+    "population": "5 billion:, *75% Human, *11% Herglic, *7% Mrlssi, *3% Sullustan, *2% Devaronian, *2% Others",
+    "capital": "",
+    "language": "Galactic Basic Standard",
+    "government": "Guild",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Tapani Empire, League of Tapani Freeworlds, Darth Revan's Sith Empire, Techno Union, Confederacy of Independent Systems, Galactic Empire, Alliance of Free Planets, New Republic, Yuuzhan Vong empire, Galactic Federation of Free Alliances, Alliance-in-exile"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Colonies",
+      "legends": "Colonies, Southern Core",
+      "missingFromOurs": [
+        "southern",
+        "core"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "sector",
+      "ours": "Tapani",
+      "legends": "Tapani sector; Freeworlds Territory",
+      "missingFromOurs": [
+        "freeworlds",
+        "territory"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Industrial temperate",
+      "legends": "Temperate",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "industrial"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Orbital shipyard rings, Heavy industrial coast, Refinery cities",
+      "legends": "Desert, Wasteland, Urban sprawl",
+      "missingFromOurs": [
+        "desert",
+        "wasteland",
+        "urban",
+        "sprawl"
+      ],
+      "missingFromLegends": [
+        "orbital",
+        "shipyard",
+        "rings",
+        "heavy",
+        "industrial",
+        "coast",
+        "refinery",
+        "cities"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Fondorian Naval Authority (Imperial-administered)",
+      "legends": "Guild",
+      "missingFromOurs": [
+        "guild"
+      ],
+      "missingFromLegends": [
+        "fondorian",
+        "naval",
+        "authority"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/0/0b/Fondor_EotECR.png/revision/latest?cb=20170222012821",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "fondor.png",
+    "localPath": "/images/atlas/fondor.png",
+    "bytes": 252090
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:37:55.565Z"
+}

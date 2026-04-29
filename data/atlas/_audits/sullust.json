@@ -1,0 +1,128 @@
+{
+  "slug": "sullust",
+  "name": "Sullust",
+  "sourceTitle": "Sullust/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Sullust%2FLegends",
+  "sourceTier": "Legends",
+  "canonOnlyReason": null,
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Sullust",
+    "climate": "Volcanic; survivable in subsurface cavern cities",
+    "terrain": [
+      "Lava plains",
+      "Cavern cities",
+      "Tunnel networks"
+    ],
+    "hyperlanes": [
+      "Rimma Trade Route major node"
+    ],
+    "government": "SoroSuub Corporation (effective rule); Sullustan Council in title",
+    "affiliation": "Galactic Empire (corporate-aligned)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, Trailing Sectors",
+    "sector": "Brema sector",
+    "system": "Sullust system",
+    "suns": "1: Sullust",
+    "moons": "2:, Sulon, Umnub",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,780 kilometers",
+    "climate": "Superheated",
+    "terrain": "Mountains, Volcanoes, Rocky deserts, Caves",
+    "atmosphere": "Type II on surface, Type I in underground",
+    "gravity": "Standard",
+    "species": "Sullustan",
+    "population": "18.5 billion:, *96% Sullustan, *2% Human, *1% Bith, *1% other",
+    "capital": "",
+    "language": "Galactic Basic Standard, Sullustese",
+    "government": "Corporate",
+    "hyperlanes": "",
+    "affiliation": "Galactic Republic, Sith Empire, Brotherhood of Darkness, Confederacy of Independent Systems, Galactic Empire, Alliance of Free Planets, New Republic, Galactic Federation of Free Alliances, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, Trailing Sectors",
+      "missingFromOurs": [
+        "trailing",
+        "sectors"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "sector",
+      "ours": "Sullust",
+      "legends": "Brema sector",
+      "missingFromOurs": [
+        "brema"
+      ],
+      "missingFromLegends": [
+        "sullust"
+      ]
+    },
+    {
+      "field": "climate",
+      "ours": "Volcanic; survivable in subsurface cavern cities",
+      "legends": "Superheated",
+      "missingFromOurs": [
+        "superheated"
+      ],
+      "missingFromLegends": [
+        "volcanic",
+        "survivable",
+        "subsurface",
+        "cavern",
+        "cities"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Lava plains, Cavern cities, Tunnel networks",
+      "legends": "Mountains, Volcanoes, Rocky deserts, Caves",
+      "missingFromOurs": [
+        "mountains",
+        "volcanoes",
+        "rocky",
+        "deserts",
+        "caves"
+      ],
+      "missingFromLegends": [
+        "lava",
+        "plains",
+        "cavern",
+        "cities",
+        "tunnel",
+        "networks"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "SoroSuub Corporation (effective rule); Sullustan Council in title",
+      "legends": "Corporate",
+      "missingFromOurs": [
+        "corporate"
+      ],
+      "missingFromLegends": [
+        "sorosuub",
+        "corporation",
+        "sullustan",
+        "council",
+        "title"
+      ]
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/2/2d/SullustAoR.png/revision/latest?cb=20170222011923",
+    "sourceExt": "png",
+    "normalizedTo": "png",
+    "localFile": "sullust.png",
+    "localPath": "/images/atlas/sullust.png",
+    "bytes": 260962
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T08:38:21.202Z"
+}

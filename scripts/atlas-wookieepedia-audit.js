@@ -49,12 +49,18 @@ const ORIGINAL_FICTION = new Set(['malpaz', 'xala']);
 // Disney canon reset. There is no pre-Disney EU material to compare against.
 // Any future addition to this set must be justified the same way (verified
 // missing /Legends article on Wookieepedia) and noted in the audit rubric.
-const CANON_ONLY = new Set(['batuu', 'ajan-kloss', 'jakku', 'takodana']);
+const CANON_ONLY = new Set([
+  'batuu', 'ajan-kloss', 'jakku', 'takodana',
+  'aldhani', 'vandor', 'ponemah-terminal',
+]);
 const CANON_ONLY_REASON = {
-  'batuu':      'No /Legends article on Wookieepedia — created for Galaxy\'s Edge (2019), Disney canon only.',
-  'ajan-kloss': 'No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only.',
-  'jakku':      'No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.',
-  'takodana':   'No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.',
+  'batuu':            'No /Legends article on Wookieepedia — created for Galaxy\'s Edge (2019), Disney canon only.',
+  'ajan-kloss':       'No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only.',
+  'jakku':            'No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.',
+  'takodana':         'No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.',
+  'aldhani':          'No /Legends article on Wookieepedia — created for Andor (2022), Disney canon only. MediaWiki probe confirmed missingtitle.',
+  'vandor':           'No /Legends article on Wookieepedia — created for Solo: A Star Wars Story (2018), Disney canon only. MediaWiki probe confirmed missingtitle.',
+  'ponemah-terminal': 'No /Legends article on Wookieepedia — Disney canon only. MediaWiki probe confirmed missingtitle.',
 };
 
 // Title overrides (slug → Wookieepedia page title) where slug-from-name doesn't match.
