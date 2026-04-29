@@ -35,9 +35,17 @@ const PRIORITY = [
 // Worlds with no Wookieepedia entry — original campaign fiction
 const ORIGINAL_FICTION = new Set(['malpaz', 'xala']);
 
-// Title overrides (slug → Wookieepedia page title) where slug-from-name doesn't match
+// Worlds that exist ONLY in Disney canon (no /Legends article on Wookieepedia).
+// For everything else, this script REQUIRES a Legends article and will hard-fail
+// if one cannot be found — silent canon fallback would violate the audit policy
+// for Task #232/#233 (Legends is the comparison standard).
+const CANON_ONLY = new Set(['batuu', 'ajan-kloss', 'jakku', 'takodana']);
+
+// Title overrides (slug → Wookieepedia page title) where slug-from-name doesn't match.
+// Note: do NOT add a slug here unless the slug-from-name conversion actually fails.
+// e.g. 'endor' → 'Endor' works correctly; an override to 'Forest Moon of Endor'
+// would silently break Legends lookup because that page redirects, not /Legends.
 const TITLE_OVERRIDES = {
-  'endor': 'Forest Moon of Endor',
   'clakdor-vii': "Clak'dor VII",
   'lotho-minor': 'Lotho Minor',
   'ord-mantell': 'Ord Mantell',
@@ -252,8 +260,12 @@ async function auditSlug(slug, opts = {}) {
   }
 
   const baseTitle = slugToTitle(slug);
-  // Try Legends first, then bare title (which serves Canon if both exist, or the only article if canon-only).
-  const tryTitles = [`${baseTitle}/Legends`, baseTitle];
+  const isCanonOnly = CANON_ONLY.has(slug);
+  // Source policy: Legends is mandatory unless the slug is on the canon-only
+  // allowlist. No silent fallback — if a non-canon-only world's /Legends page
+  // is missing, hard-fail so the operator can either add it to CANON_ONLY (if
+  // the world legitimately has no Legends article) or fix the title override.
+  const tryTitles = isCanonOnly ? [baseTitle] : [`${baseTitle}/Legends`];
 
   let wikitextResult = null;
   for (const t of tryTitles) {
@@ -261,13 +273,22 @@ async function auditSlug(slug, opts = {}) {
     if (r && r.wikitext) { wikitextResult = r; break; }
   }
   if (!wikitextResult) {
-    console.error(`[${slug}] no wikitext found for ${tryTitles.join(' or ')}`);
+    const msg = isCanonOnly
+      ? `[${slug}] no Canon wikitext found for ${baseTitle}`
+      : `[${slug}] no Legends wikitext at ${baseTitle}/Legends — if this world is canon-only add slug to CANON_ONLY, otherwise fix TITLE_OVERRIDES`;
+    console.error(msg);
     return null;
   }
 
   const sourceTitle = wikitextResult.title;
   const sourceUrl = `https://starwars.fandom.com/wiki/${encodeURIComponent(sourceTitle.replace(/ /g, '_'))}`;
   const isLegends = /\/Legends$/i.test(sourceTitle);
+  // Defense in depth: if we asked for Legends but the API resolved to Canon
+  // (e.g. via redirect), refuse rather than silently downgrade the audit.
+  if (!isCanonOnly && !isLegends) {
+    console.error(`[${slug}] requested Legends but resolved to Canon (${sourceTitle}); refusing to audit`);
+    return null;
+  }
   const ibox = parseInfoboxFields(wikitextResult.wikitext);
 
   const legends = {
@@ -292,19 +313,43 @@ async function auditSlug(slug, opts = {}) {
     affiliation: cleanWikitext(ibox.affiliation || ibox['era affiliation']),
   };
 
-  // Diff a few high-signal fields case-insensitively, by first-word containment.
+  // Normalized token-set diff across high-signal fields. We lowercase, strip
+  // parentheticals, drop tiny stop-tokens, and compare the meaningful tokens
+  // each side has. A field is reported as a diff if Legends has any
+  // significant token absent from ours, or vice versa. This catches both
+  // "wrong sector name" and partial-match drift (e.g. ours "Forests, lakes"
+  // vs Legends "Forests, lakes, mountains, oceans").
+  const STOP = new Set(['the','a','an','of','and','or','to','in','on','at','de','sector','system','region','territories']);
+  function tokens(val) {
+    if (!val) return [];
+    return String(val)
+      .toLowerCase()
+      .replace(/\([^)]*\)/g, ' ')        // drop parentheticals
+      .replace(/[^a-z0-9'\-\s]/g, ' ')   // keep word chars, apostrophes, hyphens
+      .split(/\s+/)
+      .filter(t => t.length >= 3 && !STOP.has(t));
+  }
+  function compareField(oursVal, legVal) {
+    const o = new Set(tokens(oursVal));
+    const l = new Set(tokens(legVal));
+    if (l.size === 0 || o.size === 0) return null;
+    const missingFromOurs = [...l].filter(t => !o.has(t));
+    const missingFromLegends = [...o].filter(t => !l.has(t));
+    if (!missingFromOurs.length && !missingFromLegends.length) return null;
+    return { missingFromOurs, missingFromLegends };
+  }
   const diffs = [];
   function diff(field, oursVal, legVal) {
     if (!legVal || !oursVal) return;
-    const o = String(oursVal).toLowerCase();
-    const firstWord = String(legVal).toLowerCase().split(/[\s,;]+/)[0];
-    if (firstWord && !o.includes(firstWord)) {
-      diffs.push({ field, ours: oursVal, legends: legVal });
-    }
+    const cmp = compareField(oursVal, legVal);
+    if (cmp) diffs.push({ field, ours: oursVal, legends: legVal, ...cmp });
   }
   diff('region', ours.region, legends.region);
   diff('sector', ours.sector, legends.sector);
   diff('climate', ours.common?.climate, legends.climate);
+  diff('terrain', Array.isArray(ours.common?.terrain) ? ours.common.terrain.join(', ') : ours.common?.terrain, legends.terrain);
+  diff('hyperlanes', Array.isArray(ours.common?.hyperlanes) ? ours.common.hyperlanes.join(', ') : ours.common?.hyperlanes, legends.hyperlanes);
+  diff('government', ours.common?.government, legends.government);
 
   // Image
   let imageInfo = { downloaded: false };

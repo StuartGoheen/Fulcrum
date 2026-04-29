@@ -42,7 +42,43 @@
     "hyperlanes": "",
     "affiliation": "Jedi Order, Dank Graks"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Mid Rim",
+      "legends": "Mid Rim Territories, Western Reaches",
+      "missingFromOurs": [
+        "western",
+        "reaches"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Hot and humid; temperate at the lake elevations",
+      "legends": "Hot and Humid",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "temperate",
+        "lake",
+        "elevations"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Temperate forests, Lakes, Plains, Stone ridges",
+      "legends": "Lakes, Plains, Seas, Temperate forest",
+      "missingFromOurs": [
+        "seas",
+        "forest"
+      ],
+      "missingFromLegends": [
+        "forests",
+        "stone",
+        "ridges"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f6/Tak.png/revision/latest?cb=20251031035110",
@@ -51,5 +87,5 @@
     "bytes": 125030
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:54.116Z"
+  "generatedAt": "2026-04-29T07:25:16.265Z"
 }

@@ -45,9 +45,44 @@
   },
   "diffs": [
     {
+      "field": "region",
+      "ours": "Inner Rim",
+      "legends": "Inner Rim, Western Reaches",
+      "missingFromOurs": [
+        "western",
+        "reaches"
+      ],
+      "missingFromLegends": []
+    },
+    {
       "field": "sector",
       "ours": "Western Reaches",
-      "legends": "Jakku's sector"
+      "legends": "Jakku's sector",
+      "missingFromOurs": [
+        "jakku's"
+      ],
+      "missingFromLegends": [
+        "western",
+        "reaches"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Deserts, Badlands, Dunes, Mesas, Salt flats",
+      "legends": "Modern:, *Deserts, Historic:, *Forests, *Seas",
+      "missingFromOurs": [
+        "modern",
+        "historic",
+        "forests",
+        "seas"
+      ],
+      "missingFromLegends": [
+        "badlands",
+        "dunes",
+        "mesas",
+        "salt",
+        "flats"
+      ]
     }
   ],
   "image": {
@@ -58,5 +93,5 @@
     "bytes": 34946
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:52.867Z"
+  "generatedAt": "2026-04-29T07:25:15.098Z"
 }

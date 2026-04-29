@@ -42,7 +42,82 @@
     "hyperlanes": "",
     "affiliation": "Neo-Bespinians, Galactic Republic, Brotherhood of Darkness, Confederacy of Independent Systems, Galactic Empire, New Republic, Empire Reborn/Reborn, Imperial Remnant, Galactic Federation of Free Alliances, Five Worlds, Darth Krayt's Galactic Empire"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories; Greater Javin, Western Reaches",
+      "missingFromOurs": [
+        "greater",
+        "javin",
+        "western",
+        "reaches"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "sector",
+      "ours": "Anoat",
+      "legends": "Anoat sector; Ivax Nebula; Ison Corridor",
+      "missingFromOurs": [
+        "ivax",
+        "nebula",
+        "ison",
+        "corridor"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Temperate at the Cloud City altitude band; gas-giant atmosphere everywhere else",
+      "legends": "Temperate",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "cloud",
+        "city",
+        "altitude",
+        "band",
+        "gas-giant",
+        "atmosphere",
+        "everywhere",
+        "else"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Gas-giant atmosphere, Tibanna gas bands (extraction zone), Deep cloud-band swamp zones (uninhabited)",
+      "legends": "Gas giant, Swamp , Clouds",
+      "missingFromOurs": [
+        "giant",
+        "clouds"
+      ],
+      "missingFromLegends": [
+        "gas-giant",
+        "atmosphere",
+        "tibanna",
+        "bands",
+        "deep",
+        "cloud-band",
+        "zones"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Cloud City Wing Guard (corporate municipal authority); Mining Guild operations on the gas bands",
+      "legends": "Guild",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "cloud",
+        "city",
+        "wing",
+        "guard",
+        "mining",
+        "operations",
+        "gas",
+        "bands"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/2/2c/Bespin_EotECR.png/revision/latest?cb=20170222012550",
@@ -51,5 +126,5 @@
     "bytes": 137328
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:50.133Z"
+  "generatedAt": "2026-04-29T07:25:12.878Z"
 }

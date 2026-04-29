@@ -43,7 +43,50 @@
     "hyperlanes": "",
     "affiliation": "Hutt Empire, Galactic Empire, Yuuzhan Vong Empire, Darth Krayt's Galactic Empire"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, *Kreetan Narrows",
+      "missingFromOurs": [
+        "kreetan",
+        "narrows"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Desert, Dry scrubland, Rocky badlands, Coastal salt-trade towns",
+      "legends": "Desert, Dry scrub-land, Rocky badlands",
+      "missingFromOurs": [
+        "scrub-land"
+      ],
+      "missingFromLegends": [
+        "scrubland",
+        "coastal",
+        "salt-trade",
+        "towns"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Weequay clan councils under Imperial governorship; heavy Hutt commercial influence",
+      "legends": "Clans, Imperial governorship",
+      "missingFromOurs": [
+        "clans"
+      ],
+      "missingFromLegends": [
+        "weequay",
+        "clan",
+        "councils",
+        "under",
+        "heavy",
+        "hutt",
+        "commercial",
+        "influence"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/8/87/Sriluur_LoNH.png/revision/latest?cb=20180501013817",
@@ -52,5 +95,5 @@
     "bytes": 72750
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:56.748Z"
+  "generatedAt": "2026-04-29T07:25:18.712Z"
 }

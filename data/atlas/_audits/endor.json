@@ -1,9 +1,9 @@
 {
   "slug": "endor",
   "name": "Endor",
-  "sourceTitle": "Endor",
-  "sourceUrl": "https://starwars.fandom.com/wiki/Endor",
-  "sourceTier": "Canon",
+  "sourceTitle": "Endor/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Endor%2FLegends",
+  "sourceTier": "Legends",
   "ours": {
     "region": "Outer Rim",
     "sector": "Moddell",
@@ -22,40 +22,95 @@
     "affiliation": "Unaligned"
   },
   "legends": {
-    "region": "Outer Rim Territories",
-    "sector": "Zuma sector, *Moddell sector",
+    "region": "Outer Rim Territories; Inner Zuma Region",
+    "sector": "Zuma sector; Moddell sector; Outer Moddell systems",
     "system": "Endor system",
     "suns": "",
     "moons": "",
     "rotation": "",
     "orbital": "",
-    "diameter": "4,900 km",
-    "climate": "",
-    "terrain": "Forests, Savannas, Mountains, Plains",
+    "diameter": "4,900 kilometers",
+    "climate": "Temperate",
+    "terrain": "Forests, Mountains, Deserts, Savannas, Lakes, Rivers, Small seas",
     "atmosphere": "Type I",
-    "gravity": "Light",
-    "species": "Dulok, Ewoks, Gorph, Grass Trekker, Wistie, Yuzzum",
-    "population": "Over 30,000,000 Ewoks",
+    "gravity": "85% standard",
+    "species": "Dulok, Ewok, Fftssfft, Gorph, Grass Trekker, Mimph , Wistie, Yuzzum",
+    "population": "30 million:, *95% Ewok, *4% Yuzzum, *1% other",
     "capital": "",
-    "language": "Ewokese",
-    "government": "",
+    "language": "Ewokese, Teek language, Yuzzum, Sanyassan, Galactic Basic Standard, Skandit language, Phlog language",
+    "government": "Tribal",
     "hyperlanes": "",
-    "affiliation": "Galactic Empire , Alliance to Restore the Republic, First Order"
+    "affiliation": "Death Watch, Confederacy of Independent Systems, Galactic Empire, Alliance to Restore the Republic, Alliance of Free Planets, New Republic, New Jedi Order, Jedi Coalition"
   },
   "diffs": [
     {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories; Inner Zuma Region",
+      "missingFromOurs": [
+        "inner",
+        "zuma"
+      ],
+      "missingFromLegends": []
+    },
+    {
       "field": "sector",
       "ours": "Moddell",
-      "legends": "Zuma sector, *Moddell sector"
+      "legends": "Zuma sector; Moddell sector; Outer Moddell systems",
+      "missingFromOurs": [
+        "zuma",
+        "outer",
+        "systems"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Temperate forest",
+      "legends": "Temperate",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "forest"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Forests, Savannas, Mountain ridges, Plains",
+      "legends": "Forests, Mountains, Deserts, Savannas, Lakes, Rivers, Small seas",
+      "missingFromOurs": [
+        "mountains",
+        "deserts",
+        "lakes",
+        "rivers",
+        "small",
+        "seas"
+      ],
+      "missingFromLegends": [
+        "mountain",
+        "ridges",
+        "plains"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "None recognized (indigenous Ewok tribal society)",
+      "legends": "Tribal",
+      "missingFromOurs": [
+        "tribal"
+      ],
+      "missingFromLegends": [
+        "none",
+        "recognized"
+      ]
     }
   ],
   "image": {
     "downloaded": true,
-    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/1/1d/Endor_BF2.png/revision/latest?cb=20171014232605",
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/5/50/Endor_FFGRebellion.png/revision/latest?cb=20170529052722",
     "localFile": "endor.png",
     "localPath": "/images/atlas/endor.png",
-    "bytes": 130662
+    "bytes": 158436
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:50.987Z"
+  "generatedAt": "2026-04-29T07:25:13.684Z"
 }

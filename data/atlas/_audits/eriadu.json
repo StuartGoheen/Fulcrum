@@ -43,7 +43,55 @@
     "hyperlanes": "",
     "affiliation": "Brotherhood of Darkness, Galactic Republic, Galactic Empire, Eriadu Authority, New Republic, Confederation, Darth Krayt's Galactic Empire"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, Trailing Sectors",
+      "missingFromOurs": [
+        "trailing",
+        "sectors"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Polluted; sky permanently exhaust-stained",
+      "legends": "Polluted",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "sky",
+        "permanently",
+        "exhaust-stained"
+      ]
+    },
+    {
+      "field": "terrain",
+      "ours": "Industrial cityscape, Refinery districts, Waste zones, The Citadel district",
+      "legends": "Industrial cityscape, Waste zones",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "refinery",
+        "districts",
+        "citadel",
+        "district"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial sector authority — Moff Wilhuff Tarkin",
+      "legends": "Imperial governorship",
+      "missingFromOurs": [
+        "governorship"
+      ],
+      "missingFromLegends": [
+        "authority",
+        "moff",
+        "wilhuff",
+        "tarkin"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/d/dc/Eriadu_TEA.jpg/revision/latest?cb=20200822092400",
@@ -52,5 +100,5 @@
     "bytes": 148290
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:51.825Z"
+  "generatedAt": "2026-04-29T07:25:14.441Z"
 }

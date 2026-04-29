@@ -43,7 +43,31 @@
     "hyperlanes": "",
     "affiliation": "Hutt Empire, Galactic Empire, Confederation, Galactic Federation of Free Alliances"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "terrain",
+      "ours": "Desert, Savannas, Stone valleys, The Sacred Fountain (centerpiece)",
+      "legends": "Desert, Savannas",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "stone",
+        "valleys",
+        "sacred",
+        "fountain"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Council of Elders, operating as a Hutt-aligned client-state",
+      "legends": "Council of Elders",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "operating",
+        "hutt-aligned",
+        "client-state"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f9/Klatooine_LoNH.jpg/revision/latest?cb=20200405144436",
@@ -52,5 +76,5 @@
     "bytes": 44918
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:55.998Z"
+  "generatedAt": "2026-04-29T07:25:18.018Z"
 }

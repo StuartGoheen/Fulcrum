@@ -42,7 +42,29 @@
     "hyperlanes": "",
     "affiliation": "Kloss, New Republic, Resistance"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, New Territories",
+      "missingFromOurs": [
+        "new"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Forests, Cliffs and valleys, Grottos, Bioluminescent canopy",
+      "legends": "Forests, Cliffs and valleys, Grottos, Oceans",
+      "missingFromOurs": [
+        "oceans"
+      ],
+      "missingFromLegends": [
+        "bioluminescent",
+        "canopy"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/a/a3/Ajan-Kloss-TROS-GG.png/revision/latest/scale-to-width-down/1280?cb=20250106064537",
@@ -51,5 +73,5 @@
     "bytes": 206582
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:48.514Z"
+  "generatedAt": "2026-04-29T07:25:11.400Z"
 }

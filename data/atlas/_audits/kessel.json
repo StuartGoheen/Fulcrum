@@ -43,7 +43,53 @@
     "hyperlanes": "",
     "affiliation": "Hutt Cartel, Brotherhood of Darkness, Pyke Syndicate, Galactic Empire, New Republic, Yuuzhan Vong empire, Galactic Federation of Free Alliances, Xim's empire"
   },
-  "diffs": [],
+  "diffs": [
+    {
+      "field": "region",
+      "ours": "Outer Rim",
+      "legends": "Outer Rim Territories, The Slice",
+      "missingFromOurs": [
+        "slice"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "climate",
+      "ours": "Cold and dry, thin atmosphere, occasionally smoggy",
+      "legends": "Cold and dry with thin atmosphere; occasionally smoggy",
+      "missingFromOurs": [
+        "with"
+      ],
+      "missingFromLegends": []
+    },
+    {
+      "field": "terrain",
+      "ours": "Alkali flats, Barren rocky mountains, Spice mines (extensive subsurface), Sealed surface installations",
+      "legends": "Alkali flats, Barren rocky mountains",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "spice",
+        "mines",
+        "sealed",
+        "surface",
+        "installations"
+      ]
+    },
+    {
+      "field": "government",
+      "ours": "Imperial military administration; Pyke Syndicate licensed mining operations",
+      "legends": "Military administration",
+      "missingFromOurs": [],
+      "missingFromLegends": [
+        "imperial",
+        "pyke",
+        "syndicate",
+        "licensed",
+        "mining",
+        "operations"
+      ]
+    }
+  ],
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/5/55/Kessel-EotECR.png/revision/latest?cb=20170222024350",
@@ -52,5 +98,5 @@
     "bytes": 156414
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:19:55.255Z"
+  "generatedAt": "2026-04-29T07:25:17.382Z"
 }
