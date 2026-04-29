@@ -83,10 +83,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f6/Tak.png/revision/latest?cb=20251031035110",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "takodana.png",
     "localPath": "/images/atlas/takodana.png",
     "bytes": 125030
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:04.581Z"
+  "generatedAt": "2026-04-29T07:33:14.717Z"
 }

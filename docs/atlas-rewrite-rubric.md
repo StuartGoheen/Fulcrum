@@ -133,11 +133,14 @@ or background world. Canon is permitted **only** for slugs on this allowlist
 | `jakku`      | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
 | `takodana`   | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
 
-The audit script will **hard-fail** for any non-allowlisted slug whose
-/Legends page does not resolve. To add a slug to the allowlist, first probe
-the MediaWiki API for `<Title>/Legends` and confirm a `missingtitle` error,
-then add the slug + verified justification to both `CANON_ONLY` and
-`CANON_ONLY_REASON` in the script and to this table.
+The audit script refuses to audit any non-allowlisted slug whose /Legends
+page does not resolve: it logs a `POLICY VIOLATION` line, skips the slug,
+continues the batch so every violation surfaces in one pass, and exits the
+process with a non-zero status code at the end if any violations occurred.
+To add a slug to the allowlist, first probe the MediaWiki API for
+`<Title>/Legends` and confirm a `missingtitle` error, then add the slug +
+verified justification to both `CANON_ONLY` and `CANON_ONLY_REASON` in the
+script and to this table.
 
 ## Audit-script reliability notes (for Task #233)
 

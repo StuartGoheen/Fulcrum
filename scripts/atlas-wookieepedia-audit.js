@@ -16,6 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const { URL } = require('url');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const ATLAS_DIR = path.join(ROOT, 'data', 'atlas');
@@ -36,9 +37,10 @@ const PRIORITY = [
 const ORIGINAL_FICTION = new Set(['malpaz', 'xala']);
 
 // Worlds that exist ONLY in Disney canon (no /Legends article on Wookieepedia).
-// For everything else, this script REQUIRES a Legends article and will hard-fail
-// if one cannot be found — silent canon fallback would violate the audit policy
-// for Task #232/#233 (Legends is the comparison standard).
+// For everything else, this script REQUIRES a Legends article and will refuse
+// to audit (logs a policy-violation error and skips the slug) if one cannot be
+// found. The batch run continues so all violations surface in one pass; the
+// script exits non-zero at the end if any slug was skipped for policy.
 //
 // The original task spec named Batuu and Ajan Kloss as the canon-only worlds.
 // Jakku and Takodana were added to this allowlist after probing Wookieepedia's
@@ -289,9 +291,9 @@ async function auditSlug(slug, opts = {}) {
   if (!wikitextResult) {
     const msg = isCanonOnly
       ? `[${slug}] no Canon wikitext found for ${baseTitle}`
-      : `[${slug}] no Legends wikitext at ${baseTitle}/Legends — if this world is canon-only add slug to CANON_ONLY, otherwise fix TITLE_OVERRIDES`;
+      : `[${slug}] POLICY VIOLATION: no Legends wikitext at ${baseTitle}/Legends — if this world is canon-only add slug to CANON_ONLY, otherwise fix TITLE_OVERRIDES`;
     console.error(msg);
-    return null;
+    return { __policyViolation: true };
   }
 
   const sourceTitle = wikitextResult.title;
@@ -300,8 +302,8 @@ async function auditSlug(slug, opts = {}) {
   // Defense in depth: if we asked for Legends but the API resolved to Canon
   // (e.g. via redirect), refuse rather than silently downgrade the audit.
   if (!isCanonOnly && !isLegends) {
-    console.error(`[${slug}] requested Legends but resolved to Canon (${sourceTitle}); refusing to audit`);
-    return null;
+    console.error(`[${slug}] POLICY VIOLATION: requested Legends but resolved to Canon (${sourceTitle}); refusing to audit`);
+    return { __policyViolation: true };
   }
   const ibox = parseInfoboxFields(wikitextResult.wikitext);
 
@@ -365,23 +367,39 @@ async function auditSlug(slug, opts = {}) {
   diff('hyperlanes', Array.isArray(ours.common?.hyperlanes) ? ours.common.hyperlanes.join(', ') : ours.common?.hyperlanes, legends.hyperlanes);
   diff('government', ours.common?.government, legends.government);
 
-  // Image
+  // Image — always normalize to PNG on disk so the rubric's
+  // public/images/atlas/<slug>.png convention holds even when the source CDN
+  // serves a JPG. Uses ImageMagick (`magick`) for lossless re-encode.
   let imageInfo = { downloaded: false };
   const imgUrl = await fetchPageImage(sourceTitle);
   if (imgUrl) {
     fs.mkdirSync(IMG_DIR, { recursive: true });
-    const ext = imageExtFromUrl(imgUrl);
-    const filename = `${slug}.${ext}`;
+    const sourceExt = imageExtFromUrl(imgUrl);
+    const filename = `${slug}.png`;
     const localPath = path.join(IMG_DIR, filename);
     try {
       const buf = await fetchBuffer(imgUrl);
-      fs.writeFileSync(localPath, buf);
+      if (sourceExt === 'png') {
+        fs.writeFileSync(localPath, buf);
+      } else {
+        // Re-encode JPG/etc to PNG via ImageMagick to honor the .png convention.
+        const tmpPath = path.join(IMG_DIR, `.${slug}.tmp.${sourceExt}`);
+        fs.writeFileSync(tmpPath, buf);
+        try {
+          execFileSync('magick', [tmpPath, localPath], { stdio: 'pipe' });
+        } finally {
+          if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
+        }
+      }
+      const finalBytes = fs.statSync(localPath).size;
       imageInfo = {
         downloaded: true,
         sourceImageUrl: imgUrl,
+        sourceExt,
+        normalizedTo: 'png',
         localFile: filename,
         localPath: `/images/atlas/${filename}`,
-        bytes: buf.length,
+        bytes: finalBytes,
       };
     } catch (e) {
       imageInfo = { downloaded: false, sourceImageUrl: imgUrl, error: String(e) };
@@ -425,10 +443,19 @@ async function main() {
     console.error('Usage: node scripts/atlas-wookieepedia-audit.js <slug>... | --priority | --all');
     process.exit(1);
   }
+  let policyViolations = 0;
   for (const slug of slugs) {
-    try { await auditSlug(slug); }
-    catch (e) { console.error(`[${slug}] error:`, e.message); }
+    try {
+      const result = await auditSlug(slug);
+      if (result && result.__policyViolation) policyViolations++;
+    } catch (e) {
+      console.error(`[${slug}] error:`, e.message);
+    }
     await new Promise(r => setTimeout(r, 400)); // be polite
+  }
+  if (policyViolations > 0) {
+    console.error(`\n${policyViolations} slug(s) skipped due to source-policy violations (see [POLICY VIOLATION] lines above).`);
+    process.exitCode = 2;
   }
 }
 

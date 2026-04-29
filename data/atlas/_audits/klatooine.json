@@ -72,10 +72,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f9/Klatooine_LoNH.jpg/revision/latest?cb=20200405144436",
-    "localFile": "klatooine.jpg",
-    "localPath": "/images/atlas/klatooine.jpg",
-    "bytes": 44918
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "klatooine.png",
+    "localPath": "/images/atlas/klatooine.png",
+    "bytes": 458722
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:06.348Z"
+  "generatedAt": "2026-04-29T07:33:16.933Z"
 }

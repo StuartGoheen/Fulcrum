@@ -91,10 +91,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/8/87/Sriluur_LoNH.png/revision/latest?cb=20180501013817",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "sriluur.png",
     "localPath": "/images/atlas/sriluur.png",
     "bytes": 72750
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:07.065Z"
+  "generatedAt": "2026-04-29T07:33:17.570Z"
 }

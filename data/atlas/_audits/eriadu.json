@@ -96,10 +96,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/d/dc/Eriadu_TEA.jpg/revision/latest?cb=20200822092400",
-    "localFile": "eriadu.jpg",
-    "localPath": "/images/atlas/eriadu.jpg",
-    "bytes": 148290
+    "sourceExt": "jpg",
+    "normalizedTo": "png",
+    "localFile": "eriadu.png",
+    "localPath": "/images/atlas/eriadu.png",
+    "bytes": 862445
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:02.644Z"
+  "generatedAt": "2026-04-29T07:33:12.885Z"
 }

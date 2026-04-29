@@ -69,10 +69,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/a/a3/Ajan-Kloss-TROS-GG.png/revision/latest/scale-to-width-down/1280?cb=20250106064537",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "ajan-kloss.png",
     "localPath": "/images/atlas/ajan-kloss.png",
     "bytes": 206582
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:29:59.823Z"
+  "generatedAt": "2026-04-29T07:33:09.871Z"
 }

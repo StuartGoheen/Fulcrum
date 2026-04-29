@@ -108,10 +108,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/5/50/Endor_FFGRebellion.png/revision/latest?cb=20170529052722",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "endor.png",
     "localPath": "/images/atlas/endor.png",
     "bytes": 158436
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:01.972Z"
+  "generatedAt": "2026-04-29T07:33:11.837Z"
 }

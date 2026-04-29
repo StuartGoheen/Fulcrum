@@ -89,10 +89,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/ff/Jakku-PoeDameronFlightLog.png/revision/latest?cb=20251031044441",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "jakku.png",
     "localPath": "/images/atlas/jakku.png",
     "bytes": 34946
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:03.440Z"
+  "generatedAt": "2026-04-29T07:33:13.544Z"
 }

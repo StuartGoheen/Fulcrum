@@ -94,10 +94,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/5/55/Kessel-EotECR.png/revision/latest?cb=20170222024350",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "kessel.png",
     "localPath": "/images/atlas/kessel.png",
     "bytes": 156414
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:05.702Z"
+  "generatedAt": "2026-04-29T07:33:15.779Z"
 }

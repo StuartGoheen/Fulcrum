@@ -81,10 +81,12 @@
   "image": {
     "downloaded": true,
     "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/d/d3/Batuu-system.png/revision/latest?cb=20200822003007",
+    "sourceExt": "png",
+    "normalizedTo": "png",
     "localFile": "batuu.png",
     "localPath": "/images/atlas/batuu.png",
     "bytes": 115774
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:30:00.480Z"
+  "generatedAt": "2026-04-29T07:33:10.530Z"
 }
