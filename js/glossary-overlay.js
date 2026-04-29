@@ -490,7 +490,7 @@
             '<div class="handbook-empty-icon">\uD83D\uDCD6</div>' +
             '<div class="handbook-empty-text">Select an entry from the index<br>or search for a rule.</div>' +
           '</div>' +
-          '<div class="handbook-entry" id="handbook-entry" style="display:none;">' +
+          '<div class="handbook-entry is-hidden" id="handbook-entry">' +
             '<div class="handbook-entry-header">' +
               '<span class="handbook-entry-name" id="handbook-entry-name"></span>' +
               '<span class="handbook-entry-type" id="handbook-entry-type"></span>' +
@@ -1227,9 +1227,9 @@
     if (!entry) return;
     _activeEntryId = id;
 
-    document.getElementById('handbook-empty').style.display = 'none';
+    document.getElementById('handbook-empty').classList.add('is-hidden');
     var entryEl = document.getElementById('handbook-entry');
-    entryEl.style.display = '';
+    entryEl.classList.remove('is-hidden');
 
     document.getElementById('handbook-entry-name').textContent = entry.name || '';
     document.getElementById('handbook-entry-type').textContent = entry.type || '';
@@ -3137,11 +3137,14 @@
       return;
     }
 
-    var statusColors = { allied: '#22c55e', neutral: '#eab308', hostile: '#ef4444', unknown: '#6b7280', deceased: '#9333ea' };
+    // Status pill colors come from theme tokens via CSS modifier classes
+    // (.dp-player-status--allied / --neutral / --hostile / --unknown / --deceased).
+    // See css/themes.css for the per-status palette.
+    var VALID_STATUS = { allied: 1, neutral: 1, hostile: 1, unknown: 1, deceased: 1 };
     var html = '';
 
     _dramatisProfiles.forEach(function (p) {
-      var sColor = statusColors[p.status] || '#6b7280';
+      var statusKey = (p.status && VALID_STATUS[p.status]) ? p.status : 'unknown';
       var isExp = _dramatisExpanded === p.npc_key;
 
       html += '<div class="dp-player-card' + (isExp ? ' dp-player-card--expanded' : '') + '" data-dramatis-toggle="' + _esc(p.npc_key) + '">';
@@ -3155,7 +3158,7 @@
       html += '<div class="dp-player-name">' + _esc(p.name) + '</div>';
       html += '<div class="dp-player-sub">' + _esc(p.species || '') + (p.role ? ' \u2014 ' + _esc(p.role) : '') + '</div>';
       html += '</div>';
-      html += '<span class="dp-player-status" style="background:' + sColor + ';">' + _esc(p.status) + '</span>';
+      html += '<span class="dp-player-status dp-player-status--' + statusKey + '">' + _esc(p.status || statusKey) + '</span>';
       html += '</div>';
 
       if (isExp) {
@@ -3611,7 +3614,7 @@
       +     '<textarea class="droid-question" id="droid-question" rows="2" placeholder="Ask the droid a question, ' + _droidEsc(name) + '\u2026"></textarea>'
       +     '<button class="droid-ask-btn" id="droid-ask-btn" type="button">Consult</button>'
       +   '</div>'
-      +   '<div class="droid-cooldown" id="droid-cooldown" style="display:none;"></div>'
+      +   '<div class="droid-cooldown is-hidden" id="droid-cooldown"></div>'
       +   '<div class="droid-status" id="droid-status"></div>'
       +   '<div class="droid-section-label">This consultation</div>'
       +   '<div class="droid-live" id="droid-live"></div>'
@@ -3697,13 +3700,13 @@
     if (!bar) return;
     var rem = _droidCooldownEndsAt - Date.now();
     if (rem <= 0) {
-      bar.style.display = 'none';
+      bar.classList.add('is-hidden');
       if (btn && !_droidBusy && _characterName) btn.disabled = false;
       if (_droidCooldownTimer) { clearInterval(_droidCooldownTimer); _droidCooldownTimer = null; }
       return;
     }
     var sec = Math.ceil(rem / 1000);
-    bar.style.display = 'block';
+    bar.classList.remove('is-hidden');
     bar.innerHTML = 'The droid is processing the previous query. Standby for <strong>' + sec + 's</strong>.';
     if (btn) btn.disabled = true;
   }

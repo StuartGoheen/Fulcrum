@@ -6464,6 +6464,7 @@
   }
 
 /* ── Dramatis Personae Tab ─────────────────────────────────────────────── */
+/* All colors driven by theme tokens (see css/themes.css).                  */
 
   .dramatis-tab-wrap {
     flex: 1;
@@ -6473,21 +6474,21 @@
     width: 100%;
     padding: 0.5rem 0.75rem;
     scrollbar-width: thin;
-    scrollbar-color: rgba(200,164,78,0.3) transparent;
+    scrollbar-color: var(--color-accent-primary) transparent;
   }
 
   .dp-player-card {
-    border: 1px solid rgba(200,164,78,0.2);
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 20%, transparent);
     margin-bottom: 0.5rem;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
   }
   .dp-player-card:hover {
-    border-color: rgba(200,164,78,0.4);
-    background: rgba(200,164,78,0.03);
+    border-color: color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
+    background: color-mix(in srgb, var(--color-accent-primary) 3%, transparent);
   }
   .dp-player-card--expanded {
-    border-color: rgba(200,164,78,0.5);
+    border-color: color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
   }
   .dp-player-header {
     display: flex;
@@ -6500,7 +6501,7 @@
     height: 48px;
     object-fit: cover;
     border-radius: 4px;
-    border: 1px solid rgba(200,164,78,0.3);
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
     flex-shrink: 0;
   }
   .dp-player-placeholder {
@@ -6509,24 +6510,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(200,164,78,0.06);
-    border: 1px solid rgba(200,164,78,0.15);
+    background: color-mix(in srgb, var(--color-accent-primary) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
     border-radius: 4px;
     font-family: 'Audiowide', sans-serif;
     font-size: 1.1rem;
-    color: rgba(200,164,78,0.5);
+    color: color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
     flex-shrink: 0;
   }
   .dp-player-info { flex: 1; min-width: 0; }
   .dp-player-name {
     font-family: 'Audiowide', sans-serif;
     font-size: 0.8rem;
-    color: #e5e5e5;
+    color: var(--color-text-primary);
     letter-spacing: 0.05em;
   }
   .dp-player-sub {
     font-size: 0.6rem;
-    color: #9ca3af;
+    color: var(--color-text-secondary);
     margin-top: 0.1rem;
   }
   .dp-player-status {
@@ -6534,18 +6535,18 @@
     font-size: 0.5rem;
     padding: 0.15rem 0.5rem;
     border-radius: 2px;
-    color: #000;
+    color: var(--color-on-status);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     flex-shrink: 0;
   }
   .dp-player-detail {
     padding: 0.5rem 0.6rem 0.6rem;
-    border-top: 1px solid rgba(200,164,78,0.1);
+    border-top: 1px solid color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
   }
   .dp-player-bio {
     font-size: 0.68rem;
-    color: #d1d5db;
+    color: var(--color-text-primary);
     line-height: 1.7;
     margin-bottom: 0.6rem;
     white-space: pre-line;
@@ -6553,12 +6554,12 @@
   .dp-player-section-title {
     font-family: 'Audiowide', sans-serif;
     font-size: 0.5rem;
-    color: #c8a44e;
+    color: var(--color-accent-primary);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     margin: 0.5rem 0 0.25rem;
     padding-bottom: 0.15rem;
-    border-bottom: 1px solid rgba(200,164,78,0.15);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
   }
   .dp-player-traits {
     display: flex;
@@ -6569,42 +6570,42 @@
   .dp-player-trait {
     font-size: 0.55rem;
     padding: 0.12rem 0.4rem;
-    background: rgba(200,164,78,0.08);
-    border: 1px solid rgba(200,164,78,0.2);
-    color: #c8a44e;
+    background: color-mix(in srgb, var(--color-accent-primary) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 20%, transparent);
+    color: var(--color-accent-primary);
     border-radius: 2px;
   }
   .dp-player-connection {
     font-size: 0.6rem;
-    color: #9ca3af;
+    color: var(--color-text-secondary);
     padding: 0.15rem 0;
-    border-bottom: 1px solid rgba(200,164,78,0.06);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent-primary) 6%, transparent);
   }
   .dp-player-connection:last-child { border-bottom: none; }
   .dp-player-timeline-entry {
     display: flex;
     gap: 0.4rem;
     padding: 0.2rem 0;
-    border-bottom: 1px solid rgba(200,164,78,0.06);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent-primary) 6%, transparent);
     font-size: 0.58rem;
   }
   .dp-player-timeline-entry:last-child { border-bottom: none; }
   .dp-player-timeline-ref {
     font-family: 'Audiowide', sans-serif;
     font-size: 0.45rem;
-    color: #c8a44e;
+    color: var(--color-accent-primary);
     flex-shrink: 0;
     padding-top: 0.1rem;
     min-width: 3rem;
   }
   .dp-player-timeline-text {
-    color: #d1d5db;
+    color: var(--color-text-primary);
     line-height: 1.5;
   }
   .dp-player-empty {
     text-align: center;
     padding: 2rem 1rem;
-    color: rgba(200,164,78,0.4);
+    color: color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
     font-style: italic;
     font-size: 0.7rem;
   }
@@ -6618,13 +6619,13 @@
     height: 192px;
     object-fit: cover;
     border-radius: 6px;
-    border: 1px solid rgba(200,164,78,0.35);
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
     cursor: pointer;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .dp-player-portrait-large:hover {
-    border-color: #c8a44e;
-    box-shadow: 0 0 12px rgba(200,164,78,0.25);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent-primary) 25%, transparent);
   }
 
   .dp-lightbox-overlay {
@@ -6653,14 +6654,14 @@
     max-width: 90vw;
     max-height: 80vh;
     object-fit: contain;
-    border: 2px solid rgba(200,164,78,0.4);
+    border: 2px solid color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
     border-radius: 6px;
     box-shadow: 0 0 40px rgba(0,0,0,0.6);
   }
   .dp-lightbox-caption {
     font-family: 'Audiowide', sans-serif;
     font-size: 0.75rem;
-    color: #c8a44e;
+    color: var(--color-accent-primary);
     letter-spacing: 0.06em;
     margin-top: 0.6rem;
     text-align: center;
@@ -6672,9 +6673,9 @@
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    border: 1px solid rgba(200,164,78,0.4);
-    background: rgba(13,13,26,0.9);
-    color: #c8a44e;
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
+    background: var(--color-bg-panel);
+    color: var(--color-accent-primary);
     font-size: 1.1rem;
     cursor: pointer;
     display: flex;
@@ -6683,8 +6684,8 @@
     transition: background 0.15s;
   }
   .dp-lightbox-close:hover {
-    background: rgba(200,164,78,0.15);
-    border-color: #c8a44e;
+    background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+    border-color: var(--color-accent-primary);
   }
 
 /* ── Journal Tab ────────────────────────────────────────────────────────── */
