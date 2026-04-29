@@ -4,6 +4,7 @@
   "sourceTitle": "Bespin/Legends",
   "sourceUrl": "https://starwars.fandom.com/wiki/Bespin%2FLegends",
   "sourceTier": "Legends",
+  "canonOnlyReason": null,
   "ours": {
     "region": "Outer Rim",
     "sector": "Anoat",
@@ -126,5 +127,5 @@
     "bytes": 137328
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:12.878Z"
+  "generatedAt": "2026-04-29T07:30:01.232Z"
 }

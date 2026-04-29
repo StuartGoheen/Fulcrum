@@ -120,6 +120,25 @@ Two campaign-original worlds have no Wookieepedia entry. For these:
 - ✅ Push Insider foreshadowing down to GM.
 - ⏭ Image stays as-is (no Wookieepedia source available).
 
+## Canon-only worlds (Legends fallback policy)
+
+The Legends infobox is the mandatory comparison standard for every priority
+or background world. Canon is permitted **only** for slugs on this allowlist
+(maintained in `scripts/atlas-wookieepedia-audit.js` as `CANON_ONLY`):
+
+| Slug         | Reason                                                                                  |
+|--------------|------------------------------------------------------------------------------------------|
+| `batuu`      | No /Legends article on Wookieepedia — created for Galaxy's Edge (2019), Disney canon only. |
+| `ajan-kloss` | No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only. |
+| `jakku`      | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
+| `takodana`   | No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only. |
+
+The audit script will **hard-fail** for any non-allowlisted slug whose
+/Legends page does not resolve. To add a slug to the allowlist, first probe
+the MediaWiki API for `<Title>/Legends` and confirm a `missingtitle` error,
+then add the slug + verified justification to both `CANON_ONLY` and
+`CANON_ONLY_REASON` in the script and to this table.
+
 ## Audit-script reliability notes (for Task #233)
 
 The script under `scripts/atlas-wookieepedia-audit.js` is intentionally heuristic — it walks every top-level `{{ ... }}` block and returns the first one whose contents include planet-shaped fields (`region`, `sector`, `climate`, etc.). This is robust for the standard `{{CelestialBody}}` / `{{Astrography}}` templates Wookieepedia uses on planet pages, but two known limitations apply:

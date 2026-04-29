@@ -4,6 +4,7 @@
   "sourceTitle": "Ajan Kloss",
   "sourceUrl": "https://starwars.fandom.com/wiki/Ajan_Kloss",
   "sourceTier": "Canon",
+  "canonOnlyReason": "No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only.",
   "ours": {
     "region": "Outer Rim",
     "sector": "Cademimu",
@@ -73,5 +74,5 @@
     "bytes": 206582
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:11.400Z"
+  "generatedAt": "2026-04-29T07:29:59.823Z"
 }

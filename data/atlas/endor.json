@@ -48,12 +48,12 @@
     ],
     "hiddenTruths": [
       "The Empire will choose this moon for the second Death Star three years from now precisely because of these anomalies. In 15 BBY, that decision has not been made.",
-      "Wookieepedia native species: Dulok, Ewok, Gorph, Grass Trekker, Wistie, Yuzzum. Most of these are Insider-revealable on a successful Knowledge check."
+      "Native species roster: Dulok, Ewok, Gorph, Grass Trekker, Wistie, Yuzzum. Most are Insider-revealable on a successful Knowledge check."
     ],
     "secretFactions": [
       "Revan's archive caretakers (extinct, but their wards persist)"
     ],
-    "gmNotes": "Adv4 is the campaign's first Force-heavy beat. Endor should feel old and listening. Do not use 'Rebel Alliance' or 'Battle of Endor' references — both are years away."
+    "gmNotes": "Adv4 is the campaign's first Force-heavy beat. Endor should feel old and listening — the canopy moves when there is no wind, and the Ewok villages can sense Force-users a kilometer out. The hyperspace anomalies isolate the moon from any rapid Imperial response, which is exactly why Revan chose it as a forward base."
   },
   "image": {
     "src": "/images/atlas/endor.png",

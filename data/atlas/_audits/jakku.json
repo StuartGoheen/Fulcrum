@@ -4,6 +4,7 @@
   "sourceTitle": "Jakku",
   "sourceUrl": "https://starwars.fandom.com/wiki/Jakku",
   "sourceTier": "Canon",
+  "canonOnlyReason": "No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.",
   "ours": {
     "region": "Inner Rim",
     "sector": "Western Reaches",
@@ -93,5 +94,5 @@
     "bytes": 34946
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:15.098Z"
+  "generatedAt": "2026-04-29T07:30:03.440Z"
 }

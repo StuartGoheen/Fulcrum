@@ -4,6 +4,7 @@
   "sourceTitle": "Sriluur/Legends",
   "sourceUrl": "https://starwars.fandom.com/wiki/Sriluur%2FLegends",
   "sourceTier": "Legends",
+  "canonOnlyReason": null,
   "ours": {
     "region": "Outer Rim",
     "sector": "Tharin",
@@ -95,5 +96,5 @@
     "bytes": 72750
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:18.712Z"
+  "generatedAt": "2026-04-29T07:30:07.065Z"
 }

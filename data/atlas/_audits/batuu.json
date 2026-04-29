@@ -4,6 +4,7 @@
   "sourceTitle": "Batuu",
   "sourceUrl": "https://starwars.fandom.com/wiki/Batuu",
   "sourceTier": "Canon",
+  "canonOnlyReason": "No /Legends article on Wookieepedia — created for Galaxy's Edge (2019), Disney canon only.",
   "ours": {
     "region": "Outer Rim",
     "sector": "Trilon",
@@ -85,5 +86,5 @@
     "bytes": 115774
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:12.197Z"
+  "generatedAt": "2026-04-29T07:30:00.480Z"
 }

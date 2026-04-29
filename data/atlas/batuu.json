@@ -55,14 +55,14 @@
     "hiddenTruths": [
       "Oga Garra has been quietly stockpiling Mandalorian-pattern arms for two years. She has not said why; she does not have to.",
       "Soren Vex has spent the last three years trying to find Maya to apologize. He will not get to.",
-      "Wookieepedia note: Batuu has 3 suns (Ubaat I/II/III) and 2 moons (Destra and Valara). Surface this only if a player asks an in-character astronomy question."
+      "Astronomical primer for the GM: Batuu sits in a trinary system — three suns named Ubaat I, Ubaat II, and Ubaat III — with two moons, Destra and Valara. Surface this if a player asks an in-character astronomy question."
     ],
     "secretFactions": [
       "Oga Garra's network (galaxy-wide)",
       "Hondo's rotating crew",
       "Proto-rebel sympathizers (Mubo's back room)"
     ],
-    "gmNotes": "Batuu is the campaign's last beat of joy before the betrayal. Make BSO loud, full, and dangerous. Soren's reunion with Maya is the emotional anchor of Adv8. Do NOT use the words 'Resistance' or 'First Order' — neither faction exists in 15 BBY."
+    "gmNotes": "Batuu is the campaign's last beat of joy before the betrayal. Make Black Spire Outpost loud, full, and dangerous — the cantinas crowded, the spice traders unsubtle, the Petrified Forest looming over the rooftops at dusk. Soren Vex's reunion with Maya is the emotional anchor of Adv8; every NPC interaction in town should feel like a slow drumbeat counting down to it."
   },
   "image": {
     "src": "/images/atlas/batuu.png",

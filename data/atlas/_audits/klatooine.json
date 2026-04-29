@@ -4,6 +4,7 @@
   "sourceTitle": "Klatooine/Legends",
   "sourceUrl": "https://starwars.fandom.com/wiki/Klatooine%2FLegends",
   "sourceTier": "Legends",
+  "canonOnlyReason": null,
   "ours": {
     "region": "Hutt Space (Outer Rim)",
     "sector": "Si'Klaata Cluster",
@@ -76,5 +77,5 @@
     "bytes": 44918
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:18.018Z"
+  "generatedAt": "2026-04-29T07:30:06.348Z"
 }

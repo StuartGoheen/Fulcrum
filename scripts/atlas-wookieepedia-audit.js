@@ -39,7 +39,21 @@ const ORIGINAL_FICTION = new Set(['malpaz', 'xala']);
 // For everything else, this script REQUIRES a Legends article and will hard-fail
 // if one cannot be found — silent canon fallback would violate the audit policy
 // for Task #232/#233 (Legends is the comparison standard).
+//
+// The original task spec named Batuu and Ajan Kloss as the canon-only worlds.
+// Jakku and Takodana were added to this allowlist after probing Wookieepedia's
+// MediaWiki API for a /Legends version of each — both return `missingtitle`
+// because both worlds were created for The Force Awakens (2015), after the
+// Disney canon reset. There is no pre-Disney EU material to compare against.
+// Any future addition to this set must be justified the same way (verified
+// missing /Legends article on Wookieepedia) and noted in the audit rubric.
 const CANON_ONLY = new Set(['batuu', 'ajan-kloss', 'jakku', 'takodana']);
+const CANON_ONLY_REASON = {
+  'batuu':      'No /Legends article on Wookieepedia — created for Galaxy\'s Edge (2019), Disney canon only.',
+  'ajan-kloss': 'No /Legends article on Wookieepedia — first appears in The Rise of Skywalker (2019), Disney canon only.',
+  'jakku':      'No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.',
+  'takodana':   'No /Legends article on Wookieepedia — created for The Force Awakens (2015), Disney canon only.',
+};
 
 // Title overrides (slug → Wookieepedia page title) where slug-from-name doesn't match.
 // Note: do NOT add a slug here unless the slug-from-name conversion actually fails.
@@ -382,6 +396,7 @@ async function auditSlug(slug, opts = {}) {
     sourceTitle,
     sourceUrl,
     sourceTier: isLegends ? 'Legends' : 'Canon',
+    canonOnlyReason: isCanonOnly ? CANON_ONLY_REASON[slug] || null : null,
     ours: oursSummary,
     legends,
     diffs,

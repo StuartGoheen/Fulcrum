@@ -4,6 +4,7 @@
   "sourceTitle": "Endor/Legends",
   "sourceUrl": "https://starwars.fandom.com/wiki/Endor%2FLegends",
   "sourceTier": "Legends",
+  "canonOnlyReason": null,
   "ours": {
     "region": "Outer Rim",
     "sector": "Moddell",
@@ -112,5 +113,5 @@
     "bytes": 158436
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:13.684Z"
+  "generatedAt": "2026-04-29T07:30:01.972Z"
 }

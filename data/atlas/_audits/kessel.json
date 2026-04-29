@@ -4,6 +4,7 @@
   "sourceTitle": "Kessel/Legends",
   "sourceUrl": "https://starwars.fandom.com/wiki/Kessel%2FLegends",
   "sourceTier": "Legends",
+  "canonOnlyReason": null,
   "ours": {
     "region": "Outer Rim",
     "sector": "Kessel",
@@ -98,5 +99,5 @@
     "bytes": 156414
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:17.382Z"
+  "generatedAt": "2026-04-29T07:30:05.702Z"
 }

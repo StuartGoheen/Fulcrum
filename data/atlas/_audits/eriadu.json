@@ -4,6 +4,7 @@
   "sourceTitle": "Eriadu/Legends",
   "sourceUrl": "https://starwars.fandom.com/wiki/Eriadu%2FLegends",
   "sourceTier": "Legends",
+  "canonOnlyReason": null,
   "ours": {
     "region": "Outer Rim",
     "sector": "Seswenna",
@@ -100,5 +101,5 @@
     "bytes": 148290
   },
   "license": "CC BY-SA 3.0",
-  "generatedAt": "2026-04-29T07:25:14.441Z"
+  "generatedAt": "2026-04-29T07:30:02.644Z"
 }
