@@ -7409,10 +7409,14 @@
         var eventText = prompt('Timeline event text:');
         if (!eventText || !eventText.trim()) return;
         var sceneRef = prompt('Scene reference (e.g. Adv1-P2-S3):', '') || '';
+        // Default revealed=false so a freshly-added future plot beat does
+        // NOT leak to players the moment the parent NPC profile is
+        // revealed. GM uses the per-entry "reveal" toggle to publish the
+        // event after it actually happens at the table.
         fetch('/api/npc-profiles/' + key + '/timeline', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event_text: eventText.trim(), scene_ref: sceneRef.trim(), revealed: true })
+          body: JSON.stringify({ event_text: eventText.trim(), scene_ref: sceneRef.trim(), revealed: false })
         })
         .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
         .then(function () { _loadDpProfiles(); })

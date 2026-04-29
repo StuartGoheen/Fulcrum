@@ -3309,14 +3309,28 @@
   var _atlasLoaded = false;
   var _atlasPendingFocus = null;
 
+  // Defensive scrub: this overlay is the PLAYER handbook. Even if a GM
+  // is QA-ing /player/ with their GM cookie and the API returns the full
+  // GM payload, the player handbook UI must never render GM-tier content.
+  function _scrubGmFields(entry) {
+    if (!entry || typeof entry !== 'object') return entry;
+    delete entry.gm;
+    delete entry.campaignNotes;
+    delete entry.isCampaignWorld;
+    return entry;
+  }
+
   function _loadAtlasData() {
     var wrap = document.getElementById('atlas-tab-wrap');
     if (!wrap) return;
     if (!_atlasLoaded) wrap.innerHTML = '<div class="dp-player-empty">Loading atlas\u2026</div>';
-    fetch('/api/atlas')
+    // ?view=player tells the server to render the true player payload
+    // even if the request carries a GM cookie (GM previewing /player/).
+    fetch('/api/atlas?view=player')
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        _atlasEntries = data.entries || [];
+        var raw = data.entries || [];
+        _atlasEntries = raw.map(_scrubGmFields);
         _atlasLoaded = true;
         _renderAtlasTab();
         if (_atlasPendingFocus) {
@@ -3401,25 +3415,10 @@
           html += '</div>';
         }
 
-        if (e.gm) {
-          var gm = e.gm || {};
-          html += '<div class="atlas-tier-block atlas-tier-block--gm">';
-          html += '<div class="atlas-tier-heading atlas-tier-heading--gm">GM Eyes Only</div>';
-          html += _atlasGmBody(gm);
-          html += '</div>';
-        }
-
-        if (e.campaignNotes && (e.campaignNotes.adventures || e.campaignNotes.era)) {
-          html += '<div class="atlas-tier-block atlas-tier-block--campaign">';
-          html += '<div class="atlas-tier-heading">Campaign Notes</div>';
-          if (e.campaignNotes.era) html += '<div class="dp-player-connection">Era: ' + _esc(e.campaignNotes.era) + '</div>';
-          if (e.campaignNotes.adventures && e.campaignNotes.adventures.length) {
-            e.campaignNotes.adventures.forEach(function (a) {
-              html += '<div class="dp-player-connection">' + _esc(a) + '</div>';
-            });
-          }
-          html += '</div>';
-        }
+        // GM-tier and Campaign Notes blocks are intentionally omitted from
+        // the player handbook. The GM has a separate atlas UI in the
+        // Command Bridge for that content. Do NOT render them here even
+        // if the API ever returns them — see _scrubGmFields above.
 
         html += _commentsPlaceholder('atlas', e.slug);
         html += '</div>';
@@ -3547,6 +3546,10 @@
     sock.on('atlas:revealed', function (data) {
       var entry = data && data.entry;
       if (!entry || !entry.slug) return;
+      // Defensive: socket payloads coming through the players room are
+      // already filtered by the server, but scrub again to keep this
+      // overlay strictly player-tier regardless of upstream changes.
+      entry = _scrubGmFields(entry);
       var idx = -1;
       for (var i = 0; i < _atlasEntries.length; i++) {
         if (_atlasEntries[i].slug === entry.slug) { idx = i; break; }

@@ -288,14 +288,19 @@ router.post('/npc-profiles/:npcKey/timeline', requireGM, async (req, res) => {
   const { adventure_ref, scene_ref, event_text, revealed } = req.body;
   if (!event_text) return res.status(400).json({ error: 'event_text is required' });
 
+  // Safe-by-default: server treats missing `revealed` as false so a future
+  // plot beat is never auto-broadcast to players. The GM must explicitly
+  // pass revealed:true (or use the per-entry reveal toggle) to publish.
+  const isRevealed = revealed === true;
+
   try {
     const result = await pool.query(
       `INSERT INTO npc_timeline (npc_key, adventure_ref, scene_ref, event_text, revealed)
        VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-      [npcKey, adventure_ref || '', scene_ref || '', event_text, revealed !== false]
+      [npcKey, adventure_ref || '', scene_ref || '', event_text, isRevealed]
     );
 
-    if (revealed !== false) {
+    if (isRevealed) {
       const io = req.app.get('io');
       if (io) {
         io.to('players').emit('npc:timeline', {

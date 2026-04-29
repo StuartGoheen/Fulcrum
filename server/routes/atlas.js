@@ -63,9 +63,17 @@ async function loadRevealMap() {
   return map;
 }
 
+// `?view=player` lets a GM-cookie session render the true player payload
+// (used by the player handbook overlay so a GM previewing /player/ does NOT
+// see GM-tier content leaked into the player view).
+function effectiveIsGM(req) {
+  if (req.query && req.query.view === 'player') return false;
+  return req.userRole === 'gm';
+}
+
 router.get('/atlas', async (req, res) => {
   try {
-    const isGM = req.userRole === 'gm';
+    const isGM = effectiveIsGM(req);
     const slugs = loadManifest();
     const reveals = await loadRevealMap();
     const entries = [];
@@ -83,7 +91,7 @@ router.get('/atlas', async (req, res) => {
 
 router.get('/atlas/:slug', async (req, res) => {
   try {
-    const isGM = req.userRole === 'gm';
+    const isGM = effectiveIsGM(req);
     const entry = loadEntry(req.params.slug);
     if (!entry) return res.status(404).json({ error: 'Atlas entry not found' });
     const reveals = await loadRevealMap();

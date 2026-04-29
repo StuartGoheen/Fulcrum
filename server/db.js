@@ -329,6 +329,40 @@ async function initSchema() {
         ON journal_entries (source_scene_id)
         WHERE source_scene_id IS NOT NULL AND title = 'Sabacc Tournament — Day 1 Recap'`);
     } catch (e) {}
+    // ── DP timeline reveal cleanup (one-shot) ─────────────────────────────
+    // Earlier seeds shipped 4 timeline rows with revealed=true (Maya x2,
+    // Varth, Varga). When the GM later flipped those NPC profiles to
+    // revealed=true, every player saw those events instantly — including
+    // the ones that had not yet happened at the table. The seed default
+    // is now revealed=false; this migration retroactively flips the four
+    // known-leaked rows back to revealed=false. Idempotent via
+    // app_settings marker so it does NOT undo deliberate GM reveals on
+    // subsequent boots.
+    try {
+      const marker = await client.query(
+        `SELECT value FROM app_settings WHERE key = 'dp_timeline_seed_reveal_reset_v1'`
+      );
+      if (marker.rows.length === 0) {
+        const seedDefaults = [
+          { npc_key: 'maya',  scene_ref: 'adv1-p1-s1' },
+          { npc_key: 'maya',  scene_ref: 'adv1-p2-s1' },
+          { npc_key: 'varth', scene_ref: 'adv1-p2-s7' },
+          { npc_key: 'varga', scene_ref: 'adv1-p1-s1' }
+        ];
+        for (const s of seedDefaults) {
+          await client.query(
+            `UPDATE npc_timeline SET revealed = false
+              WHERE npc_key = $1 AND scene_ref = $2 AND revealed = true`,
+            [s.npc_key, s.scene_ref]
+          );
+        }
+        await client.query(
+          `INSERT INTO app_settings (key, value)
+           VALUES ('dp_timeline_seed_reveal_reset_v1', 'applied')
+           ON CONFLICT (key) DO NOTHING`
+        );
+      }
+    } catch (e) {}
     // ── Galactic calendar / time tracking (Task #198) ─────────────────────
     try {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS in_universe_day_index INTEGER`);
@@ -587,10 +621,13 @@ async function seedNpcProfiles() {
     { npc_key: 'switch', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s5', event_text: 'Ganga Lor\'s thugs attacked Switch\'s compound. The crew had to decide — defend the droid or let him burn.', revealed: false },
     { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s2', event_text: 'The crew tracked Raden through Blackwind Point — asking questions at cantinas, stalls, and docks. A chain of witnesses led them to an abandoned filtration plant on the swamp edge.', revealed: false },
     { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s3', event_text: 'Found Raden hiding in a maintenance shed — sleep-deprived, starving, blaster shaking in his hands. He thought Varth was dead. When he learned otherwise, he agreed to help the crew infiltrate Varga\'s court.', revealed: false },
-    { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: true },
-    { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: true },
-    { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s7', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: true },
-    { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: true },
+    // Timeline entries default to revealed=false. The GM toggles each one
+    // visible AFTER the scene plays at the table — otherwise revealing the
+    // NPC profile would broadcast every future plot beat at once.
+    { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: false },
+    { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: false },
+    { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s7', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: false },
+    { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: false },
     { npc_key: 'mandrake', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s4', event_text: 'Made the deal in the sluice — gave us the way into the Vanishing Place in exchange for taking down the generator.', revealed: false },
     { npc_key: 'vischera', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s5', event_text: 'Found at her bench in the Med Bay, mid-procedure on a Klosari villager strapped to the surgical table. The two escorts went down. She set her instruments down, raised her hands, and offered the trade — her cure-research and what she knew about Draco for safe passage off-world. Whatever the crew chose, they chose it themselves, in a quiet room, looking at each other.', revealed: false }
   ];
