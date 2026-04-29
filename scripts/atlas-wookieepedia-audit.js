@@ -429,6 +429,17 @@ async function auditSlug(slug, opts = {}) {
 
 // ---------- CLI ----------
 
+function preflightImageMagick() {
+  try {
+    execFileSync('magick', ['-version'], { stdio: 'pipe' });
+  } catch (e) {
+    console.error('[preflight] ImageMagick (`magick`) not found on PATH.');
+    console.error('[preflight] This script normalizes downloaded JPGs to PNG via `magick`.');
+    console.error('[preflight] Install ImageMagick (e.g. via Nix `imagemagick`) and re-run.');
+    process.exit(3);
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   let slugs;
@@ -443,6 +454,7 @@ async function main() {
     console.error('Usage: node scripts/atlas-wookieepedia-audit.js <slug>... | --priority | --all');
     process.exit(1);
   }
+  preflightImageMagick();
   let policyViolations = 0;
   for (const slug of slugs) {
     try {
