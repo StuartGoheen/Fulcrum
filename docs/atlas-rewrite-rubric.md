@@ -120,6 +120,24 @@ Two campaign-original worlds have no Wookieepedia entry. For these:
 - ✅ Push Insider foreshadowing down to GM.
 - ⏭ Image stays as-is (no Wookieepedia source available).
 
+## On audit diffs — informational, not mechanical
+
+The `diffs` array in each `_audits/<slug>.json` surfaces every place where
+our atlas voice does not literally repeat Wookieepedia's infobox value. It
+is a **drift report**, not a checklist to mechanically zero out:
+
+- Some diffs are intended editorial choices (e.g. expanding a bare
+  "Industrial" climate into "Temperate, choked by industrial smog and
+  reactor fallout" to set tone for the GM).
+- Some diffs reflect campaign-internal reframing (e.g. Jakku's "Western
+  Reaches" framing where the Wookieepedia infobox lists no formal sector).
+- A diff is only a defect if it (a) introduces a sequel-era anachronism,
+  (b) contradicts a Legends fact the campaign wants to honor, or
+  (c) leaks campaign-tier content into the wrong tier.
+
+When closing the audit pass, scan the diffs for those three cases — do
+not blanket-rewrite to match every infobox value verbatim.
+
 ## Original-fiction worlds (image policy exception)
 
 Two priority worlds — **Malpaz** and **Xala** — are pure campaign fiction
