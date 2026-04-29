@@ -9,18 +9,18 @@
   "isCampaignWorld": true,
   "type": "moon",
   "common": {
-    "tagline": "Uncharted jungle moon. The kind of place the Empire pretends does not exist.",
-    "government": "None (Imperial black-site by treaty silence)",
-    "affiliation": "Galactic Empire (covert)",
-    "climate": "Tropical",
+    "tagline": "Uncharted jungle moon in the Cademimu sector. Almost nothing is on the public navigation charts.",
+    "government": "None recognized",
+    "affiliation": "Unaligned (uninhabited)",
+    "climate": "Humid",
     "terrain": [
-      "Jungle",
-      "Bioluminescent canopy",
-      "Ravine networks",
-      "Pre-Republic temple ruins"
+      "Forests",
+      "Cliffs and valleys",
+      "Grottos",
+      "Bioluminescent canopy"
     ],
     "hyperlanes": [
-      "Off-lane; reached only via classified Imperial nav data or the Cademimu back-channel jumps Maya knows"
+      "Off-lane; only reachable via specialized nav data, not on any commercial chart"
     ],
     "famousFor": "Nothing publicly. The few spacers who've heard the name have heard it whispered.",
     "cantinaReputation": "If you can find Ajan Kloss in the nav charts, your nav charts are stolen.",
@@ -32,12 +32,13 @@
       "Mandrake — Separatist tactical droid commander. Refused the shutdown order in 19 BBY; runs a guerrilla cell in the deep canopy."
     ],
     "pointsOfInterest": [
-      "The Vanishing Place (repurposed pre-Republic temple, Skarn HQ)",
-      "Mandrake's wargame hex (deep south canopy)"
+      "The Vanishing Place — repurposed pre-Republic temple, Skarn's HQ",
+      "Pre-Republic temple ruins (lower vault levels uncatalogued)",
+      "Mandrake's wargame hex in the deep south canopy"
     ],
     "politicalTensions": "Skarn and Mandrake know each other exists; both pretend they do not. A truce of mutual disinterest. Mandrake will help anyone who hurts Skarn; Skarn will pay anyone who solves Mandrake.",
     "smugglerRoutes": [
-      "No legitimate routes. Maya knows two — both end at the canopy line, neither involves Skarn seeing the approach."
+      "No legitimate routes. The known approach corridors all end at the canopy line and avoid Skarn's overflight cone."
     ],
     "whoRunsTheDocks": "There are no docks. Skarn's dropship pad doubles as the garrison's only hard surface. Land elsewhere or get shot down."
   },
@@ -48,7 +49,8 @@
     ],
     "hiddenTruths": [
       "The Vanishing Place's black-site contract is so deep in Imperial Intelligence that even Tarkin's office does not have visibility into it. Skarn's chain of command runs to a single colonel who is now dead.",
-      "The temple itself is older than the Republic. The lower vault levels have never been catalogued."
+      "The temple itself is older than the Republic. The lower vault levels have never been catalogued.",
+      "From the outside, Ajan Kloss appears to be an ordinary uncharted jungle moon. The Imperial Intelligence presence here is the campaign's first hidden truth and is not deducible from anything in Common."
     ],
     "secretFactions": [
       "Mandrake's clanker holdouts (Separatist tactical droid network)",
@@ -57,7 +59,7 @@
     "gmNotes": "Run Ajan Kloss as a horror set-piece on the approach (the canopy eats sound) and a heist on the exfil. The escape, not the breakout, is the scene."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/ajan-kloss.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
     "attributionUrl": "https://starwars.fandom.com/wiki/Ajan_Kloss",

@@ -1,0 +1,55 @@
+{
+  "slug": "bespin",
+  "name": "Bespin",
+  "sourceTitle": "Bespin/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Bespin%2FLegends",
+  "sourceTier": "Legends",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Anoat",
+    "type": "planet",
+    "climate": "Temperate at the Cloud City altitude band; gas-giant atmosphere everywhere else",
+    "terrain": [
+      "Gas-giant atmosphere",
+      "Tibanna gas bands (extraction zone)",
+      "Deep cloud-band swamp zones (uninhabited)"
+    ],
+    "hyperlanes": [
+      "Ison Trade Corridor — south extension of the Corellian Trade Spine",
+      "Anoat sector spur (local)"
+    ],
+    "government": "Cloud City Wing Guard (corporate municipal authority); Mining Guild operations on the gas bands",
+    "affiliation": "Independent — pays Imperial tribute through the Anoat sector"
+  },
+  "legends": {
+    "region": "Outer Rim Territories; Greater Javin, Western Reaches",
+    "sector": "Anoat sector; Ivax Nebula; Ison Corridor",
+    "system": "Bespin system",
+    "suns": "1: Bespin",
+    "moons": "More than two, including H'gaard and Drudonna",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "118,000 kilometers",
+    "climate": "Temperate",
+    "terrain": "Gas giant, Swamp , Clouds",
+    "atmosphere": "Breathable",
+    "gravity": "Standard , 1.5 x standard",
+    "species": "Neo-Bespinian, Tibannuck",
+    "population": "6 million:, *68% Human, *8% Ugnaught, *6% Lutrillian, *18% other",
+    "capital": "",
+    "language": "Galactic Basic Standard",
+    "government": "Guild",
+    "hyperlanes": "",
+    "affiliation": "Neo-Bespinians, Galactic Republic, Brotherhood of Darkness, Confederacy of Independent Systems, Galactic Empire, New Republic, Empire Reborn/Reborn, Imperial Remnant, Galactic Federation of Free Alliances, Five Worlds, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/2/2c/Bespin_EotECR.png/revision/latest?cb=20170222012550",
+    "localFile": "bespin.png",
+    "localPath": "/images/atlas/bespin.png",
+    "bytes": 137328
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:50.133Z"
+}

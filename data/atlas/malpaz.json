@@ -9,8 +9,8 @@
   "isCampaignWorld": true,
   "type": "planet",
   "common": {
-    "tagline": "Scarred industrial world. The Empire buried its mistakes here.",
-    "government": "Imperial Sector Authority (Wazta)",
+    "tagline": "Scarred industrial world in the Wazta sector. Two years of poisoned ground after the reactor accident of 17 BBY.",
+    "government": "Imperial sector authority (Wazta)",
     "affiliation": "Galactic Empire",
     "climate": "Temperate, choked by industrial smog and reactor fallout",
     "terrain": [
@@ -21,18 +21,18 @@
     "hyperlanes": [
       "Lipsec Run (minor)"
     ],
-    "famousFor": "The Krennic reactor 'accident' of 17 BBY. The Empire blamed Separatist holdouts. The locals know better.",
+    "famousFor": "The reactor 'accident' of 17 BBY. The Empire blamed Separatist holdouts. The official report has not changed.",
     "cantinaReputation": "Bring your own air filter. The drinks are worse than the smog.",
     "standingCurrency": "Imperial credits"
   },
   "insider": {
     "localContacts": [
-      "Verla Vrass — Malpazan resistance organizer. Lost her brood to the reactor. Will help anyone who hurts the Empire.",
+      "Verla Vrass — Malpazan organizer. Lost her brood to the reactor. Will help anyone who hurts the Empire.",
       "Imperial Lieutenant Daro Vex — career officer at the research station. Compromisable through old gambling debts.",
-      "The Resurgence cell — proto-rebel network, currently dormant on Malpaz."
+      "A dormant proto-rebel cell (no name, no banner) — currently inactive on Malpaz, watching for the right spark."
     ],
     "pointsOfInterest": [
-      "The Imperial Research Station (drift algorithm vault)",
+      "The Imperial Research Station (drift-algorithm vault)",
       "Reactor Town (the contaminated zone)",
       "Verla's safehouse (the avian rookery)"
     ],
@@ -40,20 +40,20 @@
     "smugglerRoutes": [
       "Lipsec Run → Sluis Van; the reactor zone is an unmonitored landing field for ships willing to risk the rad count"
     ],
-    "whoRunsTheDocks": "Imperial Customs at the Citadel District. Resistance dockworkers at every other field."
+    "whoRunsTheDocks": "Imperial Customs at the Citadel District. Local dockworkers at every other field — most of them sympathetic to the dissidents."
   },
   "gm": {
     "plotHooks": [
       "Adv5 — the heroes spark the insurrection. The fuse Tarkin lit in 17 BBY ignites here.",
-      "The drift algorithm data at the research station is the second-to-last piece Varth needs for the Vel Shara approach.",
+      "The drift-algorithm data at the research station is the second-to-last piece Varth needs for the Vel Shara approach.",
       "Adv10 — Malpaz becomes the target of the Leviathan's demonstration strike. The fires the heroes light here become the fires the heroes try to put out."
     ],
     "hiddenTruths": [
       "Krennic personally signed off on the reactor configuration that failed. The classified post-incident report names him; it is buried in the Wazta sector archive.",
-      "The drift algorithms in the research station vault were intended for the Death Star's hyperspace approach. Their 'transfer to Leviathan supply chain' was the cover story Varth used to access them."
+      "The drift algorithms in the research-station vault were intended for the Death Star's hyperspace approach. Their 'transfer to Leviathan supply chain' was the cover story Varth used to access them."
     ],
     "secretFactions": [
-      "Resurgence cell (proto-rebel)",
+      "Proto-rebel cell (dormant, Adv5 ignites it)",
       "ISB embedded surveillance",
       "Krennic-loyal research staff"
     ],
@@ -61,9 +61,9 @@
   },
   "image": {
     "src": null,
-    "credit": "Wookieepedia (starwars.fandom.com)",
-    "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Malpaz",
+    "credit": "Original campaign fiction — no Wookieepedia source",
+    "license": null,
+    "attributionUrl": null,
     "alt": "Malpaz"
   },
   "campaignNotes": {

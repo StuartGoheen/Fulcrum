@@ -1,0 +1,61 @@
+{
+  "slug": "endor",
+  "name": "Endor",
+  "sourceTitle": "Endor",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Endor",
+  "sourceTier": "Canon",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Moddell",
+    "type": "moon",
+    "climate": "Temperate forest",
+    "terrain": [
+      "Forests",
+      "Savannas",
+      "Mountain ridges",
+      "Plains"
+    ],
+    "hyperlanes": [
+      "None mapped; the Monsua Nebula and surrounding ion clouds disrupt navigation"
+    ],
+    "government": "None recognized (indigenous Ewok tribal society)",
+    "affiliation": "Unaligned"
+  },
+  "legends": {
+    "region": "Outer Rim Territories",
+    "sector": "Zuma sector, *Moddell sector",
+    "system": "Endor system",
+    "suns": "",
+    "moons": "",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "4,900 km",
+    "climate": "",
+    "terrain": "Forests, Savannas, Mountains, Plains",
+    "atmosphere": "Type I",
+    "gravity": "Light",
+    "species": "Dulok, Ewoks, Gorph, Grass Trekker, Wistie, Yuzzum",
+    "population": "Over 30,000,000 Ewoks",
+    "capital": "",
+    "language": "Ewokese",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Galactic Empire , Alliance to Restore the Republic, First Order"
+  },
+  "diffs": [
+    {
+      "field": "sector",
+      "ours": "Moddell",
+      "legends": "Zuma sector, *Moddell sector"
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/1/1d/Endor_BF2.png/revision/latest?cb=20171014232605",
+    "localFile": "endor.png",
+    "localPath": "/images/atlas/endor.png",
+    "bytes": 130662
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:50.987Z"
+}

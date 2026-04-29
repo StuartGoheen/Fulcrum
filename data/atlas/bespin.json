@@ -9,18 +9,20 @@
   "isCampaignWorld": true,
   "type": "planet",
   "common": {
-    "tagline": "Gas giant. Cloud City floats in the upper atmosphere — Tibanna gas, sabacc, and the worst of the Outer Rim in the same elevator.",
-    "government": "Cloud City Wing Guard (corporate municipal authority)",
-    "affiliation": "Independent — pays Imperial tribute through Anoat sector",
-    "climate": "Gas giant atmosphere; Cloud City zone is temperate at altitude",
+    "tagline": "Gas giant in the Anoat sector. Cloud City floats in the upper atmosphere — Tibanna gas, sabacc, and the worst of the Outer Rim in the same elevator.",
+    "government": "Cloud City Wing Guard (corporate municipal authority); Mining Guild operations on the gas bands",
+    "affiliation": "Independent — pays Imperial tribute through the Anoat sector",
+    "climate": "Temperate at the Cloud City altitude band; gas-giant atmosphere everywhere else",
     "terrain": [
-      "Gas atmosphere",
-      "Tibanna gas bands (extraction zone)"
+      "Gas-giant atmosphere",
+      "Tibanna gas bands (extraction zone)",
+      "Deep cloud-band swamp zones (uninhabited)"
     ],
     "hyperlanes": [
-      "Ison Corridor (minor) — south extension of the Corellian Trade Spine"
+      "Ison Trade Corridor — south extension of the Corellian Trade Spine",
+      "Anoat sector spur (local)"
     ],
-    "famousFor": "Tibanna gas, Cloud City's Royal Casino sabacc tournament, mid-tier luxury, and a Wing Guard that can be bought if you know the price.",
+    "famousFor": "Tibanna gas. Cloud City's Royal Casino sabacc tournament. Mid-tier luxury at altitude. A Wing Guard that can be bought if you know the price.",
     "cantinaReputation": "If your money's good and your blaster stays holstered, Cloud City will sell you a perfect view. Bring your own clean ID.",
     "standingCurrency": "Imperial credits, sector scrip"
   },
@@ -38,7 +40,7 @@
       "Mandelbrot's skiff (lower-city dock)",
       "The lower-city industrial pad (Z-95 cradle)"
     ],
-    "politicalTensions": "Cloud City keeps its head DOWN. The colony deliberately under-reports its Tibanna yield to avoid attracting Imperial garrison expansion. The Anoat sector Moff is happy with the tribute and does not look closely. Wing Guard corruption is endemic.",
+    "politicalTensions": "Cloud City keeps its head down. The colony deliberately under-reports its Tibanna yield to avoid attracting Imperial garrison expansion. The Anoat sector Moff is happy with the tribute and does not look closely. Wing Guard corruption is endemic.",
     "smugglerRoutes": [
       "Ison Corridor → Sluis Van; back-door jump to Takodana on the right transponder",
       "Direct atmospheric ascent for ships pre-cleared by the Wing Guard"
@@ -54,7 +56,8 @@
     "hiddenTruths": [
       "The Royal Casino's high-stakes tournament is laundering Imperial bribes for at least three Outer Rim Moffs — Tarkin's office knows and does not care.",
       "Varga's 137.12 frequency wafer is the only path to Adv3's Operator-Chariot orbital lane. The Assiduous closes the lane on a tightening clock.",
-      "Cloud City's lower-city pads are Tibanna-vapor zones — a stray turbolaser shot during exfil could detonate the whole industrial deck."
+      "Cloud City's lower-city pads are Tibanna-vapor zones — a stray turbolaser shot during exfil could detonate the whole industrial deck.",
+      "Wookieepedia astronomy: Bespin has one sun (also called Bespin) and more than two moons including H'gaard and Drudonna. Diameter ~118,000 km."
     ],
     "secretFactions": [
       "Imperial-aligned Wing Guard cell (Captain Tellor)",
@@ -63,10 +66,10 @@
     "gmNotes": "Make Cloud City feel beautiful and corrupt at the same scene. The Tibanna-orange sunset over the cloud band is sincere. The blood on the casino carpet is also sincere. Both are true."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/bespin.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Bespin",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Bespin/Legends",
     "alt": "Bespin"
   },
   "campaignNotes": {

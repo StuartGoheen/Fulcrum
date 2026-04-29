@@ -10,24 +10,24 @@
   "type": "planet",
   "common": {
     "tagline": "The edge of known space. Reached only via the Xala-Cermau hyperlane.",
-    "government": "None public — Inquisitor Draco runs a covert stronghold",
-    "affiliation": "Galactic Empire (Inquisitorius black-site)",
+    "government": "None publicly known",
+    "affiliation": "Unaligned (no recognized presence)",
     "climate": "Cold; thin atmosphere; perpetual twilight band",
     "terrain": [
       "Glacial plateaus",
       "Ravines",
-      "Inquisitorial fortress complex"
+      "Frozen-shore basins"
     ],
     "hyperlanes": [
       "Xala-Cermau Hyperlane (minor; one of the rare navigable Wild Space routes)"
     ],
-    "famousFor": "Nothing publicly. The few who have gone do not return.",
+    "famousFor": "Nothing publicly. Most cantina-talk about Xala consists of warning navigators away from it.",
     "cantinaReputation": "If a navigator quotes you a route to Xala, walk away.",
     "standingCurrency": "N/A"
   },
   "insider": {
     "localContacts": [
-      "Inquisitor Valin Draco — runs the fortress. Force-user. Hunts Denia institutionally, not personally.",
+      "Inquisitor Valin Draco — runs a fortress on the planet. Force-user. Hunts Denia institutionally, not personally.",
       "Senior Inquisitor's adjutant Renn Kalek — career Imperial Intelligence; the bureaucratic spine of the operation."
     ],
     "pointsOfInterest": [
@@ -46,6 +46,7 @@
       "The Xala-Cermau hyperlane data is the second navigation prize Varth needs."
     ],
     "hiddenTruths": [
+      "From the outside, Xala looks like a useless Wild Space rock. The Inquisitorial fortress complex, Draco's command, and the detention block are all GM-tier reveals — none of this should appear in any player payload of Common.",
       "Draco is not the Grand Inquisitor. He is junior and ambitious. His pursuit of Denia is what he has been told earns promotion.",
       "The fortress's lower interrogation block holds at least three other surviving Jedi besides Denia. The Empire has been collecting them quietly."
     ],
@@ -57,9 +58,9 @@
   },
   "image": {
     "src": null,
-    "credit": "Wookieepedia (starwars.fandom.com)",
-    "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Xala_(planet)",
+    "credit": "Original campaign fiction — no Wookieepedia source",
+    "license": null,
+    "attributionUrl": null,
     "alt": "Xala"
   },
   "campaignNotes": {

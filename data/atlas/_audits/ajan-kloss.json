@@ -1,0 +1,55 @@
+{
+  "slug": "ajan-kloss",
+  "name": "Ajan Kloss",
+  "sourceTitle": "Ajan Kloss",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Ajan_Kloss",
+  "sourceTier": "Canon",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Cademimu",
+    "type": "moon",
+    "climate": "Humid",
+    "terrain": [
+      "Forests",
+      "Cliffs and valleys",
+      "Grottos",
+      "Bioluminescent canopy"
+    ],
+    "hyperlanes": [
+      "Off-lane; only reachable via specialized nav data, not on any commercial chart"
+    ],
+    "government": "None recognized",
+    "affiliation": "Unaligned (uninhabited)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, New Territories",
+    "sector": "Cademimu sector",
+    "system": "Ajara system",
+    "suns": "",
+    "moons": "",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "11,353 kilometers",
+    "climate": "Humid",
+    "terrain": "Forests, Cliffs and valleys, Grottos, Oceans",
+    "atmosphere": "Breathable",
+    "gravity": "",
+    "species": "",
+    "population": "",
+    "capital": "",
+    "language": "",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Kloss, New Republic, Resistance"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/a/a3/Ajan-Kloss-TROS-GG.png/revision/latest/scale-to-width-down/1280?cb=20250106064537",
+    "localFile": "ajan-kloss.png",
+    "localPath": "/images/atlas/ajan-kloss.png",
+    "bytes": 206582
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:48.514Z"
+}

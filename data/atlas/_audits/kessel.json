@@ -1,0 +1,56 @@
+{
+  "slug": "kessel",
+  "name": "Kessel",
+  "sourceTitle": "Kessel/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Kessel%2FLegends",
+  "sourceTier": "Legends",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Kessel",
+    "type": "planet",
+    "climate": "Cold and dry, thin atmosphere, occasionally smoggy",
+    "terrain": [
+      "Alkali flats",
+      "Barren rocky mountains",
+      "Spice mines (extensive subsurface)",
+      "Sealed surface installations"
+    ],
+    "hyperlanes": [
+      "The Kessel Run (notorious smugglers' shortcut through the Akkadese Maelstrom)",
+      "Sisar Run (Hutt-internal)"
+    ],
+    "government": "Imperial military administration; Pyke Syndicate licensed mining operations",
+    "affiliation": "Galactic Empire (penal labor)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, The Slice",
+    "sector": "Kessel sector",
+    "system": "Kessel system",
+    "suns": "1: Kessa",
+    "moons": "Modern: 0 Historic: 1, Garrison Moon",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "6,632-7,980 Kilometers",
+    "climate": "Cold and dry with thin atmosphere; occasionally smoggy",
+    "terrain": "Alkali flats, Barren rocky mountains",
+    "atmosphere": "Type III ; artificially generated",
+    "gravity": "0.82 Standard",
+    "species": "",
+    "population": "11,000:, *700 , 10,400 , *22% Humans, *78% Other",
+    "capital": "",
+    "language": "Galactic Basic Standard",
+    "government": "Military administration",
+    "hyperlanes": "",
+    "affiliation": "Hutt Cartel, Brotherhood of Darkness, Pyke Syndicate, Galactic Empire, New Republic, Yuuzhan Vong empire, Galactic Federation of Free Alliances, Xim's empire"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/5/55/Kessel-EotECR.png/revision/latest?cb=20170222024350",
+    "localFile": "kessel.png",
+    "localPath": "/images/atlas/kessel.png",
+    "bytes": 156414
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:55.255Z"
+}

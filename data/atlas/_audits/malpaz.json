@@ -1,0 +1,28 @@
+{
+  "slug": "malpaz",
+  "name": "Malpaz",
+  "legendsSource": "NONE — original campaign fiction",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Wazta",
+    "type": "planet",
+    "climate": "Temperate, choked by industrial smog and reactor fallout",
+    "terrain": [
+      "Industrial plains",
+      "Contaminated zones",
+      "Native avian rookeries"
+    ],
+    "hyperlanes": [
+      "Lipsec Run (minor)"
+    ],
+    "government": "Imperial sector authority (Wazta)",
+    "affiliation": "Galactic Empire"
+  },
+  "legends": null,
+  "diffs": [],
+  "image": {
+    "downloaded": false,
+    "note": "no Wookieepedia entry — image stays as-is"
+  },
+  "generatedAt": "2026-04-29T07:19:53.270Z"
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "xala",
+  "name": "Xala",
+  "legendsSource": "NONE — original campaign fiction",
+  "ours": {
+    "region": "Wild Space",
+    "sector": "Unknown",
+    "type": "planet",
+    "climate": "Cold; thin atmosphere; perpetual twilight band",
+    "terrain": [
+      "Glacial plateaus",
+      "Ravines",
+      "Frozen-shore basins"
+    ],
+    "hyperlanes": [
+      "Xala-Cermau Hyperlane (minor; one of the rare navigable Wild Space routes)"
+    ],
+    "government": "None publicly known",
+    "affiliation": "Unaligned (no recognized presence)"
+  },
+  "legends": null,
+  "diffs": [],
+  "image": {
+    "downloaded": false,
+    "note": "no Wookieepedia entry — image stays as-is"
+  },
+  "generatedAt": "2026-04-29T07:19:54.519Z"
+}

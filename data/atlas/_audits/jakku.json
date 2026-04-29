@@ -1,0 +1,62 @@
+{
+  "slug": "jakku",
+  "name": "Jakku",
+  "sourceTitle": "Jakku",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Jakku",
+  "sourceTier": "Canon",
+  "ours": {
+    "region": "Inner Rim",
+    "sector": "Western Reaches",
+    "type": "planet",
+    "climate": "Arid; hot days with cold nights",
+    "terrain": [
+      "Deserts",
+      "Badlands",
+      "Dunes",
+      "Mesas",
+      "Salt flats"
+    ],
+    "hyperlanes": [
+      "Off the major lanes; reached via scavenger trails branching off the Western edge of the Hydian Way"
+    ],
+    "government": "None recognized (de facto Hutt-Cartel influence)",
+    "affiliation": "Galactic Empire (nominal)"
+  },
+  "legends": {
+    "region": "Inner Rim, Western Reaches",
+    "sector": "Jakku's sector",
+    "system": "Jakku system",
+    "suns": "1",
+    "moons": "2",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "6,400 kilometers",
+    "climate": "Arid; hot days with cold nights",
+    "terrain": "Modern:, *Deserts, Historic:, *Forests, *Seas",
+    "atmosphere": "Type I",
+    "gravity": "",
+    "species": "Teedo, Uthuthma",
+    "population": "Unknown",
+    "capital": "",
+    "language": "Galactic Basic Standard, Hideo, Teedospeak, Uthuthma",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Galactic Empire, First Order"
+  },
+  "diffs": [
+    {
+      "field": "sector",
+      "ours": "Western Reaches",
+      "legends": "Jakku's sector"
+    }
+  ],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/ff/Jakku-PoeDameronFlightLog.png/revision/latest?cb=20251031044441",
+    "localFile": "jakku.png",
+    "localPath": "/images/atlas/jakku.png",
+    "bytes": 34946
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:52.867Z"
+}

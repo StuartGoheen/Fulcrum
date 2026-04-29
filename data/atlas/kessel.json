@@ -9,11 +9,13 @@
   "isCampaignWorld": false,
   "type": "planet",
   "common": {
-    "tagline": "Spice-mining hellworld. The ultimate Imperial penal posting.",
-    "government": "Empire-licensed Pyke Syndicate operations; nominal Imperial oversight",
+    "tagline": "Spice-mining hellworld in The Slice. The ultimate Imperial penal posting.",
+    "government": "Imperial military administration; Pyke Syndicate licensed mining operations",
     "affiliation": "Galactic Empire (penal labor)",
-    "climate": "Thin-atmosphere; sealed-environment surface",
+    "climate": "Cold and dry, thin atmosphere, occasionally smoggy",
     "terrain": [
+      "Alkali flats",
+      "Barren rocky mountains",
       "Spice mines (extensive subsurface)",
       "Sealed surface installations"
     ],
@@ -52,7 +54,8 @@
     ],
     "hiddenTruths": [
       "The slaves on Kessel are not just labor — they are a strategic resource. Glitterstim demand inside the Imperial officer corps has tripled in the past two years.",
-      "Quay Tolsite is keeping a black ledger of every officer whose spice habit he subsidizes. He believes it is leverage. He is partially correct."
+      "Quay Tolsite is keeping a black ledger of every officer whose spice habit he subsidizes. He believes it is leverage. He is partially correct.",
+      "Wookieepedia note: in modern Legends Kessel has no moons; the historic Garrison Moon was destroyed long ago. Sun: Kessa. Sector is in The Slice region of the Outer Rim."
     ],
     "secretFactions": [
       "Pyke Syndicate",
@@ -61,10 +64,10 @@
     "gmNotes": "Kessel is the campaign's worst place. Run it cold and starless. The Run itself can be a Reflex-Pilot Resist 5 set-piece if a player wants the legend."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/kessel.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Kessel",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Kessel/Legends",
     "alt": "Kessel"
   },
   "campaignNotes": {

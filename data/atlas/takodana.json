@@ -9,13 +9,14 @@
   "isCampaignWorld": true,
   "type": "planet",
   "common": {
-    "tagline": "Lush forest world. Maz Kanata's castle is the Outer Rim's most reliable neutral ground.",
-    "government": "Independent (Maz Kanata enforces house rules)",
+    "tagline": "Lush forest world in the Tashtor sector. Maz Kanata's castle is the Outer Rim's most reliable neutral ground.",
+    "government": "Independent (Maz Kanata enforces house rules at the castle)",
     "affiliation": "Unaligned",
-    "climate": "Temperate",
+    "climate": "Hot and humid; temperate at the lake elevations",
     "terrain": [
-      "Forests",
+      "Temperate forests",
       "Lakes",
+      "Plains",
       "Stone ridges"
     ],
     "hyperlanes": [
@@ -37,7 +38,7 @@
       "Blackwind Point (Varga's shantytown, across the lake)",
       "The eastern landing field (Maz's only formal pad)"
     ],
-    "politicalTensions": "Maz and Varga maintain a mutual non-interference posture. Both know the other could end the truce. Neither wants to. The Imperial garrison knows about Blackwind Point and pretends not to — Tashtor sector's tribute payments have always been on time.",
+    "politicalTensions": "Maz and Varga maintain a mutual non-interference posture. Both know the other could end the truce. Neither wants to. The Tashtor sector garrison knows about Blackwind Point and pretends not to — sector tribute payments have always been on time.",
     "smugglerRoutes": [
       "Sanctuary Pipeline minor branches — Takodana is a node, not a destination",
       "Direct hop to Bespin on the right transponder code"
@@ -62,7 +63,7 @@
     "gmNotes": "Maz is the bible's most important non-player ally. Play her quiet, patient, and aware. She does not bargain; she allows. If a player tries to lie to her face, she lets them — and she remembers."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/takodana.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
     "attributionUrl": "https://starwars.fandom.com/wiki/Takodana",

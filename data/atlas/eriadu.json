@@ -10,16 +10,18 @@
   "type": "planet",
   "common": {
     "tagline": "Tarkin's capital. Black armor-plating, red refineries, ten thousand weapons factories.",
-    "government": "Imperial Sector Authority — Moff Tarkin",
+    "government": "Imperial sector authority — Moff Wilhuff Tarkin",
     "affiliation": "Galactic Empire (heart of Tarkin doctrine)",
-    "climate": "Choked industrial; sky permanently exhaust-stained",
+    "climate": "Polluted; sky permanently exhaust-stained",
     "terrain": [
-      "Refinery cities",
-      "Armor-plate megacorridors",
+      "Industrial cityscape",
+      "Refinery districts",
+      "Waste zones",
       "The Citadel district"
     ],
     "hyperlanes": [
-      "Hydian Way (major), Rimma Spur (minor)"
+      "Hydian Way (major)",
+      "Rimma Trade Route (major)"
     ],
     "famousFor": "Tarkin. The Citadel. The factories. The fact that nothing happens in the Outer Rim without Eriadu's tacit nod.",
     "cantinaReputation": "Drink at home. Eriadu's bars are full of Imperial Intelligence ears.",
@@ -63,10 +65,10 @@
     "gmNotes": "Eriadu is Tarkin made physical. Cold, efficient, monumental. The players should feel the weight of what he has already done before they meet him."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/eriadu.jpg",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Eriadu",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Eriadu/Legends",
     "alt": "Eriadu"
   },
   "campaignNotes": {

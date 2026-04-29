@@ -1,0 +1,55 @@
+{
+  "slug": "takodana",
+  "name": "Takodana",
+  "sourceTitle": "Takodana",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Takodana",
+  "sourceTier": "Canon",
+  "ours": {
+    "region": "Mid Rim",
+    "sector": "Tashtor",
+    "type": "planet",
+    "climate": "Hot and humid; temperate at the lake elevations",
+    "terrain": [
+      "Temperate forests",
+      "Lakes",
+      "Plains",
+      "Stone ridges"
+    ],
+    "hyperlanes": [
+      "Sanctuary Pipeline (minor) — feeds smugglers and refugees north out of the Hutt territories"
+    ],
+    "government": "Independent (Maz Kanata enforces house rules at the castle)",
+    "affiliation": "Unaligned"
+  },
+  "legends": {
+    "region": "Mid Rim Territories, Western Reaches",
+    "sector": "Tashtor sector",
+    "system": "Takodana system",
+    "suns": "1: Takodana's sun",
+    "moons": "0",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,100 kilometers",
+    "climate": "Hot and Humid",
+    "terrain": "Lakes, Plains, Seas, Temperate forest",
+    "atmosphere": "Breathable",
+    "gravity": "",
+    "species": "",
+    "population": "Less than 1 million",
+    "capital": "",
+    "language": "",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Jedi Order, Dank Graks"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f6/Tak.png/revision/latest?cb=20251031035110",
+    "localFile": "takodana.png",
+    "localPath": "/images/atlas/takodana.png",
+    "bytes": 125030
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:54.116Z"
+}

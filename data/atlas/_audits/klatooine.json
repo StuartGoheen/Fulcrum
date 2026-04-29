@@ -1,0 +1,56 @@
+{
+  "slug": "klatooine",
+  "name": "Klatooine",
+  "sourceTitle": "Klatooine/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Klatooine%2FLegends",
+  "sourceTier": "Legends",
+  "ours": {
+    "region": "Hutt Space (Outer Rim)",
+    "sector": "Si'Klaata Cluster",
+    "type": "planet",
+    "climate": "Arid",
+    "terrain": [
+      "Desert",
+      "Savannas",
+      "Stone valleys",
+      "The Sacred Fountain (centerpiece)"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route",
+      "Pabol Sleheyron (Hutt internal)"
+    ],
+    "government": "Council of Elders, operating as a Hutt-aligned client-state",
+    "affiliation": "Hutt Space"
+  },
+  "legends": {
+    "region": "Hutt Space",
+    "sector": "Si'Klaata Cluster",
+    "system": "Klatooine system",
+    "suns": "",
+    "moons": "1",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "",
+    "climate": "Arid",
+    "terrain": "Desert, Savannas",
+    "atmosphere": "",
+    "gravity": "Standard",
+    "species": "Klatooinian",
+    "population": "9 million:, *99% Klatooinian, *1% other species",
+    "capital": "",
+    "language": "Huttese, Klatooinian",
+    "government": "Council of Elders",
+    "hyperlanes": "",
+    "affiliation": "Hutt Empire, Galactic Empire, Confederation, Galactic Federation of Free Alliances"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/f/f9/Klatooine_LoNH.jpg/revision/latest?cb=20200405144436",
+    "localFile": "klatooine.jpg",
+    "localPath": "/images/atlas/klatooine.jpg",
+    "bytes": 44918
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:55.998Z"
+}

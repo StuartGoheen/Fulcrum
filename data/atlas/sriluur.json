@@ -2,27 +2,28 @@
   "slug": "sriluur",
   "name": "Sriluur",
   "region": "Outer Rim",
-  "sector": "Si'Klaata",
+  "sector": "Tharin",
   "gridSquare": "M-15",
   "x": 0.66,
   "y": 0.54,
   "isCampaignWorld": false,
   "type": "planet",
   "common": {
-    "tagline": "Weequay homeworld. The Gozanti exchange is the largest legal slave market in Hutt Space — by slim definition of legal.",
-    "government": "Hutt overlordship via Weequay clan councils",
-    "affiliation": "Hutt Space",
-    "climate": "Arid; double-sun exposure",
+    "tagline": "Weequay homeworld in the Tharin sector. The Gozanti exchange is the largest slave market that operates within the slim letter of regional law.",
+    "government": "Weequay clan councils under Imperial governorship; heavy Hutt commercial influence",
+    "affiliation": "Galactic Empire (governorship); Hutt commercial interests",
+    "climate": "Temperate to arid",
     "terrain": [
       "Desert",
-      "Mesa cities",
+      "Dry scrubland",
+      "Rocky badlands",
       "Coastal salt-trade towns"
     ],
     "hyperlanes": [
       "Triellus Trade Route",
       "Sisar Run"
     ],
-    "famousFor": "The Gozanti exchange. The Weequay swordsmiths. The fact that nothing illegal in Hutt Space is illegal on Sriluur.",
+    "famousFor": "The Gozanti exchange. The Weequay swordsmiths. The rule that nothing illegal in Hutt Space is illegal on Sriluur.",
     "cantinaReputation": "Don't comment on the merchandise.",
     "standingCurrency": "Wupiupi, Imperial credits"
   },
@@ -38,22 +39,23 @@
       "The salt-trade coast",
       "The Weequay swordsmiths' guild hall"
     ],
-    "politicalTensions": "Three Weequay councils, one Hutt overlord, no Imperial presence. The councils are quietly aligning against the Hutts. The exchange is the symbol they will eventually burn.",
+    "politicalTensions": "Three Weequay councils, an Imperial governor who collects tribute and otherwise looks away, and a Hutt commercial machine that runs the Gozanti exchange. The councils are quietly aligning against the Hutts. The exchange is the symbol they will eventually burn.",
     "smugglerRoutes": [
       "Sisar Run is Hutt-internal but accessible with the right contacts",
       "Triellus → Klatooine → Sriluur is the standard slave-trade triangle"
     ],
-    "whoRunsTheDocks": "Hutt-controlled at the Gozanti exchange. Weequay clan-controlled everywhere else."
+    "whoRunsTheDocks": "Hutt-controlled at the Gozanti exchange. Weequay clan-controlled everywhere else; Imperial customs at the capital."
   },
   "gm": {
     "plotHooks": [
       "Sriluur is one of the Indemnity's last seven port calls (Adv3 P1 reveal). The Gozanti exchange is where the Indemnity's intake manifest was filed.",
-      "If the heroes ever expose the Gozanti exchange's role in the slave trade publicly (Holonet leak, Resurgence broadcast), the Three Sisters will move openly against the Hutts.",
+      "If the heroes ever expose the Gozanti exchange's role in the slave trade publicly (Holonet leak, in-character broadcast), the Three Sisters will move openly against the Hutts.",
       "Vrok will sell information to the heroes if they amuse him. He cannot help with anything that costs him exchange revenue."
     ],
     "hiddenTruths": [
       "The Empire is aware of the Gozanti exchange. ISB has at least two embedded agents on the floor. The Empire does not act because the slave economy serves Imperial labor needs (Kessel, Geonosis).",
-      "The Three Sisters' insurrection plan has a five-year horizon. Anything the heroes do to accelerate it changes the Hutt Space political map."
+      "The Three Sisters' insurrection plan has a five-year horizon. Anything the heroes do to accelerate it changes the Hutt Space political map.",
+      "Wookieepedia astronomy: 1 sun (Sriluur), 5 moons (Quay, Ruul, and three others). The previous 'double-sun' line in our atlas was incorrect and has been fixed."
     ],
     "secretFactions": [
       "Weequay clan-council insurgency (forming)",
@@ -63,10 +65,10 @@
     "gmNotes": "Sriluur is the second leg of the Adv3 slave-trade investigation if Maya pulls on the thread post-Bespin. Treat it as a Hutt-Space heist setting, not a battlefield."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/sriluur.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Sriluur",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Sriluur/Legends",
     "alt": "Sriluur"
   },
   "campaignNotes": {

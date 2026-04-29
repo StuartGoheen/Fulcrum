@@ -1,0 +1,56 @@
+{
+  "slug": "sriluur",
+  "name": "Sriluur",
+  "sourceTitle": "Sriluur/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Sriluur%2FLegends",
+  "sourceTier": "Legends",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Tharin",
+    "type": "planet",
+    "climate": "Temperate to arid",
+    "terrain": [
+      "Desert",
+      "Dry scrubland",
+      "Rocky badlands",
+      "Coastal salt-trade towns"
+    ],
+    "hyperlanes": [
+      "Triellus Trade Route",
+      "Sisar Run"
+    ],
+    "government": "Weequay clan councils under Imperial governorship; heavy Hutt commercial influence",
+    "affiliation": "Galactic Empire (governorship); Hutt commercial interests"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, *Kreetan Narrows",
+    "sector": "Tharin sector",
+    "system": "Sriluur system",
+    "suns": "1: Sriluur",
+    "moons": "5:, Quay, Ruul, 3 others",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "6,591 km",
+    "climate": "Temperate to arid",
+    "terrain": "Desert, Dry scrub-land, Rocky badlands",
+    "atmosphere": "Oxygen mix, Type I",
+    "gravity": "Standard",
+    "species": "Weequay",
+    "population": "460,000:, *82% Weequay, *8% Houk, *10% other",
+    "capital": "",
+    "language": "Houkese, Huttese, Sriluurian",
+    "government": "Clans, Imperial governorship",
+    "hyperlanes": "",
+    "affiliation": "Hutt Empire, Galactic Empire, Yuuzhan Vong Empire, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/8/87/Sriluur_LoNH.png/revision/latest?cb=20180501013817",
+    "localFile": "sriluur.png",
+    "localPath": "/images/atlas/sriluur.png",
+    "bytes": 72750
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:56.748Z"
+}

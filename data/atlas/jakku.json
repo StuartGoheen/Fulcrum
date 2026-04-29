@@ -2,17 +2,17 @@
   "slug": "jakku",
   "name": "Jakku",
   "region": "Inner Rim",
-  "sector": "Arkanis",
+  "sector": "Western Reaches",
   "gridSquare": "I-13",
   "x": 0.405,
   "y": 0.595,
   "isCampaignWorld": true,
   "type": "planet",
   "common": {
-    "tagline": "A sun-bleached desert nowhere on the Western Reaches — the galaxy forgot it years ago.",
-    "government": "None (de facto Hutt control via Varga the Hutt)",
+    "tagline": "A sun-bleached desert planet on the Western Reaches — the galaxy forgot it years ago.",
+    "government": "None recognized (de facto Hutt-Cartel influence)",
     "affiliation": "Galactic Empire (nominal)",
-    "climate": "Arid",
+    "climate": "Arid; hot days with cold nights",
     "terrain": [
       "Deserts",
       "Badlands",
@@ -21,15 +21,15 @@
       "Salt flats"
     ],
     "hyperlanes": [
-      "Off the major lanes; reached via scavenger trails branching off the Smuggler's Path"
+      "Off the major lanes; reached via scavenger trails branching off the Western edge of the Hydian Way"
     ],
-    "famousFor": "Crashed Separatist hulks half-buried in the dunes; the Burning Deck cantina in Cratertown",
+    "famousFor": "Crashed Separatist hulks half-buried in the dunes; the salvage scrapyards around Cratertown and Reestkii",
     "cantinaReputation": "If you have to ask why anyone goes to Jakku, you don't. Hot. Empty. Cheap. Nobody looking for you here.",
     "standingCurrency": "Imperial credits, water rations, scavenged metal"
   },
   "insider": {
     "localContacts": [
-      "Maya — independent smuggler, owner-operator of the Banshee. Met the crew at the Burning Deck.",
+      "Maya — independent smuggler, owner-operator of the Banshee.",
       "Switch — droid fixer running The Sinkhole bunker outside Reestkii. Will sell anyone anything if the credits are clean.",
       "Varga the Hutt — controls the local economy through debt and protection. His enforcers walk like they own the rocks."
     ],
@@ -39,7 +39,7 @@
       "Reestkii Landing Field",
       "The Steelpecker hunting grounds (badlands south of Reestkii)"
     ],
-    "politicalTensions": "Imperial patrols from Arkanis Sector come through maybe twice a standard year. The garrison at Carbon Ridge is undermanned and bored. Locals know to bury contraband in the dunes when the patrol horns sound.",
+    "politicalTensions": "Imperial patrols come through maybe twice a standard year. The garrison at Carbon Ridge is undermanned and bored. Locals know to bury contraband in the dunes when the patrol horns sound.",
     "smugglerRoutes": [
       "Scavenger trails branch off the Smuggler's Path; jump-window onto the Western Reaches edge of the Hydian Way is open most months"
     ],
@@ -52,7 +52,8 @@
     ],
     "hiddenTruths": [
       "The Lambda shuttle and unmarked garrison some scavengers have whispered about belong to the Observatory. The Empire will never explain its presence here.",
-      "Varga's local enforcement is a 7-being skeleton crew — the entire Jakku operation is a rounding error in his books."
+      "Varga's local enforcement is a 7-being skeleton crew — the entire Jakku operation is a rounding error in his books.",
+      "Wookieepedia note: Jakku has no formally named sector in current canon; Inner Rim / Western Reaches is the closest the published material gets. Treat 'Western Reaches' as the operative regional identifier."
     ],
     "secretFactions": [
       "Imperial Observatory garrison (Rax loyalists)"
@@ -60,7 +61,7 @@
     "gmNotes": "Jakku is the campaign's quiet open. Make the table feel its emptiness. The Burning Deck should smell of dust and sour ale; Maya's wound should bleed onto the table when she pitches the job."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/jakku.png",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
     "attributionUrl": "https://starwars.fandom.com/wiki/Jakku",

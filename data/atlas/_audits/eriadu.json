@@ -1,0 +1,56 @@
+{
+  "slug": "eriadu",
+  "name": "Eriadu",
+  "sourceTitle": "Eriadu/Legends",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Eriadu%2FLegends",
+  "sourceTier": "Legends",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Seswenna",
+    "type": "planet",
+    "climate": "Polluted; sky permanently exhaust-stained",
+    "terrain": [
+      "Industrial cityscape",
+      "Refinery districts",
+      "Waste zones",
+      "The Citadel district"
+    ],
+    "hyperlanes": [
+      "Hydian Way (major)",
+      "Rimma Trade Route (major)"
+    ],
+    "government": "Imperial sector authority — Moff Wilhuff Tarkin",
+    "affiliation": "Galactic Empire (heart of Tarkin doctrine)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, Trailing Sectors",
+    "sector": "Seswenna sector",
+    "system": "Eriadu system",
+    "suns": "1: Eriadu",
+    "moons": "1",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "13,490 kilometers",
+    "climate": "Polluted",
+    "terrain": "Industrial cityscape, Waste zones",
+    "atmosphere": "Type I",
+    "gravity": "Standard",
+    "species": "",
+    "population": "22 billion, 86% Human, 14% other",
+    "capital": "",
+    "language": "Galactic Basic Standard",
+    "government": "Imperial governorship",
+    "hyperlanes": "",
+    "affiliation": "Brotherhood of Darkness, Galactic Republic, Galactic Empire, Eriadu Authority, New Republic, Confederation, Darth Krayt's Galactic Empire"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/d/dc/Eriadu_TEA.jpg/revision/latest?cb=20200822092400",
+    "localFile": "eriadu.jpg",
+    "localPath": "/images/atlas/eriadu.jpg",
+    "bytes": 148290
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:51.825Z"
+}

@@ -1,22 +1,23 @@
 {
   "slug": "klatooine",
   "name": "Klatooine",
-  "region": "Outer Rim",
-  "sector": "Si'Klaata",
+  "region": "Hutt Space (Outer Rim)",
+  "sector": "Si'Klaata Cluster",
   "gridSquare": "M-15",
   "x": 0.65,
   "y": 0.55,
   "isCampaignWorld": false,
   "type": "planet",
   "common": {
-    "tagline": "Klatooinian homeworld. Bound by ancient treaty to serve the Hutts.",
-    "government": "Hutt overlordship via Klatooinian client-state council",
+    "tagline": "Klatooinian homeworld in the Si'Klaata Cluster. Bound by ancient treaty to serve the Hutts.",
+    "government": "Council of Elders, operating as a Hutt-aligned client-state",
     "affiliation": "Hutt Space",
-    "climate": "Arid to temperate",
+    "climate": "Arid",
     "terrain": [
-      "Plains",
+      "Desert",
+      "Savannas",
       "Stone valleys",
-      "Sacred Fountain (centerpiece)"
+      "The Sacred Fountain (centerpiece)"
     ],
     "hyperlanes": [
       "Triellus Trade Route",
@@ -62,10 +63,10 @@
     "gmNotes": "If the campaign ever pulls on the slave-trade thread Maya started in Adv3, Klatooine is where it leads. Treat it as the campaign's quiet moral debt."
   },
   "image": {
-    "src": null,
+    "src": "/images/atlas/klatooine.jpg",
     "credit": "Wookieepedia (starwars.fandom.com)",
     "license": "CC BY-SA 3.0",
-    "attributionUrl": "https://starwars.fandom.com/wiki/Klatooine",
+    "attributionUrl": "https://starwars.fandom.com/wiki/Klatooine/Legends",
     "alt": "Klatooine"
   },
   "campaignNotes": {

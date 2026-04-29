@@ -1,0 +1,55 @@
+{
+  "slug": "batuu",
+  "name": "Batuu",
+  "sourceTitle": "Batuu",
+  "sourceUrl": "https://starwars.fandom.com/wiki/Batuu",
+  "sourceTier": "Canon",
+  "ours": {
+    "region": "Outer Rim",
+    "sector": "Trilon",
+    "type": "planet",
+    "climate": "Temperate; spire-forest microclimates",
+    "terrain": [
+      "Petrified spire forests",
+      "Plains",
+      "Cenotes",
+      "Mountains"
+    ],
+    "hyperlanes": [
+      "Off the major lanes; the Triellus Trade Route brushes by"
+    ],
+    "government": "Independent (Black Spire Outpost is run by Oga Garra)",
+    "affiliation": "Independent / unaligned (free port)"
+  },
+  "legends": {
+    "region": "Outer Rim Territories, *Galactic Frontier, Western Reaches",
+    "sector": "Trilon sector",
+    "system": "Batuu system",
+    "suns": "3:, Ubaat I, Ubaat II, Ubaat III",
+    "moons": "2:, Destra, Valara",
+    "rotation": "",
+    "orbital": "",
+    "diameter": "12,750 kilometers",
+    "climate": "Temperate",
+    "terrain": "Cenotes, Forests, Mountains",
+    "atmosphere": "Breathable",
+    "gravity": "",
+    "species": "Ancients",
+    "population": "200,000",
+    "capital": "",
+    "language": "Galactic Basic Standard, Huttese, Rhodese, Twi'leki",
+    "government": "",
+    "hyperlanes": "",
+    "affiliation": "Jedi Order, First Order"
+  },
+  "diffs": [],
+  "image": {
+    "downloaded": true,
+    "sourceImageUrl": "https://static.wikia.nocookie.net/starwars/images/d/d3/Batuu-system.png/revision/latest?cb=20200822003007",
+    "localFile": "batuu.png",
+    "localPath": "/images/atlas/batuu.png",
+    "bytes": 115774
+  },
+  "license": "CC BY-SA 3.0",
+  "generatedAt": "2026-04-29T07:19:49.396Z"
+}
