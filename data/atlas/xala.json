@@ -46,7 +46,7 @@
       "The Xala-Cermau hyperlane data is the second navigation prize Varth needs."
     ],
     "hiddenTruths": [
-      "From the outside, Xala looks like a useless Wild Space rock. The Inquisitorial fortress complex, Draco's command, and the detention block are all GM-tier reveals — none of this should appear in any player payload of Common.",
+      "From the outside Xala reads as a useless Wild Space rock — that emptiness is the cover story. The Inquisitorial fortress complex sits sunk into the western glacier shelf, Draco's command rides the surface levels, and the detention block extends three sublevels deeper than any orbital scan would resolve.",
       "Draco is not the Grand Inquisitor. He is junior and ambitious. His pursuit of Denia is what he has been told earns promotion.",
       "The fortress's lower interrogation block holds at least three other surviving Jedi besides Denia. The Empire has been collecting them quietly."
     ],
@@ -57,11 +57,11 @@
     "gmNotes": "Xala is the campaign's Inquisitorial set-piece. Cold, sterile, deliberate. Draco should feel like a man performing the role of a sith — because he is."
   },
   "image": {
-    "src": null,
-    "credit": "Original campaign fiction",
-    "license": null,
+    "src": "/images/atlas/xala.png",
+    "credit": "Original campaign fiction (AI-generated concept art)",
+    "license": "Campaign-internal use",
     "attributionUrl": null,
-    "alt": "Xala"
+    "alt": "Xala — frigid Wild Space world of glacial plateaus under a perpetual twilight band"
   },
   "campaignNotes": {
     "adventures": [

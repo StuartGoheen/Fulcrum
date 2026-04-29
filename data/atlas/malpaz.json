@@ -60,11 +60,11 @@
     "gmNotes": "Malpaz is the campaign's moral pivot. Adv5's insurrection is real and earned. Adv10's strike is the campaign's emotional climax. Make the players hear the children's names in the second act and lose them in the third."
   },
   "image": {
-    "src": null,
-    "credit": "Original campaign fiction",
-    "license": null,
+    "src": "/images/atlas/malpaz.png",
+    "credit": "Original campaign fiction (AI-generated concept art)",
+    "license": "Campaign-internal use",
     "attributionUrl": null,
-    "alt": "Malpaz"
+    "alt": "Malpaz — temperate industrial world choked in toxic smog from the reactor accident of 17 BBY"
   },
   "campaignNotes": {
     "adventures": [

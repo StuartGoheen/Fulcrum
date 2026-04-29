@@ -246,6 +246,18 @@ uri = "file://attached_assets/generated_images/vischera_doctor.png"
 type = "image"
 title = "generated_image"
 
+[[generated]]
+id = "uuhIfUB0gpT9IPzygsM4q"
+uri = "file://public/images/atlas/malpaz.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "BCo00O_s3XjKoGVUh2skv"
+uri = "file://public/images/atlas/xala.png"
+type = "image"
+title = "generated_image"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
