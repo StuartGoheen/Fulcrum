@@ -57,11 +57,11 @@
     "gmNotes": "Xala is the campaign's Inquisitorial set-piece. Cold, sterile, deliberate. Draco should feel like a man performing the role of a sith — because he is."
   },
   "image": {
-    "src": "/images/atlas/xala.png",
-    "credit": "Original campaign fiction (AI-generated concept art)",
-    "license": "Campaign-internal use",
+    "src": null,
+    "credit": "Original campaign fiction",
+    "license": null,
     "attributionUrl": null,
-    "alt": "Xala — frigid Wild Space world of glacial plateaus under a perpetual twilight band"
+    "alt": "Xala"
   },
   "campaignNotes": {
     "adventures": [

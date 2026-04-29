@@ -120,6 +120,23 @@ Two campaign-original worlds have no Wookieepedia entry. For these:
 - ✅ Push Insider foreshadowing down to GM.
 - ⏭ Image stays as-is (no Wookieepedia source available).
 
+## Original-fiction worlds (image policy exception)
+
+Two priority worlds — **Malpaz** and **Xala** — are pure campaign fiction
+with no Wookieepedia article in either Legends or Canon. For these worlds:
+
+- The audit script (`ORIGINAL_FICTION` set) skips MediaWiki fetch entirely
+  and does not attempt to download a hero image.
+- `image.src` stays `null`; `credit` is `"Original campaign fiction"`;
+  `license`, `attributionUrl` are `null`; `alt` is the bare world name.
+- Do **not** introduce non-Wookieepedia assets (AI-generated, stock, or
+  hand-drawn) for these worlds during the Wookieepedia audit pass —
+  artwork commissioning is a separate workstream.
+
+This is a deliberate exception to the "every priority world has a local
+hero image" convention; the convention applies only to worlds with a
+canonical Wookieepedia source.
+
 ## Canon-only worlds (Legends fallback policy)
 
 The Legends infobox is the mandatory comparison standard for every priority
