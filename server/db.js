@@ -70,9 +70,11 @@ async function initSchema() {
         adventure_id   TEXT    NOT NULL,
         mark_id        TEXT    NOT NULL,
         bucket         TEXT    NOT NULL,
+        path_id        TEXT,
         claimed_at     TIMESTAMP DEFAULT NOW(),
         UNIQUE(character_id, adventure_id, mark_id)
       );
+      ALTER TABLE adventure_marks ADD COLUMN IF NOT EXISTS path_id TEXT;
 
       CREATE TABLE IF NOT EXISTS revealed_marks (
         adventure_id   TEXT    NOT NULL,

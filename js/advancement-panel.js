@@ -133,47 +133,92 @@
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  function _getPcDestinyId() {
+    if (!_char || !_char.personalDestiny) return null;
+    return _char.personalDestiny.id || _char.personalDestiny || null;
+  }
+
+  // Returns destiny-match info for a goal trigger:
+  //   { hasDestiny, anyMatch, chosenPathId, chosenMatch }
+  // anyMatch: true if any path's (or top-level) destiny tags include the PC's destiny.
+  // chosenMatch: true if the player has selected a path AND that path matches.
+  function _getDestinyInfo(t) {
+    var pcDest = _getPcDestinyId();
+    var info = { hasDestiny: false, anyMatch: false, chosenPathId: null, chosenMatch: false };
+    if (!t) return info;
+    var paths = Array.isArray(t.paths) ? t.paths : [];
+    var topDestinies = Array.isArray(t.destinies) ? t.destinies : [];
+    if (paths.length > 0) {
+      paths.forEach(function (p) {
+        if (Array.isArray(p.destinies) && p.destinies.length) info.hasDestiny = true;
+        if (pcDest && Array.isArray(p.destinies) && p.destinies.indexOf(pcDest) !== -1) info.anyMatch = true;
+      });
+    } else if (topDestinies.length > 0) {
+      info.hasDestiny = true;
+      if (pcDest && topDestinies.indexOf(pcDest) !== -1) info.anyMatch = true;
+    }
+    var pathChoices = (_advancement && _advancement.marks && _advancement.marks.paths) || {};
+    var chosenId = pathChoices[t.id] || null;
+    if (chosenId && paths.length > 0) {
+      info.chosenPathId = chosenId;
+      var chosen = paths.find(function (p) { return p.id === chosenId; });
+      if (chosen && pcDest && Array.isArray(chosen.destinies) && chosen.destinies.indexOf(pcDest) !== -1) {
+        info.chosenMatch = true;
+      }
+    } else if (paths.length === 0 && topDestinies.length > 0) {
+      // No paths at all — destiny is decided by the top-level tag list.
+      info.chosenMatch = !!info.anyMatch;
+    }
+    return info;
+  }
+
+  // Footprint payout: 2 if the chosen path (or no-path goal) matches PC destiny, else 1.
+  function _getTriggerValue(t) {
+    if (!t) return 1;
+    var info = _getDestinyInfo(t);
+    return info.chosenMatch ? 2 : 1;
+  }
+
   function _getAdventureTriggers() {
     if (!_adventureMarksData || !_adventureMarksData.length) return [];
     var triggers = [];
     _adventureMarksData.forEach(function (m) {
-      if (m.hidden && !_isGmView) return;
-      triggers.push({ id: m.id, label: m.label, value: 1, desc: m.desc, group: true, hidden: m.hidden });
+      if (m.hidden && !_isGmView) return; // hidden goals never render in player UI
+      triggers.push({
+        id: m.id,
+        label: m.label,
+        value: 1,
+        desc: m.desc,
+        group: true,
+        hidden: m.hidden,
+        noHide: !!m.noHide,
+        scene: m.scene || null,
+        part: m.part || null,
+        destinies: Array.isArray(m.destinies) ? m.destinies.slice() : [],
+        paths: Array.isArray(m.paths) ? m.paths.map(function (p) {
+          return {
+            id: p.id,
+            label: p.label,
+            desc: p.desc,
+            destinies: Array.isArray(p.destinies) ? p.destinies.slice() : []
+          };
+        }) : []
+      });
     });
     return triggers;
   }
 
   function _getMarkBuckets() {
-    var destinyTriggers = [];
-    var destinyName = 'Destiny';
-    if (_destinyData && _char && _char.personalDestiny) {
-      var pid = _char.personalDestiny.id || _char.personalDestiny;
-      var found = _destinyData.find(function (d) { return d.id === pid; });
-      if (found && found.marks) {
-        destinyName = found.name;
-        destinyTriggers = found.marks.map(function (m) {
-          return { id: m.id, label: m.label, value: 1, desc: m.desc, tier: m.tier };
-        });
-      }
-    }
     var advTriggers = _getAdventureTriggers();
     var visibleCount = advTriggers.filter(function (t) { return !t.hidden; }).length;
     return [
       {
         bucket: 'The Adventure',
-        subtitle: 'Mission Goals',
-        budget: visibleCount + ' Goals',
+        subtitle: 'Footprints on the road',
+        budget: visibleCount + ' Goal' + (visibleCount === 1 ? '' : 's') + ' revealed',
         icon: '\u2694',
         key: 'adventure',
         triggers: advTriggers
-      },
-      {
-        bucket: destinyName,
-        subtitle: 'Destiny Marks',
-        budget: '3 Marks',
-        icon: '\u2605',
-        key: 'destiny',
-        triggers: destinyTriggers
       },
       {
         bucket: 'The Edge',
@@ -193,7 +238,9 @@
     var buckets = _getMarkBuckets();
     buckets.forEach(function (bucket) {
       bucket.triggers.forEach(function (t) {
-        if (checks[t.id]) total += t.value;
+        if (checks[t.id]) {
+          total += (bucket.key === 'adventure') ? _getTriggerValue(t) : (t.value || 1);
+        }
       });
     });
     return total;
@@ -218,38 +265,60 @@
   function _persist() {
     if (_saveTimeout) clearTimeout(_saveTimeout);
     _saveTimeout = setTimeout(function () {
-      if (!_charId || !_advancement) return;
-      fetch('/api/characters/' + encodeURIComponent(_charId) + '/advancement', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(_advancement)
-      }).catch(function (err) {
-        console.error('[AdvancementPanel] save error', err);
-      });
-      _persistAdventureMarks();
-      _broadcastAdvancement();
+      _saveTimeout = null;
+      _flushPersist(false);
     }, 400);
   }
 
-  function _persistAdventureMarks() {
+  // Flush the pending save synchronously enough to survive page hide/close.
+  // useKeepalive: true → fetch keepalive flag so the request survives unload.
+  function _flushPersist(useKeepalive) {
+    if (!_charId || !_advancement) return;
+    var opts = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(_advancement)
+    };
+    if (useKeepalive) opts.keepalive = true;
+    try {
+      fetch('/api/characters/' + encodeURIComponent(_charId) + '/advancement', opts)
+        .catch(function (err) { console.error('[AdvancementPanel] save error', err); });
+    } catch (err) {
+      console.error('[AdvancementPanel] save threw', err);
+    }
+    _persistAdventureMarks(useKeepalive);
+    _broadcastAdvancement();
+  }
+
+  function _persistAdventureMarks(useKeepalive) {
     if (!_charId || !_advancement || !_advancement.marks) return;
     var checks = _advancement.marks.earnedChecks || {};
+    var pathMap = _advancement.marks.paths || {};
     var buckets = _getMarkBuckets();
     var marks = [];
     buckets.forEach(function (bucket) {
       bucket.triggers.forEach(function (t) {
         if (checks[t.id]) {
-          marks.push({ mark_id: t.id, bucket: bucket.key });
+          marks.push({
+            mark_id: t.id,
+            bucket: bucket.key,
+            path_id: pathMap[t.id] || null
+          });
         }
       });
     });
-    fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId), {
+    var opts = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ marks: marks })
-    }).catch(function (err) {
-      console.error('[AdvancementPanel] adventure marks save error', err);
-    });
+    };
+    if (useKeepalive) opts.keepalive = true;
+    try {
+      fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId), opts)
+        .catch(function (err) { console.error('[AdvancementPanel] adventure marks save error', err); });
+    } catch (err) {
+      console.error('[AdvancementPanel] adventure marks save threw', err);
+    }
   }
 
   function _countD12Arenas() {
@@ -263,7 +332,8 @@
 
   function _ensureDefaults() {
     if (!_advancement) _advancement = {};
-    if (!_advancement.marks) _advancement.marks = { earnedChecks: {}, totalBanked: 0 };
+    if (!_advancement.marks) _advancement.marks = { earnedChecks: {}, totalBanked: 0, paths: {} };
+    if (!_advancement.marks.paths) _advancement.marks.paths = {};
     if (!_advancement.disciplineTrack) _advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0, invested: 0, lockedInvested: 0 };
     if (_advancement.disciplineTrack.unspentAdvances === undefined) _advancement.disciplineTrack.unspentAdvances = 0;
     if (_advancement.disciplineTrack.invested === undefined) _advancement.disciplineTrack.invested = 0;
@@ -957,24 +1027,52 @@
       html += '</div>';
       if (!collapsed) {
         if (bucket.triggers.length === 0) {
-          html += '<div class="adv-bucket-triggers"><div class="adv-trigger-empty">No destiny selected.</div></div>';
+          var emptyMsg = (bucket.key === 'adventure')
+            ? 'No goals revealed yet — they will appear as the GM advances scenes.'
+            : 'No triggers available.';
+          html += '<div class="adv-bucket-triggers"><div class="adv-trigger-empty">' + _esc(emptyMsg) + '</div></div>';
         } else {
           html += '<div class="adv-bucket-triggers">';
           bucket.triggers.forEach(function (t) {
-            var checked = checks[t.id] ? ' checked' : '';
-            var groupTag = t.group ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
+            var isAdv = (bucket.key === 'adventure');
+            var info = isAdv ? _getDestinyInfo(t) : { hasDestiny: false, anyMatch: false, chosenPathId: null, chosenMatch: false };
+            var isChecked = !!checks[t.id];
+            var checked = isChecked ? ' checked' : '';
+            var groupTag = (t.group && !isAdv) ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
             var tierTag = t.tier ? '<span class="adv-tag adv-tag--tier">TIER ' + t.tier + '</span>' : '';
             var hiddenClass = t.hidden ? ' adv-trigger-row--hidden' : '';
             var hiddenTag = (t.hidden && _isGmView) ? '<span class="adv-tag adv-tag--hidden">HIDDEN</span>' : '';
-            html += '<label class="adv-trigger-row' + hiddenClass + '">';
+            // Destiny preview badge — surface the road match before the player even checks.
+            var destinyTag = '';
+            if (isAdv && info.anyMatch) {
+              destinyTag = '<span class="adv-tag adv-tag--destiny" title="A footprint on your destiny road. If you choose this path it counts as 2 footprints and refills your Edge.">\u2605 ON YOUR ROAD</span>';
+            }
+            // Footprint payout badge — show the actual landed payout when checked.
+            var footprintTag = '';
+            if (isAdv && isChecked) {
+              var val = _getTriggerValue(t);
+              var lbl = val === 2 ? '\u272A 2 FOOTPRINTS' : '\u00B7 1 FOOTPRINT';
+              var cls = val === 2 ? ' adv-tag--footprint adv-tag--footprint-strong' : ' adv-tag--footprint';
+              footprintTag = '<span class="adv-tag' + cls + '">' + lbl + '</span>';
+            }
+            // Chosen path read-out, when applicable.
+            var chosenPathLine = '';
+            if (isAdv && isChecked && info.chosenPathId && Array.isArray(t.paths)) {
+              var chosen = t.paths.find(function (p) { return p.id === info.chosenPathId; });
+              if (chosen) {
+                chosenPathLine = '<span class="adv-trigger-path">Path: <b>' + _esc(chosen.label) + '</b></span>';
+              }
+            }
+            html += '<label class="adv-trigger-row' + hiddenClass + (info.anyMatch && isAdv ? ' adv-trigger-row--ondest' : '') + '">';
             html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '" data-bucket="' + _esc(bucket.key) + '"' + checked + ' />';
             html += '<div class="adv-trigger-info">';
-            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + hiddenTag + '</span>';
+            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + hiddenTag + destinyTag + footprintTag + '</span>';
             html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
-            if (_isGmView && bucket.key === 'adventure' && t.hidden) {
+            if (chosenPathLine) html += chosenPathLine;
+            if (_isGmView && isAdv && t.hidden) {
               html += '<button class="adv-btn adv-btn--reveal" data-reveal-mark="' + _esc(t.id) + '" data-reveal-adv="' + _esc(_currentAdventureId) + '">Reveal to Players</button>';
             }
-            if (_isGmView && bucket.key === 'adventure' && !t.hidden && t.id !== 'crucible') {
+            if (_isGmView && isAdv && !t.hidden && !t.noHide) {
               var origMark = _adventureMarksData && _adventureMarksData.find(function (m) { return m.id === t.id; });
               if (origMark) {
                 html += '<button class="adv-btn adv-btn--hide" data-hide-mark="' + _esc(t.id) + '" data-hide-adv="' + _esc(_currentAdventureId) + '">Hide from Players</button>';
@@ -1426,15 +1524,159 @@
     _bindEvents(container);
   }
 
+  function _showPathPickModal(trigger, onConfirm, onCancel) {
+    var existing = document.getElementById('adv-modal-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'adv-modal-overlay';
+    overlay.className = 'adv-modal-overlay';
+
+    var box = document.createElement('div');
+    box.className = 'adv-modal-box adv-modal-box--paths';
+
+    var title = document.createElement('div');
+    title.className = 'adv-pathpick-title';
+    title.textContent = 'Which way did it go down?';
+    box.appendChild(title);
+
+    var sub = document.createElement('div');
+    sub.className = 'adv-pathpick-subtitle';
+    sub.innerHTML = '<b>' + _esc(trigger.label) + '</b> — pick the path that best matches what you actually did. The path you took decides which footprint lands on which road.';
+    box.appendChild(sub);
+
+    var pcDest = _getPcDestinyId();
+    var paths = Array.isArray(trigger.paths) ? trigger.paths : [];
+
+    var list = document.createElement('div');
+    list.className = 'adv-pathpick-list';
+    paths.forEach(function (p) {
+      var card = document.createElement('button');
+      card.type = 'button';
+      var match = pcDest && Array.isArray(p.destinies) && p.destinies.indexOf(pcDest) !== -1;
+      card.className = 'adv-pathpick-card' + (match ? ' adv-pathpick-card--match' : '');
+      var destLabels = (Array.isArray(p.destinies) ? p.destinies : []).map(function (d) {
+        var found = (_destinyData || []).find(function (x) { return x.id === d; });
+        return found ? found.name : d;
+      });
+      var destLine = destLabels.length > 0
+        ? '<span class="adv-pathpick-dest">Destiny tag: ' + _esc(destLabels.join(' / ')) + (match ? ' \u2605 your road' : '') + '</span>'
+        : '<span class="adv-pathpick-dest adv-pathpick-dest--neutral">No destiny tag — neutral spine.</span>';
+      card.innerHTML =
+        '<div class="adv-pathpick-card-label">' + _esc(p.label) + (match ? ' <span class="adv-tag adv-tag--destiny">\u2605 ON YOUR ROAD</span>' : '') + '</div>' +
+        '<div class="adv-pathpick-card-desc">' + _esc(p.desc || '') + '</div>' +
+        destLine;
+      card.addEventListener('click', function () {
+        overlay.remove();
+        if (onConfirm) onConfirm(p.id);
+      });
+      list.appendChild(card);
+    });
+    box.appendChild(list);
+
+    var actions = document.createElement('div');
+    actions.className = 'adv-modal-actions';
+    var cancelBtn = document.createElement('button');
+    cancelBtn.className = 'adv-modal-btn adv-modal-btn--cancel';
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function () { overlay.remove(); if (onCancel) onCancel(); });
+    actions.appendChild(cancelBtn);
+    box.appendChild(actions);
+
+    overlay.appendChild(box);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) { overlay.remove(); if (onCancel) onCancel(); }
+    });
+    document.body.appendChild(overlay);
+  }
+
+  function _showEdgeRefillToast() {
+    var existing = document.getElementById('adv-edge-toast');
+    if (existing) existing.remove();
+    var toast = document.createElement('div');
+    toast.id = 'adv-edge-toast';
+    toast.className = 'adv-edge-toast';
+    toast.innerHTML = '<span class="adv-edge-toast-star">\u2605</span><span>The road carries you forward — your Edge is full again.</span>';
+    document.body.appendChild(toast);
+    setTimeout(function () {
+      toast.classList.add('adv-edge-toast--out');
+      setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
+    }, 2400);
+  }
+
+  function _applyDestinyMatchSideEffect(trigger) {
+    // 2-footprint payout is computed at count time via _getTriggerValue.
+    // The side-effect here is the Edge refill to max.
+    if (window.CharacterPanel && typeof window.CharacterPanel.refillEngine === 'function') {
+      var refilled = window.CharacterPanel.refillEngine();
+      if (refilled) _showEdgeRefillToast();
+    }
+  }
+
+  // Find the trigger object (with paths/destinies) for a given mark id.
+  function _findAdventureTrigger(id) {
+    var triggers = _getAdventureTriggers();
+    return triggers.find(function (t) { return t.id === id; }) || null;
+  }
+
   function _bindEvents(container) {
     var checks = container.querySelectorAll('.adv-trigger-check');
     checks.forEach(function (cb) {
       cb.addEventListener('change', function () {
         var id = cb.getAttribute('data-trigger-id');
+        var bucketKey = cb.getAttribute('data-bucket');
         if (!_advancement.marks.earnedChecks) _advancement.marks.earnedChecks = {};
-        _advancement.marks.earnedChecks[id] = cb.checked;
-        _updateMarksSummary();
-        _persist();
+        if (!_advancement.marks.paths) _advancement.marks.paths = {};
+
+        // Edge bucket and Destiny-bucket leftovers behave like simple toggles.
+        if (bucketKey !== 'adventure') {
+          _advancement.marks.earnedChecks[id] = cb.checked;
+          _updateMarksSummary();
+          _persist();
+          return;
+        }
+
+        var trigger = _findAdventureTrigger(id);
+        if (!trigger) {
+          _advancement.marks.earnedChecks[id] = cb.checked;
+          _updateMarksSummary();
+          _persist();
+          return;
+        }
+
+        if (cb.checked) {
+          var paths = Array.isArray(trigger.paths) ? trigger.paths : [];
+          if (paths.length >= 2) {
+            // Defer: revert the visual check until the player picks a path.
+            cb.checked = false;
+            _showPathPickModal(trigger,
+              function (pathId) {
+                _advancement.marks.earnedChecks[id] = true;
+                _advancement.marks.paths[id] = pathId;
+                var info = _getDestinyInfo(trigger);
+                if (info.chosenMatch) _applyDestinyMatchSideEffect(trigger);
+                _render();
+                _persist();
+              },
+              function () { /* cancelled — leave unchecked */ }
+            );
+            return;
+          }
+          // Single-path or no-path goal: auto-claim.
+          _advancement.marks.earnedChecks[id] = true;
+          if (paths.length === 1) {
+            _advancement.marks.paths[id] = paths[0].id;
+          }
+          var infoNow = _getDestinyInfo(trigger);
+          if (infoNow.chosenMatch) _applyDestinyMatchSideEffect(trigger);
+          _render();
+          _persist();
+        } else {
+          _advancement.marks.earnedChecks[id] = false;
+          if (_advancement.marks.paths[id]) delete _advancement.marks.paths[id];
+          _render();
+          _persist();
+        }
       });
     });
 
@@ -1497,16 +1739,18 @@
     var startMissionBtn = container.querySelector('#adv-start-mission-btn');
     if (startMissionBtn) {
       startMissionBtn.addEventListener('click', function () {
+        // Footprint model: marks earned during this adventure persist for the
+        // ENTIRE adventure — they represent the player's road to a Destiny
+        // Moment, not single-session scratch state. Start Mission only locks
+        // current investments so they can't be undone. earnedChecks and paths
+        // are intentionally preserved (and so is totalBanked, which now stays
+        // at 0 because earnedChecks is the cumulative source of footprint truth
+        // across the whole adventure — see _countEarnedMarks).
         _advancement.missionPhase = 'mission';
         _advancement.disciplineTrack.lockedInvested = _advancement.disciplineTrack.invested || 0;
         _advancement.arenaTrack.lockedInvested = _advancement.arenaTrack.invested || 0;
         _advancement.vocationTrack.lockedInvested = _advancement.vocationTrack.invested || 0;
-        var carry = (_advancement.disciplineTrack.invested || 0)
-                  + (_advancement.arenaTrack.invested || 0)
-                  + (_advancement.vocationTrack.invested || 0);
-        _advancement.marks.totalBanked = carry;
-        _advancement.marks.earnedChecks = {};
-        _persistAdventureMarks();
+        _advancement.marks.totalBanked = 0;
         _persist();
         _render();
       });
@@ -2212,10 +2456,14 @@
     fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId))
       .then(function (r) { return r.json(); })
       .then(function (data) {
+        // Relational table is the source of truth — fully replace the JSON
+        // mirror to avoid stale checks/paths surviving a remote clear.
         _advancement.marks.earnedChecks = {};
-        if (data.ok && data.marks && data.marks.length > 0) {
+        _advancement.marks.paths = {};
+        if (data.ok && Array.isArray(data.marks)) {
           data.marks.forEach(function (m) {
             _advancement.marks.earnedChecks[m.mark_id] = true;
+            if (m.path_id) _advancement.marks.paths[m.mark_id] = m.path_id;
           });
         }
         if (cb) cb();
@@ -2280,6 +2528,23 @@
           _panelVisible = false;
         }
       });
+
+      // Flush any pending debounced save before the page goes away.
+      // visibilitychange fires reliably on tab-away on mobile + desktop;
+      // beforeunload covers full window close. fetch keepalive lets the
+      // request finish even after the document is gone.
+      var _flushIfPending = function () {
+        if (_saveTimeout) {
+          clearTimeout(_saveTimeout);
+          _saveTimeout = null;
+          _flushPersist(true);
+        }
+      };
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') _flushIfPending();
+      });
+      window.addEventListener('pagehide', _flushIfPending);
+      window.addEventListener('beforeunload', _flushIfPending);
 
       var sock = _getSocket();
       if (sock) {

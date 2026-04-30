@@ -284,7 +284,17 @@ router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
       id: m.id,
       label: m.label,
       desc: m.desc,
-      hidden: m.hidden && !revealedSet.has(m.id)
+      hidden: m.hidden && !revealedSet.has(m.id),
+      noHide: !!m.noHide,
+      part: m.part || null,
+      scene: m.scene || null,
+      destinies: Array.isArray(m.destinies) ? m.destinies.slice() : [],
+      paths: Array.isArray(m.paths) ? m.paths.map(p => ({
+        id: p.id,
+        label: p.label,
+        desc: p.desc,
+        destinies: Array.isArray(p.destinies) ? p.destinies.slice() : []
+      })) : []
     }));
     res.json({ ok: true, adventureId: req.params.adventureId, marks: result });
   } catch (err) {
@@ -353,7 +363,7 @@ router.get('/campaign/progress', async (req, res) => {
   }
 });
 
-router.put('/campaign/progress', async (req, res) => {
+router.put('/campaign/progress', _requireGm, async (req, res) => {
   const { adventure_id, part_id, scene_id } = req.body;
   if (!adventure_id || !part_id || !scene_id) {
     return res.status(400).json({ error: 'adventure_id, part_id, and scene_id are required' });
@@ -380,6 +390,28 @@ router.put('/campaign/progress', async (req, res) => {
         scene_id = EXCLUDED.scene_id,
         updated_at = NOW()
     `, [adventure_id, part_id, scene_id]);
+
+    // Auto-reveal any goals tagged to this scene (idempotent).
+    try {
+      const data = loadAdventures();
+      const adv = data.adventures.find(a => a.id === adventure_id);
+      const sceneMarks = (adv && Array.isArray(adv.marks))
+        ? adv.marks.filter(m => m.scene === scene_id)
+        : [];
+      const io = req.app.get('io');
+      for (const m of sceneMarks) {
+        const ins = await pool.query(
+          'INSERT INTO revealed_marks (adventure_id, mark_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING mark_id',
+          [adventure_id, m.id]
+        );
+        if (ins.rowCount > 0 && io) {
+          io.emit('marks:revealed', { adventureId: adventure_id, markId: m.id });
+        }
+      }
+    } catch (revealErr) {
+      console.error('[PUT /campaign/progress] auto-reveal failed (non-fatal):', revealErr.message);
+    }
+
     res.json({ success: true });
   } catch (err) {
     console.error('[PUT /campaign/progress]', err);

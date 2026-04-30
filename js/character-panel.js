@@ -858,6 +858,15 @@
     return true;
   };
 
+  window.CharacterPanel.refillEngine = function () {
+    var max = _engineState.max || 0;
+    if ((_engineState.current || 0) >= max) return false;
+    _engineState.current = max;
+    _refreshEngine();
+    _dispatchStateChanged();
+    return true;
+  };
+
   window.CharacterPanel.refresh = function () {
     _refreshFront();
     _refreshStatus();

@@ -267,7 +267,8 @@ function expandCharacterData(flat) {
   filteredWeaponIds.forEach(id => weaponIds.push(id));
 
   const advancement = flat.advancement || {};
-  if (!advancement.marks) advancement.marks = { earnedChecks: {}, totalBanked: 0 };
+  if (!advancement.marks) advancement.marks = { earnedChecks: {}, totalBanked: 0, paths: {} };
+  if (!advancement.marks.paths) advancement.marks.paths = {};
   if (!advancement.disciplineTrack) advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
   else if (advancement.disciplineTrack.unspentAdvances === undefined) advancement.disciplineTrack.unspentAdvances = 0;
   if (!advancement.arenaTrack) advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0 };
@@ -501,10 +502,22 @@ router.patch('/characters/:id/advancement', async (req, res) => {
     }
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, parseInt(v, 10) || lo));
     const validPhases = ['mission', 'advancement'];
+    const sanitizePaths = (raw) => {
+      if (!raw || typeof raw !== 'object') return {};
+      const out = {};
+      for (const k of Object.keys(raw)) {
+        const v = raw[k];
+        if (typeof k === 'string' && typeof v === 'string' && k.length <= 200 && v.length <= 200) {
+          out[k] = v;
+        }
+      }
+      return out;
+    };
     const sanitized = {
       marks: {
         earnedChecks: (adv.marks && typeof adv.marks.earnedChecks === 'object') ? adv.marks.earnedChecks : {},
-        totalBanked: clamp(adv.marks && adv.marks.totalBanked, 0, 9999)
+        totalBanked: clamp(adv.marks && adv.marks.totalBanked, 0, 9999),
+        paths: sanitizePaths(adv.marks && adv.marks.paths)
       },
       missionPhase: (adv.missionPhase && validPhases.includes(adv.missionPhase)) ? adv.missionPhase : 'mission',
       disciplineTrack: {
@@ -878,7 +891,7 @@ router.get('/characters/:id/adventure-marks/:adventureId', async (req, res) => {
   const { id, adventureId } = req.params;
   try {
     const result = await pool.query(
-      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2',
+      'SELECT mark_id, bucket, path_id, claimed_at FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2',
       [id, adventureId]
     );
     return res.json({ ok: true, marks: result.rows });
@@ -892,13 +905,15 @@ router.get('/characters/:id/adventure-marks-all', async (req, res) => {
   const { id } = req.params;
   try {
     const result = await pool.query(
-      'SELECT adventure_id, mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = $1 ORDER BY adventure_id, claimed_at',
+      'SELECT adventure_id, mark_id, bucket, path_id, claimed_at FROM adventure_marks WHERE character_id = $1 ORDER BY adventure_id, claimed_at',
       [id]
     );
     const grouped = {};
     for (const row of result.rows) {
       if (!grouped[row.adventure_id]) grouped[row.adventure_id] = [];
-      grouped[row.adventure_id].push({ mark_id: row.mark_id, bucket: row.bucket, claimed_at: row.claimed_at });
+      grouped[row.adventure_id].push({
+        mark_id: row.mark_id, bucket: row.bucket, path_id: row.path_id, claimed_at: row.claimed_at
+      });
     }
     return res.json({ ok: true, adventures: grouped });
   } catch (err) {
@@ -911,8 +926,12 @@ router.put('/characters/:id/adventure-marks/:adventureId', async (req, res) => {
   const { id, adventureId } = req.params;
   const { marks } = req.body;
   if (!Array.isArray(marks)) {
-    return res.status(400).json({ error: 'marks must be an array of { mark_id, bucket }.' });
+    return res.status(400).json({ error: 'marks must be an array of { mark_id, bucket, path_id? }.' });
   }
+  // Empty payload IS a legitimate clear (e.g. player un-checks every mark).
+  // History persistence at the campaign level lives in the GM-facing
+  // adventure-marks-all archive, NOT in the per-adventure live row set.
+  // The earnedChecks JSON blob and the relational rows must always agree.
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -920,14 +939,14 @@ router.put('/characters/:id/adventure-marks/:adventureId', async (req, res) => {
     for (const m of marks) {
       if (m.mark_id && m.bucket) {
         await client.query(
-          'INSERT INTO adventure_marks (character_id, adventure_id, mark_id, bucket) VALUES ($1, $2, $3, $4)',
-          [id, adventureId, m.mark_id, m.bucket]
+          'INSERT INTO adventure_marks (character_id, adventure_id, mark_id, bucket, path_id) VALUES ($1, $2, $3, $4, $5)',
+          [id, adventureId, m.mark_id, m.bucket, m.path_id || null]
         );
       }
     }
     await client.query('COMMIT');
     const result = await pool.query(
-      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2',
+      'SELECT mark_id, bucket, path_id, claimed_at FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2',
       [id, adventureId]
     );
     return res.json({ ok: true, marks: result.rows });

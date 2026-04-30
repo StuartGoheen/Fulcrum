@@ -45,7 +45,8 @@
       "id": "adv5_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false
+      "hidden": false,
+      "noHide": true
     }
   ],
   "gearNotes": [

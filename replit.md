@@ -395,8 +395,13 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 **File:** `js/advancement-panel.js`
 
 **Features:**
-- 4-bucket mark earning checklist: The Mission (5 triggers), The Past (3 triggers), The Future (2 triggers), The Mechanics (4 triggers)
-- Running marks total (earned + banked) with "Bank & Reset" button to commit earned marks between adventures
+- Two-bucket mark earning UI ("Footprints on the Road" model): "The Adventure" (per-adventure goals from `data/adventures/advN.json`'s `marks[]` array) + "The Edge" (persistent crew/setting triggers). The legacy "destiny" bucket has been removed. Each adventure goal is a footprint on the player's road toward a campaign-level Destiny Moment.
+- Adventure goals can carry `paths[]` — alternate ways to satisfy the goal, each with its own `destinies[]` list. When a goal is checked: 0/1 paths → auto-claim; 2+ paths → modal asks the player which path they walked (`_showPathPickModal`). Path choice is stored in `_advancement.marks.paths[markId] = pathId`.
+- Destiny match side effect: if the chosen path's `destinies[]` includes the PC's destiny, `_applyDestinyMatchSideEffect` fires — refills The Edge bucket via `window.CharacterPanel.refillEngine()` and shows an `.adv-edge-toast`. Visual: matched goals get a `.adv-trigger-row--ondest` highlight + `.adv-tag--footprint-strong` badge.
+- "Crucible" goals (one per adventure, id `advN_crucible`) carry `noHide: true` so they remain visible in the checklist even when the GM hasn't yet revealed scene-tagged goals via `revealed_marks`.
+- Server auto-reveal: `PUT /campaign/progress` (GM-only via `_requireGm`) inserts goals tagged to the entered scene into `revealed_marks` (idempotent via `INSERT … ON CONFLICT DO NOTHING`) and emits `marks:revealed` to all clients.
+- Footprint persistence: marks earned during an adventure persist for the ENTIRE adventure. "Start Mission" only locks current track investments — it intentionally does NOT clear `earnedChecks` or `paths`. `totalBanked` is held at 0; `_countEarnedMarks()` is the single source of truth for cumulative footprint count across the adventure.
+- Save flush on unload: `init()` registers `visibilitychange`/`pagehide`/`beforeunload` handlers that flush any pending debounced `_persist()` call with `fetch keepalive` so writes survive tab close.
 - All three tracks follow the same core loop: each pip filled with Marks = 1 Advance earned. When all pips filled, track resets to next level.
 - Discipline Track: 5-box pip track, cost = level × 1 Mark/box. Each pip = 1 Advance. Track clear also earns 1 Elite Token. Focus Burn available.
 - Arena Track: 3-box pip track, cost = level × 3 Marks/box. Each pip = 1 Advance.
@@ -413,7 +418,7 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 - Persistence via `PATCH /api/characters/:id/advancement` (tracks) + `PATCH /api/characters/:id/dice` (die changes)
 
 **Data model:** `character_data.advancement` JSON field with:
-- `marks` (earnedChecks map + totalBanked)
+- `marks` (`earnedChecks` map: markId→bool + `paths` map: markId→pathId + `totalBanked` int — held at 0 in the footprint model). Server-side `PATCH /characters/:id/advancement` sanitizes and preserves `marks.paths`. The relational `adventure_marks` table mirrors the JSON state per `(character_id, adventure_id)` and includes a `path_id TEXT` column (idempotent migration). `_loadAdventureMarks()` fully replaces the JSON mirror from the relational source of truth, restoring both checks and paths. `PUT /characters/:id/adventure-marks/:adventureId` accepts an empty payload as a legitimate clear (no defensive guard) — the JSON mirror and relational rows must always agree.
 - `disciplineTrack` (level/filled/eliteTokens/focusBurns/unspentAdvances)
 - `arenaTrack` (level/filled/unspentAdvances)
 - `vocationTrack` (level/filled/unspentAdvances)
