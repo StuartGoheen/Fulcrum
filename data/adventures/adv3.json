@@ -8,50 +8,176 @@
     {
       "id": "adv3_arrival",
       "label": "Cloud City Welcome",
-      "desc": "Arrive on Bespin and establish your cover among the high-rollers and hustlers.",
-      "hidden": false
+      "desc": "Arrive on Bespin and establish your cover among the high-rollers and hustlers. The Wall of Silence is the city's first message to you — push past it.",
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
-      "id": "adv3_sabacc",
-      "label": "The Game Within the Game",
-      "desc": "Enter the Sabacc tournament — the only place Varga's people surface in public. Watch the table for the handoff.",
-      "hidden": false
+      "id": "adv3_industrial_connection",
+      "label": "The Industrial Connection",
+      "desc": "Fyren and Krygg's Ugnaught labor cooperative is one alliance away from running Bespin's industrial floor against Varga — or with you as its founding partner.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "broker_alliance",
+          "label": "Broker the alliance",
+          "desc": "You shifted who answers to whom on Bespin's industrial floor. The Ugnaught Parliament now runs guild ops to your tempo. Fyren and Krygg owe you. So does the foreman over in Refinery Nine. So do the dockmasters on Platform Twelve.",
+          "destinies": ["corruption"]
+        },
+        {
+          "id": "found_partnership",
+          "label": "Found the partnership",
+          "desc": "This is the first lasting relationship that exists because of your hand. Whatever the crew builds later — pirate fleet, rebel cell, sanctuary network — Bespin's Ugnaught Alliance is its first stone. Your name is on the founding document.",
+          "destinies": ["creation"]
+        }
+      ]
+    },
+    {
+      "id": "adv3_refinery_rumble",
+      "label": "The Refinery Rumble",
+      "desc": "Strike Refinery 13. The Imperial Tibanna line, the Indemnity manifest, or the workers' shift — what you break decides what survives.",
+      "part": "p1",
+      "scene": "s3",
+      "value": 1,
+      "paths": [
+        {
+          "id": "hit_refinery",
+          "label": "Hit the refinery clean",
+          "desc": "The Imperial Tibanna pipeline through Refinery 13 is gone. The Empire loses a weapons-grade gas vector for years. You don't get those back without building them again from rock — and the rock isn't on Bespin.",
+          "destinies": ["destruction"]
+        },
+        {
+          "id": "read_manifest",
+          "label": "Read the manifest",
+          "desc": "The Indemnity exists. Three hundred eighty-four souls. Sixty-one children. Bound for Vel Shara on the next outbound rotation. You have a name and a number now — and the slave-circuit boarding band the ship answers to.",
+          "destinies": ["discovery"]
+        },
+        {
+          "id": "break_for_workers",
+          "label": "Break the line for the workers",
+          "desc": "The pipeline broke and the forced-labor rotation broke with it. The crew that comes back to the lower decks tomorrow doesn't come back to the same shift. Krygg's people will sing your name in the Works for years.",
+          "destinies": ["liberation"]
+        }
+      ]
     },
     {
       "id": "adv3_arandis",
       "label": "The Contact",
-      "desc": "Identify the Imperial paymaster (Arandis) and the Hutt's proxy he's transferring to. Not everyone at the table is who they seem.",
-      "hidden": true
+      "desc": "Identify Lt. Arandis, the Imperial paymaster, and the Hutt's proxy he's transferring to. Not everyone at the table is who they seem.",
+      "part": "p1",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["discovery"]
+    },
+    {
+      "id": "adv3_sabacc",
+      "label": "The Game Within the Game",
+      "desc": "Enter the Sabacc tournament — the only place Varga's people surface in public. Watch the table for the handoff. Survive four days of cards under the comm-jamming pin.",
+      "part": "p1",
+      "scene": "s5",
+      "value": 1
     },
     {
       "id": "adv3_intercept",
       "label": "Trace the Proxy",
-      "desc": "Read the handoff, lean on the proxy, and pry Varga's hideout out of her before he gets word and bolts.",
-      "hidden": true
+      "desc": "Read the handoff, lean on the Hapan proxy, and pry Varga's hideout out of her before he gets word and bolts. Recover the 137.12 wafer in the same motion.",
+      "part": "p2",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv3_hangar",
       "label": "Hangar Bay Showdown",
-      "desc": "Fight your way through the hangar as the escape plan falls apart.",
-      "hidden": true
+      "desc": "Fight your way through Varga's hangar as the Glorious Chariot primes for launch. End the Hutt — or end him surgically and walk out with what was inside his skull.",
+      "part": "p3",
+      "scene": "s1",
+      "value": 1,
+      "paths": [
+        {
+          "id": "end_hutt",
+          "label": "End the Hutt",
+          "desc": "Varga dies in his own hangar. The Western Reaches loses its central spider. Three sectors of slave ledgers, smuggling routes, and Imperial contracts go up for grabs by morning, and every one of them is going to be claimed by somebody worse or somebody better.",
+          "destinies": ["destruction"]
+        },
+        {
+          "id": "end_surgically",
+          "label": "End him surgically — recover the implant intact",
+          "desc": "TC-663's Cybot Galactica Model VII comes out clean. The routing data is yours. The Hutt is the price you paid for the data inside his skull, and you walked out of the hangar with the actual prize — not just a kill, but the key to the encrypted account and the Project Leviathan thread that was inside it the whole time.",
+          "destinies": ["discovery"]
+        }
+      ]
     },
     {
       "id": "adv3_orbital",
       "label": "Into the Clouds",
-      "desc": "Survive the orbital pursuit above Bespin. The tibanna gas clouds are your only cover.",
-      "hidden": true
+      "desc": "The skirmish over Bespin. Three lives are in your hands at once — Maya's pinned at the slave ship, the Indemnity's three hundred and eighty-four are about to jump under Imperial helm, and the Star Destroyer's pursuit is closing. You can't save all of them.",
+      "part": "p3",
+      "scene": "s5",
+      "value": 1,
+      "paths": [
+        {
+          "id": "save_maya",
+          "label": "Save Maya",
+          "desc": "She was about to die alone on the slave ship. You broke off and went for her. The road that opened in Adv2 just took its second step — and the Indemnity made the jump to Vel Shara without her, and without you.",
+          "destinies": ["rescue"]
+        },
+        {
+          "id": "save_indemnity",
+          "label": "Save the Indemnity slaves",
+          "desc": "Three hundred eighty-four souls. Sixty-one children. The slave ship that was bound for Vel Shara is now a lifeboat, jumped to Takodana under your helm. You broke a slave operation in flight. Maya paid for it.",
+          "destinies": ["liberation"]
+        },
+        {
+          "id": "press_pursuit",
+          "label": "Press the Imperial pursuit",
+          "desc": "You held the line and turned. You burned three TIEs and bloodied a frigate. The Empire counts the cost in a quarterly report. You count it in the bodies you didn't lose to the chase — and in the two lifeboats you didn't go for.",
+          "destinies": ["destruction"]
+        }
+      ]
     },
     {
       "id": "adv3_choice",
       "label": "The Moral Ledger",
-      "desc": "Make the choice that defines who this crew really is. There's no taking it back.",
-      "hidden": true
+      "desc": "Maz's, Takodana, payout day. Varth opens the encrypted account and asks how you want to be paid. The crew's answer now defines who they are. There's no taking it back.",
+      "part": "p3",
+      "scene": "s6",
+      "value": 1,
+      "paths": [
+        {
+          "id": "take_payout",
+          "label": "Take the payout, walk clean",
+          "desc": "You took the credits. You went home. You're alive. That's the whole accounting.",
+          "destinies": []
+        },
+        {
+          "id": "accept_patron",
+          "label": "Take the payout, accept the patron",
+          "desc": "You're the crew that killed a Hutt and got paid by an admiral. Doors open in the underworld now. Varth has work, and the work has a shape — Crime Lord road, fully visible, fully chosen.",
+          "destinies": ["ascendancy"]
+        },
+        {
+          "id": "renegotiate",
+          "label": "Renegotiate the payout — credits for assets",
+          "desc": "You don't want all your share in credits. You want a slice of Varga's leftover network — his Iron Ring contacts on Takodana, his Tibanna routes, his courier ring. Varth nods. By the time you leave Maz's, Varga's old fixers are sending courier requests to you, not to a dead Hutt.",
+          "destinies": ["creation", "ascendancy"]
+        },
+        {
+          "id": "refuse",
+          "label": "Refuse the payout",
+          "desc": "You give it back. You give it away to Maya, to Denia, to the Indemnity survivors at Maz's — to anyone who isn't you. You will need to find another way to eat. You walk out of Maz's a different person than the one who walked in.",
+          "destinies": ["atonement"]
+        }
+      ]
     },
     {
       "id": "adv3_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],
@@ -6044,7 +6170,7 @@
           "title": "The Choice",
           "subtitle": "End of Act I",
           "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Maya's voice cuts through the static, shaking with relief: \"Slave circuits fried. I have helm control. Jumping to Takodana.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams from the Banshee:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.\n\nYou drop out of hyperspace over Takodana. Green forests and silver lakes fill the viewport below — and hanging in low orbit, engines dark, is the Indemnity. A massive Imperial bulk transport, its hull scarred and ugly, cargo bays built for three hundred bodies in chains. The slave circuits are dark. The running lights are on.\n\nMaya got here first.",
-          "gmNotes": "The aftermath of Act I. The crew arrives at Takodana to find the Indemnity already in orbit — Maya jumped here ahead of them. The bulk transport is too large to land; it sits in low orbit while Maya shuttles freed slaves down to Maz Kanata's castle. Denia is already planetside — she's been recovering at Maz's since the end of Adventure 2. The Banshee is docked at the castle.\n\nWhen the crew lands at Maz's castle, Maya is waiting. She walks straight to Varth and punches him in the jaw. He takes it. 'She made her choice. And you made yours.' Varth doesn't apologize — he never does.\n\nRewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth unlocks the encrypted account and pays the crew their cut.\n\nVarth's pivot: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' He looks at Denia: 'How did the Jedi navigate this part of space?' Denia suggests the Ebon Spire on the forest moon of Endor. Varth nods like he's hearing it for the first time.\n\nThis concludes Act I and sets up the campaign's second act. Takodana — Maz's castle — is the crew's home base.\n\n[OUTCOME B — VARTH RECOLOR.] Under Outcome B (Dirty Money fork won at adv3-p2-s4), Maya never went to the Indemnity on her own — because the Indemnity lead never surfaced. Varth's deception in this scene is recolored: he is not concealing what he allowed to happen to Maya at the slave transport, he is concealing the simpler, drier truth that he was prepared to let it happen if the lead had materialized. Maya is alive and on the Banshee. The moral weight of this scene shifts from \"what Varth let Maya die for\" to \"what Varth was willing to let her die for.\" Same fracture, different evidence in hand.",
+          "gmNotes": "The aftermath of Act I. The crew arrives at Takodana to find the Indemnity already in orbit — Maya jumped here ahead of them. The bulk transport is too large to land; it sits in low orbit while Maya shuttles freed slaves down to Maz Kanata's castle. Denia is already planetside — she's been recovering at Maz's since the end of Adventure 2. The Banshee is docked at the castle.\n\nWhen the crew lands at Maz's castle, Maya is waiting. She walks straight to Varth and punches him in the jaw. He takes it. 'She made her choice. And you made yours.' Varth doesn't apologize — he never does.\n\nRewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth unlocks the encrypted account and pays the crew their cut.\n\nVarth's pivot: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' He looks at Denia: 'How did the Jedi navigate this part of space?' Denia suggests the Ebon Spire on the forest moon of Endor. Varth nods like he's hearing it for the first time.\n\nThis concludes Act I and sets up the campaign's second act. Takodana — Maz's castle — is the crew's home base.\n\n[OUTCOME B — VARTH RECOLOR.] Under Outcome B (Dirty Money fork won at adv3-p2-s4), Maya never went to the Indemnity on her own — because the Indemnity lead never surfaced. Varth's deception in this scene is recolored: he is not concealing what he allowed to happen to Maya at the slave transport, he is concealing the simpler, drier truth that he was prepared to let it happen if the lead had materialized. Maya is alive and on the Banshee. The moral weight of this scene shifts from \"what Varth let Maya die for\" to \"what Varth was willing to let her die for.\" Same fracture, different evidence in hand.\n\n=== VEL SARTHA SEED — ACT-2 AXIS PLANT ===\nSometime during the payout celebration in Maz's common room — after Varth has stepped away for a drink and the crew is sitting with their cut on the table — a quiet woman in a plain dark coat approaches. She gives only the name 'Vel.' She slides a small embossed card across the table (deep crimson, heavy paper, a single inked sigil and nothing else — no comm address, no name) and says, low and conversational, eyes on the cards rather than the crew: 'You wouldn't have come across anything of old Republic provenance on that Hutt's ledger, would you. My patron pays well for that sort of thing, and pays better for discretion.' She leaves the card. She does not wait for an answer. She is gone before Varth comes back.\n\nWHO SHE IS (GM EYES ONLY): Vel Sartha, on Outer Rim assignment for Luthen Rael's antiquities front. The 'patron' is Luthen. The sigil on the card is the Axis recognition mark — the players will not learn this for a long time. Tonight she is sourcing exactly the kind of artifact a fleeing Hutt's encrypted account might quietly contain (Old Republic Jedi material, pre-Empire Coruscanti relics, redirected Imperial archive copies). She is also, secondarily, evaluating the crew — a kill team that took down a Hutt and walked out with the implant intact is exactly the profile Luthen's network looks for.\n\nWHAT THIS SEEDS: This is the first Axis network touchpoint in the campaign. The crew now has the card. Whether they show it to Varth tonight, pocket it, hand it to Maz, or chase it actively is up to them. Subsequent adventures (specifically Adv5 onward, when the crew has a working signal-intelligence picture of the Outer Rim) will give them ways to act on it. If a player asks about old Republic provenance items in Varga's recovered ledger, confirm there are several promising entries — Vel was right to ask. If the crew tries to find Vel that night, she is gone; she is staying on Takodana for two more days and can be found again at Maz's, but she will not give a second word until the crew has something to actually offer.\n\nDO NOT NAME LUTHEN. Do not name the Axis. Do not connect this to the Empire-Rebellion conflict. Vel is just a buyer with a card and a soft accent tonight. The seed is the entire move.",
           "npcs": [
             {
               "name": "Admiral Varth",
@@ -6199,6 +6325,52 @@
                 "notes": "The crew's pilot since the beginning. Went to the Indemnity on her own to free the slaves. Trapped when slave circuits locked. Varth knew she went and said nothing to the crew.",
                 "powerSource": "ranged"
               }
+            },
+            {
+              "name": "Vel Sartha",
+              "type": "Antiquities Buyer (cameo)",
+              "count": 1,
+              "notes": "Mid-thirties, plain dark coat, soft Coruscanti accent worn down by years on the Outer Rim. Approaches the table once, during the payout celebration at Maz's, after the crew has taken their cut and Varth has stepped away for a drink. She does not introduce herself by full name — she gives only 'Vel.' She slides a small embossed card across the table — heavy paper, deep crimson, no writing on the face, only a single inked sigil that no one at the table recognizes. Her one line, low and conversational, eyes on the cards on the table and not on the crew: 'You wouldn't have come across anything of old Republic provenance on that Hutt's ledger, would you. My patron pays well for that sort of thing, and pays better for discretion.' She leaves the card. She does not wait for an answer. She is gone from the common room before Varth comes back.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": null,
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Buyer",
+                  "Coruscanti"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 2,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "controlDie": "d6",
+                  "actions": 1
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Just a Buyer",
+                    "description": "Vel registers as no one — a private antiquities buyer with a soft accent and a card. Insight checks against her surface only that she is calm, she is professional, and she is not from out here. Anything deeper than that is locked behind her cover."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "One-line cameo. No combat. The card and the line are the entire footprint."
+              }
             }
           ],
           "hazards": "Turbolaser fire from the Assiduous. Must jump to hyperspace immediately.",
@@ -6225,6 +6397,8 @@
             "The Indemnity",
             "Project Leviathan",
             "The Glorious Chariot",
+            "Vel Sartha",
+            "Axis Card",
             "End of Act I"
           ],
           "narrativeLinks": [
@@ -6284,6 +6458,10 @@
               {
                 "name": "Varga's Fortune",
                 "note": "Tournament winnings + Varga's liquid assets."
+              },
+              {
+                "name": "Vel's Embossed Card",
+                "note": "Heavy crimson paper, single inked sigil, no comm address. Left at the table by a woman who gave only the name 'Vel.' GM-eyes-only: this is the first Axis network touchpoint — Vel Sartha on assignment for Luthen Rael's antiquities front. Do not name Luthen or Axis to the players. The card is the seed."
               }
             ],
             "narrative": "Act I concludes. The heroes have Varga's fortune, his ship, and critical intelligence. But they also know what Varth is capable of. The campaign shifts from \"survive and profit\" to \"what is the Empire building in the Unknown Regions?\""

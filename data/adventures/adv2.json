@@ -9,49 +9,170 @@
       "id": "adv2_blackwind",
       "label": "The Approach",
       "desc": "Reach Varga's fortress through Blackwind Point. The jungle watches everything.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv2_cover",
       "label": "Wearing the Mask",
-      "desc": "Establish your cover identity inside the encampment. Convince them you belong.",
-      "hidden": false
+      "desc": "Establish your cover identity inside the encampment. Convince them you belong long enough to walk in the front door.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1
+    },
+    {
+      "id": "adv2_filtration_plant",
+      "label": "The Filtration Plant",
+      "desc": "Find Warrick Raden in the abandoned plant. The Devaronian fixer is your way into Varga's court — but only if you decide what he's worth alive.",
+      "part": "p1",
+      "scene": "s3",
+      "value": 1,
+      "paths": [
+        {
+          "id": "let_him_stay",
+          "label": "Let him stay",
+          "desc": "You hold your fire and walk away. He stays buried in the plant. The Empire keeps thinking he's dead, the Hutt keeps not knowing he's alive, and the man you didn't kill owes you a debt he doesn't know how to pay.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "threaten_use",
+          "label": "Threaten and use",
+          "desc": "You squeeze him for what you need and leave him alive in the plant. He hates you, but he gives it up. You walk out with the route into Varga's court and a frightened man at your back.",
+          "destinies": []
+        },
+        {
+          "id": "deliver_to_varga",
+          "label": "Deliver him to Varga",
+          "desc": "You drag him to the fortress and hand him to a Hutt. Varga's enforcement now includes you. The court will remember you for it — and so will whoever loved Raden.",
+          "destinies": ["corruption"]
+        }
+      ]
+    },
+    {
+      "id": "adv2_hit_squad",
+      "label": "The Hit Squad",
+      "desc": "Trandoshans were paid in advance to silence Raden — and anyone standing next to him. Survive the hit squad sent for you both.",
+      "part": "p1",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["destruction"]
     },
     {
       "id": "adv2_court_favor",
       "label": "Currying Favor",
-      "desc": "Navigate the court's politics — gladiators, slavers, and Imperial delegations. Piece together how Varga keeps his secrets.",
-      "hidden": true
+      "desc": "Navigate Varga's court — gladiators, slavers, and Imperial delegations. The court is the hunt; how you play the room decides who notices you and what they remember.",
+      "part": "p1",
+      "scene": "s5",
+      "value": 1,
+      "paths": [
+        {
+          "id": "read_the_room",
+          "label": "Read the room",
+          "desc": "You watch, you listen, you don't make waves. You leave with the intel and nothing else — clean exit, no entanglements.",
+          "destinies": []
+        },
+        {
+          "id": "work_the_contacts",
+          "label": "Work the contacts",
+          "desc": "You make yourself useful to Varga's lieutenants. They mark you as a player worth knowing. Varga's men file your name in the courier ledger — you're on the inside of the underworld now, and there's no quiet way back out.",
+          "destinies": ["corruption"]
+        },
+        {
+          "id": "outshine_the_hutt",
+          "label": "Outshine the Hutt",
+          "desc": "You position yourself as someone the court notices in your own right — not as Varth's contractor, but as a name. The Western Reaches is a small room. Word travels. By the end of the visit, two of Varga's contacts have asked, very quietly, who you really work for.",
+          "destinies": ["ascendancy"]
+        }
+      ]
+    },
+    {
+      "id": "adv2_iron_ring",
+      "label": "The Iron Ring",
+      "desc": "Varga's auction floor. Slaves on the block. Imperial buyers in the gallery. The room is the evidence. Decide what to do with it.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "capture_evidence",
+          "label": "Capture the evidence",
+          "desc": "Recording Rod active. The bidder list, the Imperial buyers, the lot manifest — all of it captured. Varga's ledger now exists outside the throne room. Someone, somewhere, is going to read it.",
+          "destinies": ["discovery"]
+        },
+        {
+          "id": "disrupt_auction",
+          "label": "Disrupt the auction",
+          "desc": "Pull a fire alarm. Jam the cage locks open in the chaos. You won't free anyone for long — Varga's people will round most of them back up by morning. But for one hour the Iron Ring isn't the Iron Ring, and at least a few make it to the jungle.",
+          "destinies": ["liberation"]
+        },
+        {
+          "id": "witness_silence",
+          "label": "Witness in silence",
+          "desc": "You stand in the room. You let it happen. You carry it out with you. The weight is the price; you will spend it later, in the small hours, when no one is watching.",
+          "destinies": ["atonement"]
+        }
+      ]
     },
     {
       "id": "adv2_sinde",
       "label": "The Imperial Shadow",
-      "desc": "Discover Lady Sinde's true identity and what she's really negotiating with Varga.",
-      "hidden": true
-    },
-    {
-      "id": "adv2_denia",
-      "label": "The Prisoner Below",
-      "desc": "Find Denia in the dungeons. Decide what she's worth to you.",
-      "hidden": true
+      "desc": "Discover Lady Sinde's true identity and what she's really negotiating with Varga. The Tibanna trail leads somewhere the Empire would rather you didn't look — into a Project Leviathan archive that wasn't supposed to exist.",
+      "part": "p2",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv2_knife_dark",
       "label": "Knife in the Dark",
-      "desc": "Survive the assassination attempt. Someone wants you dead before dawn.",
-      "hidden": true
+      "desc": "Survive the assassination attempt. Someone wants you dead before dawn — and the courtyard is full of people who'll help them try.",
+      "part": "p2",
+      "scene": "s6",
+      "value": 1,
+      "destinies": ["destruction"]
+    },
+    {
+      "id": "adv2_denia",
+      "label": "The Prisoner Below",
+      "desc": "Find Denia in Varga's dungeons. Your patron told you to leave her. Decide what she's worth.",
+      "part": "p2",
+      "scene": "s7",
+      "value": 1,
+      "paths": [
+        {
+          "id": "free_at_cost",
+          "label": "Free her at cost",
+          "desc": "Open the cell. Carry her out. You don't know it yet, but the road that begins here ends years from now in the canyons of Vel Shara, with a stronghold and a sword and a name that means something to people you have not met. Tonight, just an old woman who can barely walk.",
+          "destinies": ["rescue"]
+        },
+        {
+          "id": "against_orders",
+          "label": "Carry her out anyway, against Varth's orders",
+          "desc": "Your patron told you to leave her. You didn't. The price is your standing with the only handler you've got — and the small, hard fact that you put a person ahead of a contract.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "honor_order",
+          "label": "Honor the order — leave her",
+          "desc": "You did what the boss said. The boss is going to win because people like you do what they're told. The cell stays closed. You will think about that cell again.",
+          "destinies": ["corruption"]
+        }
+      ]
     },
     {
       "id": "adv2_escape",
       "label": "The Burning Bridge",
       "desc": "Get out of the fortress alive. What you leave behind is the price.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s8",
+      "value": 1
     },
     {
       "id": "adv2_crucible",
       "label": "The Crucible",
       "desc": "The assassination attempt shatters everything. Denia, Demos, the implant — it all cascades at once. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],
