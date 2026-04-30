@@ -612,6 +612,46 @@ async function seedNpcProfiles() {
       sort_order: 8
     },
     {
+      npc_key: 'skarn',
+      name: 'Commander Skarn',
+      species: 'Human',
+      role: 'Imperial Mercenary Commander — Warden of the Vanishing Place',
+      portrait_url: '',
+      status: 'deceased',
+      player_bio: 'A heavyset Imperial loyalist running the Vanishing Place black-site on Ajan Kloss as a private contractor — paid in latitude, not credits. Ran the fortress with a crew of mercs in mismatched plate, a four-Stormtrooper dress squad in the SW yard, and Captain Vischera in the Med Bay. Built the place on Klosari land, fenced their water, and supplied his pet doctor with prisoners in exchange for medical care for his wounded. Overconfident — no interior patrols, posts bored, holo-feeds half-watched. Died when the generator fell and the fortress went RED, somewhere in the firefight that followed; the crew may or may not have been the ones to put him down. Either way, he did not walk out.',
+      gm_notes: 'OFF-SCREEN ANTAGONIST. Skarn is the WARDEN — the man whose name makes the fortress make sense — but he is intentionally off-screen for most of Adv 1. Do not have him deliver dialogue. He is the rotten economy behind every room: the Klosari pens (his merchandise), the Med Bay (his trade with Vischera), the Stormtrooper escort (his rented respectability), Varth\'s cell (his contracted holding job for Imperial Intelligence). Players learn his name from the comms intercept and from Mandrake; they meet his work, not him. If a PC pushes for a face-to-face during the fortress fight, GM\'s discretion: stage him in the Command Suite on Level 2 directing the defense by comm, then put him down quickly when the PCs reach him. He is not a duel-the-villain set piece — he is a man whose plan failed and whose people are dying around him. Status: DECEASED by Adv 1 close. Do not return.',
+      traits: JSON.stringify(['Overconfident', 'Pragmatic', 'Paid', 'Cruel by procurement', 'Off-screen']),
+      connections: JSON.stringify([
+        'Captain Vischera — His tame doctor; he supplies Klosari for her cure-research in exchange for medical care for his wounded mercs.',
+        'The Klosari — His merchandise. Pens in the SE wing.',
+        'Admiral Varth — Contracted holding job for Imperial Intelligence; Skarn does not know who Varth really is or why Draco wants him.',
+        'Vazus Mandrake — Did not know Mandrake existed until the night the sluice opened.',
+        'Inquisitor Draco — Skarn answers to whoever pays him; Draco was the next paycheque, scheduled to land at the rooftop pad. They never met.'
+      ]),
+      revealed: false,
+      sort_order: 9
+    },
+    {
+      npc_key: 'ganga-lor',
+      name: 'Ganga Lor',
+      species: 'Chevin',
+      role: 'Varga\'s Local Enforcer — Reestkii Muscle',
+      portrait_url: '',
+      status: 'deceased',
+      player_bio: 'A Chevin two and a half meters tall, low-slung trunk swinging, scarred grey hide showing through the gaps in his armor. Varga the Hutt\'s on-the-ground enforcer in Reestkii — the man Varga sends when a name needs to be crossed off the list. Tracked the crew to Switch\'s sinkhole compound after they pulled Maya off the cantina floor with the code cylinder still in her jacket. Came in through the iris valve with four mercs and a heavy repeating blaster across his chest. Did not walk out.',
+      gm_notes: 'BOSS OF P1-S4 (Switch\'s bunker fight). DOES NOT WALK OUT OF THIS ROOM — whether the killing blow is a PC, a Switch security turret, or a coolant-pipe rupture is the table\'s call, but he does not retreat, surrender, or escape. The campaign needs him off the board (Varga\'s local enforcer is gone, the crew\'s actions have real weight) and the scene needs the body on the floor for the reveal that follows. Voice: cold lieutenant menace, NOT arena-chant. He does not bellow about "Mighty Varga" — he speaks like a man reading from a list. Anchor line: "Varga keeps a list. The girl. The droid. And now you. Nobody comes off the list." Deliver flat. Status: DECEASED by Adv 1 close.',
+      traits: JSON.stringify(['Implacable', 'Cold', 'Methodical', 'Heavy ordnance', 'Off the list']),
+      connections: JSON.stringify([
+        'Varga the Hutt — Direct boss; Reestkii enforcement is Ganga\'s portfolio.',
+        'Maya — On the list (stole the cylinder from Varga\'s supply chain).',
+        'Switch — On the list (fenced and decrypted for the crew).',
+        'The Crew — On the list (collateral by association the moment they sat at her table).',
+        'His four mercs — Hired muscle; flee or fall after he goes down.'
+      ]),
+      revealed: false,
+      sort_order: 10
+    },
+    {
       npc_key: 'vischera',
       name: 'Captain Vischera',
       species: 'Human',
@@ -628,7 +668,7 @@ async function seedNpcProfiles() {
         'The Cure — Six months from a disseminable treatment for an Outer Rim plague that scours civilian populations. Lives in her notation; needs a working bio-lab and someone who reads it.'
       ]),
       revealed: false,
-      sort_order: 9
+      sort_order: 11
     }
   ];
 
@@ -652,6 +692,9 @@ async function seedNpcProfiles() {
     { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s7', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: false },
     { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: false },
     { npc_key: 'mandrake', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s4', event_text: 'Made the deal in the sluice — gave us the way into the Vanishing Place in exchange for taking down the generator.', revealed: false },
+    { npc_key: 'skarn', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s5', event_text: 'The warden of the Vanishing Place. Name on the comms intercept; never on screen. He ran the fortress, fenced the Klosari, supplied Vischera. The crew met his work in every room.', revealed: false },
+    { npc_key: 'skarn', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s8', event_text: 'Died somewhere in the firefight when the generator fell and the fortress went RED. The crew may or may not have been the ones who put him down. Either way, he did not walk out.', revealed: false },
+    { npc_key: 'ganga-lor', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s4', event_text: 'Came through the iris valve at Switch\'s sinkhole compound with four mercs and a heavy repeating blaster. Did not walk out.', revealed: false },
     { npc_key: 'vischera', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s5', event_text: 'Found at her bench in the Med Bay, mid-procedure on a Klosari villager strapped to the surgical table. The two escorts went down. She set her instruments down, raised her hands, and offered the trade — her cure-research data for safe passage off-world. Whatever the crew chose, they chose it themselves, in a quiet room, looking at each other.', revealed: false }
   ];
 

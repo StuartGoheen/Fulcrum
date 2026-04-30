@@ -60,9 +60,9 @@ The heroes are drawn into a cantina confrontation on Jakku, discover a stolen Im
 > 
 > Reestkii squats on the desert flats like something the sand is trying to swallow. Drifters. Smugglers. Moisture farmers with nothing left to farm. Varga the Hutt runs what passes for an economy: debt, protection, and the quiet understanding that Imperial patrols from Arkanis Sector come through maybe twice a standard year... and they never stay.
 > 
-> You stepped off a rust-bucket passenger transport twelve hours ago. All of you. However you found each other, you're a crew now, or close enough to one. You eat together. You watch each other's backs. You argue about whose turn it is to pay for fuel. And right now you're waiting together, which might be the hardest part. A fixer named Cade Ryll put the word out through the spacer lanes: crew needed for a short-haul job, good pay, no questions. He named this cantina. He named a time. That was an hour ago.
+> You stepped off a rust-bucket passenger transport twelve hours ago — together, however you found each other. Maybe you have history. Maybe this is the first day of it. Either way, you're here for the same reason: a fixer named Cade Ryll put the word out through the spacer lanes — crew needed for a short-haul job, good pay, no questions. He named this cantina. He named a time. That was an hour ago.
 > 
-> The Burning Deck. That's what passes for a watering hole at the edge of civilization. The name's painted over whatever it was called before, which was painted over the name before that. Low ceiling. Failing glow-rods. The air thick with the smell of engine coolant and cheap Corellian whiskey. A Devaronian sits alone at the sabacc table in the far alcove, turning a credit chip across his knuckles. Watching everything. Playing nothing. A pair of Abyssin drifters argue in the corner booth over a rusted motivator, their guttural voices carrying even through the cantina noise. A weathered Togruta woman nurses a drink at the bar, her montrals scarred in a way that says ex-military. She hasn't looked up once, but her hand never strays far from her hip. Behind the bar, a nervous Bith wipes the same glass he's been wiping for twenty minutes, his oversized eyes flicking to the door every time the wind rattles the blast shutters.
+> The Burning Deck. Low ceiling. Failing glow-rods. Engine coolant and cheap Corellian whiskey in the air. A Devaronian works a credit chip across his knuckles at the sabacc table — watching, playing nothing. Two Abyssin drifters argue in the corner booth over a rusted motivator. A weathered Togruta woman nurses a drink at the bar, montrals scarred ex-military, hand never far from her hip. Behind the bar, a nervous Bith wipes the same glass he's been wiping for twenty minutes, his eyes flicking to the door every time the wind rattles the blast shutters.
 > 
 > The Burning Deck is quieter than it should be tonight. You noticed it when you docked: a Lambda-class shuttle, sitting on the landing field, flanked by two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason. Fewer faces in the stalls on the walk in. The regulars are nursing their drinks a little harder. Talking a little softer. Something has changed the arithmetic, and nobody knows the new numbers yet.
 > 
@@ -340,7 +340,7 @@ SCENE-LEVEL TACTICAL NOTES (NPC-agnostic — applies to whatever enforcers the G
 > 
 > She looks around the group. Taking her time. Like she's still deciding something.
 > 
-> "There's a droid out in the badlands. Switch. He can crack anything. I need people who can handle themselves." A beat. "You just proved you can."
+> "There's a droid out in the badlands." She swallows — winces; the ribs again. "Switch. He can crack anything. I need people who can handle themselves." A beat. Her eyes flick to the shed's shutter, then back. "You just proved you can."
 > 
 > She holds up one hand, fingers spread.
 > 
@@ -446,9 +446,9 @@ IF THEY REFUSE: Maya goes to Switch alone. The PCs can still learn about Switch 
 > 
 > Inside is a technological cave — wires hang from the ceiling like vines, the floor is a carpet of droid parts and discarded components. Screens flicker with data feeds from across the sector. But in the center of the filth sits a pristine, priceless desk of Japor ivory wood — polished to a mirror shine, completely out of place in this desert hole.
 > 
-> Behind it, a protocol droid who has clearly forgone memory wipes for decades regards you with an unsettling intelligence. His photoreceptors track each of you individually as you enter.
+> Behind it, a protocol droid who has clearly forgone memory wipes for decades regards you with an unsettling intelligence. His photoreceptors track each of you individually as you enter — a faint servo whine each time the optics adjust focus, a tic he has either never bothered to fix or kept on purpose because it makes people nervous.
 > 
-> "Ah. Maya. You brought friends." The droid's vocabulator carries the precise, faintly condescending tone of old Republic diplomatic programming. "How unlike you."
+> "Ah. Maya." The vocabulator hums up to speaking volume a half-second before the words land — old diplomatic programming, precise and faintly condescending. "You brought friends. How unlike you."
 
 *GM pause note: Let the players take in the desert. If anyone wants to scout or investigate the surroundings, this is the moment. Ask: "What do you notice as you walk?" or "Are you watching for anything specific?" Then move to Part 2 when they reach the bunker.*
 
@@ -579,14 +579,14 @@ The cylinder is an Imperial ghost transfer authorization — it can authenticate
 #### Read Aloud
 > The bunker's motion sensors scream. Before you can react, the hatch above explodes inward. Standing in the smoking frame is a massive Chevin — Ganga Lor, Varga the Hutt's lieutenant. His trunk curls with fury as he levels a heavy blaster at the room.
 > 
-> "Nobody steals from the Mighty Varga," he growls, his voice like grinding stone. "Not the girl. Not the droid. And definitely not you."
+> "Varga keeps a list," he growls, his voice like grinding stone. "The girl. The droid. And now you." A wet pause as the trunk repositions. "Nobody comes off the list."
 
 #### GM Notes
 Ganga Lor wants to recover the code cylinder and make an example of everyone involved. Varga wants the cylinder because it could lead someone to Varth before Varga gets to him — Varga needs Varth alive to unlock the encrypted account in his own financial network.
 
 The fight takes place in cramped quarters — use the environment: toppling droid part stacks, shooting steam pipes, activating Switch's security turrets. This is a significant combat — Ganga Lor is a real threat.
 
-GANGA LOR IS KILLED IN THIS FIGHT. This is a mandatory outcome. He does not escape or retreat. His death establishes that the heroes' actions have real consequences and removes Varga's local enforcer from the board.
+GANGA LOR DOES NOT WALK OUT OF THIS ROOM. Whether the killing blow is a PC, Switch's turret, or a coolant-pipe rupture is the table's call — but he does not retreat, surrender, or escape. The campaign needs him off the board (Varga's local enforcer is gone, the heroes' choices have real weight) and the scene needs the body on the floor for the reveal that follows.
 
 After the fight, if the deal with Switch was struck earlier, Switch finishes the cylinder analysis and delivers the ghost transfer authorization reveal. If the analysis was already complete, the fight simply confirms that Varga is actively hunting the cylinder.
 
@@ -1716,7 +1716,7 @@ EXTERIOR PRESSURE: Stormtrooper squad in the SW yard. They do NOT enter unless t
 
 OPTIONAL OBJECTIVE ROOMS:
 • Medical Bay — Vischera at her bench with 2 Skarn escort soldiers. The escorts WILL NOT permit parley — they have orders to keep her on-task and silent, and they'll open fire (or alarm-trip) the moment the door opens uninvited. Vischera is NOT a campaign-intel source — she knows nothing of Draco, Varth, or the wider Imperial picture. Once the escorts are down, the Med Bay becomes the cure-research moral quandary at enc-s8-medbay (six resolution paths). Plan the Med Bay as a fight first, conversation second.
-• Communications Center — 2 mercs at the consoles. The comms intercept that establishes the Draco hard-clock fires here. Once a PC reads the transmission log, the clock starts (3 beats: TIE patrol overhead. 6 beats: Lambda enters atmo. 9 beats: Shadow Troopers deploy early into s8).
+• Communications Center — 2 mercs at the consoles. The comms intercept that establishes the Draco approach-clock fires here. Once a PC reads the transmission log, the LAMBDA APPROACH begins (this is exposure pressure, not a hostile-deploy timer): 3 beats — TIE patrol overhead, fortress goes YELLOW minimum. 6 beats — Lambda enters atmo, engine whine audible from anywhere on Level 2. 9 beats — Lambda on final approach, fortress auto-escalates to RED. Shadow Trooper deployment is then handled by the canonical 4-round dracoClock in vanishing-place-fortress.json (RED Round 4 = touchdown). Do not double-count: the 9-beat clock is the WARNING, the 4-round RED clock is the ARRIVAL.
 • Storage — quiet, occasional restocking traffic; locked blast-rated case worth a Skulduggery beat for gear or credits.
 
 SIGHTLINE WARNING: The Detention Guard Post sees N through the E fence wall of the pens. Anyone working at the generator from the S face is visible. Use the housing as cover or close the sightline first.
@@ -1811,8 +1811,6 @@ ESCAPE ROUTES: Drainage Sluice back the way they came; Turbolift to Level 2 (cut
 
 #### Read Aloud
 > The corridor opens into the assembly hall. Vaulted basalt ceiling, unsupported. The generator squats in the middle of the floor — a repurposed Clone Wars power unit, cables snaking out of it through conduit channels in the stone like arteries. No one is posted on it. No one is in this room at all right now. Through the south fence wall of the pens you can just see two Skarn soldiers in the Detention Guard Post, watching the cells.
-> 
-> This one machine powers the turrets, the laser fences, the mag-locks on every cell, and every sensor in the building. Kill it, and the whole fortress goes blind at once.
 
 #### GM Notes
 THE GENERATOR IS UNGUARDED. Skarn is overconfident — there is no posted detail on the generator itself and no security droid. The risk is NOT a fight at the generator — the risk is BEING SEEN doing the work.
@@ -1826,6 +1824,8 @@ MANDRAKE: The instant the generator dies, Mandrake escalates from harassing fire
 SABOTAGE CASCADE — SINGLE SOURCE OF TRUTH: Sabotage outcome is resolved through the Reactive Fortress widget (Vanishing Place map), NOT through ad-hoc GM memory. When the generator check resolves, open the widget's `Sabotage…` button and pick exactly one outcome: FULL SABOTAGE (Legendary/Masterful) sets all four cascade flags true; PARTIAL SABOTAGE (Fleeting) lets the GM pick exactly 2-of-4 to fire (priority suggestion: fences drop, mag-locks open — turrets and sensors keep watching); FAILED SABOTAGE (check failed OR detection triggered) leaves all flags false. In all three cases tier auto-sets to ORANGE minimum — the whole fortress feels the attempt. P2-S7 and P2-S8 read these flags directly. Do not track a parallel `was_generator_sabotaged` boolean anywhere.
 
 NARRATIVE BRIDGE — TO P2-S7: Branch by sabotage flags. (a) FULL → mag-locks open, turrets cold, Varth's mag-lock pops, the S-corridor pair is the only thing between the PCs and Varth. (b) PARTIAL → GM-chosen mix, typically fences-and-mag-locks for momentum or turrets-and-sensors for stealth. (c) FAILED → mag-locks live, turrets hot, sensors lit; corridor pairs are now actively hunting. This same outcome flexes P2-S8 extraction (rooftop landing if turrets are off vs. hot ground extraction if they aren't).
+
+ON FIRST PC APPROACH/INSPECTION (deliver as a beat, not as opening narration): 'This one machine powers the turrets, the laser fences, the mag-locks on every cell, and every sensor in the building. Kill it, and the whole fortress goes blind at once.' Trigger this when a PC closes to the unit, runs an Assess, or asks what it does. Letting the players notice the cables and ASK is more punchy than front-loading the payoff.
 
 #### Pacing
 - **Opening:** The empty assembly hall. The generator humming alone in the middle of the room.
@@ -1953,6 +1953,10 @@ IMPORTANT: Varth carries nothing physical. His authentication key is memorized �
 SABOTAGE CASCADE — DOWNSTREAM CONSUMPTION (reactive fortress): This scene's conditional behavior is driven by the cascade flags set in P2-S6, NOT by re-asking "was the generator sabotaged?" Read the flags from the Reactive Fortress widget (on the Vanishing Place tactical map) and branch accordingly: mag_locks_open=true → Varth's cell door is already cracked, no slicing check needed, but prisoners in the detention pens are also loose and creating chaos/cover/noise; mag_locks_open=false → slicing/brute-force is still required. laser_fences_dropped=true → the south corridor and detention approach are open ground and the GM should narrate the sudden silence of the fence hum; laser_fences_dropped=false → fences are live, crossing costs Composure or a Tech workaround. sensor_grid_blind=true → stealth approaches do not trigger passive detection this scene; sensor_grid_blind=false → any Hidden-state crew member rolls against passive detection at each corridor. turrets_offline=true → the exterior approach when the crew exfils is a clean lane; turrets_offline=false → exfil will be contested (this is the handoff to P2-S8). Do not invent other flags. If a player does something that should modify a flag mid-scene (e.g., re-sliced the mag-locks, shot out a fence), the GM updates the widget via "Trigger..." or manually toggles flags — the widget remains the single source of truth.
 
 === SCENE NOW STRUCTURED IN 5 BEATS — see beats[] for tactical/narrative breakdown. ===
+
+CONVERSATION TREES TO LAUNCH AFTER THIS SCENE:
+• varth-aftermath.json — runs in P3-S1 beat 1 (Common Room sit-down on the Banshee).
+• varth-debrief.json — runs as 'The First Supper' on night 1 of the Smuggler's Path back to Takodana; this is the operational briefing (Varga, Raden, routing data, cover-as-hired-talent) that sets up Adventure 2.
 
 #### Pacing
 - **Opening:** Blow the door expecting a broken man. Find Varth gambling with his guard.
@@ -2116,9 +2120,7 @@ HAND-OFF — Part 3 scene `adv1-p3-s1` (The Long Way Back Home) is the formal po
 
 MANDRAKE COVERS THE RETREAT: During the extraction, Mandrake and his freed people provide covering fire from the east wing. Mandrake personally covers the heroes' run to the Banshee — laying down suppressive fire, detonating pre-set charges, drawing Shadow Troopers away from the extraction zone.
 
-MANDRAKE'S FATE (DESTINY-GATED): The GM checks the crew's destiny alignment at this point.
-• HOPE-DOMINANT: Mandrake breaks contact successfully. As the Banshee lifts off, the heroes see him disappear into the jungle treeline with his people — a silhouette swallowed by green. He lives. He's free. He could return.
-• TOLL-DOMINANT: Mandrake is covering the last stretch when Draco's Shadow Troopers pin him down. As the Banshee lifts off, the heroes see Draco — a distant dark figure — ignite a red blade. Mandrake doesn't run. The jungle swallows the light. He dies covering their escape. The cost is real.
+MANDRAKE'S FATE (PLAYER-DRIVEN, NOT DESTINY-GATED): Mandrake's outcome is decided at adv1-p2-s8-key-decision — see the four canonical resolutions there (SURVIVED / SACRIFICED / CAPTURED / BETRAYED). Each one has its own fully-written extraction beat, debrief beat, and Adventure 3 hook. The crew's destiny alignment is the GM's TIEBREAKER, not the trigger: when two of the four outcomes are both narratively defensible (Maya's lane is half-clear AND Mandrake is wounded but not down), Hope-leaning crews tilt toward SURVIVED/SACRIFICED and Toll-leaning crews tilt toward CAPTURED/BETRAYED. The conditions on the ground (sabotage state, Maya's lane, the Klosari corridor, Mandrake's wounds, who Draco shoots first) drive most of the decision; destiny only resolves close calls.
 
 EXTRACTION SEQUENCE: The heroes must cross open ground under fire to reach the Banshee. Shadow Troopers flank from the jungle. Skarn's mercenaries are fighting the Imperials but some target the heroes opportunistically. Mandrake's covering fire helps clear the path. Smoke grenades, covering fire, and speed are key.
 
@@ -2159,7 +2161,7 @@ Maya swoops in with the Banshee. If turrets were destroyed (generator sabotaged)
 - **Imperial Walker Approach** — *After 3-4 combat rounds in the fortress* — AT-DP walkers breach the treeline. Heavy weapons fire. The fortress is about to be overrun. — *Mitigation:* Leave NOW. The walkers make escape on foot nearly impossible.
 - **Maya's Conditional Extraction** — *When heroes reach the clearing* — If turrets are down: Maya provides clean strafing pass and lands at the north clearing. If turrets are up: Maya takes heavy fire on approach — Banshee is damaged, extraction is chaotic. — *Mitigation:* Sabotage the generator in Scene 4 to ensure turrets are down. This is the payoff for honoring Mandrake's deal.
 - **Mandrake's Cover Fire** — *During the extraction run* — Mandrake and his freed people provide covering fire from the east wing. Mandrake personally covers the heroes' run to the Banshee. — *Mitigation:* Mandrake's covering fire suppresses Shadow Troopers for 2 rounds, creating a window to reach the ship.
-- **Mandrake's Fate (Destiny-Gated)** — *As the Banshee lifts off* — Hope-dominant crew: Mandrake escapes into the jungle with his people. Toll-dominant crew: Draco cuts Mandrake down as the Banshee lifts off. The heroes witness the outcome. — *Mitigation:* This is not a choice — it's a consequence of the crew's cumulative destiny alignment.
+- **Mandrake's Fate (Player-Driven)** — *As the Banshee lifts off — resolve from adv1-p2-s8-key-decision* — The crew's CHOICE at the key decision (offer to lift him out, hold the LZ, fall back without him, or hand him to Draco) plus conditions on the ground (sabotage state, Maya's lane, Klosari corridor, Mandrake's wounds) drive the outcome. Four canonical results — survived / sacrificed / captured / betrayed — each fully written at adv1-p2-s8-key-decision. Destiny alignment is the GM's TIEBREAKER: Hope-leaning crews tilt toward survived/sacrificed; Toll-leaning crews tilt toward captured/betrayed when two outcomes are both narratively defensible. — *Mitigation:* Use adv1-p2-s8-key-decision as the authoritative resolution. Prior actions (deal kept, generator dropped, Klosari freed) modify how cleanly the chosen outcome lands.
 
 #### Tactical Map
 **Map:** The Vanishing Place — Levels 1 & 2 `(vanishing-place)` — 16 rooms
@@ -2299,11 +2301,11 @@ SHUTTLE EXIT VECTOR: Once aboard the Banshee, Maya breaks atmo. TIE fighters scr
   - The Empire invested military resources to hold Varth
   - Varth's pitch: the money is in Varga's network, need to infiltrate his operation
   - Maya proved herself under fire — she's the crew's pilot
-  - Mandrake's fate determined by crew destiny alignment
+  - Mandrake's fate — survived, sacrificed, captured, or betrayed — set by the crew's choice at the LZ
 - **Connections:**
   - Admiral Gilder Varth (employer — charming, transactional)
   - Maya (pilot, partner — proved her worth under fire and wounded)
-  - Vazus Mandrake (fate determined by destiny alignment — potential Act 3 return if Hope-dominant)
+  - Vazus Mandrake (fate set by the LZ choice — Act 3 return possible if survived or captured)
 
 *Time advance: {"hours":2,"label":"Deal Gone Bad — extraction under fire"}*
 
@@ -2322,7 +2324,7 @@ SHUTTLE EXIT VECTOR: Once aboard the Banshee, Maya breaks atmo. TIE fighters scr
 > 
 > Varth is on the bench seat, his back against the bulkhead, the borrowed jacket someone threw over him still buttoned wrong. He has not spoken since the ramp closed. The dejarik board flickers in the corner, abandoned. The amber overhead light has a slight flicker on the port-side fixture that nobody has fixed yet.
 > 
-> The next two days are yours — eight short jumps with recalculations between each, and no other ships in the void. You can sit with the Admiral while he is still off-script. You can find Maya in the galley between diagnostic passes. You can take stock of what you carried out of that fortress, and what you left behind in it. There is no clock on this scene that the GM has not chosen.
+> The next two days are yours — eight short jumps with recalculations between each, and no other ships in the void. You can sit with the Admiral while he is still off-script. You can find Maya in the galley between diagnostic passes. You can take stock of what you carried out of that fortress, and what you left behind in it.
 
 #### GM Notes
 EPILOGUE SCENE. The fortress is over. This is the reset breath between Adventure 1 and Adventure 2 — the moment the campaign confirms that the people in the Common Room are now a crew. Run as long or as short as the table wants. There is no combat, no roll-gated progression, and no failure state. Every beat below is optional and can be presented as a menu to the players.
@@ -2342,9 +2344,13 @@ DO NOT REDIRECT TO COMBAT. If players try to invent a threat (Imperial pursuit, 
 #### Likely Options / Decision Points
 **How does the crew spend the two days back to civilization?**
 - **Sit with Varth in the Common Room**
+  - Run varth-aftermath conversation tree (beat 1).
 - **Address what happened to Mandrake**
+  - Run beat 2, choosing the variant matching the resolved Mandrake outcome from adv1-p2-s8 (survived, sacrificed, captured, or betrayed).
 - **Find Maya in the galley**
+  - Run maya-banshee-galley conversation tree (beat 3).
 - **Skip ahead — the table is ready for Adventure 2**
+  - Run beat 4 (Drop-Out) and exit to adv2-p1-s1.
 
 #### Rewards & Intel
 - **Intel:**
