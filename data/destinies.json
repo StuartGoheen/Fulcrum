@@ -207,8 +207,8 @@
       "narrativeHook": "This character is haunted by what they have done — or what was done in their name. Whether they face it honestly or bury it violently is the question that defines their path.",
       "trackFullCapacity": {
         "title": "Name a Truth That Lands",
-        "trigger": "Once per campaign, when your Atonement track is full and a scene contains an NPC who has wronged you (or someone you love), name the wrong out loud — specifically, on the record, with no hedge. The NPC must hear it. The narrative honors the truth: the NPC takes a permanent change in standing, alignment, or arc that the GM and table negotiate in the moment.",
-        "description": "The Atonement-walking PC has carried enough debt to earn the right to cash one in. The naming is the mechanism: it is not persuasion, not combat, not deception. It is the truth of what was done, said by the person who paid for the saying. Whatever the NPC was doing in the campaign, they are now doing something different because the truth landed. The capacity is one-shot for the campaign. The track is spent (returns to empty). This is the campaign's loudest single named truth — use it on the moment that has been waiting for it."
+        "trigger": "Once per campaign, when your Atonement track is full, name a truth out loud in a scene — specifically, on the record, with no hedge. The NPC who needs to hear it must be present. They hear it and must reckon with it. They may not believe it. They cannot dismiss it. Whatever the table negotiates as the consequence, the truth has landed and the narrative honors it.",
+        "description": "The Atonement-walking PC has carried enough debt to earn the right to cash one in. The naming is the mechanism: it is not persuasion, not combat, not deception. It is the truth, said by the person who paid for the saying. Use it on the moment that has been waiting for it."
       },
       "imageUrl": "/assets/destiny/atonement.png",
       "marks": [

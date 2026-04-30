@@ -1030,22 +1030,25 @@
     var paths = (char.advancement && char.advancement.marks && char.advancement.marks.paths) || {};
     var advs = char._adventuresForCapacity || [];
     if (!pcDest) { return ctx; }
+    // Track-fill math mirrors advancement footprint payout: a chosen path that matches the
+    // PC's destiny is worth 2 footprints; an unchosen-but-matching top-level mark is worth 1.
     advs.forEach(function (adv) {
       var marks = adv && adv.marks;
       if (!Array.isArray(marks)) return;
       marks.forEach(function (m) {
         var mid = m && m.id;
         if (!mid || !checks[mid]) return;
-        var matched = false;
-        if (Array.isArray(m.destinies) && m.destinies.indexOf(pcDest) !== -1) matched = true;
-        if (!matched && Array.isArray(m.paths)) {
+        var topMatch = Array.isArray(m.destinies) && m.destinies.indexOf(pcDest) !== -1;
+        var chosenMatch = false;
+        if (Array.isArray(m.paths)) {
           var chosenId = paths[mid];
           if (chosenId) {
             var chosen = m.paths.find(function (p) { return p.id === chosenId; });
-            if (chosen && Array.isArray(chosen.destinies) && chosen.destinies.indexOf(pcDest) !== -1) matched = true;
+            if (chosen && Array.isArray(chosen.destinies) && chosen.destinies.indexOf(pcDest) !== -1) chosenMatch = true;
           }
         }
-        if (matched) ctx.matchCount += 1;
+        if (chosenMatch) ctx.matchCount += 2;
+        else if (topMatch) ctx.matchCount += 1;
       });
     });
     ctx.displayCount = Math.max(0, ctx.matchCount - ctx.baseline);
