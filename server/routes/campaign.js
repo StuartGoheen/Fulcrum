@@ -280,6 +280,23 @@ router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
       [req.params.adventureId]
     );
     const revealedSet = new Set(revealed.map(r => r.mark_id));
+    // Build a quick lookup so each mark can carry the human-readable
+    // Part / Scene titles needed by the GM "Goals to Reveal" cockpit.
+    // Marks store their part/scene as short keys (e.g. "p1" / "s2"); the
+    // adventure object holds the full ids ("adv1-p1" / "adv1-p1-s2") plus
+    // titles. We strip the "advN-" prefix when matching.
+    const partMap = {};
+    const sceneMap = {};
+    const stripAdv = (s) => (s || '').replace(/^adv\d+-/, '');
+    for (const part of (adv.parts || [])) {
+      const pKey = stripAdv(part.id);
+      partMap[pKey] = part.title || part.label || pKey;
+      for (const scn of (part.scenes || [])) {
+        const sKey = stripAdv(scn.id);
+        sceneMap[`${pKey}/${sKey.replace(/^.*-/, '')}`] = scn.title || scn.label || sKey;
+        sceneMap[`${pKey}/${stripAdv(scn.id).split('-').pop()}`] = scn.title || scn.label || sKey;
+      }
+    }
     const result = marks.map(m => ({
       id: m.id,
       label: m.label,
@@ -288,6 +305,8 @@ router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
       noHide: !!m.noHide,
       part: m.part || null,
       scene: m.scene || null,
+      part_title: m.part ? (partMap[m.part] || null) : null,
+      scene_title: (m.part && m.scene) ? (sceneMap[`${m.part}/${m.scene}`] || null) : null,
       destinies: Array.isArray(m.destinies) ? m.destinies.slice() : [],
       paths: Array.isArray(m.paths) ? m.paths.map(p => ({
         id: p.id,
@@ -296,7 +315,13 @@ router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
         destinies: Array.isArray(p.destinies) ? p.destinies.slice() : []
       })) : []
     }));
-    res.json({ ok: true, adventureId: req.params.adventureId, marks: result });
+    res.json({
+      ok: true,
+      adventureId: req.params.adventureId,
+      adventureTitle: adv.title || null,
+      act: Number.isFinite(parseInt(adv.act, 10)) ? parseInt(adv.act, 10) : null,
+      marks: result
+    });
   } catch (err) {
     console.error('[marks] Error loading adventure marks:', err);
     res.status(500).json({ error: 'Failed to load adventure marks' });
@@ -304,6 +329,9 @@ router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
 });
 
 router.post('/campaign/adventures/:adventureId/marks/:markId/reveal', async (req, res) => {
+  // GM-only — the cockpit is the only surface that should fire this. In
+  // no-auth dev mode req.userRole is undefined and we fall through.
+  if (req.userRole && req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
   try {
     await pool.query(
       'INSERT INTO revealed_marks (adventure_id, mark_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
@@ -317,6 +345,7 @@ router.post('/campaign/adventures/:adventureId/marks/:markId/reveal', async (req
 });
 
 router.post('/campaign/adventures/:adventureId/marks/:markId/hide', async (req, res) => {
+  if (req.userRole && req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
   try {
     await pool.query(
       'DELETE FROM revealed_marks WHERE adventure_id = $1 AND mark_id = $2',

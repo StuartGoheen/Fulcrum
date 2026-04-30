@@ -19,17 +19,13 @@
           "id": "talk_down",
           "label": "Talk them down",
           "desc": "Stay your hand. The deck doesn't have to burn tonight.",
-          "destinies": [
-            "atonement"
-          ]
+          "destinies": ["atonement"]
         },
         {
           "id": "take_down",
           "label": "Take them down",
           "desc": "Open your blade. End it the way you've ended things before.",
-          "destinies": [
-            "destruction"
-          ]
+          "destinies": ["destruction"]
         }
       ]
     },
@@ -45,27 +41,22 @@
           "id": "cut_deal",
           "label": "Cut his deal",
           "desc": "Run his errands, owe him a favor. The kind that comes due when you can least afford it.",
-          "destinies": [
-            "corruption"
-          ]
+          "destinies": ["corruption"]
         },
         {
           "id": "burn_him",
           "label": "Burn him for it",
           "desc": "Slice him, lean on him, walk out with the answer. You'll have made an enemy of the only fixer in the Western Reaches who was inclined to like you.",
-          "destinies": [
-            "destruction"
-          ]
+          "destinies": ["destruction"]
         },
         {
           "id": "take_network",
           "label": "Take his network",
           "desc": "Leverage what he doesn't want known. By the time you walk out, his fixers, dead-drops, and TC-units don't answer to him anymore. They answer to you.",
-          "destinies": [
-            "ascendancy"
-          ]
+          "destinies": ["ascendancy"]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv1_defend_sinkhole",
@@ -74,9 +65,8 @@
       "part": "p1",
       "scene": "s4",
       "value": 1,
-      "destinies": [
-        "destruction"
-      ]
+      "destinies": ["destruction"],
+      "hidden": true
     },
     {
       "id": "adv1_ghost_machine",
@@ -85,9 +75,8 @@
       "part": "p1",
       "scene": "s5",
       "value": 1,
-      "destinies": [
-        "discovery"
-      ]
+      "destinies": ["discovery"],
+      "hidden": true
     },
     {
       "id": "adv1_green_hell",
@@ -95,7 +84,8 @@
       "desc": "Get through the jungle and reach Mandrake's compound.",
       "part": "p2",
       "scene": "s3",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv1_crash",
@@ -104,9 +94,8 @@
       "part": "p2",
       "scene": "s2",
       "value": 1,
-      "destinies": [
-        "creation"
-      ]
+      "destinies": ["creation"],
+      "hidden": true
     },
     {
       "id": "adv1_vanishing_place",
@@ -114,7 +103,8 @@
       "desc": "Get inside the fortress without lighting it up.",
       "part": "p2",
       "scene": "s5",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv1_wardens_price",
@@ -128,19 +118,16 @@
           "id": "take_deal",
           "label": "Take the deal on his terms",
           "desc": "You shake the hand of a man who lives outside any law and take on his debt as your own. The Klosari walk free on his terms — and yours are tied to his from here on.",
-          "destinies": [
-            "corruption"
-          ]
+          "destinies": ["corruption"]
         },
         {
           "id": "break_him",
           "label": "Break him and take what you came for",
           "desc": "You end the negotiation with a body. The Klosari's only protector dies in the jungle, and the people he was fighting for lose the one outsider who ever stood with them.",
-          "destinies": [
-            "destruction"
-          ]
+          "destinies": ["destruction"]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv1_vischera",
@@ -154,19 +141,16 @@
           "id": "carry_out",
           "label": "Carry her out",
           "desc": "She knows things. She'd rather not. You take the weight of her with you.",
-          "destinies": [
-            "atonement"
-          ]
+          "destinies": ["atonement"]
         },
         {
           "id": "end_her",
           "label": "End her",
           "desc": "Witnesses don't survive your exit. The Empire loses one more interrogator. Your hands carry one more name.",
-          "destinies": [
-            "destruction"
-          ]
+          "destinies": ["destruction"]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv1_generator",
@@ -180,19 +164,16 @@
           "id": "blow_it",
           "label": "Blow it",
           "desc": "The Vanishing Place goes dark. Whatever the Empire kept here is buried under its own walls.",
-          "destinies": [
-            "destruction"
-          ]
+          "destinies": ["destruction"]
         },
         {
           "id": "slice_control",
           "label": "Slice the control room",
           "desc": "The prison rosters, the security manifests, the names the Empire was about to forget. You have them now.",
-          "destinies": [
-            "discovery"
-          ]
+          "destinies": ["discovery"]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv1_free_block",
@@ -206,19 +187,16 @@
           "id": "cover_breakout",
           "label": "Stay and cover the breakout",
           "desc": "You bleed for strangers. The price is yours; the freedom is theirs.",
-          "destinies": [
-            "atonement"
-          ]
+          "destinies": ["atonement"]
         },
         {
           "id": "trip_locks",
           "label": "Trip the locks and run",
           "desc": "You break the cage and let the running do the rest. The first cage you ever opened. It won't be the last.",
-          "destinies": [
-            "liberation"
-          ]
+          "destinies": ["liberation"]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv1_extraction",
@@ -227,9 +205,8 @@
       "part": "p2",
       "scene": "s7",
       "value": 1,
-      "destinies": [
-        "rescue"
-      ]
+      "destinies": ["rescue"],
+      "hidden": true
     },
     {
       "id": "adv1_crucible",
@@ -549,24 +526,15 @@
                     "exploitMod": 0,
                     "notes": "2-4 Standards represent a meaningful encounter for a party."
                   },
-                  "immunities": [
-                    "Shaken",
-                    "Rattled"
-                  ],
+                  "immunities": ["Shaken", "Rattled"],
                   "vulnerabilities": [],
                   "scale": null,
                   "scaleLevel": 1,
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": [
-                  "disciplined",
-                  "fearless"
-                ],
-                "tags": [
-                  "criminal",
-                  "hutt_cartel"
-                ],
+                "traits": ["disciplined", "fearless"],
+                "tags": ["criminal", "hutt_cartel"],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
                   "action": {
@@ -874,9 +842,7 @@
                   "agile",
                   "slippery"
                 ],
-                "tags": [
-                  "mercenary"
-                ],
+                "tags": ["mercenary"],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -1181,14 +1147,8 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": [
-                  "agile",
-                  "follows_the_boss",
-                  "armored_light"
-                ],
-                "tags": [
-                  "mercenary"
-                ],
+                "traits": ["agile", "follows_the_boss", "armored_light"],
+                "tags": ["mercenary"],
                 "roleKit": {
                   "roleName": "Harrier / Martial",
                   "action": {
@@ -1365,14 +1325,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "agile",
-                  "follows_the_boss",
-                  "armored_light"
-                ],
-                "tags": [
-                  "mercenary"
-                ],
+                "traits": ["agile", "follows_the_boss", "armored_light"],
+                "tags": ["mercenary"],
                 "roleKit": {
                   "roleName": "Harrier / Martial",
                   "action": {
@@ -1498,21 +1452,9 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": [
-            "destruction",
-            "rescue"
-          ],
-          "vocationTags": [
-            "voc_gunslinger",
-            "voc_shockboxer",
-            "voc_duelist"
-          ],
-          "disciplineTags": [
-            "athletics",
-            "ranged",
-            "evasion",
-            "survival"
-          ],
+          "destinyTags": ["destruction", "rescue"],
+          "vocationTags": ["voc_gunslinger", "voc_shockboxer", "voc_duelist"],
+          "disciplineTags": ["athletics", "ranged", "evasion", "survival"],
           "gearFlags": [],
           "encounters": [
             {
@@ -1593,17 +1535,8 @@
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "15ft",
-            "columnLabels": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "rowLabels": [
-              1,
-              2,
-              3
-            ],
+            "columnLabels": ["A", "B", "C", "D"],
+            "rowLabels": [1, 2, 3],
             "zones": [
               {
                 "id": "A1",
@@ -1973,25 +1906,15 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": [
-            "rescue",
-            "discovery",
-            "corruption"
-          ],
+          "destinyTags": ["rescue", "discovery", "corruption"],
           "vocationTags": [
             "voc_noble",
             "voc_grifter",
             "voc_investigator",
             "voc_sawbones"
           ],
-          "disciplineTags": [
-            "survival",
-            "investigation",
-            "persuasion"
-          ],
-          "gearFlags": [
-            "medpac"
-          ],
+          "disciplineTags": ["survival", "investigation", "persuasion"],
+          "gearFlags": ["medpac"],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -2015,9 +1938,7 @@
           ],
           "rewards": {
             "credits": 0,
-            "items": [
-              "Imperial Code Cylinder (encrypted)"
-            ],
+            "items": ["Imperial Code Cylinder (encrypted)"],
             "intel": [
               "Maya pulled an Imperial Code Cylinder from Varga the Hutt's supply chain",
               "Cylinder needs a specialist — Switch, a droid hidden in the badlands",
@@ -2103,19 +2024,9 @@
             }
           ],
           "tacticalMap": null,
-          "knackTags": [
-            "debtor",
-            "false-identity",
-            "hutt-marked"
-          ],
-          "speciesTags": [
-            "human",
-            "duros"
-          ],
-          "backgroundTags": [
-            "desert-frontier",
-            "spaceport-crossroads"
-          ],
+          "knackTags": ["debtor", "false-identity", "hutt-marked"],
+          "speciesTags": ["human", "duros"],
+          "backgroundTags": ["desert-frontier", "spaceport-crossroads"],
           "themeTags": [
             "trust",
             "desperation",
@@ -2206,13 +2117,8 @@
                   "presence": 3
                 },
                 "weaponChassis": null,
-                "traits": [
-                  "disciplined"
-                ],
-                "tags": [
-                  "Droid",
-                  "droid"
-                ],
+                "traits": ["disciplined"],
+                "tags": ["Droid", "droid"],
                 "roleKit": {
                   "passive": null,
                   "gambit": null,
@@ -2368,9 +2274,7 @@
                   "agile",
                   "slippery"
                 ],
-                "tags": [
-                  "mercenary"
-                ],
+                "tags": ["mercenary"],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -2487,15 +2391,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2627,15 +2524,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2767,15 +2657,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2907,15 +2790,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -3047,15 +2923,8 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": [
-            "discovery",
-            "corruption"
-          ],
-          "vocationTags": [
-            "voc_noble",
-            "voc_grifter",
-            "voc_investigator"
-          ],
+          "destinyTags": ["discovery", "corruption"],
+          "vocationTags": ["voc_noble", "voc_grifter", "voc_investigator"],
           "disciplineTags": [
             "persuasion",
             "charm",
@@ -3173,12 +3042,7 @@
             "notorious",
             "defector"
           ],
-          "speciesTags": [
-            "keldor",
-            "twilek",
-            "human",
-            "duros"
-          ],
+          "speciesTags": ["keldor", "twilek", "human", "duros"],
           "backgroundTags": [
             "desert-frontier",
             "urban-underworld",
@@ -3464,15 +3328,8 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -3558,15 +3415,11 @@
                     "id": "bantha_rush",
                     "name": "Bantha Rush",
                     "source": "Athletics",
-                    "tags": [
-                      "melee"
-                    ],
+                    "tags": ["melee"],
                     "cost": "-1 Power",
                     "description": "In addition to normal effects, push the target 1 zone. NPC may follow into that zone.",
                     "rider": "Push 1 zone",
-                    "suggestedRoles": [
-                      "threat"
-                    ]
+                    "suggestedRoles": ["threat"]
                   }
                 ],
                 "attacks": [
@@ -3805,11 +3658,7 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": [
-                  "armored_light",
-                  "disciplined",
-                  "follows_the_boss"
-                ],
+                "traits": ["armored_light", "disciplined", "follows_the_boss"],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -3896,16 +3745,11 @@
                     "id": "menacing_strike",
                     "name": "Menacing Strike",
                     "source": "Intimidate",
-                    "tags": [
-                      "melee",
-                      "unarmed"
-                    ],
+                    "tags": ["melee", "unarmed"],
                     "cost": "-1 Power",
                     "description": "In addition to normal effects, target gains [Rattled] Tactical.",
                     "rider": "[Rattled] Tactical",
-                    "suggestedRoles": [
-                      "threat"
-                    ]
+                    "suggestedRoles": ["threat"]
                   }
                 ],
                 "attacks": [
@@ -4099,27 +3943,15 @@
                     "exploitMod": 1,
                     "notes": "An Elite can replace 2-3 Standards and provide a more interesting fight."
                   },
-                  "immunities": [
-                    "Shaken",
-                    "Rattled"
-                  ],
+                  "immunities": ["Shaken", "Rattled"],
                   "vulnerabilities": [],
                   "scale": null,
                   "scaleLevel": 1,
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": [
-                  "disciplined",
-                  "fearless"
-                ],
-                "tags": [
-                  "Droid",
-                  "droid",
-                  "criminal",
-                  "leader",
-                  "informant"
-                ],
+                "traits": ["disciplined", "fearless"],
+                "tags": ["Droid", "droid", "criminal", "leader", "informant"],
                 "roleKit": {
                   "roleName": "Support / Leader",
                   "action": {
@@ -4346,15 +4178,8 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": [
-                  "tough",
-                  "disciplined",
-                  "veteran",
-                  "loyal"
-                ],
-                "tags": [
-                  "Chevin"
-                ],
+                "traits": ["tough", "disciplined", "veteran", "loyal"],
+                "tags": ["Chevin"],
                 "roleKit": {
                   "roleName": "Threat / Leader",
                   "action": {
@@ -4486,15 +4311,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -4626,15 +4444,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -4766,15 +4577,8 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "corruptible",
-                  "transactional"
-                ],
-                "tags": [
-                  "criminal",
-                  "mercenary"
-                ],
+                "traits": ["armored_light", "corruptible", "transactional"],
+                "tags": ["criminal", "mercenary"],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -4906,11 +4710,7 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "disciplined",
-                  "follows_the_boss"
-                ],
+                "traits": ["armored_light", "disciplined", "follows_the_boss"],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5043,11 +4843,7 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "disciplined",
-                  "follows_the_boss"
-                ],
+                "traits": ["armored_light", "disciplined", "follows_the_boss"],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5180,11 +4976,7 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "disciplined",
-                  "follows_the_boss"
-                ],
+                "traits": ["armored_light", "disciplined", "follows_the_boss"],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5317,11 +5109,7 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "disciplined",
-                  "follows_the_boss"
-                ],
+                "traits": ["armored_light", "disciplined", "follows_the_boss"],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5449,9 +5237,7 @@
                   "agile",
                   "slippery"
                 ],
-                "tags": [
-                  "mercenary"
-                ],
+                "tags": ["mercenary"],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -5541,13 +5327,8 @@
             }
           ],
           "challengeType": "combat",
-          "destinyTags": [
-            "destruction"
-          ],
-          "vocationTags": [
-            "voc_gunslinger",
-            "voc_shockboxer"
-          ],
+          "destinyTags": ["destruction"],
+          "vocationTags": ["voc_gunslinger", "voc_shockboxer"],
           "disciplineTags": [
             "athletics",
             "ranged",
@@ -5722,17 +5503,8 @@
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "15ft",
-            "columnLabels": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "rowLabels": [
-              1,
-              2,
-              3
-            ],
+            "columnLabels": ["A", "B", "C", "D"],
+            "rowLabels": [1, 2, 3],
             "zones": [
               {
                 "id": "A1",
@@ -5884,12 +5656,7 @@
             "traumatized",
             "blood-price"
           ],
-          "speciesTags": [
-            "wookiee",
-            "cathar",
-            "zabrak",
-            "rodian"
-          ],
+          "speciesTags": ["wookiee", "cathar", "zabrak", "rodian"],
           "backgroundTags": [
             "urban-underworld",
             "conflict-zone",
@@ -5999,10 +5766,7 @@
                     "legendary": 6
                   }
                 },
-                "traits": [
-                  "armored_light",
-                  "follows_the_boss"
-                ],
+                "traits": ["armored_light", "follows_the_boss"],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -6106,16 +5870,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "disciplined",
-                  "loyal",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "traits": ["disciplined", "loyal", "armored_light"],
+                "tags": ["Imperial", "Military", "imperial"],
                 "roleKit": {
                   "roleName": "Harrier / Leader",
                   "action": {
@@ -6251,16 +6007,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "disciplined",
-                  "loyal",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "traits": ["disciplined", "loyal", "armored_light"],
+                "tags": ["Imperial", "Military", "imperial"],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6404,16 +6152,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "disciplined",
-                  "loyal",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "traits": ["disciplined", "loyal", "armored_light"],
+                "tags": ["Imperial", "Military", "imperial"],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6557,16 +6297,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "disciplined",
-                  "loyal",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "traits": ["disciplined", "loyal", "armored_light"],
+                "tags": ["Imperial", "Military", "imperial"],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -6707,16 +6439,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "disciplined",
-                  "loyal",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "traits": ["disciplined", "loyal", "armored_light"],
+                "tags": ["Imperial", "Military", "imperial"],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6860,16 +6584,8 @@
                     "legendary": 8
                   }
                 },
-                "traits": [
-                  "disciplined",
-                  "loyal",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "traits": ["disciplined", "loyal", "armored_light"],
+                "tags": ["Imperial", "Military", "imperial"],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6991,15 +6707,8 @@
             }
           ],
           "challengeType": "infiltration",
-          "destinyTags": [
-            "rescue",
-            "discovery"
-          ],
-          "vocationTags": [
-            "voc_ghost",
-            "voc_splice",
-            "voc_grifter"
-          ],
+          "destinyTags": ["rescue", "discovery"],
+          "vocationTags": ["voc_ghost", "voc_splice", "voc_grifter"],
           "disciplineTags": [
             "stealth",
             "charm",
@@ -7007,10 +6716,7 @@
             "skulduggery",
             "piloting"
           ],
-          "gearFlags": [
-            "Restricted",
-            "Military"
-          ],
+          "gearFlags": ["Restricted", "Military"],
           "encounters": [
             {
               "id": "enc-s5-infiltration",
@@ -7422,17 +7128,8 @@
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "20ft",
-            "columnLabels": [
-              "A",
-              "B",
-              "C",
-              "D"
-            ],
-            "rowLabels": [
-              1,
-              2,
-              3
-            ],
+            "columnLabels": ["A", "B", "C", "D"],
+            "rowLabels": [1, 2, 3],
             "zones": [
               {
                 "id": "A1",
@@ -7580,12 +7277,7 @@
             "hunted",
             "hutt-marked"
           ],
-          "speciesTags": [
-            "human",
-            "rodian",
-            "togruta",
-            "sullustan"
-          ],
+          "speciesTags": ["human", "rodian", "togruta", "sullustan"],
           "backgroundTags": [
             "spaceport-crossroads",
             "conflict-zone",
@@ -7820,18 +7512,9 @@
             }
           ],
           "challengeType": "technical",
-          "destinyTags": [
-            "discovery"
-          ],
-          "vocationTags": [
-            "voc_ace",
-            "voc_grifter"
-          ],
-          "disciplineTags": [
-            "piloting",
-            "skulduggery",
-            "survival"
-          ],
+          "destinyTags": ["discovery"],
+          "vocationTags": ["voc_ace", "voc_grifter"],
+          "disciplineTags": ["piloting", "skulduggery", "survival"],
           "gearFlags": [],
           "encounters": [
             {
@@ -8038,18 +7721,9 @@
             ],
             "gmTacticalNotes": "NON-COMBAT SCENE: This is a flight-prep / character beat scene aboard the Banshee — gear-buy, route plan, downtime conversations. The map is here so the GM can frame WHERE conversations happen (galley = informal, cockpit = pilot intimacy, captain's cabin = locked door = a question), not because a fight is expected. If combat does happen (e.g. an unannounced boarding), use the Cockpit as the choke-point and the Cargo Bay as the open kill-floor."
           },
-          "knackTags": [
-            "smuggler",
-            "pilot",
-            "drifter"
-          ],
-          "speciesTags": [
-            "human"
-          ],
-          "backgroundTags": [
-            "outer-rim",
-            "spacer-lanes"
-          ],
+          "knackTags": ["smuggler", "pilot", "drifter"],
+          "speciesTags": ["human"],
+          "backgroundTags": ["outer-rim", "spacer-lanes"],
           "themeTags": [
             "smuggling",
             "Imperial military",
@@ -8091,14 +7765,8 @@
                   "presence": 1
                 },
                 "weaponChassis": "heavy",
-                "traits": [
-                  "fortified"
-                ],
-                "tags": [
-                  "Clone Wars",
-                  "Emplacement",
-                  "Defense Grid"
-                ],
+                "traits": ["fortified"],
+                "tags": ["Clone Wars", "Emplacement", "Defense Grid"],
                 "computed": {
                   "power": 4,
                   "defense": 5,
@@ -8216,14 +7884,8 @@
                   "presence": 1
                 },
                 "weaponChassis": "heavy",
-                "traits": [
-                  "fortified"
-                ],
-                "tags": [
-                  "Clone Wars",
-                  "Emplacement",
-                  "Defense Grid"
-                ],
+                "traits": ["fortified"],
+                "tags": ["Clone Wars", "Emplacement", "Defense Grid"],
                 "computed": {
                   "power": 4,
                   "defense": 5,
@@ -8341,14 +8003,8 @@
                   "presence": 1
                 },
                 "weaponChassis": "heavy",
-                "traits": [
-                  "fortified"
-                ],
-                "tags": [
-                  "Clone Wars",
-                  "Emplacement",
-                  "Defense Grid"
-                ],
+                "traits": ["fortified"],
+                "tags": ["Clone Wars", "Emplacement", "Defense Grid"],
                 "computed": {
                   "power": 4,
                   "defense": 5,
@@ -8480,21 +8136,10 @@
             }
           ],
           "challengeType": "survival",
-          "destinyTags": [
-            "creation"
-          ],
-          "vocationTags": [
-            "voc_ace",
-            "voc_mechanic"
-          ],
-          "disciplineTags": [
-            "skulduggery",
-            "survival",
-            "piloting"
-          ],
-          "gearFlags": [
-            "starship_tool_kit"
-          ],
+          "destinyTags": ["creation"],
+          "vocationTags": ["voc_ace", "voc_mechanic"],
+          "disciplineTags": ["skulduggery", "survival", "piloting"],
+          "gearFlags": ["starship_tool_kit"],
           "encounters": [
             {
               "id": "enc-s6-turret-gauntlet",
@@ -8514,9 +8159,7 @@
                         "Defense Turret T2",
                         "Defense Turret T3"
                       ],
-                      "conditions": [
-                        "optimized"
-                      ],
+                      "conditions": ["optimized"],
                       "note": "Coordinated targeting links lock onto the Banshee."
                     }
                   ]
@@ -8531,9 +8174,7 @@
                         "Defense Turret T2",
                         "Defense Turret T3"
                       ],
-                      "conditions": [
-                        "empowered"
-                      ],
+                      "conditions": ["empowered"],
                       "note": "Focus-fire on the starboard engine."
                     }
                   ]
@@ -8695,24 +8336,14 @@
             "blood-price",
             "exile"
           ],
-          "speciesTags": [
-            "wookiee",
-            "rodian",
-            "cathar",
-            "duros",
-            "sullustan"
-          ],
+          "speciesTags": ["wookiee", "rodian", "cathar", "duros", "sullustan"],
           "backgroundTags": [
             "deep-space-freighter",
             "ancient-nexus-world",
             "farming-world",
             "conflict-zone"
           ],
-          "themeTags": [
-            "survival",
-            "isolation",
-            "jungle environment"
-          ],
+          "themeTags": ["survival", "isolation", "jungle environment"],
           "timeAdvance": {
             "hours": 2,
             "label": "Crash + initial survey of the Green Hell"
@@ -8727,11 +8358,7 @@
           "npcs": [],
           "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
           "decisionPoints": [],
-          "loreTags": [
-            "Ajan Kloss",
-            "Klosari",
-            "The Vanishing Place"
-          ],
+          "loreTags": ["Ajan Kloss", "Klosari", "The Vanishing Place"],
           "narrativeLinks": [
             {
               "targetScene": "adv1-p2-s4",
@@ -8739,14 +8366,8 @@
             }
           ],
           "challengeType": "survival",
-          "destinyTags": [
-            "discovery"
-          ],
-          "vocationTags": [
-            "voc_hound",
-            "voc_ghost",
-            "voc_doc"
-          ],
+          "destinyTags": ["discovery"],
+          "vocationTags": ["voc_hound", "voc_ghost", "voc_doc"],
           "disciplineTags": [
             "survival",
             "athletics",
@@ -8754,9 +8375,7 @@
             "investigation",
             "beast_handling"
           ],
-          "gearFlags": [
-            "Environmental"
-          ],
+          "gearFlags": ["Environmental"],
           "encounters": [
             {
               "id": "enc-s3-acid-pools",
@@ -9137,19 +8756,8 @@
             ],
             "gmTacticalNotes": "GROUP CHALLENGE FRAME: This is the Green Hell traverse — a multi-zone group challenge (already in disciplineChallenges/groupChallenge). The map is for the GM to track WHICH zones the party crossed (acid-pool brushes, spore-bloom triggers, ridge recons) and to set up s4. Mandrake is observing from Vine Canopy NW or Dense Jungle East throughout — he reveals himself in s4 once the party has \"earned\" his attention by surviving the trek."
           },
-          "knackTags": [
-            "traumatized",
-            "shadow-stalked",
-            "exile",
-            "witness"
-          ],
-          "speciesTags": [
-            "rodian",
-            "togruta",
-            "cathar",
-            "keldor",
-            "sullustan"
-          ],
+          "knackTags": ["traumatized", "shadow-stalked", "exile", "witness"],
+          "speciesTags": ["rodian", "togruta", "cathar", "keldor", "sullustan"],
           "backgroundTags": [
             "ancient-nexus-world",
             "conflict-zone",
@@ -9201,13 +8809,8 @@
                   "presence": 1
                 },
                 "weaponChassis": "medium",
-                "traits": [
-                  "veteran"
-                ],
-                "tags": [
-                  "Separatist",
-                  "Commando"
-                ],
+                "traits": ["veteran"],
+                "tags": ["Separatist", "Commando"],
                 "roleKit": {
                   "roleName": "Harrier / Force",
                   "action": {
@@ -9294,18 +8897,9 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": [
-            "rescue",
-            "alliance"
-          ],
-          "vocationTags": [
-            "voc_face",
-            "voc_ghost"
-          ],
-          "disciplineTags": [
-            "investigation",
-            "persuasion"
-          ],
+          "destinyTags": ["rescue", "alliance"],
+          "vocationTags": ["voc_face", "voc_ghost"],
+          "disciplineTags": ["investigation", "persuasion"],
           "gearFlags": [],
           "encounters": [
             {
@@ -9468,23 +9062,9 @@
             ],
             "gmTacticalNotes": "CONVERSATION-FIRST SCENE: Mandrake is a Tier 2 Stalker with full home-field advantage. He should NOT be fought — he will fire warning shots, detonate a bloom, and vanish into the canopy. If the PCs accept his deal, the party gets a guide to the drainage sluice (a much easier fortress approach). If the PCs attack and survive, they lose the sluice route and must approach the fortress unguided."
           },
-          "knackTags": [
-            "exile",
-            "witness",
-            "addiction",
-            "shadow-stalked"
-          ],
-          "speciesTags": [
-            "rodian",
-            "togruta",
-            "cathar",
-            "keldor",
-            "sullustan"
-          ],
-          "backgroundTags": [
-            "conflict-zone",
-            "ancient-nexus-world"
-          ],
+          "knackTags": ["exile", "witness", "addiction", "shadow-stalked"],
+          "speciesTags": ["rodian", "togruta", "cathar", "keldor", "sullustan"],
+          "backgroundTags": ["conflict-zone", "ancient-nexus-world"],
           "themeTags": [
             "frontier justice",
             "improbable allies",
@@ -9529,13 +9109,8 @@
                   "presence": 2
                 },
                 "weaponChassis": "light",
-                "traits": [
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Scientist"
-                ],
+                "traits": ["disciplined"],
+                "tags": ["Imperial", "Scientist"],
                 "roleKit": {
                   "roleName": "Controller / Leader",
                   "action": {
@@ -9689,14 +9264,8 @@
                   "presence": 1
                 },
                 "weaponChassis": "medium",
-                "traits": [
-                  "armored_light",
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military"
-                ],
+                "traits": ["armored_light", "disciplined"],
+                "tags": ["Imperial", "Military"],
                 "roleKit": {
                   "roleName": "Anchor / Ranged",
                   "action": {
@@ -9787,15 +9356,8 @@
             }
           ],
           "challengeType": "infiltration",
-          "destinyTags": [
-            "destruction",
-            "rescue"
-          ],
-          "vocationTags": [
-            "voc_ghost",
-            "voc_splice",
-            "voc_investigator"
-          ],
+          "destinyTags": ["destruction", "rescue"],
+          "vocationTags": ["voc_ghost", "voc_splice", "voc_investigator"],
           "disciplineTags": [
             "stealth",
             "skulduggery",
@@ -9803,9 +9365,7 @@
             "evasion",
             "investigation"
           ],
-          "gearFlags": [
-            "Restricted"
-          ],
+          "gearFlags": ["Restricted"],
           "encounters": [
             {
               "id": "enc-s8-sluice",
@@ -9833,9 +9393,7 @@
                   {
                     "key": "path-1-execute",
                     "label": "Execute the unarmed prisoner.",
-                    "destinies": [
-                      "destruction"
-                    ],
+                    "destinies": ["destruction"],
                     "vischeraResponse": "She closes her eyes briefly, then opens them. \"Then you will have to be the one who explains, later, why no one has the cure.\" She does not flinch. She does not look away. She makes the PCs look at her while they do it.",
                     "hopeToll": "EASY TOLL. The campaign should not let this pass uncomplicated. Apply Toll. The PCs killed an unarmed prisoner in cold silence, in a quiet bright room, with no combat adrenaline to hide behind. The cure dies with her unless they took the data first (see path 4). At least one PC who participated takes a Composure hit at scene close. If the crew leans Toll-dominant by Adventure 1's end, this moment is what Draco recalls when he confronts them later in the campaign.",
                     "downstream": "Vischera's research data is on the bench drives. If left, Skarn's people sweep it after extraction. If destroyed, the cure dies. If taken, see path 4 framing for what the data is worth."
@@ -9843,9 +9401,7 @@
                   {
                     "key": "path-2-mandrake-does-it",
                     "label": "Hand her to Mandrake when he arrives.",
-                    "destinies": [
-                      "destruction"
-                    ],
+                    "destinies": ["destruction"],
                     "available": "ONLY if Mandrake is alive AND has entered the building by scene close. Otherwise unavailable.",
                     "vischeraResponse": "Vischera nods once when she sees him. She has been counting too. \"You are the one from the canopy. I am sorry your people made it here before mine made it elsewhere.\" Mandrake does not answer. If the GM is using the recognized-subject lever, his composure breaks here — he goes to the table first, not to her. He kills her quietly when he is done. He does not look at the PCs while he does it.",
                     "hopeToll": "MIXED. The PCs offloaded the choice. Apply a small Toll for the dodge — they let someone else carry it — but no Composure hits, and no campaign-level consequence beyond Mandrake's fate-track tilting harder toward death-by-Draco at extraction (he has nothing left after this). If the recognized-subject lever was used, the Toll is sharper.",
@@ -9854,9 +9410,7 @@
                   {
                     "key": "path-3-take-alive",
                     "label": "Take her alive — drag her off the moon.",
-                    "destinies": [
-                      "atonement"
-                    ],
+                    "destinies": ["atonement"],
                     "vischeraResponse": "She accepts. \"Acceptable. I work better with a roof and a generator than without them.\" She gathers her drives without being told to. She is not grateful and she does not pretend to be.",
                     "hopeToll": "COSTLY HOPE. Apply Hope. The crew chose mercy for someone who does not deserve it on the simple math of what she has done — and they chose the cure on the math of what she could yet do. This is hard. Even without Mandrake or survivors physically present to demand otherwise, the crew knows what they are choosing to leave alive. Composure relief at scene close for any PC who explicitly argued for this path.",
                     "downstream": "Vischera becomes a complication in Adventure 2+. She is a high-value Imperial defector with a working cure six months from completion and zero loyalty to anyone. Where the crew stashes her — Switch's network, the Resurgence, Varga's medical wing, an academic contact she names — becomes its own subplot the GM can run with or set aside. Future task hook only; do not invent that subplot here."
@@ -9864,9 +9418,7 @@
                   {
                     "key": "path-4-take-data-release-her",
                     "label": "Take her research data. Let her walk.",
-                    "destinies": [
-                      "atonement"
-                    ],
+                    "destinies": ["atonement"],
                     "vischeraResponse": "She slides the drives across the bench without comment. \"You will need a working bio-lab and someone who reads my notation. I will write you a name.\" She does. She walks out the back door of the Med Bay if the PCs let her, or waits quietly for Skarn's people to find her if they don't.",
                     "hopeToll": "MIXED HOPE. Apply Hope for preserving the cure; apply a small Toll for letting her walk free to do this somewhere else. The crew chose the work over the worker. Composure neutral.",
                     "downstream": "The data is real and disseminable if the crew can get it to a working lab. The contact name Vischera wrote down is a future hook — she will name a real-canon Outer Rim medical academic the GM can use or ignore. Vischera herself reappears later only if the GM wants her to. If she does, she has set up a smaller, quieter version of this lab somewhere else, with someone else's prisoners."
@@ -9874,9 +9426,7 @@
                   {
                     "key": "path-5-destroy-data-release-her",
                     "label": "Destroy her research data. Let her walk.",
-                    "destinies": [
-                      "destruction"
-                    ],
+                    "destinies": ["destruction"],
                     "vischeraResponse": "She watches the drives burn without expression. When it is done she says, quietly: \"Thousands of people you will never meet just died of this. Slowly. I hope you are able to live with that. I would not be.\" Then she walks out.",
                     "hopeToll": "HARD TOLL. Apply Toll. The crew chose to punish the worker AND destroy the work — the cleanest moral position and the worst utilitarian outcome. The cure dies. Vischera walks. The campaign should remember this: if a cure-relevant plague beat ever surfaces in a later adventure (GM's option), the crew knows what they did. Composure hit for any PC who explicitly argued for destroying the data.",
                     "downstream": "Vischera vanishes into the Outer Rim. She does not start over — the work was a decade in. She drifts into Imperial backwater medicine and never produces anything important again. Her research notes survive only in her head, untrusted by anyone she might tell."
@@ -9884,9 +9434,7 @@
                   {
                     "key": "path-6-step-back-for-survivors",
                     "label": "Step back. Let the freed Klosari decide.",
-                    "destinies": [
-                      "atonement"
-                    ],
+                    "destinies": ["atonement"],
                     "available": "ONLY if the pens have been freed AND Klosari survivors have reached the Med Bay door before the PCs resolve the scene (typically: generator already blown, fences down, survivors flowing through Central Hall). Otherwise unavailable.",
                     "vischeraResponse": "She turns to face them. She does not speak Klosari. She does not need to. They look at her and at the figure on the table. Whatever they do, they do without speeches. The GM decides the outcome based on what the survivors saw of her work; the default is grim.",
                     "hopeToll": "SITUATIONAL. The PCs gave the choice to the people it was actually done to. This is its own kind of weight when it's available. Apply Hope for the act of stepping back, but no Composure relief — the PCs still watched. If the survivors kill her, the data fate depends on whether the PCs grabbed the drives before stepping back. If the survivors spare her (rare), apply additional Hope.",
@@ -10262,13 +9810,7 @@
             "shadow-stalked",
             "hunted"
           ],
-          "speciesTags": [
-            "sullustan",
-            "keldor",
-            "togruta",
-            "rodian",
-            "human"
-          ],
+          "speciesTags": ["sullustan", "keldor", "togruta", "rodian", "human"],
           "backgroundTags": [
             "imperial-detention",
             "conflict-zone",
@@ -10317,11 +9859,7 @@
               ]
             }
           ],
-          "loreTags": [
-            "General Skarn",
-            "Vazus Mandrake",
-            "Clone Wars"
-          ],
+          "loreTags": ["General Skarn", "Vazus Mandrake", "Clone Wars"],
           "narrativeLinks": [
             {
               "targetScene": "adv1-p2-s7",
@@ -10329,25 +9867,10 @@
             }
           ],
           "challengeType": "technical",
-          "destinyTags": [
-            "destruction",
-            "rescue",
-            "alliance"
-          ],
-          "vocationTags": [
-            "voc_splice",
-            "voc_ghost",
-            "voc_engineer"
-          ],
-          "disciplineTags": [
-            "skulduggery",
-            "stealth",
-            "ranged",
-            "athletics"
-          ],
-          "gearFlags": [
-            "Restricted"
-          ],
+          "destinyTags": ["destruction", "rescue", "alliance"],
+          "vocationTags": ["voc_splice", "voc_ghost", "voc_engineer"],
+          "disciplineTags": ["skulduggery", "stealth", "ranged", "athletics"],
+          "gearFlags": ["Restricted"],
           "encounters": [
             {
               "id": "enc-s6-generator-approach",
@@ -10510,21 +10033,10 @@
                 "notes": "Just dropped in through the inner floor grate. The generator is one move action away across the assembly hall. The Detention Guard Post sightline is the immediate concern."
               }
             ],
-            "focalZones": [
-              "central-hall"
-            ]
+            "focalZones": ["central-hall"]
           },
-          "knackTags": [
-            "defector",
-            "exile",
-            "witness",
-            "shadow-stalked"
-          ],
-          "speciesTags": [
-            "sullustan",
-            "keldor",
-            "human"
-          ],
+          "knackTags": ["defector", "exile", "witness", "shadow-stalked"],
+          "speciesTags": ["sullustan", "keldor", "human"],
           "backgroundTags": [
             "conflict-zone",
             "imperial-detention",
@@ -10573,13 +10085,8 @@
                   "presence": 4
                 },
                 "weaponChassis": "light",
-                "traits": [
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Defector"
-                ],
+                "traits": ["disciplined"],
+                "tags": ["Imperial", "Defector"],
                 "roleKit": {
                   "roleName": "Controller / Leader",
                   "action": {
@@ -10669,20 +10176,9 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": [
-            "rescue",
-            "discovery"
-          ],
-          "vocationTags": [
-            "voc_noble",
-            "voc_grifter",
-            "voc_investigator"
-          ],
-          "disciplineTags": [
-            "charm",
-            "investigation",
-            "persuasion"
-          ],
+          "destinyTags": ["rescue", "discovery"],
+          "vocationTags": ["voc_noble", "voc_grifter", "voc_investigator"],
+          "disciplineTags": ["charm", "investigation", "persuasion"],
           "gearFlags": [],
           "encounters": [
             {
@@ -10716,9 +10212,7 @@
           ],
           "rewards": {
             "credits": 0,
-            "items": [
-              "Detention block security codes"
-            ],
+            "items": ["Detention block security codes"],
             "intel": [
               "Varth embezzled from Project Leviathan through Varga's supply chain",
               "The authentication key to his fortune is memorized — no physical storage",
@@ -11055,12 +10549,7 @@
             "witness",
             "false-identity"
           ],
-          "speciesTags": [
-            "twilek",
-            "human",
-            "keldor",
-            "cathar"
-          ],
+          "speciesTags": ["twilek", "human", "keldor", "cathar"],
           "backgroundTags": [
             "imperial-detention",
             "core-world-city",
@@ -11130,7 +10619,7 @@
           "title": "The Deal Gone Bad",
           "subtitle": "Climax",
           "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls across the compound. A shuttle descends through the canopy — sleek, black, unmarked. The ramp drops and a dark figure emerges. Even from a distance, you feel it — a cold pressure in your chest, a wrongness that makes your teeth ache.\n\nInquisitor Draco has arrived.\n\nThe comlink crackles. Maya's voice, tense but steady: \"I see the fireworks. Banshee's patched and in the air. Tell me those turrets are down.\"",
-          "gmNotes": "Three-way firefight: Imperials vs. Warlord vs. Heroes. Draco's shuttle deploys Shadow Troopers to cut off retreat. Maya's extraction is CONDITIONAL on turret status.\n\nCONDITIONAL EXTRACTION: If the generator was sabotaged (turrets down), Maya swoops in clean — strafing run across the Imperial perimeter, then landing at the north clearing for pickup. If the turrets are STILL ACTIVE (heroes skipped the sabotage), Maya takes heavy fire on approach. She still comes — she's not leaving them — but the Banshee takes serious damage and the extraction is far more dangerous. The GM should make the turret-down path feel like a reward for honoring Mandrake's deal.\n\nDRACO: Does NOT engage directly. He is glimpsed from distance — a dark figure, a presence. Force-sensitive characters feel nausea and dread. He is here for Varth but arrives too late. This is a preview, not a confrontation. If the heroes try to fight him, he is unbeatable at this level.\n\nHAND-OFF — Part 3 scene `adv1-p3-s1` (The Long Way Back Home) is the formal post-extraction epilogue and is where the structured conversations `varth-aftermath` and `maya-banshee-galley` live. The end of THIS scene closes on the Banshee jumping to hyperspace; do NOT launch varth-aftermath here. Run it in adv1-p3-s1 in the Common Room — first hour out, before anyone has eaten or slept. The pairing with `varth-debrief` (the polished \"First Supper\" on the SECOND night out). Comfort starts at 2 — the lowest of any Varth scene in the campaign. He is shaken, grateful, and off-script. Story topics about Draco, the cell, or the rescue itself are neutral or hold comfort; business topics about the Takodana job cost 1 comfort each (he is not ready to be the operator tonight); probe topics about what he is holding back cost 2 comfort because the polish is offline to absorb them. The recurring tell is the temple touch (the same temple-tap from First Supper, but overt and pained instead of unconscious). Maya is intentionally OFF-SCREEN in the cockpit — she is giving the crew the room to read Varth alone. Insight check Resist 3 (defenses down); Legendary tier reveals Varth has already begun classifying the crew as 'instrument-grade' for later use — direct foreshadow of the Adv 6 betrayal. Comfort 0 ends the scene with Varth retreating to the refresher; clean exhaustion ends with him lying down. Either ending sets up the First Supper for the next night.\n\nMANDRAKE COVERS THE RETREAT: During the extraction, Mandrake and his freed people provide covering fire from the east wing. Mandrake personally covers the heroes' run to the Banshee — laying down suppressive fire, detonating pre-set charges, drawing Shadow Troopers away from the extraction zone.\n\nMANDRAKE'S FATE (PLAYER-DRIVEN, NOT DESTINY-GATED): Mandrake's outcome is decided at adv1-p2-s8-key-decision — see the four canonical resolutions there (SURVIVED / SACRIFICED / CAPTURED / BETRAYED). Each one has its own fully-written extraction beat, debrief beat, and Adventure 3 hook. The crew's destiny alignment is the GM's TIEBREAKER, not the trigger: when two of the four outcomes are both narratively defensible (Maya's lane is half-clear AND Mandrake is wounded but not down), Hope-leaning crews tilt toward SURVIVED/SACRIFICED and Toll-leaning crews tilt toward CAPTURED/BETRAYED. The conditions on the ground (sabotage state, Maya's lane, the Klosari corridor, Mandrake's wounds, who Draco shoots first) drive most of the decision; destiny only resolves close calls.\n\nEXTRACTION SEQUENCE: The heroes must cross open ground under fire to reach the Banshee. Shadow Troopers flank from the jungle. Skarn's mercenaries are fighting the Imperials but some target the heroes opportunistically. Mandrake's covering fire helps clear the path. Smoke grenades, covering fire, and speed are key.\n\nOnce aboard, Maya punches the engines and breaks atmosphere. Jump to hyperspace before the Star Destroyer can scramble TIEs.\n\nVARTH'S PITCH: In the debrief, Varth lays out the next step: 'The money is locked inside Varga's network. I have the key, but the Hutt moved the account after I was captured. We need to get inside his operation.' This sets up Adventure 2.\n\nSABOTAGE CASCADE — FINAL PAYOFF (reactive fortress): The readAloudVariants above (full_cascade / partial_cascade / failed_cascade) are selected by reading the flags from the Reactive Fortress widget — NOT by narrative memory. Before reading the opening box text, open the widget, check the Active Flags row, and pick the variant whose flag set matches. Per-flag consequences in this scene: turrets_offline=true → Maya's extraction flight path is clean, she lands at the north clearing and the turret emplacements on the walls are dark and dead; turrets_offline=false → Maya takes heavy fire on approach, the Banshee is damaged on extraction, and a contested-extraction complication should be narrated (see the \"CONDITIONAL EXTRACTION\" paragraph above for mechanical detail). laser_fences_dropped=true → Mandrake's people are already moving through the compound (the fences they were trapped behind are down); laser_fences_dropped=false → Mandrake is still trying to reach his people through active fences, creating audio evidence the PCs can hear. mag_locks_open=true → the three-way firefight includes loose prisoners and escaped detainees adding chaos; mag_locks_open=false → detention is still sealed, the firefight stays tighter. sensor_grid_blind is largely resolved by this point (Draco's Shadow Troopers bring their own sensors), but if still true it gives the PCs one free round of positioning before Shadow Troopers fully deploy. The legacy readAloudVariants keys `generatorSabotaged` and `generatorIntact` are retained only for back-compatibility with older viewers — do not add new logic that reads them; route all new conditional branching through the flag set above. When in doubt, the widget's Active Flags row wins.",
+          "gmNotes": "Three-way firefight: Imperials vs. Warlord vs. Heroes. Draco's shuttle deploys Shadow Troopers to cut off retreat. Maya's extraction is CONDITIONAL on turret status.\n\nCONDITIONAL EXTRACTION: If the generator was sabotaged (turrets down), Maya swoops in clean — strafing run across the Imperial perimeter, then landing at the north clearing for pickup. If the turrets are STILL ACTIVE (heroes skipped the sabotage), Maya takes heavy fire on approach. She still comes — she's not leaving them — but the Banshee takes serious damage and the extraction is far more dangerous. The GM should make the turret-down path feel like a reward for honoring Mandrake's deal.\n\nDRACO: Does NOT engage directly. He is glimpsed from distance — a dark figure, a presence. Force-sensitive characters feel nausea and dread. He is here for Varth but arrives too late. This is a preview, not a confrontation. If the heroes try to fight him, he is unbeatable at this level.\n\nHAND-OFF — Part 3 scene `adv1-p3-s1` (The Long Way Back Home) is the formal post-extraction epilogue and is where the structured conversations `varth-aftermath` and `maya-banshee-galley` live. The end of THIS scene closes on the Banshee jumping to hyperspace; do NOT launch varth-aftermath here. Run it in adv1-p3-s1 in the Common Room — first hour out, before anyone has eaten or slept. The pairing with `varth-debrief` (the polished \"First Supper\" on the SECOND night out). Comfort starts at 2 — the lowest of any Varth scene in the campaign. He is shaken, grateful, and off-script. Story topics about Draco, the cell, or the rescue itself are neutral or hold comfort; business topics about the Takodana job cost 1 comfort each (he is not ready to be the operator tonight); probe topics about what he is holding back cost 2 comfort because the polish is offline to absorb them. The recurring tell is the temple touch (the same temple-tap from First Supper, but overt and pained instead of unconscious). Maya is intentionally OFF-SCREEN in the cockpit — she is giving the crew the room to read Varth alone. Insight check Resist 3 (defenses down); Legendary tier reveals Varth has already begun classifying the crew as 'instrument-grade' for later use — direct foreshadow of the Adv 6 betrayal. Comfort 0 ends the scene with Varth retreating to the refresher; clean exhaustion ends with him lying down. Either ending sets up the First Supper for the next night.\n\nMANDRAKE COVERS THE RETREAT: During the extraction, Mandrake and his freed people provide covering fire from the east wing. Mandrake personally covers the heroes' run to the Banshee — laying down suppressive fire, detonating pre-set charges, drawing Shadow Troopers away from the extraction zone.\n\nMANDRAKE'S FATE (PLAYER-DRIVEN, NOT DESTINY-GATED): Mandrake's outcome is decided at adv1-p2-s8-key-decision — see the four canonical resolutions there (SURVIVED / SACRIFICED / CAPTURED / BETRAYED). Each one has its own fully-written extraction beat, debrief beat, and Adventure 3 hook. The crew's destiny alignment is the GM's TIEBREAKER, not the trigger: when two of the four outcomes are both narratively defensible (Maya's lane is half-clear AND Mandrake is wounded but not down), Hope-leaning crews tilt toward SURVIVED/SACRIFICED and Toll-leaning crews tilt toward CAPTURED/BETRAYED. The conditions on the ground (sabotage state, Maya's lane, the Klosari corridor, Mandrake's wounds, who Draco shoots first) drive most of the decision; destiny only resolves close calls.\n\nEXTRACTION SEQUENCE: The heroes must cross open ground under fire to reach the Banshee. Shadow Troopers flank from the jungle. Skarn's mercenaries are fighting the Imperials but some target the heroes opportunistically. Mandrake's covering fire helps clear the path. Smoke grenades, covering fire, and speed are key.\n\nOnce aboard, Maya punches the engines and breaks atmosphere. Jump to hyperspace before the Star Destroyer can scramble TIEs.\n\nVARTH'S PITCH: In the debrief, Varth lays out the next step: 'The money is locked inside Varga's network. I have the key, but the Hutt moved the account after I was captured. We need to get inside his operation.' This sets up Adventure 2.\n\nSABOTAGE CASCADE — FINAL PAYOFF (reactive fortress): The readAloudVariants above (full_cascade / partial_cascade / failed_cascade) are selected by reading the flags from the Reactive Fortress widget — NOT by narrative memory. Before reading the opening box text, open the widget, check the Active Flags row, and pick the variant whose flag set matches. Per-flag consequences in this scene: turrets_offline=true → Maya's extraction flight path is clean, she lands at the north clearing and the turret emplacements on the walls are dark and dead; turrets_offline=false mT� Maya takes heavy fire on approach, the Banshee is damaged on extraction, and a contested-extraction complication should be narrated (see the \"CONDITIONAL EXTRACTION\" paragraph above for mechanical detail). laser_fences_dropped=true → Mandrake's people are already moving through the compound (the fences they were trapped behind are down); laser_fences_dropped=false → Mandrake is still trying to reach his people through active fences, creating audio evidence the PCs can hear. mag_locks_open=true → the three-way firefight includes loose prisoners and escaped detainees adding chaos; mag_locks_open=false → detention is still sealed, the firefight stays tighter. sensor_grid_blind is largely resolved by this point (Draco's Shadow Troopers bring their own sensors), but if still true it gives the PCs one free round of positioning before Shadow Troopers fully deploy. The legacy readAloudVariants keys `generatorSabotaged` and `generatorIntact` are retained only for back-compatibility with older viewers — do not add new logic that reads them; route all new conditional branching through the flag set above. When in doubt, the widget's Active Flags row wins.",
           "npcs": [
             {
               "name": "Inquisitor Valin Draco",
@@ -11153,16 +10642,8 @@
                   "presence": 4
                 },
                 "weaponChassis": "heavy",
-                "traits": [
-                  "force_sensitive",
-                  "fearless",
-                  "armored_light"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Inquisitor",
-                  "Force User"
-                ],
+                "traits": ["force_sensitive", "fearless", "armored_light"],
+                "tags": ["Imperial", "Inquisitor", "Force User"],
                 "roleKit": {
                   "roleName": "Controller / Force",
                   "action": {
@@ -11236,14 +10717,8 @@
                   "presence": 1
                 },
                 "weaponChassis": "medium",
-                "traits": [
-                  "armored_medium"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Elite",
-                  "Stealth"
-                ],
+                "traits": ["armored_medium"],
+                "tags": ["Imperial", "Elite", "Stealth"],
                 "roleKit": {
                   "roleName": "Harrier / Ranged",
                   "action": {
@@ -11535,15 +11010,8 @@
             }
           ],
           "challengeType": "combat",
-          "destinyTags": [
-            "destruction",
-            "rescue"
-          ],
-          "vocationTags": [
-            "voc_gunslinger",
-            "voc_ace",
-            "voc_shockboxer"
-          ],
+          "destinyTags": ["destruction", "rescue"],
+          "vocationTags": ["voc_gunslinger", "voc_ace", "voc_shockboxer"],
           "disciplineTags": [
             "ranged",
             "evasion",
@@ -11552,9 +11020,7 @@
             "survival",
             "athletics"
           ],
-          "gearFlags": [
-            "Military"
-          ],
+          "gearFlags": ["Military"],
           "encounters": [
             {
               "id": "enc-s11-threeway",
@@ -12011,13 +11477,7 @@
             "blood-price",
             "defector"
           ],
-          "speciesTags": [
-            "wookiee",
-            "zabrak",
-            "cathar",
-            "togruta",
-            "rodian"
-          ],
+          "speciesTags": ["wookiee", "zabrak", "cathar", "togruta", "rodian"],
           "backgroundTags": [
             "conflict-zone",
             "deep-space-freighter",
@@ -12169,11 +11629,7 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": [
-            "rescue",
-            "belonging",
-            "truth"
-          ],
+          "destinyTags": ["rescue", "belonging", "truth"],
           "vocationTags": [],
           "disciplineTags": [],
           "gearFlags": [],
@@ -12208,8 +11664,5 @@
       ]
     }
   ],
-  "locations": [
-    "jakku",
-    "ajan-kloss"
-  ]
+  "locations": ["jakku", "ajan-kloss"]
 }

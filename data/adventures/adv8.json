@@ -37,7 +37,8 @@
             "ascendancy"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv8_patrons",
@@ -71,7 +72,8 @@
             "corruption"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv8_captain",
@@ -105,7 +107,8 @@
             "atonement"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv8_load_out",
@@ -113,7 +116,8 @@
       "desc": "Move the cargo, the codes, and the kit aboard. The Banshee stays at Black Spire under Maya's authority.",
       "part": "p1",
       "scene": "s3",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv8_breaking_cordon",
@@ -124,7 +128,8 @@
       "value": 1,
       "destinies": [
         "destruction"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv8_jump",
@@ -132,7 +137,8 @@
       "desc": "Out of the cordon, into deep space. The pirate fleet is yours.",
       "part": "p2",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv8_crucible",

@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
+const npcProfileRoutes = require('../routes/npc-profiles');
 
 // Ship-combat reference data is static — load each JSON file once on first
 // `shipcombat:enter` and cache the parsed objects in memory. Subsequent
@@ -2836,6 +2837,13 @@ function registerHandlers(io) {
             traits, connections, timeline: timelineByNpc[r.npc_key] || []
           };
         });
+        // Hide connection lines that point at NPCs the GM hasn't revealed
+        // yet — otherwise a player joining mid-game can read the entire
+        // hidden roster off everyone else's "Known Connections" list.
+        try {
+          const allNpcNameSet = await npcProfileRoutes.loadNpcNameAlphabet();
+          npcProfileRoutes.filterRevealedProfilesConnections(profiles, allNpcNameSet);
+        } catch (_) {}
         socket.emit('npc:sync', { profiles });
       } catch (err) {
         console.error('[socket] npc:request-sync error:', err);
@@ -2859,13 +2867,18 @@ function registerHandlers(io) {
           id: t.id, adventure_ref: t.adventure_ref, scene_ref: t.scene_ref,
           event_text: t.event_text, created_at: t.created_at
         }));
-        io.to('players').emit('npc:updated', {
-          profile: {
-            npc_key: r.npc_key, name: r.name, species: r.species, role: r.role,
-            portrait_url: r.portrait_url, status: r.status, player_bio: r.player_bio,
-            traits, connections, timeline
-          }
-        });
+        // Apply the same connection-visibility filter so a fresh push
+        // doesn't replace an already-filtered card with an unfiltered one.
+        const profile = {
+          npc_key: r.npc_key, name: r.name, species: r.species, role: r.role,
+          portrait_url: r.portrait_url, status: r.status, player_bio: r.player_bio,
+          traits, connections, timeline
+        };
+        try {
+          const allNpcNameSet = await npcProfileRoutes.loadNpcNameAlphabet();
+          npcProfileRoutes.filterRevealedProfilesConnections([profile], allNpcNameSet);
+        } catch (_) {}
+        io.to('players').emit('npc:updated', { profile });
         console.log('[socket] GM pushed NPC update: ' + npc_key);
       } catch (err) {
         console.error('[socket] npc:push-update error:', err);

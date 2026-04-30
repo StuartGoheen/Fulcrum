@@ -19,7 +19,8 @@
       "desc": "Infiltrate Tarkin's Citadel — the seat of power for the entire Outer Rim.",
       "part": "p1",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv6_glass_bridge",
@@ -30,7 +31,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv6_data_center",
@@ -41,7 +43,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv6_corridor_walk",
@@ -52,7 +55,8 @@
       "value": 1,
       "destinies": [
         "ascendancy"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv6_apprentice",
@@ -78,7 +82,8 @@
             "corruption"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv6_acid_rain",
@@ -86,7 +91,8 @@
       "desc": "Escape through Eriadu's industrial acid rain. The planet itself is hostile.",
       "part": "p3",
       "scene": "s1",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv6_luthen_whisper",
@@ -97,7 +103,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv6_crucible",

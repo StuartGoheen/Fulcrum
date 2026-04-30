@@ -89,6 +89,16 @@
   var _allKitsData = null;
   var _adventureMarksData = null;
   var _currentAdventureId = 'adv1';
+  // Act number of the active adventure — populated by the marks endpoint.
+  // Drives Linked Destiny share-target lookups for the "Shares to" badge.
+  var _currentAdventureAct = null;
+  // Lightweight party roster cache (id, name, personalDestiny) used by the
+  // "Shares to: <Name>" badge and the GM "Goals to Reveal" cockpit. Loaded
+  // once per panel mount and refreshed when the GM toggles a Linked Destiny
+  // partner via the floating Destiny Link panel.
+  var _partyCache = [];
+  // Goals-to-Reveal cockpit collapse state (GM only).
+  var _gtrCollapsed = false;
   // Linked Destiny: while a Field Report is awaiting GM approval, we lock the
   // advancement panel and show an overlay. The pending-tier bump is held so the
   // approval handler can pop the Hero Tier celebration after the GM lets the
@@ -1032,6 +1042,82 @@
     return _advancement && _advancement.missionPhase === 'advancement';
   }
 
+  // Returns the partner's display name if the current PC has a Linked Destiny
+  // partner set for the active Act, else null. Used by the "Shares to" badge
+  // on destiny-tagged goal rows.
+  function _getLinkedPartnerName() {
+    if (!_advancement || !_currentAdventureAct) return null;
+    var lp = _advancement.linkedPartners || {};
+    var pid = lp[String(_currentAdventureAct)];
+    if (!pid) return null;
+    var pidNum = parseInt(pid, 10);
+    var match = (_partyCache || []).find(function (c) { return parseInt(c.id, 10) === pidNum; });
+    return match ? match.name : null;
+  }
+
+  // GM cockpit shown at the top of the Advancement Engine. Lists every
+  // adventure goal that is still hidden, grouped by Part / Scene with a
+  // one-click reveal button. Hidden in player view; collapsible in GM view.
+  // Empty state is a quiet "all goals revealed" line so the cockpit doesn't
+  // take real estate when there's nothing to do.
+  function _buildGoalsToRevealCockpit() {
+    if (!_isGmView) return '';
+    var marks = _adventureMarksData || [];
+    var hidden = marks.filter(function (m) { return m.hidden && !m.noHide; });
+    var totalGoals = marks.length;
+    var revealedCount = totalGoals - hidden.length;
+    var chevron = _gtrCollapsed ? '\u25B8' : '\u25BE';
+    var html = '<div class="adv-gtr-cockpit" data-gtr-collapsed="' + (_gtrCollapsed ? '1' : '0') + '">';
+    html += '<div class="adv-gtr-header" id="adv-gtr-toggle">';
+    html += '<span class="adv-gtr-chevron">' + chevron + '</span>';
+    html += '<span class="adv-gtr-title">GM Cockpit \u2014 Goals to Reveal</span>';
+    html += '<span class="adv-gtr-count">' + revealedCount + '/' + totalGoals + ' revealed</span>';
+    html += '</div>';
+    if (!_gtrCollapsed) {
+      if (!hidden.length) {
+        html += '<div class="adv-gtr-empty">All adventure goals are revealed. Reveal new ones from the checklist below as scenes unfold.</div>';
+      } else {
+        // Group by part_title (fallback to part code), preserving JSON order.
+        var groups = [];
+        var groupIdx = {};
+        hidden.forEach(function (m) {
+          var key = m.part || '_';
+          if (groupIdx[key] === undefined) {
+            groupIdx[key] = groups.length;
+            groups.push({
+              key: key,
+              title: m.part_title || ('Part ' + (m.part || '?')),
+              items: []
+            });
+          }
+          groups[groupIdx[key]].items.push(m);
+        });
+        html += '<div class="adv-gtr-help">Reveal goals as players uncover narrative breaches. Each reveal pushes live to player panels.</div>';
+        html += '<div class="adv-gtr-groups">';
+        groups.forEach(function (g) {
+          html += '<div class="adv-gtr-group">';
+          html += '<div class="adv-gtr-group-title">' + _esc(g.title) + '</div>';
+          g.items.forEach(function (m) {
+            var sceneLine = m.scene_title ? _esc(m.scene_title) : (m.scene ? _esc(m.scene) : '');
+            html += '<div class="adv-gtr-row">';
+            html += '<div class="adv-gtr-row-info">';
+            html += '<span class="adv-gtr-row-label">' + _esc(m.label) + '</span>';
+            if (sceneLine) html += '<span class="adv-gtr-row-scene">' + sceneLine + '</span>';
+            if (m.desc) html += '<span class="adv-gtr-row-desc">' + _esc(m.desc) + '</span>';
+            html += '</div>';
+            html += '<button class="adv-btn adv-btn--reveal adv-gtr-row-btn" data-gtr-reveal-mark="' +
+              _esc(m.id) + '" data-gtr-reveal-adv="' + _esc(_currentAdventureId) + '">Reveal</button>';
+            html += '</div>';
+          });
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
   function _buildMarkChecklist() {
     var checks = (_advancement && _advancement.marks) ? (_advancement.marks.earnedChecks || {}) : {};
     var buckets = _getMarkBuckets();
@@ -1073,6 +1159,17 @@
             if (isAdv && info.anyMatch) {
               destinyTag = '<span class="adv-tag adv-tag--destiny" title="A footprint on your destiny road. If you choose this path it counts as 2 footprints and refills your Edge.">\u2605 ON YOUR ROAD</span>';
             }
+            // Shares-to badge — when a goal is on the PC's destiny road AND
+            // the GM has set a Linked Destiny partner for the active Act,
+            // tell the table that closing this goal will share the bonus to
+            // that partner. No badge if no partner set (default Unlinked).
+            var sharesTag = '';
+            if (isAdv && info.anyMatch) {
+              var partnerName = _getLinkedPartnerName();
+              if (partnerName) {
+                sharesTag = '<span class="adv-tag adv-tag--shares" title="Linked Destiny: completing this on your destiny path also grants advancement to your linked partner.">Shares to: ' + _esc(partnerName) + '</span>';
+              }
+            }
             // Footprint payout badge — show the actual landed payout when checked.
             var footprintTag = '';
             if (isAdv && isChecked) {
@@ -1092,7 +1189,7 @@
             html += '<label class="adv-trigger-row' + hiddenClass + (info.anyMatch && isAdv ? ' adv-trigger-row--ondest' : '') + '">';
             html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '" data-bucket="' + _esc(bucket.key) + '"' + checked + ' />';
             html += '<div class="adv-trigger-info">';
-            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + hiddenTag + destinyTag + footprintTag + '</span>';
+            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + hiddenTag + destinyTag + sharesTag + footprintTag + '</span>';
             html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
             if (chosenPathLine) html += chosenPathLine;
             if (_isGmView && isAdv && t.hidden) {
@@ -1620,6 +1717,7 @@
     }
     html += '</div>';
 
+    html += _buildGoalsToRevealCockpit();
     html += _buildLedger();
 
     var totalInvested = discInv + arenaInv + vocInv;
@@ -1932,7 +2030,50 @@
       });
     });
 
-    var revealBtns = container.querySelectorAll('.adv-btn--reveal');
+    // Goals-to-Reveal cockpit collapse toggle.
+    var gtrToggle = container.querySelector('#adv-gtr-toggle');
+    if (gtrToggle) {
+      gtrToggle.addEventListener('click', function () {
+        _gtrCollapsed = !_gtrCollapsed;
+        _render();
+      });
+    }
+
+    // Cockpit reveal buttons share the same endpoint as the per-row reveal
+    // buttons in the checklist below, so a single broadcast keeps everyone
+    // in sync via the marks:revealed socket event.
+    var gtrRevealBtns = container.querySelectorAll('[data-gtr-reveal-mark]');
+    gtrRevealBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var markId = btn.getAttribute('data-gtr-reveal-mark');
+        var advId = btn.getAttribute('data-gtr-reveal-adv');
+        btn.disabled = true;
+        btn.textContent = 'Revealing\u2026';
+        fetch('/api/campaign/adventures/' + encodeURIComponent(advId) + '/marks/' + encodeURIComponent(markId) + '/reveal', { method: 'POST' })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Reveal failed: ' + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            if (!data.ok) throw new Error('Reveal rejected');
+            var sock = _getSocket();
+            if (sock) sock.emit('marks:reveal', { adventureId: advId, markId: markId });
+            if (_adventureMarksData) {
+              _adventureMarksData.forEach(function (m) { if (m.id === markId) m.hidden = false; });
+            }
+            _render();
+          })
+          .catch(function (err) {
+            console.error('[AdvancementPanel] GTR Reveal error:', err);
+            btn.disabled = false;
+            btn.textContent = 'Reveal';
+          });
+      });
+    });
+
+    var revealBtns = container.querySelectorAll('.adv-btn--reveal:not([data-gtr-reveal-mark])');
     revealBtns.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
@@ -2608,6 +2749,8 @@
         } else {
           _adventureMarksData = [];
         }
+        // Capture the Act number too (Linked Destiny share lookups need it).
+        if (data && Number.isFinite(data.act)) _currentAdventureAct = data.act;
         if (cb) cb();
       })
       .catch(function (err) {
@@ -2615,6 +2758,19 @@
         _adventureMarksData = [];
         if (cb) cb();
       });
+  }
+
+  // Roster snapshot used for Linked Destiny partner-name lookups (Shares-to
+  // badge) and to power the GM "Goals to Reveal" cockpit. Strict cache —
+  // refreshed only on init or when a destiny link save fires.
+  function _loadPartyCache(cb) {
+    fetch('/api/characters')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _partyCache = (data && Array.isArray(data.characters)) ? data.characters : [];
+        if (cb) cb();
+      })
+      .catch(function () { _partyCache = []; if (cb) cb(); });
   }
 
   function _loadAdventureMarks(cb) {
@@ -2656,7 +2812,7 @@
       }
 
       var loaded = 0;
-      var totalLoads = 5;
+      var totalLoads = 6;
       function onLoaded() {
         loaded++;
         if (loaded >= totalLoads) {
@@ -2668,6 +2824,7 @@
 
       _loadDestinyData(onLoaded);
       _loadKitsData(onLoaded);
+      _loadPartyCache(onLoaded);
       _loadCampaignProgress(function () {
         _loadAdventureMarksData(onLoaded);
         _loadAdventureMarks(onLoaded);

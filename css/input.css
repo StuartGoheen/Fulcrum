@@ -10441,6 +10441,103 @@
     color: #f5c542;
     border: 1px solid color-mix(in srgb, #f5c542 50%, transparent);
   }
+  .adv-tag--shares {
+    background: color-mix(in srgb, #6ec1e4 16%, transparent);
+    color: #9fd6ee;
+    border: 1px solid color-mix(in srgb, #6ec1e4 45%, transparent);
+  }
+
+  /* GM "Goals to Reveal" cockpit at the top of the Advancement Engine. */
+  .adv-gtr-cockpit {
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
+    border-radius: 4px;
+    margin: 8px 0 12px;
+    background: color-mix(in srgb, var(--color-accent-primary) 5%, rgba(0,0,0,0.35));
+  }
+  .adv-gtr-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent-primary) 18%, transparent);
+    user-select: none;
+  }
+  .adv-gtr-cockpit[data-gtr-collapsed="1"] .adv-gtr-header {
+    border-bottom: none;
+  }
+  .adv-gtr-chevron { color: var(--color-accent-primary); font-size: 0.8rem; }
+  .adv-gtr-title {
+    flex: 1;
+    font-weight: 700;
+    color: var(--color-accent-primary);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .adv-gtr-count {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+  }
+  .adv-gtr-empty {
+    padding: 10px 12px;
+    font-size: 0.72rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+  .adv-gtr-help {
+    padding: 8px 12px 4px;
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+  .adv-gtr-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 4px 10px 10px;
+  }
+  .adv-gtr-group { display: flex; flex-direction: column; gap: 4px; }
+  .adv-gtr-group-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-accent-primary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 0 2px;
+    border-bottom: 1px dashed color-mix(in srgb, var(--color-accent-primary) 25%, transparent);
+  }
+  .adv-gtr-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 6px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.25);
+  }
+  .adv-gtr-row + .adv-gtr-row { margin-top: 2px; }
+  .adv-gtr-row-info { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .adv-gtr-row-label {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--color-text-primary);
+  }
+  .adv-gtr-row-scene {
+    font-size: 0.65rem;
+    color: var(--color-accent-primary);
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .adv-gtr-row-desc {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    line-height: 1.35;
+  }
+  .adv-gtr-row-btn {
+    flex-shrink: 0;
+    align-self: center;
+  }
   .adv-trigger-row--hidden {
     opacity: 0.55;
     border-left: 2px solid #ff6b35;

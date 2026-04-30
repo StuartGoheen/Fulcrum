@@ -388,6 +388,33 @@ async function initSchema() {
         );
       }
     } catch (e) {}
+    // ── DP profile reveal cleanup (one-shot, Task #244) ───────────────────
+    // Earlier seeds shipped Maya, Admiral Varth, and Varga the Hutt with
+    // revealed=true. After a Full Campaign Reset they reseed as revealed,
+    // which leaks Varth's role and Varga before the cantina scene plays.
+    // The seed default is now revealed=false; this migration retroactively
+    // flips those three rows back to hidden. Idempotent via app_settings
+    // marker so it does NOT undo deliberate GM reveals on subsequent boots.
+    try {
+      const profMarker = await client.query(
+        `SELECT value FROM app_settings WHERE key = 'dp_profile_seed_reveal_reset_v1'`
+      );
+      if (profMarker.rows.length === 0) {
+        const profKeys = ['maya', 'varth', 'varga'];
+        for (const k of profKeys) {
+          await client.query(
+            `UPDATE npc_profiles SET revealed = false, updated_at = NOW()
+              WHERE npc_key = $1 AND revealed = true`,
+            [k]
+          );
+        }
+        await client.query(
+          `INSERT INTO app_settings (key, value)
+           VALUES ('dp_profile_seed_reveal_reset_v1', 'applied')
+           ON CONFLICT (key) DO NOTHING`
+        );
+      }
+    } catch (e) {}
     // ── Galactic calendar / time tracking (Task #198) ─────────────────────
     try {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS in_universe_day_index INTEGER`);
@@ -510,7 +537,7 @@ async function seedNpcProfiles() {
       gm_notes: 'Campaign emotional throughline. Conscience of the crew. Will go to the slave ship alone in Adv3. Backstory: betrayed by partner Soren Vex, rebuilt Banshee at Maz\'s castle on Takodana.',
       traits: JSON.stringify(['Brave', 'Compassionate', 'Stubborn', 'Skilled Mechanic']),
       connections: JSON.stringify(['Admiral Varth — Employer (tense)', 'Varga the Hutt — Enemy', 'The Banshee — Her ship']),
-      revealed: true,
+      revealed: false,
       sort_order: 1
     },
     {
@@ -524,7 +551,7 @@ async function seedNpcProfiles() {
       gm_notes: 'Campaign antagonist. The betrayal in Adv6 is the central twist. Red flags: Adv2 S4 (Denia), Adv2 S6 (Raden execution), Adv3 P2 S2 (the argument), Adv3 P3 S5 (the jump order). Authentication key for encrypted account is memorized.',
       traits: JSON.stringify(['Charming', 'Calculating', 'Competent', 'Cold under pressure']),
       connections: JSON.stringify(['Maya — Respects her, sees conscience as liability', 'Varga the Hutt — Former business partner', 'The Crew — Employers who don\'t know they\'re employees']),
-      revealed: true,
+      revealed: false,
       sort_order: 2
     },
     {
@@ -538,7 +565,7 @@ async function seedNpcProfiles() {
       gm_notes: 'Act 1 antagonist. Dies in Adv3 during the boarding of the Glorious Chariot. Does not escape or recur. Transparent in his villainy — paradoxically more honest than Varth.',
       traits: JSON.stringify(['Ruthless', 'Territorial', 'Paranoid', 'Vindictive']),
       connections: JSON.stringify(['Admiral Varth — Former business associate', 'Maya — Target (stole from his supply chain)', 'Kessra — Hired muscle']),
-      revealed: true,
+      revealed: false,
       sort_order: 3
     },
     {

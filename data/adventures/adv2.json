@@ -19,7 +19,8 @@
       "desc": "Establish your cover identity inside the encampment. Convince them you belong long enough to walk in the front door.",
       "part": "p1",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv2_filtration_plant",
@@ -33,7 +34,9 @@
           "id": "let_him_stay",
           "label": "Let him stay",
           "desc": "You hold your fire and walk away. He stays buried in the plant. The Empire keeps thinking he's dead, the Hutt keeps not knowing he's alive, and the man you didn't kill owes you a debt he doesn't know how to pay.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         },
         {
           "id": "threaten_use",
@@ -45,9 +48,12 @@
           "id": "deliver_to_varga",
           "label": "Deliver him to Varga",
           "desc": "You drag him to the fortress and hand him to a Hutt. Varga's enforcement now includes you. The court will remember you for it — and so will whoever loved Raden.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_hit_squad",
@@ -56,7 +62,10 @@
       "part": "p1",
       "scene": "s4",
       "value": 1,
-      "destinies": ["destruction"]
+      "destinies": [
+        "destruction"
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_court_favor",
@@ -76,15 +85,20 @@
           "id": "work_the_contacts",
           "label": "Work the contacts",
           "desc": "You make yourself useful to Varga's lieutenants. They mark you as a player worth knowing. Varga's men file your name in the courier ledger — you're on the inside of the underworld now, and there's no quiet way back out.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         },
         {
           "id": "outshine_the_hutt",
           "label": "Outshine the Hutt",
           "desc": "You position yourself as someone the court notices in your own right — not as Varth's contractor, but as a name. The Western Reaches is a small room. Word travels. By the end of the visit, two of Varga's contacts have asked, very quietly, who you really work for.",
-          "destinies": ["ascendancy"]
+          "destinies": [
+            "ascendancy"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_iron_ring",
@@ -98,21 +112,28 @@
           "id": "capture_evidence",
           "label": "Capture the evidence",
           "desc": "Recording Rod active. The bidder list, the Imperial buyers, the lot manifest — all of it captured. Varga's ledger now exists outside the throne room. Someone, somewhere, is going to read it.",
-          "destinies": ["discovery"]
+          "destinies": [
+            "discovery"
+          ]
         },
         {
           "id": "disrupt_auction",
           "label": "Disrupt the auction",
           "desc": "Pull a fire alarm. Jam the cage locks open in the chaos. You won't free anyone for long — Varga's people will round most of them back up by morning. But for one hour the Iron Ring isn't the Iron Ring, and at least a few make it to the jungle.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
         },
         {
           "id": "witness_silence",
           "label": "Witness in silence",
           "desc": "You stand in the room. You let it happen. You carry it out with you. The weight is the price; you will spend it later, in the small hours, when no one is watching.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_sinde",
@@ -121,7 +142,10 @@
       "part": "p2",
       "scene": "s4",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_knife_dark",
@@ -130,7 +154,10 @@
       "part": "p2",
       "scene": "s6",
       "value": 1,
-      "destinies": ["destruction"]
+      "destinies": [
+        "destruction"
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_denia",
@@ -144,21 +171,28 @@
           "id": "free_at_cost",
           "label": "Free her at cost",
           "desc": "Open the cell. Carry her out. You don't know it yet, but the road that begins here ends years from now in the canyons of Vel Shara, with a stronghold and a sword and a name that means something to people you have not met. Tonight, just an old woman who can barely walk.",
-          "destinies": ["rescue"]
+          "destinies": [
+            "rescue"
+          ]
         },
         {
           "id": "against_orders",
           "label": "Carry her out anyway, against Varth's orders",
           "desc": "Your patron told you to leave her. You didn't. The price is your standing with the only handler you've got — and the small, hard fact that you put a person ahead of a contract.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         },
         {
           "id": "honor_order",
           "label": "Honor the order — leave her",
           "desc": "You did what the boss said. The boss is going to win because people like you do what they're told. The cell stays closed. You will think about that cell again.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv2_escape",
@@ -166,7 +200,8 @@
       "desc": "Get out of the fortress alive. What you leave behind is the price.",
       "part": "p2",
       "scene": "s8",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv2_crucible",

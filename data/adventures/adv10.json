@@ -19,7 +19,8 @@
       "desc": "Rally Oga Garra's pirates and whatever allies you've earned across the campaign.",
       "part": "p1",
       "scene": "s1",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv10_corridor_cost",
@@ -30,7 +31,8 @@
       "value": 1,
       "destinies": [
         "atonement"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_boarding",
@@ -38,7 +40,8 @@
       "desc": "Board the Leviathan while the fleet buys you time in the orbital battle.",
       "part": "p2",
       "scene": "s1",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv10_draco",
@@ -49,7 +52,8 @@
       "value": 1,
       "destinies": [
         "destruction"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_varth",
@@ -60,7 +64,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_array",
@@ -71,7 +76,8 @@
       "value": 1,
       "destinies": [
         "liberation"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_leviathan",
@@ -82,7 +88,8 @@
       "value": 1,
       "destinies": [
         "destruction"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_routes_convergence",
@@ -144,7 +151,8 @@
             "atonement"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_disseminate_truth",
@@ -155,7 +163,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv10_crucible",

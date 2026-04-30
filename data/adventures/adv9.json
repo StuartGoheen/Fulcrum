@@ -19,7 +19,8 @@
       "desc": "Locate and infiltrate Draco's fortress on Xala.",
       "part": "p1",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv9_denia",
@@ -45,7 +46,8 @@
             "atonement"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv9_draco",
@@ -56,7 +58,8 @@
       "value": 1,
       "destinies": [
         "destruction"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv9_sacrifice",
@@ -67,7 +70,8 @@
       "value": 1,
       "destinies": [
         "atonement"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv9_return",
@@ -78,7 +82,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv9_briefing",
@@ -86,7 +91,8 @@
       "desc": "The Resistance staging dock. Sixteen ships. Twenty thousand crew. The Leviathan run is at first sun.",
       "part": "p2",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv9_crucible",

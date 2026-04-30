@@ -25,15 +25,20 @@
           "id": "broker_alliance",
           "label": "Broker the alliance",
           "desc": "You shifted who answers to whom on Bespin's industrial floor. The Ugnaught Parliament now runs guild ops to your tempo. Fyren and Krygg owe you. So does the foreman over in Refinery Nine. So do the dockmasters on Platform Twelve.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         },
         {
           "id": "found_partnership",
           "label": "Found the partnership",
           "desc": "This is the first lasting relationship that exists because of your hand. Whatever the crew builds later — pirate fleet, rebel cell, sanctuary network — Bespin's Ugnaught Alliance is its first stone. Your name is on the founding document.",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_refinery_rumble",
@@ -47,21 +52,28 @@
           "id": "hit_refinery",
           "label": "Hit the refinery clean",
           "desc": "The Imperial Tibanna pipeline through Refinery 13 is gone. The Empire loses a weapons-grade gas vector for years. You don't get those back without building them again from rock — and the rock isn't on Bespin.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         },
         {
           "id": "read_manifest",
           "label": "Read the manifest",
           "desc": "The Indemnity exists. Three hundred eighty-four souls. Sixty-one children. Bound for Vel Shara on the next outbound rotation. You have a name and a number now — and the slave-circuit boarding band the ship answers to.",
-          "destinies": ["discovery"]
+          "destinies": [
+            "discovery"
+          ]
         },
         {
           "id": "break_for_workers",
           "label": "Break the line for the workers",
           "desc": "The pipeline broke and the forced-labor rotation broke with it. The crew that comes back to the lower decks tomorrow doesn't come back to the same shift. Krygg's people will sing your name in the Works for years.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_arandis",
@@ -70,7 +82,10 @@
       "part": "p1",
       "scene": "s4",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_sabacc",
@@ -78,7 +93,8 @@
       "desc": "Enter the Sabacc tournament — the only place Varga's people surface in public. Watch the table for the handoff. Survive four days of cards under the comm-jamming pin. (Spans p1 s5 → p2 s4; resolved at the handoff scene.)",
       "part": "p2",
       "scene": "s4",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv3_intercept",
@@ -87,7 +103,10 @@
       "part": "p2",
       "scene": "s4",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_hangar",
@@ -101,15 +120,20 @@
           "id": "end_hutt",
           "label": "End the Hutt",
           "desc": "Varga dies in his own hangar. The Western Reaches loses its central spider. Three sectors of slave ledgers, smuggling routes, and Imperial contracts go up for grabs by morning, and every one of them is going to be claimed by somebody worse or somebody better.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         },
         {
           "id": "end_surgically",
           "label": "End him surgically — recover the implant intact",
           "desc": "TC-663's Cybot Galactica Model VII comes out clean. The routing data is yours. The Hutt is the price you paid for the data inside his skull, and you walked out of the hangar with the actual prize — not just a kill, but the key to the encrypted account and the Project Leviathan thread that was inside it the whole time.",
-          "destinies": ["discovery"]
+          "destinies": [
+            "discovery"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_orbital",
@@ -123,21 +147,28 @@
           "id": "save_maya",
           "label": "Save Maya",
           "desc": "She was about to die alone on the slave ship. You broke off and went for her. The road that opened in Adv2 just took its second step — and the Indemnity made the jump to Vel Shara without her, and without you.",
-          "destinies": ["rescue"]
+          "destinies": [
+            "rescue"
+          ]
         },
         {
           "id": "save_indemnity",
           "label": "Save the Indemnity slaves",
           "desc": "Three hundred eighty-four souls. Sixty-one children. The slave ship that was bound for Vel Shara is now a lifeboat, jumped to Takodana under your helm. You broke a slave operation in flight. Maya paid for it.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
         },
         {
           "id": "press_pursuit",
           "label": "Press the Imperial pursuit",
           "desc": "You held the line and turned. You burned three TIEs and bloodied a frigate. The Empire counts the cost in a quarterly report. You count it in the bodies you didn't lose to the chase — and in the two lifeboats you didn't go for.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_choice",
@@ -157,21 +188,28 @@
           "id": "accept_patron",
           "label": "Take the payout, accept the patron",
           "desc": "You're the crew that killed a Hutt and got paid by an admiral. Doors open in the underworld now. Varth has work, and the work has a shape — Crime Lord road, fully visible, fully chosen.",
-          "destinies": ["ascendancy"]
+          "destinies": [
+            "ascendancy"
+          ]
         },
         {
           "id": "renegotiate",
           "label": "Renegotiate the payout — credits for assets",
           "desc": "You don't want all your share in credits. You want a slice of Varga's leftover network — his Iron Ring contacts on Takodana, his Tibanna routes, his courier ring. Varth nods. By the time you leave Maz's, Varga's old fixers are sending courier requests to you, not to a dead Hutt. You are building something new on his bones — your own operation, your own crew, your own rules. (Flavor: an Ascendancy-leaning PC may read this as stepping into Varga's empty chair instead — same path, different framing at the table.)",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         },
         {
           "id": "refuse",
           "label": "Refuse the payout",
           "desc": "You give it back. You give it away to Maya, to Denia, to the Indemnity survivors at Maz's — to anyone who isn't you. You will need to find another way to eat. You walk out of Maz's a different person than the one who walked in.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv3_crucible",

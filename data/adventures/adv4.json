@@ -45,7 +45,8 @@
             "destruction"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv4_spire_entry",
@@ -53,7 +54,8 @@
       "desc": "Find a way past the ancient defenses that still guard Revan's fortress.",
       "part": "p2",
       "scene": "s1",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv4_dark_side",
@@ -64,7 +66,8 @@
       "value": 1,
       "destinies": [
         "atonement"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv4_holocron",
@@ -75,7 +78,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv4_guardian",
@@ -86,7 +90,8 @@
       "value": 1,
       "destinies": [
         "destruction"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv4_charts",
@@ -97,7 +102,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv4_crucible",

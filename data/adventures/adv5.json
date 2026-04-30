@@ -19,7 +19,8 @@
       "desc": "Break into the Imperial research station and locate the drift algorithms.",
       "part": "p1",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv5_algorithms",
@@ -30,7 +31,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv5_spark",
@@ -41,7 +43,8 @@
       "value": 1,
       "destinies": [
         "liberation"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv5_uprising",
@@ -75,7 +78,8 @@
             "corruption"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv5_resurgence_flavor",
@@ -109,7 +113,8 @@
             "creation"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv5_extraction",
@@ -117,7 +122,8 @@
       "desc": "Get off-world as Imperial reinforcements arrive in force.",
       "part": "p2",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv5_crucible",

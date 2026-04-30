@@ -19,7 +19,8 @@
       "desc": "Get off-world with the Empire hunting you through the orbital cordon.",
       "part": "p1",
       "scene": "s2",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv7_resurgence",
@@ -30,7 +31,8 @@
       "value": 1,
       "destinies": [
         "atonement"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv7_denia_taken",
@@ -56,7 +58,8 @@
             "atonement"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv7_survivors",
@@ -82,7 +85,8 @@
             "rescue"
           ]
         }
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv7_name_in_dark",
@@ -93,7 +97,8 @@
       "value": 1,
       "destinies": [
         "ascendancy"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv7_carry_truth",
@@ -104,7 +109,8 @@
       "value": 1,
       "destinies": [
         "discovery"
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "adv7_nothing",
@@ -112,7 +118,8 @@
       "desc": "Jump to hyperspace with nothing. No ship, no base, no safety net.",
       "part": "p2",
       "scene": "s3",
-      "value": 1
+      "value": 1,
+      "hidden": true
     },
     {
       "id": "adv7_crucible",

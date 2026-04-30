@@ -4274,11 +4274,12 @@
         cardHtml += '</div>';
       }
 
-      // ── Linked Destiny per-Act partner editor (Task #240) ──────────────
-      // The per-Act dropdown lets the GM set who is downstream of this PC for
-      // mission-end share. The "active" Act is highlighted from the current
-      // adventure. Each row only lists OTHER party members.
-      cardHtml += _buildLinkedPartnersHtml(pc, party);
+      // Linked Destiny is now configured exclusively through the
+      // "Destiny Link" floating panel (Builders → Destiny Link). The per-PC
+      // card editor was removed in Task #244 — leaving it on every card was
+      // noisy, encouraged the false belief that destiny links auto-form
+      // from destiny tags, and made resets ambiguous. The card stays a
+      // pure read-only crew snapshot.
 
       cardHtml += '</div>';
       cardHtml += '</div>';
@@ -4301,19 +4302,7 @@
           }
           return;
         }
-        // Don't collapse the card when interacting with the linker editor.
-        if (e.target.closest('.cb-linker-row')) return;
         card.classList.toggle('expanded');
-      });
-    });
-
-    list.querySelectorAll('.cb-linker-select').forEach(function (sel) {
-      sel.addEventListener('change', function () {
-        var srcId = parseInt(sel.getAttribute('data-source-id'), 10);
-        var act = sel.getAttribute('data-act');
-        var newPartnerRaw = sel.value;
-        var newPartner = newPartnerRaw === '' ? null : parseInt(newPartnerRaw, 10);
-        _saveLinkedPartner(srcId, act, newPartner);
       });
     });
   }
@@ -4327,39 +4316,111 @@
     return Number.isFinite(n) ? n : null;
   }
 
-  function _buildLinkedPartnersHtml(pc, party) {
-    var lp = pc.linkedPartners || { '1': null, '2': null, '3': null };
-    var others = (party || []).filter(function (other) { return other.id !== pc.id; });
-    var activeAct = _currentActNumber();
-    var html = '<div class="cb-linker-section">';
-    html += '<div class="cb-linker-title">Linked Destiny — share-on-end target by Act</div>';
-    ['1', '2', '3'].forEach(function (actKey) {
-      var actNum = parseInt(actKey, 10);
-      var isActive = activeAct === actNum;
-      var current = lp[actKey];
-      var rowCls = 'cb-linker-row' + (isActive ? ' cb-linker-row--active' : '');
-      html += '<div class="' + rowCls + '">';
-      html += '<span class="cb-linker-label">Act ' + actKey + (isActive ? ' \u25CF' : '') + '</span>';
-      html += '<select class="cb-linker-select" data-source-id="' + esc(pc.id) + '" data-act="' + esc(actKey) + '">';
-      html += '<option value="">— None —</option>';
-      others.forEach(function (other) {
-        var sel = (current === other.id) ? ' selected' : '';
-        var destName = (other.destiny && (other.destiny.name || other.destiny.id)) || '';
-        html += '<option value="' + esc(other.id) + '"' + sel + '>' +
-          esc(other.name) + (destName ? ' (' + esc(destName) + ')' : '') +
-          '</option>';
+  // ── Destiny Link floating panel (Task #244) ──────────────────────────
+  // Discoverable Builders tile. Lists every PC and exposes a per-Act
+  // partner dropdown (Act 1 / 2 / 3). The active Act for the current
+  // adventure is marked. Choices persist via _saveLinkedPartner →
+  // PATCH /api/characters/:id/advancement (linkedPartners[act] = id|null).
+  // No auto-link by destiny tag — explicit GM intent only.
+  function initDestinyLink() {
+    var btn = document.getElementById('cb-destiny-link-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () { openDestinyLinkPanel(); });
+  }
+
+  function openDestinyLinkPanel() {
+    var panelId = 'destinylink';
+    var existing = document.getElementById('fp-' + panelId);
+    if (existing) {
+      existing.style.zIndex = ++_panelZCounter;
+      _renderDestinyLinkBody(existing);
+      return;
+    }
+    openFloatingPanel(panelId, 'Destiny Link',
+      '<div class="dl-loading" style="padding:1rem;color:var(--color-text-secondary);font-style:italic;">Loading party\u2026</div>',
+      { width: 520, height: 480 });
+    var panel = document.getElementById('fp-' + panelId);
+    _renderDestinyLinkBody(panel);
+  }
+
+  function _renderDestinyLinkBody(panel) {
+    if (!panel) return;
+    var body = panel.querySelector('.cb-fpanel-body');
+    if (!body) return;
+    fetch('/api/campaign/party')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var party = (data && data.party) || [];
+        if (!party.length) {
+          body.innerHTML = '<p class="cb-muted" style="padding:1rem;font-style:italic;">No crew loaded.</p>';
+          return;
+        }
+        var activeAct = _currentActNumber();
+        var html = '<div class="dl-help" style="padding:0.55rem 0.75rem;font-size:0.7rem;color:var(--color-text-secondary);line-height:1.4;border-bottom:1px solid rgba(200,164,78,0.18);">';
+        html += 'Pick the partner who shares the destiny payout when this PC closes a destiny-tagged goal. ';
+        html += 'Links are <b>not</b> auto-assigned by destiny tags &mdash; set them deliberately. ';
+        html += 'The active Act is highlighted &mdash; mission-end share uses that row.';
+        html += '</div>';
+        html += '<div class="dl-list" style="padding:0.6rem;display:flex;flex-direction:column;gap:0.6rem;">';
+        party.forEach(function (pc) {
+          var lp = pc.linkedPartners || { '1': null, '2': null, '3': null };
+          var others = party.filter(function (o) { return o.id !== pc.id; });
+          html += '<div class="dl-pc" style="border:1px solid rgba(200,164,78,0.25);border-radius:4px;padding:0.5rem 0.65rem;background:rgba(0,0,0,0.25);">';
+          var pcDest = (pc.destiny && (pc.destiny.name || pc.destiny.id)) || '';
+          html += '<div style="font-weight:600;color:#c8a44e;font-size:0.8rem;">' + esc(pc.name);
+          if (pcDest) html += ' <span style="opacity:0.65;font-weight:400;font-size:0.7rem;">(' + esc(pcDest) + ')</span>';
+          html += '</div>';
+          ['1', '2', '3'].forEach(function (actKey) {
+            var actNum = parseInt(actKey, 10);
+            var isActive = activeAct === actNum;
+            var current = lp[actKey];
+            html += '<div class="dl-row" style="display:flex;align-items:center;gap:0.5rem;margin-top:0.35rem;' +
+              (isActive ? 'background:rgba(200,164,78,0.08);border-left:2px solid #c8a44e;padding-left:0.4rem;' : '') + '">';
+            html += '<span style="min-width:3.6rem;font-size:0.7rem;color:' + (isActive ? '#c8a44e' : 'var(--color-text-secondary)') + ';">';
+            html += 'Act ' + actKey + (isActive ? ' \u25CF' : '');
+            html += '</span>';
+            html += '<select class="dl-select" data-source-id="' + esc(pc.id) + '" data-act="' + esc(actKey) +
+              '" style="flex:1;background:#0d0d0d;color:#e6dfb8;border:1px solid rgba(200,164,78,0.35);padding:0.2rem 0.35rem;font-size:0.7rem;">';
+            html += '<option value="">&mdash; Unlinked &mdash;</option>';
+            others.forEach(function (other) {
+              var sel = (current === other.id) ? ' selected' : '';
+              var destName = (other.destiny && (other.destiny.name || other.destiny.id)) || '';
+              html += '<option value="' + esc(other.id) + '"' + sel + '>' +
+                esc(other.name) + (destName ? ' (' + esc(destName) + ')' : '') +
+                '</option>';
+            });
+            html += '</select>';
+            html += '</div>';
+          });
+          html += '</div>';
+        });
+        html += '</div>';
+        body.innerHTML = html;
+
+        body.querySelectorAll('.dl-select').forEach(function (sel) {
+          sel.addEventListener('change', function () {
+            var srcId = parseInt(sel.getAttribute('data-source-id'), 10);
+            var actKey = sel.getAttribute('data-act');
+            var newPartnerRaw = sel.value;
+            var newPartner = newPartnerRaw === '' ? null : parseInt(newPartnerRaw, 10);
+            sel.disabled = true;
+            _saveLinkedPartner(srcId, actKey, newPartner, function () {
+              // Re-render so other PCs' dropdowns reflect any cascading state.
+              _renderDestinyLinkBody(panel);
+            });
+          });
+        });
+      })
+      .catch(function () {
+        body.innerHTML = '<p class="cb-muted" style="padding:1rem;color:#a55;">Failed to load party.</p>';
       });
-      html += '</select>';
-      html += '</div>';
-    });
-    html += '</div>';
-    return html;
   }
 
   // PATCH the source PC's advancement.linkedPartners[act] = newPartnerId|null. We
   // re-fetch first so we don't trample any other linkedPartners slots that may
-  // have changed since the party fetch.
-  function _saveLinkedPartner(sourceId, actKey, newPartnerId) {
+  // have changed since the party fetch. Optional onDone callback fires after
+  // the save settles (used by the Destiny Link panel to re-render).
+  function _saveLinkedPartner(sourceId, actKey, newPartnerId, onDone) {
     fetch('/api/characters/' + encodeURIComponent(sourceId))
       .then(function (r) { return r.json(); })
       .then(function (char) {
@@ -4378,13 +4439,15 @@
       })
       .then(function (r) {
         if (!r.ok) throw new Error('PATCH failed: ' + r.status);
-        // Refresh party so other crew cards pick up the change too.
+        // Refresh party so any UI that mirrors linkedPartners stays in sync.
         loadPartyMonitor();
+        if (typeof onDone === 'function') onDone();
       })
       .catch(function (err) {
         console.error('[CommandBridge] linked partner save failed', err);
         window.alert('Failed to save Linked Partner. See console.');
         loadPartyMonitor();
+        if (typeof onDone === 'function') onDone();
       });
   }
 
@@ -7886,6 +7949,7 @@
   initConversationScenes();
   initDramatisPersonae();
   initSpacersAtlas();
+  initDestinyLink();
 
   var galaxyMapBtn = document.getElementById('cb-galaxy-map-btn');
   if (galaxyMapBtn) {
