@@ -22,13 +22,13 @@ Twelve player-facing goals plus the Crucible. Each goal reveals when its scene i
 - **Into the Green Hell** — *p2 · s3 · neutral spine* — Get through the jungle and reach Mandrake's compound.
 - **The Crash** — *p2 · s2 · Creation* — V-wings strafed the Banshee out of the sky. Salvage the ship and what's in it — or leave it dead in the canopy. The crew that flies again does so because someone's hands kept her flying. *(Soft Creation acknowledgment — only checks if a PC actually performs field engineering on the Banshee.)*
 - **The Vanishing Place** — *p2 · s5 · neutral spine* — Get inside the fortress without lighting it up.
-- **The Warden's Price** — *p2 · s5 · paths: Corruption / Destruction* — Mandrake offers a clean way out — for a price. Decide what it's worth.
+- **Mandrake's Bargain** — *p2 · s5 · paths: Corruption / Destruction* — A Separatist holdout offers a way inside the fortress to free the Klosari who took him in — if you'll sabotage the generator on the way through. Decide what owing him is worth.
   - *Take the deal on his terms* (Corruption) · *Break him and take what you came for* (Destruction)
 - **Vischera** — *p2 · s5 · paths: Atonement / Destruction* — Dr. Vischera kept Varth alive for the Inquisitor's questions. She's unarmed, she's afraid, and she's part of the machine that broke him. Decide what you owe her — or what she owes you.
   - *Carry her out* (Atonement) · *End her* (Destruction)
 - **The Generator** — *p2 · s6 · paths: Destruction / Discovery* — The fortress runs on one heart. Stop it beating — or learn what it's hiding.
   - *Blow it* (Destruction) · *Slice the control room* (Discovery)
-- **Free the Block** — *p2 · s7 · paths: Atonement / Liberation* — Mandrake's holding cells are full of Klosari prisoners. Open them, or leave them sealed.
+- **Free the Block** — *p2 · s7 · paths: Atonement / Liberation* — Skarn's holding cells are full of Klosari prisoners — Mandrake's adopted people, penned behind the fortress's laser fences. Open them, or leave them sealed.
   - *Stay and cover the breakout* (Atonement) · *Trip the locks and run* (Liberation)
 - **The Extraction** — *p2 · s7 · Rescue* — Pull Varth out of the Vanishing Place and break atmosphere. The first stranger you decided was worth more than your own skin. The road that begins here ends at someone else's cell, years from now.
 

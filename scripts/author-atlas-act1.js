@@ -88,7 +88,7 @@ const ENTRIES = {
     insider: {
       localContacts: [
         'Captain Skarn — runs the Vanishing Place mercenary garrison on a black contract from Imperial Intelligence. Believes himself a king of his small kingdom.',
-        'Mandrake — Separatist tactical droid commander. Refused the shutdown order in 19 BBY; runs a guerrilla cell in the deep canopy.'
+        'Mandrake — Separatist Holdout Commando, ex-CIS captain. Refused the shutdown order in 19 BBY; was taken in by the indigenous Klosari after his unit was destroyed and now runs a guerrilla cell with them in the deep canopy.'
       ],
       pointsOfInterest: ['The Vanishing Place (repurposed pre-Republic temple, Skarn HQ)', "Mandrake's wargame hex (deep south canopy)"],
       politicalTensions: "Skarn and Mandrake know each other exists; both pretend they do not. A truce of mutual disinterest. Mandrake will help anyone who hurts Skarn; Skarn will pay anyone who solves Mandrake.",
@@ -101,7 +101,7 @@ const ENTRIES = {
         "Mandrake is an Adv1-recurring NPC — players who help him here may bank a marker for Adv4+."
       ],
       hiddenTruths: ["The Vanishing Place's black-site contract is so deep in Imperial Intelligence that even Tarkin's office does not have visibility into it. Skarn's chain of command runs to a single colonel who is now dead.", "The temple itself is older than the Republic. The lower vault levels have never been catalogued."],
-      secretFactions: ["Mandrake's clanker holdouts (Separatist tactical droid network)", "Imperial Intelligence shadow ops"],
+      secretFactions: ["Mandrake's Klosari-allied resistance (a Separatist holdout commando cell that went native with the indigenous Klosari)", "Imperial Intelligence shadow ops"],
       gmNotes: "Run Ajan Kloss as a horror set-piece on the approach (the canopy eats sound) and a heist on the exfil. The escape, not the breakout, is the scene."
     },
     image: img('Ajan Kloss', 'Ajan_Kloss'),

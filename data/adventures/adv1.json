@@ -102,8 +102,8 @@
     },
     {
       "id": "adv1_wardens_price",
-      "label": "The Warden's Price",
-      "desc": "Mandrake offers a clean way out — for a price. Decide what it's worth.",
+      "label": "Mandrake's Bargain",
+      "desc": "A Separatist holdout offers a way inside the fortress to free the Klosari who took him in — if you'll sabotage the generator on the way through. Decide what owing him is worth.",
       "part": "p2",
       "scene": "s5",
       "value": 1,
@@ -111,13 +111,13 @@
         {
           "id": "take_deal",
           "label": "Take the deal on his terms",
-          "desc": "You bend to a corrupt man's terms. The Empire's underworld now counts you as one of its own.",
+          "desc": "You shake the hand of a man who lives outside any law and take on his debt as your own. The Klosari walk free on his terms — and yours are tied to his from here on.",
           "destinies": ["corruption"]
         },
         {
           "id": "break_him",
           "label": "Break him and take what you came for",
-          "desc": "You end what's broken. Mandrake doesn't survive the negotiation.",
+          "desc": "You end the negotiation with a body. The Klosari's only protector dies in the jungle, and the people he was fighting for lose the one outsider who ever stood with them.",
           "destinies": ["destruction"]
         }
       ]
@@ -169,7 +169,7 @@
     {
       "id": "adv1_free_block",
       "label": "Free the Block",
-      "desc": "Mandrake's holding cells are full of Klosari prisoners. Open them, or leave them sealed.",
+      "desc": "Skarn's holding cells are full of Klosari prisoners — Mandrake's adopted people, penned behind the fortress's laser fences. Open them, or leave them sealed.",
       "part": "p2",
       "scene": "s7",
       "value": 1,

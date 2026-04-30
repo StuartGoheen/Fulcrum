@@ -15,7 +15,7 @@
   "mandrake": {
     "default": "unresolved",
     "source": "adv1-p2-s8",
-    "description": "Warden Mandrake — fate at the Vanishing Place (destiny-gated)",
+    "description": "Mandrake — Separatist holdout and Klosari protector; fate at the Vanishing Place (destiny-gated)",
     "npc": true,
     "recurringIn": [
       "adv1"
