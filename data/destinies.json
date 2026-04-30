@@ -164,9 +164,9 @@
       "advanceTrigger": "When the power structure of a faction, territory, or institution is permanently different because of you.",
       "narrativeHook": "This character is drawn toward power — who holds it, who abuses it, who deserves it. Whether they dismantle corruption or become the new corruption is the question that defines their path.",
       "trackFullCapacity": {
-        "title": "Speak with Borrowed Authority",
-        "trigger": "Once per campaign, when your Corruption track is full and you stand in a scene where someone in power is about to make a decision, declare that you speak with the authority of a power-holder they fear, respect, or owe — a Moff, a crime lord, a senator, a patron the GM and table can name in the moment. The room behaves as if you do for the duration of the scene.",
-        "description": "The Corruption-walking PC has accumulated enough leverage, hidden knowledge, and reputational mass that they can borrow another power-holder's voice for one scene. They do not actually become that person — but the room behaves as if they did, and the decision in front of them goes the way the PC names. The capacity is one-shot for the campaign. The track is spent (returns to empty). Use sparingly: this is the campaign's loudest single sentence."
+        "title": "Speak with Varth's Voice",
+        "trigger": "Once per campaign, when your Corruption track is full, you may issue a command inside the Imperial command structure (or a power structure you have moved through) that someone who shouldn't obey, obeys. GM-mediated, single use, irrevocable. The track is spent (returns to empty).",
+        "description": "The Corruption-walking PC has moved through enough corrupt rooms — Switch's network, Mandrake's contract, Tarkin's Citadel, Varth's bridge — that they have learned the cadence, the names, the shape of how a man like Varth gives an order. Once per campaign, they cash that in: they speak with Varth's voice (or Tarkin's, or Mandrake's, or a Hutt's — whoever's voice they have most credibly moved inside) and the system obeys before the system stops to ask. Use sparingly: this is the campaign's loudest single sentence."
       },
       "imageUrl": "/assets/destiny/corruption.png",
       "marks": [

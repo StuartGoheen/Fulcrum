@@ -33,13 +33,17 @@
           "id": "deliver_her",
           "label": "Pull her out of Draco's hand",
           "desc": "You break her cell. You carry her out. The road that opened in Adv2 closes here, on her terms.",
-          "destinies": ["rescue"]
+          "destinies": [
+            "rescue"
+          ]
         },
         {
           "id": "recover_loss",
           "label": "Recover what you let happen",
           "desc": "She is in Draco's keeping because Varth told you to leave her and you listened. Pulling her out now is not rescue — it is paying a debt you helped sign.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         }
       ]
     },
@@ -50,7 +54,9 @@
       "part": "p2",
       "scene": "s1",
       "value": 1,
-      "destinies": ["destruction"]
+      "destinies": [
+        "destruction"
+      ]
     },
     {
       "id": "adv9_sacrifice",
@@ -59,7 +65,9 @@
       "part": "p2",
       "scene": "s1",
       "value": 1,
-      "destinies": ["atonement"]
+      "destinies": [
+        "atonement"
+      ]
     },
     {
       "id": "adv9_return",
@@ -68,7 +76,9 @@
       "part": "p2",
       "scene": "s2",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv9_briefing",
@@ -83,7 +93,9 @@
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p2",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [

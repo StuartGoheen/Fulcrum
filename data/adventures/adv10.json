@@ -28,7 +28,9 @@
       "part": "p1",
       "scene": "s2",
       "value": 1,
-      "destinies": ["atonement"]
+      "destinies": [
+        "atonement"
+      ]
     },
     {
       "id": "adv10_boarding",
@@ -45,7 +47,9 @@
       "part": "p2",
       "scene": "s2",
       "value": 1,
-      "destinies": ["destruction"]
+      "destinies": [
+        "destruction"
+      ]
     },
     {
       "id": "adv10_varth",
@@ -54,7 +58,9 @@
       "part": "p2",
       "scene": "s3",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv10_array",
@@ -63,7 +69,9 @@
       "part": "p3",
       "scene": "s1",
       "value": 1,
-      "destinies": ["liberation"]
+      "destinies": [
+        "liberation"
+      ]
     },
     {
       "id": "adv10_leviathan",
@@ -72,7 +80,9 @@
       "part": "p3",
       "scene": "s2",
       "value": 1,
-      "destinies": ["destruction"]
+      "destinies": [
+        "destruction"
+      ]
     },
     {
       "id": "adv10_routes_convergence",
@@ -86,37 +96,49 @@
           "id": "keep_routes",
           "label": "Keep the routes — Enterprise",
           "desc": "You walk away as the only crew that owns the most valuable trade asset in the Western Reaches. Creation built. Ascendancy claimed.",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         },
         {
           "id": "give_bail",
           "label": "Give to Bail — routes-as-shelter",
           "desc": "You hand the data to Bail's handler. Slow. Safe. Generational. The Path widens. You walk out lighter than you came in.",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         },
         {
           "id": "give_luthen",
           "label": "Give to Luthen — routes-as-weapons",
           "desc": "You hand the data to Vel's patron. Strike-and-fade. Three sectors broken in a year. The Empire bleeds at galactic scale.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
         },
         {
           "id": "give_vos",
           "label": "Give to Vos — routes-as-sanctuary",
           "desc": "You hand the data to Cade Ryll, who is and was Quinlan Vos. Force-sensitives sheltered. The hidden Path widened. The campaign began with a Jedi and ends with one.",
-          "destinies": ["rescue"]
+          "destinies": [
+            "rescue"
+          ]
         },
         {
           "id": "split_routes",
           "label": "Split the routes — each gets a partial map",
           "desc": "You couldn't choose, so you became the only one who can. Each patron leaves with less than they wanted. The crew walks out as the seam between three networks — the only chair in the galaxy with the full map.",
-          "destinies": ["ascendancy"]
+          "destinies": [
+            "ascendancy"
+          ]
         },
         {
           "id": "destroy_routes",
           "label": "Destroy the routes — no one holds this",
           "desc": "You burn the data in front of all three. No Empire, no Resistance, no Path. Some things should not exist. The Atonement is total.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         }
       ]
     },
@@ -127,14 +149,18 @@
       "part": "p3",
       "scene": "s3",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv10_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p3",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [

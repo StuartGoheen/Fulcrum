@@ -1028,6 +1028,16 @@
     var body = document.createElement('div');
     body.className = 'dp-destiny-body';
 
+    var capacityHtml = '';
+    if (pd.trackFullCapacity && pd.trackFullCapacity.title) {
+      capacityHtml =
+        '<div class="dp-destiny-mech">' +
+          '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--capacity">Track Full</span>' +
+          '<span class="dp-destiny-mech-title">' + _esc(pd.trackFullCapacity.title) + '</span>' +
+          '<span class="dp-destiny-mech-desc">' + _esc(pd.trackFullCapacity.description) + '</span>' +
+        '</div>';
+    }
+
     body.innerHTML =
       '<div class="dp-destiny-name">' + _esc(pd.name) + '</div>' +
       '<div class="dp-destiny-tagline">' + _esc(pd.tagline) + '</div>' +
@@ -1047,6 +1057,7 @@
           '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--advance">Advance</span>' +
           '<span class="dp-destiny-mech-desc">' + _esc(pd.advanceTrigger) + '</span>' +
         '</div>' +
+        capacityHtml +
       '</div>';
 
     wrap.appendChild(body);
@@ -1066,8 +1077,18 @@
       fetch('/api/characters/' + charId).then(function (r) { return r.json(); }),
       fetch('/data/species.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
       fetch('/data/maneuvers.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('/data/destinies.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
     ]).then(function (results) {
-      buildDetailsPanel(results[0], results[1], results[2]);
+      var char = results[0];
+      var destinyData = results[3];
+      // Backfill trackFullCapacity for characters created before the field existed.
+      if (char && char.personalDestiny && !char.personalDestiny.trackFullCapacity && destinyData && Array.isArray(destinyData.destinies)) {
+        var canon = destinyData.destinies.find(function (x) { return x.id === char.personalDestiny.id; });
+        if (canon && canon.trackFullCapacity) {
+          char.personalDestiny.trackFullCapacity = canon.trackFullCapacity;
+        }
+      }
+      buildDetailsPanel(char, results[1], results[2]);
     }).catch(function (err) {
       console.error('[DetailsPanel]', err);
     });

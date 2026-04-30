@@ -28,7 +28,9 @@
       "part": "p1",
       "scene": "s3",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv5_spark",
@@ -37,7 +39,9 @@
       "part": "p2",
       "scene": "s1",
       "value": 1,
-      "destinies": ["liberation"]
+      "destinies": [
+        "liberation"
+      ]
     },
     {
       "id": "adv5_uprising",
@@ -51,13 +55,25 @@
           "id": "aid_uprising",
           "label": "Stay and aid the uprising",
           "desc": "You delay extraction. You arm them, you cover their first barricades, you make sure the morning belongs to them. Imperial reinforcements catch you on the way out — but Malpaz wakes free.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
+        },
+        {
+          "id": "lead_uprising",
+          "label": "Be named as the face of the new free Malpaz",
+          "desc": "You stay long enough to be photographed. The Malpazi rebels name a member of the crew on the planetary holocast as the face of the new free Malpaz. The crew is now a thing the Western Reaches knows the name of. Oga Garra hears the name a week later.",
+          "destinies": [
+            "ascendancy"
+          ]
         },
         {
           "id": "use_as_cover",
           "label": "Use the chaos as cover",
           "desc": "You let the uprising do its work and slip out under the smoke. The crew survives. Malpaz survives a little less. You sleep with that.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         }
       ]
     },
@@ -73,19 +89,25 @@
           "id": "enterprise",
           "label": "Enterprise — keep what you build",
           "desc": "The routes, the contacts, the wealth — yours. You are the shape of what you build.",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         },
         {
           "id": "cell",
           "label": "Cell — give to the cause",
           "desc": "What you build, you give to the network that's forming. Bail. Fulcrum. The whisper. They keep what your hands make.",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         },
         {
           "id": "sanctuary",
           "label": "Sanctuary — give to those who shelter",
           "desc": "What you build, you give to those who shelter what the Empire would erase. Force-sensitives, lost lineages, the hidden Path. They keep what your hands make.",
-          "destinies": ["creation"]
+          "destinies": [
+            "creation"
+          ]
         }
       ]
     },
@@ -102,7 +124,9 @@
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p2",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [

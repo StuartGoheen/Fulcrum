@@ -25,13 +25,25 @@
           "id": "parley",
           "label": "Lower weapons — parley",
           "desc": "You take the cost of patience. The Ewoks take you to their Storyteller. The forest grants you safe passage and you carry a name out of the dead grove.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
+        },
+        {
+          "id": "named_by_tribe",
+          "label": "Be named by the Storyteller — Hand of the Forest",
+          "desc": "You go further than parley — you sit at the Storyteller's fire and accept the name the tribe gives you. From this day forward, the Ewok elders of Pzob recognize a member of the crew as a Hand of the Forest. The forest has a chair with your name on it.",
+          "destinies": [
+            "ascendancy"
+          ]
         },
         {
           "id": "pyre",
           "label": "Burn through them",
           "desc": "You clear the obstacle with overwhelming force. The Ewoks scatter. The forest turns hostile and the Spire takes its toll on you for it.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         }
       ]
     },
@@ -50,7 +62,9 @@
       "part": "p2",
       "scene": "s2",
       "value": 1,
-      "destinies": ["atonement"]
+      "destinies": [
+        "atonement"
+      ]
     },
     {
       "id": "adv4_holocron",
@@ -59,7 +73,9 @@
       "part": "p2",
       "scene": "s3",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv4_guardian",
@@ -68,7 +84,9 @@
       "part": "p2",
       "scene": "s4",
       "value": 1,
-      "destinies": ["destruction"]
+      "destinies": [
+        "destruction"
+      ]
     },
     {
       "id": "adv4_charts",
@@ -77,14 +95,18 @@
       "part": "p2",
       "scene": "s4",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv4_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p3",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [

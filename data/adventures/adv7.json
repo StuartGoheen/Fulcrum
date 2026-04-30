@@ -28,7 +28,9 @@
       "part": "p2",
       "scene": "s1",
       "value": 1,
-      "destinies": ["atonement"]
+      "destinies": [
+        "atonement"
+      ]
     },
     {
       "id": "adv7_denia_taken",
@@ -42,13 +44,17 @@
           "id": "swear_pursuit",
           "label": "Swear pursuit — Denia is the next priority",
           "desc": "You name her name on the Banshee's deck and write the next move around her. Adv9 is yours to walk.",
-          "destinies": ["rescue"]
+          "destinies": [
+            "rescue"
+          ]
         },
         {
           "id": "carry_loss",
           "label": "Carry the loss into the run",
           "desc": "There is no time for her tonight. You carry her absence the way you carry the Resurgence's dead — as weight you owe but cannot yet pay.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         }
       ]
     },
@@ -64,14 +70,29 @@
           "id": "extract_many",
           "label": "Pull many out — the wider net",
           "desc": "You delay your jump, you take the load, you fly heavy. More survive. The Empire gets closer to catching you for it.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
         },
         {
           "id": "extract_critical",
           "label": "Pull the critical few — the surgical hand",
           "desc": "You pick the survivors who carry the most forward — the codes, the keys, the names. Fewer live. The cause moves further.",
-          "destinies": ["rescue"]
+          "destinies": [
+            "rescue"
+          ]
         }
+      ]
+    },
+    {
+      "id": "adv7_name_in_dark",
+      "label": "Naming Yourselves in the Dark",
+      "desc": "On the blind jump from the Resurgence's grave, the crew names themselves out loud — not as fugitives, not as runners, but as the thing the Empire could not kill at Eriadu. The name is the claim. Whatever the crew is on the other side of this jump, the Western Reaches will hear it as authority.",
+      "part": "p2",
+      "scene": "s3",
+      "value": 1,
+      "destinies": [
+        "ascendancy"
       ]
     },
     {
@@ -81,7 +102,9 @@
       "part": "p2",
       "scene": "s3",
       "value": 1,
-      "destinies": ["discovery"]
+      "destinies": [
+        "discovery"
+      ]
     },
     {
       "id": "adv7_nothing",
@@ -96,7 +119,9 @@
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p2",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [
