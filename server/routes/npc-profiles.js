@@ -62,14 +62,40 @@ function _filterPlayerConnections(connections, revealedNameSet, allNpcNameSet) {
   if (!Array.isArray(connections) || connections.length === 0) return [];
   return connections.filter((line) => {
     if (typeof line !== 'string') return true;
-    // Split on common dash separators; take the leading subject token.
-    const head = line.split(/[\u2014\u2013-]/)[0].trim().toLowerCase();
+    // Split on relationship separators only: em-dash, en-dash, or a hyphen
+    // surrounded by whitespace. Plain hyphens inside tokens like "TC-663"
+    // or "Ky-knomi" must NOT split the head, otherwise hyphenated NPC
+    // names get truncated and falsely classified as world flavor.
+    const sepMatch = line.match(/\s+[\u2014\u2013\-]\s+/);
+    const head = (sepMatch
+      ? line.slice(0, sepMatch.index)
+      : line
+    ).trim().toLowerCase();
     if (!head) return true;
-    // Check whether the head matches ANY known NPC name (revealed or not).
+    // Check whether the head contains ANY known NPC name (revealed or not)
+    // as a whole-word match. Whole-word means:
+    //   • boundary on the LEFT: start of head, whitespace, or punctuation
+    //   • boundary on the RIGHT: end of head, whitespace, or punctuation
+    // We must match anywhere in the head (not just at the start) so that
+    // common title prefixes like "Admiral", "Lord", "Captain", "Doctor",
+    // "Master", "The" don't hide the actual NPC name. Word boundaries
+    // protect hyphenated names like "TC-663" and "Ky-knomi": their
+    // internal hyphens are not boundaries, so partial-token leaks are
+    // impossible.
+    const isBoundary = (ch) => ch === '' || /[\s,.;:'"()\[\]{}!?]/.test(ch);
     let matchedAnyNpc = false;
     let matchedRevealedNpc = false;
     for (const nm of allNpcNameSet) {
-      if (head === nm || head.indexOf(nm) === 0 || nm.indexOf(head) === 0) {
+      if (!nm) continue;
+      let pos = head.indexOf(nm);
+      let isMatch = false;
+      while (pos !== -1) {
+        const left = pos === 0 ? '' : head.charAt(pos - 1);
+        const right = (pos + nm.length >= head.length) ? '' : head.charAt(pos + nm.length);
+        if (isBoundary(left) && isBoundary(right)) { isMatch = true; break; }
+        pos = head.indexOf(nm, pos + 1);
+      }
+      if (isMatch) {
         matchedAnyNpc = true;
         if (revealedNameSet.has(nm)) { matchedRevealedNpc = true; break; }
       }
