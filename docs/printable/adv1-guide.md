@@ -560,24 +560,6 @@ The cylinder is an Imperial ghost transfer authorization — it can authenticate
 - **Masterful:** Switch is building a network of obligations across the Outer Rim. He's not just a broker — he's positioning himself as the indispensable middleman. This deal is one thread in a much larger web.
 - **Legendary:** Switch is afraid of this cylinder specifically. Not of the PCs, not of Varga. Of what's on that device and who will come looking once it surfaces. He wants the PCs to succeed because success gets a dangerous asset far away from his bunker.
 
-**ASSESS** — investigation (wits) vs Code Cylinder data
-- *Context:* Examining the cylinder data directly after Switch's analysis — looking for details the droid's summary may have glossed over.
-- *Pacing:* Optional. Rewards curiosity. Roll only if a player digs in.
-- **Failure:** The data is dense Imperial encryption. Without specialist knowledge the analysis reads as straightforward authorization protocols.
-- **Mastery:** The PC notices the data structure before reading the content — the format itself is irregular. This cylinder was authored by someone who knew Imperial encryption protocols from the inside. Not someone with access. Someone who wrote the spec.
-- **Fleeting:** The authorization codes are military-grade, not civilian. This cylinder came from someone with significant clearance.
-- **Masterful:** The authorization codes reference routing designations connected to 'Project Leviathan' — a name that doesn't appear in any public Imperial registry.
-- **Legendary:** The cylinder carries a ghost layer — hidden metadata showing it was deliberately copied, not stolen in transit. Someone inside the Imperial apparatus wanted this device to leave the facility. This was a plant, not a theft.
-
-**INTERACT** — skulduggery (wits) vs Switch's analysis equipment
-- *Context:* Verifying Switch's analysis is genuine and complete — did the droid give them everything, or is he holding a partition back?
-- *Pacing:* Optional. Trust verification for suspicious players.
-- **Failure:** No way to independently verify without comparable equipment. The outputs look legitimate but that's all you can confirm.
-- **Mastery:** The PC notices Switch's equipment has already run a secondary sweep he hasn't mentioned. The results sit in a partition he didn't open during the briefing. He gave them everything they asked for — but there's more he didn't volunteer.
-- **Fleeting:** The analysis appears complete and unaltered on surface review. No obvious signs of tampering or selective output.
-- **Masterful:** Analysis is genuine. Switch delivered everything his equipment surfaced. Whatever he knows, he shared it.
-- **Legendary:** Analysis is complete — AND the secondary partition is accessible with the right credentials. The cylinder has a second layer Switch didn't mention. It requires a different authentication to open. That key isn't here.
-
 #### Likely Options / Decision Points
 **Do the heroes accept Switch's information-asset deal?**
 - **Accept Switch's deal**
@@ -595,7 +577,7 @@ The cylinder is an Imperial ghost transfer authorization — it can authenticate
   - The code cylinder is ghost transfer authorization — authenticates into Imperial shuttle nav systems
   - No location data on the cylinder itself, but it can access Imperial flight computers
   - Maya has been tracking a Lambda shuttle at the Reestkii Landing Field
-  - Cylinder references connect to 'Project Leviathan'
+  - The cylinder is a master key, not a treasure map — it points wherever the next Imperial Lambda you crack has been
 - **Connections:**
   - Switch (info broker, recurring intelligence fixer, black market connection)
 
@@ -832,7 +814,7 @@ OPTIONS:
 • DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).
 • DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.
 
-THE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the data reveals references to 'Project Leviathan' in the shipping metadata.
+THE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the manifest names the high-value prisoner being moved through this lane: Admiral Gilder Varth.
 
 EXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.
 
@@ -998,7 +980,7 @@ SCENE TACTICS (NPC-agnostic): Running firefight — this is about reaching the s
 **INTERACT** — skulduggery (wits) vs Lambda shuttle nav computer
 - *Context:* Accessing the shuttle nav computer with the code cylinder. This is the critical data extraction.
 - *Pacing:* Always roll. This is the mission objective.
-- **Failure:** Partial download. Coordinates acquired but secondary data is corrupted — no Project Leviathan metadata.
+- **Failure:** Partial download. Coordinates acquired but secondary data is corrupted — no manifest, no prisoner names, no schedule.
 - **Fleeting:** Ajan Kloss coordinates acquired. Basic nav data only.
 - **Masterful:** Full nav log download — Ajan Kloss coordinates plus facility classification as high-security detention.
 - **Legendary:** Complete data dump including prisoner manifests, guard rotation schedules, and a reference to 'Admiral Varth — priority detainee.'
@@ -1008,7 +990,7 @@ SCENE TACTICS (NPC-agnostic): Running firefight — this is about reaching the s
 - *Pacing:* Optional. Rewards curiosity.
 - **Failure:** Just coordinates and standard flight logs.
 - **Fleeting:** The destination is labeled as a restricted zone — no civilian traffic permitted.
-- **Masterful:** Shipping metadata references 'Project Leviathan' and labels the destination as a high-security detention site.
+- **Masterful:** Shipping metadata flags the destination as a high-security Imperial detention site — and the manifest names a single high-value prisoner moving through this lane: Admiral Gilder Varth.
 - **Legendary:** Hidden in the nav computer's cache: a partial communication log suggesting the prisoner at the facility volunteered information to earn transfer. Varth has been cooperating — but with whom?
 
 #### Likely Options / Decision Points
@@ -1025,7 +1007,7 @@ SCENE TACTICS (NPC-agnostic): Running firefight — this is about reaching the s
 #### Rewards & Intel
 - **Intel:**
   - Vanishing Place coordinates on Ajan Kloss — Varth's prison location
-  - Project Leviathan referenced in shuttle metadata
+  - Manifest names Admiral Gilder Varth as the high-value prisoner moved through this lane
   - The code cylinder is dead after use — authentication codes will be disabled
 
 *Time advance: {"hours":3,"label":"Heist concludes; lift to orbit"}*
