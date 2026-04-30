@@ -76,6 +76,14 @@
       "destinies": ["discovery"]
     },
     {
+      "id": "adv1_green_hell",
+      "label": "Into the Green Hell",
+      "desc": "Get through the jungle and reach Mandrake's compound.",
+      "part": "p2",
+      "scene": "s3",
+      "value": 1
+    },
+    {
       "id": "adv1_crash",
       "label": "The Crash",
       "desc": "V-wings strafed the Banshee out of the sky. Salvage the ship and what's in it — or leave it dead in the canopy. The crew that flies again does so because someone's hands kept her flying.",
@@ -83,14 +91,6 @@
       "scene": "s2",
       "value": 1,
       "destinies": ["creation"]
-    },
-    {
-      "id": "adv1_green_hell",
-      "label": "Into the Green Hell",
-      "desc": "Get through the jungle and reach Mandrake's compound.",
-      "part": "p2",
-      "scene": "s3",
-      "value": 1
     },
     {
       "id": "adv1_vanishing_place",

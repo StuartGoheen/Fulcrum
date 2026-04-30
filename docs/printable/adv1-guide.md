@@ -19,8 +19,8 @@ Twelve player-facing goals plus the Crucible. Each goal reveals when its scene i
 - **Ghost in the Machine** — *p1 · s5 · Discovery* — Slip the Code Cylinder into the Imperial shuttle's nav core. Find where the Empire is moving the man worth a fortune.
 
 **Part 2 — Ajan Kloss**
-- **The Crash** — *p2 · s2 · Creation* — V-wings strafed the Banshee out of the sky. Salvage the ship and what's in it — or leave it dead in the canopy. The crew that flies again does so because someone's hands kept her flying. *(Soft Creation acknowledgment — only checks if a PC actually performs field engineering on the Banshee.)*
 - **Into the Green Hell** — *p2 · s3 · neutral spine* — Get through the jungle and reach Mandrake's compound.
+- **The Crash** — *p2 · s2 · Creation* — V-wings strafed the Banshee out of the sky. Salvage the ship and what's in it — or leave it dead in the canopy. The crew that flies again does so because someone's hands kept her flying. *(Soft Creation acknowledgment — only checks if a PC actually performs field engineering on the Banshee.)*
 - **The Vanishing Place** — *p2 · s5 · neutral spine* — Get inside the fortress without lighting it up.
 - **The Warden's Price** — *p2 · s5 · paths: Corruption / Destruction* — Mandrake offers a clean way out — for a price. Decide what it's worth.
   - *Take the deal on his terms* (Corruption) · *Break him and take what you came for* (Destruction)
