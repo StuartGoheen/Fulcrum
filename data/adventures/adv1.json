@@ -19,13 +19,17 @@
           "id": "talk_down",
           "label": "Talk them down",
           "desc": "Stay your hand. The deck doesn't have to burn tonight.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         },
         {
           "id": "take_down",
           "label": "Take them down",
           "desc": "Open your blade. End it the way you've ended things before.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         }
       ]
     },
@@ -41,19 +45,25 @@
           "id": "cut_deal",
           "label": "Cut his deal",
           "desc": "Run his errands, owe him a favor. The kind that comes due when you can least afford it.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         },
         {
           "id": "burn_him",
           "label": "Burn him for it",
           "desc": "Slice him, lean on him, walk out with the answer. You'll have made an enemy of the only fixer in the Western Reaches who was inclined to like you.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         },
         {
           "id": "take_network",
           "label": "Take his network",
           "desc": "Leverage what he doesn't want known. By the time you walk out, his fixers, dead-drops, and TC-units don't answer to him anymore. They answer to you.",
-          "destinies": ["ascendancy"]
+          "destinies": [
+            "ascendancy"
+          ]
         }
       ],
       "hidden": true
@@ -65,7 +75,9 @@
       "part": "p1",
       "scene": "s4",
       "value": 1,
-      "destinies": ["destruction"],
+      "destinies": [
+        "destruction"
+      ],
       "hidden": true
     },
     {
@@ -75,7 +87,9 @@
       "part": "p1",
       "scene": "s5",
       "value": 1,
-      "destinies": ["discovery"],
+      "destinies": [
+        "discovery"
+      ],
       "hidden": true
     },
     {
@@ -94,7 +108,9 @@
       "part": "p2",
       "scene": "s2",
       "value": 1,
-      "destinies": ["creation"],
+      "destinies": [
+        "creation"
+      ],
       "hidden": true
     },
     {
@@ -118,13 +134,17 @@
           "id": "take_deal",
           "label": "Take the deal on his terms",
           "desc": "You shake the hand of a man who lives outside any law and take on his debt as your own. The Klosari walk free on his terms — and yours are tied to his from here on.",
-          "destinies": ["corruption"]
+          "destinies": [
+            "corruption"
+          ]
         },
         {
           "id": "break_him",
           "label": "Break him and take what you came for",
           "desc": "You end the negotiation with a body. The Klosari's only protector dies in the jungle, and the people he was fighting for lose the one outsider who ever stood with them.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         }
       ],
       "hidden": true
@@ -141,13 +161,17 @@
           "id": "carry_out",
           "label": "Carry her out",
           "desc": "She knows things. She'd rather not. You take the weight of her with you.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         },
         {
           "id": "end_her",
           "label": "End her",
           "desc": "Witnesses don't survive your exit. The Empire loses one more interrogator. Your hands carry one more name.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         }
       ],
       "hidden": true
@@ -164,13 +188,17 @@
           "id": "blow_it",
           "label": "Blow it",
           "desc": "The Vanishing Place goes dark. Whatever the Empire kept here is buried under its own walls.",
-          "destinies": ["destruction"]
+          "destinies": [
+            "destruction"
+          ]
         },
         {
           "id": "slice_control",
           "label": "Slice the control room",
           "desc": "The prison rosters, the security manifests, the names the Empire was about to forget. You have them now.",
-          "destinies": ["discovery"]
+          "destinies": [
+            "discovery"
+          ]
         }
       ],
       "hidden": true
@@ -187,13 +215,17 @@
           "id": "cover_breakout",
           "label": "Stay and cover the breakout",
           "desc": "You bleed for strangers. The price is yours; the freedom is theirs.",
-          "destinies": ["atonement"]
+          "destinies": [
+            "atonement"
+          ]
         },
         {
           "id": "trip_locks",
           "label": "Trip the locks and run",
           "desc": "You break the cage and let the running do the rest. The first cage you ever opened. It won't be the last.",
-          "destinies": ["liberation"]
+          "destinies": [
+            "liberation"
+          ]
         }
       ],
       "hidden": true
@@ -205,7 +237,9 @@
       "part": "p2",
       "scene": "s7",
       "value": 1,
-      "destinies": ["rescue"],
+      "destinies": [
+        "rescue"
+      ],
       "hidden": true
     },
     {
@@ -526,15 +560,24 @@
                     "exploitMod": 0,
                     "notes": "2-4 Standards represent a meaningful encounter for a party."
                   },
-                  "immunities": ["Shaken", "Rattled"],
+                  "immunities": [
+                    "Shaken",
+                    "Rattled"
+                  ],
                   "vulnerabilities": [],
                   "scale": null,
                   "scaleLevel": 1,
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": ["disciplined", "fearless"],
-                "tags": ["criminal", "hutt_cartel"],
+                "traits": [
+                  "disciplined",
+                  "fearless"
+                ],
+                "tags": [
+                  "criminal",
+                  "hutt_cartel"
+                ],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
                   "action": {
@@ -842,7 +885,9 @@
                   "agile",
                   "slippery"
                 ],
-                "tags": ["mercenary"],
+                "tags": [
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -1147,8 +1192,14 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": ["agile", "follows_the_boss", "armored_light"],
-                "tags": ["mercenary"],
+                "traits": [
+                  "agile",
+                  "follows_the_boss",
+                  "armored_light"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Harrier / Martial",
                   "action": {
@@ -1325,8 +1376,14 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["agile", "follows_the_boss", "armored_light"],
-                "tags": ["mercenary"],
+                "traits": [
+                  "agile",
+                  "follows_the_boss",
+                  "armored_light"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Harrier / Martial",
                   "action": {
@@ -1452,9 +1509,21 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": ["destruction", "rescue"],
-          "vocationTags": ["voc_gunslinger", "voc_shockboxer", "voc_duelist"],
-          "disciplineTags": ["athletics", "ranged", "evasion", "survival"],
+          "destinyTags": [
+            "destruction",
+            "rescue"
+          ],
+          "vocationTags": [
+            "voc_gunslinger",
+            "voc_shockboxer",
+            "voc_duelist"
+          ],
+          "disciplineTags": [
+            "athletics",
+            "ranged",
+            "evasion",
+            "survival"
+          ],
           "gearFlags": [],
           "encounters": [
             {
@@ -1535,8 +1604,17 @@
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "15ft",
-            "columnLabels": ["A", "B", "C", "D"],
-            "rowLabels": [1, 2, 3],
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
             "zones": [
               {
                 "id": "A1",
@@ -1906,15 +1984,25 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": ["rescue", "discovery", "corruption"],
+          "destinyTags": [
+            "rescue",
+            "discovery",
+            "corruption"
+          ],
           "vocationTags": [
             "voc_noble",
             "voc_grifter",
             "voc_investigator",
             "voc_sawbones"
           ],
-          "disciplineTags": ["survival", "investigation", "persuasion"],
-          "gearFlags": ["medpac"],
+          "disciplineTags": [
+            "survival",
+            "investigation",
+            "persuasion"
+          ],
+          "gearFlags": [
+            "medpac"
+          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1938,7 +2026,9 @@
           ],
           "rewards": {
             "credits": 0,
-            "items": ["Imperial Code Cylinder (encrypted)"],
+            "items": [
+              "Imperial Code Cylinder (encrypted)"
+            ],
             "intel": [
               "Maya pulled an Imperial Code Cylinder from Varga the Hutt's supply chain",
               "Cylinder needs a specialist — Switch, a droid hidden in the badlands",
@@ -2024,9 +2114,19 @@
             }
           ],
           "tacticalMap": null,
-          "knackTags": ["debtor", "false-identity", "hutt-marked"],
-          "speciesTags": ["human", "duros"],
-          "backgroundTags": ["desert-frontier", "spaceport-crossroads"],
+          "knackTags": [
+            "debtor",
+            "false-identity",
+            "hutt-marked"
+          ],
+          "speciesTags": [
+            "human",
+            "duros"
+          ],
+          "backgroundTags": [
+            "desert-frontier",
+            "spaceport-crossroads"
+          ],
           "themeTags": [
             "trust",
             "desperation",
@@ -2089,7 +2189,7 @@
           "id": "adv1-p1-s3",
           "number": 3,
           "title": "The Processor",
-          "gmNotes": "Switch is a crime lord and information broker, not an ally — he is a businessman. He examines the code cylinder and quotes a diagnostic fee the heroes can't afford. He then offers a deal: reduced fee in exchange for the heroes becoming information assets for his network. As they travel, they pass along intel — names, locations, movements, deals. If the intel is validated and leads to actionable resources, Switch compensates them. He also serves as a black market connection for gear, smuggling contacts, and fencing stolen goods.\n\nThe decryption reveals: the cylinder is an Imperial ghost transfer authorization device. It does NOT contain location data or vault coordinates. What it CAN do is authenticate into Imperial shuttle nav systems — essentially a master key for accessing flight computers on Imperial shuttles.\n\nAfter the reveal, Maya connects the dots: she's been watching an Imperial Lambda-class shuttle sitting on the Reestkii Landing Field. If the cylinder can get them into the shuttle's nav computer, they can download its flight logs and destination data — which could lead to Varth and the fortune.\n\nSwitch should feel dangerous and calculating despite his droid body. His deal is transactional but honest.\n\n=== SCENE NOW STRUCTURED IN 5 BEATS — see beats[] for tactical/narrative breakdown. ===",
+          "gmNotes": "Switch is a crime lord and information broker, not an ally — he is a businessman. He examines the code cylinder and quotes a diagnostic fee the heroes can't afford. He then offers a deal: reduced fee in exchange for the heroes becoming information assets for his network. As they travel, they pass along intel — names, locations, movements, deals. If the intel is validated and leads to actionable resources, Switch compensates them. He also serves as a black market connection for gear, smuggling contacts, and fencing stolen goods.\n\nTHE DECRYPTION — WHAT THE CYLINDER ACTUALLY IS:\nSwitch reads the cylinder's authorization header before he even cracks the payload. It is a Ghost Transfer Protocol cylinder: a single-use Imperial Intelligence credential authorizing the discreet movement of one named high-value detainee from one black-site facility to another, off all official manifests. The cylinder names BOTH the officer being transferred AND the shuttle authorized to carry him. It does NOT name the destination — the destination lives in the shuttle's nav core, loaded at departure under a separate seal so a hijacked cylinder cannot expose the safe house.\n\nNAMED OFFICER: Admiral Gilder Varth. Imperial Logistics — sector supply chains for the Outer Rim. The header identifies him as an active-status detainee, which is the technical detail Switch leans on hard: 'active' means alive at the time the cylinder was cut. (If he were dead the cylinder would have been voided; Imperial Intelligence does not transfer corpses with ghost protocol.)\n\nSWITCH'S COLOR ON VARTH (he gives this freely — it is bait for additional leverage, see below):\n• 'Admiral' is a courtesy title; the rank he actually holds inside Imperial Logistics is closer to a chief comptroller. He signs requisitions and routes payments. He is not a fleet officer.\n• His name shows up in three of Switch's standing files — all of them about Imperial supply contracts that ran 15-30% over budget for years before the discrepancy was finally noticed. Varth was the man holding the pen.\n• Conservative read on what he skimmed before Imperial Intelligence picked him up: low millions of credits, possibly more, hidden across cutout accounts. None of it has surfaced on the black market. None of it has been recovered.\n• If a man like that is being moved on a ghost transfer, it is because the auditors got him alive and the money is still in the wind. If they had broken him, he would already be in a tribunal, not in a transfer crate.\n\nSWITCH'S ANGLE — WHY HE IS BEING GENEROUS WITH THE COLOR:\nSwitch wants additional leverage on the crew before they walk out his door. He is GIVING them the score (an Imperial embezzler, alive, sitting on top of a fortune nobody else has located) in order to TAKE a richer hook back. After the standard recurring-asset deal closes (Beat 3), he reopens the table in Beat 4 with a SECOND ask:\n  • Right of first refusal on fencing whatever they recover from Varth, at his standard 30% cut.\n  • A named favor of his choosing, callable once, at any future point in the campaign.\nThe crew can negotiate the favor down (Charm vs Resist 4: success limits the favor to 'no one dies and nothing political'; failure leaves it open). They cannot remove either ask — Switch will quietly hand the cylinder back if they try, and the campaign stalls the same way a Beat 3 refusal does. The MacGuffin reveal is conditional on this second deal landing.\n\nWHAT MAYA STILL NEEDS THE LAMBDA FOR:\nThe cylinder names Varth and authorizes the shuttle to move him; the SHUTTLE'S nav core holds the destination. Maya — who has been watching an Imperial Lambda parked on the Reestkii landing field for two days — connects the dots aloud: that Lambda is almost certainly the transfer ship, sitting idle because its passenger never made it onto the manifest. Slice the Lambda's nav core (Scene s5, The Heist), pull the destination, and the crew knows where the Empire is hiding the man with the money.\n\nSwitch should feel dangerous and calculating despite his droid body. His deal is transactional but honest.\n\n=== SCENE NOW STRUCTURED IN 5 BEATS — see beats[] for tactical/narrative breakdown. ===",
           "npcs": [
             {
               "name": "Switch",
@@ -2101,9 +2201,13 @@
                 "\"Bring it here. Let me see what you've found.\"",
                 "\"My standard diagnostic fee is... well, more than you have. But I see an opportunity for a longer arrangement.\"",
                 "\"I reduce my fee. In exchange, you become assets in my intelligence network. You travel, you observe, you report. Validated intel earns compensation. Think of it as... mutually beneficial employment.\"",
-                "\"Ghost transfer authorization. Military grade. This cylinder authenticates into Imperial shuttle nav computers — flight logs, destination data, everything in the system. Someone wanted access to Imperial movements.\""
+                "\"Ghost Transfer Protocol. Imperial Intelligence cuts perhaps a dozen of these in a year and never advertises any of them. The cylinder authorizes the discreet movement of one named detainee, by one named shuttle, between two black-site facilities. The man you have here in your hand is a transfer order with a passenger.\"",
+                "\"The named passenger is Admiral Gilder Varth. Imperial Logistics. The header is stamped 'active status,' which means the Empire still believes he is alive — and Imperial Intelligence does not transfer corpses with ghost protocol.\"",
+                "\"Varth's name appears in three of my files. All three are about Imperial supply contracts that ran consistently over budget for years before anyone audited the line. He was the man holding the pen. Conservative estimate of what he moved into cutout accounts before they came for him: low millions of credits. Possibly more. None of it has surfaced. None of it has been recovered.\"",
+                "\"Permit me to be precise about what you have, then. You have a credential that names a living embezzler, authorizes the only ship cleared to move him, and proves the Empire has not yet found his money. I cannot tell you where they are taking him — that data lives in the shuttle's nav core, sealed separately. But the man, the transfer, and the missing fortune are all real, and they are all in the same place. If you can reach the second, you reach the first; and if you reach the first, the third becomes a question of how persuasive you are.\"",
+                "\"Naturally, an opportunity of this magnitude warrants a small additional consideration. Right of first refusal on whatever you recover, at my customary thirty percent. And one favor — named at my discretion, callable once. Refuse and I hand the cylinder back; we both know what it is now, but only one of us can use that knowledge.\""
               ],
-              "intel": "Switch identifies the code cylinder as ghost transfer authorization — a device that can authenticate into Imperial shuttle nav systems. It does not contain location data directly, but can access flight computers on Imperial vessels. He offers a deal: reduced diagnostic fee in exchange for the heroes becoming recurring information assets for his network.",
+              "intel": "Switch identifies the cylinder as a Ghost Transfer Protocol authorization — an Imperial Intelligence credential moving a single named detainee from one black-site facility to another. The named detainee is Admiral Gilder Varth, an Imperial Logistics comptroller whose header reads 'active status' (alive at issuance). Switch's standing files identify Varth as a long-running embezzler — low-millions-of-credits skimmed from over-budget supply contracts, none of it surfaced or recovered. The cylinder names the officer and authorizes the shuttle, but withholds the destination, which lives sealed in the shuttle's nav core. Switch volunteers all of this freely AS BAIT for a second ask: right of first refusal on the score (30% fence) plus one named favor callable later in the campaign. Without that second deal he hands the cylinder back; the recurring-asset arrangement remains in force but the Varth lead is withdrawn.",
               "threatBuild": {
                 "role": "informant",
                 "tier": 1,
@@ -2117,8 +2221,13 @@
                   "presence": 3
                 },
                 "weaponChassis": null,
-                "traits": ["disciplined"],
-                "tags": ["Droid", "droid"],
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Droid",
+                  "droid"
+                ],
                 "roleKit": {
                   "passive": null,
                   "gambit": null,
@@ -2274,7 +2383,9 @@
                   "agile",
                   "slippery"
                 ],
-                "tags": ["mercenary"],
+                "tags": [
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -2391,8 +2502,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2524,8 +2642,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2657,8 +2782,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2790,8 +2922,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2910,7 +3049,9 @@
             "Switch",
             "The Code Cylinder",
             "Jakku",
-            "Ghost Transfer Authorization"
+            "Ghost Transfer Protocol",
+            "Admiral Gilder Varth",
+            "Imperial Logistics Embezzlement"
           ],
           "narrativeLinks": [
             {
@@ -2923,8 +3064,15 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": ["discovery", "corruption"],
-          "vocationTags": ["voc_noble", "voc_grifter", "voc_investigator"],
+          "destinyTags": [
+            "discovery",
+            "corruption"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_investigator"
+          ],
           "disciplineTags": [
             "persuasion",
             "charm",
@@ -2946,8 +3094,8 @@
               "name": "The Analysis Reveal",
               "type": "social",
               "trigger": "After the deal is struck",
-              "description": "The cylinder is an Imperial ghost transfer authorization — it can authenticate into Imperial shuttle nav systems. No location data, no vault coordinates. But it's a master key to flight computers. Maya connects the dots: the Lambda shuttle sitting on the Reestkii Landing Field could contain Varth's location in its nav logs.",
-              "tactics": "Switch delivers with clinical detachment. Watches reactions carefully. He knows the cylinder's value and is already calculating angles."
+              "description": "The cylinder is a Ghost Transfer Protocol authorization — Imperial Intelligence credential that names a single high-value detainee, the shuttle authorized to move him, and (sealed separately in the shuttle's nav core) the destination. The named detainee is Admiral Gilder Varth, Imperial Logistics, header stamped 'active status' (alive at issuance). Switch volunteers his standing files on Varth: a long-running embezzler, low millions of credits skimmed from over-budget supply contracts, none surfaced or recovered. Switch then asks for a second deal — 30% fence on the Varth score plus one named favor — in exchange for releasing the cylinder. Maya identifies the parked Lambda T4-A on the Reestkii field as the transfer ship and proposes the heist.",
+              "tactics": "Switch delivers with clinical detachment. The Varth color is bait — he is feeding the crew a payday they cannot refuse so he can take a richer position on the back end. Watches reactions carefully, especially on the words 'never recovered.' If a PC's destiny road touches greed/wealth/score, lean the holo and the dollar figure toward that PC."
             }
           ],
           "environmentMechanics": [
@@ -2968,10 +3116,13 @@
             "credits": 0,
             "items": [],
             "intel": [
-              "The code cylinder is ghost transfer authorization — authenticates into Imperial shuttle nav systems",
-              "No location data on the cylinder itself, but it can access Imperial flight computers",
-              "Maya has been tracking a Lambda shuttle at the Reestkii Landing Field",
-              "The cylinder is a master key, not a treasure map — it points wherever the next Imperial Lambda you crack has been"
+              "The code cylinder is a Ghost Transfer Protocol authorization — Imperial Intelligence credential, single-use, off-manifest",
+              "Named detainee on the cylinder: Admiral Gilder Varth, Imperial Logistics — header reads 'active status' (alive at issuance)",
+              "Switch's standing files identify Varth as a long-running embezzler — low millions of credits skimmed from over-budget supply contracts, none of it surfaced or recovered",
+              "Cylinder names the transfer SHUTTLE (Lambda T4-A) but withholds the destination — destination lives in the shuttle's nav core under a separate seal",
+              "Maya has been tracking a Lambda T4-A at the Reestkii Landing Field for two days — almost certainly the named transfer ship, sitting idle because its passenger never made the manifest",
+              "Slice the Lambda's nav core (Scene s5) and the crew has the only known location on Varth — and a 24-48 hour window before Imperial Intelligence reissues the cylinder",
+              "Switch extracts a SECOND deal alongside the recurring-asset arrangement: 30% fence on whatever the crew recovers from Varth, plus one named favor callable later"
             ],
             "connections": [
               "Switch (info broker, recurring intelligence fixer, black market connection)"
@@ -2980,7 +3131,7 @@
           "pacing": {
             "openingBeat": "Descent into Switch's bunker beneath the Sinkhole. First impression: this droid is more than he seems.",
             "risingAction": "Persuasion. Switch quotes a fee they can't pay. Offers the intel-asset deal instead.",
-            "climax": "The analysis reveal — the cylinder authenticates into Imperial shuttles. Maya proposes the heist.",
+            "climax": "The analysis reveal — the cylinder is a Ghost Transfer Protocol order naming Admiral Gilder Varth, an Imperial Logistics embezzler still alive and still sitting on millions of unrecovered credits. Switch extracts a second deal for the lead. Maya names the parked Lambda T4-A as the transfer ship and proposes the heist.",
             "resolution": "Heroes know their target: the Lambda shuttle on the landing field. Clock is ticking.",
             "estimatedMinutes": 30
           },
@@ -3042,7 +3193,12 @@
             "notorious",
             "defector"
           ],
-          "speciesTags": ["keldor", "twilek", "human", "duros"],
+          "speciesTags": [
+            "keldor",
+            "twilek",
+            "human",
+            "duros"
+          ],
           "backgroundTags": [
             "desert-frontier",
             "urban-underworld",
@@ -3089,8 +3245,8 @@
               "id": "adv1-p1-s3-b4",
               "number": 4,
               "title": "The Reveal",
-              "readAloud": "The lamp-lit table dims, and a holo blooms above the cylinder — a stylized schematic of an Imperial Lambda-class shuttle's nav core. 'Your cylinder is a master key. Specifically: it authenticates ghost-priority transfer credentials into Imperial shuttle navigation computers. With it, you can plug into any Imperial Lambda's flight deck and pull every hop it has made, every destination it has been ordered to make, every authorization stamp on its manifest. You can also reroute it, if you are clever and have time.' He lets that sit. 'It does not contain coordinates. It is a key. The vault is whatever Imperial shuttle you can get it close enough to talk to.'",
-              "gmNotes": "THE MACGUFFIN REVEAL — the cylinder is NOT a treasure map. It is a key. This redirects the players from 'where do we go?' to 'what Imperial shuttle do we crack?'\n\nThe distinction matters: the campaign now has a TARGET problem, not a navigation problem. The players need to find an Imperial Lambda they can physically access. This frames the rest of Adv1 — Maya is about to provide the target in the next beat.\n\nIf a PC asks technical questions:\n• Range to authenticate: 50m line-of-sight, 5m if shielded.\n• Time to download a flight log: 90 seconds once authenticated.\n• Time to reroute: 4 minutes plus a Tech check (Resist 4) — used in adv1-p1-s5 (The Heist).\n• Will the cylinder work on a Star Destroyer? No — different authentication tier. Lambda-class and below only.\n• Will it set off Imperial security? Only if used near an active Imperial garrison's tracker net. The Reestkii field is on the edge of one but not inside it (this becomes important).\n\nDestiny callout: the Investigator role gets the deep technical questions for free. The Tech role gets the implementation details for free.",
+              "readAloud": "The lamp-lit table dims. A holo blooms above the cylinder — first the Imperial Intelligence sigil, then a single line of text scrolling slow enough that you can read it: GHOST TRANSFER PROTOCOL — DETAINEE: VARTH, GILDER (ADMIRAL) — STATUS: ACTIVE — TRANSFER VESSEL: LAMBDA T4-A, REG. ENCRYPTED — DESTINATION: SEALED.\n\nSwitch lets the line hang in the air for a full beat before he speaks.\n\n'A Ghost Transfer Protocol cylinder. Imperial Intelligence cuts perhaps a dozen of these in a year and never advertises any of them. The cylinder authorizes the discreet movement of a single named detainee, by a single named shuttle, between two black-site facilities. The man you are holding here in your hand is a transfer order. With a passenger.'\n\nA second pane opens beside the first — a personnel file, the photo redacted to a silhouette. 'Admiral Gilder Varth. Imperial Logistics. Ranks aside, his real title is closer to chief comptroller — he signed requisitions and routed payments for sector supply contracts across half the Outer Rim. The header is stamped active status, which means at the moment this cylinder was cut, Imperial Intelligence still believed him to be alive. Imperial Intelligence does not transfer corpses with ghost protocol. They transfer assets they have not yet finished interrogating.'\n\nA third pane: three contract files, each with a long red line under the budget figure. 'Varth's name appears in three of my standing files. All three concern Imperial supply contracts that ran fifteen to thirty percent over budget for years before anyone audited the line. He was the man holding the pen. Conservative estimate of what he moved into cutout accounts before the auditors came for him: low millions of credits. Possibly more. None of it has surfaced on any market I monitor. None of it has been recovered.'\n\nThe holo collapses to a single image: the cylinder itself, slowly rotating.\n\n'Permit me to be precise about what is sitting on my table. You have a credential that names a living embezzler, authorizes the only ship cleared to move him, and proves the Empire has not yet found his money. The cylinder will not tell you where they are taking him — that data is sealed in the shuttle's nav core, loaded at departure under a separate key. But the man, the transfer, and the missing fortune are all real, and they are all in the same place. Reach the shuttle, you reach the man. Reach the man, the third question becomes a matter of how persuasive you are.'\n\nHis three optics flick between you in turn.\n\n'Naturally — an opportunity of this magnitude warrants a small additional consideration on my end. Right of first refusal on whatever you recover, at my customary thirty percent. And one favor — named at my discretion, callable once, at any future point. Refuse and the cylinder goes back across the table. We will both know what it is. Only one of us will be in a position to use that knowledge.'",
+              "gmNotes": "THE MACGUFFIN REVEAL — radically reframed. The cylinder is no longer a generic 'master key for Imperial shuttles.' It is a specific transfer order with a specific named passenger and a specific implied payday. By the end of this beat the table should know:\n  1) The cylinder is a Ghost Transfer Protocol authorization (rare, single-use, off-manifest).\n  2) The named detainee is Admiral Gilder Varth, Imperial Logistics, alive at issuance.\n  3) Varth is a known embezzler — low millions of credits, never recovered.\n  4) The cylinder names the SHUTTLE but not the destination. The destination lives in the shuttle's nav core.\n  5) Switch is asking for a SECOND deal on top of the recurring-asset arrangement before he releases the cylinder.\n\nWHY THE BAIT WORKS — frame for the GM:\nThe Varth backstory is being handed to the crew for free precisely because Switch wants the second hook to land. He is selling them a payday they cannot refuse so that he can take a richer position on the back end. Lean into the calculation in your performance — Switch is not warming up to the crew, he is closing them.\n\nTHE SECOND DEAL — what Switch is asking for:\n• Right of first refusal on the Varth score, fenced through Switch at his standard 30% cut.\n• ONE named favor of Switch's choosing, callable once at any future campaign point.\nNegotiation: Charm or Skulduggery vs Resist 4 to bound the favor — success constrains it to 'no one dies and nothing political'; failure leaves it open. The fence rate is non-negotiable; he has institutional reasons (his network expects the rate) and will not flex it.\n\nIF THE CREW REFUSES THE SECOND DEAL: Switch slides the cylinder back across the table without ceremony. The recurring-asset arrangement from Beat 3 STAYS — those terms already closed and Switch honors closed deals — but the Varth lead, including everything he just told them, is withdrawn as 'unactionable speculation, retracted.' The crew can still slice the Lambda on their own (s5 still runs), but they go in blind: they will not know who is being transferred, why he matters, or that he has a fortune attached. The campaign continues but the heist becomes a salvage job rather than a rescue. Most crews accept the second deal once they hear the dollar figure.\n\nIF A PC SHARES A DESTINY ROAD WITH FORTUNE/GREED, WEALTH, OR SCORE: surface this beat as the trigger for that road. The 'low millions, none recovered' line is engineered to hook the destiny without forcing the GM to spell it out.\n\nIF A PC ASKS TECHNICAL QUESTIONS ABOUT THE CYLINDER ITSELF:\n• Range to authenticate: 50m line-of-sight, 5m if shielded.\n• Time to download the sealed nav payload once authenticated: 90 seconds.\n• Time to reroute the shuttle: 4 minutes plus a Tech check (Resist 4) — used in adv1-p1-s5 (The Heist).\n• Will the cylinder work on a Star Destroyer? No — Lambda-class and below only.\n• Will it set off Imperial security? Only if used near an active Imperial garrison's tracker net. The Reestkii field is on the edge of one but not inside it (this becomes important in s5).\n• Can the cylinder be used twice? No — single-use authorization. Once the shuttle's nav core is read, the credential burns. Plan accordingly.\n\nIF A PC ASKS HOW SWITCH KNOWS SO MUCH ABOUT VARTH: he gestures vaguely at the wall of data feeds. 'I keep three files on every Imperial logistics official above grade six who has ever signed a requisition above one hundred thousand credits. Varth is one of perhaps four hundred such files. The relevant ones rise to the top when their names cross my table.' This is true. Do not let players use this to fish for other named officers — Switch will quote a fee.\n\nDestiny callout: the Investigator role gets the technical interrogation tier (above) for free. The Tech role gets the implementation details (range, timing) for free. The Scoundrel/Mercenary roles read the bait — 'low millions, never recovered' — without an Insight check.",
               "beatType": "lore",
               "optional": false
             },
@@ -3098,8 +3254,8 @@
               "id": "adv1-p1-s3-b5",
               "number": 5,
               "title": "Maya's Connection",
-              "readAloud": "Maya, who has been pacing the back of the room with one hand on her sidearm, stops. 'A Lambda. There's an Imperial Lambda sitting on the Reestkii landing field right now. I watched it land yesterday. Eight stormtroopers, one officer, no insignia visible from the road. It hasn't moved.' She looks at the cylinder, then at you, then at Switch. 'If that ship is what I think it is, and if your cylinder does what you say it does, we can pull its flight log tonight and know exactly where every Imperial high-value passenger has been moved through this sector for the last two months.'",
-              "gmNotes": "THE TARGET BEAT — Maya converts the macguffin into an immediate next-scene objective. This is the bridge to adv1-p1-s4 (Gangster's Revenge interrupts the planning) and adv1-p1-s5 (The Heist itself).\n\nMaya is not lying. The Lambda is real, parked, and lightly guarded by frontier-Imperial standards (because the Empire genuinely does not expect anyone on Jakku to have a master key). Maya saw it because she was casing the field for a different score.\n\nWHAT MAYA WANTS THE CREW TO HEAR:\n• The shuttle is reachable.\n• The crew has a 24-48 hour window before the shuttle is recalled.\n• She can get them within scope of the field; she knows the patrol pattern.\n• She is offering equal share of whatever the cylinder reveals — she is not the boss, she is a partner.\n\nWHAT MAYA IS NOT SAYING (yet):\n• She has personal reasons to want eyes on Imperial movement in this sector — a previous job that went bad, an Imperial officer she'd like to find. THIS IS NOT A MAYA-BETRAYAL TELL. The locked three-tell cadence (P1 S3-b3, P2 S2, P3 S3) is the canonical telegraph of Maya's eventual betrayal — DO NOT count this beat against that count. This is competence-and-motivation color: it explains WHY Maya is hungry for this job and WHY she is competent at the casing, full stop. If a PC reads her (Insight vs Resist 3, Masterful surfaces 'she is angrier about this than the credits explain'), the surfaced read is 'professional grudge,' not 'untrustworthy.' Players who try to weaponize this read into 'Maya is going to betray us' should be told (in-fiction or by GM aside) that nothing they have seen warrants that conclusion yet.\n\nEND OF SCENE: hand off to adv1-p1-s4 (the planning is interrupted by Ganga Lor's breach). Switch's processor is the location for that combat — the deal struck here means Switch's security systems will engage, not stand down, when the door blows.",
+              "readAloud": "Maya has stopped pacing. Both hands on the back of the chair Switch keeps for guests. She is staring at the holo line with the words DETAINEE: VARTH, GILDER (ADMIRAL) and her face is somewhere between disbelief and arithmetic.\n\n'A Lambda T4-A.' Quiet. To herself, then to you. 'There's a Lambda T4-A sitting on the Reestkii landing field right now. Has been for two days. Eight stormtroopers, one officer in a black uniform, no insignia visible from the road. It hasn't moved. Nobody on or off. The locals think it's a refueling layover.'\n\nShe taps the edge of the table once, working it through.\n\n'It's not. It's the transfer ship. Has to be. The cylinder names the shuttle, and the shuttle is sitting on a landing field two hundred kilometers from this room — idle — because its passenger never made it onto the manifest. Because we have his transfer order on this table.' She looks up. 'If we slice that nav core tonight, we know exactly where the Empire is hiding Admiral Gilder Varth. And if we move on him fast — before someone in Imperial Intelligence notices the cylinder is missing and reissues a new one — we are the only people in the galaxy who know where he is. Including the Empire, in about forty-eight hours.'\n\nA beat. She lets the word land.\n\n'And if Switch is right about the money — if there really are millions of credits sitting in cutout accounts that nobody has found — then we are not breaking a man out of a black site. We are breaking a man out of a black site who has every reason in the galaxy to tell us where his fortune is, in exchange for the only ride out of Imperial space he is ever going to be offered.'",
+              "gmNotes": "THE TARGET BEAT — Maya converts the now-named score into an immediate next-scene objective. This is the bridge to adv1-p1-s4 (Gangster's Revenge interrupts the planning) and adv1-p1-s5 (The Heist itself).\n\nMaya is not lying. The Lambda is real, parked, and lightly guarded by frontier-Imperial standards (because the Empire genuinely does not expect anyone on Jakku to have a stolen ghost-transfer cylinder). Maya saw it land because she was casing the field for a different score and clocked a Lambda T4-A as unusual traffic for Reestkii.\n\nWHY MAYA RECOGNIZES THE T4-A SPECIFICALLY: the T4-A is the variant Imperial Intelligence uses for prisoner transfers — sealed passenger compartment, minimal viewports, hardened nav core. To the trained eye it reads 'spook ship' the moment it sets down. Maya knows hulls; this is competence color, not a betrayal tell. If asked, she explains it as 'I worked a freight run that flew next to one for three days. You learn the silhouette.'\n\nWHAT MAYA WANTS THE CREW TO HEAR (the pitch):\n• The shuttle is reachable, parked, and idle.\n• The crew has a 24-48 hour window before Imperial Intelligence notices the cylinder is gone and re-cuts a replacement.\n• She knows the patrol pattern at the field.\n• Once they have the destination, the Varth job becomes a rescue-for-ransom — the prisoner is also the safe.\n• She is a partner, not the boss. Standard share of the score.\n\nWHAT MAYA IS NOT SAYING (yet):\n• She has personal reasons to want eyes on Imperial movement in this sector — a previous job that went bad, an Imperial officer she'd like to find. THIS IS NOT A MAYA-BETRAYAL TELL. The locked three-tell cadence (P1 S3-b3, P2 S2, P3 S3) is the canonical telegraph of Maya's eventual betrayal — DO NOT count this beat against that count. This is competence-and-motivation color: it explains WHY Maya is hungry for this job and WHY she is competent at the casing, full stop. If a PC reads her (Insight vs Resist 3, Masterful surfaces 'she is angrier about this than the credits explain'), the surfaced read is 'professional grudge,' not 'untrustworthy.' Players who try to weaponize this read into 'Maya is going to betray us' should be told (in-fiction or by GM aside) that nothing they have seen warrants that conclusion yet.\n\nIF A PC ASKS WHY THE EMPIRE WOULD LET A MAN WHO STOLE MILLIONS LIVE LONG ENOUGH TO TRANSFER HIM: the in-fiction answer is forensic accounting — they have not yet recovered the credits, and a dead Varth is a permanently lost trail. The Empire is moving him to a long-term interrogation site precisely BECAUSE the money has not surfaced. Switch can volunteer this if asked; otherwise leave it on the table for the players to put together.\n\nEND OF SCENE: hand off to adv1-p1-s4 (the planning is interrupted by Ganga Lor's breach). Switch's processor is the location for that combat — the deal struck here means Switch's security systems will engage, not stand down, when the door blows.",
               "beatType": "narrative",
               "optional": false
             }
@@ -3328,8 +3484,15 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -3415,11 +3578,15 @@
                     "id": "bantha_rush",
                     "name": "Bantha Rush",
                     "source": "Athletics",
-                    "tags": ["melee"],
+                    "tags": [
+                      "melee"
+                    ],
                     "cost": "-1 Power",
                     "description": "In addition to normal effects, push the target 1 zone. NPC may follow into that zone.",
                     "rider": "Push 1 zone",
-                    "suggestedRoles": ["threat"]
+                    "suggestedRoles": [
+                      "threat"
+                    ]
                   }
                 ],
                 "attacks": [
@@ -3658,7 +3825,11 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": ["armored_light", "disciplined", "follows_the_boss"],
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -3745,11 +3916,16 @@
                     "id": "menacing_strike",
                     "name": "Menacing Strike",
                     "source": "Intimidate",
-                    "tags": ["melee", "unarmed"],
+                    "tags": [
+                      "melee",
+                      "unarmed"
+                    ],
                     "cost": "-1 Power",
                     "description": "In addition to normal effects, target gains [Rattled] Tactical.",
                     "rider": "[Rattled] Tactical",
-                    "suggestedRoles": ["threat"]
+                    "suggestedRoles": [
+                      "threat"
+                    ]
                   }
                 ],
                 "attacks": [
@@ -3943,15 +4119,27 @@
                     "exploitMod": 1,
                     "notes": "An Elite can replace 2-3 Standards and provide a more interesting fight."
                   },
-                  "immunities": ["Shaken", "Rattled"],
+                  "immunities": [
+                    "Shaken",
+                    "Rattled"
+                  ],
                   "vulnerabilities": [],
                   "scale": null,
                   "scaleLevel": 1,
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": ["disciplined", "fearless"],
-                "tags": ["Droid", "droid", "criminal", "leader", "informant"],
+                "traits": [
+                  "disciplined",
+                  "fearless"
+                ],
+                "tags": [
+                  "Droid",
+                  "droid",
+                  "criminal",
+                  "leader",
+                  "informant"
+                ],
                 "roleKit": {
                   "roleName": "Support / Leader",
                   "action": {
@@ -4178,8 +4366,15 @@
                   "ironClad": false,
                   "isStationary": false
                 },
-                "traits": ["tough", "disciplined", "veteran", "loyal"],
-                "tags": ["Chevin"],
+                "traits": [
+                  "tough",
+                  "disciplined",
+                  "veteran",
+                  "loyal"
+                ],
+                "tags": [
+                  "Chevin"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Leader",
                   "action": {
@@ -4311,8 +4506,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -4444,8 +4646,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -4577,8 +4786,15 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "corruptible", "transactional"],
-                "tags": ["criminal", "mercenary"],
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -4710,7 +4926,11 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "disciplined", "follows_the_boss"],
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -4843,7 +5063,11 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "disciplined", "follows_the_boss"],
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -4976,7 +5200,11 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "disciplined", "follows_the_boss"],
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5109,7 +5337,11 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "disciplined", "follows_the_boss"],
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5237,7 +5469,9 @@
                   "agile",
                   "slippery"
                 ],
-                "tags": ["mercenary"],
+                "tags": [
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -5327,8 +5561,13 @@
             }
           ],
           "challengeType": "combat",
-          "destinyTags": ["destruction"],
-          "vocationTags": ["voc_gunslinger", "voc_shockboxer"],
+          "destinyTags": [
+            "destruction"
+          ],
+          "vocationTags": [
+            "voc_gunslinger",
+            "voc_shockboxer"
+          ],
           "disciplineTags": [
             "athletics",
             "ranged",
@@ -5503,8 +5742,17 @@
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "15ft",
-            "columnLabels": ["A", "B", "C", "D"],
-            "rowLabels": [1, 2, 3],
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
             "zones": [
               {
                 "id": "A1",
@@ -5656,7 +5904,12 @@
             "traumatized",
             "blood-price"
           ],
-          "speciesTags": ["wookiee", "cathar", "zabrak", "rodian"],
+          "speciesTags": [
+            "wookiee",
+            "cathar",
+            "zabrak",
+            "rodian"
+          ],
           "backgroundTags": [
             "urban-underworld",
             "conflict-zone",
@@ -5766,7 +6019,10 @@
                     "legendary": 6
                   }
                 },
-                "traits": ["armored_light", "follows_the_boss"],
+                "traits": [
+                  "armored_light",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
                   "roleName": "Anchor / Martial",
@@ -5870,8 +6126,16 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["disciplined", "loyal", "armored_light"],
-                "tags": ["Imperial", "Military", "imperial"],
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
                 "roleKit": {
                   "roleName": "Harrier / Leader",
                   "action": {
@@ -6007,8 +6271,16 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["disciplined", "loyal", "armored_light"],
-                "tags": ["Imperial", "Military", "imperial"],
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6152,8 +6424,16 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["disciplined", "loyal", "armored_light"],
-                "tags": ["Imperial", "Military", "imperial"],
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6297,8 +6577,16 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["disciplined", "loyal", "armored_light"],
-                "tags": ["Imperial", "Military", "imperial"],
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
                 "roleKit": {
                   "roleName": "Support / Ranged",
                   "action": {
@@ -6439,8 +6727,16 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["disciplined", "loyal", "armored_light"],
-                "tags": ["Imperial", "Military", "imperial"],
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6584,8 +6880,16 @@
                     "legendary": 8
                   }
                 },
-                "traits": ["disciplined", "loyal", "armored_light"],
-                "tags": ["Imperial", "Military", "imperial"],
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Ranged",
                   "action": {
@@ -6707,8 +7011,15 @@
             }
           ],
           "challengeType": "infiltration",
-          "destinyTags": ["rescue", "discovery"],
-          "vocationTags": ["voc_ghost", "voc_splice", "voc_grifter"],
+          "destinyTags": [
+            "rescue",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_ghost",
+            "voc_splice",
+            "voc_grifter"
+          ],
           "disciplineTags": [
             "stealth",
             "charm",
@@ -6716,7 +7027,10 @@
             "skulduggery",
             "piloting"
           ],
-          "gearFlags": ["Restricted", "Military"],
+          "gearFlags": [
+            "Restricted",
+            "Military"
+          ],
           "encounters": [
             {
               "id": "enc-s5-infiltration",
@@ -7128,8 +7442,17 @@
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "20ft",
-            "columnLabels": ["A", "B", "C", "D"],
-            "rowLabels": [1, 2, 3],
+            "columnLabels": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "rowLabels": [
+              1,
+              2,
+              3
+            ],
             "zones": [
               {
                 "id": "A1",
@@ -7277,7 +7600,12 @@
             "hunted",
             "hutt-marked"
           ],
-          "speciesTags": ["human", "rodian", "togruta", "sullustan"],
+          "speciesTags": [
+            "human",
+            "rodian",
+            "togruta",
+            "sullustan"
+          ],
           "backgroundTags": [
             "spaceport-crossroads",
             "conflict-zone",
@@ -7512,9 +7840,18 @@
             }
           ],
           "challengeType": "technical",
-          "destinyTags": ["discovery"],
-          "vocationTags": ["voc_ace", "voc_grifter"],
-          "disciplineTags": ["piloting", "skulduggery", "survival"],
+          "destinyTags": [
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_ace",
+            "voc_grifter"
+          ],
+          "disciplineTags": [
+            "piloting",
+            "skulduggery",
+            "survival"
+          ],
           "gearFlags": [],
           "encounters": [
             {
@@ -7721,9 +8058,18 @@
             ],
             "gmTacticalNotes": "NON-COMBAT SCENE: This is a flight-prep / character beat scene aboard the Banshee — gear-buy, route plan, downtime conversations. The map is here so the GM can frame WHERE conversations happen (galley = informal, cockpit = pilot intimacy, captain's cabin = locked door = a question), not because a fight is expected. If combat does happen (e.g. an unannounced boarding), use the Cockpit as the choke-point and the Cargo Bay as the open kill-floor."
           },
-          "knackTags": ["smuggler", "pilot", "drifter"],
-          "speciesTags": ["human"],
-          "backgroundTags": ["outer-rim", "spacer-lanes"],
+          "knackTags": [
+            "smuggler",
+            "pilot",
+            "drifter"
+          ],
+          "speciesTags": [
+            "human"
+          ],
+          "backgroundTags": [
+            "outer-rim",
+            "spacer-lanes"
+          ],
           "themeTags": [
             "smuggling",
             "Imperial military",
@@ -7765,8 +8111,14 @@
                   "presence": 1
                 },
                 "weaponChassis": "heavy",
-                "traits": ["fortified"],
-                "tags": ["Clone Wars", "Emplacement", "Defense Grid"],
+                "traits": [
+                  "fortified"
+                ],
+                "tags": [
+                  "Clone Wars",
+                  "Emplacement",
+                  "Defense Grid"
+                ],
                 "computed": {
                   "power": 4,
                   "defense": 5,
@@ -7884,8 +8236,14 @@
                   "presence": 1
                 },
                 "weaponChassis": "heavy",
-                "traits": ["fortified"],
-                "tags": ["Clone Wars", "Emplacement", "Defense Grid"],
+                "traits": [
+                  "fortified"
+                ],
+                "tags": [
+                  "Clone Wars",
+                  "Emplacement",
+                  "Defense Grid"
+                ],
                 "computed": {
                   "power": 4,
                   "defense": 5,
@@ -8003,8 +8361,14 @@
                   "presence": 1
                 },
                 "weaponChassis": "heavy",
-                "traits": ["fortified"],
-                "tags": ["Clone Wars", "Emplacement", "Defense Grid"],
+                "traits": [
+                  "fortified"
+                ],
+                "tags": [
+                  "Clone Wars",
+                  "Emplacement",
+                  "Defense Grid"
+                ],
                 "computed": {
                   "power": 4,
                   "defense": 5,
@@ -8136,10 +8500,21 @@
             }
           ],
           "challengeType": "survival",
-          "destinyTags": ["creation"],
-          "vocationTags": ["voc_ace", "voc_mechanic"],
-          "disciplineTags": ["skulduggery", "survival", "piloting"],
-          "gearFlags": ["starship_tool_kit"],
+          "destinyTags": [
+            "creation"
+          ],
+          "vocationTags": [
+            "voc_ace",
+            "voc_mechanic"
+          ],
+          "disciplineTags": [
+            "skulduggery",
+            "survival",
+            "piloting"
+          ],
+          "gearFlags": [
+            "starship_tool_kit"
+          ],
           "encounters": [
             {
               "id": "enc-s6-turret-gauntlet",
@@ -8159,7 +8534,9 @@
                         "Defense Turret T2",
                         "Defense Turret T3"
                       ],
-                      "conditions": ["optimized"],
+                      "conditions": [
+                        "optimized"
+                      ],
                       "note": "Coordinated targeting links lock onto the Banshee."
                     }
                   ]
@@ -8174,7 +8551,9 @@
                         "Defense Turret T2",
                         "Defense Turret T3"
                       ],
-                      "conditions": ["empowered"],
+                      "conditions": [
+                        "empowered"
+                      ],
                       "note": "Focus-fire on the starboard engine."
                     }
                   ]
@@ -8336,14 +8715,24 @@
             "blood-price",
             "exile"
           ],
-          "speciesTags": ["wookiee", "rodian", "cathar", "duros", "sullustan"],
+          "speciesTags": [
+            "wookiee",
+            "rodian",
+            "cathar",
+            "duros",
+            "sullustan"
+          ],
           "backgroundTags": [
             "deep-space-freighter",
             "ancient-nexus-world",
             "farming-world",
             "conflict-zone"
           ],
-          "themeTags": ["survival", "isolation", "jungle environment"],
+          "themeTags": [
+            "survival",
+            "isolation",
+            "jungle environment"
+          ],
           "timeAdvance": {
             "hours": 2,
             "label": "Crash + initial survey of the Green Hell"
@@ -8358,7 +8747,11 @@
           "npcs": [],
           "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
           "decisionPoints": [],
-          "loreTags": ["Ajan Kloss", "Klosari", "The Vanishing Place"],
+          "loreTags": [
+            "Ajan Kloss",
+            "Klosari",
+            "The Vanishing Place"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv1-p2-s4",
@@ -8366,8 +8759,14 @@
             }
           ],
           "challengeType": "survival",
-          "destinyTags": ["discovery"],
-          "vocationTags": ["voc_hound", "voc_ghost", "voc_doc"],
+          "destinyTags": [
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_hound",
+            "voc_ghost",
+            "voc_doc"
+          ],
           "disciplineTags": [
             "survival",
             "athletics",
@@ -8375,7 +8774,9 @@
             "investigation",
             "beast_handling"
           ],
-          "gearFlags": ["Environmental"],
+          "gearFlags": [
+            "Environmental"
+          ],
           "encounters": [
             {
               "id": "enc-s3-acid-pools",
@@ -8756,8 +9157,19 @@
             ],
             "gmTacticalNotes": "GROUP CHALLENGE FRAME: This is the Green Hell traverse — a multi-zone group challenge (already in disciplineChallenges/groupChallenge). The map is for the GM to track WHICH zones the party crossed (acid-pool brushes, spore-bloom triggers, ridge recons) and to set up s4. Mandrake is observing from Vine Canopy NW or Dense Jungle East throughout — he reveals himself in s4 once the party has \"earned\" his attention by surviving the trek."
           },
-          "knackTags": ["traumatized", "shadow-stalked", "exile", "witness"],
-          "speciesTags": ["rodian", "togruta", "cathar", "keldor", "sullustan"],
+          "knackTags": [
+            "traumatized",
+            "shadow-stalked",
+            "exile",
+            "witness"
+          ],
+          "speciesTags": [
+            "rodian",
+            "togruta",
+            "cathar",
+            "keldor",
+            "sullustan"
+          ],
           "backgroundTags": [
             "ancient-nexus-world",
             "conflict-zone",
@@ -8809,8 +9221,13 @@
                   "presence": 1
                 },
                 "weaponChassis": "medium",
-                "traits": ["veteran"],
-                "tags": ["Separatist", "Commando"],
+                "traits": [
+                  "veteran"
+                ],
+                "tags": [
+                  "Separatist",
+                  "Commando"
+                ],
                 "roleKit": {
                   "roleName": "Harrier / Force",
                   "action": {
@@ -8897,9 +9314,18 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": ["rescue", "alliance"],
-          "vocationTags": ["voc_face", "voc_ghost"],
-          "disciplineTags": ["investigation", "persuasion"],
+          "destinyTags": [
+            "rescue",
+            "alliance"
+          ],
+          "vocationTags": [
+            "voc_face",
+            "voc_ghost"
+          ],
+          "disciplineTags": [
+            "investigation",
+            "persuasion"
+          ],
           "gearFlags": [],
           "encounters": [
             {
@@ -9062,9 +9488,23 @@
             ],
             "gmTacticalNotes": "CONVERSATION-FIRST SCENE: Mandrake is a Tier 2 Stalker with full home-field advantage. He should NOT be fought — he will fire warning shots, detonate a bloom, and vanish into the canopy. If the PCs accept his deal, the party gets a guide to the drainage sluice (a much easier fortress approach). If the PCs attack and survive, they lose the sluice route and must approach the fortress unguided."
           },
-          "knackTags": ["exile", "witness", "addiction", "shadow-stalked"],
-          "speciesTags": ["rodian", "togruta", "cathar", "keldor", "sullustan"],
-          "backgroundTags": ["conflict-zone", "ancient-nexus-world"],
+          "knackTags": [
+            "exile",
+            "witness",
+            "addiction",
+            "shadow-stalked"
+          ],
+          "speciesTags": [
+            "rodian",
+            "togruta",
+            "cathar",
+            "keldor",
+            "sullustan"
+          ],
+          "backgroundTags": [
+            "conflict-zone",
+            "ancient-nexus-world"
+          ],
           "themeTags": [
             "frontier justice",
             "improbable allies",
@@ -9109,8 +9549,13 @@
                   "presence": 2
                 },
                 "weaponChassis": "light",
-                "traits": ["disciplined"],
-                "tags": ["Imperial", "Scientist"],
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Scientist"
+                ],
                 "roleKit": {
                   "roleName": "Controller / Leader",
                   "action": {
@@ -9264,8 +9709,14 @@
                   "presence": 1
                 },
                 "weaponChassis": "medium",
-                "traits": ["armored_light", "disciplined"],
-                "tags": ["Imperial", "Military"],
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military"
+                ],
                 "roleKit": {
                   "roleName": "Anchor / Ranged",
                   "action": {
@@ -9356,8 +9807,15 @@
             }
           ],
           "challengeType": "infiltration",
-          "destinyTags": ["destruction", "rescue"],
-          "vocationTags": ["voc_ghost", "voc_splice", "voc_investigator"],
+          "destinyTags": [
+            "destruction",
+            "rescue"
+          ],
+          "vocationTags": [
+            "voc_ghost",
+            "voc_splice",
+            "voc_investigator"
+          ],
           "disciplineTags": [
             "stealth",
             "skulduggery",
@@ -9365,7 +9823,9 @@
             "evasion",
             "investigation"
           ],
-          "gearFlags": ["Restricted"],
+          "gearFlags": [
+            "Restricted"
+          ],
           "encounters": [
             {
               "id": "enc-s8-sluice",
@@ -9393,7 +9853,9 @@
                   {
                     "key": "path-1-execute",
                     "label": "Execute the unarmed prisoner.",
-                    "destinies": ["destruction"],
+                    "destinies": [
+                      "destruction"
+                    ],
                     "vischeraResponse": "She closes her eyes briefly, then opens them. \"Then you will have to be the one who explains, later, why no one has the cure.\" She does not flinch. She does not look away. She makes the PCs look at her while they do it.",
                     "hopeToll": "EASY TOLL. The campaign should not let this pass uncomplicated. Apply Toll. The PCs killed an unarmed prisoner in cold silence, in a quiet bright room, with no combat adrenaline to hide behind. The cure dies with her unless they took the data first (see path 4). At least one PC who participated takes a Composure hit at scene close. If the crew leans Toll-dominant by Adventure 1's end, this moment is what Draco recalls when he confronts them later in the campaign.",
                     "downstream": "Vischera's research data is on the bench drives. If left, Skarn's people sweep it after extraction. If destroyed, the cure dies. If taken, see path 4 framing for what the data is worth."
@@ -9401,7 +9863,9 @@
                   {
                     "key": "path-2-mandrake-does-it",
                     "label": "Hand her to Mandrake when he arrives.",
-                    "destinies": ["destruction"],
+                    "destinies": [
+                      "destruction"
+                    ],
                     "available": "ONLY if Mandrake is alive AND has entered the building by scene close. Otherwise unavailable.",
                     "vischeraResponse": "Vischera nods once when she sees him. She has been counting too. \"You are the one from the canopy. I am sorry your people made it here before mine made it elsewhere.\" Mandrake does not answer. If the GM is using the recognized-subject lever, his composure breaks here — he goes to the table first, not to her. He kills her quietly when he is done. He does not look at the PCs while he does it.",
                     "hopeToll": "MIXED. The PCs offloaded the choice. Apply a small Toll for the dodge — they let someone else carry it — but no Composure hits, and no campaign-level consequence beyond Mandrake's fate-track tilting harder toward death-by-Draco at extraction (he has nothing left after this). If the recognized-subject lever was used, the Toll is sharper.",
@@ -9410,7 +9874,9 @@
                   {
                     "key": "path-3-take-alive",
                     "label": "Take her alive — drag her off the moon.",
-                    "destinies": ["atonement"],
+                    "destinies": [
+                      "atonement"
+                    ],
                     "vischeraResponse": "She accepts. \"Acceptable. I work better with a roof and a generator than without them.\" She gathers her drives without being told to. She is not grateful and she does not pretend to be.",
                     "hopeToll": "COSTLY HOPE. Apply Hope. The crew chose mercy for someone who does not deserve it on the simple math of what she has done — and they chose the cure on the math of what she could yet do. This is hard. Even without Mandrake or survivors physically present to demand otherwise, the crew knows what they are choosing to leave alive. Composure relief at scene close for any PC who explicitly argued for this path.",
                     "downstream": "Vischera becomes a complication in Adventure 2+. She is a high-value Imperial defector with a working cure six months from completion and zero loyalty to anyone. Where the crew stashes her — Switch's network, the Resurgence, Varga's medical wing, an academic contact she names — becomes its own subplot the GM can run with or set aside. Future task hook only; do not invent that subplot here."
@@ -9418,7 +9884,9 @@
                   {
                     "key": "path-4-take-data-release-her",
                     "label": "Take her research data. Let her walk.",
-                    "destinies": ["atonement"],
+                    "destinies": [
+                      "atonement"
+                    ],
                     "vischeraResponse": "She slides the drives across the bench without comment. \"You will need a working bio-lab and someone who reads my notation. I will write you a name.\" She does. She walks out the back door of the Med Bay if the PCs let her, or waits quietly for Skarn's people to find her if they don't.",
                     "hopeToll": "MIXED HOPE. Apply Hope for preserving the cure; apply a small Toll for letting her walk free to do this somewhere else. The crew chose the work over the worker. Composure neutral.",
                     "downstream": "The data is real and disseminable if the crew can get it to a working lab. The contact name Vischera wrote down is a future hook — she will name a real-canon Outer Rim medical academic the GM can use or ignore. Vischera herself reappears later only if the GM wants her to. If she does, she has set up a smaller, quieter version of this lab somewhere else, with someone else's prisoners."
@@ -9426,7 +9894,9 @@
                   {
                     "key": "path-5-destroy-data-release-her",
                     "label": "Destroy her research data. Let her walk.",
-                    "destinies": ["destruction"],
+                    "destinies": [
+                      "destruction"
+                    ],
                     "vischeraResponse": "She watches the drives burn without expression. When it is done she says, quietly: \"Thousands of people you will never meet just died of this. Slowly. I hope you are able to live with that. I would not be.\" Then she walks out.",
                     "hopeToll": "HARD TOLL. Apply Toll. The crew chose to punish the worker AND destroy the work — the cleanest moral position and the worst utilitarian outcome. The cure dies. Vischera walks. The campaign should remember this: if a cure-relevant plague beat ever surfaces in a later adventure (GM's option), the crew knows what they did. Composure hit for any PC who explicitly argued for destroying the data.",
                     "downstream": "Vischera vanishes into the Outer Rim. She does not start over — the work was a decade in. She drifts into Imperial backwater medicine and never produces anything important again. Her research notes survive only in her head, untrusted by anyone she might tell."
@@ -9434,7 +9904,9 @@
                   {
                     "key": "path-6-step-back-for-survivors",
                     "label": "Step back. Let the freed Klosari decide.",
-                    "destinies": ["atonement"],
+                    "destinies": [
+                      "atonement"
+                    ],
                     "available": "ONLY if the pens have been freed AND Klosari survivors have reached the Med Bay door before the PCs resolve the scene (typically: generator already blown, fences down, survivors flowing through Central Hall). Otherwise unavailable.",
                     "vischeraResponse": "She turns to face them. She does not speak Klosari. She does not need to. They look at her and at the figure on the table. Whatever they do, they do without speeches. The GM decides the outcome based on what the survivors saw of her work; the default is grim.",
                     "hopeToll": "SITUATIONAL. The PCs gave the choice to the people it was actually done to. This is its own kind of weight when it's available. Apply Hope for the act of stepping back, but no Composure relief — the PCs still watched. If the survivors kill her, the data fate depends on whether the PCs grabbed the drives before stepping back. If the survivors spare her (rare), apply additional Hope.",
@@ -9810,7 +10282,13 @@
             "shadow-stalked",
             "hunted"
           ],
-          "speciesTags": ["sullustan", "keldor", "togruta", "rodian", "human"],
+          "speciesTags": [
+            "sullustan",
+            "keldor",
+            "togruta",
+            "rodian",
+            "human"
+          ],
           "backgroundTags": [
             "imperial-detention",
             "conflict-zone",
@@ -9859,7 +10337,11 @@
               ]
             }
           ],
-          "loreTags": ["General Skarn", "Vazus Mandrake", "Clone Wars"],
+          "loreTags": [
+            "General Skarn",
+            "Vazus Mandrake",
+            "Clone Wars"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv1-p2-s7",
@@ -9867,10 +10349,25 @@
             }
           ],
           "challengeType": "technical",
-          "destinyTags": ["destruction", "rescue", "alliance"],
-          "vocationTags": ["voc_splice", "voc_ghost", "voc_engineer"],
-          "disciplineTags": ["skulduggery", "stealth", "ranged", "athletics"],
-          "gearFlags": ["Restricted"],
+          "destinyTags": [
+            "destruction",
+            "rescue",
+            "alliance"
+          ],
+          "vocationTags": [
+            "voc_splice",
+            "voc_ghost",
+            "voc_engineer"
+          ],
+          "disciplineTags": [
+            "skulduggery",
+            "stealth",
+            "ranged",
+            "athletics"
+          ],
+          "gearFlags": [
+            "Restricted"
+          ],
           "encounters": [
             {
               "id": "enc-s6-generator-approach",
@@ -10033,10 +10530,21 @@
                 "notes": "Just dropped in through the inner floor grate. The generator is one move action away across the assembly hall. The Detention Guard Post sightline is the immediate concern."
               }
             ],
-            "focalZones": ["central-hall"]
+            "focalZones": [
+              "central-hall"
+            ]
           },
-          "knackTags": ["defector", "exile", "witness", "shadow-stalked"],
-          "speciesTags": ["sullustan", "keldor", "human"],
+          "knackTags": [
+            "defector",
+            "exile",
+            "witness",
+            "shadow-stalked"
+          ],
+          "speciesTags": [
+            "sullustan",
+            "keldor",
+            "human"
+          ],
           "backgroundTags": [
             "conflict-zone",
             "imperial-detention",
@@ -10085,8 +10593,13 @@
                   "presence": 4
                 },
                 "weaponChassis": "light",
-                "traits": ["disciplined"],
-                "tags": ["Imperial", "Defector"],
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Defector"
+                ],
                 "roleKit": {
                   "roleName": "Controller / Leader",
                   "action": {
@@ -10176,9 +10689,20 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": ["rescue", "discovery"],
-          "vocationTags": ["voc_noble", "voc_grifter", "voc_investigator"],
-          "disciplineTags": ["charm", "investigation", "persuasion"],
+          "destinyTags": [
+            "rescue",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "charm",
+            "investigation",
+            "persuasion"
+          ],
           "gearFlags": [],
           "encounters": [
             {
@@ -10212,7 +10736,9 @@
           ],
           "rewards": {
             "credits": 0,
-            "items": ["Detention block security codes"],
+            "items": [
+              "Detention block security codes"
+            ],
             "intel": [
               "Varth embezzled from Project Leviathan through Varga's supply chain",
               "The authentication key to his fortune is memorized — no physical storage",
@@ -10549,7 +11075,12 @@
             "witness",
             "false-identity"
           ],
-          "speciesTags": ["twilek", "human", "keldor", "cathar"],
+          "speciesTags": [
+            "twilek",
+            "human",
+            "keldor",
+            "cathar"
+          ],
           "backgroundTags": [
             "imperial-detention",
             "core-world-city",
@@ -10642,8 +11173,16 @@
                   "presence": 4
                 },
                 "weaponChassis": "heavy",
-                "traits": ["force_sensitive", "fearless", "armored_light"],
-                "tags": ["Imperial", "Inquisitor", "Force User"],
+                "traits": [
+                  "force_sensitive",
+                  "fearless",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Inquisitor",
+                  "Force User"
+                ],
                 "roleKit": {
                   "roleName": "Controller / Force",
                   "action": {
@@ -10717,8 +11256,14 @@
                   "presence": 1
                 },
                 "weaponChassis": "medium",
-                "traits": ["armored_medium"],
-                "tags": ["Imperial", "Elite", "Stealth"],
+                "traits": [
+                  "armored_medium"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Elite",
+                  "Stealth"
+                ],
                 "roleKit": {
                   "roleName": "Harrier / Ranged",
                   "action": {
@@ -11010,8 +11555,15 @@
             }
           ],
           "challengeType": "combat",
-          "destinyTags": ["destruction", "rescue"],
-          "vocationTags": ["voc_gunslinger", "voc_ace", "voc_shockboxer"],
+          "destinyTags": [
+            "destruction",
+            "rescue"
+          ],
+          "vocationTags": [
+            "voc_gunslinger",
+            "voc_ace",
+            "voc_shockboxer"
+          ],
           "disciplineTags": [
             "ranged",
             "evasion",
@@ -11020,7 +11572,9 @@
             "survival",
             "athletics"
           ],
-          "gearFlags": ["Military"],
+          "gearFlags": [
+            "Military"
+          ],
           "encounters": [
             {
               "id": "enc-s11-threeway",
@@ -11477,7 +12031,13 @@
             "blood-price",
             "defector"
           ],
-          "speciesTags": ["wookiee", "zabrak", "cathar", "togruta", "rodian"],
+          "speciesTags": [
+            "wookiee",
+            "zabrak",
+            "cathar",
+            "togruta",
+            "rodian"
+          ],
           "backgroundTags": [
             "conflict-zone",
             "deep-space-freighter",
@@ -11629,7 +12189,11 @@
             }
           ],
           "challengeType": "social",
-          "destinyTags": ["rescue", "belonging", "truth"],
+          "destinyTags": [
+            "rescue",
+            "belonging",
+            "truth"
+          ],
           "vocationTags": [],
           "disciplineTags": [],
           "gearFlags": [],
@@ -11664,5 +12228,8 @@
       ]
     }
   ],
-  "locations": ["jakku", "ajan-kloss"]
+  "locations": [
+    "jakku",
+    "ajan-kloss"
+  ]
 }
