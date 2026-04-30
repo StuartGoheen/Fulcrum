@@ -8878,6 +8878,51 @@
   border: 1px solid rgba(250,204,21,0.4);
 }
 
+.dp-destiny-mech--capacity {
+  border-top: 1px dashed rgba(250,204,21,0.35);
+  padding-top: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.dp-destiny-mech--capacity .dp-destiny-mech-trigger {
+  font-style: italic;
+  opacity: 0.85;
+  margin-top: 0.25rem;
+}
+
+.dp-destiny-capacity-btn {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(250,204,21,0.18);
+  color: #facc15;
+  border: 1px solid rgba(250,204,21,0.5);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, opacity 120ms ease;
+}
+
+.dp-destiny-capacity-btn:hover:not(:disabled) {
+  background: rgba(250,204,21,0.32);
+  color: #fde68a;
+}
+
+.dp-destiny-capacity-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: rgba(120,120,120,0.15);
+  color: #9ca3af;
+  border-color: rgba(120,120,120,0.3);
+}
+
+.dp-destiny-mech--spent .dp-destiny-mech-title,
+.dp-destiny-mech--spent .dp-destiny-mech-desc {
+  opacity: 0.55;
+}
+
 .dp-destiny-mech-title {
   font-size: 0.5rem;
   font-weight: 700;

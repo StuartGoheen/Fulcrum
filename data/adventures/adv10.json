@@ -97,7 +97,8 @@
           "label": "Keep the routes — Enterprise",
           "desc": "You walk away as the only crew that owns the most valuable trade asset in the Western Reaches. Creation built. Ascendancy claimed.",
           "destinies": [
-            "creation"
+            "creation",
+            "ascendancy"
           ]
         },
         {
@@ -113,7 +114,8 @@
           "label": "Give to Luthen — routes-as-weapons",
           "desc": "You hand the data to Vel's patron. Strike-and-fade. Three sectors broken in a year. The Empire bleeds at galactic scale.",
           "destinies": [
-            "liberation"
+            "liberation",
+            "destruction"
           ]
         },
         {
@@ -121,7 +123,8 @@
           "label": "Give to Vos — routes-as-sanctuary",
           "desc": "You hand the data to Cade Ryll, who is and was Quinlan Vos. Force-sensitives sheltered. The hidden Path widened. The campaign began with a Jedi and ends with one.",
           "destinies": [
-            "rescue"
+            "rescue",
+            "creation"
           ]
         },
         {

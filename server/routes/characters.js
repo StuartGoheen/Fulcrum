@@ -551,7 +551,8 @@ router.patch('/characters/:id/advancement', async (req, res) => {
         moniker: (adv.heroTier && typeof adv.heroTier.moniker === 'string') ? adv.heroTier.moniker.slice(0, 100) : '',
         respecUsed: !!(adv.heroTier && adv.heroTier.respecUsed),
         ht5Finalized: !!(adv.heroTier && adv.heroTier.ht5Finalized)
-      }
+      },
+      destinyCapacityUsed: !!adv.destinyCapacityUsed
     };
     const data = JSON.parse(character.character_data);
     data.advancement = sanitized;

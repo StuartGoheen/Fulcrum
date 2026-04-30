@@ -1030,11 +1030,16 @@
 
     var capacityHtml = '';
     if (pd.trackFullCapacity && pd.trackFullCapacity.title) {
+      var used = !!(char.advancement && char.advancement.destinyCapacityUsed);
+      var btnLabel = used ? 'Spent — Once Per Campaign' : 'Spend Capacity';
+      var btnAttrs = used ? 'disabled aria-disabled="true"' : '';
       capacityHtml =
-        '<div class="dp-destiny-mech">' +
+        '<div class="dp-destiny-mech dp-destiny-mech--capacity' + (used ? ' dp-destiny-mech--spent' : '') + '">' +
           '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--capacity">Track Full</span>' +
           '<span class="dp-destiny-mech-title">' + _esc(pd.trackFullCapacity.title) + '</span>' +
           '<span class="dp-destiny-mech-desc">' + _esc(pd.trackFullCapacity.description) + '</span>' +
+          (pd.trackFullCapacity.trigger ? '<span class="dp-destiny-mech-desc dp-destiny-mech-trigger"><b>Trigger:</b> ' + _esc(pd.trackFullCapacity.trigger) + '</span>' : '') +
+          '<button type="button" class="dp-destiny-capacity-btn" data-spend-capacity="1" ' + btnAttrs + '>' + btnLabel + '</button>' +
         '</div>';
     }
 
@@ -1061,6 +1066,43 @@
       '</div>';
 
     wrap.appendChild(body);
+
+    var btn = body.querySelector('[data-spend-capacity]');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var capTitle = (pd.trackFullCapacity && pd.trackFullCapacity.title) || 'this capacity';
+        var msg = 'Spend ' + capTitle + ' now?\n\nThis is a once-per-campaign action. The track will be considered spent and the capacity will not be available again.\n\nGM and table should be at the table when you confirm.';
+        if (!window.confirm(msg)) return;
+
+        var session = null;
+        try { session = JSON.parse(sessionStorage.getItem('eote-session')); } catch (_) {}
+        var charId = session && session.characterId;
+        if (!charId) return;
+
+        var nextAdv = Object.assign({}, char.advancement || {}, { destinyCapacityUsed: true });
+        btn.disabled = true;
+        btn.textContent = 'Saving…';
+        fetch('/api/characters/' + encodeURIComponent(charId) + '/advancement', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(nextAdv)
+        }).then(function (r) {
+          if (!r.ok) throw new Error('save failed');
+          char.advancement = nextAdv;
+          btn.textContent = 'Spent — Once Per Campaign';
+          btn.setAttribute('aria-disabled', 'true');
+          var mech = btn.closest('.dp-destiny-mech');
+          if (mech) mech.classList.add('dp-destiny-mech--spent');
+        }).catch(function (err) {
+          console.error('[DetailsPanel] capacity spend save failed', err);
+          btn.disabled = false;
+          btn.textContent = 'Spend Capacity';
+          window.alert('Could not save. Please try again.');
+        });
+      });
+    }
+
     return wrap;
   }
 
