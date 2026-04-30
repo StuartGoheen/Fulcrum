@@ -10446,6 +10446,27 @@
     color: #9fd6ee;
     border: 1px solid color-mix(in srgb, #6ec1e4 45%, transparent);
   }
+  .adv-tag--unlinked {
+    background: color-mix(in srgb, var(--color-text-secondary) 12%, transparent);
+    color: var(--color-text-secondary);
+    border: 1px dashed color-mix(in srgb, var(--color-text-secondary) 40%, transparent);
+  }
+  /* Clickable badge variant — overrides default <button> chrome and adds
+     a subtle hover so the GM understands the badge is interactive. */
+  button.adv-tag--clickable {
+    cursor: pointer;
+    font: inherit;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: filter 0.12s ease, transform 0.12s ease;
+  }
+  button.adv-tag--clickable:hover { filter: brightness(1.25); }
+  button.adv-tag--clickable:active { transform: translateY(1px); }
+  button.adv-tag--clickable:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 1px;
+  }
 
   /* GM "Goals to Reveal" cockpit at the top of the Advancement Engine. */
   .adv-gtr-cockpit {

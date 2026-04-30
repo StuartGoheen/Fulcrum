@@ -1159,15 +1159,17 @@
             if (isAdv && info.anyMatch) {
               destinyTag = '<span class="adv-tag adv-tag--destiny" title="A footprint on your destiny road. If you choose this path it counts as 2 footprints and refills your Edge.">\u2605 ON YOUR ROAD</span>';
             }
-            // Shares-to badge — when a goal is on the PC's destiny road AND
-            // the GM has set a Linked Destiny partner for the active Act,
-            // tell the table that closing this goal will share the bonus to
-            // that partner. No badge if no partner set (default Unlinked).
+            // Shares-to / Unlinked badge — always rendered for destiny-tagged
+            // rows so the GM sees consequence-at-tick-time. Clickable: opens
+            // the floating Destiny Link panel via the Command Bridge so the
+            // GM can change the link without leaving the engine.
             var sharesTag = '';
             if (isAdv && info.anyMatch) {
               var partnerName = _getLinkedPartnerName();
               if (partnerName) {
-                sharesTag = '<span class="adv-tag adv-tag--shares" title="Linked Destiny: completing this on your destiny path also grants advancement to your linked partner.">Shares to: ' + _esc(partnerName) + '</span>';
+                sharesTag = '<button type="button" class="adv-tag adv-tag--shares adv-tag--clickable" data-open-destiny-link="1" title="Linked Destiny is set. Click to change.">Shares to: ' + _esc(partnerName) + '</button>';
+              } else {
+                sharesTag = '<button type="button" class="adv-tag adv-tag--shares adv-tag--unlinked adv-tag--clickable" data-open-destiny-link="1" title="No Linked Destiny partner for this Act. Click to set one.">Unlinked</button>';
               }
             }
             // Footprint payout badge — show the actual landed payout when checked.
@@ -2027,6 +2029,23 @@
         var idx = parseInt(hdr.getAttribute('data-bucket-idx'), 10);
         _collapsedBuckets[idx] = !_collapsedBuckets[idx];
         _render();
+      });
+    });
+
+    // Shares-to / Unlinked badge: open the Destiny Link panel. We stop
+    // propagation so the surrounding <label> doesn't toggle the goal's
+    // checkbox when the GM only meant to edit the link.
+    var dlBtns = container.querySelectorAll('[data-open-destiny-link]');
+    dlBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.CommandBridge && typeof window.CommandBridge.openDestinyLinkPanel === 'function') {
+          window.CommandBridge.openDestinyLinkPanel();
+        } else {
+          var panelBtn = document.getElementById('cb-destiny-link-btn');
+          if (panelBtn) panelBtn.click();
+        }
       });
     });
 

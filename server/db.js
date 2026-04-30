@@ -393,8 +393,15 @@ async function initSchema() {
     // revealed=true. After a Full Campaign Reset they reseed as revealed,
     // which leaks Varth's role and Varga before the cantina scene plays.
     // The seed default is now revealed=false; this migration retroactively
-    // flips those three rows back to hidden. Idempotent via app_settings
-    // marker so it does NOT undo deliberate GM reveals on subsequent boots.
+    // flips those three rows back to hidden ONLY when the GM has not
+    // touched them since seed. Two guards combine to detect a still-pristine
+    // seed row:
+    //   (a) created_at = updated_at  → row never updated after insert
+    //   (b) NOT EXISTS (timeline events for this npc_key) → GM has not
+    //       added any in-fiction events about this NPC, which is the
+    //       primary signal of intentional curation.
+    // If either guard fails, the row is considered GM-managed and we leave
+    // revealed alone. Idempotent via app_settings marker.
     try {
       const profMarker = await client.query(
         `SELECT value FROM app_settings WHERE key = 'dp_profile_seed_reveal_reset_v1'`
@@ -403,8 +410,13 @@ async function initSchema() {
         const profKeys = ['maya', 'varth', 'varga'];
         for (const k of profKeys) {
           await client.query(
-            `UPDATE npc_profiles SET revealed = false, updated_at = NOW()
-              WHERE npc_key = $1 AND revealed = true`,
+            `UPDATE npc_profiles p SET revealed = false, updated_at = NOW()
+               WHERE p.npc_key = $1
+                 AND p.revealed = true
+                 AND p.created_at = p.updated_at
+                 AND NOT EXISTS (
+                   SELECT 1 FROM npc_timeline t WHERE t.npc_key = p.npc_key
+                 )`,
             [k]
           );
         }

@@ -4355,43 +4355,42 @@
           body.innerHTML = '<p class="cb-muted" style="padding:1rem;font-style:italic;">No crew loaded.</p>';
           return;
         }
-        var activeAct = _currentActNumber();
+        // Single-act surface per task spec: one dropdown per PC for the
+        // current Act only. Persistence still writes to
+        // advancement.linkedPartners[<currentAct>] so prior-Act links remain
+        // intact in the underlying record. The header banner names the Act
+        // so the GM can't mistake which slot they're editing.
+        var activeAct = _currentActNumber() || 1;
+        var actKey = String(activeAct);
         var html = '<div class="dl-help" style="padding:0.55rem 0.75rem;font-size:0.7rem;color:var(--color-text-secondary);line-height:1.4;border-bottom:1px solid rgba(200,164,78,0.18);">';
         html += 'Pick the partner who shares the destiny payout when this PC closes a destiny-tagged goal. ';
         html += 'Links are <b>not</b> auto-assigned by destiny tags &mdash; set them deliberately. ';
-        html += 'The active Act is highlighted &mdash; mission-end share uses that row.';
+        html += 'You are editing <b style="color:#c8a44e;">Act ' + activeAct + '</b>; prior-Act links are preserved in the record.';
         html += '</div>';
         html += '<div class="dl-list" style="padding:0.6rem;display:flex;flex-direction:column;gap:0.6rem;">';
         party.forEach(function (pc) {
-          var lp = pc.linkedPartners || { '1': null, '2': null, '3': null };
+          var lp = pc.linkedPartners || {};
           var others = party.filter(function (o) { return o.id !== pc.id; });
+          var current = lp[actKey];
           html += '<div class="dl-pc" style="border:1px solid rgba(200,164,78,0.25);border-radius:4px;padding:0.5rem 0.65rem;background:rgba(0,0,0,0.25);">';
           var pcDest = (pc.destiny && (pc.destiny.name || pc.destiny.id)) || '';
           html += '<div style="font-weight:600;color:#c8a44e;font-size:0.8rem;">' + esc(pc.name);
           if (pcDest) html += ' <span style="opacity:0.65;font-weight:400;font-size:0.7rem;">(' + esc(pcDest) + ')</span>';
           html += '</div>';
-          ['1', '2', '3'].forEach(function (actKey) {
-            var actNum = parseInt(actKey, 10);
-            var isActive = activeAct === actNum;
-            var current = lp[actKey];
-            html += '<div class="dl-row" style="display:flex;align-items:center;gap:0.5rem;margin-top:0.35rem;' +
-              (isActive ? 'background:rgba(200,164,78,0.08);border-left:2px solid #c8a44e;padding-left:0.4rem;' : '') + '">';
-            html += '<span style="min-width:3.6rem;font-size:0.7rem;color:' + (isActive ? '#c8a44e' : 'var(--color-text-secondary)') + ';">';
-            html += 'Act ' + actKey + (isActive ? ' \u25CF' : '');
-            html += '</span>';
-            html += '<select class="dl-select" data-source-id="' + esc(pc.id) + '" data-act="' + esc(actKey) +
-              '" style="flex:1;background:#0d0d0d;color:#e6dfb8;border:1px solid rgba(200,164,78,0.35);padding:0.2rem 0.35rem;font-size:0.7rem;">';
-            html += '<option value="">&mdash; Unlinked &mdash;</option>';
-            others.forEach(function (other) {
-              var sel = (current === other.id) ? ' selected' : '';
-              var destName = (other.destiny && (other.destiny.name || other.destiny.id)) || '';
-              html += '<option value="' + esc(other.id) + '"' + sel + '>' +
-                esc(other.name) + (destName ? ' (' + esc(destName) + ')' : '') +
-                '</option>';
-            });
-            html += '</select>';
-            html += '</div>';
+          html += '<div class="dl-row" style="display:flex;align-items:center;gap:0.5rem;margin-top:0.35rem;">';
+          html += '<span style="min-width:5.5rem;font-size:0.7rem;color:#c8a44e;">Shares to:</span>';
+          html += '<select class="dl-select" data-source-id="' + esc(pc.id) + '" data-act="' + esc(actKey) +
+            '" style="flex:1;background:#0d0d0d;color:#e6dfb8;border:1px solid rgba(200,164,78,0.35);padding:0.2rem 0.35rem;font-size:0.7rem;">';
+          html += '<option value="">&mdash; Unlinked &mdash;</option>';
+          others.forEach(function (other) {
+            var sel = (current === other.id) ? ' selected' : '';
+            var destName = (other.destiny && (other.destiny.name || other.destiny.id)) || '';
+            html += '<option value="' + esc(other.id) + '"' + sel + '>' +
+              esc(other.name) + (destName ? ' (' + esc(destName) + ')' : '') +
+              '</option>';
           });
+          html += '</select>';
+          html += '</div>';
           html += '</div>';
         });
         html += '</div>';
