@@ -597,7 +597,7 @@
       h += '<div class="cb-npc-detail-section" style="border-color:#c8a44e;"><strong>Behavior:</strong> ' + linkify(npc.behavior) + '</div>';
     }
     if (npc.dialogue && npc.dialogue.length) {
-      h += '<div class="cb-npc-detail-section" style="border-color:#c084fc;color:#c084fc;"><strong>Dialogue:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '</div>';
+      h += '<div class="cb-npc-detail-section" style="border-color:#c084fc;color:#c084fc;"><strong>Voice:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '<div style="margin-top:4px;font-size:0.7rem;color:rgba(192,132,252,0.7);font-style:italic;">Signature lines for tone reference. Full scripted dialogue lives in the beat &laquo;Dialogue Beats&raquo; strip.</div></div>';
     }
     if (npc.intel) {
       h += '<div class="cb-npc-detail-section" style="border-color:#f59e0b;color:#f59e0b;"><strong>Intel:</strong> ' + linkify(npc.intel) + '</div>';
@@ -3359,6 +3359,13 @@
     if (beat.gmNotes) hay += ' ' + beat.gmNotes;
     if (beat.description) hay += ' ' + beat.description;
     if (beat.trigger) hay += ' ' + beat.trigger;
+    if (Array.isArray(beat.dialogueChunks)) {
+      beat.dialogueChunks.forEach(function (chunk) {
+        if (!chunk) return;
+        if (chunk.speaker) hay += ' ' + chunk.speaker;
+        if (chunk.text) hay += ' ' + chunk.text;
+      });
+    }
     if (beat.composition && Array.isArray(beat.composition.enemies)) {
       beat.composition.enemies.forEach(function (e) { hay += ' ' + (e.type || '') + ' ' + (e.role || ''); });
     }
@@ -3431,6 +3438,27 @@
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(beatRaKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128220; Read Aloud</span><span class="cb-rs-strip-hint">click to ' + (beatRaCollapsed ? 'expand' : 'collapse') + '</span></div>';
       html += '<div class="cb-rs-strip-body cb-prose">';
       html += _formatProse(beat.readAloud);
+      html += '</div></div>';
+    }
+    if (Array.isArray(beat.dialogueChunks) && beat.dialogueChunks.length) {
+      var beatChunksKey = scene.id + ':b' + beatIdx + ':beat-chunks';
+      var beatChunksCollapsed = _runSceneCollapsed[beatChunksKey] === true; // default expanded
+      html += '<div class="cb-rs-strip cb-rs-beat-chunks' + (beatChunksCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(beatChunksKey) + '">';
+      html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(beatChunksKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128172; Dialogue Beats</span><span class="cb-rs-strip-hint">click to ' + (beatChunksCollapsed ? 'expand' : 'collapse') + '</span></div>';
+      html += '<div class="cb-rs-strip-body">';
+      beat.dialogueChunks.forEach(function (chunk) {
+        if (!chunk || !chunk.text) return;
+        html += '<div class="cb-rs-dchunk" style="margin:0.5rem 0 0.6rem;padding:0.55rem 0.85rem;background:rgba(192,132,252,0.06);border-left:3px solid #c084fc;border-radius:4px;">';
+        if (chunk.speaker) {
+          html += '<div style="font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;color:#c084fc;font-weight:600;margin-bottom:0.4rem;">' + esc(chunk.speaker) + '</div>';
+        }
+        html += '<div class="cb-prose">' + _formatProse(chunk.text) + '</div>';
+        html += '</div>';
+        if (chunk.pauseAfter || chunk.pauseNote) {
+          var note = chunk.pauseNote || 'Pause for questions before continuing.';
+          html += '<div class="cb-pause-note" style="margin:0.2rem 0 0.85rem;padding:7px 12px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.8rem;font-style:italic;">&#9208;&#65039; ' + esc(note) + '</div>';
+        }
+      });
       html += '</div></div>';
     }
     if (beat.description) html += '<div class="cb-rs-beat-desc cb-prose">' + _formatProse(beat.description) + '</div>';
