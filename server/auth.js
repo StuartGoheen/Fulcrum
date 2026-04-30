@@ -67,6 +67,10 @@ function gate(req, res, next) {
     return res.redirect('/login');
   }
 
+  // Stamp the role onto the request before any branching so route handlers
+  // (e.g. the marks read below) can do per-role response shaping.
+  req.userRole = role;
+
   if (role === 'player') {
     if (req.path === '/gm' || req.path === '/gm/' || req.path.startsWith('/gm/')) {
       return res.redirect('/');
@@ -83,7 +87,6 @@ function gate(req, res, next) {
     }
   }
 
-  req.userRole = role;
   next();
 }
 

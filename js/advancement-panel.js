@@ -2988,19 +2988,35 @@
           if (_panelVisible) _render();
         });
         sock.on('marks:revealed', function (data) {
-          if (data.adventureId === _currentAdventureId && _adventureMarksData) {
+          if (data.adventureId !== _currentAdventureId || !_adventureMarksData) return;
+          if (_isGmView) {
             _adventureMarksData.forEach(function (m) {
               if (m.id === data.markId) m.hidden = false;
             });
             if (_panelVisible) _render();
+          } else {
+            // Player view: hidden marks arrive from the server as opaque
+            // placeholders (id only — no label/desc/paths/destinies). When
+            // the GM reveals one, refetch the marks so the freshly-unlocked
+            // narrative content lands in the cache before re-rendering.
+            _loadAdventureMarksData(function () {
+              if (_panelVisible) _render();
+            });
           }
         });
         sock.on('marks:hidden', function (data) {
-          if (data.adventureId === _currentAdventureId && _adventureMarksData) {
+          if (data.adventureId !== _currentAdventureId || !_adventureMarksData) return;
+          if (_isGmView) {
             _adventureMarksData.forEach(function (m) {
               if (m.id === data.markId) m.hidden = true;
             });
             if (_panelVisible) _render();
+          } else {
+            // Player view: refetch so the just-hidden mark drops back to an
+            // opaque placeholder in the cache (no stale narrative text).
+            _loadAdventureMarksData(function () {
+              if (_panelVisible) _render();
+            });
           }
         });
       }

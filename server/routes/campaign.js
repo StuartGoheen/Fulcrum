@@ -297,24 +297,37 @@ router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
         sceneMap[`${pKey}/${stripAdv(scn.id).split('-').pop()}`] = scn.title || scn.label || sKey;
       }
     }
-    const result = marks.map(m => ({
-      id: m.id,
-      label: m.label,
-      desc: m.desc,
-      hidden: m.hidden && !revealedSet.has(m.id),
-      noHide: !!m.noHide,
-      part: m.part || null,
-      scene: m.scene || null,
-      part_title: m.part ? (partMap[m.part] || null) : null,
-      scene_title: (m.part && m.scene) ? (sceneMap[`${m.part}/${m.scene}`] || null) : null,
-      destinies: Array.isArray(m.destinies) ? m.destinies.slice() : [],
-      paths: Array.isArray(m.paths) ? m.paths.map(p => ({
-        id: p.id,
-        label: p.label,
-        desc: p.desc,
-        destinies: Array.isArray(p.destinies) ? p.destinies.slice() : []
-      })) : []
-    }));
+    // Per-role response shaping: players must NEVER receive narrative text
+    // (label / desc / paths / destinies / part / scene) for goals the GM
+    // hasn't revealed yet. They get an opaque placeholder ({ id, hidden:true })
+    // so the client cache can still track which slots exist and re-fetch on
+    // a `marks:revealed` socket event. GMs (and dev-mode no-auth requests
+    // where userRole is undefined) keep the full payload for the cockpit.
+    const isPlayer = req.userRole === 'player';
+    const result = marks.map(m => {
+      const hidden = m.hidden && !revealedSet.has(m.id);
+      if (isPlayer && hidden) {
+        return { id: m.id, hidden: true };
+      }
+      return {
+        id: m.id,
+        label: m.label,
+        desc: m.desc,
+        hidden,
+        noHide: !!m.noHide,
+        part: m.part || null,
+        scene: m.scene || null,
+        part_title: m.part ? (partMap[m.part] || null) : null,
+        scene_title: (m.part && m.scene) ? (sceneMap[`${m.part}/${m.scene}`] || null) : null,
+        destinies: Array.isArray(m.destinies) ? m.destinies.slice() : [],
+        paths: Array.isArray(m.paths) ? m.paths.map(p => ({
+          id: p.id,
+          label: p.label,
+          desc: p.desc,
+          destinies: Array.isArray(p.destinies) ? p.destinies.slice() : []
+        })) : []
+      };
+    });
     res.json({
       ok: true,
       adventureId: req.params.adventureId,
