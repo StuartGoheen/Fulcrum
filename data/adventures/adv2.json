@@ -61,9 +61,9 @@
     {
       "id": "adv2_court_favor",
       "label": "Currying Favor",
-      "desc": "Navigate Varga's court — gladiators, slavers, and Imperial delegations. The court is the hunt; how you play the room decides who notices you and what they remember.",
-      "part": "p1",
-      "scene": "s5",
+      "desc": "Navigate Varga's court — gladiators, slavers, and Imperial delegations. The court is the hunt; how you play the room decides who notices you and what they remember. (Spans p1 s5 → p2 s3; resolved at the climactic court scene.)",
+      "part": "p2",
+      "scene": "s3",
       "value": 1,
       "paths": [
         {

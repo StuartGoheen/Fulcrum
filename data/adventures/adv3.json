@@ -75,9 +75,9 @@
     {
       "id": "adv3_sabacc",
       "label": "The Game Within the Game",
-      "desc": "Enter the Sabacc tournament — the only place Varga's people surface in public. Watch the table for the handoff. Survive four days of cards under the comm-jamming pin.",
-      "part": "p1",
-      "scene": "s5",
+      "desc": "Enter the Sabacc tournament — the only place Varga's people surface in public. Watch the table for the handoff. Survive four days of cards under the comm-jamming pin. (Spans p1 s5 → p2 s4; resolved at the handoff scene.)",
+      "part": "p2",
+      "scene": "s4",
       "value": 1
     },
     {
@@ -92,9 +92,9 @@
     {
       "id": "adv3_hangar",
       "label": "Hangar Bay Showdown",
-      "desc": "Fight your way through Varga's hangar as the Glorious Chariot primes for launch. End the Hutt — or end him surgically and walk out with what was inside his skull.",
+      "desc": "Fight your way through Varga's hangar as the Glorious Chariot primes for launch. End the Hutt — or end him surgically and walk out with what was inside his skull. (Spans p3 s1 → p3 s3; resolved when Varga falls.)",
       "part": "p3",
-      "scene": "s1",
+      "scene": "s3",
       "value": 1,
       "paths": [
         {
