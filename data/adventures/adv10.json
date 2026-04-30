@@ -9,49 +9,131 @@
       "id": "adv10_malpaz",
       "label": "Return to Malpaz",
       "desc": "The world you liberated is now the target. The Leviathan arrives.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv10_fleet",
       "label": "The Fleet Assembles",
       "desc": "Rally Oga Garra's pirates and whatever allies you've earned across the campaign.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
+    },
+    {
+      "id": "adv10_corridor_cost",
+      "label": "The Corridor's Cost",
+      "desc": "Someone in the fleet flies a missile that was meant for the Banshee. Soren Vex if he came. Brell if he stayed. The Banshee survives because someone else did not. The Atonement track grows.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["atonement"]
     },
     {
       "id": "adv10_boarding",
       "label": "Boarding Action",
       "desc": "Board the Leviathan while the fleet buys you time in the orbital battle.",
-      "hidden": false
+      "part": "p2",
+      "scene": "s1",
+      "value": 1
     },
     {
-      "id": "adv10_array",
-      "label": "The Gravity Well Array",
-      "desc": "Reach the projector core and disable it before the impactors bury Malpaz.",
-      "hidden": true
+      "id": "adv10_draco",
+      "label": "The Inquisitor's End",
+      "desc": "Draco stands between you and the bridge. You end him here. The Inquisitorius loses its piece on this board.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["destruction"]
     },
     {
       "id": "adv10_varth",
       "label": "The Reckoning",
-      "desc": "Face Varth. The man who started all of this. The betrayal ends here.",
-      "hidden": true
+      "desc": "Face Varth on the empty command deck. He is barefoot. He is honest for the first time. You name the truth he has been carrying — and you carry it out of the room.",
+      "part": "p2",
+      "scene": "s3",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
-      "id": "adv10_draco",
-      "label": "The Inquisitor's Price",
-      "desc": "Draco stands between you and the finish. The Dark Side is strong here.",
-      "hidden": true
+      "id": "adv10_array",
+      "label": "The Gravity Well Array",
+      "desc": "Reach the projector core and disable it. Malpaz is no longer a target. The Leviathan no longer holds a sky hostage.",
+      "part": "p3",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["liberation"]
     },
     {
-      "id": "adv10_final_hand",
-      "label": "The Final Hand",
-      "desc": "Make the last play. Everything you've built, everyone you've saved or lost — it comes down to this.",
-      "hidden": true
+      "id": "adv10_leviathan",
+      "label": "The Leviathan Undone",
+      "desc": "The Empire's gravity-well dreadnought is a wreck. Three sectors of strategic doctrine collapse with it.",
+      "part": "p3",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["destruction"]
+    },
+    {
+      "id": "adv10_routes_convergence",
+      "label": "The Routes Convergence",
+      "desc": "On the empty deck after the bridge falls, three patrons appear in person to ask for the same thing — the Vel Shara routes and the Leviathan's data. Bail Organa's Fulcrum handler. Luthen Rael himself. Quinlan Vos, revealing himself as the man who has been Cade Ryll. The crew chooses what becomes of the routes.",
+      "part": "p3",
+      "scene": "s3",
+      "value": 1,
+      "paths": [
+        {
+          "id": "keep_routes",
+          "label": "Keep the routes — Enterprise",
+          "desc": "You walk away as the only crew that owns the most valuable trade asset in the Western Reaches. Creation built. Ascendancy claimed.",
+          "destinies": ["creation"]
+        },
+        {
+          "id": "give_bail",
+          "label": "Give to Bail — routes-as-shelter",
+          "desc": "You hand the data to Bail's handler. Slow. Safe. Generational. The Path widens. You walk out lighter than you came in.",
+          "destinies": ["creation"]
+        },
+        {
+          "id": "give_luthen",
+          "label": "Give to Luthen — routes-as-weapons",
+          "desc": "You hand the data to Vel's patron. Strike-and-fade. Three sectors broken in a year. The Empire bleeds at galactic scale.",
+          "destinies": ["liberation"]
+        },
+        {
+          "id": "give_vos",
+          "label": "Give to Vos — routes-as-sanctuary",
+          "desc": "You hand the data to Cade Ryll, who is and was Quinlan Vos. Force-sensitives sheltered. The hidden Path widened. The campaign began with a Jedi and ends with one.",
+          "destinies": ["rescue"]
+        },
+        {
+          "id": "split_routes",
+          "label": "Split the routes — each gets a partial map",
+          "desc": "You couldn't choose, so you became the only one who can. Each patron leaves with less than they wanted. The crew walks out as the seam between three networks — the only chair in the galaxy with the full map.",
+          "destinies": ["ascendancy"]
+        },
+        {
+          "id": "destroy_routes",
+          "label": "Destroy the routes — no one holds this",
+          "desc": "You burn the data in front of all three. No Empire, no Resistance, no Path. Some things should not exist. The Atonement is total.",
+          "destinies": ["atonement"]
+        }
+      ]
+    },
+    {
+      "id": "adv10_disseminate_truth",
+      "label": "Carrying the Truth Out",
+      "desc": "Whoever leaves the Convergence with the routes also leaves with the truth — Varth, Tarkin, the Leviathan program, the names. The campaign's hidden ledger is now in someone's hands.",
+      "part": "p3",
+      "scene": "s3",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv10_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],
@@ -363,6 +445,82 @@
           "title": "Escape from the Leviathan",
           "subtitle": "The Last Run",
           "completed": false
+        },
+        {
+          "id": "adv10-p3-s3",
+          "number": 3,
+          "title": "The Routes Convergence",
+          "subtitle": "Three Patrons, One Decision",
+          "completed": false,
+          "gmNotes": "THE CAMPAIGN'S FINAL DECISION SCENE. The Leviathan is wreckage in the upper atmosphere of Malpaz. The crew has made it to the deck of the Banshee or the Maw — somewhere quiet, somewhere they can hear themselves think. Three figures appear in person, in sequence, over the next hour. Each asks for the same thing: the Vel Shara routes, the Leviathan project data, the truth ledger. Each represents a different shape for what those routes can become in the galaxy. There is no wrong answer — but there is a choice, and the choice closes the campaign. Honor whichever path the crew names. The decision becomes the canonical end state of the campaign and is recorded as the adv10_routes_convergence path mark.\n\nORDER OF ARRIVAL (suggested):\n1. The Fulcrum handler from Beat 6 of adv8-p1-s2 (Bail's Pantoran). Slow, quiet, no demands. Her offer: shelter the routes inside the network that will become the Rebel Alliance. The campaign's truth becomes the foundation for a generational resistance. (Creation path.)\n2. Vel Sartha — and behind her, for the first time in person, her patron Luthen Rael. Luthen is older than the crew expected. Worn. Polite. He says one sentence: 'I will spend everything you give me. That is the only honest pitch I have.' (Liberation path. The routes-as-weapons.)\n3. Cade Ryll — except Cade Ryll lifts his hood and is Quinlan Vos. The Mirialan from adv8-p1-s2-beat2 was always Vos under deep cover. He has been watching the crew since the Burning Deck on Jakku. He says: 'Some of what you carry should not become a weapon and should not become a Senator's archive. It should become a sanctuary. There is a Path. I would walk it with you, if you let me.' (Rescue path. The routes-as-sanctuary.)\n\nThe crew may also choose: keep the routes (Enterprise — Creation/Ascendancy), split the routes (each gets a partial map), or destroy the routes (Atonement). Each option closes the campaign differently. The flag-choice from adv10-p2-s3 (the Varth conversation) is honored alongside this — the crew may have chosen to fly under no flag, the Resistance flag, the Banshee, a private fleet, or to scuttle the Leviathan fleet. The flag answer and the routes answer together are the canonical end state.\n\nDO NOT have any of the three patrons argue with each other. The three know each other. The three respect each other. The three have been waiting for this moment for years. The room is quiet. The choice belongs to the crew.",
+          "npcs": [
+            {
+              "name": "Vel Sartha",
+              "type": "Recurring Contact (Axis network)",
+              "count": 1,
+              "notes": "Human, mid-thirties, plain Outer Rim spacer kit cut a degree too well. The face for Luthen Rael's network across the campaign. First appeared in adv8-p1-s2-beat5. Speaks in short complete sentences. Does not perform. Does not flatter. Will accept the crew's decision whatever it is."
+            },
+            {
+              "name": "Luthen Rael",
+              "type": "Patron (Axis network founder)",
+              "count": 1,
+              "notes": "Human, sixties, antiquities dealer cover identity from Coruscant. First in-person appearance in the campaign. Quiet, tired, courteous. The man who has been at the other end of every anonymous message since adv5-6. His offer is honest: he will spend whatever the crew gives him."
+            },
+            {
+              "name": "Bail's Fulcrum Handler",
+              "type": "Recurring Contact (Bail Organa's network)",
+              "count": 1,
+              "notes": "Pantoran, the shipping-clerk's vest from adv8-p1-s2-beat6. Bail is not present in person — the handler carries his offer. Slow, generational, the proto-Alliance pitch. Will accept the crew's decision whatever it is."
+            },
+            {
+              "name": "Cade Ryll / Quinlan Vos",
+              "type": "Recurring Contact (Hidden Path)",
+              "count": 1,
+              "notes": "The Mirialan from adv8-p1-s2-beat2 was Quinlan Vos in deep cover. Reveals himself here for the first time. Has been watching the crew since the Burning Deck on Jakku. His offer is the routes-as-sanctuary for surviving Force-sensitives. Will accept the crew's decision whatever it is."
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a10-p3-s3-beat1-the-quiet-room",
+              "name": "Beat 1 — The Quiet Room",
+              "type": "social",
+              "trigger": "Crew is back aboard ship after the Leviathan goes down",
+              "description": "The Banshee deck is too quiet. The fight is over. The crew has the data — the Vel Shara routes, the Leviathan project files, the truth of Varth and Tarkin and what the program was for. Nobody has yet asked what they intend to do with it. Maya is at the cockpit, leaving the deck to the crew. Whoever else survived (Denia, Soren, the captains) is elsewhere. The first knock comes ten minutes after they sit down.",
+              "tactics": "NO DICE — frame the room. Establish the silence and the weight of what is on the table. End beat when the first patron is admitted aboard."
+            },
+            {
+              "id": "enc-a10-p3-s3-beat2-the-fulcrum-handler",
+              "name": "Beat 2 — The Fulcrum Handler Arrives",
+              "type": "social",
+              "trigger": "First knock — Bail's Pantoran handler asks to come aboard",
+              "description": "She is alone. She has not slept. She brings the same datapad from Beat 6 of the cantina, two campaigns ago. She sits where the crew offers. She makes her pitch in plain sentences: 'Senator Organa knew this day was coming. He would like the routes for the network that will outlive both of us. We will not weaponize them. We will not move people through them faster than people can survive being moved. The pace is the point.' She names a sum — generous, not extravagant. She does not mention the other two patrons. She knows. She does not need to mention it. End beat when the crew either accepts, declines, or asks her to wait.",
+              "tactics": "NO DICE — the offer is the offer. The handler will not bid against the others. If the crew tries to negotiate her up, she says, 'The number is the number Bail authorized. I cannot give you more than what he believes the routes are worth as shelter.' Honor her dignity. End beat with her either holding her offer open or stepping out to the corridor to wait."
+            },
+            {
+              "id": "enc-a10-p3-s3-beat3-vel-and-luthen",
+              "name": "Beat 3 — Vel Sartha and Her Patron",
+              "type": "social",
+              "trigger": "Second knock — Vel and an older man the crew has never seen",
+              "description": "Vel Sartha walks in first. She nods at the crew. She steps aside. The man behind her is older than the crew expected — sixties, white at the temples, dressed in a Coruscanti antiquities-dealer's coat that is one season out of fashion in the Galactic Center and would not be recognized as a coat at all on Batuu. He introduces himself as Luthen Rael. He sits where the crew offers. He says: 'I will spend everything you give me. That is the only honest pitch I have. Three sectors broken in a year, twelve thousand Imperial dead inside two, a chance the program does not get to be rebuilt. I will pay in cash and I will pay in safe houses and I will pay in names. I will not pay in any promise that the work will be clean.' He waits. End beat when the crew accepts, declines, or asks him to wait.",
+              "tactics": "NO DICE — the offer is the offer. Luthen does not perform. He has rehearsed this room as long as Varth rehearsed his — but unlike Varth, he is asking, not delivering. Vel stands behind him through the conversation. She does not interject. The crew may speak to her directly; she will defer to Luthen on terms but she will answer honestly on history. End beat with Luthen either holding his offer open or stepping out to the corridor."
+            },
+            {
+              "id": "enc-a10-p3-s3-beat4-cade-ryll",
+              "name": "Beat 4 — Cade Ryll Lifts His Hood",
+              "type": "social",
+              "trigger": "Third knock — the Mirialan from Black Spire Outpost asks to come aboard",
+              "description": "Cade Ryll, the man who handed the crew off to Oga in Adv8 and never reappeared after, is at the Banshee's ramp. He comes alone. He sits where the crew offers. He lifts the hood that has been low across his face for the entire campaign and he is Quinlan Vos. The crew's first impression is that he looks tired in a way the others did not. He says: 'I have been watching you since the Burning Deck on Jakku. Some of what you carry should not become a weapon. Some of what you carry should not become a Senator's archive. It should become a sanctuary. There are still Force-sensitives the Empire has not yet found. There is a Path. I would walk it with you, if you let me. I do not have credits to offer. I have only the work.' End beat when the crew accepts, declines, or asks him to wait.",
+              "tactics": "NO DICE — the reveal is the offer. Vos does not bid against the others either. He waits in the corridor with them when he is done. The three of them stand together, in courteous silence, while the crew makes the call. End beat with the three patrons in the corridor and the data on the table."
+            },
+            {
+              "id": "enc-a10-p3-s3-beat5-the-decision",
+              "name": "Beat 5 — The Decision",
+              "type": "social",
+              "trigger": "Crew commits to one of the six paths on the adv10_routes_convergence mark",
+              "description": "The crew names what becomes of the routes. Whoever they hand the data to walks back aboard, accepts it, and says one sentence. Bail's handler: 'You have given the Path a generation.' Luthen: 'You have given me a year. I will use it.' Vos: 'You have given the survivors a place to be alive.' If the crew keeps the routes themselves, all three accept the answer with a small nod and walk out. If the crew splits the routes, all three accept their partial maps in turn and leave. If the crew destroys the data in the room, all three watch it happen — none object. Vos is the one who says the closing line: 'Some things should not exist. We honor the choice.' Mark the decision on the campaign close-out sheet alongside the flag choice from adv10-p2-s3.",
+              "tactics": "NO DICE — closing beat. THIS IS WHERE THE CAMPAIGN ENDS. Honor the players' choice without commentary. Do not narrate consequences yet — the consequences are the next campaign. The Banshee deck is quiet again after the patrons leave. Maya looks back from the cockpit. The credits roll on whatever the crew decided to be."
+            }
+          ]
         }
       ]
     }

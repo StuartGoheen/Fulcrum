@@ -4,6 +4,126 @@
   "title": "The Iron Blockade",
   "act": 3,
   "summary": "The crew needs a fleet. The Leviathan is heading to Malpaz for a demonstration strike, and the people who rose up because of the crew's actions in Adventure 5 are the target. Hunted and battered, the crew arrives at Black Spire Outpost on Batuu — the one place in the galaxy where the Empire's reach is short and the local boss has the firepower to help. Oga Garra is transactional, not ideological. She'll assemble a pirate fleet because Leviathan is bad for business, but she'll collect on the debt.",
+  "marks": [
+    {
+      "id": "adv8_arrival",
+      "label": "Black Spire Outpost",
+      "desc": "Land on Batuu under Maya's old smuggler credentials. The Empire's reach is short here.",
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
+    },
+    {
+      "id": "adv8_oga",
+      "label": "The Cantina at the End of the Reach",
+      "desc": "Sit across from Oga Garra. She runs the captains, the docks, and the only registry of who can run what through the Cordon. Whatever you walk out with, your standing in the Western Reaches now reaches her chair.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "negotiate_equals",
+          "label": "Negotiate as equals — the partnership",
+          "desc": "You pay her tax cleanly, you take her terms, you walk out as a partner. Black Spire is now a base the crew can return to. The Crime Lord road is real and it is shared with Oga.",
+          "destinies": ["ascendancy"]
+        },
+        {
+          "id": "hostile_takeover",
+          "label": "Hostile takeover — Oga's chair",
+          "desc": "You break her grip on Black Spire and you sit where she sat. The Western Reaches underworld answers to you now. You are the new Oga. The Toll path's price falls on the people who depended on her quiet rule.",
+          "destinies": ["ascendancy"]
+        }
+      ]
+    },
+    {
+      "id": "adv8_patrons",
+      "label": "Three Patrons, One Decision",
+      "desc": "A woman from the front booth — Vel Sartha, the face that has been at the other end of every anonymous message since Eriadu — makes her patron's offer at the same hour Bail Organa's Fulcrum handler arrives with a competing one. You choose who you fly for. The patron's name comes later.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "bail_path",
+          "label": "Take Bail's offer — Fulcrum",
+          "desc": "You sign on with Bail's network. Slow. Safe. Generational. You are building a shelter that will outlast you.",
+          "destinies": ["creation"]
+        },
+        {
+          "id": "luthen_path",
+          "label": "Take her patron's offer — Axis",
+          "desc": "You sign on with Vel's patron. Strike-and-fade. Three sectors broken in a year. You are building a weapon that will cost what weapons cost.",
+          "destinies": ["creation"]
+        },
+        {
+          "id": "play_both",
+          "label": "Take both — run Axis while Bail thinks you're his",
+          "desc": "You take both signatures on the same flimsi. Bail does not know about Vel. Vel knows about Bail. You make yourself the seam. The Toll arrives the day one of them finds out.",
+          "destinies": ["corruption"]
+        }
+      ]
+    },
+    {
+      "id": "adv8_captain",
+      "label": "The Captain",
+      "desc": "Pick the captain who flies the cordon run.",
+      "part": "p1",
+      "scene": "s3",
+      "value": 1,
+      "paths": [
+        {
+          "id": "maku",
+          "label": "Captain Maku — the professional",
+          "desc": "Mon Calamari, Old Rebellion vintage. Quiet contract. Honest fee. You hire competence and get it.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "brell",
+          "label": "Captain Brell — the easy yes",
+          "desc": "Charming, cheap, and three amendments deep into a contract you should have read twice. You bought a betrayal you have not yet been billed for.",
+          "destinies": ["corruption"]
+        },
+        {
+          "id": "vex",
+          "label": "Captain Vex — the harder yes",
+          "desc": "Maya's old partner, the man who sold her. You hire him with her at the ramp. The crew names what was broken and decides whether the fix is on the table.",
+          "destinies": ["atonement"]
+        }
+      ]
+    },
+    {
+      "id": "adv8_load_out",
+      "label": "Load-Out",
+      "desc": "Move the cargo, the codes, and the kit aboard. The Banshee stays at Black Spire under Maya's authority.",
+      "part": "p1",
+      "scene": "s3",
+      "value": 1
+    },
+    {
+      "id": "adv8_breaking_cordon",
+      "label": "Breaking the Cordon",
+      "desc": "Run the gauntlet. The Imperial cordon over the Hosnian / Malpaz / Xala-Cermau seams is no longer a cordon when you are through it.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["destruction"]
+    },
+    {
+      "id": "adv8_jump",
+      "label": "The Jump to Lightspeed",
+      "desc": "Out of the cordon, into deep space. The pirate fleet is yours.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1
+    },
+    {
+      "id": "adv8_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "value": 1,
+      "noHide": true
+    }
+  ],
   "gearNotes": [
     {
       "item": "Encrypted Comlink",
@@ -129,8 +249,24 @@
               "tactics": "NO DICE — reveal beat. This is the Soren Vex visual reveal, separate from Oga's naming of him in the conversation. Maya will not initiate. PCs who ask her get one sentence: \"That's Soren Vex. He sold me to the Empire. Oga is going to put his name on her shortlist tomorrow. I needed to see his face first.\" She will not engage with him in the cantina. She will not engage with him at the bar. If the contract goes to him, she will engage him at slip 14 — at her own tempo, on her own ground (s3 trigger)."
             },
             {
-              "id": "enc-a8-p1-s2-beat5-walking-out",
-              "name": "Beat 5 — Walking Out of Oga's",
+              "id": "enc-a8-p1-s2-beat5-vel-sartha",
+              "name": "Beat 5 — Vel Sartha at the Front Booth",
+              "type": "social",
+              "trigger": "Crew steps back through the beaded curtain after Oga, before exiting the cantina",
+              "description": "A woman the crew did not see on the way in is sitting at a small front booth near the door, working through a flimsi sheet over a cup of caf gone cold. She is human, mid-thirties, dressed in plain Outer Rim spacer kit cut a degree too well. As the crew passes her booth she lifts her eyes for half a second longer than a stranger would, then says, quietly: \"Sit. Three minutes. I owe you a name.\" If the crew sits, she introduces herself as Vel Sartha. She does not ask theirs. \"I sent the message to your private channel after Eriadu. The card from Maz's was mine. I am the face for the work my patron cannot wear his name to. The offer is simple — a year of strike-and-fade across three sectors, your routes, our targets, our risk. We do not ask you to be heroes. We ask you to be useful.\"",
+              "tactics": "NO DICE — introduction beat. Vel Sartha is the formal entry of the named contact who has been the unseen sender behind the Adv5-6 anonymous-message thread. She does not name Luthen Rael in this beat — only \"my patron,\" \"the work,\" \"three sectors.\" The crew may ask: who is your patron (\"Someone you have never met. Someone Bail Organa has met. That is the most I can say tonight.\"), what is the cost (\"What we ask costs what we are asking. The pay is in the work mattering.\"), why us (\"Because Maz's card was a card my patron asked her to keep on hand for someone who walked the way you have. You walked it.\"). Voice rules: Vel speaks in short, complete sentences. She does not perform. She does not flatter. If pressed, she says: \"You can decline. The offer does not expire. We will be here.\" Hold this beat to the three minutes she asked for. End beat when she stands or when the crew is interrupted by Beat 6."
+            },
+            {
+              "id": "enc-a8-p1-s2-beat6-bail-handler",
+              "name": "Beat 6 — The Fulcrum Handler at the Same Table",
+              "type": "social",
+              "trigger": "Vel finishes (or is finishing) — a second figure approaches the booth from the bar",
+              "description": "A second figure crosses the floor from the bar — a Pantoran woman in a quiet shipping-clerk's vest, datapad under her arm. She does not introduce herself by name. She nods once at Vel, who nods back. The deference is small and mutual and tells the crew the two women have crossed paths before. The Pantoran sits, opens her datapad, and addresses the crew directly: \"I work for Senator Organa. I am in Black Spire to make a competing offer to whatever you have just been asked. Bail's network is what Vel's becomes if it survives long enough. The work is slower. The names live longer. We do not ask you to break things. We ask you to build the thing that will eventually replace what is breaking. Three sectors over a year is a year. Twenty years is a Path. Pick what you can carry.\" She slides a chip across the table. Bail's contact frequency, two safe-house addresses, a single character signature — the Fulcrum sigil.",
+              "tactics": "NO DICE — parallel offer beat. The two offers are explicit, on the same table, and load-bearing. Vel does not interrupt the handler. The handler does not interrupt Vel. Both sit until the crew speaks. The choice is not made tonight — both contacts are real ongoing channels and the crew can take one, the other, or both (the third option is the Toll path: take both signatures on the same flimsi and become the seam, see adv8_patrons mark). End beat with both contacts standing, leaving credit chips for the drinks, and walking out separately. The crew is at the booth alone with two chips on the table. Honor whichever path the crew names later in the campaign — the chip they keep is the one they fly for at the Routes Convergence in adv10-p3-s3."
+            },
+            {
+              "id": "enc-a8-p1-s2-beat7-walking-out",
+              "name": "Beat 7 — Walking Out of Oga's",
               "type": "social",
               "trigger": "Crew exits the cantina",
               "description": "The cold of Black Spire Outpost's night air is sharp after the smoky cantina. The crew has Oga's captain shortlist on a datachip, the route options, the four-shift seam intel, and a complication named Soren Vex. They have until second sun tomorrow to choose a captain and present at slip 14, slip 12 (Maku), or slip 9 (Brell), depending. Maya walks slightly apart from the crew on the way back to the lodgings. She does not speak. The decision belongs to the crew. She has said her piece by being seen with her hand on the blaster.",

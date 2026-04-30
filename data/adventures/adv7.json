@@ -9,43 +9,93 @@
       "id": "adv7_sumps",
       "label": "The Lower Sumps",
       "desc": "Fight your way through Eriadu's industrial underworld to reach the surface.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv7_escape",
       "label": "Breaking Atmosphere",
       "desc": "Get off-world with the Empire hunting you through the orbital cordon.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s2",
+      "value": 1
     },
     {
       "id": "adv7_resurgence",
       "label": "The Resurgence Falls",
-      "desc": "Watch the Resurgence die. There's nothing you can do.",
-      "hidden": true
+      "desc": "Watch the Resurgence die. There's nothing you can do — and the cost of carrying that lands on you, not the people you couldn't save.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["atonement"]
     },
     {
       "id": "adv7_denia_taken",
       "label": "Denia's Capture",
-      "desc": "Draco takes Denia. The choice of whether to pursue defines what comes next.",
-      "hidden": true
+      "desc": "Draco takes Denia in front of you. The choice is whether you go after her now or carry her absence into what comes next.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "swear_pursuit",
+          "label": "Swear pursuit — Denia is the next priority",
+          "desc": "You name her name on the Banshee's deck and write the next move around her. Adv9 is yours to walk.",
+          "destinies": ["rescue"]
+        },
+        {
+          "id": "carry_loss",
+          "label": "Carry the loss into the run",
+          "desc": "There is no time for her tonight. You carry her absence the way you carry the Resurgence's dead — as weight you owe but cannot yet pay.",
+          "destinies": ["atonement"]
+        }
+      ]
     },
     {
       "id": "adv7_survivors",
       "label": "The Survivors",
       "desc": "Recover what you can from the wreckage. People, supplies, hope.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "extract_many",
+          "label": "Pull many out — the wider net",
+          "desc": "You delay your jump, you take the load, you fly heavy. More survive. The Empire gets closer to catching you for it.",
+          "destinies": ["liberation"]
+        },
+        {
+          "id": "extract_critical",
+          "label": "Pull the critical few — the surgical hand",
+          "desc": "You pick the survivors who carry the most forward — the codes, the keys, the names. Fewer live. The cause moves further.",
+          "destinies": ["rescue"]
+        }
+      ]
+    },
+    {
+      "id": "adv7_carry_truth",
+      "label": "The Truth You Carry",
+      "desc": "On the blind jump from the Resurgence's grave, the crew names what they now know about Varth, the Leviathan, and what Tarkin is building. Naming it commits the crew to carrying that truth out of the campaign — to Mothma, to Bail, to whoever can use it.",
+      "part": "p2",
+      "scene": "s3",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv7_nothing",
       "label": "Into the Void",
       "desc": "Jump to hyperspace with nothing. No ship, no base, no safety net.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s3",
+      "value": 1
     },
     {
       "id": "adv7_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],

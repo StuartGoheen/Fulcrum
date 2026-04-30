@@ -9,43 +9,80 @@
       "id": "adv6_eriadu",
       "label": "Tarkin's World",
       "desc": "Reach Eriadu and navigate the most heavily Imperial world in the Outer Rim.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv6_citadel",
       "label": "The Citadel",
       "desc": "Infiltrate Tarkin's Citadel — the seat of power for the entire Outer Rim.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s2",
+      "value": 1
     },
     {
       "id": "adv6_glass_bridge",
       "label": "The Glass Bridge",
-      "desc": "Witness the truth through the Glass Bridge. What you see changes everything.",
-      "hidden": true
+      "desc": "Witness the truth through the Glass Bridge. Varth receives command of the Leviathan from Tarkin's hand. The betrayal is no longer a suspicion — it is a fact carried out of this room.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv6_data_center",
       "label": "The Primary Data Center",
       "desc": "Slice into the PDC and extract Varth's transit orders. The clock is ticking.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv6_apprentice",
       "label": "The Apprentice",
       "desc": "Face Draco's Apprentice in the corridors of the Citadel.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s3",
+      "value": 1,
+      "paths": [
+        {
+          "id": "kill_apprentice",
+          "label": "End the Apprentice",
+          "desc": "You put down a young Inquisitor before he becomes the next Draco. The Inquisitorius loses a piece on its board.",
+          "destinies": ["destruction"]
+        },
+        {
+          "id": "spare_and_break",
+          "label": "Spare and break him",
+          "desc": "You leave him alive but turned — frightened, marked, his loyalty to the Inquisitorius cracked. The Empire keeps the man, but not what was inside him.",
+          "destinies": ["corruption"]
+        }
+      ]
     },
     {
       "id": "adv6_acid_rain",
       "label": "The Hellscape",
       "desc": "Escape through Eriadu's industrial acid rain. The planet itself is hostile.",
-      "hidden": true
+      "part": "p3",
+      "scene": "s1",
+      "value": 1
+    },
+    {
+      "id": "adv6_luthen_whisper",
+      "label": "The Anonymous Message",
+      "desc": "On the quiet jump out of Eriadu, an unsigned comm comes through the Banshee's private channel. Someone in the Galactic Center is asking after the crew. They are not Imperial. The card from Maz's was not just a card. The crew has been watched longer than they knew.",
+      "part": "p3",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv6_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],

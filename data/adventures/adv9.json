@@ -9,43 +9,80 @@
       "id": "adv9_wild_space",
       "label": "Beyond the Charts",
       "desc": "Travel the Xala-Cermau hyperlane into Wild Space. Past here, the galaxy ends.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv9_stronghold",
       "label": "The Stronghold",
       "desc": "Locate and infiltrate Draco's fortress on Xala.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s2",
+      "value": 1
     },
     {
       "id": "adv9_denia",
       "label": "The Rescue",
-      "desc": "Find Denia — if she survived. What's left of her may not be what you remember.",
-      "hidden": true
+      "desc": "Find Denia. If you saved her in Adv2, this is the second time you pull her out — from a fate even she had stopped naming. If she was abandoned in Adv2, this is the toll-path: you recover what you let happen.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "deliver_her",
+          "label": "Pull her out of Draco's hand",
+          "desc": "You break her cell. You carry her out. The road that opened in Adv2 closes here, on her terms.",
+          "destinies": ["rescue"]
+        },
+        {
+          "id": "recover_loss",
+          "label": "Recover what you let happen",
+          "desc": "She is in Draco's keeping because Varth told you to leave her and you listened. Pulling her out now is not rescue — it is paying a debt you helped sign.",
+          "destinies": ["atonement"]
+        }
+      ]
     },
     {
       "id": "adv9_draco",
       "label": "The Inquisitor",
-      "desc": "Confront Draco on his own ground. This is where it ends between you.",
-      "hidden": true
+      "desc": "End Draco on his own ground. The Inquisitorius loses a piece of its board.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["destruction"]
     },
     {
       "id": "adv9_sacrifice",
       "label": "The Cost",
-      "desc": "Someone pays the price. The rescue attempt demands sacrifice.",
-      "hidden": true
+      "desc": "Someone pays the price of the rescue. The Atonement track grows by the weight of who you spent.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["atonement"]
     },
     {
       "id": "adv9_return",
       "label": "Carrying It Home",
-      "desc": "Leave the edge of known space. What you bring back changes the final fight.",
-      "hidden": true
+      "desc": "Leave the edge of known space. What you bring back changes the final fight — and what you saw of Draco's stronghold is its own kind of evidence.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["discovery"]
+    },
+    {
+      "id": "adv9_briefing",
+      "label": "The Last Briefing",
+      "desc": "The Resistance staging dock. Sixteen ships. Twenty thousand crew. The Leviathan run is at first sun.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1
     },
     {
       "id": "adv9_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],

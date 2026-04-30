@@ -9,43 +9,81 @@
       "id": "adv4_dead_forest",
       "label": "The Dead Forest",
       "desc": "Navigate the toxic, Dark Side-saturated forest to reach the Spire. The moon resists you.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s2",
+      "value": 1
+    },
+    {
+      "id": "adv4_ewok_parley",
+      "label": "First Contact",
+      "desc": "The Ewok scouts hold the only safe path to the Spire. The forest watches what you choose.",
+      "part": "p1",
+      "scene": "s4",
+      "value": 1,
+      "paths": [
+        {
+          "id": "parley",
+          "label": "Lower weapons — parley",
+          "desc": "You take the cost of patience. The Ewoks take you to their Storyteller. The forest grants you safe passage and you carry a name out of the dead grove.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "pyre",
+          "label": "Burn through them",
+          "desc": "You clear the obstacle with overwhelming force. The Ewoks scatter. The forest turns hostile and the Spire takes its toll on you for it.",
+          "destinies": ["destruction"]
+        }
+      ]
     },
     {
       "id": "adv4_spire_entry",
       "label": "Breaching the Spire",
       "desc": "Find a way past the ancient defenses that still guard Revan's fortress.",
-      "hidden": false
-    },
-    {
-      "id": "adv4_holocron",
-      "label": "The Holocron Vault",
-      "desc": "Locate the Jedi holocrons containing the hyperspace charts to Vel Shara.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv4_dark_side",
       "label": "Echoes of the Dark",
-      "desc": "Confront what the Dark Side shows you inside the Spire. It knows your fears.",
-      "hidden": true
+      "desc": "Confront what the Dark Side shows you inside the Spire. It knows your fears, and naming them is the cost of walking past them.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["atonement"]
+    },
+    {
+      "id": "adv4_holocron",
+      "label": "The Holocron Vault",
+      "desc": "Locate the Jedi holocrons containing the hyperspace charts to Vel Shara. Open them and bring a Republic-era truth back into the light.",
+      "part": "p2",
+      "scene": "s3",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv4_guardian",
       "label": "The Guardian",
-      "desc": "Face the ancient defender that still protects the Spire's secrets after millennia.",
-      "hidden": true
+      "desc": "End the ancient defender that has held the Spire's threshold for millennia. The last warden falls because of you.",
+      "part": "p2",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["destruction"]
     },
     {
       "id": "adv4_charts",
       "label": "The Way Forward",
-      "desc": "Secure the navigational data and escape the Spire before it seals you in.",
-      "hidden": true
+      "desc": "Secure the navigational data and escape the Spire before it seals you in. The galaxy's least-known corridor is now in your hand.",
+      "part": "p2",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv4_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],

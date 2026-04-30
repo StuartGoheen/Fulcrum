@@ -9,43 +9,99 @@
       "id": "adv5_infiltrate",
       "label": "Under the Boot",
       "desc": "Infiltrate the occupied world of Malpaz without drawing Imperial attention.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s1",
+      "value": 1
     },
     {
       "id": "adv5_station",
       "label": "The Research Station",
       "desc": "Break into the Imperial research station and locate the drift algorithms.",
-      "hidden": false
+      "part": "p1",
+      "scene": "s2",
+      "value": 1
     },
     {
       "id": "adv5_algorithms",
       "label": "The Missing Variable",
-      "desc": "Extract the drift algorithms from the station's secure data vault.",
-      "hidden": true
+      "desc": "Extract the drift algorithms from the station's secure data vault. Whatever the Empire was building with these calculations is now in your hands.",
+      "part": "p1",
+      "scene": "s3",
+      "value": 1,
+      "destinies": ["discovery"]
     },
     {
       "id": "adv5_spark",
       "label": "The Spark",
-      "desc": "Your actions ignite something in the population. The insurrection begins.",
-      "hidden": true
+      "desc": "Your action ignites something the population had been holding in for years. The spark is yours.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "destinies": ["liberation"]
     },
     {
       "id": "adv5_uprising",
       "label": "Liberation Day",
-      "desc": "The people of Malpaz rise up. Help them or use the chaos as cover — either way, the Empire responds.",
-      "hidden": true
+      "desc": "The people of Malpaz rise up. The choice is what you do with that fact.",
+      "part": "p2",
+      "scene": "s1",
+      "value": 1,
+      "paths": [
+        {
+          "id": "aid_uprising",
+          "label": "Stay and aid the uprising",
+          "desc": "You delay extraction. You arm them, you cover their first barricades, you make sure the morning belongs to them. Imperial reinforcements catch you on the way out — but Malpaz wakes free.",
+          "destinies": ["liberation"]
+        },
+        {
+          "id": "use_as_cover",
+          "label": "Use the chaos as cover",
+          "desc": "You let the uprising do its work and slip out under the smoke. The crew survives. Malpaz survives a little less. You sleep with that.",
+          "destinies": ["corruption"]
+        }
+      ]
+    },
+    {
+      "id": "adv5_resurgence_flavor",
+      "label": "The Shape of What You're Building",
+      "desc": "Walking away from Malpaz, the crew is no longer just contractors. You have a network, a debt, and a name in the underworld. If you walk the Creation road, this is the moment you declare what shape your work takes — Enterprise (you keep what you build), Cell (you give it to the cause that's forming), or Sanctuary (you give it to those who shelter what the Empire would erase). The choice is recorded; it does not gate later content but informs which paths you favor at the Routes Convergence.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "enterprise",
+          "label": "Enterprise — keep what you build",
+          "desc": "The routes, the contacts, the wealth — yours. You are the shape of what you build.",
+          "destinies": ["creation"]
+        },
+        {
+          "id": "cell",
+          "label": "Cell — give to the cause",
+          "desc": "What you build, you give to the network that's forming. Bail. Fulcrum. The whisper. They keep what your hands make.",
+          "destinies": ["creation"]
+        },
+        {
+          "id": "sanctuary",
+          "label": "Sanctuary — give to those who shelter",
+          "desc": "What you build, you give to those who shelter what the Empire would erase. Force-sensitives, lost lineages, the hidden Path. They keep what your hands make.",
+          "destinies": ["creation"]
+        }
+      ]
     },
     {
       "id": "adv5_extraction",
       "label": "Hot Extract",
       "desc": "Get off-world as Imperial reinforcements arrive in force.",
-      "hidden": true
+      "part": "p2",
+      "scene": "s2",
+      "value": 1
     },
     {
       "id": "adv5_crucible",
       "label": "The Crucible",
       "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "value": 1,
       "noHide": true
     }
   ],
