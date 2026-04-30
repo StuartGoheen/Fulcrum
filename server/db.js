@@ -394,14 +394,13 @@ async function initSchema() {
     // which leaks Varth's role and Varga before the cantina scene plays.
     // The seed default is now revealed=false; this migration retroactively
     // flips those three rows back to hidden ONLY when the GM has not
-    // touched them since seed. Two guards combine to detect a still-pristine
-    // seed row:
-    //   (a) created_at = updated_at  → row never updated after insert
-    //   (b) NOT EXISTS (timeline events for this npc_key) → GM has not
-    //       added any in-fiction events about this NPC, which is the
-    //       primary signal of intentional curation.
-    // If either guard fails, the row is considered GM-managed and we leave
-    // revealed alone. Idempotent via app_settings marker.
+    // touched the npc_profiles row since seed. Pristine-seed predicate:
+    //   created_at = updated_at  → row never UPDATE'd after the seed INSERT
+    // (npc_timeline cannot be used here: those rows ARE seeded alongside
+    // the profiles, so absence-of-timeline is always false for these three
+    // NPCs and would block every retroactive flip.) Any GM action that
+    // toggled revealed via /reveal would bump updated_at past created_at
+    // and is therefore left alone. Idempotent via app_settings marker.
     try {
       const profMarker = await client.query(
         `SELECT value FROM app_settings WHERE key = 'dp_profile_seed_reveal_reset_v1'`
@@ -410,13 +409,11 @@ async function initSchema() {
         const profKeys = ['maya', 'varth', 'varga'];
         for (const k of profKeys) {
           await client.query(
-            `UPDATE npc_profiles p SET revealed = false, updated_at = NOW()
-               WHERE p.npc_key = $1
-                 AND p.revealed = true
-                 AND p.created_at = p.updated_at
-                 AND NOT EXISTS (
-                   SELECT 1 FROM npc_timeline t WHERE t.npc_key = p.npc_key
-                 )`,
+            `UPDATE npc_profiles
+                SET revealed = false, updated_at = NOW()
+              WHERE npc_key = $1
+                AND revealed = true
+                AND created_at = updated_at`,
             [k]
           );
         }

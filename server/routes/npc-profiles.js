@@ -386,6 +386,15 @@ router.post('/npc-profiles/:npcKey/reveal', requireGM, async (req, res) => {
           id: t.id, adventure_ref: t.adventure_ref, scene_ref: t.scene_ref,
           event_text: t.event_text, created_at: t.created_at
         }));
+        // CRITICAL: filter connections before emit. Raw seed connections
+        // for a freshly-revealed NPC reference other (still-hidden) NPCs
+        // — e.g. revealing Maya leaks "Admiral Varth — Employer (tense)"
+        // and "Varga the Hutt — Enemy" before either is on the board.
+        // Use the full revealed-roster name set (including the NPC we
+        // just flipped, so self-references are preserved).
+        const revealedNameSet = await _loadRevealedNameSet();
+        const allNpcNameSet = await _loadNpcNameAlphabet();
+        _filterSingleProfileConnections(profile, revealedNameSet, allNpcNameSet);
         io.to('players').emit('npc:revealed', { profile });
       } else {
         io.to('players').emit('npc:hidden', { npc_key: npcKey });
