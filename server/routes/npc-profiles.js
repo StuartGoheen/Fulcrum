@@ -110,6 +110,29 @@ function _filterRevealedProfilesConnections(profiles, allNpcNameSet) {
   return profiles;
 }
 
+// Load the alphabet of CURRENTLY-REVEALED NPC names + keys. Needed for
+// single-profile updates (npc:push-update) where deriving the revealed
+// set from just the pushed profile would incorrectly strip valid
+// connections to other already-revealed NPCs.
+async function _loadRevealedNameSet() {
+  const result = await pool.query('SELECT npc_key, name FROM npc_profiles WHERE revealed = true');
+  const set = new Set();
+  for (const r of result.rows) {
+    if (r.name) set.add(String(r.name).toLowerCase());
+    if (r.npc_key) set.add(String(r.npc_key).toLowerCase());
+  }
+  return set;
+}
+
+// Single-profile player-side filter — uses the FULL revealed roster
+// alphabet so connections to other revealed NPCs are preserved.
+function _filterSingleProfileConnections(profile, revealedNameSet, allNpcNameSet) {
+  if (profile) {
+    profile.connections = _filterPlayerConnections(profile.connections, revealedNameSet, allNpcNameSet);
+  }
+  return profile;
+}
+
 // Re-broadcast the entire revealed roster to the players room. Use this
 // when ANY profile's revealed flag changes — newly-revealed NPCs may add
 // connections to already-revealed cards (and hidden ones may strip them).
@@ -555,4 +578,6 @@ router.get('/npc-profiles/scene-npcs/:sceneId', requireGM, async (req, res) => {
 module.exports = router;
 module.exports.rebroadcastRevealedRoster = _rebroadcastRevealedRoster;
 module.exports.filterRevealedProfilesConnections = _filterRevealedProfilesConnections;
+module.exports.filterSingleProfileConnections = _filterSingleProfileConnections;
 module.exports.loadNpcNameAlphabet = _loadNpcNameAlphabet;
+module.exports.loadRevealedNameSet = _loadRevealedNameSet;

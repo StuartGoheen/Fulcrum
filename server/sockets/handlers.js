@@ -2869,6 +2869,9 @@ function registerHandlers(io) {
         }));
         // Apply the same connection-visibility filter so a fresh push
         // doesn't replace an already-filtered card with an unfiltered one.
+        // CRITICAL: derive revealedNameSet from the FULL revealed roster
+        // (not from this single profile), otherwise valid connections to
+        // other already-revealed NPCs would be incorrectly stripped here.
         const profile = {
           npc_key: r.npc_key, name: r.name, species: r.species, role: r.role,
           portrait_url: r.portrait_url, status: r.status, player_bio: r.player_bio,
@@ -2876,7 +2879,8 @@ function registerHandlers(io) {
         };
         try {
           const allNpcNameSet = await npcProfileRoutes.loadNpcNameAlphabet();
-          npcProfileRoutes.filterRevealedProfilesConnections([profile], allNpcNameSet);
+          const revealedNameSet = await npcProfileRoutes.loadRevealedNameSet();
+          npcProfileRoutes.filterSingleProfileConnections(profile, revealedNameSet, allNpcNameSet);
         } catch (_) {}
         io.to('players').emit('npc:updated', { profile });
         console.log('[socket] GM pushed NPC update: ' + npc_key);
