@@ -9,51 +9,199 @@
   "marks": [
     {
       "id": "adv1_strange_bedfellows",
-      "label": "Strange Bedfellows",
-      "desc": "A stranger crashes your table bleeding. You chose to fight for her instead of walking away.",
-      "hidden": false
+      "label": "The Burning Deck",
+      "desc": "The Burning Deck is in chaos — Maya's enforcers are cornering her at the bar. End the confrontation.",
+      "part": "p1",
+      "scene": "s2",
+      "value": 1,
+      "paths": [
+        {
+          "id": "talk_down",
+          "label": "Talk them down",
+          "desc": "Stay your hand. The deck doesn't have to burn tonight.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "take_down",
+          "label": "Take them down",
+          "desc": "Open your blade. End it the way you've ended things before.",
+          "destinies": ["destruction"]
+        }
+      ]
     },
     {
       "id": "adv1_devils_deal",
-      "label": "The Devil You Know",
-      "desc": "Strike a deal with Switch — a droid who trades in secrets. What you owe him may cost more than credits.",
-      "hidden": false
+      "label": "The Broker",
+      "desc": "Switch has what you need: the where and the when of the man worth a fortune. He doesn't give it up easily.",
+      "part": "p1",
+      "scene": "s3",
+      "value": 1,
+      "paths": [
+        {
+          "id": "cut_deal",
+          "label": "Cut his deal",
+          "desc": "Run his errands, owe him a favor. The kind that comes due when you can least afford it.",
+          "destinies": ["corruption"]
+        },
+        {
+          "id": "burn_him",
+          "label": "Burn him for it",
+          "desc": "Slice him, lean on him, walk out with the answer. You'll have made an enemy of the only fixer in the Western Reaches who was inclined to like you.",
+          "destinies": ["destruction"]
+        },
+        {
+          "id": "take_network",
+          "label": "Take his network",
+          "desc": "Leverage what he doesn't want known. By the time you walk out, his fixers, dead-drops, and TC-units don't answer to him anymore. They answer to you.",
+          "destinies": ["ascendancy"]
+        }
+      ]
+    },
+    {
+      "id": "adv1_defend_sinkhole",
+      "label": "Defend the Sinkhole",
+      "desc": "Ganga Lor's enforcers crashed the bunker — they tracked you here for revenge. Hold the line. Switch doesn't fight his own battles, but he remembers who fought for him.",
+      "part": "p1",
+      "scene": "s4",
+      "value": 1,
+      "destinies": ["destruction"]
     },
     {
       "id": "adv1_ghost_machine",
       "label": "Ghost in the Machine",
-      "desc": "Use the Code Cylinder to access the Imperial shuttle's nav computer and learn where it points.",
-      "hidden": true
+      "desc": "Slip the Code Cylinder into the Imperial shuttle's nav core. Find where the Empire is moving the man worth a fortune.",
+      "part": "p1",
+      "scene": "s5",
+      "value": 1,
+      "destinies": ["discovery"]
+    },
+    {
+      "id": "adv1_crash",
+      "label": "The Crash",
+      "desc": "V-wings strafed the Banshee out of the sky. Salvage the ship and what's in it — or leave it dead in the canopy. The crew that flies again does so because someone's hands kept her flying.",
+      "part": "p2",
+      "scene": "s2",
+      "value": 1,
+      "destinies": ["creation"]
     },
     {
       "id": "adv1_green_hell",
       "label": "Into the Green Hell",
-      "desc": "Survive the jungle of Ajan Kloss — the terrain, the wildlife, and the things that live between the trees.",
-      "hidden": true
-    },
-    {
-      "id": "adv1_wardens_price",
-      "label": "The Warden's Price",
-      "desc": "Mandrake offers a deal: his guidance for your muscle. Honor it or betray it — either way, there's a cost.",
-      "hidden": true
+      "desc": "Get through the jungle and reach Mandrake's compound.",
+      "part": "p2",
+      "scene": "s3",
+      "value": 1
     },
     {
       "id": "adv1_vanishing_place",
       "label": "The Vanishing Place",
-      "desc": "Breach the fortress and reach the man the Empire buried.",
-      "hidden": true
+      "desc": "Get inside the fortress without lighting it up.",
+      "part": "p2",
+      "scene": "s5",
+      "value": 1
+    },
+    {
+      "id": "adv1_wardens_price",
+      "label": "The Warden's Price",
+      "desc": "Mandrake offers a clean way out — for a price. Decide what it's worth.",
+      "part": "p2",
+      "scene": "s5",
+      "value": 1,
+      "paths": [
+        {
+          "id": "take_deal",
+          "label": "Take the deal on his terms",
+          "desc": "You bend to a corrupt man's terms. The Empire's underworld now counts you as one of its own.",
+          "destinies": ["corruption"]
+        },
+        {
+          "id": "break_him",
+          "label": "Break him and take what you came for",
+          "desc": "You end what's broken. Mandrake doesn't survive the negotiation.",
+          "destinies": ["destruction"]
+        }
+      ]
+    },
+    {
+      "id": "adv1_vischera",
+      "label": "Vischera",
+      "desc": "Dr. Vischera kept Varth alive for the Inquisitor's questions. She's unarmed, she's afraid, and she's part of the machine that broke him. Decide what you owe her — or what she owes you.",
+      "part": "p2",
+      "scene": "s5",
+      "value": 1,
+      "paths": [
+        {
+          "id": "carry_out",
+          "label": "Carry her out",
+          "desc": "She knows things. She'd rather not. You take the weight of her with you.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "end_her",
+          "label": "End her",
+          "desc": "Witnesses don't survive your exit. The Empire loses one more interrogator. Your hands carry one more name.",
+          "destinies": ["destruction"]
+        }
+      ]
+    },
+    {
+      "id": "adv1_generator",
+      "label": "The Generator",
+      "desc": "The fortress runs on one heart. Stop it beating — or learn what it's hiding.",
+      "part": "p2",
+      "scene": "s6",
+      "value": 1,
+      "paths": [
+        {
+          "id": "blow_it",
+          "label": "Blow it",
+          "desc": "The Vanishing Place goes dark. Whatever the Empire kept here is buried under its own walls.",
+          "destinies": ["destruction"]
+        },
+        {
+          "id": "slice_control",
+          "label": "Slice the control room",
+          "desc": "The prison rosters, the security manifests, the names the Empire was about to forget. You have them now.",
+          "destinies": ["discovery"]
+        }
+      ]
+    },
+    {
+      "id": "adv1_free_block",
+      "label": "Free the Block",
+      "desc": "Mandrake's holding cells are full of Klosari prisoners. Open them, or leave them sealed.",
+      "part": "p2",
+      "scene": "s7",
+      "value": 1,
+      "paths": [
+        {
+          "id": "cover_breakout",
+          "label": "Stay and cover the breakout",
+          "desc": "You bleed for strangers. The price is yours; the freedom is theirs.",
+          "destinies": ["atonement"]
+        },
+        {
+          "id": "trip_locks",
+          "label": "Trip the locks and run",
+          "desc": "You break the cage and let the running do the rest. The first cage you ever opened. It won't be the last.",
+          "destinies": ["liberation"]
+        }
+      ]
     },
     {
       "id": "adv1_extraction",
       "label": "The Extraction",
-      "desc": "Get Varth out alive. Whatever it takes.",
-      "hidden": true
+      "desc": "Pull Varth out of the Vanishing Place and break atmosphere. The first stranger you decided was worth more than your own skin. The road that begins here ends at someone else's cell, years from now.",
+      "part": "p2",
+      "scene": "s7",
+      "value": 1,
+      "destinies": ["rescue"]
     },
     {
       "id": "adv1_crucible",
       "label": "The Crucible",
-      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
-      "hidden": false,
+      "desc": "Whatever your plan was, it didn't survive contact. You did.",
+      "value": 1,
       "noHide": true
     }
   ],
@@ -2918,7 +3066,7 @@
               "The code cylinder is ghost transfer authorization — authenticates into Imperial shuttle nav systems",
               "No location data on the cylinder itself, but it can access Imperial flight computers",
               "Maya has been tracking a Lambda shuttle at the Reestkii Landing Field",
-              "Cylinder references connect to 'Project Leviathan'"
+              "The cylinder is a master key, not a treasure map — it points wherever the next Imperial Lambda you crack has been"
             ],
             "connections": [
               "Switch (info broker, recurring intelligence fixer, black market connection)"
@@ -2975,48 +3123,6 @@
                 "legendary": "Switch is afraid of this cylinder specifically. Not of the PCs, not of Varga. Of what's on that device and who will come looking once it surfaces. He wants the PCs to succeed because success gets a dangerous asset far away from his bunker."
               },
               "tier": 1
-            },
-            {
-              "id": "sc-s3-investigation",
-              "actionType": "assess",
-              "discipline": "investigation",
-              "arena": "wits",
-              "target": "Code Cylinder data",
-              "tier": 1,
-              "isOptional": true,
-              "context": "Examining the cylinder data directly after Switch's analysis — looking for details the droid's summary may have glossed over.",
-              "narrativePacing": "Optional. Rewards curiosity. Roll only if a player digs in.",
-              "control": {
-                "failure": "The data is dense Imperial encryption. Without specialist knowledge the analysis reads as straightforward authorization protocols.",
-                "success": "Refer to effect tiers.",
-                "mastery": "The PC notices the data structure before reading the content — the format itself is irregular. This cylinder was authored by someone who knew Imperial encryption protocols from the inside. Not someone with access. Someone who wrote the spec."
-              },
-              "effect": {
-                "fleeting": "The authorization codes are military-grade, not civilian. This cylinder came from someone with significant clearance.",
-                "masterful": "The authorization codes reference routing designations connected to 'Project Leviathan' — a name that doesn't appear in any public Imperial registry.",
-                "legendary": "The cylinder carries a ghost layer — hidden metadata showing it was deliberately copied, not stolen in transit. Someone inside the Imperial apparatus wanted this device to leave the facility. This was a plant, not a theft."
-              }
-            },
-            {
-              "id": "sc-s3-tech",
-              "actionType": "interact",
-              "discipline": "skulduggery",
-              "arena": "wits",
-              "target": "Switch's analysis equipment",
-              "tier": 1,
-              "isOptional": true,
-              "context": "Verifying Switch's analysis is genuine and complete — did the droid give them everything, or is he holding a partition back?",
-              "narrativePacing": "Optional. Trust verification for suspicious players.",
-              "control": {
-                "failure": "No way to independently verify without comparable equipment. The outputs look legitimate but that's all you can confirm.",
-                "success": "Refer to effect tiers.",
-                "mastery": "The PC notices Switch's equipment has already run a secondary sweep he hasn't mentioned. The results sit in a partition he didn't open during the briefing. He gave them everything they asked for — but there's more he didn't volunteer."
-              },
-              "effect": {
-                "fleeting": "The analysis appears complete and unaltered on surface review. No obvious signs of tampering or selective output.",
-                "masterful": "Analysis is genuine. Switch delivered everything his equipment surfaced. Whatever he knows, he shared it.",
-                "legendary": "Analysis is complete — AND the secondary partition is accessible with the right credentials. The cylinder has a second layer Switch didn't mention. It requires a different authentication to open. That key isn't here."
-              }
             }
           ],
           "readAloudPart1": "Maya leads you out of the settlement and into the open desert. The sun hammers down as you cross a dry wash and climb through a field of broken mesas — wind-carved rock pillars standing like the ribs of something ancient. No tracks. No markers. Nothing out here but heat and silence and the whisper of sand moving against itself.\n\nMaya moves with purpose. She knows this path.",
@@ -5815,7 +5921,7 @@
           "number": 5,
           "title": "The Heist",
           "readAloud": "The Reestkii Landing Field stretches out in the heat haze — a militarized zone on the outskirts of the settlement. Through your macrobinoculars, you see it: a Lambda-class Imperial shuttle sitting on the landing pad, flanked by stormtroopers in transition-era armor, dirty from the desert but standing sharp.\n\nThe shuttle's nav computer holds the answers — flight logs, destination data, coordinates. But the cylinder only works at the terminal. You have to get inside the shuttle, plug in, authenticate, and download before anyone notices you don't belong here.\n\nThe clock is ticking. Imperial pickup crews rotate on a schedule, and the next shift change is less than an hour out.",
-          "gmNotes": "This is the heroes' first brush with the Young Empire. The target is the Lambda shuttle's nav computer. The heroes must physically reach the shuttle, use the code cylinder to authenticate into the flight computer, and download the destination coordinates — which reveal the Vanishing Place on Ajan Kloss, where Admiral Varth is being held.\n\nOPTIONS:\n• BLUFF: Impersonate Imperial crew or authorized maintenance personnel. Disguise Kit helps. Deception check (Moderate) to approach without suspicion.\n• STEALTH: Sneak through maintenance areas or use terrain cover to reach the shuttle unseen. Stealth/Skulduggery (Moderate).\n• DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).\n• DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.\n\nTHE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the data reveals references to 'Project Leviathan' in the shipping metadata.\n\nEXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.\n\nIMPORTANT: The code cylinder is effectively dead after use. The authentication codes will be flagged and disabled by Imperial security within hours.\n\nGROUP CHALLENGE: This scene uses a Victory Point (VP) accumulation mechanic. The crew plans and executes the infiltration of Reestkii Landing Field as a coordinated team effort. Each PC picks a discipline and describes their approach — stealth, deception, tech, investigation, piloting, or charm.\n\nMECHANICS:\n- Tier 1 / Power 4 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P4 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 12 VP total = ghost run, clean infiltration and extraction\n- Below 12, they can attempt more rolls or proceed with partial stealth compromised\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means the alarm triggers. Stormtroopers lock down the perimeter, reinforcements scramble, and every subsequent action is stepped up in difficulty. Maya reports troop movement near the Banshee.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n3 VP: Perimeter gap identified — maintenance gate on the south side, shielded by cargo containers.\n\n6 VP: Jurisdictional friction exploitable — three-minute shift overlap window where nobody watches the ramp.\n\n9 VP: External access panel unlocked — slicer can patch in from outside, halving time inside the shuttle.\n\n11 VP: Fuel tanker crossing creates a ninety-second sightline block from the guard tower.\n\n12 VP: Ghost run. No alarms, no detection, no trace. The Empire won't know until the next diagnostic cycle.",
+          "gmNotes": "This is the heroes' first brush with the Young Empire. The target is the Lambda shuttle's nav computer. The heroes must physically reach the shuttle, use the code cylinder to authenticate into the flight computer, and download the destination coordinates — which reveal the Vanishing Place on Ajan Kloss, where Admiral Varth is being held.\n\nOPTIONS:\n• BLUFF: Impersonate Imperial crew or authorized maintenance personnel. Disguise Kit helps. Deception check (Moderate) to approach without suspicion.\n• STEALTH: Sneak through maintenance areas or use terrain cover to reach the shuttle unseen. Stealth/Skulduggery (Moderate).\n• DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).\n• DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.\n\nTHE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the manifest names the high-value prisoner being moved through this lane: Admiral Gilder Varth.\n\nEXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.\n\nIMPORTANT: The code cylinder is effectively dead after use. The authentication codes will be flagged and disabled by Imperial security within hours.\n\nGROUP CHALLENGE: This scene uses a Victory Point (VP) accumulation mechanic. The crew plans and executes the infiltration of Reestkii Landing Field as a coordinated team effort. Each PC picks a discipline and describes their approach — stealth, deception, tech, investigation, piloting, or charm.\n\nMECHANICS:\n- Tier 1 / Power 4 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P4 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 12 VP total = ghost run, clean infiltration and extraction\n- Below 12, they can attempt more rolls or proceed with partial stealth compromised\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means the alarm triggers. Stormtroopers lock down the perimeter, reinforcements scramble, and every subsequent action is stepped up in difficulty. Maya reports troop movement near the Banshee.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n3 VP: Perimeter gap identified — maintenance gate on the south side, shielded by cargo containers.\n\n6 VP: Jurisdictional friction exploitable — three-minute shift overlap window where nobody watches the ramp.\n\n9 VP: External access panel unlocked — slicer can patch in from outside, halving time inside the shuttle.\n\n11 VP: Fuel tanker crossing creates a ninety-second sightline block from the guard tower.\n\n12 VP: Ghost run. No alarms, no detection, no trace. The Empire won't know until the next diagnostic cycle.",
           "npcs": [
             {
               "name": "Warlord's Guard",
@@ -6839,7 +6945,7 @@
             "The Code Cylinder",
             "The Vanishing Place",
             "Jakku",
-            "Project Leviathan",
+            "Admiral Varth",
             "Imperial Occupation"
           ],
           "narrativeLinks": [
@@ -6923,7 +7029,7 @@
               "type": "technical",
               "trigger": "Heroes reach the shuttle nav computer",
               "description": "Use the code cylinder to authenticate into the flight computer. Download the nav logs. The coordinates reveal the Vanishing Place on Ajan Kloss. Time-limited — the download takes several rounds, during which discovery is possible.",
-              "tactics": "Tech check with the cylinder is Easy. Without it, Moderate and takes longer. Investigation check reveals Project Leviathan references in the metadata.",
+              "tactics": "Tech check with the cylinder is Easy. Without it, Moderate and takes longer. Investigation check on the manifest names Varth as the high-value prisoner being moved through this lane.",
               "composition": {
                 "enemies": [
                   {
@@ -7178,7 +7284,7 @@
             "items": [],
             "intel": [
               "Vanishing Place coordinates on Ajan Kloss — Varth's prison location",
-              "Project Leviathan referenced in shuttle metadata",
+              "Manifest names Admiral Gilder Varth as the high-value prisoner moved through this lane",
               "The code cylinder is dead after use — authentication codes will be disabled"
             ],
             "connections": []
@@ -7243,7 +7349,7 @@
               "isGated": "Requires Code Cylinder from Scene 2",
               "narrativePacing": "Always roll. This is the mission objective.",
               "control": {
-                "failure": "Partial download. Coordinates acquired but secondary data is corrupted — no Project Leviathan metadata.",
+                "failure": "Partial download. Coordinates acquired but secondary data is corrupted — no manifest, no prisoner names, no schedule.",
                 "success": "Refer to effect tiers."
               },
               "effect": {
@@ -7269,7 +7375,7 @@
               },
               "effect": {
                 "fleeting": "The destination is labeled as a restricted zone — no civilian traffic permitted.",
-                "masterful": "Shipping metadata references 'Project Leviathan' and labels the destination as a high-security detention site.",
+                "masterful": "Shipping metadata flags the destination as a high-security Imperial detention site — and the manifest names a single high-value prisoner moving through this lane: Admiral Gilder Varth.",
                 "legendary": "Hidden in the nav computer's cache: a partial communication log suggesting the prisoner at the facility volunteered information to earn transfer. Varth has been cooperating — but with whom?"
               },
               "tier": 1
@@ -7923,7 +8029,7 @@
           "number": 2,
           "title": "The Crash",
           "readAloud": "You break the cloud layer and the lush, overgrown jungle of Ajan Kloss rushes up to meet you. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.\n\nThe Ace is flying. Maya is on the secondary stick, eyes on the sensor display.\n\n\"Canyon's coming up — bear left two degrees, then drop her like you mean it.\"\n\nThen the proximity alarm screams. Three contacts on the canyon rim above you — defense turrets, dug into the ridge, tracking you down through the trees. Heavy emplacements. Clone Wars-era hardware that someone has lovingly maintained.\n\nThe first burst stitches across the dorsal hull. The cockpit fills with sparks and the shriek of shearing metal. Maya doesn't flinch — she's already throwing power to aft shields.\n\n\"They've got us in arc. We can't out-shoot three of those — they're emplacements, they out-mass us. We dive. We get below the canopy line and they lose us. Three rounds — maybe two if you fly clean. Hold her together.\"\n\nThe Banshee is shuddering. The starboard engine is taking hits. The canyon walls are closing in. The turrets keep firing. The only way through is down.\n\nWhen you finally break below the canopy, the firing stops. The Ace puts the Banshee down hard in a narrow clearing, shearing branches and gouging earth. The ship groans to a stop, listing to port. Smoke curls from the starboard engine cowling.\n\nMaya pops her harness, climbs out of the seat, and assesses. \"Good flying. We're alive. Ship's not — yet, but I can fix it. Those turrets, though. Those turrets are going to be a problem on the way out.\"",
-          "gmNotes": "THE TURRET GAUNTLET: This is a 3-round starship-combat defense-turret gauntlet, NOT a dogfight. Three Clone Wars-era heavy defense turrets (T1, T2, T3) are dug into the canyon rim above the Banshee's approach path. The Banshee is descending into the canyon under fire — the only winning move is to keep diving until they're below the canopy and out of the turrets' fire arc. The party does NOT return fire. The turrets out-mass them and they have nowhere to maneuver to. This is endurance, not combat.\n\nROUND-BY-ROUND ESCALATION (auto-applied by the Combat Tracker via the encounter's scriptedEscalation field — a banner at the top of the tracker confirms each one):\n\nROUND 1 — BASELINE: All three turrets attack at their stated ~Power 4 baseline. They roll independently, splitting fire across the Banshee's hull and shields. The Ace (pilot) and Maya (co-pilot) make defensive Piloting + Gunnery checks — primarily managing shield distribution, evasive maneuvers, and absorbing chassis damage. Crew on shields/comms can spend actions to redistribute power, brace for impact, or attempt sensor jamming. Hull/shield damage accumulates. No one fires back.\n\nROUND 2 — COORDINATED TARGETING: At the top of Round 2 the tracker auto-applies [Optimized] to all three turrets. Their fire-control system has finished triangulating the Banshee's evasion pattern — they're now coordinating their shots. All turret attacks gain +1 Power and the Banshee's defense rolls are stepped down. Damage scales noticeably. Players should feel the squeeze.\n\nROUND 3 — FOCUS FIRE: At the top of Round 3 the tracker auto-applies [Empowered] on top of [Optimized] to all three turrets. They are now focus-firing on the Banshee's weakest panel — the starboard engine cowling. Hull damage is now severe. The starboard engine begins trailing smoke. The Banshee is one bad roll from a hull breach. END OF ROUND 3: The Banshee drops below the canopy line. Out of arc. Encounter ends.\n\nNO RETURN FIRE: This is non-negotiable. If players insist on firing back from the ventral turret or forward guns, narrate that the angle is wrong (turrets are above and behind), or the trees are blocking line of sight, or the ventral turret can't traverse high enough. The point of this scene is the descent itself — they're trying to survive long enough to get below the canopy. Reward creative defensive thinking (chaff, false transponder, shield rotation tricks) with steps up on the next defensive roll.\n\nSURVIVING THE CRASH: At end of Round 3, the Ace makes ONE final Piloting check (Hard) to put the Banshee on the ground in one piece. Success = clean set-down, ship damaged but flyable after repairs. Failure = harder landing, additional hull damage and minor injuries to one PC, ship still flyable but extra repair time. Either way, they survive. This is the Ace's spotlight — make it earned.\n\nMAYA STAYS BEHIND: After landing, Maya is uninjured but her ship is not. The starboard engine is the worst of it — damaged baffles, coolant leak, cracked manifold. She estimates 12-18 hours for repairs with proper tools. Without a Starship Tool Kit, all repair rolls are stepped down. She gives the heroes TWO objectives:\n1. PRIMARY: Find and extract Varth.\n2. SECONDARY: Disable the perimeter turret defenses (T1, T2, T3 — the same emplacements that just shot at them). Maya cannot fly extraction past those turrets. \"Same three guns that just chewed up my ship are still up on the ridge. If they're live when I lift, I'm dead. Find a way to kill them or I'm flying into a kill box.\"\n\nThis creates a hard permission gate: turrets up = dangerous extraction. Turrets down = clean extraction. The turrets T1/T2/T3 are powered by the fortress generator, which connects directly to the generator sabotage encounter in Mandrake's deal (Adv 1 P2 S5). When the generator blows, T1/T2/T3 go offline and Maya's flight path opens.\n\nIMPORTANT: Maya does NOT accompany the heroes into the jungle or the fortress. She stays with the Banshee. This is both practical (someone needs to fix the ship) and narrative (her conditional extraction is the climax payoff). She is uninjured this time around — the previous V-Wing strafing has been removed. Her staying behind is purely about repairs.",
+          "gmNotes": "THE TURRET GAUNTLET: This is a 3-round starship-combat defense-turret gauntlet, NOT a dogfight. Three Clone Wars-era heavy defense turrets (T1, T2, T3) are dug into the canyon rim above the Banshee's approach path. The Banshee is descending into the canyon under fire — the only winning move is to keep diving until they're below the canopy and out of the turrets' fire arc. The party does NOT return fire. The turrets out-mass them and they have nowhere to maneuver to. This is endurance, not combat.\n\nROUND-BY-ROUND ESCALATION (auto-applied by the Combat Tracker via the encounter's scriptedEscalation field — a banner at the top of the tracker confirms each one):\n\nROUND 1 — BASELINE: All three turrets attack at their stated ~Power 4 baseline. They roll independently, splitting fire across the Banshee's hull and shields. The Ace (pilot) and Maya (co-pilot) make defensive Piloting + Gunnery checks — primarily managing shield distribution, evasive maneuvers, and absorbing chassis damage. Crew on shields/comms can spend actions to redistribute power, brace for impact, or attempt sensor jamming. Hull/shield damage accumulates. No one fires back.\n\nROUND 2 — COORDINATED TARGETING: At the top of Round 2 the tracker auto-applies [Optimized] to all three turrets. Their fire-control system has finished triangulating the Banshee's evasion pattern — they're now coordinating their shots. All turret attacks gain +1 Power and the Banshee's defense rolls are stepped down. Damage scales noticeably. Players should feel the squeeze.\n\nROUND 3 — FOCUS FIRE: At the top of Round 3 the tracker auto-applies [Empowered] on top of [Optimized] to all three turrets. They are now focus-firing on the Banshee's weakest panel — the starboard engine cowling. Hull damage is now severe. The starboard engine begins trailing smoke. The Banshee is one bad roll from a hull breach. END OF ROUND 3: The Banshee drops below the canopy line. Out of arc. Encounter ends.\n\nNO RETURN FIRE: This is non-negotiable. If players insist on firing back from the ventral turret or forward guns, narrate that the angle is wrong (turrets are above and behind), or the trees are blocking line of sight, or the ventral turret can't traverse high enough. The point of this scene is the descent itself — they're trying to survive long enough to get below the canopy. Reward creative defensive thinking (chaff, false transponder, shield rotation tricks) with steps up on the next defensive roll.\n\nSURVIVING THE CRASH: At end of Round 3, the Ace makes ONE final Piloting check (Hard) to put the Banshee on the ground in one piece. Success = clean set-down, ship damaged but flyable after repairs. Failure = harder landing, additional hull damage and minor injuries to one PC, ship still flyable but extra repair time. Either way, they survive. This is the Ace's spotlight — make it earned.\n\nMAYA STAYS BEHIND: After landing, Maya is uninjured but her ship is not. The starboard engine is the worst of it — damaged baffles, coolant leak, cracked manifold. She estimates 12-18 hours for repairs with proper tools. Without a Starship Tool Kit, all repair rolls are stepped down. She gives the heroes TWO objectives:\n1. PRIMARY: Find and extract Varth.\n2. SECONDARY: Disable the perimeter turret defenses (T1, T2, T3 — the same emplacements that just shot at them). Maya cannot fly extraction past those turrets. \"Same three guns that just chewed up my ship are still up on the ridge. If they're live when I lift, I'm dead. Find a way to kill them or I'm flying into a kill box.\"\n\nThis creates a hard permission gate: turrets up = dangerous extraction. Turrets down = clean extraction. The turrets T1/T2/T3 are powered by the fortress generator, which connects directly to the generator sabotage encounter in Mandrake's deal (Adv 1 P2 S5). When the generator blows, T1/T2/T3 go offline and Maya's flight path opens.\n\nIMPORTANT: Maya does NOT accompany the heroes into the jungle or the fortress. She stays with the Banshee. This is both practical (someone needs to fix the ship) and narrative (her conditional extraction is the climax payoff). She is uninjured this time around — the previous V-Wing strafing has been removed. Her staying behind is purely about repairs.\n\nCREATION FOOTPRINT (The Crash goal): If a PC actually performs field engineering on the Banshee — Tech, Mechanics, or hands-on repair work that the table acknowledges as keeping the ship alive — the Adventure goal 'The Crash' checks for them. A Creation-destiny PC who got their hands greasy gets a destiny-matched footprint here; a non-mechanic crew that abandons the Banshee and continues on foot does NOT trigger the goal. This is the crew's first soft Creation acknowledgment in the campaign — the first lasting thing they built together is the ship that survived because of them.",
           "npcs": [
             {
               "name": "Defense Turret T1",

@@ -7,15 +7,33 @@
 ## Summary
 The heroes are drawn into a cantina confrontation on Jakku, discover a stolen Imperial code cylinder, use it to download the coordinates of a secret prison, and break Admiral Varth out of a jungle fortress — all for the promise of a stolen fortune.
 
-## Story Marks (Achievements)
-- **Strange Bedfellows** — A stranger crashes your table bleeding. You chose to fight for her instead of walking away.
-- **The Devil You Know** — Strike a deal with Switch — a droid who trades in secrets. What you owe him may cost more than credits.
-- **Ghost in the Machine** *(hidden)* — Use the Code Cylinder to access the Imperial shuttle's nav computer and learn where it points.
-- **Into the Green Hell** *(hidden)* — Survive the jungle of Ajan Kloss — the terrain, the wildlife, and the things that live between the trees.
-- **The Warden's Price** *(hidden)* — Mandrake offers a deal: his guidance for your muscle. Honor it or betray it — either way, there's a cost.
-- **The Vanishing Place** *(hidden)* — Breach the fortress and reach the man the Empire buried.
-- **The Extraction** *(hidden)* — Get Varth out alive. Whatever it takes.
-- **The Crucible** — The plan catastrophically fails. Improvise under fire to survive.
+## Story Marks (Adventure Goals)
+Twelve player-facing goals plus the Crucible. Each goal reveals when its scene is reached. Path-tagged goals open a path-pick at check-off; destiny-matched paths pay a footprint of 2 instead of 1.
+
+**Part 1 — The Jakku Job**
+- **The Burning Deck** — *p1 · s2 · paths: Atonement / Destruction* — The Burning Deck is in chaos — Maya's enforcers are cornering her at the bar. End the confrontation.
+  - *Talk them down* (Atonement) · *Take them down* (Destruction)
+- **The Broker** — *p1 · s3 · paths: Corruption / Destruction / Ascendancy* — Switch has what you need: the where and the when of the man worth a fortune. He doesn't give it up easily.
+  - *Cut his deal* (Corruption) · *Burn him for it* (Destruction) · *Take his network* (Ascendancy — first Crime Lord footprint of the campaign)
+- **Defend the Sinkhole** — *p1 · s4 · Destruction* — Ganga Lor's enforcers crashed the bunker — they tracked you here for revenge. Hold the line. Switch doesn't fight his own battles, but he remembers who fought for him.
+- **Ghost in the Machine** — *p1 · s5 · Discovery* — Slip the Code Cylinder into the Imperial shuttle's nav core. Find where the Empire is moving the man worth a fortune.
+
+**Part 2 — Ajan Kloss**
+- **The Crash** — *p2 · s2 · Creation* — V-wings strafed the Banshee out of the sky. Salvage the ship and what's in it — or leave it dead in the canopy. The crew that flies again does so because someone's hands kept her flying. *(Soft Creation acknowledgment — only checks if a PC actually performs field engineering on the Banshee.)*
+- **Into the Green Hell** — *p2 · s3 · neutral spine* — Get through the jungle and reach Mandrake's compound.
+- **The Vanishing Place** — *p2 · s5 · neutral spine* — Get inside the fortress without lighting it up.
+- **The Warden's Price** — *p2 · s5 · paths: Corruption / Destruction* — Mandrake offers a clean way out — for a price. Decide what it's worth.
+  - *Take the deal on his terms* (Corruption) · *Break him and take what you came for* (Destruction)
+- **Vischera** — *p2 · s5 · paths: Atonement / Destruction* — Dr. Vischera kept Varth alive for the Inquisitor's questions. She's unarmed, she's afraid, and she's part of the machine that broke him. Decide what you owe her — or what she owes you.
+  - *Carry her out* (Atonement) · *End her* (Destruction)
+- **The Generator** — *p2 · s6 · paths: Destruction / Discovery* — The fortress runs on one heart. Stop it beating — or learn what it's hiding.
+  - *Blow it* (Destruction) · *Slice the control room* (Discovery)
+- **Free the Block** — *p2 · s7 · paths: Atonement / Liberation* — Mandrake's holding cells are full of Klosari prisoners. Open them, or leave them sealed.
+  - *Stay and cover the breakout* (Atonement) · *Trip the locks and run* (Liberation)
+- **The Extraction** — *p2 · s7 · Rescue* — Pull Varth out of the Vanishing Place and break atmosphere. The first stranger you decided was worth more than your own skin. The road that begins here ends at someone else's cell, years from now.
+
+**Always counts**
+- **The Crucible** — *no scene · always visible* — Whatever your plan was, it didn't survive contact. You did.
 
 **Locations:** jakku, ajan-kloss
 
