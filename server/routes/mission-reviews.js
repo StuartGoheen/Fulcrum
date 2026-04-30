@@ -396,6 +396,7 @@ router.put('/mission-reviews/:reviewId/approve', _requireGm, async (req, res) =>
 
     console.info(
       '[mission-reviews] APPROVED review=' + reviewId +
+      ' reviewer=gm' +
       ' source=' + review.source_char_id + '(' + sourceQ.rows[0].name + ')' +
       ' linker=' + (review.linker_char_id ? review.linker_char_id + '(' + (linkerName || '?') + ')/' + review.linker_destiny_id : 'none') +
       ' shareCount=' + review.share_count
@@ -462,7 +463,7 @@ router.put('/mission-reviews/:reviewId/reject', _requireGm, async (req, res) => 
     }
     await client.query('COMMIT');
 
-    console.info('[mission-reviews] REJECTED review=' + reviewId + ' source=' + r.rows[0].source_char_id + ' note="' + (note || '').replace(/"/g, "'") + '"');
+    console.info('[mission-reviews] REJECTED review=' + reviewId + ' reviewer=gm source=' + r.rows[0].source_char_id + ' note="' + (note || '').replace(/"/g, "'") + '"');
 
     const io = req.app.get('io');
     _emitToCharacter(io, r.rows[0].source_char_id, 'missionReview:rejected', {
