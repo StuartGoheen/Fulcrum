@@ -89,6 +89,13 @@
   var _allKitsData = null;
   var _adventureMarksData = null;
   var _currentAdventureId = 'adv1';
+  // Linked Destiny: while a Field Report is awaiting GM approval, we lock the
+  // advancement panel and show an overlay. The pending-tier bump is held so the
+  // approval handler can pop the Hero Tier celebration after the GM lets the
+  // player into the advancement phase.
+  var _pendingReviewId = null;
+  var _pendingTierBump = null;
+  var _rejectionNote = '';
   var _isGmView = window.location.pathname.indexOf('/gm') === 0;
 
   var DISC_TRACK_SIZE = 5;
@@ -290,34 +297,53 @@
     _broadcastAdvancement();
   }
 
+  // Returns a Promise that resolves to `true` when the PUT lands (HTTP 2xx) and
+  // `false` on network failure or non-2xx response. Errors are logged but never
+  // thrown so existing fire-and-forget callers keep working. The End Mission
+  // flow awaits the result and aborts the Field Report POST if persistence
+  // failed, ensuring the server's frozen snapshot is never stale (Task #240).
   function _persistAdventureMarks(useKeepalive) {
-    if (!_charId || !_advancement || !_advancement.marks) return;
-    var checks = _advancement.marks.earnedChecks || {};
-    var pathMap = _advancement.marks.paths || {};
-    var buckets = _getMarkBuckets();
-    var marks = [];
-    buckets.forEach(function (bucket) {
-      bucket.triggers.forEach(function (t) {
-        if (checks[t.id]) {
-          marks.push({
-            mark_id: t.id,
-            bucket: bucket.key,
-            path_id: pathMap[t.id] || null
-          });
-        }
-      });
-    });
-    var opts = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ marks: marks })
-    };
-    if (useKeepalive) opts.keepalive = true;
+    if (!_charId || !_advancement || !_advancement.marks) return Promise.resolve(true);
+    // Wrap the entire body — including synchronous setup like _getMarkBuckets()
+    // and JSON.stringify() — so any throw resolves to `false` instead of
+    // escaping the promise contract callers rely on.
     try {
-      fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId), opts)
-        .catch(function (err) { console.error('[AdvancementPanel] adventure marks save error', err); });
+      var checks = _advancement.marks.earnedChecks || {};
+      var pathMap = _advancement.marks.paths || {};
+      var buckets = _getMarkBuckets();
+      var marks = [];
+      buckets.forEach(function (bucket) {
+        bucket.triggers.forEach(function (t) {
+          if (checks[t.id]) {
+            marks.push({
+              mark_id: t.id,
+              bucket: bucket.key,
+              path_id: pathMap[t.id] || null
+            });
+          }
+        });
+      });
+      var opts = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ marks: marks })
+      };
+      if (useKeepalive) opts.keepalive = true;
+      return fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId), opts)
+        .then(function (r) {
+          if (!r.ok) {
+            console.error('[AdvancementPanel] adventure marks save failed', r.status);
+            return false;
+          }
+          return true;
+        })
+        .catch(function (err) {
+          console.error('[AdvancementPanel] adventure marks save error', err);
+          return false;
+        });
     } catch (err) {
       console.error('[AdvancementPanel] adventure marks save threw', err);
+      return Promise.resolve(false);
     }
   }
 
@@ -1434,6 +1460,141 @@
     .catch(function(err) { console.error('[DebtAccrue]', err); });
   }
 
+  // ── Linked Destiny: Field Report overlay helpers ────────────────────────
+  var FIELD_REPORT_PHRASES = [
+    'Filing Field Report with Imperial Operations Coordinator…',
+    'Routing to Sector Command for chain-of-custody review…',
+    'Stamping triplicate forms IRA-227(b), IRA-227(c)…',
+    'Awaiting GM signature on Form ROK-12: Destiny Disposition…',
+    'Sector Vice-Coordinator is on a comm break. Holding…',
+    'Cross-checking your campaign log against ImpSec footprints…',
+    'Your Field Report has been escalated. This is normal.'
+  ];
+  var _fieldReportTickerHandle = null;
+  var _fieldReportTickerIdx = 0;
+
+  function _refetchCharacter(cb) {
+    if (!_charId) { if (cb) cb(); return; }
+    fetch('/api/characters/' + encodeURIComponent(_charId))
+      .then(function (r) { return r.json(); })
+      .then(function (c) {
+        if (c && c.id) {
+          _char = c;
+          _advancement = c.advancement || _advancement;
+          _ensureDefaults();
+          if (window.CharacterPanel) window.CharacterPanel.currentChar = c;
+          document.dispatchEvent(new CustomEvent('character:stateChanged'));
+        }
+        if (cb) cb();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] refetch failed', err);
+        if (cb) cb();
+      });
+  }
+
+  function _checkPendingReviewOnBoot() {
+    if (!_charId || _isGmView) return;
+    var token = window._playerToken || '';
+    var url = '/api/characters/' + encodeURIComponent(_charId) + '/pending-mission-review';
+    if (token) url += '?player_token=' + encodeURIComponent(token);
+    fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.pending && data.pending.reviewId) {
+          _pendingReviewId = data.pending.reviewId;
+          if (_panelVisible) _render();
+        }
+      })
+      .catch(function () { /* non-fatal */ });
+  }
+
+  function _submitFieldReport(proposedAdvancement) {
+    if (!_charId) return;
+    var token = window._playerToken || '';
+    // Persist the source's adventure-marks first AND wait for the round-trip so
+    // the server's frozen snapshot matches the latest local toggles. Without the
+    // await, the POST below could race the PUT and snapshot stale marks.
+    Promise.resolve(_persistAdventureMarks(false)).then(function (ok) {
+      if (!ok) {
+        // Marks didn't make it to the server — abort so the GM never reviews a
+        // stale snapshot. Player can retry once their connection recovers.
+        _showModal({ type: 'alert', message: 'Could not save your marks to the server. Check your connection and try again.' });
+        return null;
+      }
+      var url = '/api/characters/' + encodeURIComponent(_charId) + '/end-mission/request';
+      if (token) url += '?player_token=' + encodeURIComponent(token);
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ advancement: proposedAdvancement })
+      });
+    })
+      .then(function (r) {
+        if (!r) return null;
+        return r.json().then(function (j) { return { ok: r.ok, body: j }; });
+      })
+      .then(function (resp) {
+        if (!resp) return;
+        if (!resp.ok) {
+          var msg = (resp.body && resp.body.error) || 'Unable to file Field Report.';
+          _showModal({ type: 'alert', message: msg });
+          return;
+        }
+        _pendingReviewId = resp.body.reviewId;
+        _rejectionNote = '';
+        if (_panelVisible) _render();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] field report submit failed', err);
+        _showModal({ type: 'alert', message: 'Could not reach the GM. Try again.' });
+      });
+  }
+
+  function _renderFieldReportOverlay(container) {
+    var existing = container.querySelector('.adv-field-report-overlay');
+    if (existing) existing.remove();
+    if (!_pendingReviewId) {
+      if (_fieldReportTickerHandle) { clearInterval(_fieldReportTickerHandle); _fieldReportTickerHandle = null; }
+      return;
+    }
+    var overlay = document.createElement('div');
+    overlay.className = 'adv-field-report-overlay';
+    overlay.innerHTML =
+      '<div class="adv-field-report-card">' +
+        '<div class="adv-field-report-stamp">FIELD REPORT</div>' +
+        '<div class="adv-field-report-title">Awaiting GM Approval</div>' +
+        '<div class="adv-field-report-ticker">' + _esc(FIELD_REPORT_PHRASES[0]) + '</div>' +
+        '<div class="adv-field-report-meta">Form #' + _esc(String(_pendingReviewId)) + ' &middot; In Queue</div>' +
+      '</div>';
+    container.appendChild(overlay);
+    if (_fieldReportTickerHandle) clearInterval(_fieldReportTickerHandle);
+    _fieldReportTickerIdx = 0;
+    _fieldReportTickerHandle = setInterval(function () {
+      _fieldReportTickerIdx = (_fieldReportTickerIdx + 1) % FIELD_REPORT_PHRASES.length;
+      var ticker = container.querySelector('.adv-field-report-ticker');
+      if (ticker) ticker.textContent = FIELD_REPORT_PHRASES[_fieldReportTickerIdx];
+    }, 3000);
+  }
+
+  function _renderRejectionBanner(container) {
+    var existing = container.querySelector('.adv-field-report-rejection');
+    if (existing) existing.remove();
+    if (!_rejectionNote && _rejectionNote !== '') return;
+    if (!_rejectionNote) return;
+    var panel = container.querySelector('.adv-panel');
+    if (!panel) return;
+    var banner = document.createElement('div');
+    banner.className = 'adv-field-report-rejection';
+    banner.innerHTML =
+      '<div class="adv-field-report-rejection-title">Field Report Returned by GM</div>' +
+      '<div class="adv-field-report-rejection-body">' + _esc(_rejectionNote) + '</div>' +
+      '<button class="adv-btn adv-field-report-rejection-dismiss" type="button">Dismiss</button>';
+    panel.insertBefore(banner, panel.firstChild);
+    var dismiss = banner.querySelector('.adv-field-report-rejection-dismiss');
+    if (dismiss) dismiss.addEventListener('click', function () { _rejectionNote = ''; _render(); });
+  }
+
   function _render() {
     var container = document.getElementById('panel-5');
     if (!container) return;
@@ -1522,6 +1683,8 @@
 
     container.innerHTML = html;
     _bindEvents(container);
+    _renderRejectionBanner(container);
+    _renderFieldReportOverlay(container);
   }
 
   function _showPathPickModal(trigger, onConfirm, onCancel) {
@@ -1722,17 +1885,20 @@
           _showModal({ type: 'alert', message: 'You have ' + uninvested + ' uninvested mark(s). Invest all marks into tracks before ending the mission.' });
           return;
         }
+        // Build the would-be advancement payload WITHOUT mutating _advancement locally
+        // (the GM gate is the only thing that should flip missionPhase). The server stores
+        // this as the frozen snapshot to apply on approve.
         var earned = _countEarnedMarks();
-        _advancement.careerMarksEarned = (_advancement.careerMarksEarned || 0) + earned;
         var oldTier = _advancement.heroTier ? _advancement.heroTier.current : 0;
         var newHt = _getHeroTier();
-        _advancement.heroTier.current = newHt.tier;
-        _advancement.missionPhase = 'advancement';
-        _persist();
-        _render();
-        if (newHt.tier > oldTier) {
-          _showModal({ type: 'alert', message: 'Hero Tier reached: ' + newHt.name + '!\n\n' + newHt.shortBenefit });
-        }
+        var proposed = JSON.parse(JSON.stringify(_advancement));
+        proposed.careerMarksEarned = (proposed.careerMarksEarned || 0) + earned;
+        if (!proposed.heroTier) proposed.heroTier = { current: 0, respecUsed: false, signatureMove: '', moniker: '', favoredArena: '' };
+        proposed.heroTier.current = newHt.tier;
+        proposed.missionPhase = 'advancement';
+        // Stash the tier delta so the approval handler can show the Hero Tier modal.
+        _pendingTierBump = (newHt.tier > oldTier) ? newHt : null;
+        _submitFieldReport(proposed);
       });
     }
 
@@ -2546,6 +2712,10 @@
       window.addEventListener('pagehide', _flushIfPending);
       window.addEventListener('beforeunload', _flushIfPending);
 
+      // Re-hydrate the pending review state so the Field Report overlay survives
+      // page reloads (the server is the source of truth).
+      _checkPendingReviewOnBoot();
+
       var sock = _getSocket();
       if (sock) {
         sock.on('advancement:sync', function (data) {
@@ -2554,6 +2724,27 @@
             _ensureDefaults();
             if (_panelVisible) _render();
           }
+        });
+        sock.on('missionReview:approved', function (data) {
+          if (!_pendingReviewId || data.reviewId !== _pendingReviewId) return;
+          _pendingReviewId = null;
+          _rejectionNote = '';
+          // Refetch the character so banked-mark / advancement state is authoritative.
+          _refetchCharacter(function () {
+            if (_panelVisible) _render();
+            if (_pendingTierBump) {
+              var newHt = _pendingTierBump;
+              _pendingTierBump = null;
+              _showModal({ type: 'alert', message: 'Hero Tier reached: ' + newHt.name + '!\n\n' + newHt.shortBenefit });
+            }
+          });
+        });
+        sock.on('missionReview:rejected', function (data) {
+          if (!_pendingReviewId || data.reviewId !== _pendingReviewId) return;
+          _pendingReviewId = null;
+          _pendingTierBump = null;
+          _rejectionNote = (data && data.gmNote) || '';
+          if (_panelVisible) _render();
         });
         sock.on('marks:revealed', function (data) {
           if (data.adventureId === _currentAdventureId && _adventureMarksData) {

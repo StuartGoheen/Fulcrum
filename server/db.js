@@ -305,6 +305,29 @@ async function initSchema() {
     try {
       await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
     } catch (e) {}
+    // ── Linked Destiny: mission-end share with GM approval queue (Task #240) ──
+    try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS pending_mission_reviews (
+          id                         SERIAL PRIMARY KEY,
+          source_char_id             INTEGER NOT NULL,
+          adventure_id               TEXT NOT NULL,
+          act_number                 INTEGER NOT NULL,
+          frozen_marks               JSONB NOT NULL DEFAULT '[]',
+          linker_char_id             INTEGER,
+          linker_destiny_id          TEXT,
+          share_count                INTEGER NOT NULL DEFAULT 0,
+          mission_end_advancement    JSONB NOT NULL DEFAULT '{}',
+          status                     TEXT NOT NULL DEFAULT 'pending',
+          gm_note                    TEXT,
+          created_at                 TIMESTAMP DEFAULT NOW(),
+          resolved_at                TIMESTAMP
+        )`);
+      await client.query(`CREATE INDEX IF NOT EXISTS idx_pending_mission_reviews_status
+        ON pending_mission_reviews (status, created_at DESC)`);
+      await client.query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_pending_mission_reviews_one_open
+        ON pending_mission_reviews (source_char_id) WHERE status = 'pending'`);
+    } catch (e) { console.error('[db] pending_mission_reviews setup failed:', e.message); }
     try {
       await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS decision_point_id TEXT`);
     } catch (e) {}

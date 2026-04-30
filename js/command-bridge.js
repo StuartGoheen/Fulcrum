@@ -4274,6 +4274,12 @@
         cardHtml += '</div>';
       }
 
+      // ── Linked Destiny per-Act partner editor (Task #240) ──────────────
+      // The per-Act dropdown lets the GM set who is downstream of this PC for
+      // mission-end share. The "active" Act is highlighted from the current
+      // adventure. Each row only lists OTHER party members.
+      cardHtml += _buildLinkedPartnersHtml(pc, party);
+
       cardHtml += '</div>';
       cardHtml += '</div>';
       return cardHtml;
@@ -4295,9 +4301,91 @@
           }
           return;
         }
+        // Don't collapse the card when interacting with the linker editor.
+        if (e.target.closest('.cb-linker-row')) return;
         card.classList.toggle('expanded');
       });
     });
+
+    list.querySelectorAll('.cb-linker-select').forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var srcId = parseInt(sel.getAttribute('data-source-id'), 10);
+        var act = sel.getAttribute('data-act');
+        var newPartnerRaw = sel.value;
+        var newPartner = newPartnerRaw === '' ? null : parseInt(newPartnerRaw, 10);
+        _saveLinkedPartner(srcId, act, newPartner);
+      });
+    });
+  }
+
+  // Resolve the current Act number from the active adventure (top-level `act`).
+  function _currentActNumber() {
+    if (!adventuresData || !currentAdventure) return null;
+    var adv = (adventuresData.adventures || []).find(function (a) { return a.id === currentAdventure; });
+    if (!adv) return null;
+    var n = parseInt(adv.act, 10);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function _buildLinkedPartnersHtml(pc, party) {
+    var lp = pc.linkedPartners || { '1': null, '2': null, '3': null };
+    var others = (party || []).filter(function (other) { return other.id !== pc.id; });
+    var activeAct = _currentActNumber();
+    var html = '<div class="cb-linker-section">';
+    html += '<div class="cb-linker-title">Linked Destiny — share-on-end target by Act</div>';
+    ['1', '2', '3'].forEach(function (actKey) {
+      var actNum = parseInt(actKey, 10);
+      var isActive = activeAct === actNum;
+      var current = lp[actKey];
+      var rowCls = 'cb-linker-row' + (isActive ? ' cb-linker-row--active' : '');
+      html += '<div class="' + rowCls + '">';
+      html += '<span class="cb-linker-label">Act ' + actKey + (isActive ? ' \u25CF' : '') + '</span>';
+      html += '<select class="cb-linker-select" data-source-id="' + esc(pc.id) + '" data-act="' + esc(actKey) + '">';
+      html += '<option value="">— None —</option>';
+      others.forEach(function (other) {
+        var sel = (current === other.id) ? ' selected' : '';
+        var destName = (other.destiny && (other.destiny.name || other.destiny.id)) || '';
+        html += '<option value="' + esc(other.id) + '"' + sel + '>' +
+          esc(other.name) + (destName ? ' (' + esc(destName) + ')' : '') +
+          '</option>';
+      });
+      html += '</select>';
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // PATCH the source PC's advancement.linkedPartners[act] = newPartnerId|null. We
+  // re-fetch first so we don't trample any other linkedPartners slots that may
+  // have changed since the party fetch.
+  function _saveLinkedPartner(sourceId, actKey, newPartnerId) {
+    fetch('/api/characters/' + encodeURIComponent(sourceId))
+      .then(function (r) { return r.json(); })
+      .then(function (char) {
+        var adv = char && char.advancement;
+        if (!adv) throw new Error('No advancement payload on character ' + sourceId);
+        var lp = (adv.linkedPartners && typeof adv.linkedPartners === 'object')
+          ? Object.assign({ '1': null, '2': null, '3': null }, adv.linkedPartners)
+          : { '1': null, '2': null, '3': null };
+        lp[actKey] = newPartnerId;
+        adv.linkedPartners = lp;
+        return fetch('/api/characters/' + encodeURIComponent(sourceId) + '/advancement', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(adv)
+        });
+      })
+      .then(function (r) {
+        if (!r.ok) throw new Error('PATCH failed: ' + r.status);
+        // Refresh party so other crew cards pick up the change too.
+        loadPartyMonitor();
+      })
+      .catch(function (err) {
+        console.error('[CommandBridge] linked partner save failed', err);
+        window.alert('Failed to save Linked Partner. See console.');
+        loadPartyMonitor();
+      });
   }
 
   var _destinyLocked = false;
@@ -4740,6 +4828,10 @@
     socket.emit('state:request');
     socket.on('advancement:sync', function () { loadPartyMonitor(); });
 
+    // ── Linked Destiny — Mission Reviews queue (Task #240) ──────────────
+    socket.on('missionReview:queued', function () { loadMissionReviews(); });
+    socket.on('missionReview:resolved', function () { loadMissionReviews(); });
+
     socket.on('combat:state', function (data) {
       if (data && data.active && window.CombatTracker && !window.CombatTracker.isActive()) {
         window._cbSocket = socket;
@@ -4910,6 +5002,149 @@
           loadItemRequests();
         }).catch(function (err) { console.error('Failed to update request:', err); });
       });
+    });
+  }
+
+  // ─── Mission Reviews (Linked Destiny — Task #240) ─────────────────────
+  var _missionReviewsCache = [];
+
+  function initMissionReviewsButton() {
+    var btn = document.getElementById('cb-mr-open-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () { openMissionReviewsModal(); });
+  }
+
+  function loadMissionReviews() {
+    fetch('/api/mission-reviews?status=pending')
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        _missionReviewsCache = (data && data.reviews) || [];
+        var badge = document.getElementById('cb-mr-badge');
+        if (badge) {
+          if (_missionReviewsCache.length > 0) {
+            badge.textContent = _missionReviewsCache.length;
+            badge.style.display = '';
+          } else {
+            badge.style.display = 'none';
+          }
+        }
+        // If the modal is open, re-render it so newly queued reviews appear.
+        var existing = document.getElementById('cb-mr-modal-overlay');
+        if (existing) renderMissionReviewsModalBody();
+      })
+      .catch(function (err) {
+        console.warn('[CommandBridge] mission-reviews load failed', err);
+      });
+  }
+
+  function openMissionReviewsModal() {
+    var existing = document.getElementById('cb-mr-modal-overlay');
+    if (existing) { existing.remove(); return; }
+    var overlay = document.createElement('div');
+    overlay.id = 'cb-mr-modal-overlay';
+    overlay.className = 'cb-decision-modal-overlay';
+    overlay.innerHTML =
+      '<div class="cb-decision-modal" style="max-width:640px;">' +
+        '<div class="cb-decision-modal-header">' +
+          '<span>Mission Reviews</span>' +
+          '<button class="cb-decision-modal-close" id="cb-mr-modal-close">&times;</button>' +
+        '</div>' +
+        '<div class="cb-decision-modal-body" id="cb-mr-modal-body"></div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) overlay.remove();
+    });
+    document.getElementById('cb-mr-modal-close').addEventListener('click', function () {
+      overlay.remove();
+    });
+    // Refresh from server in case anything is stale, then render.
+    loadMissionReviews();
+    renderMissionReviewsModalBody();
+  }
+
+  function renderMissionReviewsModalBody() {
+    var body = document.getElementById('cb-mr-modal-body');
+    if (!body) return;
+    var reviews = _missionReviewsCache || [];
+    if (!reviews.length) {
+      body.innerHTML = '<p class="cb-muted" style="font-style:italic;text-align:center;padding:1rem;">No pending field reports. The bureaucracy sleeps.</p>';
+      return;
+    }
+    body.innerHTML = reviews.map(function (r) {
+      var marks = Array.isArray(r.frozenMarks) ? r.frozenMarks : [];
+      var markBits = marks.map(function (m) {
+        var dests = (m.destinies || []).join(', ');
+        return '<li><code>' + esc(m.mark_id) + '</code>' +
+          (m.path_id ? ' <span class="cb-muted">[' + esc(m.path_id) + ']</span>' : '') +
+          (dests ? ' <span style="color:#c8a44e;">[' + esc(dests) + ']</span>' : '') +
+          '</li>';
+      }).join('');
+      var linkerLabel = r.linkerName
+        ? esc(r.linkerName) + (r.linkerDestinyName ? ' (' + esc(r.linkerDestinyName) + ')' : (r.linkerDestinyId ? ' [' + esc(r.linkerDestinyId) + ']' : ''))
+        : '<span class="cb-muted">— no linker set for Act ' + esc(r.act) + ' —</span>';
+      var html = '<div class="cb-mr-card" data-review-id="' + esc(r.id) + '" style="border:1px solid #3a3a4a;border-radius:6px;padding:0.7rem;margin-bottom:0.6rem;background:#1a1a25;">';
+      html += '<div style="font-weight:600;margin-bottom:0.3rem;color:#e8d8a4;">' + esc(r.sourceName) + '</div>';
+      html += '<div style="font-size:0.8rem;color:#aaa;margin-bottom:0.4rem;">Adventure: ' + esc(r.adventureName) + ' &middot; Act ' + esc(r.act) + '</div>';
+      html += '<div style="font-size:0.8rem;margin-bottom:0.3rem;">Linked to: ' + linkerLabel + '</div>';
+      html += '<div style="font-size:0.85rem;margin-bottom:0.3rem;color:#7fdf8a;font-weight:600;">Share on approve: +' + esc(r.shareCount) + ' banked Mark' + (r.shareCount === 1 ? '' : 's') + '</div>';
+      if (markBits) {
+        html += '<details style="font-size:0.75rem;color:#bbb;"><summary style="cursor:pointer;">Ticked marks (' + marks.length + ')</summary>';
+        html += '<ul style="margin:0.3rem 0 0.4rem 1.1rem;padding:0;">' + markBits + '</ul></details>';
+      }
+      html += '<div class="cb-mr-actions" style="margin-top:0.5rem;display:flex;gap:0.4rem;flex-wrap:wrap;">';
+      html += '<button class="cb-header-btn accent cb-mr-approve" data-review-id="' + esc(r.id) + '">Approve</button>';
+      html += '<button class="cb-header-btn cb-mr-reject-toggle" data-review-id="' + esc(r.id) + '">Reject…</button>';
+      html += '</div>';
+      html += '<div class="cb-mr-reject-row" data-review-id="' + esc(r.id) + '" style="display:none;margin-top:0.4rem;gap:0.3rem;flex-wrap:wrap;">';
+      html += '<input type="text" class="cb-mr-note" data-review-id="' + esc(r.id) + '" placeholder="Optional note to player…" style="flex:1;min-width:180px;padding:0.3rem 0.5rem;background:#0f0f17;border:1px solid #444;color:#e8e8e8;border-radius:3px;font-size:0.8rem;" />';
+      html += '<button class="cb-header-btn cb-mr-reject-confirm" data-review-id="' + esc(r.id) + '">Send Reject</button>';
+      html += '</div>';
+      html += '</div>';
+      return html;
+    }).join('');
+
+    body.querySelectorAll('.cb-mr-approve').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        _resolveMissionReview(btn.getAttribute('data-review-id'), 'approve');
+      });
+    });
+    body.querySelectorAll('.cb-mr-reject-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-review-id');
+        var row = body.querySelector('.cb-mr-reject-row[data-review-id="' + id + '"]');
+        if (row) row.style.display = (row.style.display === 'none' || !row.style.display) ? 'flex' : 'none';
+      });
+    });
+    body.querySelectorAll('.cb-mr-reject-confirm').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-review-id');
+        var input = body.querySelector('.cb-mr-note[data-review-id="' + id + '"]');
+        var note = input ? input.value.trim() : '';
+        _resolveMissionReview(id, 'reject', note);
+      });
+    });
+  }
+
+  function _resolveMissionReview(reviewId, action, gmNote) {
+    if (!reviewId) return;
+    var url = '/api/mission-reviews/' + encodeURIComponent(reviewId) + '/' + action;
+    var body = (action === 'reject' && gmNote) ? JSON.stringify({ gm_note: gmNote }) : null;
+    fetch(url, {
+      method: 'PUT',
+      headers: body ? { 'Content-Type': 'application/json' } : {},
+      body: body
+    }).then(function (r) {
+      if (!r.ok) return r.json().then(function (e) { throw new Error(e.error || ('HTTP ' + r.status)); });
+      // Refresh queue + party (linker may have new banked marks).
+      loadMissionReviews();
+      loadPartyMonitor();
+    }).catch(function (err) {
+      console.error('[CommandBridge] mission-review ' + action + ' failed', err);
+      window.alert('Failed to ' + action + ' review: ' + err.message);
     });
   }
 
@@ -7643,6 +7878,8 @@
   initCampaign();
   loadGlossary();
   loadItemRequests();
+  loadMissionReviews();
+  initMissionReviewsButton();
   loadCrewJournal();
   initDecisionTracker();
   initNarrativeChallenges();

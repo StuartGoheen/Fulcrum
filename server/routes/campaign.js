@@ -1107,6 +1107,17 @@ router.get('/campaign/party', async (req, res) => {
         arenas: profile.arenas,
         gear: profile.gear,
         conditions: profile.conditions,
+        // Linked Destiny per-Act partner map (Task #240). The GM Command Bridge
+        // edits this from the crew card; the player sees a read-only "Linked to"
+        // line on their destiny card. Always returned with all three slots.
+        linkedPartners: (function () {
+          const lp = (data.advancement && data.advancement.linkedPartners) || {};
+          return {
+            '1': (lp['1'] !== undefined && lp['1'] !== null) ? parseInt(lp['1'], 10) || null : null,
+            '2': (lp['2'] !== undefined && lp['2'] !== null) ? parseInt(lp['2'], 10) || null : null,
+            '3': (lp['3'] !== undefined && lp['3'] !== null) ? parseInt(lp['3'], 10) || null : null
+          };
+        })(),
       };
     });
     res.json({ party });

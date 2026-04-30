@@ -553,7 +553,33 @@ router.patch('/characters/:id/advancement', async (req, res) => {
         ht5Finalized: !!(adv.heroTier && adv.heroTier.ht5Finalized)
       },
       destinyCapacityUsed: !!adv.destinyCapacityUsed,
-      destinyTrackBaseline: clamp(adv.destinyTrackBaseline, 0, 9999)
+      destinyTrackBaseline: clamp(adv.destinyTrackBaseline, 0, 9999),
+      // Linked Destiny per-Act partner map (Task #240). Only the three valid Act keys are
+      // accepted; each value is either a positive int character id or null. Any unknown keys
+      // are dropped so the client cannot stuff arbitrary data into advancement.
+      linkedPartners: (function () {
+        // Drop any keys other than "1"|"2"|"3", coerce values to positive int or null,
+        // and refuse self-link (a character cannot be their own linker — it would
+        // confuse the share rule on approve).
+        const out = { '1': null, '2': null, '3': null };
+        const raw = adv.linkedPartners;
+        if (raw && typeof raw === 'object') {
+          ['1', '2', '3'].forEach(function (k) {
+            const v = raw[k];
+            if (v === null || v === undefined || v === '') {
+              out[k] = null;
+            } else {
+              const n = parseInt(v, 10);
+              if (Number.isFinite(n) && n > 0 && n !== character.id) {
+                out[k] = n;
+              } else {
+                out[k] = null;
+              }
+            }
+          });
+        }
+        return out;
+      })()
     };
     const data = JSON.parse(character.character_data);
     // Audit: log when the once-per-campaign destiny capacity transitions to spent.

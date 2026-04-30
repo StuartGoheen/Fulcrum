@@ -1102,10 +1102,25 @@
         '</div>';
     }
 
+    // Linked Destiny — read-only "Linked to" line for current Act (Task #240).
+    var linkedHtml = '';
+    var lpInfo = char._linkedPartnerInfo;
+    if (lpInfo && lpInfo.actNumber) {
+      var who = lpInfo.linkerName
+        ? _esc(lpInfo.linkerName)
+        : (lpInfo.linkerId ? '#' + _esc(lpInfo.linkerId) : '<em style="opacity:0.7;">— none set —</em>');
+      linkedHtml =
+        '<div class="dp-destiny-linked">' +
+          '<span class="dp-destiny-linked-label">Linked to (Act ' + lpInfo.actNumber + '):</span> ' +
+          '<span class="dp-destiny-linked-name">' + who + '</span>' +
+        '</div>';
+    }
+
     body.innerHTML =
       '<div class="dp-destiny-name">' + _esc(pd.name) + '</div>' +
       '<div class="dp-destiny-tagline">' + _esc(pd.tagline) + '</div>' +
       '<div class="dp-destiny-question">' + _esc(pd.coreQuestion) + '</div>' +
+      linkedHtml +
       '<div class="dp-destiny-mechs">' +
         '<div class="dp-destiny-mech">' +
           '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--hope">Hope</span>' +
@@ -1196,10 +1211,14 @@
       fetch('/data/maneuvers.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
       fetch('/data/destinies.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
       fetch('/api/campaign/adventures').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('/api/campaign/progress').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('/api/campaign/party').then(function (r) { return r.json(); }).catch(function () { return null; }),
     ]).then(function (results) {
       var char = results[0];
       var destinyData = results[3];
       var adventuresData = results[4];
+      var progressData = results[5];
+      var partyData = results[6];
       // Backfill trackFullCapacity for characters created before the field existed.
       if (char && char.personalDestiny && !char.personalDestiny.trackFullCapacity && destinyData && Array.isArray(destinyData.destinies)) {
         var canon = destinyData.destinies.find(function (x) { return x.id === char.personalDestiny.id; });
@@ -1209,10 +1228,71 @@
       }
       // Stash adventures for the destiny capacity gate.
       char._adventuresForCapacity = (adventuresData && adventuresData.adventures) || [];
+      // Resolve linker for the current Act (Task #240).
+      char._linkedPartnerInfo = _resolveLinkerInfo(char, adventuresData, progressData, partyData);
       buildDetailsPanel(char, results[1], results[2]);
+      _initLinkedShareSocket(charId);
     }).catch(function (err) {
       console.error('[DetailsPanel]', err);
     });
+  }
+
+  // Compute { actNumber, linkerId, linkerName } for the destiny "Linked to" line.
+  function _resolveLinkerInfo(char, adventuresData, progressData, partyData) {
+    try {
+      if (!char || !adventuresData || !progressData || !partyData) return null;
+      var advId = progressData.progress && progressData.progress.adventure_id;
+      if (!advId) return null;
+      var adv = (adventuresData.adventures || []).find(function (a) { return a.id === advId; });
+      if (!adv) return null;
+      var actNum = parseInt(adv.act, 10);
+      if (!Number.isFinite(actNum)) return null;
+      var lp = (char.advancement && char.advancement.linkedPartners) || null;
+      var linkerId = lp && lp[String(actNum)];
+      if (!linkerId) return { actNumber: actNum, linkerId: null, linkerName: null };
+      var party = (partyData.party || partyData.members || partyData) || [];
+      if (!Array.isArray(party)) return { actNumber: actNum, linkerId: linkerId, linkerName: null };
+      var match = party.find(function (m) { return m.id === linkerId; });
+      return {
+        actNumber: actNum,
+        linkerId: linkerId,
+        linkerName: match ? match.name : null
+      };
+    } catch (e) {
+      console.warn('[DetailsPanel] linker resolve failed', e);
+      return null;
+    }
+  }
+
+  // Subscribe once to linkedShare:received. On a hit we toast and re-init so the
+  // banked-mark display + linker info stay current.
+  var _linkedShareWired = false;
+  function _initLinkedShareSocket(charId) {
+    if (_linkedShareWired) return;
+    var sock = window._socket;
+    if (!sock) return;
+    _linkedShareWired = true;
+    sock.on('linkedShare:received', function (data) {
+      if (!data || data.linkerCharId !== charId) return;
+      _showLinkedShareToast(data);
+      // Re-fetch the character so banked-mark counts refresh.
+      init();
+    });
+  }
+
+  function _showLinkedShareToast(data) {
+    var n = parseInt(data && data.shareCount, 10) || 0;
+    var src = (data && data.sourceName) || 'a teammate';
+    var msg = '+' + n + ' banked Mark' + (n === 1 ? '' : 's') + ' shared from ' + src + "'s road";
+    var toast = document.createElement('div');
+    toast.className = 'dp-linked-share-toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(function () { toast.classList.add('dp-linked-share-toast--show'); }, 20);
+    setTimeout(function () {
+      toast.classList.remove('dp-linked-share-toast--show');
+      setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
+    }, 5500);
   }
 
   document.addEventListener('panel:shown', function (e) {

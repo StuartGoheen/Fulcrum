@@ -23,6 +23,7 @@ const npcProfileRoutes        = require('./routes/npc-profiles');
 const galaxyPinRoutes         = require('./routes/galaxy-pins');
 const crawlRoutes             = require('./routes/crawls');
 const atlasRoutes             = require('./routes/atlas');
+const missionReviewRoutes     = require('./routes/mission-reviews');
 const fs = require('fs');
 const fsp = require('fs/promises');
 const socketHandlers  = require('./sockets/handlers');
@@ -106,6 +107,7 @@ app.use('/api', npcProfileRoutes);
 app.use('/api', galaxyPinRoutes);
 app.use('/api', crawlRoutes);
 app.use('/api', atlasRoutes);
+app.use('/api', missionReviewRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));
