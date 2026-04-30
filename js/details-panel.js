@@ -1012,21 +1012,24 @@
   // Threshold for destiny track-full (number of destiny-tagged earned marks).
   var DESTINY_TRACK_THRESHOLD = 5;
 
-  // Returns { matchCount, threshold, trackFull, used, matchedMarkIds }
-  // matchedMarkIds = adventure mark IDs whose top-level OR chosen-path destinies include the PC's destiny.
+  // Returns { matchCount, displayCount, threshold, trackFull, used, baseline }
+  // matchCount = total destiny-tagged earned marks (cumulative, never reset).
+  // baseline = snapshot taken at last spend; displayCount = matchCount - baseline (the "active" track).
+  // trackFull is computed from displayCount so the track resets to 0 on spend without erasing earned marks.
   function _computeDestinyTrackState(char, pd) {
     var ctx = {
       matchCount: 0,
+      displayCount: 0,
       threshold: DESTINY_TRACK_THRESHOLD,
       trackFull: false,
       used: !!(char.advancement && char.advancement.destinyCapacityUsed),
-      matchedMarkIds: []
+      baseline: (char.advancement && Number(char.advancement.destinyTrackBaseline)) || 0
     };
     var pcDest = pd && pd.id;
     var checks = (char.advancement && char.advancement.marks && char.advancement.marks.earnedChecks) || {};
     var paths = (char.advancement && char.advancement.marks && char.advancement.marks.paths) || {};
     var advs = char._adventuresForCapacity || [];
-    if (!pcDest) { ctx.trackFull = false; return ctx; }
+    if (!pcDest) { return ctx; }
     advs.forEach(function (adv) {
       var marks = adv && adv.marks;
       if (!Array.isArray(marks)) return;
@@ -1042,13 +1045,11 @@
             if (chosen && Array.isArray(chosen.destinies) && chosen.destinies.indexOf(pcDest) !== -1) matched = true;
           }
         }
-        if (matched) {
-          ctx.matchCount += 1;
-          ctx.matchedMarkIds.push(mid);
-        }
+        if (matched) ctx.matchCount += 1;
       });
     });
-    ctx.trackFull = ctx.matchCount >= ctx.threshold;
+    ctx.displayCount = Math.max(0, ctx.matchCount - ctx.baseline);
+    ctx.trackFull = ctx.displayCount >= ctx.threshold && !ctx.used;
     return ctx;
   }
 
@@ -1083,8 +1084,9 @@
       else { btnLabel = 'Spend Capacity'; btnAttrs = ''; }
       var meterHtml =
         '<span class="dp-destiny-mech-desc dp-destiny-mech-meter">' +
-          '<b>Track:</b> ' + capacityCtx.matchCount + ' / ' + capacityCtx.threshold + ' destiny footprints earned' +
+          '<b>Track:</b> ' + capacityCtx.displayCount + ' / ' + capacityCtx.threshold + ' destiny footprints earned' +
           (trackFull && !used ? ' <span class="dp-destiny-mech-meter-full">— FULL</span>' : '') +
+          (used ? ' <span class="dp-destiny-mech-meter-spent">— SPENT</span>' : '') +
         '</span>';
       capacityHtml =
         '<div class="dp-destiny-mech dp-destiny-mech--capacity' + (used ? ' dp-destiny-mech--spent' : '') + '">' +
@@ -1131,7 +1133,7 @@
         var msg = 'Spend ' + capTitle + ' now?\n\n' +
           'This is a once-per-campaign action. On confirm:\n' +
           '  • The capacity is permanently spent\n' +
-          '  • The destiny track returns to empty (' + capacityCtx.matchCount + ' destiny footprints will be cleared)\n' +
+          '  • The destiny track resets to empty (your earned marks are preserved as campaign history; the active track counter restarts at 0)\n' +
           '  • This cannot be undone\n\n' +
           'GM and table should be at the table when you confirm.';
         if (!window.confirm(msg)) return;
@@ -1141,24 +1143,16 @@
         var charId = session && session.characterId;
         if (!charId) return;
 
-        // Build the next advancement state: clear destiny-tagged earned marks AND set the flag.
+        // Build the next advancement state: snapshot the cumulative match count as the new
+        // baseline (active track resets to 0) AND set the consumed flag. Earned marks are
+        // preserved — this is purely a derived-display reset, not a destructive mutation.
         var nextAdv = Object.assign({}, char.advancement || {});
         nextAdv.destinyCapacityUsed = true;
-        var nextMarks = Object.assign({}, nextAdv.marks || {});
-        var nextChecks = Object.assign({}, nextMarks.earnedChecks || {});
-        var nextPaths = Object.assign({}, nextMarks.paths || {});
-        capacityCtx.matchedMarkIds.forEach(function (mid) {
-          delete nextChecks[mid];
-          delete nextPaths[mid];
-        });
-        nextMarks.earnedChecks = nextChecks;
-        nextMarks.paths = nextPaths;
-        nextAdv.marks = nextMarks;
+        nextAdv.destinyTrackBaseline = capacityCtx.matchCount;
 
         btn.disabled = true;
         btn.textContent = 'Saving…';
-        // Audit: log the spend client-side and on the server (PATCH triggers server log).
-        console.info('[DetailsPanel] destiny capacity spent', { charId: charId, destiny: pd.id, capacity: capTitle, clearedMarks: capacityCtx.matchedMarkIds });
+        console.info('[DetailsPanel] destiny capacity spent', { charId: charId, destiny: pd.id, capacity: capTitle, baseline: capacityCtx.matchCount });
         fetch('/api/characters/' + encodeURIComponent(charId) + '/advancement', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
@@ -1170,7 +1164,6 @@
           btn.setAttribute('aria-disabled', 'true');
           var mech = btn.closest('.dp-destiny-mech');
           if (mech) mech.classList.add('dp-destiny-mech--spent');
-          // Update meter to 0 / threshold visually.
           var meter = mech && mech.querySelector('.dp-destiny-mech-meter');
           if (meter) meter.innerHTML = '<b>Track:</b> 0 / ' + capacityCtx.threshold + ' destiny footprints earned <span class="dp-destiny-mech-meter-spent">— SPENT</span>';
         }).catch(function (err) {

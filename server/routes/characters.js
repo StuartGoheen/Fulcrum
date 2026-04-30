@@ -552,7 +552,8 @@ router.patch('/characters/:id/advancement', async (req, res) => {
         respecUsed: !!(adv.heroTier && adv.heroTier.respecUsed),
         ht5Finalized: !!(adv.heroTier && adv.heroTier.ht5Finalized)
       },
-      destinyCapacityUsed: !!adv.destinyCapacityUsed
+      destinyCapacityUsed: !!adv.destinyCapacityUsed,
+      destinyTrackBaseline: clamp(adv.destinyTrackBaseline, 0, 9999)
     };
     const data = JSON.parse(character.character_data);
     // Audit: log when the once-per-campaign destiny capacity transitions to spent.
