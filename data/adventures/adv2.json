@@ -173,7 +173,9 @@
       "label": "The Crucible",
       "desc": "The assassination attempt shatters everything. Denia, Demos, the implant — it all cascades at once. Improvise under fire to survive.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p3",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [

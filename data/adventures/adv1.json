@@ -202,7 +202,9 @@
       "label": "The Crucible",
       "desc": "Whatever your plan was, it didn't survive contact. You did.",
       "value": 1,
-      "noHide": true
+      "noHide": true,
+      "part": "p3",
+      "scene": "crucible"
     }
   ],
   "gearNotes": [
