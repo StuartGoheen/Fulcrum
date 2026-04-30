@@ -29,7 +29,17 @@ router.get('/item-requests', async (req, res) => {
     } else {
       result = await pool.query('SELECT * FROM item_requests ORDER BY created_at DESC');
     }
-    res.json({ requests: result.rows });
+    // Players never see GM notes on item requests (the GM may write candid
+    // judgement calls there). Mirrors the role-shaping pattern from Task #245.
+    let rows = result.rows;
+    if (req.userRole === 'player') {
+      rows = rows.map(function (r) {
+        var copy = Object.assign({}, r);
+        delete copy.gm_notes;
+        return copy;
+      });
+    }
+    res.json({ requests: rows });
   } catch (err) {
     console.error('[GET /item-requests]', err);
     res.status(500).json({ error: 'Failed to load requests.' });

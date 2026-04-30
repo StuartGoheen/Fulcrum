@@ -370,6 +370,13 @@ function seededShuffle(arr, seed) {
 function shuffleChoicesForPlayer(challenge, seed) {
   if (!challenge || !challenge.rounds || seed == null) return challenge;
   var copy = JSON.parse(JSON.stringify(challenge));
+  // Strip GM-only narrative fields that the player UI never reads during
+  // active play. `resolutions` (light/dark/neutral closing prose) is delivered
+  // separately as `resolution.resolutionText` on completion. `hopePole` and
+  // `tollPole` are GM thematic notes for the Hall of Mirrors design.
+  delete copy.resolutions;
+  delete copy.hopePole;
+  delete copy.tollPole;
   copy.rounds.forEach(function (round, ri) {
     round.choices = seededShuffle(round.choices, seed + ri);
     round.choices.forEach(function (ch) { delete ch.alignment; });
@@ -917,6 +924,13 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
     if (isComplete && challenge) {
       const resolution = await autoResolveInstance(instance_id, challenge, choices, io);
       if (resolution) {
+        // Mirror the polling path (GET /player/active) which injects the
+        // single matched resolution text. Players never receive the full
+        // `resolutions` map any more (stripped in shuffleChoicesForPlayer),
+        // so the client falls back to resolution.resolutionText.
+        const scoreLabel = resolution.gmScore === 5 ? 'light' : resolution.gmScore === 1 ? 'dark' : 'neutral';
+        resolution.resolutionText = (challenge.resolutions || {})[scoreLabel] || '';
+        resolution.challengeName = challenge.name;
         return res.json({ success: true, choices, resolved: true, resolution });
       }
     }

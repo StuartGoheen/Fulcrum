@@ -55,6 +55,67 @@ function buildPlayerView(inst, def) {
   };
 }
 
+// Strip GM-only narrative fields from a definition or built view for player
+// consumption. Mirrors the Task #245 marks shaping pattern: dev mode (no
+// req.userRole) and GM callers receive the unmodified payload, players get
+// gmNote / gmNotes / trigger fields stripped from definition + state log.
+function _sanitizeViewForPlayer(view) {
+  if (!view) return view;
+  // Deep-clone so we never mutate the cached definition object held by
+  // loadDefinition() readers (definitions are JSON.parse'd fresh each call,
+  // but state can be a row reference — clone for safety either way).
+  const clone = JSON.parse(JSON.stringify(view));
+  const def = clone.definition;
+  if (def && typeof def === 'object') {
+    delete def.gmNotes;
+    if (Array.isArray(def.roots)) {
+      def.roots.forEach(function (q) {
+        if (q && typeof q === 'object') delete q.gmNote;
+      });
+    }
+    if (def.followUps && typeof def.followUps === 'object') {
+      Object.keys(def.followUps).forEach(function (k) {
+        var q = def.followUps[k];
+        if (q && typeof q === 'object') delete q.gmNote;
+      });
+    }
+    if (Array.isArray(def.mayaInterjections)) {
+      def.mayaInterjections.forEach(function (mi) {
+        if (mi && typeof mi === 'object') {
+          delete mi.gmNote;
+          delete mi.trigger;
+        }
+      });
+    }
+    if (def.insightCheck && typeof def.insightCheck === 'object') {
+      delete def.insightCheck.gmNote;
+    }
+  }
+  if (clone.state && Array.isArray(clone.state.log)) {
+    clone.state.log.forEach(function (entry) {
+      if (entry && typeof entry === 'object') delete entry.gmNote;
+    });
+  }
+  return clone;
+}
+
+function _maybeSanitize(req, view) {
+  return (req && req.userRole === 'player') ? _sanitizeViewForPlayer(view) : view;
+}
+
+// Broadcast a conversation event to BOTH the GM room and the players room
+// using the appropriate payload shape for each. The GM room sees the full
+// `view`; the players room sees the sanitized version. Sockets join the
+// 'gm' / 'players' rooms during auth (server/sockets/handlers.js).
+// `extra` is merged into the emitted payload alongside `active`.
+function _emitConversationEvent(io, event, view, extra) {
+  if (!io) return;
+  const fullPayload = Object.assign({ active: view }, extra || {});
+  const playerPayload = Object.assign({ active: _sanitizeViewForPlayer(view) }, extra || {});
+  io.to('gm').emit(event, fullPayload);
+  io.to('players').emit(event, playerPayload);
+}
+
 router.get('/conversations/library', (req, res) => {
   try {
     if (!fs.existsSync(CONVERSATIONS_DIR)) return res.json({ conversations: [] });
@@ -76,6 +137,12 @@ router.get('/conversations/library', (req, res) => {
 router.get('/conversations/:slug/definition', (req, res) => {
   const def = loadDefinition(req.params.slug);
   if (!def) return res.status(404).json({ error: 'Conversation not found' });
+  // Players get a sanitized definition (no top-level gmNotes, no per-question
+  // gmNote, no maya gmNote/trigger). GM and dev mode get the raw file.
+  if (req.userRole === 'player') {
+    const wrapped = _sanitizeViewForPlayer({ definition: def });
+    return res.json(wrapped.definition);
+  }
   res.json(def);
 });
 
@@ -84,7 +151,7 @@ router.get('/conversations/active', async (req, res) => {
     const inst = await getActiveInstance();
     if (!inst) return res.json({ active: null });
     const def = loadDefinition(inst.conversation_slug);
-    res.json({ active: buildPlayerView(inst, def) });
+    res.json({ active: _maybeSanitize(req, buildPlayerView(inst, def)) });
   } catch (err) {
     console.error('[GET /conversations/active]', err);
     res.status(500).json({ error: 'Failed to load active conversation' });
@@ -129,7 +196,7 @@ router.post('/conversations/instances', gmOnly, async (req, res) => {
     const inst = result.rows[0];
 
     const io = req.app.get('io');
-    if (io) io.emit('conversation:start', { active: buildPlayerView(inst, def) });
+    _emitConversationEvent(io, 'conversation:start', buildPlayerView(inst, def));
 
     res.json({ active: buildPlayerView(inst, def) });
   } catch (err) {
@@ -176,7 +243,7 @@ async function checkBeatAdvance(inst, def, io) {
     [newBeat, JSON.stringify(state), inst.id]
   );
   const updated = r.rows[0];
-  if (io) io.emit('conversation:beat-advanced', { active: buildPlayerView(updated, def) });
+  _emitConversationEvent(io, 'conversation:beat-advanced', buildPlayerView(updated, def));
   return updated;
 }
 
@@ -186,7 +253,7 @@ async function endConversation(instId, def, io, reason) {
     [instId]
   );
   const updated = r.rows[0];
-  if (io) io.emit('conversation:ended', { active: buildPlayerView(updated, def), reason });
+  _emitConversationEvent(io, 'conversation:ended', buildPlayerView(updated, def), { reason });
   return updated;
 }
 
@@ -230,10 +297,10 @@ router.post('/conversations/active/ask', async (req, res) => {
     );
     const updated = r.rows[0];
     const io = req.app.get('io');
-    if (io) io.emit('conversation:queued', { active: buildPlayerView(updated, def) });
+    _emitConversationEvent(io, 'conversation:queued', buildPlayerView(updated, def));
 
     // No auto-advance here (questions still pending)
-    res.json({ active: buildPlayerView(updated, def) });
+    res.json({ active: _maybeSanitize(req, buildPlayerView(updated, def)) });
   } catch (err) {
     console.error('[POST /conversations/active/ask]', err);
     res.status(500).json({ error: 'Failed to submit question' });
@@ -272,10 +339,10 @@ router.post('/conversations/active/pass', async (req, res) => {
     );
     let updated = r.rows[0];
     const io = req.app.get('io');
-    if (io) io.emit('conversation:passed', { active: buildPlayerView(updated, def) });
+    _emitConversationEvent(io, 'conversation:passed', buildPlayerView(updated, def));
 
     updated = await checkBeatAdvance(updated, def, io);
-    res.json({ active: buildPlayerView(updated, def) });
+    res.json({ active: _maybeSanitize(req, buildPlayerView(updated, def)) });
   } catch (err) {
     console.error('[POST /conversations/active/pass]', err);
     res.status(500).json({ error: 'Failed to pass' });
@@ -353,8 +420,7 @@ router.post('/conversations/active/deliver', gmOnly, async (req, res) => {
     );
     let updated = r.rows[0];
     const io = req.app.get('io');
-    if (io) io.emit('conversation:delivered', {
-      active: buildPlayerView(updated, def),
+    _emitConversationEvent(io, 'conversation:delivered', buildPlayerView(updated, def), {
       delivered: { questionId, characterId: String(characterId), comfortBefore: oldComfort, comfortAfter: newComfort }
     });
 

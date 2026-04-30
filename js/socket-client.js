@@ -2057,7 +2057,10 @@
 
     var resolutions = challenge.resolutions || {};
     var scoreLabel = resolution.gmScore === 5 ? 'light' : resolution.gmScore === 1 ? 'dark' : 'neutral';
-    var resolutionText = resolutions[scoreLabel] || '';
+    // Player payloads no longer carry the full `resolutions` map (GM-only
+    // narrative). Fall back to the per-call `resolution.resolutionText`
+    // injected by the server when the challenge auto-resolves.
+    var resolutionText = resolutions[scoreLabel] || resolution.resolutionText || '';
 
     if (resolutionText) {
       html += '<div class="nc-player-narration" style="margin-bottom:0.8rem;">' + _escHtml(resolutionText) + '</div>';
