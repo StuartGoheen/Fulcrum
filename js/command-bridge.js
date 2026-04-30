@@ -4440,6 +4440,14 @@
         if (!r.ok) throw new Error('PATCH failed: ' + r.status);
         // Refresh party so any UI that mirrors linkedPartners stays in sync.
         loadPartyMonitor();
+        // Notify the Advancement panel so its "Shares to: X" badges
+        // re-render against the freshly-saved linkedPartners without
+        // requiring a manual reload or character-switch.
+        try {
+          document.dispatchEvent(new CustomEvent('destiny-link:changed', {
+            detail: { sourceId: sourceId, actKey: actKey, partnerId: newPartnerId }
+          }));
+        } catch (_) {}
         if (typeof onDone === 'function') onDone();
       })
       .catch(function (err) {

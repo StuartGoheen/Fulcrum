@@ -360,6 +360,16 @@ router.get('/characters', async (req, res) => {
         debt:         debt ? { creditorId: debt.creditorId, balance: debt.balance, rate: debt.rate, principal: debt.principal, cyclesElapsed: debt.cyclesElapsed || 0 } : null,
         is_connected: parseInt(c.is_connected),
         personalDestiny: data && data.personalDestiny ? { id: data.personalDestiny.id, name: data.personalDestiny.name } : null,
+        // Slim per-PC linkedPartners ({ '1': pid|null, '2': pid|null, '3': pid|null }).
+        // Used by the GM Advancement panel's "Shares to: X" badges so it can
+        // resolve every matching PC's per-Act partner without fetching each
+        // character individually. Omits the rest of `advancement` to keep
+        // the roster payload light.
+        linkedPartners: (data && data.advancement && data.advancement.linkedPartners && typeof data.advancement.linkedPartners === 'object')
+          ? { '1': data.advancement.linkedPartners['1'] || null,
+              '2': data.advancement.linkedPartners['2'] || null,
+              '3': data.advancement.linkedPartners['3'] || null }
+          : { '1': null, '2': null, '3': null },
       };
     });
 

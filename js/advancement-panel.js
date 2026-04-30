@@ -1044,7 +1044,7 @@
 
   // Returns the partner's display name if the current PC has a Linked Destiny
   // partner set for the active Act, else null. Used by the "Shares to" badge
-  // on destiny-tagged goal rows.
+  // on destiny-tagged goal rows in PLAYER view.
   function _getLinkedPartnerName() {
     if (!_advancement || !_currentAdventureAct) return null;
     var lp = _advancement.linkedPartners || {};
@@ -1053,6 +1053,44 @@
     var pidNum = parseInt(pid, 10);
     var match = (_partyCache || []).find(function (c) { return parseInt(c.id, 10) === pidNum; });
     return match ? match.name : null;
+  }
+
+  // GM-side resolver: for a given trigger, return the FULL list of party
+  // PCs whose personalDestiny matches any of the trigger's destiny tags
+  // (or any path destiny tag), each annotated with that PC's per-Act
+  // Linked Destiny partner name (or null = unlinked). This is what the
+  // Advancement Engine GM badges render — one badge per matching PC, so
+  // the GM sees every share consequence at tick-time without having to
+  // switch the selected character.
+  function _getGmShareTargets(t) {
+    if (!_isGmView) return [];
+    if (!t || !_partyCache || !_partyCache.length) return [];
+    // Collect every destiny id this trigger touches (top-level + path).
+    var tagSet = {};
+    if (Array.isArray(t.destinies)) t.destinies.forEach(function (d) { if (d) tagSet[d] = true; });
+    if (Array.isArray(t.paths)) {
+      t.paths.forEach(function (p) {
+        if (p && Array.isArray(p.destinies)) p.destinies.forEach(function (d) { if (d) tagSet[d] = true; });
+      });
+    }
+    var tags = Object.keys(tagSet);
+    if (!tags.length) return [];
+    var actKey = String(_currentAdventureAct || '1');
+    var out = [];
+    _partyCache.forEach(function (pc) {
+      var pcDest = (pc && pc.personalDestiny && (pc.personalDestiny.id || pc.personalDestiny)) || null;
+      if (!pcDest || tags.indexOf(pcDest) === -1) return;
+      var lp = (pc.linkedPartners && typeof pc.linkedPartners === 'object') ? pc.linkedPartners : {};
+      var partnerId = lp[actKey] || null;
+      var partnerName = null;
+      if (partnerId) {
+        var partnerNum = parseInt(partnerId, 10);
+        var partner = _partyCache.find(function (c) { return parseInt(c.id, 10) === partnerNum; });
+        if (partner) partnerName = partner.name;
+      }
+      out.push({ pcId: pc.id, pcName: pc.name, partnerName: partnerName });
+    });
+    return out;
   }
 
   // GM cockpit shown at the top of the Advancement Engine. Lists every
@@ -1159,17 +1197,37 @@
             if (isAdv && info.anyMatch) {
               destinyTag = '<span class="adv-tag adv-tag--destiny" title="A footprint on your destiny road. If you choose this path it counts as 2 footprints and refills your Edge.">\u2605 ON YOUR ROAD</span>';
             }
-            // Shares-to / Unlinked badge — always rendered for destiny-tagged
-            // rows so the GM sees consequence-at-tick-time. Clickable: opens
-            // the floating Destiny Link panel via the Command Bridge so the
-            // GM can change the link without leaving the engine.
+            // Shares-to / Unlinked badge(s) — always rendered for destiny-
+            // tagged rows so the consequence is visible at tick-time.
+            // Clickable: opens the floating Destiny Link panel.
+            //
+            // PLAYER view: one badge resolved against the SELECTED PC's own
+            //              linkedPartners[currentAct].
+            // GM view:    one badge per matching PC across the whole party
+            //              (any PC whose personalDestiny matches the trigger),
+            //              prefixed with the PC's name so the GM can read
+            //              "Maya \u2192 Shares to: Tess" / "Tess \u2192 Unlinked"
+            //              without switching the active character.
             var sharesTag = '';
-            if (isAdv && info.anyMatch) {
-              var partnerName = _getLinkedPartnerName();
-              if (partnerName) {
-                sharesTag = '<button type="button" class="adv-tag adv-tag--shares adv-tag--clickable" data-open-destiny-link="1" title="Linked Destiny is set. Click to change.">Shares to: ' + _esc(partnerName) + '</button>';
-              } else {
-                sharesTag = '<button type="button" class="adv-tag adv-tag--shares adv-tag--unlinked adv-tag--clickable" data-open-destiny-link="1" title="No Linked Destiny partner for this Act. Click to set one.">Unlinked</button>';
+            if (isAdv) {
+              if (_isGmView) {
+                var targets = _getGmShareTargets(t);
+                if (targets.length) {
+                  targets.forEach(function (tg) {
+                    if (tg.partnerName) {
+                      sharesTag += '<button type="button" class="adv-tag adv-tag--shares adv-tag--clickable" data-open-destiny-link="1" title="Linked Destiny set for ' + _esc(tg.pcName) + '. Click to change.">' + _esc(tg.pcName) + ' \u2192 Shares to: ' + _esc(tg.partnerName) + '</button>';
+                    } else {
+                      sharesTag += '<button type="button" class="adv-tag adv-tag--shares adv-tag--unlinked adv-tag--clickable" data-open-destiny-link="1" title="No Linked Destiny partner for ' + _esc(tg.pcName) + ' in this Act. Click to set one.">' + _esc(tg.pcName) + ' \u2192 Unlinked</button>';
+                    }
+                  });
+                }
+              } else if (info.anyMatch) {
+                var partnerName = _getLinkedPartnerName();
+                if (partnerName) {
+                  sharesTag = '<button type="button" class="adv-tag adv-tag--shares adv-tag--clickable" data-open-destiny-link="1" title="Linked Destiny is set. Click to change.">Shares to: ' + _esc(partnerName) + '</button>';
+                } else {
+                  sharesTag = '<button type="button" class="adv-tag adv-tag--shares adv-tag--unlinked adv-tag--clickable" data-open-destiny-link="1" title="No Linked Destiny partner for this Act. Click to set one.">Unlinked</button>';
+                }
               }
             }
             // Footprint payout badge — show the actual landed payout when checked.
@@ -2869,6 +2927,13 @@
         } else {
           _panelVisible = false;
         }
+      });
+
+      // Destiny Link panel save → refresh party cache so the GM
+      // "Shares to: X" badges update immediately without a reload.
+      // Dispatched by command-bridge._saveLinkedPartner on success.
+      document.addEventListener('destiny-link:changed', function () {
+        _loadPartyCache(function () { if (_panelVisible) _render(); });
       });
 
       // Flush any pending debounced save before the page goes away.
