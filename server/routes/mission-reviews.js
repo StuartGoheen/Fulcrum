@@ -440,7 +440,7 @@ router.put('/mission-reviews/:reviewId/reject', _requireGm, async (req, res) => 
     // Lock the row and require status='pending' so a concurrent approve cannot be
     // overwritten by a stale reject.
     const r = await client.query(
-      "SELECT id, source_char_id, status FROM pending_mission_reviews WHERE id = $1 FOR UPDATE",
+      "SELECT id, source_char_id, linker_char_id, linker_destiny_id, share_count, status FROM pending_mission_reviews WHERE id = $1 FOR UPDATE",
       [reviewId]
     );
     if (r.rows.length === 0) {
@@ -463,7 +463,17 @@ router.put('/mission-reviews/:reviewId/reject', _requireGm, async (req, res) => 
     }
     await client.query('COMMIT');
 
-    console.info('[mission-reviews] REJECTED review=' + reviewId + ' reviewer=gm source=' + r.rows[0].source_char_id + ' note="' + (note || '').replace(/"/g, "'") + '"');
+    // Audit parity with APPROVE: include reviewer + source + linker + share count
+    // so the rejection trail is just as inspectable as the approval trail.
+    const rejRow = r.rows[0];
+    console.info(
+      '[mission-reviews] REJECTED review=' + reviewId +
+      ' reviewer=gm' +
+      ' source=' + rejRow.source_char_id +
+      ' linker=' + (rejRow.linker_char_id ? rejRow.linker_char_id + '/' + rejRow.linker_destiny_id : 'none') +
+      ' shareCount=' + rejRow.share_count +
+      ' note="' + (note || '').replace(/"/g, "'") + '"'
+    );
 
     const io = req.app.get('io');
     _emitToCharacter(io, r.rows[0].source_char_id, 'missionReview:rejected', {
