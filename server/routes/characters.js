@@ -555,6 +555,12 @@ router.patch('/characters/:id/advancement', async (req, res) => {
       destinyCapacityUsed: !!adv.destinyCapacityUsed
     };
     const data = JSON.parse(character.character_data);
+    // Audit: log when the once-per-campaign destiny capacity transitions to spent.
+    const wasUsed = !!(data.advancement && data.advancement.destinyCapacityUsed);
+    if (!wasUsed && sanitized.destinyCapacityUsed) {
+      const destinyId = (data.personalDestiny && data.personalDestiny.id) || 'unknown';
+      console.info(`[characters] destiny track-full capacity SPENT — character=${character.id} destiny=${destinyId}`);
+    }
     data.advancement = sanitized;
     await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), character.id]);
     return res.json({ ok: true });

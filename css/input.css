@@ -8923,6 +8923,23 @@
   opacity: 0.55;
 }
 
+.dp-destiny-mech-meter {
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+.dp-destiny-mech-meter-full {
+  color: #facc15;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.dp-destiny-mech-meter-spent {
+  color: #9ca3af;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
 .dp-destiny-mech-title {
   font-size: 0.5rem;
   font-weight: 700;

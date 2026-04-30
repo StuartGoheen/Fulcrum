@@ -1009,6 +1009,49 @@
     return wrap;
   }
 
+  // Threshold for destiny track-full (number of destiny-tagged earned marks).
+  var DESTINY_TRACK_THRESHOLD = 5;
+
+  // Returns { matchCount, threshold, trackFull, used, matchedMarkIds }
+  // matchedMarkIds = adventure mark IDs whose top-level OR chosen-path destinies include the PC's destiny.
+  function _computeDestinyTrackState(char, pd) {
+    var ctx = {
+      matchCount: 0,
+      threshold: DESTINY_TRACK_THRESHOLD,
+      trackFull: false,
+      used: !!(char.advancement && char.advancement.destinyCapacityUsed),
+      matchedMarkIds: []
+    };
+    var pcDest = pd && pd.id;
+    var checks = (char.advancement && char.advancement.marks && char.advancement.marks.earnedChecks) || {};
+    var paths = (char.advancement && char.advancement.marks && char.advancement.marks.paths) || {};
+    var advs = char._adventuresForCapacity || [];
+    if (!pcDest) { ctx.trackFull = false; return ctx; }
+    advs.forEach(function (adv) {
+      var marks = adv && adv.marks;
+      if (!Array.isArray(marks)) return;
+      marks.forEach(function (m) {
+        var mid = m && m.id;
+        if (!mid || !checks[mid]) return;
+        var matched = false;
+        if (Array.isArray(m.destinies) && m.destinies.indexOf(pcDest) !== -1) matched = true;
+        if (!matched && Array.isArray(m.paths)) {
+          var chosenId = paths[mid];
+          if (chosenId) {
+            var chosen = m.paths.find(function (p) { return p.id === chosenId; });
+            if (chosen && Array.isArray(chosen.destinies) && chosen.destinies.indexOf(pcDest) !== -1) matched = true;
+          }
+        }
+        if (matched) {
+          ctx.matchCount += 1;
+          ctx.matchedMarkIds.push(mid);
+        }
+      });
+    });
+    ctx.trackFull = ctx.matchCount >= ctx.threshold;
+    return ctx;
+  }
+
   function _buildPersonalDestiny(char) {
     var pd = char.personalDestiny;
     if (!pd) return null;
@@ -1029,16 +1072,27 @@
     body.className = 'dp-destiny-body';
 
     var capacityHtml = '';
+    var capacityCtx = null;
     if (pd.trackFullCapacity && pd.trackFullCapacity.title) {
-      var used = !!(char.advancement && char.advancement.destinyCapacityUsed);
-      var btnLabel = used ? 'Spent — Once Per Campaign' : 'Spend Capacity';
-      var btnAttrs = used ? 'disabled aria-disabled="true"' : '';
+      capacityCtx = _computeDestinyTrackState(char, pd);
+      var used = capacityCtx.used;
+      var trackFull = capacityCtx.trackFull;
+      var btnLabel, btnAttrs;
+      if (used) { btnLabel = 'Spent — Once Per Campaign'; btnAttrs = 'disabled aria-disabled="true"'; }
+      else if (!trackFull) { btnLabel = 'Track Not Yet Full'; btnAttrs = 'disabled aria-disabled="true"'; }
+      else { btnLabel = 'Spend Capacity'; btnAttrs = ''; }
+      var meterHtml =
+        '<span class="dp-destiny-mech-desc dp-destiny-mech-meter">' +
+          '<b>Track:</b> ' + capacityCtx.matchCount + ' / ' + capacityCtx.threshold + ' destiny footprints earned' +
+          (trackFull && !used ? ' <span class="dp-destiny-mech-meter-full">— FULL</span>' : '') +
+        '</span>';
       capacityHtml =
         '<div class="dp-destiny-mech dp-destiny-mech--capacity' + (used ? ' dp-destiny-mech--spent' : '') + '">' +
           '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--capacity">Track Full</span>' +
           '<span class="dp-destiny-mech-title">' + _esc(pd.trackFullCapacity.title) + '</span>' +
           '<span class="dp-destiny-mech-desc">' + _esc(pd.trackFullCapacity.description) + '</span>' +
           (pd.trackFullCapacity.trigger ? '<span class="dp-destiny-mech-desc dp-destiny-mech-trigger"><b>Trigger:</b> ' + _esc(pd.trackFullCapacity.trigger) + '</span>' : '') +
+          meterHtml +
           '<button type="button" class="dp-destiny-capacity-btn" data-spend-capacity="1" ' + btnAttrs + '>' + btnLabel + '</button>' +
         '</div>';
     }
@@ -1068,11 +1122,18 @@
     wrap.appendChild(body);
 
     var btn = body.querySelector('[data-spend-capacity]');
-    if (btn) {
+    if (btn && capacityCtx) {
       btn.addEventListener('click', function () {
         if (btn.disabled) return;
+        if (!capacityCtx.trackFull) return;
+        if (capacityCtx.used) return;
         var capTitle = (pd.trackFullCapacity && pd.trackFullCapacity.title) || 'this capacity';
-        var msg = 'Spend ' + capTitle + ' now?\n\nThis is a once-per-campaign action. The track will be considered spent and the capacity will not be available again.\n\nGM and table should be at the table when you confirm.';
+        var msg = 'Spend ' + capTitle + ' now?\n\n' +
+          'This is a once-per-campaign action. On confirm:\n' +
+          '  • The capacity is permanently spent\n' +
+          '  • The destiny track returns to empty (' + capacityCtx.matchCount + ' destiny footprints will be cleared)\n' +
+          '  • This cannot be undone\n\n' +
+          'GM and table should be at the table when you confirm.';
         if (!window.confirm(msg)) return;
 
         var session = null;
@@ -1080,9 +1141,24 @@
         var charId = session && session.characterId;
         if (!charId) return;
 
-        var nextAdv = Object.assign({}, char.advancement || {}, { destinyCapacityUsed: true });
+        // Build the next advancement state: clear destiny-tagged earned marks AND set the flag.
+        var nextAdv = Object.assign({}, char.advancement || {});
+        nextAdv.destinyCapacityUsed = true;
+        var nextMarks = Object.assign({}, nextAdv.marks || {});
+        var nextChecks = Object.assign({}, nextMarks.earnedChecks || {});
+        var nextPaths = Object.assign({}, nextMarks.paths || {});
+        capacityCtx.matchedMarkIds.forEach(function (mid) {
+          delete nextChecks[mid];
+          delete nextPaths[mid];
+        });
+        nextMarks.earnedChecks = nextChecks;
+        nextMarks.paths = nextPaths;
+        nextAdv.marks = nextMarks;
+
         btn.disabled = true;
         btn.textContent = 'Saving…';
+        // Audit: log the spend client-side and on the server (PATCH triggers server log).
+        console.info('[DetailsPanel] destiny capacity spent', { charId: charId, destiny: pd.id, capacity: capTitle, clearedMarks: capacityCtx.matchedMarkIds });
         fetch('/api/characters/' + encodeURIComponent(charId) + '/advancement', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
@@ -1094,6 +1170,9 @@
           btn.setAttribute('aria-disabled', 'true');
           var mech = btn.closest('.dp-destiny-mech');
           if (mech) mech.classList.add('dp-destiny-mech--spent');
+          // Update meter to 0 / threshold visually.
+          var meter = mech && mech.querySelector('.dp-destiny-mech-meter');
+          if (meter) meter.innerHTML = '<b>Track:</b> 0 / ' + capacityCtx.threshold + ' destiny footprints earned <span class="dp-destiny-mech-meter-spent">— SPENT</span>';
         }).catch(function (err) {
           console.error('[DetailsPanel] capacity spend save failed', err);
           btn.disabled = false;
@@ -1120,9 +1199,11 @@
       fetch('/data/species.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
       fetch('/data/maneuvers.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
       fetch('/data/destinies.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('/api/campaign/adventures').then(function (r) { return r.json(); }).catch(function () { return null; }),
     ]).then(function (results) {
       var char = results[0];
       var destinyData = results[3];
+      var adventuresData = results[4];
       // Backfill trackFullCapacity for characters created before the field existed.
       if (char && char.personalDestiny && !char.personalDestiny.trackFullCapacity && destinyData && Array.isArray(destinyData.destinies)) {
         var canon = destinyData.destinies.find(function (x) { return x.id === char.personalDestiny.id; });
@@ -1130,6 +1211,8 @@
           char.personalDestiny.trackFullCapacity = canon.trackFullCapacity;
         }
       }
+      // Stash adventures for the destiny capacity gate.
+      char._adventuresForCapacity = (adventuresData && adventuresData.adventures) || [];
       buildDetailsPanel(char, results[1], results[2]);
     }).catch(function (err) {
       console.error('[DetailsPanel]', err);
