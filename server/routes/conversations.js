@@ -58,42 +58,46 @@ function buildPlayerView(inst, def) {
 // Strip GM-only narrative fields from a definition or built view for player
 // consumption. Mirrors the Task #245 marks shaping pattern: dev mode (no
 // req.userRole) and GM callers receive the unmodified payload, players get
-// gmNote / gmNotes / trigger fields stripped from definition + state log.
+// gmNote / gmNotes (and Maya interjection triggers) stripped from the entire
+// view tree.
+//
+// The sanitizer deep-walks the cloned view and removes every `gmNote` and
+// `gmNotes` key it finds — so it covers definition.gmNotes, every question's
+// gmNote on roots + followUps, every maya interjection gmNote, the
+// insightCheck gmNote, every entry in state.log, every entry in state.queue,
+// and any future field with the same name. Adding a new GM-only field with
+// a different key name requires:
+//   1. Adding it to GM_ONLY_KEYS (or to the targeted strip below), AND
+//   2. Updating scripts/test-conversation-no-gm-leak.js so the regression
+//      check catches a future leak of that new field.
+const GM_ONLY_KEYS = ['gmNote', 'gmNotes'];
+
+function _stripGmKeysDeep(node) {
+  if (Array.isArray(node)) {
+    for (let i = 0; i < node.length; i++) _stripGmKeysDeep(node[i]);
+    return;
+  }
+  if (node && typeof node === 'object') {
+    for (const k of GM_ONLY_KEYS) {
+      if (Object.prototype.hasOwnProperty.call(node, k)) delete node[k];
+    }
+    for (const key of Object.keys(node)) _stripGmKeysDeep(node[key]);
+  }
+}
+
 function _sanitizeViewForPlayer(view) {
   if (!view) return view;
   // Deep-clone so we never mutate the cached definition object held by
   // loadDefinition() readers (definitions are JSON.parse'd fresh each call,
   // but state can be a row reference — clone for safety either way).
   const clone = JSON.parse(JSON.stringify(view));
-  const def = clone.definition;
-  if (def && typeof def === 'object') {
-    delete def.gmNotes;
-    if (Array.isArray(def.roots)) {
-      def.roots.forEach(function (q) {
-        if (q && typeof q === 'object') delete q.gmNote;
-      });
-    }
-    if (def.followUps && typeof def.followUps === 'object') {
-      Object.keys(def.followUps).forEach(function (k) {
-        var q = def.followUps[k];
-        if (q && typeof q === 'object') delete q.gmNote;
-      });
-    }
-    if (Array.isArray(def.mayaInterjections)) {
-      def.mayaInterjections.forEach(function (mi) {
-        if (mi && typeof mi === 'object') {
-          delete mi.gmNote;
-          delete mi.trigger;
-        }
-      });
-    }
-    if (def.insightCheck && typeof def.insightCheck === 'object') {
-      delete def.insightCheck.gmNote;
-    }
-  }
-  if (clone.state && Array.isArray(clone.state.log)) {
-    clone.state.log.forEach(function (entry) {
-      if (entry && typeof entry === 'object') delete entry.gmNote;
+  _stripGmKeysDeep(clone);
+  // Maya interjection trigger metadata is GM-only — it reveals the firing
+  // condition for each interjection. Strip per-interjection (the key isn't
+  // a generic GM marker so it's handled separately).
+  if (clone.definition && Array.isArray(clone.definition.mayaInterjections)) {
+    clone.definition.mayaInterjections.forEach(function (mi) {
+      if (mi && typeof mi === 'object') delete mi.trigger;
     });
   }
   return clone;
@@ -529,5 +533,12 @@ router.post('/conversations/active/clip', async (req, res) => {
     res.status(500).json({ error: 'Failed to clip to journal' });
   }
 });
+
+// Expose internals for the regression test in
+// scripts/test-conversation-no-gm-leak.js. Attaching to the router preserves
+// the existing `app.use('/api', conversationRoutes)` shape in server/index.js.
+router._sanitizeViewForPlayer = _sanitizeViewForPlayer;
+router._emitConversationEvent = _emitConversationEvent;
+router._GM_ONLY_KEYS = GM_ONLY_KEYS;
 
 module.exports = router;
