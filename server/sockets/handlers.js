@@ -2931,4 +2931,9 @@ function registerHandlers(io) {
   });
 }
 
+// Expose internals for the regression test in
+// scripts/test-state-no-gm-leak.js. Attaching to the exported function keeps
+// the existing `require('./sockets/handlers')(io)` shape in server/index.js.
+registerHandlers._filterStateForPlayers = _filterStateForPlayers;
+
 module.exports = registerHandlers;
