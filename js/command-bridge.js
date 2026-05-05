@@ -3786,8 +3786,17 @@
     // Suppress scene-level read-aloud / GM notes only when the *active* beat has its own
     // (avoids duplication on the current view, but keeps scene context available when
     // viewing earlier/later beats that don't restate it).
-    var activeBeatReadAloud = !!(activeBeat && activeBeat.readAloud);
-    var activeBeatGmNotes = !!(activeBeat && activeBeat.gmNotes);
+    //
+    // Per-scene opt-out: authors can force the scene-level read-aloud / GM notes to
+    // always render (even when the active beat already has its own) by setting
+    //   "alwaysShowSceneReadAloud": true   — scene readAloud always shown
+    //   "alwaysShowSceneGmNotes":  true   — scene gmNotes always shown
+    // on the scene object. Useful for scenes where the scene-level framing is
+    // independent context the GM needs alongside the per-beat narration.
+    var alwaysScene = !!(scene && scene.alwaysShowSceneReadAloud);
+    var alwaysSceneNotes = !!(scene && scene.alwaysShowSceneGmNotes);
+    var activeBeatReadAloud = !alwaysScene && !!(activeBeat && activeBeat.readAloud);
+    var activeBeatGmNotes = !alwaysSceneNotes && !!(activeBeat && activeBeat.gmNotes);
 
     var html = '<div class="cb-runscene">';
 
