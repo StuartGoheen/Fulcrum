@@ -3500,9 +3500,26 @@
     if (!keys.length) return '';
     var slot = 'scene-ra';
     var override = _getVariantPick(scene.id, slot);
-    var active = override && rav[override] ? override : keys[0];
+    // Build a synthetic variants map (same shape as beat.variants) so the resolver
+    // applies the same precedence: GM override > decision-state via _gatedOn > first key.
+    var resolverMap = {};
+    keys.forEach(function (k) { resolverMap[k] = rav[k]; });
+    var active = _resolveVariantKey(resolverMap, rav._gatedOn, override) || keys[0];
+    var impactKey = _extractImpactKey(rav._gatedOn);
+    var decisionState = _resolveDecisionState();
+    var resolvedFromState = !override && impactKey && decisionState[impactKey] && resolverMap[decisionState[impactKey]];
     var html = '<div class="cb-rs-strip" style="border-left:3px solid #c084fc;background:rgba(192,132,252,0.04);">';
-    html += '<div class="cb-rs-strip-head" style="cursor:default;"><span class="cb-rs-strip-label">&#127919; Read-Aloud Variants <span style="font-size:0.7rem;color:#7a7068;font-weight:400;">(pick fortress / decision state)</span></span></div>';
+    html += '<div class="cb-rs-strip-head" style="cursor:default;"><span class="cb-rs-strip-label">&#127919; Read-Aloud Variants';
+    if (impactKey) {
+      html += ' <span style="font-size:0.7rem;color:#7a7068;font-weight:400;">'
+        + (resolvedFromState
+          ? 'auto-picked from <code>' + esc(impactKey) + '</code> = <code>' + esc(decisionState[impactKey]) + '</code>'
+          : (override
+            ? 'GM override (recorded <code>' + esc(impactKey) + '</code> = <code>' + esc(String(decisionState[impactKey] || 'unresolved')) + '</code>)'
+            : 'no <code>' + esc(impactKey) + '</code> recorded — defaulted'))
+        + '</span>';
+    }
+    html += '</span></div>';
     html += '<div class="cb-rs-strip-body">';
     if (rav._selector) {
       html += '<div style="font-size:0.72rem;color:#7a7068;font-style:italic;margin-bottom:0.55rem;">' + esc(rav._selector) + '</div>';
@@ -3528,9 +3545,13 @@
   }
 
   function _renderConversationRefsHtml(scene) {
+    // Additive merge: surface BOTH plural conversationRefs[] and singular conversationRef
+    // (deduplicated) so neither shape silently drops the other.
     var refs = [];
     if (Array.isArray(scene.conversationRefs)) refs = refs.concat(scene.conversationRefs);
-    else if (typeof scene.conversationRef === 'string') refs.push(scene.conversationRef);
+    if (typeof scene.conversationRef === 'string' && scene.conversationRef && refs.indexOf(scene.conversationRef) === -1) {
+      refs.push(scene.conversationRef);
+    }
     if (!refs.length) return '';
     var html = '<div class="cb-rs-hooks" style="margin:0.6rem 0;"><div class="cb-rs-hook-label">Scene Conversations</div>';
     refs.forEach(function (slug) {
@@ -3542,16 +3563,20 @@
   }
 
   // Build a minimal composition fallback from the scene's NPC roster when a combat
-  // beat is missing an explicit composition block. This lets the GM see at-a-glance
-  // who the threats are without scrolling the side rail.
+  // beat is missing an explicit composition block. Filtered by `_npcOnStageForBeat`
+  // so the GM sees only the threats relevant to THIS beat (not every NPC in the scene).
+  // Falls back to the full threat roster only if no NPCs match the active beat.
   function _renderCompositionFallbackHtml(scene, beat) {
     if (!scene || !beat) return '';
     if (beat.composition) return '';
     if (_beatType(beat) !== 'combat') return '';
-    var npcs = (scene.npcs || []).filter(function (n) { return n && (n.threatBuild || n.threatCategory); });
-    if (!npcs.length) return '';
+    var allThreatNpcs = (scene.npcs || []).filter(function (n) { return n && (n.threatBuild || n.threatCategory); });
+    if (!allThreatNpcs.length) return '';
+    var beatScoped = allThreatNpcs.filter(function (n) { return _npcOnStageForBeat(n, beat); });
+    var npcs = beatScoped.length ? beatScoped : allThreatNpcs;
+    var label = beatScoped.length ? 'composition derived from on-stage roster' : 'composition derived from scene roster (no beat-specific NPCs detected)';
     var html = '<div class="cb-rs-comp">';
-    html += '<div class="cb-rs-comp-row" style="font-size:0.7rem;color:#7a7068;font-style:italic;margin-bottom:0.3rem;">composition derived from scene roster</div>';
+    html += '<div class="cb-rs-comp-row" style="font-size:0.7rem;color:#7a7068;font-style:italic;margin-bottom:0.3rem;">' + label + '</div>';
     npcs.forEach(function (n) {
       var tier = (n.threatBuild && n.threatBuild.tier != null) ? ('T' + n.threatBuild.tier) : '';
       var cls = (n.threatBuild && n.threatBuild.classification) || '';
@@ -3800,10 +3825,20 @@
       html += '<div class="cb-rs-beatstrip">';
       html += '<button class="cb-rs-nav" id="cb-rs-prev"' + (beatIdx === 0 ? ' disabled' : '') + '>&larr; Prev</button>';
       html += '<div class="cb-rs-beatdots">';
+      var decisionStateForDots = _resolveDecisionState();
       beats.forEach(function (b, i) {
         var done = !!(completionsData[scene.id] && completionsData[scene.id].beatsDone && completionsData[scene.id].beatsDone[i]);
-        var cls = 'cb-rs-dot' + (i === beatIdx ? ' active' : '') + (done ? ' done' : '');
-        html += '<button class="' + cls + '" data-rs-jump="' + i + '" title="' + esc(_beatLabel(b, i)) + '">' + (i + 1) + '</button>';
+        // gatedOn awareness: a beat with gatedOn whose impact key isn't yet recorded
+        // in the campaign's decision state is "gated" — flag the dot visually + tooltip.
+        var gatedImpactKey = b && b.gatedOn ? _extractImpactKey(b.gatedOn) : null;
+        var unmetGate = !!(gatedImpactKey && !decisionStateForDots[gatedImpactKey]);
+        var cls = 'cb-rs-dot' + (i === beatIdx ? ' active' : '') + (done ? ' done' : '') + (unmetGate ? ' gated' : '') + (b && b.optional ? ' optional' : '');
+        var tip = _beatLabel(b, i);
+        if (b && b.optional) tip += ' (optional)';
+        if (unmetGate) tip += '\nGated on `' + gatedImpactKey + '` — not yet recorded' + (b.gatedOn && b.gatedOn.description ? '\n' + b.gatedOn.description : '');
+        else if (gatedImpactKey) tip += '\nResolved on `' + gatedImpactKey + '` = `' + decisionStateForDots[gatedImpactKey] + '`';
+        var extraStyle = unmetGate ? ' style="opacity:0.55;border-style:dashed;"' : '';
+        html += '<button class="' + cls + '" data-rs-jump="' + i + '" title="' + esc(tip) + '"' + extraStyle + '>' + (i + 1) + (unmetGate ? '\u2699' : '') + '</button>';
       });
       html += '</div>';
       html += '<div class="cb-rs-beatcount">Beat ' + (beatIdx + 1) + ' of ' + beats.length + '</div>';
