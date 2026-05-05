@@ -451,6 +451,7 @@
   var _runSceneActive = {};
   var _runSceneBeat = {};
   var _runSceneCollapsed = {};
+  var _runSceneVariantPick = {}; // key: sceneId + ':variant:' + (scene|beat-N) -> variant key string
 
   function _runStorageKey(sceneId) { return 'cb.runscene.' + sceneId; }
   function _isRunSceneActive(sceneId) {
@@ -463,6 +464,9 @@
       if (parsed.collapsed && typeof parsed.collapsed === 'object') {
         Object.keys(parsed.collapsed).forEach(function (k) { _runSceneCollapsed[k] = !!parsed.collapsed[k]; });
       }
+      if (parsed.variants && typeof parsed.variants === 'object') {
+        Object.keys(parsed.variants).forEach(function (k) { _runSceneVariantPick[k] = String(parsed.variants[k]); });
+      }
       return !!parsed.active;
     }
     _runSceneActive[sceneId] = false;
@@ -474,10 +478,15 @@
     Object.keys(_runSceneCollapsed).forEach(function (k) {
       if (k.indexOf(sceneId + ':') === 0) collapsed[k] = _runSceneCollapsed[k];
     });
+    var variants = {};
+    Object.keys(_runSceneVariantPick).forEach(function (k) {
+      if (k.indexOf(sceneId + ':') === 0) variants[k] = _runSceneVariantPick[k];
+    });
     window.Persist.set(_runStorageKey(sceneId), {
       active: !!_runSceneActive[sceneId],
       beat: _runSceneBeat[sceneId] || 0,
-      collapsed: collapsed
+      collapsed: collapsed,
+      variants: variants
     });
   }
   function _setRunSceneActive(sceneId, on) {
@@ -3348,6 +3357,212 @@
     });
   }
 
+  // ---------- Run Scene helpers (beats / variants / decision state) ----------
+
+  function _resolveDecisionState() {
+    if (!adventuresData) return {};
+    return adventuresData._decisionState || {};
+  }
+
+  // Returns the canonical beat list for a scene. Prefers scene.beats[] when present;
+  // falls back to scene.encounters[]. Both shapes are interchangeable downstream — they
+  // share the same recognized fields (id, title/name, readAloud, gmNotes, description,
+  // tactics, type/beatType, composition, conversationRef, dialogueChunks, etc.).
+  function _getResolvedBeats(scene) {
+    if (!scene) return [];
+    if (Array.isArray(scene.beats) && scene.beats.length) return scene.beats;
+    return scene.encounters || [];
+  }
+
+  function _beatLabel(b, i) {
+    if (!b) return 'Beat ' + (i + 1);
+    return b.title || b.name || ('Beat ' + (i + 1));
+  }
+
+  function _beatType(b) {
+    if (!b) return '';
+    return b.type || b.beatType || '';
+  }
+
+  // Pull the impact key out of a gatedOn.source string of the form
+  //   "<sceneId>.decisionPoints[<dpId>].impacts.<impactKey>"
+  // Falls back to gatedOn.impactKey if explicitly provided.
+  function _extractImpactKey(gatedOn) {
+    if (!gatedOn) return null;
+    if (gatedOn.impactKey) return String(gatedOn.impactKey);
+    var src = String(gatedOn.source || '');
+    var m = src.match(/\.impacts\.([A-Za-z0-9_]+)\s*$/);
+    return m ? m[1] : null;
+  }
+
+  // Resolve which variant of a beat (or scene) to surface.
+  // Precedence: GM manual override > recorded decision state > beat.variants.default > first key.
+  function _resolveVariantKey(variants, gatedOn, override) {
+    if (!variants || typeof variants !== 'object') return null;
+    var keys = Object.keys(variants).filter(function (k) { return k !== 'default' && k.charAt(0) !== '_'; });
+    if (!keys.length) return null;
+    if (override && variants[override]) return override;
+    var impactKey = _extractImpactKey(gatedOn);
+    if (impactKey) {
+      var st = _resolveDecisionState();
+      var v = st[impactKey];
+      if (v && variants[v]) return v;
+    }
+    if (variants['default']) {
+      var d = String(variants['default']);
+      if (variants[d]) return d;
+    }
+    return keys[0];
+  }
+
+  function _getVariantPick(sceneId, slot) {
+    var k = sceneId + ':variant:' + slot;
+    return _runSceneVariantPick[k] || null;
+  }
+  function _setVariantPick(sceneId, slot, key) {
+    var k = sceneId + ':variant:' + slot;
+    if (key) _runSceneVariantPick[k] = String(key);
+    else delete _runSceneVariantPick[k];
+    _persistRunScene(sceneId);
+  }
+
+  function _formatVariantLabel(key, variantObj) {
+    if (variantObj && variantObj.label) return variantObj.label;
+    return _slugToTitle(key);
+  }
+
+  function _renderBeatVariantsHtml(scene, beat, beatIdx) {
+    if (!beat || !beat.variants || typeof beat.variants !== 'object') return '';
+    var keys = Object.keys(beat.variants).filter(function (k) { return k !== 'default' && k.charAt(0) !== '_'; });
+    if (!keys.length) return '';
+    var slot = 'beat-' + beatIdx;
+    var override = _getVariantPick(scene.id, slot);
+    var active = _resolveVariantKey(beat.variants, beat.gatedOn, override);
+    var impactKey = _extractImpactKey(beat.gatedOn);
+    var decisionState = _resolveDecisionState();
+    var resolvedFromState = !override && impactKey && decisionState[impactKey] && beat.variants[decisionState[impactKey]];
+    var html = '<div class="cb-rs-variant" style="margin:0.6rem 0;padding:0.6rem 0.75rem;background:rgba(192,132,252,0.06);border-left:3px solid #c084fc;border-radius:4px;">';
+    html += '<div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">';
+    html += '<span style="font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:#c084fc;font-weight:700;">&#127919; Branch</span>';
+    if (impactKey) {
+      var srcLabel = resolvedFromState
+        ? 'auto-picked from <code>' + esc(impactKey) + '</code> = <code>' + esc(decisionState[impactKey]) + '</code>'
+        : (override ? 'GM override (recorded <code>' + esc(impactKey) + '</code> = <code>' + esc(String(decisionState[impactKey] || 'unresolved')) + '</code>)' : 'no decision recorded — defaulted');
+      html += '<span style="font-size:0.7rem;color:#7a7068;">' + srcLabel + '</span>';
+    }
+    html += '</div>';
+    if (beat.gatedOn && beat.gatedOn.description) {
+      html += '<div style="font-size:0.72rem;color:#7a7068;font-style:italic;margin-bottom:0.5rem;">' + esc(beat.gatedOn.description) + '</div>';
+    }
+    html += '<div class="cb-rs-variant-tabs" style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.55rem;">';
+    keys.forEach(function (k) {
+      var on = (k === active);
+      var label = _formatVariantLabel(k, beat.variants[k]);
+      html += '<button class="cb-rs-variant-pick' + (on ? ' active' : '') + '" data-rs-variant-slot="' + esc(slot) + '" data-rs-variant-key="' + esc(k) + '"'
+        + ' style="font-size:0.7rem;padding:0.3rem 0.6rem;border-radius:3px;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.04em;'
+        + 'border:1px solid ' + (on ? '#c084fc' : '#3a3128') + ';background:' + (on ? 'rgba(192,132,252,0.18)' : 'transparent') + ';color:' + (on ? '#c084fc' : '#7a7068') + ';">'
+        + esc(label) + '</button>';
+    });
+    if (override) {
+      html += '<button class="cb-rs-variant-clear" data-rs-variant-slot="' + esc(slot) + '" style="font-size:0.7rem;padding:0.3rem 0.6rem;border-radius:3px;cursor:pointer;border:1px dashed #5a5048;background:transparent;color:#7a7068;">&times; clear override</button>';
+    }
+    html += '</div>';
+    var v = beat.variants[active];
+    if (v) {
+      if (v.label) html += '<div style="font-size:0.85rem;color:#c8a44e;font-weight:600;margin-bottom:0.4rem;">' + esc(v.label) + '</div>';
+      if (v.readAloud) {
+        html += '<div class="cb-prose" style="margin-bottom:0.5rem;">' + _formatProse(v.readAloud) + '</div>';
+      }
+      if (v.gmNote) {
+        html += '<div style="margin-top:0.5rem;padding:0.5rem 0.7rem;background:rgba(245,158,11,0.06);border-left:3px solid #f59e0b;border-radius:3px;">';
+        html += '<div style="font-size:0.7rem;letter-spacing:0.06em;text-transform:uppercase;color:#f59e0b;font-weight:600;margin-bottom:0.3rem;">GM Note</div>';
+        html += '<div class="cb-prose">' + _formatProse(v.gmNote) + '</div>';
+        html += '</div>';
+      }
+      if (v.destinyHook) {
+        html += '<div style="margin-top:0.45rem;font-size:0.78rem;color:#a78bfa;"><strong>&#10024; Destiny:</strong> ' + esc(v.destinyHook) + '</div>';
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _renderSceneReadAloudVariantsHtml(scene) {
+    var rav = scene && scene.readAloudVariants;
+    if (!rav || typeof rav !== 'object') return '';
+    var keys = Object.keys(rav).filter(function (k) {
+      if (k.charAt(0) === '_') return false;
+      var v = rav[k];
+      // Skip explicit LEGACY-marked text variants
+      if (typeof v === 'string' && v.indexOf('[LEGACY KEY') === 0) return false;
+      return true;
+    });
+    if (!keys.length) return '';
+    var slot = 'scene-ra';
+    var override = _getVariantPick(scene.id, slot);
+    var active = override && rav[override] ? override : keys[0];
+    var html = '<div class="cb-rs-strip" style="border-left:3px solid #c084fc;background:rgba(192,132,252,0.04);">';
+    html += '<div class="cb-rs-strip-head" style="cursor:default;"><span class="cb-rs-strip-label">&#127919; Read-Aloud Variants <span style="font-size:0.7rem;color:#7a7068;font-weight:400;">(pick fortress / decision state)</span></span></div>';
+    html += '<div class="cb-rs-strip-body">';
+    if (rav._selector) {
+      html += '<div style="font-size:0.72rem;color:#7a7068;font-style:italic;margin-bottom:0.55rem;">' + esc(rav._selector) + '</div>';
+    }
+    html += '<div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.6rem;">';
+    keys.forEach(function (k) {
+      var on = (k === active);
+      html += '<button class="cb-rs-variant-pick' + (on ? ' active' : '') + '" data-rs-variant-slot="' + esc(slot) + '" data-rs-variant-key="' + esc(k) + '"'
+        + ' style="font-size:0.72rem;padding:0.32rem 0.65rem;border-radius:3px;cursor:pointer;font-family:Audiowide,sans-serif;letter-spacing:0.04em;'
+        + 'border:1px solid ' + (on ? '#c084fc' : '#3a3128') + ';background:' + (on ? 'rgba(192,132,252,0.18)' : 'transparent') + ';color:' + (on ? '#c084fc' : '#7a7068') + ';">'
+        + esc(_slugToTitle(k)) + '</button>';
+    });
+    html += '</div>';
+    var text = rav[active];
+    if (typeof text === 'string') {
+      html += '<div class="cb-prose">' + _formatProse(text) + '</div>';
+    } else if (text && typeof text === 'object') {
+      if (text.label) html += '<div style="font-size:0.85rem;color:#c8a44e;font-weight:600;margin-bottom:0.4rem;">' + esc(text.label) + '</div>';
+      if (text.readAloud) html += '<div class="cb-prose">' + _formatProse(text.readAloud) + '</div>';
+    }
+    html += '</div></div>';
+    return html;
+  }
+
+  function _renderConversationRefsHtml(scene) {
+    var refs = [];
+    if (Array.isArray(scene.conversationRefs)) refs = refs.concat(scene.conversationRefs);
+    else if (typeof scene.conversationRef === 'string') refs.push(scene.conversationRef);
+    if (!refs.length) return '';
+    var html = '<div class="cb-rs-hooks" style="margin:0.6rem 0;"><div class="cb-rs-hook-label">Scene Conversations</div>';
+    refs.forEach(function (slug) {
+      if (!slug) return;
+      html += '<button class="cb-rs-hook-btn cb-conversation-link" data-conv-slug="' + esc(slug) + '" title="Launch conversation overlay">&#128172; ' + esc(_slugToTitle(slug)) + '</button>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // Build a minimal composition fallback from the scene's NPC roster when a combat
+  // beat is missing an explicit composition block. This lets the GM see at-a-glance
+  // who the threats are without scrolling the side rail.
+  function _renderCompositionFallbackHtml(scene, beat) {
+    if (!scene || !beat) return '';
+    if (beat.composition) return '';
+    if (_beatType(beat) !== 'combat') return '';
+    var npcs = (scene.npcs || []).filter(function (n) { return n && (n.threatBuild || n.threatCategory); });
+    if (!npcs.length) return '';
+    var html = '<div class="cb-rs-comp">';
+    html += '<div class="cb-rs-comp-row" style="font-size:0.7rem;color:#7a7068;font-style:italic;margin-bottom:0.3rem;">composition derived from scene roster</div>';
+    npcs.forEach(function (n) {
+      var tier = (n.threatBuild && n.threatBuild.tier != null) ? ('T' + n.threatBuild.tier) : '';
+      var cls = (n.threatBuild && n.threatBuild.classification) || '';
+      var thr = cls === 'nemesis' ? '#ef4444' : cls === 'rival' || cls === 'standard' ? '#f59e0b' : '#7a7068';
+      var meta = [tier, cls].filter(Boolean).join(' ');
+      html += '<div class="cb-rs-comp-row"><span class="cb-rs-comp-thr" style="color:' + thr + ';">' + esc(meta || 'minion') + '</span> ' + esc(n.name || n.type || 'NPC') + (n.count ? ' &times;' + n.count : '') + '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
   function _npcOnStageForBeat(npc, beat) {
     if (!npc || !beat) return false;
     var name = String(npc.name || '').trim();
@@ -3396,16 +3611,17 @@
   }
 
   function _renderRunSceneSpotlight(scene, beatIdx) {
-    var encs = (scene.encounters || []);
-    var beat = encs[beatIdx] || null;
+    var beats = _getResolvedBeats(scene);
+    var beat = beats[beatIdx] || null;
     var html = '';
     if (!beat) {
       html += '<div class="cb-rs-spotlight">';
       html += '<div class="cb-rs-beat-head"><div class="cb-rs-beat-title">Whole Scene</div><div class="cb-rs-beat-meta">No beats authored — scene-level overview</div></div>';
       var tokens = _detectHookTokens((scene.readAloud || '') + ' ' + (scene.gmNotes || ''));
-      if (encs.length || tokens.length) {
+      var sideEncs = (Array.isArray(scene.encounters) ? scene.encounters : []);
+      if (sideEncs.length || tokens.length) {
         html += '<div class="cb-rs-hooks"><div class="cb-rs-hook-label">Quick Launch</div>';
-        encs.forEach(function (e) {
+        sideEncs.forEach(function (e) {
           html += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(e.id) + '">&#9876; ' + esc(e.name || e.id) + '</button>';
           var eConv = e.conversationRef || e.conversationSlug;
           if (eConv) {
@@ -3424,11 +3640,19 @@
       html += '</div>';
       return html;
     }
-    var typeColor = beat.type === 'combat' ? '#ef4444' : beat.type === 'social' ? '#c084fc' : beat.type === 'infiltration' ? '#818cf8' : '#c8a44e';
+    var btype = _beatType(beat);
+    var typeColor = btype === 'combat' ? '#ef4444'
+      : btype === 'social' ? '#c084fc'
+      : btype === 'infiltration' ? '#818cf8'
+      : btype === 'conditional_roleplay' ? '#a78bfa'
+      : btype === 'narrative' ? '#c8a44e'
+      : '#c8a44e';
     html += '<div class="cb-rs-spotlight" style="border-left-color:' + typeColor + ';">';
     html += '<div class="cb-rs-beat-head">';
-    html += '<div class="cb-rs-beat-title">' + esc(beat.name || ('Beat ' + (beatIdx + 1))) + '</div>';
-    html += '<span class="cb-rs-beat-pill" style="background:' + typeColor + ';">' + esc(beat.type || 'beat') + '</span>';
+    html += '<div class="cb-rs-beat-title">' + esc(_beatLabel(beat, beatIdx));
+    if (beat.optional) html += ' <span style="font-size:0.65rem;color:#7a7068;font-weight:400;letter-spacing:0.05em;">(optional)</span>';
+    html += '</div>';
+    if (btype) html += '<span class="cb-rs-beat-pill" style="background:' + typeColor + ';">' + esc(btype) + '</span>';
     html += '</div>';
     if (beat.trigger) html += '<div class="cb-rs-beat-trigger"><strong>Trigger:</strong> ' + linkify(beat.trigger) + '</div>';
     if (beat.readAloud) {
@@ -3483,13 +3707,32 @@
       if (beat.composition.terrain) html += '<div class="cb-rs-comp-row"><strong>Terrain:</strong> ' + esc(beat.composition.terrain) + '</div>';
       if (beat.composition.positioning) html += '<div class="cb-rs-comp-row"><strong>Positioning:</strong> ' + esc(beat.composition.positioning) + '</div>';
       html += '</div>';
+    } else {
+      html += _renderCompositionFallbackHtml(scene, beat);
+    }
+    // Beat-level branching: variants gated on a recorded decision impact (e.g. Mandrake outcome).
+    html += _renderBeatVariantsHtml(scene, beat, beatIdx);
+    // Beat-level destinyHook (top-level, applies regardless of variant).
+    if (beat.destinyHook) {
+      html += '<div class="cb-rs-beat-destiny" style="margin:0.5rem 0;padding:0.5rem 0.7rem;background:rgba(167,139,250,0.06);border-left:3px solid #a78bfa;border-radius:3px;font-size:0.8rem;color:#a78bfa;"><strong>&#10024; Destiny Hook:</strong> ' + esc(beat.destinyHook) + '</div>';
     }
     if (Array.isArray(beat.scriptedEscalation) && beat.scriptedEscalation.length) {
       html += _buildEscalationPreviewHtml(scene, beat);
     }
     var beatHooks = '';
-    if (beat.type === 'combat' && window.CombatTracker) {
-      beatHooks += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(beat.id) + '">&#9876; Start ' + esc(beat.name || 'Encounter') + '</button>';
+    if (_beatType(beat) === 'combat' && window.CombatTracker) {
+      // Find a launchable encounter id: prefer matching a real scene.encounters[] entry.
+      var encIdForBeat = null;
+      var sceneEncs = scene.encounters || [];
+      for (var ei = 0; ei < sceneEncs.length; ei++) {
+        if (sceneEncs[ei].id === beat.id) { encIdForBeat = beat.id; break; }
+      }
+      if (!encIdForBeat && beat.encounterRef) encIdForBeat = beat.encounterRef;
+      // If beat IS itself an encounter (came from scene.encounters), use its id directly.
+      if (!encIdForBeat && !Array.isArray(scene.beats)) encIdForBeat = beat.id;
+      if (encIdForBeat) {
+        beatHooks += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(encIdForBeat) + '">&#9876; Start ' + esc(_beatLabel(beat, beatIdx)) + '</button>';
+      }
     }
     var beatConvSlug = beat.conversationRef || beat.conversationSlug;
     if (beatConvSlug) {
@@ -3503,28 +3746,32 @@
   }
 
   function _renderRunScene(scene, container, sceneIdx, allScenes) {
-    var encs = (scene.encounters || []);
-    var hasBeats = encs.length > 0;
-    var beatIdx = Math.min(_getRunSceneBeat(scene.id), Math.max(0, encs.length - 1));
+    var beats = _getResolvedBeats(scene);
+    var hasBeats = beats.length > 0;
+    var beatIdx = Math.min(_getRunSceneBeat(scene.id), Math.max(0, beats.length - 1));
+    var activeBeat = beats[beatIdx] || null;
     var sceneNpcs = getSceneNpcs();
     var raKey = scene.id + ':ra';
     var notesKey = scene.id + ':notes';
     var raCollapsed = _runSceneCollapsed[raKey] !== false;
     var notesCollapsed = _runSceneCollapsed[notesKey] !== false;
-    var anyBeatReadAloud = encs.some(function (e) { return e && e.readAloud; });
-    var anyBeatGmNotes = encs.some(function (e) { return e && e.gmNotes; });
+    // Suppress scene-level read-aloud / GM notes only when the *active* beat has its own
+    // (avoids duplication on the current view, but keeps scene context available when
+    // viewing earlier/later beats that don't restate it).
+    var activeBeatReadAloud = !!(activeBeat && activeBeat.readAloud);
+    var activeBeatGmNotes = !!(activeBeat && activeBeat.gmNotes);
 
     var html = '<div class="cb-runscene">';
 
-    // Read Aloud strip — hidden when any beat supplies its own read-aloud (avoids duplication)
-    if (!anyBeatReadAloud && (scene.readAloud || scene.readAloudPart1)) {
+    // Read Aloud strip — hidden when active beat supplies its own read-aloud (avoids duplication)
+    if (!activeBeatReadAloud && (scene.readAloud || scene.readAloudPart1)) {
       html += '<div class="cb-rs-strip' + (raCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(raKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(raKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128220; Read Aloud</span><span class="cb-rs-strip-hint">click to ' + (raCollapsed ? 'expand' : 'collapse') + '</span></div>';
       html += '<div class="cb-rs-strip-body">' + _buildReadAloudHtml(scene) + '</div>';
       html += '</div>';
     }
-    // GM Notes strip — hidden when any beat supplies its own GM notes (avoids duplication)
-    if (!anyBeatGmNotes && scene.gmNotes) {
+    // GM Notes strip — hidden when active beat supplies its own GM notes (avoids duplication)
+    if (!activeBeatGmNotes && scene.gmNotes) {
       html += '<div class="cb-rs-strip' + (notesCollapsed ? ' collapsed' : '') + '" data-rs-strip="' + esc(notesKey) + '">';
       html += '<div class="cb-rs-strip-head" data-rs-toggle="' + esc(notesKey) + '"><span class="cb-rs-chev">&#9656;</span><span class="cb-rs-strip-label">&#128221; GM Notes</span><span class="cb-rs-strip-hint">click to ' + (notesCollapsed ? 'expand' : 'collapse') + '</span></div>';
       html += '<div class="cb-rs-strip-body">' + _buildGmNotesHtml(scene) + '</div>';
@@ -3542,27 +3789,53 @@
       html += '</div>';
     }
 
+    // Scene-level read-aloud variants (e.g. fortress sabotage cascade) — surfaces
+    // before the beat strip so the GM picks the framing once per scene.
+    html += _renderSceneReadAloudVariantsHtml(scene);
+    // Scene-level conversation refs (plural) — quick-launch row.
+    html += _renderConversationRefsHtml(scene);
+
     // Beat strip
     if (hasBeats) {
       html += '<div class="cb-rs-beatstrip">';
       html += '<button class="cb-rs-nav" id="cb-rs-prev"' + (beatIdx === 0 ? ' disabled' : '') + '>&larr; Prev</button>';
       html += '<div class="cb-rs-beatdots">';
-      encs.forEach(function (e, i) {
+      beats.forEach(function (b, i) {
         var done = !!(completionsData[scene.id] && completionsData[scene.id].beatsDone && completionsData[scene.id].beatsDone[i]);
         var cls = 'cb-rs-dot' + (i === beatIdx ? ' active' : '') + (done ? ' done' : '');
-        html += '<button class="' + cls + '" data-rs-jump="' + i + '" title="' + esc(e.name || ('Beat ' + (i + 1))) + '">' + (i + 1) + '</button>';
+        html += '<button class="' + cls + '" data-rs-jump="' + i + '" title="' + esc(_beatLabel(b, i)) + '">' + (i + 1) + '</button>';
       });
       html += '</div>';
-      html += '<div class="cb-rs-beatcount">Beat ' + (beatIdx + 1) + ' of ' + encs.length + '</div>';
-      html += '<button class="cb-rs-nav" id="cb-rs-next"' + (beatIdx >= encs.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
+      html += '<div class="cb-rs-beatcount">Beat ' + (beatIdx + 1) + ' of ' + beats.length + '</div>';
+      html += '<button class="cb-rs-nav" id="cb-rs-next"' + (beatIdx >= beats.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
       html += '</div>';
+    }
+
+    // Linked Encounters quick-launch row — only when scene has both authored beats[]
+    // and a separate scene.encounters[] roster (e.g. combat or social hooks distinct from beats).
+    // Filter out stub encounters whose name is literally "Beat N — ..." (those mirror beats
+    // and would clutter the row; their content is reachable from the beat itself).
+    if (Array.isArray(scene.beats) && scene.beats.length && Array.isArray(scene.encounters) && scene.encounters.length) {
+      var linkedEncs = scene.encounters.filter(function (e) {
+        return e && !/^Beat\s+\d+\b/i.test(String(e.name || ''));
+      });
+      if (linkedEncs.length) {
+        html += '<div class="cb-rs-hooks" style="margin:0.4rem 0 0.7rem;"><div class="cb-rs-hook-label">Linked Encounters</div>';
+        linkedEncs.forEach(function (e) {
+          html += '<button class="cb-rs-hook-btn cb-encounter-link" data-enc-id="' + esc(e.id) + '" title="' + esc(e.type || 'encounter') + '">&#9876; ' + esc(e.name || e.id) + '</button>';
+          var eConv = e.conversationRef || e.conversationSlug;
+          if (eConv) {
+            html += '<button class="cb-rs-hook-btn cb-conversation-link" data-conv-slug="' + esc(eConv) + '" title="Launch ' + esc(_slugToTitle(eConv)) + '">&#128172; ' + esc(_slugToTitle(eConv)) + '</button>';
+          }
+        });
+        html += '</div>';
+      }
     }
 
     // Body: spotlight + side rail (full expandable NPC cards, on-stage NPCs sorted/auto-expanded/badged)
     html += '<div class="cb-rs-body">';
     html += '<div class="cb-rs-main">' + _renderRunSceneSpotlight(scene, beatIdx) + '</div>';
     if (sceneNpcs.length) {
-      var activeBeat = encs[beatIdx] || null;
       var npcLabels = buildNpcLabels(sceneNpcs);
       var npcOrder = sceneNpcs.map(function (n, i) {
         return { npc: n, idx: i, label: npcLabels[i], onStage: _npcOnStageForBeat(n, activeBeat) };
@@ -3644,11 +3917,29 @@
       if (!completionsData[scene.id]) completionsData[scene.id] = {};
       if (!completionsData[scene.id].beatsDone) completionsData[scene.id].beatsDone = {};
       completionsData[scene.id].beatsDone[idx] = !completionsData[scene.id].beatsDone[idx];
-      var encs = scene.encounters || [];
-      if (completionsData[scene.id].beatsDone[idx] && idx < encs.length - 1) {
+      var beats = _getResolvedBeats(scene);
+      if (completionsData[scene.id].beatsDone[idx] && idx < beats.length - 1) {
         _setRunSceneBeat(scene.id, idx + 1);
       }
       renderScene();
+    });
+    // Variant pickers (beat-level + scene readAloudVariants).
+    container.querySelectorAll('.cb-rs-variant-pick').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var slot = btn.getAttribute('data-rs-variant-slot');
+        var key = btn.getAttribute('data-rs-variant-key');
+        if (!slot || !key) return;
+        _setVariantPick(scene.id, slot, key);
+        renderScene();
+      });
+    });
+    container.querySelectorAll('.cb-rs-variant-clear').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var slot = btn.getAttribute('data-rs-variant-slot');
+        if (!slot) return;
+        _setVariantPick(scene.id, slot, null);
+        renderScene();
+      });
     });
     var exit = container.querySelector('#cb-rs-exit');
     if (exit) exit.addEventListener('click', function () {

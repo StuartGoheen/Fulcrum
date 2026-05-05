@@ -1524,7 +1524,6 @@
             "evasion",
             "survival"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-s1-arrival",
@@ -1931,9 +1930,7 @@
               ],
               "intel": "Maya intercepted an encrypted Imperial Code Cylinder from Varga's supply chain. She needs it decrypted by Switch, a droid information broker hidden in the badlands. She is offering 10 shares — 1 per crew member, 5 for herself — with a floor of 2 shares for herself if negotiated down.",
               "threatBuild": null,
-              "loot": [],
-              "nonCombat": true,
-              "nonCombatNote": "No threatBuild required: this scene is a private conversation. Maya does not fight here. Her combat statblock (used only if a fight unexpectedly breaks out — e.g. on the Banshee in P2-S1) is carried on her P1-S1 entry and reused there."
+              "loot": []
             }
           ],
           "hazards": "Derelict vaporator maintenance shed. Rusted shutter, unstable floor sections, exposed conduit. Varga's people don't know where the party went — but that window won't last.",
@@ -3073,7 +3070,6 @@
             "investigation",
             "skulduggery"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-s3-negotiation",
@@ -5678,7 +5674,6 @@
             "survival",
             "skulduggery"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-s4-ambush",
@@ -7955,7 +7950,6 @@
             "skulduggery",
             "survival"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-s5-beat1-departure",
@@ -9429,7 +9423,6 @@
             "investigation",
             "persuasion"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-s4-ambush",
@@ -9448,7 +9441,6 @@
               "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to free his people. When the heroes realize the generator also powers the turrets Maya warned them about, the deal should click."
             }
           ],
-          "environmentMechanics": [],
           "rewards": {
             "credits": 0,
             "items": [],
@@ -9944,80 +9936,7 @@
               "type": "combat-then-moral-quandary",
               "trigger": "Optional — the heroes can explore the medical bay",
               "description": "Vischera's enclosed lab. Specimen tanks line the left wall, three of them still active with pale, segmented things floating in murky green fluid. A surgical table stands in the center under hard work-lights. A portable bacta station hums against the far wall. Datapads in obsessive rows on the bench. The smell is bacta, preservative, and something organic underneath. Vischera at the bench, back to the door, dictating into a recorder while she works on the figure on the table. Two Skarn soldiers near the door — one seated on a crate, one leaning against the wall, both helmets-off, both bored.",
-              "readAloudOnDoorOpen": "The door cracks open and the room is bright. Bright work-lights, white walls, a clinical voice murmuring numbers into a recorder without pause. The two soldiers near the door look up — one of them already reaching for a blaster that isn't on his hip — and then your eyes catch on the surgical table behind them. There is a person on it. Klosari. Young. Strapped down. Awake. The woman at the bench has not turned around. She is still talking into the recorder.",
-              "tactics": "FIGHT FIRST — DEFAULT (PRE-ALARM): The 2 escort soldiers are at relaxed posts and will not permit parley. They go for weapons the instant the door opens uninvited; on a successful surprise round they are still reaching when the PCs act. They are alive because of Vischera's work and they protect her with full knowledge of what she does. Vischera does not arm herself, does not run, does not move from the bench until the shooting stops — she sets the instruments down and steps behind the specimen tanks. The figure on the table cannot move; if a fight breaks out, the GM should make the table's position a line-of-fire concern. CONDITIONAL VARIANT — alarm already up: escorts are at alert posts, weapons drawn behind cover; Vischera is at her terminal preparing to wipe her data drives (Hard Tech check at distance to interrupt the wipe; otherwise data is gone in 2 rounds). Combat harder, surrender beat unchanged.\n\nMORAL QUANDARY SECOND: Once both escorts are dropped or KO'd, the room becomes the scene. Vischera turns around for the first time, raises her hands, and surrenders without argument. She is calm. She does not beg, apologize, or lie about what she is doing here. She offers the deal: her cure-research data for safe passage off-world. That is her only lever — she knows nothing of Draco, Varth, or the wider Imperial picture. The figure on the table is still strapped down, still conscious, still listening. The PCs are alone with the choice. Mandrake is outside. The pens are still locked. Whatever happens next, they decide it themselves, in a quiet room, looking at each other. Use the six resolution paths in `moralQuandary` below.\n\nVISCHERA'S ANCHOR LINE — deliver verbatim at the moment of surrender or first PC challenge: \"Pain ends. Knowledge is permanent.\" Do not soften it. Do not let her take it back.",
-              "moralQuandary": {
-                "framing": "Vischera is unarmed and surrendered. Her research is monstrous in method and genuinely life-saving in outcome — a viable cure for a deadly disease that scours civilian populations across the Outer Rim, roughly six months from a disseminable treatment if her data and her brain reach the right hands. Her test subjects are Klosari villagers supplied by Skarn. The PCs decide what she is worth. The six paths below are explicit GM-facing resolutions; each carries Hope/Toll consequence guidance the GM should apply at scene close.",
-                "subjectOnTable": {
-                  "default": "Anonymous Klosari youth — conscious, restrained, mid-procedure. Cannot speak Basic well enough to make a case for themselves. The GM should let the silence do the work.",
-                  "gmLever": "Optional escalation — the subject is someone Mandrake will recognize on arrival (e.g., the village child who gave him the carved bead from his conversation tree). Use ONLY if the table needs the choice to land harder. If used, Mandrake's composure breaks if/when he reaches this room (see path 2). Do not invent new named NPCs — pull from existing Mandrake content."
-                },
-                "paths": [
-                  {
-                    "key": "path-1-execute",
-                    "label": "Execute the unarmed prisoner.",
-                    "destinies": [
-                      "destruction"
-                    ],
-                    "vischeraResponse": "She closes her eyes briefly, then opens them. \"Then you will have to be the one who explains, later, why no one has the cure.\" She does not flinch. She does not look away. She makes the PCs look at her while they do it.",
-                    "hopeToll": "EASY TOLL. The campaign should not let this pass uncomplicated. Apply Toll. The PCs killed an unarmed prisoner in cold silence, in a quiet bright room, with no combat adrenaline to hide behind. The cure dies with her unless they took the data first (see path 4). At least one PC who participated takes a Composure hit at scene close. If the crew leans Toll-dominant by Adventure 1's end, this moment is what Draco recalls when he confronts them later in the campaign.",
-                    "downstream": "Vischera's research data is on the bench drives. If left, Skarn's people sweep it after extraction. If destroyed, the cure dies. If taken, see path 4 framing for what the data is worth."
-                  },
-                  {
-                    "key": "path-2-mandrake-does-it",
-                    "label": "Hand her to Mandrake when he arrives.",
-                    "destinies": [
-                      "destruction"
-                    ],
-                    "available": "ONLY if Mandrake is alive AND has entered the building by scene close. Otherwise unavailable.",
-                    "vischeraResponse": "Vischera nods once when she sees him. She has been counting too. \"You are the one from the canopy. I am sorry your people made it here before mine made it elsewhere.\" Mandrake does not answer. If the GM is using the recognized-subject lever, his composure breaks here — he goes to the table first, not to her. He kills her quietly when he is done. He does not look at the PCs while he does it.",
-                    "hopeToll": "MIXED. The PCs offloaded the choice. Apply a small Toll for the dodge — they let someone else carry it — but no Composure hits, and no campaign-level consequence beyond Mandrake's fate-track tilting harder toward death-by-Draco at extraction (he has nothing left after this). If the recognized-subject lever was used, the Toll is sharper.",
-                    "downstream": "Mandrake takes whatever data drives the PCs leave behind and burns them in the fireplace at his camp three nights later. The cure dies with her. He never speaks of it. If he survives the campaign and returns in Act 3, this is the night he is talking about when he stops talking."
-                  },
-                  {
-                    "key": "path-3-take-alive",
-                    "label": "Take her alive — drag her off the moon.",
-                    "destinies": [
-                      "atonement"
-                    ],
-                    "vischeraResponse": "She accepts. \"Acceptable. I work better with a roof and a generator than without them.\" She gathers her drives without being told to. She is not grateful and she does not pretend to be.",
-                    "hopeToll": "COSTLY HOPE. Apply Hope. The crew chose mercy for someone who does not deserve it on the simple math of what she has done — and they chose the cure on the math of what she could yet do. This is hard. Even without Mandrake or survivors physically present to demand otherwise, the crew knows what they are choosing to leave alive. Composure relief at scene close for any PC who explicitly argued for this path.",
-                    "downstream": "Vischera becomes a complication in Adventure 2+. She is a high-value Imperial defector with a working cure six months from completion and zero loyalty to anyone. Where the crew stashes her — Switch's network, the Resurgence, Varga's medical wing, an academic contact she names — becomes its own subplot the GM can run with or set aside. Future task hook only; do not invent that subplot here."
-                  },
-                  {
-                    "key": "path-4-take-data-release-her",
-                    "label": "Take her research data. Let her walk.",
-                    "destinies": [
-                      "atonement"
-                    ],
-                    "vischeraResponse": "She slides the drives across the bench without comment. \"You will need a working bio-lab and someone who reads my notation. I will write you a name.\" She does. She walks out the back door of the Med Bay if the PCs let her, or waits quietly for Skarn's people to find her if they don't.",
-                    "hopeToll": "MIXED HOPE. Apply Hope for preserving the cure; apply a small Toll for letting her walk free to do this somewhere else. The crew chose the work over the worker. Composure neutral.",
-                    "downstream": "The data is real and disseminable if the crew can get it to a working lab. The contact name Vischera wrote down is a future hook — she will name a real-canon Outer Rim medical academic the GM can use or ignore. Vischera herself reappears later only if the GM wants her to. If she does, she has set up a smaller, quieter version of this lab somewhere else, with someone else's prisoners."
-                  },
-                  {
-                    "key": "path-5-destroy-data-release-her",
-                    "label": "Destroy her research data. Let her walk.",
-                    "destinies": [
-                      "destruction"
-                    ],
-                    "vischeraResponse": "She watches the drives burn without expression. When it is done she says, quietly: \"Thousands of people you will never meet just died of this. Slowly. I hope you are able to live with that. I would not be.\" Then she walks out.",
-                    "hopeToll": "HARD TOLL. Apply Toll. The crew chose to punish the worker AND destroy the work — the cleanest moral position and the worst utilitarian outcome. The cure dies. Vischera walks. The campaign should remember this: if a cure-relevant plague beat ever surfaces in a later adventure (GM's option), the crew knows what they did. Composure hit for any PC who explicitly argued for destroying the data.",
-                    "downstream": "Vischera vanishes into the Outer Rim. She does not start over — the work was a decade in. She drifts into Imperial backwater medicine and never produces anything important again. Her research notes survive only in her head, untrusted by anyone she might tell."
-                  },
-                  {
-                    "key": "path-6-step-back-for-survivors",
-                    "label": "Step back. Let the freed Klosari decide.",
-                    "destinies": [
-                      "atonement"
-                    ],
-                    "available": "ONLY if the pens have been freed AND Klosari survivors have reached the Med Bay door before the PCs resolve the scene (typically: generator already blown, fences down, survivors flowing through Central Hall). Otherwise unavailable.",
-                    "vischeraResponse": "She turns to face them. She does not speak Klosari. She does not need to. They look at her and at the figure on the table. Whatever they do, they do without speeches. The GM decides the outcome based on what the survivors saw of her work; the default is grim.",
-                    "hopeToll": "SITUATIONAL. The PCs gave the choice to the people it was actually done to. This is its own kind of weight when it's available. Apply Hope for the act of stepping back, but no Composure relief — the PCs still watched. If the survivors kill her, the data fate depends on whether the PCs grabbed the drives before stepping back. If the survivors spare her (rare), apply additional Hope.",
-                    "downstream": "If the survivors execute her, the cure data fate plays out per paths 4/5 depending on PC actions. If the survivors take her with them into the jungle, she becomes a Mandrake-faction problem in any Act 3 return."
-                  }
-                ],
-                "afterTheChoice": "However the room resolves, the figure on the table needs to be cut loose. The PCs do that themselves or one of them does. Then they leave. The recorder is still running on the bench. The GM may, at their discretion, let one PC notice that and turn it off, or leave it running for whoever finds the room next."
-              }
+              "tactics": "FIGHT FIRST — DEFAULT (PRE-ALARM): The 2 escort soldiers are at relaxed posts and will not permit parley. They go for weapons the instant the door opens uninvited; on a successful surprise round they are still reaching when the PCs act. They are alive because of Vischera's work and they protect her with full knowledge of what she does. Vischera does not arm herself, does not run, does not move from the bench until the shooting stops — she sets the instruments down and steps behind the specimen tanks. The figure on the table cannot move; if a fight breaks out, the GM should make the table's position a line-of-fire concern. CONDITIONAL VARIANT — alarm already up: escorts are at alert posts, weapons drawn behind cover; Vischera is at her terminal preparing to wipe her data drives (Hard Tech check at distance to interrupt the wipe; otherwise data is gone in 2 rounds). Combat harder, surrender beat unchanged.\n\nMORAL QUANDARY SECOND: Once both escorts are dropped or KO'd, the room becomes the scene. Vischera turns around for the first time, raises her hands, and surrenders without argument. She is calm. She does not beg, apologize, or lie about what she is doing here. She offers the deal: her cure-research data for safe passage off-world. That is her only lever — she knows nothing of Draco, Varth, or the wider Imperial picture. The figure on the table is still strapped down, still conscious, still listening. The PCs are alone with the choice. Mandrake is outside. The pens are still locked. Whatever happens next, they decide it themselves, in a quiet room, looking at each other. Use the six resolution paths in `moralQuandary` below.\n\nVISCHERA'S ANCHOR LINE — deliver verbatim at the moment of surrender or first PC challenge: \"Pain ends. Knowledge is permanent.\" Do not soften it. Do not let her take it back."
             },
             {
               "id": "enc-s8-comms",
@@ -10806,7 +10725,6 @@
             "investigation",
             "persuasion"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-s10-meeting",
@@ -12156,9 +12074,7 @@
             "_selector": "Read the variant whose flag-set matches the fortress-state `flags` object (see `data/adventures/vanishing-place-fortress.json` → `sabotageCascade`). The fortress widget is the single source of truth; DO NOT judge by narrative memory. Open the Reactive Fortress widget, read the Active Flags row, and pick the matching variant below.",
             "full_cascade": "From the east wing, you hear shouting — Mandrake's voice, barking orders in a language you don't recognize. He's moving. His people are moving. The laser fences are DOWN [laser_fences_dropped], the mag-locks have POPPED [mag_locks_open], the sensor grid is BLIND [sensor_grid_blind], and the turret emplacements sit dark and dead on the walls [turrets_offline]. Whatever you did to that generator, it worked — all four cascade effects fired.",
             "partial_cascade": "The generator took damage but kept breathing. SOME of the fortress is bleeding out — the GM reads each active flag aloud as a concrete sensory detail (fences DOWN = klaxon without fence-crackle; mag-locks OPEN = prisoners running; sensors BLIND = no thermal read; turrets OFFLINE = silent barrels). The OTHER flags still hold, and every unbroken system is a piece of the kill box Maya is about to fly through.",
-            "failed_cascade": "The turret emplacements on the walls are still tracking [turrets_offline=false], barrels sweeping the sky. The laser fences are still humming [laser_fences_dropped=false]. The mag-locks are still sealed [mag_locks_open=false]. The sensor grid is still reading every heartbeat in the compound [sensor_grid_blind=false]. Maya's going to fly into a kill box. From somewhere in the fortress, you hear Mandrake's voice — frustrated, urgent — still trying to reach his people through locked doors and active fences. The generator is still running. The plan didn't come together.",
-            "generatorSabotaged": "[LEGACY KEY — kept for compatibility; prefer `full_cascade` above. Routes to full_cascade text.] From the east wing, you hear shouting — Mandrake's voice, barking orders in a language you don't recognize. He's moving. His people are moving. The laser fences are down, the security doors are open, and the turret emplacements sit dark and dead on the walls. Whatever you did to that generator, it worked.",
-            "generatorIntact": "[LEGACY KEY — kept for compatibility; prefer `failed_cascade` above. Routes to failed_cascade text.] The turret emplacements on the walls are still tracking, barrels sweeping the sky. Maya's going to fly into a kill box. From somewhere in the fortress, you hear Mandrake's voice — frustrated, urgent — still trying to reach his people through locked doors and active fences. The generator is still running. The plan didn't come together."
+            "failed_cascade": "The turret emplacements on the walls are still tracking [turrets_offline=false], barrels sweeping the sky. The laser fences are still humming [laser_fences_dropped=false]. The mag-locks are still sealed [mag_locks_open=false]. The sensor grid is still reading every heartbeat in the compound [sensor_grid_blind=false]. Maya's going to fly into a kill box. From somewhere in the fortress, you hear Mandrake's voice — frustrated, urgent — still trying to reach his people through locked doors and active fences. The generator is still running. The plan didn't come together."
           },
           "timeAdvance": {
             "hours": 2,
@@ -12297,11 +12213,7 @@
             "belonging",
             "truth"
           ],
-          "vocationTags": [],
-          "disciplineTags": [],
-          "gearFlags": [],
           "encounters": [],
-          "environmentMechanics": [],
           "rewards": {
             "intel": [
               "Varth, off-script, may reveal Adv 6 / Leviathan foreshadow if pushed on the aftermath-holding-back branch (red flag intel).",

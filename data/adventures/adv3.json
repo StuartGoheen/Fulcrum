@@ -383,7 +383,6 @@
             "Varga the Hutt",
             "Ugnaught Guilds"
           ],
-          "narrativeLinks": [],
           "challengeType": "social",
           "destinyTags": [
             "discovery",
@@ -401,7 +400,6 @@
             "deception",
             "stealth"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3-p1-s1-beat1-arrival",
@@ -728,7 +726,6 @@
             "Varga the Hutt",
             "Tibanna Gas"
           ],
-          "narrativeLinks": [],
           "challengeType": "social",
           "destinyTags": [
             "discovery",
@@ -746,7 +743,6 @@
             "investigation",
             "deception"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3-p1-s2-beat1-the-bay",
@@ -1048,7 +1044,6 @@
             "The Indemnity",
             "Cloud City"
           ],
-          "narrativeLinks": [],
           "challengeType": "combat",
           "destinyTags": [
             "destruction",
@@ -1467,7 +1462,6 @@
             "Sabacc Tournament",
             "Varga the Hutt"
           ],
-          "narrativeLinks": [],
           "challengeType": "infiltration",
           "destinyTags": [
             "discovery",
@@ -1797,7 +1791,6 @@
             "tactics",
             "investigation"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3-p1-s5-beat1-final-prep",
@@ -2185,7 +2178,6 @@
             "charm",
             "persuasion"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3-p2-s1-beat1-the-floor",
@@ -2549,7 +2541,6 @@
             "sense_spark",
             "skulduggery"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3-p2-s2-beat1-day-two-open",
@@ -2892,7 +2883,6 @@
             "insight",
             "intimidate"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3s7-szygar",
@@ -3308,7 +3298,6 @@
             "insight",
             "skulduggery"
           ],
-          "gearFlags": [],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -3709,7 +3698,6 @@
             "Varga the Hutt",
             "Cloud City"
           ],
-          "narrativeLinks": [],
           "challengeType": "combat",
           "destinyTags": [
             "destruction",
@@ -4036,7 +4024,6 @@
             "piloting",
             "tech"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a3-p2-s5-beat1-the-wreck",
@@ -4361,7 +4348,6 @@
             "Varga the Hutt",
             "Admiral Varth"
           ],
-          "narrativeLinks": [],
           "challengeType": "combat",
           "destinyTags": [
             "destruction",
@@ -4856,7 +4842,6 @@
             "The Glorious Chariot",
             "Cloud City"
           ],
-          "narrativeLinks": [],
           "challengeType": "combat",
           "destinyTags": [
             "destruction",
@@ -5303,7 +5288,6 @@
             "Varga the Hutt",
             "The Glorious Chariot"
           ],
-          "narrativeLinks": [],
           "challengeType": "combat",
           "destinyTags": [
             "destruction",
@@ -5569,7 +5553,6 @@
             "The Glorious Chariot",
             "Cloud City"
           ],
-          "narrativeLinks": [],
           "challengeType": "technical",
           "destinyTags": [
             "rescue",
@@ -6427,7 +6410,6 @@
             "investigation",
             "resolve"
           ],
-          "gearFlags": [],
           "encounters": [],
           "environmentMechanics": [
             {

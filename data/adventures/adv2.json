@@ -314,7 +314,6 @@
               "type": "Swoop Gang Leader",
               "count": 1,
               "notes": "Scarred human woman. Leader of The Vipers. Consequence gate — may reappear in fortress if humiliated here.",
-              "behaviour": "Demands 500 credits landing tax. Tests the heroes' nerve. If humiliated, holds a personal grudge that triggers the aviary ambush in Part 2.",
               "dialogue": [
                 "\"Landing tax is five hundred credits. Non-negotiable.\"",
                 "\"You think you're tough? Everyone who comes here thinks they're tough. Most of them are wrong.\"",
@@ -389,7 +388,8 @@
                 },
                 "notes": "Kessra is a recurring NPC. Consequence gate: humiliation here triggers aviary ambush in Part 2.",
                 "powerSource": "ranged"
-              }
+              },
+              "behavior": "Demands 500 credits landing tax. Tests the heroes' nerve. If humiliated, holds a personal grudge that triggers the aviary ambush in Part 2."
             },
             {
               "name": "The Vipers",
@@ -538,7 +538,6 @@
             "ranged",
             "melee"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a2s1-vipers",
@@ -628,60 +627,60 @@
               "type": "Toydarian Parts Dealer",
               "count": 1,
               "notes": "Runs a stall near the east market. Sold Raden ration packs and a portable charge cell three days ago. Knows Raden was stocking up to hide.",
-              "behaviour": "Shrewd and unhelpful unless given a reason to talk. Credits loosen his tongue. Responds well to Charm. Clams up under Intimidate — he's been shaken down too many times.",
               "dialogue": [
                 "\"A Devaronian? I see a lot of Devaronians. What's in it for me?\"",
                 "\"He bought survival supplies. Ration packs, charge cell, water tabs. Paid in cash — Imperial credits, not Hutt scrip. That's unusual around here.\"",
                 "\"I don't know where he went. I sell parts, not directions.\""
-              ]
+              ],
+              "behavior": "Shrewd and unhelpful unless given a reason to talk. Credits loosen his tongue. Responds well to Charm. Clams up under Intimidate — he's been shaken down too many times."
             },
             {
               "name": "Drelk",
               "type": "Aqualish Dockhand",
               "count": 1,
               "notes": "Works the landing pads. Saw Raden fleeing Varga's enforcers two days ago. Watched him cut toward the swamp. Doesn't want trouble.",
-              "behaviour": "Sullen and cautious. Will talk if approached without hostility. Responds to shared drinks or a show of solidarity. Won't talk to anyone who looks Imperial.",
               "dialogue": [
                 "\"I mind my own business. You should try it.\"",
                 "\"Two days ago. East market. Your Devaronian was running hard. Varga's boys were on him. He went for the swamp — they stopped at the tree line. Smart of them. Stupid of him.\"",
                 "\"The swamp takes people. If he went in there, he's either dead or more desperate than I thought.\""
-              ]
+              ],
+              "behavior": "Sullen and cautious. Will talk if approached without hostility. Responds to shared drinks or a show of solidarity. Won't talk to anyone who looks Imperial."
             },
             {
               "name": "Nola Shar",
               "type": "Human Refugee",
               "count": 1,
               "notes": "A mother with two children. Arrived from Felucia three weeks ago. She saw smoke from the filtration plant yesterday morning.",
-              "behaviour": "Exhausted and wary. Won't volunteer information unless she feels safe. Responds to kindness — a ration pack, a kind word, asking about her children. She doesn't know who Raden is specifically, but she knows the filtration plant.",
               "dialogue": [
                 "\"Please — we don't want trouble. We just need to get to the next transport.\"",
                 "\"The filtration plant? It's been abandoned since the Republic fell. But I saw smoke from that direction yesterday when I was washing clothes at the creek. Someone's out there.\"",
                 "\"Be careful near the swamp. There are things in that water.\""
-              ]
+              ],
+              "behavior": "Exhausted and wary. Won't volunteer information unless she feels safe. Responds to kindness — a ration pack, a kind word, asking about her children. She doesn't know who Raden is specifically, but she knows the filtration plant."
             },
             {
               "name": "Gorr the Barkeep",
               "type": "Besalisk Cantina Owner",
               "count": 1,
               "notes": "Runs The Drowned Sarlacc — the only cantina in Blackwind Point. Raden drank here four days ago. Gorr doesn't care about Raden but he cares about his bar.",
-              "behaviour": "Four arms, three of which are always busy. Hospitable to paying customers. Has no loyalty to anyone but himself. Will trade information for credits or a favor.",
               "dialogue": [
                 "\"Devaronian? Red skin, horns, looked like he hadn't slept in a week? Sat in the back corner four days ago. Nursed one drink for three hours. Then left.\"",
                 "\"He was asking about the swamp — what's out there, who goes there. I told him the same thing I tell everyone: nothing good.\"",
                 "\"You want another round or are you going to keep asking questions I'm not getting paid for?\""
-              ]
+              ],
+              "behavior": "Four arms, three of which are always busy. Hospitable to paying customers. Has no loyalty to anyone but himself. Will trade information for credits or a favor."
             },
             {
               "name": "Greez Thakka",
               "type": "Ithorian Water Hauler",
               "count": 1,
               "notes": "Hauls water purification equipment to settlements around the lake. Knows the filtration plant intimately — he serviced it two years ago. Can describe the maintenance shed.",
-              "behaviour": "Gentle and cooperative. Speaks through a translator unit. Happy to help if asked politely. Doesn't understand why anyone would hide at the filtration plant.",
               "dialogue": [
                 "\"The filtration plant? Yes, I know it well. I serviced the purification units there two years ago, before the last of the operators left.\"",
                 "\"There is a maintenance shed on the west side. It has a working lock — Imperial standard, five-digit code. Whoever went in would need to slice it or have the code.\"",
                 "\"It is not a comfortable place. But it is hidden. The swamp growth has nearly swallowed it.\""
-              ]
+              ],
+              "behavior": "Gentle and cooperative. Speaks through a translator unit. Happy to help if asked politely. Doesn't understand why anyone would hide at the filtration plant."
             }
           ],
           "hazards": "The encampment itself is not physically dangerous, but drawing too much attention is. Failed investigation attempts alert Varga's network or the Trandoshan hit squad already hunting Raden.",
@@ -733,7 +732,6 @@
             "intimidate",
             "skulduggery"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a2s2-beat1-arrival",
@@ -1038,7 +1036,6 @@
               "type": "Devaronian Fixer",
               "count": 1,
               "notes": "Nervous wreck. Owes Varth a debt. Will share intel but absolutely refuses to return to the fortress. Potential dark-path sacrifice if heroes follow Varth's suggestion.",
-              "behaviour": "Terrified, armed with a blaster, jumping at shadows. Relieved when he hears Varth is alive. Will share everything he knows but refuses — categorically — to go back to Varga's fortress. He knows he's a dead man if he sets foot on that dock.",
               "dialogue": [
                 "\"Don't come any closer. I will shoot.\"",
                 "\"Varth? He's alive? Stars help me — he's alive.\"",
@@ -1092,7 +1089,8 @@
                   "exploit": null
                 },
                 "notes": "Raden is not a fighter. His value is information, not combat."
-              }
+              },
+              "behavior": "Terrified, armed with a blaster, jumping at shadows. Relieved when he hears Varth is alive. Will share everything he knows but refuses — categorically — to go back to Varga's fortress. He knows he's a dead man if he sets foot on that dock."
             }
           ],
           "hazards": "Swamp terrain approaching the plant. Raden's crude trip-wires and perimeter alarms if crew left the encampment with < 10 VP.",
@@ -1168,7 +1166,6 @@
             "insight",
             "persuasion"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a2s3-beat1-first-contact",
@@ -1783,7 +1780,6 @@
               "type": "Hutt Crime Lord (Clan Besadii)",
               "count": 1,
               "notes": "Bloated, scarred, paranoid. Sits on an electrum-plated hover-sled. Never speaks Basic — uses TC-663. Full name: Varga Besadii Drokko.",
-              "behaviour": "Demands entertainment. Bored, jaded, suspicious. Values spectacle over competence. His reaction to the heroes depends entirely on whether they brought Raden. With Raden: delighted, welcoming, magnanimous. Without Raden: skeptical, demanding, requiring proof of worth.",
               "dialogue": [
                 "\"The Mighty Varga is bored with beggars. Prove you are worth his air.\" (via TC-663, Path A)",
                 "\"You bring me a GIFT! The thief who stole from Besadii — delivered to my feet like a wrapped present! I LIKE these ones.\" (via TC-663, Path B)",
@@ -1855,14 +1851,14 @@
                 },
                 "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24. He fights through his army. Direct combat is a mistake.",
                 "powerSource": "martial"
-              }
+              },
+              "behavior": "Demands entertainment. Bored, jaded, suspicious. Values spectacle over competence. His reaction to the heroes depends entirely on whether they brought Raden. With Raden: delighted, welcoming, magnanimous. Without Raden: skeptical, demanding, requiring proof of worth."
             },
             {
               "name": "TC-663 ('Six-Six')",
               "type": "Silver Protocol Droid",
               "count": 1,
               "notes": "Varga's translator. Secretly an agent of Switch from Adventure 1.",
-              "behaviour": "Translates for Varga with exaggerated courtesy. If heroes use Switch's code phrase, he provides covert assistance. Without it, he remains cautious.",
               "dialogue": [
                 "\"The Mighty Varga welcomes you to his humble court.\" (subtle emphasis on 'humble' — TC-663's dry humor)",
                 "\"If I may suggest... the eastern corridor is less frequently patrolled after the third watch.\" (whispered, if turned)",
@@ -1905,14 +1901,14 @@
                   "exploit": null
                 },
                 "notes": "Non-combatant spy. His real value is turning him into an asset using Switch's code phrase from Adventure 1."
-              }
+              },
+              "behavior": "Translates for Varga with exaggerated courtesy. If heroes use Switch's code phrase, he provides covert assistance. Without it, he remains cautious."
             },
             {
               "name": "Igren Demos",
               "type": "Neimoidian Majordomo",
               "count": 1,
               "notes": "Varga's right hand. Secretly Force-sensitive and plotting a coup. Watches the heroes with suspicion.",
-              "behaviour": "Officious and ambitious. Watches the heroes during the audition and takes mental notes. If the deception check fails, he is ordered to watch them closely.",
               "threatBuild": {
                 "role": "controller",
                 "tier": 2,
@@ -1983,7 +1979,8 @@
                 },
                 "notes": "Elite mini-boss. Untrained Force user — dangerous but sloppy. Plotting to usurp Varga. Full combat in Scene 5.",
                 "powerSource": "force"
-              }
+              },
+              "behavior": "Officious and ambitious. Watches the heroes during the audition and takes mental notes. If the deception check fails, he is ordered to watch them closely."
             },
             {
               "name": "Gamorrean Guards",
@@ -2088,7 +2085,6 @@
             "Warrick Raden",
             "Besadii"
           ],
-          "narrativeLinks": [],
           "challengeType": "social",
           "destinyTags": [
             "corruption",
@@ -2108,7 +2104,6 @@
             "tech",
             "investigation"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a2s5-beat1-skiff",
@@ -3265,7 +3260,6 @@
             "medicine",
             "persuasion"
           ],
-          "gearFlags": [],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -3467,7 +3461,6 @@
               "type": "Duros Moneychanger",
               "count": 1,
               "notes": "Elderly palace moneychanger. Rambling, morally indifferent, obsessed with numbers. Reveals Bespin/Cloud City as Varga's fallback headquarters.",
-              "behaviour": "Talks endlessly about financial details if asked. Doesn't see the moral dimension of anything. Shares critical Bespin intel without realizing its importance.",
               "dialogue": [
                 "\"The accounts for the secondary operations? Oh, those route through a Bespin address. Cloud City, actually. Very elegant banking infrastructure up there — did you know they use a triple-ledger system?\"",
                 "\"Varga keeps a contingency vault on Cloud City. Standard Hutt practice. If things go wrong here, he takes the Chariot and... well, you understand.\"",
@@ -3509,7 +3502,8 @@
                   "exploit": null
                 },
                 "notes": "Non-combatant. The only NPC who will freely discuss Varga's operations — he just doesn't see the moral dimension. CRITICAL: provides Bespin/Cloud City intel for Adv3."
-              }
+              },
+              "behavior": "Talks endlessly about financial details if asked. Doesn't see the moral dimension of anything. Shares critical Bespin intel without realizing its importance."
             },
             {
               "name": "TC-663",
@@ -3688,7 +3682,6 @@
             "tech",
             "insight"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a2s3-tc663-wine",
@@ -3697,8 +3690,7 @@
               "trigger": "DEFAULT — first time the crew is in the guest corridor between throne-room events. Run before any other encounter in this scene.",
               "description": "TC-663 catches the crew on the walk back from the throne room with a polished, faintly desperate request to assist with the household wine inventory. The senior steward considers the cellar his personal prerogative, so it is the one errand no other staff will volunteer for — a perfect four-minute pretext to pull the heroes into a service alcove off the guest corridor and finally speak plainly. The droid has been waiting three years and seven months for someone Switch trusts to walk through this fortress's door. He intends to use the four minutes well.",
               "tactics": "No combat. Run as the tc663-turned conversation tree (data/conversations/tc663-turned.json). TC-663 starts at Comfort 3 with a hard 4-minute clock — at Comfort 1 the senior steward arrives in the corridor and TC-663 exits politely. The Switch code phrase, if delivered cleanly at the open, lifts comfort +1 immediately (GM-applied; the conversation engine does not auto-apply positive comfort gains). Critical intel available: the Cybot Galactica Model VII Courier implant (location, factory-serial encryption key, 46-second extraction window — the engine of the entire Adventure 2 heist), Demos's coup timeline and Force-sensitivity, the Drosk watch window (0200-0400 local) for eastern-corridor exfil, a forearm chip with full rotation schedules to be handed to whichever PC is most likely to lose it last. DARK-PATH VARIANT: if the crew handed Raden to Varga in adv2-p1-s5, TC-663 opens with the darkPathOpener line — Switch will be informed, but assistance continues.",
-              "conversationRef": "tc663-turned",
-              "encounterClass": "conversation"
+              "conversationRef": "tc663-turned"
             },
             {
               "id": "enc-a2s3-kessra",
@@ -4271,7 +4263,6 @@
             "insight",
             "deception"
           ],
-          "gearFlags": [],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -4457,12 +4448,10 @@
             "voc_slicer",
             "voc_ghost"
           ],
-          "disciplineTags": [],
           "gearFlags": [
             "Recording Rod"
           ],
           "encounters": [],
-          "environmentMechanics": [],
           "rewards": {
             "credits": 0,
             "xp": "Investigation milestone",
@@ -5335,7 +5324,6 @@
             "skulduggery",
             "medicine"
           ],
-          "gearFlags": [],
           "encounters": [
             {
               "id": "enc-a2s7-droids",
@@ -5852,7 +5840,6 @@
             "Jedi Master Denia",
             "Inquisitor Draco"
           ],
-          "narrativeLinks": [],
           "challengeType": "combat",
           "destinyTags": [
             "destruction",
