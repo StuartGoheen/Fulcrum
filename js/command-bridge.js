@@ -3569,7 +3569,10 @@
   function _renderCompositionFallbackHtml(scene, beat) {
     if (!scene || !beat) return '';
     if (beat.composition) return '';
-    if (_beatType(beat) !== 'combat') return '';
+    // Combat OR combat-hybrid beat types (e.g. "combat-then-moral-quandary",
+    // "combat-then-social", "combat-or-stealth") all warrant a roster fallback.
+    var bt = String(_beatType(beat)).toLowerCase();
+    if (!bt || (bt.indexOf('combat') === -1)) return '';
     var allThreatNpcs = (scene.npcs || []).filter(function (n) { return n && (n.threatBuild || n.threatCategory); });
     if (!allThreatNpcs.length) return '';
     var beatScoped = allThreatNpcs.filter(function (n) { return _npcOnStageForBeat(n, beat); });
