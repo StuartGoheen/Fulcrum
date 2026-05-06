@@ -331,43 +331,52 @@
             "resolution": "The march begins. The heroes push into the green labyrinth.",
             "estimatedMinutes": 20
           },
-          "encounters": [
-            {
-              "id": "enc-a4-p1-s1-beat1-the-clearing",
-              "name": "Beat 1 — Touching Down in the Clearing",
-              "type": "social",
-              "trigger": "Banshee descent through Endor canopy completes",
-              "description": "The Banshee's landing struts settle into damp mulch in a rare clearing among trunks the size of dreadnoughts. The scale of Endor is immediately oppressive — the upper canopy is so dense that the surface light is permanent emerald twilight. The forest floor is alive with sound: insects, distant calls, the wet drip of condensation off enormous leaves. Maya leaves the engines hot. Varth, at the holotable in the common room, calls the briefing without leaving his chair.",
-              "tactics": "NO DICE — atmospheric arrival. Establish the gulf in scale. PCs who try to scan with sensors find the canopy attenuates everything — long-range comms degraded, surface scans muddy. End beat when Varth calls the briefing."
-            },
-            {
-              "id": "enc-a4-p1-s1-beat2-the-briefing",
-              "name": "Beat 2 — The Briefing",
-              "type": "social",
-              "trigger": "Crew gathers at the common room holotable",
-              "description": "Varth runs the brief tight: target is the Ebon Spire, a petrified Sith-corrupted tree at the center of a dead zone, ten klicks from the clearing through living canopy and across an unmarked boundary. Inquisitor Draco arrived three weeks ago with a strike team and has not been heard from since. The crew's job: locate the Spire, recover any holocrons Draco has not yet taken, extract. Varth does not say \"and confirm Draco is dead.\" He should. He doesn't. Maya and Denia stand off-camera. Maya looks at Varth when he skips that line.",
-              "tactics": "NO DICE — briefing beat. PCs paying attention may catch Varth's omission (free Insight) — he is keeping Denia close because she is the only one who can open holocrons recovered, but he is not naming it. End beat with the crew clear on the objective and the route."
-            },
-            {
-              "id": "enc-a4-p1-s1-beat3-varth-stays",
-              "name": "Beat 3 — Varth Stays Aboard",
-              "type": "social",
-              "trigger": "Crew prepares to depart the Banshee",
-              "description": "Varth announces he is staying aboard. His stated reason is tactical overwatch — he can run sensor analysis from the Banshee's console as the crew moves toward the Spire. His real reason (per scene gmNotes, not for player ears) is keeping Denia safe from the Spire's Dark Side influence. Maya does not approve but does not argue in front of the crew. She walks the crew to the cargo ramp herself. She gives one parting line, low: \"If something goes wrong out there, I'm the one bringing the Banshee. He won't. Remember that.\"",
-              "tactics": "NO DICE — character beat. Maya's quiet line is a free intel drop for any PC tracking Varth's pattern. PCs who note it may use it later in adv6 when Varth's loyalties surface. End beat at the cargo ramp."
-            },
-            {
-              "id": "enc-a4-p1-s1-beat4-the-march",
-              "name": "Beat 4 — The First Hour Through the Canopy",
-              "type": "tactical",
-              "trigger": "Crew steps off the Banshee into the forest",
-              "description": "The march into the canopy is profoundly disorienting. Every fern-choked ravine mirrors the last. The light does not change. Time blurs. Within forty minutes the crew has lost line-of-sight to the Banshee and is navigating by Maya's comm-relay coordinates only. The forest is loud but the canopy attenuates anything a hundred meters out — the crew can hear themselves and the immediate forest, nothing else. End beat with the crew an hour out, an unfamiliar low growl audible somewhere in the brush ahead.",
-              "tactics": "NO DICE — atmospheric march. PCs may make Survival checks (Resist 1) to maintain bearing; failed checks add a small navigation penalty (one extra hour to Spire) but no fail state. End beat at the boar-wolf encounter trigger (s2)."
-            }
-          ],
+          "encounters": [],
           "disciplineChallenges": [],
           "environmentMechanics": [],
-          "rewards": {}
+          "rewards": {},
+          "beats": [
+            {
+              "id": "adv4-p1-s1-b1",
+              "number": 1,
+              "title": "Touching Down in the Clearing",
+              "description": "The Banshee's landing struts settle into damp mulch in a rare clearing among trunks the size of dreadnoughts. The scale of Endor is immediately oppressive — the upper canopy is so dense that the surface light is permanent emerald twilight. The forest floor is alive with sound: insects, distant calls, the wet drip of condensation off enormous leaves. Maya leaves the engines hot. Varth, at the holotable in the common room, calls the briefing without leaving his chair.",
+              "tactics": "NO DICE — atmospheric arrival. Establish the gulf in scale. PCs who try to scan with sensors find the canopy attenuates everything — long-range comms degraded, surface scans muddy. End beat when Varth calls the briefing.",
+              "trigger": "Banshee descent through Endor canopy completes",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s1-b2",
+              "number": 2,
+              "title": "The Briefing",
+              "description": "Varth runs the brief tight: target is the Ebon Spire, a petrified Sith-corrupted tree at the center of a dead zone, ten klicks from the clearing through living canopy and across an unmarked boundary. Inquisitor Draco arrived three weeks ago with a strike team and has not been heard from since. The crew's job: locate the Spire, recover any holocrons Draco has not yet taken, extract. Varth does not say \"and confirm Draco is dead.\" He should. He doesn't. Maya and Denia stand off-camera. Maya looks at Varth when he skips that line.",
+              "tactics": "NO DICE — briefing beat. PCs paying attention may catch Varth's omission (free Insight) — he is keeping Denia close because she is the only one who can open holocrons recovered, but he is not naming it. End beat with the crew clear on the objective and the route.",
+              "trigger": "Crew gathers at the common room holotable",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s1-b3",
+              "number": 3,
+              "title": "Varth Stays Aboard",
+              "description": "Varth announces he is staying aboard. His stated reason is tactical overwatch — he can run sensor analysis from the Banshee's console as the crew moves toward the Spire. His real reason (per scene gmNotes, not for player ears) is keeping Denia safe from the Spire's Dark Side influence. Maya does not approve but does not argue in front of the crew. She walks the crew to the cargo ramp herself. She gives one parting line, low: \"If something goes wrong out there, I'm the one bringing the Banshee. He won't. Remember that.\"",
+              "tactics": "NO DICE — character beat. Maya's quiet line is a free intel drop for any PC tracking Varth's pattern. PCs who note it may use it later in adv6 when Varth's loyalties surface. End beat at the cargo ramp.",
+              "trigger": "Crew prepares to depart the Banshee",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s1-b4",
+              "number": 4,
+              "title": "The First Hour Through the Canopy",
+              "description": "The march into the canopy is profoundly disorienting. Every fern-choked ravine mirrors the last. The light does not change. Time blurs. Within forty minutes the crew has lost line-of-sight to the Banshee and is navigating by Maya's comm-relay coordinates only. The forest is loud but the canopy attenuates anything a hundred meters out — the crew can hear themselves and the immediate forest, nothing else. End beat with the crew an hour out, an unfamiliar low growl audible somewhere in the brush ahead.",
+              "tactics": "NO DICE — atmospheric march. PCs may make Survival checks (Resist 1) to maintain bearing; failed checks add a small navigation penalty (one extra hour to Spire) but no fail state. End beat at the boar-wolf encounter trigger (s2).",
+              "trigger": "Crew steps off the Banshee into the forest",
+              "beatType": "narrative",
+              "optional": false
+            }
+          ]
         },
         {
           "id": "adv4-p1-s2",
@@ -568,51 +577,62 @@
             "resolution": "Chirpa agrees to provide scouts. The crew rests and prepares to depart at dawn.",
             "estimatedMinutes": 25
           },
-          "encounters": [
-            {
-              "id": "enc-a4-p1-s5-beat1-arrival",
-              "name": "Beat 1 — Arrival at Bright Tree Village",
-              "type": "social",
-              "trigger": "Ewok escort delivers crew to the village center",
-              "description": "The climb up rope ladders and across vine-bridges takes thirty minutes — long enough for the canopy to feel different from the forest floor below. The village is alive: cookfires, weaving frames, children running on platforms, drums in the distance. Chief Chirpa watches from across a roaring central fire as the crew is brought in, escorted by Paploo whose eager curiosity is the bridge between the warriors and the outsiders. The crew is gestured toward leaf-mats around the fire. Food appears — strips of smoked boar-wolf, a bitter fungal tea. Eat. Listen. The conversation has not yet begun.",
-              "tactics": "NO DICE — atmospheric arrival. Establish the village's scale and the gulf in cosmology between the crew and the Ewoks. Paploo translates basics. Chirpa does not yet speak. PCs who try to launch into questions immediately are gently waved to a seat and offered more tea — the village runs on its own pace."
-            },
-            {
-              "id": "enc-a4-p1-s5-beat2-conversation",
-              "name": "Beat 2 — The Storyteller's Fire (Conversation Overlay)",
-              "type": "social",
-              "trigger": "The Storyteller settles cross-legged at the fire and signals",
-              "description": "The Storyteller — eyes milky with cataracts but reading the crew anyway — opens the floor for questions. This is the structured social scene: the Storyteller conversation overlay. Launch the [the-storyteller-bright-tree] conversation from the Conversation panel. Paploo translates patiently. Chirpa watches. The conversation can deliver Spire history (the \"tooth\"), the dead zone's growth rate, the stranger / \"canopy-without-roots\" framing, the totem warding charms, the gray-fern warning, and the Draco-prior-visit breadcrumb.",
-              "tactics": "GM ACTION: Open the Conversation panel and launch [the-storyteller-bright-tree]. Comfort starts at 4. Story topics about the Spire, the corruption, and Ewok history HOLD or raise comfort. Business topics about the route are neutral. Probe topics that question Ewok belief cost 2 comfort each — Paploo's translations slow visibly. The conversation closes when accessible topics run out or when comfort drops to 1 (Chirpa stands, the fire dims, the crew is shown to a sleeping platform)."
-            },
-            {
-              "id": "enc-a4-p1-s5-beat3-the-totems",
-              "name": "Beat 3 — Distributing the Totems",
-              "type": "social",
-              "trigger": "After the conversation overlay closes — assuming Chirpa did not stand",
-              "description": "The Storyteller hands across three small carved living-tree totems on leather thongs. The crew negotiates distribution out loud — who is most likely to be alone in the dark of the Spire. This is roleplay, not mechanics: who volunteers, who defers, who insists. The Storyteller listens to the negotiation without intervening. Chirpa watches. Whichever PCs end up wearing the totems gain their phantom re-roll for p3-s3 / p3-s4. The Storyteller nods, once, when distribution is done. The fire is replenished.",
-              "tactics": "NO DICE — distribution beat. Players choose. Note which PCs carry the totems on the crew sheet. The number is fixed at three, even if the crew is larger; the choice is the point. If the conversation outcome was Comfort 5, an additional small carving is offered to a fourth PC — the Storyteller says, through Paploo, \"He says — for the one whose questions made him remember why he tells this story.\" The GM picks which PC by table reading."
-            },
-            {
-              "id": "enc-a4-p1-s5-beat4-the-route-brief",
-              "name": "Beat 4 — Route Brief on the Leaf-Mat Map",
-              "type": "social",
-              "trigger": "Totems distributed, crew gathered around the leaf-mat map",
-              "description": "Paploo unfolds the pictographic leaf-mat map. He walks the crew through the west and east approaches in detail, pointing out the boar-wolf marsh, the ridge of fallen trees, the boundary itself, and the gray ferns the Storyteller warned about. He marks two safe water sources between the village and the boundary and one hollow log that can shelter the entire crew if a storm hits. Chirpa speaks for the second time tonight — a single sentence, translated by Paploo: \"The chief says — at first light, ten of his scouts will walk with you to the boundary. They will not cross. They will go no further than the ferns. After that, you walk alone.\"",
-              "tactics": "NO DICE — concrete tactical handoff. Players choose west (fast, sets up boar-wolf pack ambush in p2-s2) or east (half day longer, single skirmish only). PCs who explicitly note the gray-fern warning get the s3 Hall-of-Mirrors bonus per the Storyteller conversation. The ten Ewok scouts are real — they appear in p2-s1 The Creeping Quiet — and the GM should track which ten by giving Paploo a single named lieutenant (Logray, the village healer's son)."
-            },
-            {
-              "id": "enc-a4-p1-s5-beat5-the-platform",
-              "name": "Beat 5 — A Night on the Platform",
-              "type": "social",
-              "trigger": "Conversation, totems, and route brief all complete",
-              "description": "The crew is shown to a sleeping platform high in the canopy. Watchers stand at the rope-walks all night. The forest below is loud with insects and the distant calls of unseen things. PCs may have a quiet conversation with each other before sleep — the last private moment before crossing the boundary. Maya, on a relay through the Banshee, may be patched in for one quick line (\"Get some rest. I'll be on this end if anything moves on the long-range scopes\"). Varth does not call. He is, per his own gmNotes, intentionally absent to keep Denia safe.",
-              "tactics": "NO DICE — tonal closing beat. Players may roleplay one cross-character conversation each. GMs may use this as the moment to surface any inter-PC tension before the Spire descent — anything carried in from earlier adventures that needs naming. End the beat with the dawn light coming up through the canopy and the ten scouts already waiting at the platform ladder."
-            }
-          ],
+          "encounters": [],
           "disciplineChallenges": [],
           "environmentMechanics": [],
-          "rewards": {}
+          "rewards": {},
+          "beats": [
+            {
+              "id": "adv4-p1-s5-b1",
+              "number": 1,
+              "title": "Arrival at Bright Tree Village",
+              "description": "The climb up rope ladders and across vine-bridges takes thirty minutes — long enough for the canopy to feel different from the forest floor below. The village is alive: cookfires, weaving frames, children running on platforms, drums in the distance. Chief Chirpa watches from across a roaring central fire as the crew is brought in, escorted by Paploo whose eager curiosity is the bridge between the warriors and the outsiders. The crew is gestured toward leaf-mats around the fire. Food appears — strips of smoked boar-wolf, a bitter fungal tea. Eat. Listen. The conversation has not yet begun.",
+              "tactics": "NO DICE — atmospheric arrival. Establish the village's scale and the gulf in cosmology between the crew and the Ewoks. Paploo translates basics. Chirpa does not yet speak. PCs who try to launch into questions immediately are gently waved to a seat and offered more tea — the village runs on its own pace.",
+              "trigger": "Ewok escort delivers crew to the village center",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s5-b2",
+              "number": 2,
+              "title": "The Storyteller's Fire (Conversation Overlay)",
+              "description": "The Storyteller — eyes milky with cataracts but reading the crew anyway — opens the floor for questions. This is the structured social scene: the Storyteller conversation overlay. Launch the [the-storyteller-bright-tree] conversation from the Conversation panel. Paploo translates patiently. Chirpa watches. The conversation can deliver Spire history (the \"tooth\"), the dead zone's growth rate, the stranger / \"canopy-without-roots\" framing, the totem warding charms, the gray-fern warning, and the Draco-prior-visit breadcrumb.",
+              "tactics": "GM ACTION: Open the Conversation panel and launch [the-storyteller-bright-tree]. Comfort starts at 4. Story topics about the Spire, the corruption, and Ewok history HOLD or raise comfort. Business topics about the route are neutral. Probe topics that question Ewok belief cost 2 comfort each — Paploo's translations slow visibly. The conversation closes when accessible topics run out or when comfort drops to 1 (Chirpa stands, the fire dims, the crew is shown to a sleeping platform).",
+              "trigger": "The Storyteller settles cross-legged at the fire and signals",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s5-b3",
+              "number": 3,
+              "title": "Distributing the Totems",
+              "description": "The Storyteller hands across three small carved living-tree totems on leather thongs. The crew negotiates distribution out loud — who is most likely to be alone in the dark of the Spire. This is roleplay, not mechanics: who volunteers, who defers, who insists. The Storyteller listens to the negotiation without intervening. Chirpa watches. Whichever PCs end up wearing the totems gain their phantom re-roll for p3-s3 / p3-s4. The Storyteller nods, once, when distribution is done. The fire is replenished.",
+              "tactics": "NO DICE — distribution beat. Players choose. Note which PCs carry the totems on the crew sheet. The number is fixed at three, even if the crew is larger; the choice is the point. If the conversation outcome was Comfort 5, an additional small carving is offered to a fourth PC — the Storyteller says, through Paploo, \"He says — for the one whose questions made him remember why he tells this story.\" The GM picks which PC by table reading.",
+              "trigger": "After the conversation overlay closes — assuming Chirpa did not stand",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s5-b4",
+              "number": 4,
+              "title": "Route Brief on the Leaf-Mat Map",
+              "description": "Paploo unfolds the pictographic leaf-mat map. He walks the crew through the west and east approaches in detail, pointing out the boar-wolf marsh, the ridge of fallen trees, the boundary itself, and the gray ferns the Storyteller warned about. He marks two safe water sources between the village and the boundary and one hollow log that can shelter the entire crew if a storm hits. Chirpa speaks for the second time tonight — a single sentence, translated by Paploo: \"The chief says — at first light, ten of his scouts will walk with you to the boundary. They will not cross. They will go no further than the ferns. After that, you walk alone.\"",
+              "tactics": "NO DICE — concrete tactical handoff. Players choose west (fast, sets up boar-wolf pack ambush in p2-s2) or east (half day longer, single skirmish only). PCs who explicitly note the gray-fern warning get the s3 Hall-of-Mirrors bonus per the Storyteller conversation. The ten Ewok scouts are real — they appear in p2-s1 The Creeping Quiet — and the GM should track which ten by giving Paploo a single named lieutenant (Logray, the village healer's son).",
+              "trigger": "Totems distributed, crew gathered around the leaf-mat map",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p1-s5-b5",
+              "number": 5,
+              "title": "A Night on the Platform",
+              "description": "The crew is shown to a sleeping platform high in the canopy. Watchers stand at the rope-walks all night. The forest below is loud with insects and the distant calls of unseen things. PCs may have a quiet conversation with each other before sleep — the last private moment before crossing the boundary. Maya, on a relay through the Banshee, may be patched in for one quick line (\"Get some rest. I'll be on this end if anything moves on the long-range scopes\"). Varth does not call. He is, per his own gmNotes, intentionally absent to keep Denia safe.",
+              "tactics": "NO DICE — tonal closing beat. Players may roleplay one cross-character conversation each. GMs may use this as the moment to surface any inter-PC tension before the Spire descent — anything carried in from earlier adventures that needs naming. End the beat with the dawn light coming up through the canopy and the ten scouts already waiting at the platform ladder.",
+              "trigger": "Conversation, totems, and route brief all complete",
+              "beatType": "narrative",
+              "optional": false
+            }
+          ]
         }
       ]
     },
@@ -862,51 +882,62 @@
             "resolution": "The crew moves deeper. Draco's trail leads down.",
             "estimatedMinutes": 25
           },
-          "encounters": [
-            {
-              "id": "enc-a4-p3-s1-beat1-the-threshold",
-              "name": "Beat 1 — Through the Breached Door",
-              "type": "tactical",
-              "trigger": "Crew slips through the door Draco shattered",
-              "description": "The Endor twilight vanishes. The air inside the Spire is cold, still, and ancient — the mineral taste of stone that has not breathed in millennia. Glowrods cut narrow beams across an antechamber of polished black obsidian. The walls absorb light wrong; the beams seem to dim halfway down their length. The boundary crossing earlier already stripped the crew of comm to Varth (per p2-s4 gmNotes) — they are alone in here.",
-              "tactics": "NO DICE — atmospheric entry. Force-sensitive PCs may roll a free Insight at advantage to confirm the Spire is \"interviewing\" them already (per Thorla's framing). Establish the cold, the silence, and the wrongness of the light before any NPC enters frame."
-            },
-            {
-              "id": "enc-a4-p3-s1-beat2-the-survivor",
-              "name": "Beat 2 — Finding Master Thorla",
-              "type": "social",
-              "trigger": "Crew's glowrods sweep across the antechamber and find a figure against a column",
-              "description": "A pale alcove crystal pulses faintly — like a heartbeat someone is trying to hide. Master Thorla is sitting against a fluted black column. His lightsaber is unlit across his knees. His hands tremor. He does not look up. He does not stand. He counts to twenty in Mirialan with his eyes closed before he speaks — to verify the crew is real and not a hallucination. When he opens his eyes, his first words are dry: \"Ah. Real, then. That is — surprising.\"",
-              "tactics": "NO DICE — discovery beat. Players may attempt a Medicine or Insight check (free) to read Thorla's state — he is dehydrated, exhausted, near psychic collapse, three days in. Drawing weapons here is a critical mistake — Thorla will simply press his lightsaber to his own chest and end the scene, no save offered. The beat's point is to establish his fragility and invite the conversation that follows."
-            },
-            {
-              "id": "enc-a4-p3-s1-beat3-conversation",
-              "name": "Beat 3 — Sitting With Thorla (Conversation Overlay)",
-              "type": "social",
-              "trigger": "A PC kneels, lowers a weapon, or offers water",
-              "description": "Thorla invites questions. This is the structured social scene: the Master Thorla conversation overlay. Launch the [master-thorla-ebon-spire] conversation from the Conversation panel. Comfort starts at 1 — the LOWEST starting comfort of any campaign conversation. Offering water as the FIRST action jumps comfort to 3 immediately and earns the entire useful conversation. The conversation can deliver Draco's prize (the Sith Holocron), the recoverable Jedi Holocron, the Hall of Mirrors tactical advice (\"walk through, do not engage\"), the Hollowed advice (\"apologize and walk through\"), the Vell campaign hook, and the Dark Side Dragon foreshadow (\"a tenant, not a watcher\").",
-              "tactics": "GM ACTION: Open the Conversation panel and launch [master-thorla-ebon-spire]. Story topics about Draco, the Spire, and what Thorla gave up HOLD comfort. Business topics about the route ahead cost 1 comfort each — being asked to be tactical taxes him. Probe topics about what he became under Draco cost 2 comfort each. At Comfort 0 (NOT 1 — he STARTS at 1), Thorla turns his lightsaber on his own chest. Stop him with a Reflex save (Resist 2) or by stepping in. Whether stopped or not, the conversation ends and Thorla is gone for the rest of the adventure."
-            },
-            {
-              "id": "enc-a4-p3-s1-beat4-the-decision",
-              "name": "Beat 4 — Carry Him, Camp Him, or Leave Him",
-              "type": "social",
-              "trigger": "After the conversation overlay closes",
-              "description": "The crew has to decide what to do with Thorla. He cannot descend with them — he has nothing left and would not survive the Hall. He cannot, alone, climb back to the boundary — he has not eaten in three days and the dead zone's fauna would take him before nightfall. The options are: leave him in the antechamber with rations, water, and a glowrod for the duration of the descent (his preference); take a PC out of the descent rotation to escort him back toward the boundary (slows the descent and reduces party strength in p3-s2/3); or improvise.",
-              "tactics": "NO DICE — choice beat. Each option has consequences:\n  • Leave him: Thorla is in the antechamber when the crew returns from p3-s6 IF comfort ended 3+. Below 3, he has wandered deeper into the Spire on his own and is lost.\n  • Escort to boundary: One PC sits out p3-s2 and p3-s3. That PC and Thorla wait at the boundary; both are present for the p3-s6 escape if the crew makes it back.\n  • Improvise: GM honors what the crew invents.\nNote the choice on the crew sheet; honor it in p3-s6."
-            },
-            {
-              "id": "enc-a4-p3-s1-beat5-the-descending-corridor",
-              "name": "Beat 5 — The Descent Begins",
-              "type": "tactical",
-              "trigger": "Thorla decision made, crew moves toward the descending corridor",
-              "description": "The corridor down from the antechamber spirals tightly, hewn from the same black stone as the walls. The cold deepens. Frost begins to bloom on armor. The crew's glowrods light only a few meters ahead. Behind them, if they look back, the antechamber's pale crystal pulses once — slow, steady — and then is lost around the bend. The Spire has noticed them. The interview, per Thorla's warning, has begun.",
-              "tactics": "NO DICE — transition beat. End the scene at the first Spire ward Draco partially cleared (per Thorla's briefing). The ward may be a passive obstacle — a frost trap that costs 1 Vitality if triggered — or a stat-block encounter the GM chooses to surface, depending on table tone. Adventure 4 Part 3 Scene 2 (The Ruined Archives) follows immediately."
-            }
-          ],
+          "encounters": [],
           "disciplineChallenges": [],
           "environmentMechanics": [],
-          "rewards": {}
+          "rewards": {},
+          "beats": [
+            {
+              "id": "adv4-p3-s1-b1",
+              "number": 1,
+              "title": "Through the Breached Door",
+              "description": "The Endor twilight vanishes. The air inside the Spire is cold, still, and ancient — the mineral taste of stone that has not breathed in millennia. Glowrods cut narrow beams across an antechamber of polished black obsidian. The walls absorb light wrong; the beams seem to dim halfway down their length. The boundary crossing earlier already stripped the crew of comm to Varth (per p2-s4 gmNotes) — they are alone in here.",
+              "tactics": "NO DICE — atmospheric entry. Force-sensitive PCs may roll a free Insight at advantage to confirm the Spire is \"interviewing\" them already (per Thorla's framing). Establish the cold, the silence, and the wrongness of the light before any NPC enters frame.",
+              "trigger": "Crew slips through the door Draco shattered",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p3-s1-b2",
+              "number": 2,
+              "title": "Finding Master Thorla",
+              "description": "A pale alcove crystal pulses faintly — like a heartbeat someone is trying to hide. Master Thorla is sitting against a fluted black column. His lightsaber is unlit across his knees. His hands tremor. He does not look up. He does not stand. He counts to twenty in Mirialan with his eyes closed before he speaks — to verify the crew is real and not a hallucination. When he opens his eyes, his first words are dry: \"Ah. Real, then. That is — surprising.\"",
+              "tactics": "NO DICE — discovery beat. Players may attempt a Medicine or Insight check (free) to read Thorla's state — he is dehydrated, exhausted, near psychic collapse, three days in. Drawing weapons here is a critical mistake — Thorla will simply press his lightsaber to his own chest and end the scene, no save offered. The beat's point is to establish his fragility and invite the conversation that follows.",
+              "trigger": "Crew's glowrods sweep across the antechamber and find a figure against a column",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p3-s1-b3",
+              "number": 3,
+              "title": "Sitting With Thorla (Conversation Overlay)",
+              "description": "Thorla invites questions. This is the structured social scene: the Master Thorla conversation overlay. Launch the [master-thorla-ebon-spire] conversation from the Conversation panel. Comfort starts at 1 — the LOWEST starting comfort of any campaign conversation. Offering water as the FIRST action jumps comfort to 3 immediately and earns the entire useful conversation. The conversation can deliver Draco's prize (the Sith Holocron), the recoverable Jedi Holocron, the Hall of Mirrors tactical advice (\"walk through, do not engage\"), the Hollowed advice (\"apologize and walk through\"), the Vell campaign hook, and the Dark Side Dragon foreshadow (\"a tenant, not a watcher\").",
+              "tactics": "GM ACTION: Open the Conversation panel and launch [master-thorla-ebon-spire]. Story topics about Draco, the Spire, and what Thorla gave up HOLD comfort. Business topics about the route ahead cost 1 comfort each — being asked to be tactical taxes him. Probe topics about what he became under Draco cost 2 comfort each. At Comfort 0 (NOT 1 — he STARTS at 1), Thorla turns his lightsaber on his own chest. Stop him with a Reflex save (Resist 2) or by stepping in. Whether stopped or not, the conversation ends and Thorla is gone for the rest of the adventure.",
+              "trigger": "A PC kneels, lowers a weapon, or offers water",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p3-s1-b4",
+              "number": 4,
+              "title": "Carry Him, Camp Him, or Leave Him",
+              "description": "The crew has to decide what to do with Thorla. He cannot descend with them — he has nothing left and would not survive the Hall. He cannot, alone, climb back to the boundary — he has not eaten in three days and the dead zone's fauna would take him before nightfall. The options are: leave him in the antechamber with rations, water, and a glowrod for the duration of the descent (his preference); take a PC out of the descent rotation to escort him back toward the boundary (slows the descent and reduces party strength in p3-s2/3); or improvise.",
+              "tactics": "NO DICE — choice beat. Each option has consequences:\n  • Leave him: Thorla is in the antechamber when the crew returns from p3-s6 IF comfort ended 3+. Below 3, he has wandered deeper into the Spire on his own and is lost.\n  • Escort to boundary: One PC sits out p3-s2 and p3-s3. That PC and Thorla wait at the boundary; both are present for the p3-s6 escape if the crew makes it back.\n  • Improvise: GM honors what the crew invents.\nNote the choice on the crew sheet; honor it in p3-s6.",
+              "trigger": "After the conversation overlay closes",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv4-p3-s1-b5",
+              "number": 5,
+              "title": "The Descent Begins",
+              "description": "The corridor down from the antechamber spirals tightly, hewn from the same black stone as the walls. The cold deepens. Frost begins to bloom on armor. The crew's glowrods light only a few meters ahead. Behind them, if they look back, the antechamber's pale crystal pulses once — slow, steady — and then is lost around the bend. The Spire has noticed them. The interview, per Thorla's warning, has begun.",
+              "tactics": "NO DICE — transition beat. End the scene at the first Spire ward Draco partially cleared (per Thorla's briefing). The ward may be a passive obstacle — a frost trap that costs 1 Vitality if triggered — or a stat-block encounter the GM chooses to surface, depending on table tone. Adventure 4 Part 3 Scene 2 (The Ruined Archives) follows immediately.",
+              "trigger": "Thorla decision made, crew moves toward the descending corridor",
+              "beatType": "narrative",
+              "optional": false
+            }
+          ]
         },
         {
           "id": "adv4-p3-s2",

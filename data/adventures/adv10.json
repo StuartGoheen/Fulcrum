@@ -403,47 +403,58 @@
               }
             }
           ],
-          "encounters": [
+          "encounters": [],
+          "beats": [
             {
-              "id": "enc-a10-p2-s3-beat1-the-lift",
-              "name": "Beat 1 — The Empty Corridors",
-              "type": "tactical",
-              "trigger": "Crew clears the apprentice fight in s2 and reaches the lift to the command deck",
+              "id": "adv10-p2-s3-b1",
+              "number": 1,
+              "title": "The Empty Corridors",
               "description": "The two corridors between the apprentice chamber and the command-deck lift are empty. The crew expected a stormtrooper firing line. There is none. The blast doors are open. The deck plating is freshly mopped. A maintenance droid trundles past on its scheduled rounds and ignores the crew entirely. The lift indicator glows green. Someone has cleared the path. Maya, on the comm patch from the Banshee, says quietly: \"He knows. He cleared the corridors for you. He wants the conversation.\" A long pause. \"I want to be in that room when you have it. I am coming up the lift behind you.\"",
-              "tactics": "NO DICE — recognition beat. Establish that Varth is choosing this. PCs who try to clear the corridors tactically anyway find nothing — no traps, no ambushes. The lift opens to the command deck whenever they call it. Maya joins the crew in the lift on the way up and stands behind them when the doors open."
+              "tactics": "NO DICE — recognition beat. Establish that Varth is choosing this. PCs who try to clear the corridors tactically anyway find nothing — no traps, no ambushes. The lift opens to the command deck whenever they call it. Maya joins the crew in the lift on the way up and stands behind them when the doors open.",
+              "trigger": "Crew clears the apprentice fight in s2 and reaches the lift to the command deck",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p2-s3-beat2-the-command-deck",
-              "name": "Beat 2 — The Doors Open",
-              "type": "social",
-              "trigger": "Lift arrives at the command deck",
+              "id": "adv10-p2-s3-b2",
+              "number": 2,
+              "title": "The Doors Open",
               "description": "The lift doors part onto a deck that is empty except for one figure at the central holotable. Varth is in admiral's full dress for the first time the crew has ever seen — black, gold trim, no rank pin, barefoot. The bridge crew is gone, in the lifeboats per his order. The Leviathan is on autopilot for ninety minutes. He looks up. He smiles — and the smile is not mechanical this time. It is tired and very real. He says: \"You took Deck 7 faster than I bet you would. I owe my chief gunnery officer a hundred credits.\"",
-              "tactics": "NO DICE — entrance beat. Establish the room and the absence of every Varth tic the crew learned across nine adventures: no temple-tap, no half-smile-as-armor, no rehearsed posture. The barefoot detail is the visible tell that he has stripped every performance off. Maya stands behind the crew. Varth looks at her, briefly. He nods. He returns his attention to the crew. The conversation has not yet begun."
+              "tactics": "NO DICE — entrance beat. Establish the room and the absence of every Varth tic the crew learned across nine adventures: no temple-tap, no half-smile-as-armor, no rehearsed posture. The barefoot detail is the visible tell that he has stripped every performance off. Maya stands behind the crew. Varth looks at her, briefly. He nods. He returns his attention to the crew. The conversation has not yet begun.",
+              "trigger": "Lift arrives at the command deck",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p2-s3-beat3-conversation",
-              "name": "Beat 3 — The Last Conversation (Conversation Overlay)",
-              "type": "social",
-              "trigger": "A PC speaks, OR the silence becomes the silence",
-              "conversationRef": "varth-leviathan",
+              "id": "adv10-p2-s3-b3",
+              "number": 3,
+              "title": "The Last Conversation (Conversation Overlay)",
               "description": "Varth invites the crew to ask, or to shoot. This is the structured social scene: the final Varth conversation overlay. Launch the [varth-leviathan] conversation from the Conversation panel. Comfort starts at 5 — the HIGHEST starting comfort of any campaign conversation. Varth has rehearsed this room for six years and he is the most honest version of himself. The conversation delivers the truth of the betrayal (always the plan), the implant (Cybot Galactica Model VII courier overwritten with his own protocols), the Leviathan reveal (he stole the dreadnought program from the Empire), the fleet status (sixteen ships, twenty thousand crew, his flag), and — crucially — the FLAG QUESTION the crew now answers with him.",
-              "tactics": "GM ACTION: Open the Conversation panel and launch [varth-leviathan]. THIS IS THE CAMPAIGN PAYOFF. Treat slowly. The comfort meter does NOT trigger an exit here — Varth answers everything until the timer runs out. The meter instead controls the closing: at low comfort, Varth dies cursing the crew (exitLine); at high comfort, Varth dies a partner (dryLine). The flag choice (Resistance, no flag, Banshee, private fleet, scuttle) becomes the canonical end state of the campaign. There is no wrong answer. Honor whatever the players pick."
+              "tactics": "GM ACTION: Open the Conversation panel and launch [varth-leviathan]. THIS IS THE CAMPAIGN PAYOFF. Treat slowly. The comfort meter does NOT trigger an exit here — Varth answers everything until the timer runs out. The meter instead controls the closing: at low comfort, Varth dies cursing the crew (exitLine); at high comfort, Varth dies a partner (dryLine). The flag choice (Resistance, no flag, Banshee, private fleet, scuttle) becomes the canonical end state of the campaign. There is no wrong answer. Honor whatever the players pick.",
+              "trigger": "A PC speaks, OR the silence becomes the silence",
+              "beatType": "narrative",
+              "optional": false,
+              "conversationRef": "varth-leviathan"
             },
             {
-              "id": "enc-a10-p2-s3-beat4-the-flag",
-              "name": "Beat 4 — Choosing the Flag",
-              "type": "social",
-              "trigger": "Conversation overlay closes — players have made the flag choice",
+              "id": "adv10-p2-s3-b4",
+              "number": 4,
+              "title": "Choosing the Flag",
               "description": "Varth turns the holotable display so the crew can see the master comm sequence. He keys in their flag choice in front of them — fingers steady, no hesitation. The fleet outside the viewport receives the order and acknowledges through three Star Destroyer captains in turn: \"Reckoner acknowledges. Long Argument acknowledges. Quiet Hand acknowledges. New colors flying. Awaiting orders.\" Varth steps back from the holotable. The crew now commands sixteen ships. The campaign's political shape has changed.",
-              "tactics": "NO DICE — execution beat. Honor whichever flag the crew chose. If they chose to scuttle, the Reckoner et al. acknowledge a controlled-evacuation order instead. If they chose Mothma, the comm sequence is to a Resistance handoff frequency Varth had pre-keyed. The acknowledgements are the moment the campaign ending becomes real. Players should hear all three captain voices. Note the chosen flag on the campaign close-out sheet."
+              "tactics": "NO DICE — execution beat. Honor whichever flag the crew chose. If they chose to scuttle, the Reckoner et al. acknowledge a controlled-evacuation order instead. If they chose Mothma, the comm sequence is to a Resistance handoff frequency Varth had pre-keyed. The acknowledgements are the moment the campaign ending becomes real. Players should hear all three captain voices. Note the chosen flag on the campaign close-out sheet.",
+              "trigger": "Conversation overlay closes — players have made the flag choice",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p2-s3-beat5-whatever-happens-next",
-              "name": "Beat 5 — Whatever Happens Next",
-              "type": "social",
-              "trigger": "Flag is keyed, fleet has acknowledged",
+              "id": "adv10-p2-s3-b5",
+              "number": 5,
+              "title": "Whatever Happens Next",
               "description": "Varth, having done his last service, looks at the crew. He does not raise the service blaster on the holotable. He does not move toward the lift. He waits. The choice for what happens to him belongs to the crew now — execution, capture and trial, exile, or (per the high-comfort dryLine) something the crew names that Varth had not anticipated. Maya speaks for the first time: \"Mai goes off the registry tonight. Whatever you choose for him — choose for the crew, not for the campaign.\" She does not elaborate. She means whatever the players need her to mean.",
-              "tactics": "NO DICE — closing beat. The crew names Varth's fate. GM honors it. If the choice is execution, narrate it cleanly — Varth does not flinch and does not perform. If the choice is capture-and-trial, the Resistance will accept him as a defector with the dreadnought as dowry. If the choice is exile, he disappears off the Banshee at the next port and the crew never sees him again. If the choice is something the players invent — let them invent it. The campaign ends here. Adventure 10 Part 3 (Gravity Well Array, Escape from the Leviathan) becomes either a coda or a denouement based on the choice. Hand off to p3-s1 with the chosen ending in pocket."
+              "tactics": "NO DICE — closing beat. The crew names Varth's fate. GM honors it. If the choice is execution, narrate it cleanly — Varth does not flinch and does not perform. If the choice is capture-and-trial, the Resistance will accept him as a defector with the dreadnought as dowry. If the choice is exile, he disappears off the Banshee at the next port and the crew never sees him again. If the choice is something the players invent — let them invent it. The campaign ends here. Adventure 10 Part 3 (Gravity Well Array, Escape from the Leviathan) becomes either a coda or a denouement based on the choice. Hand off to p3-s1 with the chosen ending in pocket.",
+              "trigger": "Flag is keyed, fleet has acknowledged",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         }
@@ -518,46 +529,57 @@
               "notes": "The Mirialan from adv8-p1-s2-beat2 was Quinlan Vos in deep cover. Reveals himself here for the first time. Has been watching the crew since the Burning Deck on Jakku. His offer is the routes-as-sanctuary for surviving Force-sensitives. Will accept the crew's decision whatever it is."
             }
           ],
-          "encounters": [
+          "encounters": [],
+          "beats": [
             {
-              "id": "enc-a10-p3-s3-beat1-the-quiet-room",
-              "name": "Beat 1 — The Quiet Room",
-              "type": "social",
-              "trigger": "Crew is back aboard ship after the Leviathan goes down",
+              "id": "adv10-p3-s3-b1",
+              "number": 1,
+              "title": "The Quiet Room",
               "description": "The Banshee deck is too quiet. The fight is over. The crew has the data — the Vel Shara routes, the Leviathan project files, the truth of Varth and Tarkin and what the program was for. Nobody has yet asked what they intend to do with it. Maya is at the cockpit, leaving the deck to the crew. Whoever else survived (Denia, Soren, the captains) is elsewhere. The first knock comes ten minutes after they sit down.",
-              "tactics": "NO DICE — frame the room. Establish the silence and the weight of what is on the table. End beat when the first patron is admitted aboard."
+              "tactics": "NO DICE — frame the room. Establish the silence and the weight of what is on the table. End beat when the first patron is admitted aboard.",
+              "trigger": "Crew is back aboard ship after the Leviathan goes down",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p3-s3-beat2-the-fulcrum-handler",
-              "name": "Beat 2 — The Fulcrum Handler Arrives",
-              "type": "social",
-              "trigger": "First knock — Bail's Pantoran handler asks to come aboard",
+              "id": "adv10-p3-s3-b2",
+              "number": 2,
+              "title": "The Fulcrum Handler Arrives",
               "description": "She is alone. She has not slept. She brings the same datapad from Beat 6 of the cantina, two campaigns ago. She sits where the crew offers. She makes her pitch in plain sentences: 'Senator Organa knew this day was coming. He would like the routes for the network that will outlive both of us. We will not weaponize them. We will not move people through them faster than people can survive being moved. The pace is the point.' She names a sum — generous, not extravagant. She does not mention the other two patrons. She knows. She does not need to mention it. End beat when the crew either accepts, declines, or asks her to wait.",
-              "tactics": "NO DICE — the offer is the offer. The handler will not bid against the others. If the crew tries to negotiate her up, she says, 'The number is the number Bail authorized. I cannot give you more than what he believes the routes are worth as shelter.' Honor her dignity. End beat with her either holding her offer open or stepping out to the corridor to wait."
+              "tactics": "NO DICE — the offer is the offer. The handler will not bid against the others. If the crew tries to negotiate her up, she says, 'The number is the number Bail authorized. I cannot give you more than what he believes the routes are worth as shelter.' Honor her dignity. End beat with her either holding her offer open or stepping out to the corridor to wait.",
+              "trigger": "First knock — Bail's Pantoran handler asks to come aboard",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p3-s3-beat3-vel-and-luthen",
-              "name": "Beat 3 — Vel Sartha and Her Patron",
-              "type": "social",
-              "trigger": "Second knock — Vel and an older man the crew has never seen",
+              "id": "adv10-p3-s3-b3",
+              "number": 3,
+              "title": "Vel Sartha and Her Patron",
               "description": "Vel Sartha walks in first. She nods at the crew. She steps aside. The man behind her is older than the crew expected — sixties, white at the temples, dressed in a Coruscanti antiquities-dealer's coat that is one season out of fashion in the Galactic Center and would not be recognized as a coat at all on Batuu. He introduces himself as Luthen Rael. He sits where the crew offers. He says: 'I will spend everything you give me. That is the only honest pitch I have. Three sectors broken in a year, twelve thousand Imperial dead inside two, a chance the program does not get to be rebuilt. I will pay in cash and I will pay in safe houses and I will pay in names. I will not pay in any promise that the work will be clean.' He waits. End beat when the crew accepts, declines, or asks him to wait.",
-              "tactics": "NO DICE — the offer is the offer. Luthen does not perform. He has rehearsed this room as long as Varth rehearsed his — but unlike Varth, he is asking, not delivering. Vel stands behind him through the conversation. She does not interject. The crew may speak to her directly; she will defer to Luthen on terms but she will answer honestly on history. End beat with Luthen either holding his offer open or stepping out to the corridor."
+              "tactics": "NO DICE — the offer is the offer. Luthen does not perform. He has rehearsed this room as long as Varth rehearsed his — but unlike Varth, he is asking, not delivering. Vel stands behind him through the conversation. She does not interject. The crew may speak to her directly; she will defer to Luthen on terms but she will answer honestly on history. End beat with Luthen either holding his offer open or stepping out to the corridor.",
+              "trigger": "Second knock — Vel and an older man the crew has never seen",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p3-s3-beat4-cade-ryll",
-              "name": "Beat 4 — Cade Ryll Lifts His Hood",
-              "type": "social",
-              "trigger": "Third knock — the Mirialan from Black Spire Outpost asks to come aboard",
+              "id": "adv10-p3-s3-b4",
+              "number": 4,
+              "title": "Cade Ryll Lifts His Hood",
               "description": "Cade Ryll, the man who handed the crew off to Oga in Adv8 and never reappeared after, is at the Banshee's ramp. He comes alone. He sits where the crew offers. He lifts the hood that has been low across his face for the entire campaign and he is Quinlan Vos. The crew's first impression is that he looks tired in a way the others did not. He says: 'I have been watching you since the Burning Deck on Jakku. Some of what you carry should not become a weapon. Some of what you carry should not become a Senator's archive. It should become a sanctuary. There are still Force-sensitives the Empire has not yet found. There is a Path. I would walk it with you, if you let me. I do not have credits to offer. I have only the work.' End beat when the crew accepts, declines, or asks him to wait.",
-              "tactics": "NO DICE — the reveal is the offer. Vos does not bid against the others either. He waits in the corridor with them when he is done. The three of them stand together, in courteous silence, while the crew makes the call. End beat with the three patrons in the corridor and the data on the table."
+              "tactics": "NO DICE — the reveal is the offer. Vos does not bid against the others either. He waits in the corridor with them when he is done. The three of them stand together, in courteous silence, while the crew makes the call. End beat with the three patrons in the corridor and the data on the table.",
+              "trigger": "Third knock — the Mirialan from Black Spire Outpost asks to come aboard",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a10-p3-s3-beat5-the-decision",
-              "name": "Beat 5 — The Decision",
-              "type": "social",
-              "trigger": "Crew commits to one of the six paths on the adv10_routes_convergence mark",
+              "id": "adv10-p3-s3-b5",
+              "number": 5,
+              "title": "The Decision",
               "description": "The crew names what becomes of the routes. Whoever they hand the data to walks back aboard, accepts it, and says one sentence. Bail's handler: 'You have given the Path a generation.' Luthen: 'You have given me a year. I will use it.' Vos: 'You have given the survivors a place to be alive.' If the crew keeps the routes themselves, all three accept the answer with a small nod and walk out. If the crew splits the routes, all three accept their partial maps in turn and leave. If the crew destroys the data in the room, all three watch it happen — none object. Vos is the one who says the closing line: 'Some things should not exist. We honor the choice.' Mark the decision on the campaign close-out sheet alongside the flag choice from adv10-p2-s3.",
-              "tactics": "NO DICE — closing beat. THIS IS WHERE THE CAMPAIGN ENDS. Honor the players' choice without commentary. Do not narrate consequences yet — the consequences are the next campaign. The Banshee deck is quiet again after the patrons leave. Maya looks back from the cockpit. The credits roll on whatever the crew decided to be."
+              "tactics": "NO DICE — closing beat. THIS IS WHERE THE CAMPAIGN ENDS. Honor the players' choice without commentary. Do not narrate consequences yet — the consequences are the next campaign. The Banshee deck is quiet again after the patrons leave. Maya looks back from the cockpit. The credits roll on whatever the crew decided to be.",
+              "trigger": "Crew commits to one of the six paths on the adv10_routes_convergence mark",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         }

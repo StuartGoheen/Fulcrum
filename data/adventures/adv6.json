@@ -195,30 +195,37 @@
           "title": "Tracking Varth to Eriadu",
           "subtitle": "Following the Trail",
           "completed": false,
-          "encounters": [
+          "encounters": [],
+          "beats": [
             {
-              "id": "enc-a6-p1-s1-beat1-the-trail",
-              "name": "Beat 1 — Picking Up Varth's Trail",
-              "type": "social",
-              "trigger": "Crew arrives at Eriadu after the adv5 break",
+              "id": "adv6-p1-s1-b1",
+              "number": 1,
+              "title": "Picking Up Varth's Trail",
               "description": "SCAFFOLD: Eriadu arrival beat. The crew is hunting Varth post-betrayal — this is the beat where they confirm he is on Eriadu and pick up his ground-trail. The varth-leviathan conversation (adv10-p2-s3) references this entire arc; the build-out should make the betrayal's aftermath emotionally weighty. Full readAloud/gmNotes pending adv6 build-out (see follow-up #144).",
-              "tactics": "NO DICE — orientation scaffold."
+              "tactics": "NO DICE — orientation scaffold.",
+              "trigger": "Crew arrives at Eriadu after the adv5 break",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a6-p1-s1-beat2-the-broker",
-              "name": "Beat 2 — Eriadu Broker Sit-Down",
-              "type": "social",
-              "trigger": "Crew makes contact with the Eriadu fixer",
+              "id": "adv6-p1-s1-b2",
+              "number": 2,
+              "title": "Eriadu Broker Sit-Down",
               "description": "SCAFFOLD: Major sit-down NPC for adv6 to be named in build-out. Reserve a conversation overlay slot. The fixer should know enough to point the crew at Draco's citadel and at Varth's data-center target.",
-              "tactics": "GM ACTION (when adv6 is built out): Launch the fixer's conversation overlay. Comfort starting value to be set in the build-out pass."
+              "tactics": "GM ACTION (when adv6 is built out): Launch the fixer's conversation overlay. Comfort starting value to be set in the build-out pass.",
+              "trigger": "Crew makes contact with the Eriadu fixer",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a6-p1-s1-beat3-the-citadel",
-              "name": "Beat 3 — Sighting the Citadel",
-              "type": "social",
-              "trigger": "Crew gets eyes-on Draco's citadel",
+              "id": "adv6-p1-s1-b3",
+              "number": 3,
+              "title": "Sighting the Citadel",
               "description": "SCAFFOLD: Visual sighting and reconnaissance handoff to s2 (Reconnaissance of the Citadel). Establish the citadel's scale, the acid rain weather, the security posture. To be expanded.",
-              "tactics": "NO DICE — handoff beat scaffold."
+              "tactics": "NO DICE — handoff beat scaffold.",
+              "trigger": "Crew gets eyes-on Draco's citadel",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         },
@@ -277,30 +284,37 @@
           "title": "Off-World",
           "subtitle": "The Score That Never Was",
           "completed": false,
-          "encounters": [
+          "encounters": [],
+          "beats": [
             {
-              "id": "enc-a6-p3-s2-beat1-aftermath",
-              "name": "Beat 1 — Boarding the Banshee Without Varth",
-              "type": "social",
-              "trigger": "Crew makes the Banshee after the citadel escape",
+              "id": "adv6-p3-s2-b1",
+              "number": 1,
+              "title": "Boarding the Banshee Without Varth",
               "description": "SCAFFOLD: The first quiet moment after the betrayal. Maya is at the controls. Denia is in the medbay. Varth is gone. The crew sits in the common room with what just happened. This beat is the emotional pivot of the campaign — it should be played slow, in quiet. Full readAloud and a Maya conversation overlay opportunity to be authored in the adv6 build-out pass.",
-              "tactics": "NO DICE — emotional pivot. Reserve a Maya conversation overlay slot here — the Banshee galley scene format from adv1 should be re-used for a \"Maya post-betrayal\" conversation that mirrors the original galley scene's warmth with grief instead."
+              "tactics": "NO DICE — emotional pivot. Reserve a Maya conversation overlay slot here — the Banshee galley scene format from adv1 should be re-used for a \"Maya post-betrayal\" conversation that mirrors the original galley scene's warmth with grief instead.",
+              "trigger": "Crew makes the Banshee after the citadel escape",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a6-p3-s2-beat2-the-jump",
-              "name": "Beat 2 — The Jump Off Eriadu",
-              "type": "tactical",
-              "trigger": "Imperial pursuit closes",
+              "id": "adv6-p3-s2-b2",
+              "number": 2,
+              "title": "The Jump Off Eriadu",
               "description": "SCAFFOLD: Imperial pursuit / hyperspace jump beat. The Banshee threads the upper atmosphere under fire and jumps to the rendezvous coordinates Varth-the-traitor would NOT know about (Maya's personal cache).",
-              "tactics": "RUN tactical pursuit checks — placeholder for build-out pass."
+              "tactics": "RUN tactical pursuit checks — placeholder for build-out pass.",
+              "trigger": "Imperial pursuit closes",
+              "beatType": "narrative",
+              "optional": false
             },
             {
-              "id": "enc-a6-p3-s2-beat3-quiet-night",
-              "name": "Beat 3 — A Quiet Night in Hyperspace",
-              "type": "social",
-              "trigger": "Banshee in stable hyperspace transit",
+              "id": "adv6-p3-s2-b3",
+              "number": 3,
+              "title": "A Quiet Night in Hyperspace",
               "description": "The crew's first real conversation about what just happened. This is the second Maya-overlay opportunity — paired with Beat 1, it bookends the betrayal with grief and resolve.\n\n— THE ANONYMOUS MESSAGE — Late in the watch, after the conversation has died and the galley is empty except for whoever is on second shift, the Banshee's private comm logs an inbound packet on a frequency the crew did not give out. No origin. No header. No signature. The body is six lines of plain text:\n\n  \"You walked through Tarkin's house and you came out alive.\n   That is rare.\n   I am the kind of person who notices that.\n   The man who sold you was a small piece of a larger pattern.\n   When you are ready to look at the pattern, send a single character to this channel.\n   You will not see my face for a long time. — A friend you have not met.\"\n\nThe channel routes through a dead-drop relay that bounces back to Maz's castle on Takodana. Tracing it ends at Maz's, and Maz, asked, will say only: \"A friend left a card on my counter and asked me to hold it. The card is yours now.\" The crew does not know it yet, but this is the first contact from Luthen Rael's network — the same hand that will surface in person as Vel Sartha's patron at adv8-p1-s2-beat5. The sender will not name himself in this message and will not name himself in any of the messages that follow until the Routes Convergence in adv10-p3-s3, where he finally appears in the room.",
-              "tactics": "NO DICE — closing tonal beat. The anonymous message is the first thread of the Axis arc and the originating moment of the campaign-long Luthen channel. PCs may reply (a single character is the agreed signal) or ignore it; either choice is honored. If they reply, the next message arrives at the start of adv7. If they ignore it, Vel still finds them at adv8-p1-s2-beat5 — but she opens with: \"You did not answer. I respect that. I am here anyway.\" Tag the adv6_luthen_whisper mark when the message is read aloud at the table."
+              "tactics": "NO DICE — closing tonal beat. The anonymous message is the first thread of the Axis arc and the originating moment of the campaign-long Luthen channel. PCs may reply (a single character is the agreed signal) or ignore it; either choice is honored. If they reply, the next message arrives at the start of adv7. If they ignore it, Vel still finds them at adv8-p1-s2-beat5 — but she opens with: \"You did not answer. I respect that. I am here anyway.\" Tag the adv6_luthen_whisper mark when the message is read aloud at the table.",
+              "trigger": "Banshee in stable hyperspace transit",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         }

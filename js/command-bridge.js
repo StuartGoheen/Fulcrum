@@ -3860,12 +3860,8 @@
 
     // Linked Encounters quick-launch row — only when scene has both authored beats[]
     // and a separate scene.encounters[] roster (e.g. combat or social hooks distinct from beats).
-    // Filter out stub encounters whose name is literally "Beat N — ..." (those mirror beats
-    // and would clutter the row; their content is reachable from the beat itself).
     if (Array.isArray(scene.beats) && scene.beats.length && Array.isArray(scene.encounters) && scene.encounters.length) {
-      var linkedEncs = scene.encounters.filter(function (e) {
-        return e && !/^Beat\s+\d+\b/i.test(String(e.name || ''));
-      });
+      var linkedEncs = scene.encounters.filter(function (e) { return !!e; });
       if (linkedEncs.length) {
         html += '<div class="cb-rs-hooks" style="margin:0.4rem 0 0.7rem;"><div class="cb-rs-hook-label">Linked Encounters</div>';
         linkedEncs.forEach(function (e) {

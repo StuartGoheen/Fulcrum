@@ -731,41 +731,7 @@
             "investigation",
             "deception"
           ],
-          "encounters": [
-            {
-              "id": "enc-a3-p1-s2-beat1-the-bay",
-              "name": "Beat 1 — Inside Maintenance Bay 7",
-              "type": "social",
-              "trigger": "Crew enters Maintenance Bay 7 with Fyren and Krygg",
-              "description": "The bay door cycles shut. Fyren snaps a portable signal jammer on. Krygg drags two crates over and gestures the crew to sit. The hand-written threat note is on the workbench, weighted with a hydrospanner. Fyren confirms, without prompting, that he wrote it. Krygg confirms, with prompting, that he co-signed reluctantly. They open the floor: the crew came down armed for hostiles and instead they have two terrified Ugnaught Guild administrators who have been waiting six months to find a crew like theirs.",
-              "tactics": "NO DICE — entry beat. Establishes the room and the two NPCs. Players may want to scan for surveillance (free Insight: the jammer is real, the bay is clean) or to refuse the seats and stay standing (Krygg shrugs and stays standing himself). Beat ends when a PC asks the first real question — that triggers Beat 2."
-            },
-            {
-              "id": "enc-a3-p1-s2-beat2-conversation",
-              "name": "Beat 2 — Sitting Down with Fyren and Krygg (Conversation Overlay)",
-              "type": "social",
-              "trigger": "A PC asks the first real question of the Ugnaughts",
-              "conversationRef": "fyren-krygg-the-works",
-              "description": "Fyren and Krygg invite the crew's questions in earnest. This is the structured social scene — the Fyren-Krygg conversation overlay. Launch the [fyren-krygg-the-works] conversation from the Conversation panel. The two Ugnaughts share a single comfort meter; Fyren is the diplomat voice, Krygg is the pragmatist voice. The conversation can deliver tournament handover intel, the cashier (Mandelbrot) characterization, the Imperial undercover (Arandis) tell, the Nuvo wound, and — at high comfort — a Wing Guard service-corridor keycard.",
-              "tactics": "GM ACTION: Open the Conversation panel and launch [fyren-krygg-the-works]. Comfort starts at 3. Story topics about the Tibanna siphon and Nuvo HOLD comfort. Business topics about the handover are neutral. Probe topics about Guild complicity cost 1 comfort each. Krygg's tell is his knuckle-cracking — when comfort drops, he cracks. When it rises, he sits. The hard exit is Krygg pulling Fyren out by the collar at Comfort 1. The conversation ends when accessible topics run out, when comfort drops to 1, or when the GM is ready to hand off to Beat 3."
-            },
-            {
-              "id": "enc-a3-p1-s2-beat3-the-trade",
-              "name": "Beat 3 — The Trade Offered",
-              "type": "social",
-              "trigger": "After the conversation overlay closes — assuming the Ugnaughts did not bolt",
-              "description": "Fyren lays it out plainly: stop Varga's thugs from stealing a Tibanna shipment at Refinery Platform 13 tonight, and the Ugnaughts will deliver everything they promised — the tournament handover diagram, the cashier brief, the service-corridor keycard if comfort earned it. Krygg adds the constraint: no Ugnaughts on the operation, no Ugnaught names in any reporting back to Wing Guard or station authorities. The crew is the cudgel. The Ugnaughts are the eyes.",
-              "tactics": "NO DICE — deal beat. The richness of the trade is gated on the conversation outcome:\n  • Comfort 4-5 at end of Beat 2: full intel package + Wing Guard keycard + safe-house promise (used in p3-s1 Gauntlet).\n  • Comfort 3: full intel, no keycard, conditional safe-house (Krygg has to think about it).\n  • Comfort 2: handover diagram only — no cashier, no air-tram option, no keycard.\n  • Comfort 1 (Krygg pulled Fyren): Refinery 13 objective only. No further intel. The trade is the scene's deliverable."
-            },
-            {
-              "id": "enc-a3-p1-s2-beat4-route-out",
-              "name": "Beat 4 — The Quiet Way Out",
-              "type": "social",
-              "trigger": "Trade is struck, intel exchanged",
-              "description": "Krygg walks the crew to the south service lift — the one Wing Guard does not rotate through, operated by an Ugnaught named Tev who owes Krygg a debt. The lift takes the crew up to Platform 87, three stories below their lodgings, a quiet exit. Krygg gives one parting line, gruff: \"Bring our gas back. Then come find us. Cantina on level 312, the night after. We will know your faces.\" Fyren does not speak as the crew leaves. He watches the bay door cycle shut behind them.",
-              "tactics": "NO DICE — exit beat. The south lift route is a free re-entry the crew may use to return to The Works any time during the adventure without burning Hessel's favor. The cantina rendezvous on level 312 (the night after Refinery 13) is a real beat the GM should honor — it lands in a later interlude and is where Krygg cooks the bad meal he promised in the conversation if comfort hit 4+."
-            }
-          ],
+          "encounters": [],
           "environmentMechanics": [
             {
               "name": "The Works",
@@ -877,6 +843,49 @@
               },
               "power": 2,
               "tier": 1
+            }
+          ],
+          "beats": [
+            {
+              "id": "adv3-p1-s2-b1",
+              "number": 1,
+              "title": "Inside Maintenance Bay 7",
+              "description": "The bay door cycles shut. Fyren snaps a portable signal jammer on. Krygg drags two crates over and gestures the crew to sit. The hand-written threat note is on the workbench, weighted with a hydrospanner. Fyren confirms, without prompting, that he wrote it. Krygg confirms, with prompting, that he co-signed reluctantly. They open the floor: the crew came down armed for hostiles and instead they have two terrified Ugnaught Guild administrators who have been waiting six months to find a crew like theirs.",
+              "tactics": "NO DICE — entry beat. Establishes the room and the two NPCs. Players may want to scan for surveillance (free Insight: the jammer is real, the bay is clean) or to refuse the seats and stay standing (Krygg shrugs and stays standing himself). Beat ends when a PC asks the first real question — that triggers Beat 2.",
+              "trigger": "Crew enters Maintenance Bay 7 with Fyren and Krygg",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p1-s2-b2",
+              "number": 2,
+              "title": "Sitting Down with Fyren and Krygg (Conversation Overlay)",
+              "description": "Fyren and Krygg invite the crew's questions in earnest. This is the structured social scene — the Fyren-Krygg conversation overlay. Launch the [fyren-krygg-the-works] conversation from the Conversation panel. The two Ugnaughts share a single comfort meter; Fyren is the diplomat voice, Krygg is the pragmatist voice. The conversation can deliver tournament handover intel, the cashier (Mandelbrot) characterization, the Imperial undercover (Arandis) tell, the Nuvo wound, and — at high comfort — a Wing Guard service-corridor keycard.",
+              "tactics": "GM ACTION: Open the Conversation panel and launch [fyren-krygg-the-works]. Comfort starts at 3. Story topics about the Tibanna siphon and Nuvo HOLD comfort. Business topics about the handover are neutral. Probe topics about Guild complicity cost 1 comfort each. Krygg's tell is his knuckle-cracking — when comfort drops, he cracks. When it rises, he sits. The hard exit is Krygg pulling Fyren out by the collar at Comfort 1. The conversation ends when accessible topics run out, when comfort drops to 1, or when the GM is ready to hand off to Beat 3.",
+              "trigger": "A PC asks the first real question of the Ugnaughts",
+              "beatType": "narrative",
+              "optional": false,
+              "conversationRef": "fyren-krygg-the-works"
+            },
+            {
+              "id": "adv3-p1-s2-b3",
+              "number": 3,
+              "title": "The Trade Offered",
+              "description": "Fyren lays it out plainly: stop Varga's thugs from stealing a Tibanna shipment at Refinery Platform 13 tonight, and the Ugnaughts will deliver everything they promised — the tournament handover diagram, the cashier brief, the service-corridor keycard if comfort earned it. Krygg adds the constraint: no Ugnaughts on the operation, no Ugnaught names in any reporting back to Wing Guard or station authorities. The crew is the cudgel. The Ugnaughts are the eyes.",
+              "tactics": "NO DICE — deal beat. The richness of the trade is gated on the conversation outcome:\n  • Comfort 4-5 at end of Beat 2: full intel package + Wing Guard keycard + safe-house promise (used in p3-s1 Gauntlet).\n  • Comfort 3: full intel, no keycard, conditional safe-house (Krygg has to think about it).\n  • Comfort 2: handover diagram only — no cashier, no air-tram option, no keycard.\n  • Comfort 1 (Krygg pulled Fyren): Refinery 13 objective only. No further intel. The trade is the scene's deliverable.",
+              "trigger": "After the conversation overlay closes — assuming the Ugnaughts did not bolt",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p1-s2-b4",
+              "number": 4,
+              "title": "The Quiet Way Out",
+              "description": "Krygg walks the crew to the south service lift — the one Wing Guard does not rotate through, operated by an Ugnaught named Tev who owes Krygg a debt. The lift takes the crew up to Platform 87, three stories below their lodgings, a quiet exit. Krygg gives one parting line, gruff: \"Bring our gas back. Then come find us. Cantina on level 312, the night after. We will know your faces.\" Fyren does not speak as the crew leaves. He watches the bay door cycle shut behind them.",
+              "tactics": "NO DICE — exit beat. The south lift route is a free re-entry the crew may use to return to The Works any time during the adventure without burning Hessel's favor. The cantina rendezvous on level 312 (the night after Refinery 13) is a real beat the GM should honor — it lands in a later interlude and is where Krygg cooks the bad meal he promised in the conversation if comfort hit 4+.",
+              "trigger": "Trade is struck, intel exchanged",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         },
@@ -1779,32 +1788,7 @@
             "tactics",
             "investigation"
           ],
-          "encounters": [
-            {
-              "id": "enc-a3-p1-s5-beat1-final-prep",
-              "name": "Beat 1 — Final Pre-Tournament Prep",
-              "type": "social",
-              "trigger": "Evening before the tournament, casino entry checkpoints in twelve hours",
-              "description": "The crew is at their lodgings or a quiet upper-level cafe running last-minute prep — cover identities, buy-in credits in the right pouches, weapons-permit discs for security PCs, the Switch-Moro line confirmed (or not). Varth runs a final intel sweep on Arandis, Lady Fioro, Silas Draver, and the cashier rotation. Maya runs diagnostics on the Banshee's exit vector. Everything is, briefly, going to plan.",
-              "tactics": "NO DICE — orientation. End beat with the walk to the casino concourse."
-            },
-            {
-              "id": "enc-a3-p1-s5-beat2-mandelbrot-briefing",
-              "name": "Beat 2 — Mandelbrot's Standing-Rules Briefing",
-              "type": "social",
-              "trigger": "Crew assembles in the count-room office for the house briefing",
-              "description": "Jacc Mandelbrot — Sullustan, sun-creased, the casino's house manager and head of the count room — runs through the standing rules in the flat tone of a man who has done this hundreds of times. (1) Every competitor wears a comm-jamming pin once seated. The pin produces a vocoder static field that kills any outgoing comlink signal from within five meters of the wearer. Removal of the pin while inside the casino is grounds for immediate expulsion and forfeit of buy-in. The pin can be spotted on a competitor by anyone watching for it (skulduggery or investigation, Resist 3) but spotting it does not let you defeat it; it only confirms what is in play. (2) Buy-back-in is permitted: when a competitor gets sick mid-round (it happens; the casino looks the other way as long as the paperwork is clean), an eliminated player can re-enter for a flat 2,000-credit fee paid to the cashier. Use it as the rescue valve. (3) Five named players are entered: Lt. Armen Arandis (Imperial cover, plays cold), Lady Mirana Fioro (Hapan, plays for keeps), Silas Draver (loud, drunk-acting, sober — Mandelbrot has already flagged him to floor security), Creeska (Rodian, two prior expulsions for card-marking on other circuits — watch him), and a Twi'lek named Koroma Moro who arrived alone and paid in marked Bespin chips. (4) Three exits from the casino floor — the velvet entrance, the service corridor that runs to the count room, and the upper-deck fire stair to the air-tram platform. Lockdown closes all three on the manager's call.",
-              "tactics": "NO DICE — rules briefing. These are mechanics that bind tomorrow's scenes. End beat with Mandelbrot shaking each PC's hand and asking, politely, that they not embarrass him."
-            },
-            {
-              "id": "enc-a3-p1-s5-beat3-quiet-night",
-              "name": "Beat 3 — One Quiet Round",
-              "type": "social",
-              "trigger": "After the briefing — crew has free time before standard daybreak",
-              "description": "Twenty real minutes of unstructured RP. Crew may share a drink at the Banshee galley with Maya, take one walk around the upper Cloudscape promenade, or place one optional cantina conversation. No mandatory beat.",
-              "tactics": "NO DICE — atmosphere. Honor whichever direction the players take it. End scene at standard daybreak; hand off to adv3-p2-s1 (Day 1 — Catch the Cheater)."
-            }
-          ],
+          "encounters": [],
           "environmentMechanics": [
             {
               "name": "Mandelbrot Rapport",
@@ -1848,6 +1832,38 @@
               },
               "power": 3,
               "tier": 1
+            }
+          ],
+          "beats": [
+            {
+              "id": "adv3-p1-s5-b1",
+              "number": 1,
+              "title": "Final Pre-Tournament Prep",
+              "description": "The crew is at their lodgings or a quiet upper-level cafe running last-minute prep — cover identities, buy-in credits in the right pouches, weapons-permit discs for security PCs, the Switch-Moro line confirmed (or not). Varth runs a final intel sweep on Arandis, Lady Fioro, Silas Draver, and the cashier rotation. Maya runs diagnostics on the Banshee's exit vector. Everything is, briefly, going to plan.",
+              "tactics": "NO DICE — orientation. End beat with the walk to the casino concourse.",
+              "trigger": "Evening before the tournament, casino entry checkpoints in twelve hours",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p1-s5-b2",
+              "number": 2,
+              "title": "Mandelbrot's Standing-Rules Briefing",
+              "description": "Jacc Mandelbrot — Sullustan, sun-creased, the casino's house manager and head of the count room — runs through the standing rules in the flat tone of a man who has done this hundreds of times. (1) Every competitor wears a comm-jamming pin once seated. The pin produces a vocoder static field that kills any outgoing comlink signal from within five meters of the wearer. Removal of the pin while inside the casino is grounds for immediate expulsion and forfeit of buy-in. The pin can be spotted on a competitor by anyone watching for it (skulduggery or investigation, Resist 3) but spotting it does not let you defeat it; it only confirms what is in play. (2) Buy-back-in is permitted: when a competitor gets sick mid-round (it happens; the casino looks the other way as long as the paperwork is clean), an eliminated player can re-enter for a flat 2,000-credit fee paid to the cashier. Use it as the rescue valve. (3) Five named players are entered: Lt. Armen Arandis (Imperial cover, plays cold), Lady Mirana Fioro (Hapan, plays for keeps), Silas Draver (loud, drunk-acting, sober — Mandelbrot has already flagged him to floor security), Creeska (Rodian, two prior expulsions for card-marking on other circuits — watch him), and a Twi'lek named Koroma Moro who arrived alone and paid in marked Bespin chips. (4) Three exits from the casino floor — the velvet entrance, the service corridor that runs to the count room, and the upper-deck fire stair to the air-tram platform. Lockdown closes all three on the manager's call.",
+              "tactics": "NO DICE — rules briefing. These are mechanics that bind tomorrow's scenes. End beat with Mandelbrot shaking each PC's hand and asking, politely, that they not embarrass him.",
+              "trigger": "Crew assembles in the count-room office for the house briefing",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p1-s5-b3",
+              "number": 3,
+              "title": "One Quiet Round",
+              "description": "Twenty real minutes of unstructured RP. Crew may share a drink at the Banshee galley with Maya, take one walk around the upper Cloudscape promenade, or place one optional cantina conversation. No mandatory beat.",
+              "tactics": "NO DICE — atmosphere. Honor whichever direction the players take it. End scene at standard daybreak; hand off to adv3-p2-s1 (Day 1 — Catch the Cheater).",
+              "trigger": "After the briefing — crew has free time before standard daybreak",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         }
@@ -2166,48 +2182,7 @@
             "charm",
             "persuasion"
           ],
-          "encounters": [
-            {
-              "id": "enc-a3-p2-s1-beat1-the-floor",
-              "name": "Beat 1 — Reading the Floor",
-              "type": "social",
-              "trigger": "Crew enters the Royal Casino floor on Day 1",
-              "description": "The first hour of the tournament is observation. Competitor PCs are seated at separate tables (per registration). Security PCs walk the floor on Mandelbrot's rota. Spectator PCs work the rail. The brief is to identify the players who matter: Arandis, Fioro, Draver, Creeska, Moro. Krygg's \"plays like a man who has been told what to do with cards\" tell from the Ugnaught conversation grants free identification of Arandis to any PC who heard it.",
-              "tactics": "NO DICE for free identifications. Each PC may attempt one Sense (sense_spark) check per other named player to read deeper than the surface — Resist 3, failure = surface read only (no deeper detail). End beat after the first hour of observation."
-            },
-            {
-              "id": "enc-a3-p2-s1-beat2-catch-the-cheater",
-              "name": "Beat 2 — Catch the Cheater (security PC) / Make a Read (competitor PC)",
-              "type": "social",
-              "trigger": "Creeska palms his marker during a third-round hand",
-              "description": "Creeska is cheating in plain sight. The marker is a thumb-sized chemical applicator that tags high-value cards as they pass through his hands. The tell is a single repeating motion — sleeve, thumb, deck, sleeve — that takes one observation pass to spot if you know what you are looking for. Security PCs can spot it on a skulduggery or investigation check (Resist 3) and hand the evidence to Mandelbrot for a clean expulsion (Mandelbrot Rapport +1). Competitor PCs at Creeska's table can spot it from across the felt on the same check (skulduggery or investigation, Resist 3) and use it to fold strategically against him without triggering a reaction. The CRITICAL trap: if a PC accuses Creeska publicly without first surfacing the marker as evidence, Creeska's pre-paid Bothan witness corroborates that the accusing PC has been hovering and acting suspiciously, and Mandelbrot expels the accuser instead.",
-              "tactics": "ROLL — skulduggery or investigation vs Resist 3. SUCCESS: marker spotted, evidence in hand, Creeska expelled, Mandelbrot Rapport +1. FAILURE: PC reads Creeska as merely twitchy, no evidence, no movement. CRITICAL FAILURE PATH: PC who accuses Creeska without spotting the marker first is expelled by the Bothan witness plant. Buy-back-in costs 2,000 credits to re-enter Day 2."
-            },
-            {
-              "id": "enc-a3-p2-s1-beat3-day-one-cards",
-              "name": "Beat 3 — Day One Card Play",
-              "type": "social",
-              "trigger": "First competitive session of the tournament",
-              "description": "Sabacc is played. Each competitor PC plays through six hands at their assigned table while wearing the comm-jamming pin. The cards themselves matter less than the social tells — bluffs that match cover identity, betting patterns consistent with the brag-and-price the Ugnaughts coached, and the absence of crew-level coordination (no eye contact across tables, no shared bathroom breaks). The pin actively prevents crew comlink relay, so competitor PCs operate solo at the felt unless a security or spectator PC physically walks up and passes a note during a posted break.",
-              "tactics": "RUN: Charm or Deception vs Resist 3 per competitor PC for cover-hold under live pressure. Failure = cover slips, +1 Resist on the next Charm/Deception check at the table that day. Each PC who survives Day 1 advances to Day 2; each PC who busts is eliminated and must spend the 2,000-credit buy-back-in fee to re-enter on Day 2 (otherwise drops to spectator role for the rest of the tournament)."
-            },
-            {
-              "id": "enc-a3-p2-s1-beat4-back-bar-and-switch",
-              "name": "Beat 4 — Day One Recess at the Back Bar (and Switch's Reminder)",
-              "type": "social",
-              "trigger": "Tournament adjourns for evening recess",
-              "description": "The casino's back bar — open only to registered players and their plus-ones — fills up. PCs may approach Lt. Arandis (drinks alone, badly), Lady Fioro (holds court with a small Hapan retinue, watches Arandis from across the room), Silas Draver (genuinely drunk now, having dropped the act), or Koroma Moro (sits alone at a corner table with a Twi'lek liqueur and a private comlink). Switch may send a private Day 1 reminder to any crewmember who took the Dirty Money offer in principle — a one-line ping confirming Moro is at the corner table and the Day 3 commit window opens after the Maya/Varth argument.",
-              "tactics": "RUN: Charm / Sense (sense_spark) / Persuasion vs Resist 3 per contact. Each contact yields one named piece of intel that pays off in adv3-p2-s2 through adv3-p2-s4 (Arandis: the exact wafer hand-off timing; Fioro: Varga's docking bay number; Draver: a half-formed heist diversion the crew can co-opt; Moro: confirmation of the Switch arrangement and his asking-price for the win). End beat at last call. Comm-jamming pins come off at the bar — comlinks work here."
-            },
-            {
-              "id": "enc-a3-p2-s1-beat5-day-one-close",
-              "name": "Beat 5 — Day One Closes",
-              "type": "social",
-              "trigger": "Mandelbrot's tournament administrator calls Day 1 at midnight standard",
-              "description": "The administrator gavels Day 1 closed. The cashier posts the Day 2 bracket on the casino's marquee — half the field eliminated, the surviving PCs and named players advanced. Eliminated PCs are notified and given the 2,000-credit buy-back-in chip if they want it. Tables reset for the morning. The crew has a downtime block before Day 2 opens.",
-              "tactics": "NO DICE — forcing function. This is the Day 1 -> Day 2 transition. Note the surviving cast on the bracket; eliminated PCs decide on the buy-back-in. End scene; hand off to adv3-p2-s2 (Day 2 — Message from the Banshee)."
-            }
-          ],
+          "encounters": [],
           "environmentMechanics": [
             {
               "name": "Comm-Jamming Pin (Active on Competitors)",
@@ -2326,6 +2301,58 @@
               },
               "power": 3,
               "tier": 1
+            }
+          ],
+          "beats": [
+            {
+              "id": "adv3-p2-s1-b1",
+              "number": 1,
+              "title": "Reading the Floor",
+              "description": "The first hour of the tournament is observation. Competitor PCs are seated at separate tables (per registration). Security PCs walk the floor on Mandelbrot's rota. Spectator PCs work the rail. The brief is to identify the players who matter: Arandis, Fioro, Draver, Creeska, Moro. Krygg's \"plays like a man who has been told what to do with cards\" tell from the Ugnaught conversation grants free identification of Arandis to any PC who heard it.",
+              "tactics": "NO DICE for free identifications. Each PC may attempt one Sense (sense_spark) check per other named player to read deeper than the surface — Resist 3, failure = surface read only (no deeper detail). End beat after the first hour of observation.",
+              "trigger": "Crew enters the Royal Casino floor on Day 1",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s1-b2",
+              "number": 2,
+              "title": "Catch the Cheater (security PC) / Make a Read (competitor PC)",
+              "description": "Creeska is cheating in plain sight. The marker is a thumb-sized chemical applicator that tags high-value cards as they pass through his hands. The tell is a single repeating motion — sleeve, thumb, deck, sleeve — that takes one observation pass to spot if you know what you are looking for. Security PCs can spot it on a skulduggery or investigation check (Resist 3) and hand the evidence to Mandelbrot for a clean expulsion (Mandelbrot Rapport +1). Competitor PCs at Creeska's table can spot it from across the felt on the same check (skulduggery or investigation, Resist 3) and use it to fold strategically against him without triggering a reaction. The CRITICAL trap: if a PC accuses Creeska publicly without first surfacing the marker as evidence, Creeska's pre-paid Bothan witness corroborates that the accusing PC has been hovering and acting suspiciously, and Mandelbrot expels the accuser instead.",
+              "tactics": "ROLL — skulduggery or investigation vs Resist 3. SUCCESS: marker spotted, evidence in hand, Creeska expelled, Mandelbrot Rapport +1. FAILURE: PC reads Creeska as merely twitchy, no evidence, no movement. CRITICAL FAILURE PATH: PC who accuses Creeska without spotting the marker first is expelled by the Bothan witness plant. Buy-back-in costs 2,000 credits to re-enter Day 2.",
+              "trigger": "Creeska palms his marker during a third-round hand",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s1-b3",
+              "number": 3,
+              "title": "Day One Card Play",
+              "description": "Sabacc is played. Each competitor PC plays through six hands at their assigned table while wearing the comm-jamming pin. The cards themselves matter less than the social tells — bluffs that match cover identity, betting patterns consistent with the brag-and-price the Ugnaughts coached, and the absence of crew-level coordination (no eye contact across tables, no shared bathroom breaks). The pin actively prevents crew comlink relay, so competitor PCs operate solo at the felt unless a security or spectator PC physically walks up and passes a note during a posted break.",
+              "tactics": "RUN: Charm or Deception vs Resist 3 per competitor PC for cover-hold under live pressure. Failure = cover slips, +1 Resist on the next Charm/Deception check at the table that day. Each PC who survives Day 1 advances to Day 2; each PC who busts is eliminated and must spend the 2,000-credit buy-back-in fee to re-enter on Day 2 (otherwise drops to spectator role for the rest of the tournament).",
+              "trigger": "First competitive session of the tournament",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s1-b4",
+              "number": 4,
+              "title": "Day One Recess at the Back Bar (and Switch's Reminder)",
+              "description": "The casino's back bar — open only to registered players and their plus-ones — fills up. PCs may approach Lt. Arandis (drinks alone, badly), Lady Fioro (holds court with a small Hapan retinue, watches Arandis from across the room), Silas Draver (genuinely drunk now, having dropped the act), or Koroma Moro (sits alone at a corner table with a Twi'lek liqueur and a private comlink). Switch may send a private Day 1 reminder to any crewmember who took the Dirty Money offer in principle — a one-line ping confirming Moro is at the corner table and the Day 3 commit window opens after the Maya/Varth argument.",
+              "tactics": "RUN: Charm / Sense (sense_spark) / Persuasion vs Resist 3 per contact. Each contact yields one named piece of intel that pays off in adv3-p2-s2 through adv3-p2-s4 (Arandis: the exact wafer hand-off timing; Fioro: Varga's docking bay number; Draver: a half-formed heist diversion the crew can co-opt; Moro: confirmation of the Switch arrangement and his asking-price for the win). End beat at last call. Comm-jamming pins come off at the bar — comlinks work here.",
+              "trigger": "Tournament adjourns for evening recess",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s1-b5",
+              "number": 5,
+              "title": "Day One Closes",
+              "description": "The administrator gavels Day 1 closed. The cashier posts the Day 2 bracket on the casino's marquee — half the field eliminated, the surviving PCs and named players advanced. Eliminated PCs are notified and given the 2,000-credit buy-back-in chip if they want it. Tables reset for the morning. The crew has a downtime block before Day 2 opens.",
+              "tactics": "NO DICE — forcing function. This is the Day 1 -> Day 2 transition. Note the surviving cast on the bracket; eliminated PCs decide on the buy-back-in. End scene; hand off to adv3-p2-s2 (Day 2 — Message from the Banshee).",
+              "trigger": "Mandelbrot's tournament administrator calls Day 1 at midnight standard",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         },
@@ -2529,48 +2556,7 @@
             "sense_spark",
             "skulduggery"
           ],
-          "encounters": [
-            {
-              "id": "enc-a3-p2-s2-beat1-day-two-open",
-              "name": "Beat 1 — Day 2 Opens",
-              "type": "social",
-              "trigger": "Casino doors open Day 2 morning",
-              "description": "Half the field is gone from yesterday. The surviving competitors look it. Coffee. Black. Comm-jamming pins on. Tables reset. First session of the day runs an hour before the Banshee comm cuts in.",
-              "tactics": "NO DICE — atmosphere. The competitor PCs play one quiet hour of cards before Beat 2."
-            },
-            {
-              "id": "enc-a3-p2-s2-beat2-message-from-the-banshee",
-              "name": "Beat 2 — Message from the Banshee (Assiduous Arrival)",
-              "type": "social",
-              "trigger": "Varth's voice cuts in over the crew's open channel one hour into the session",
-              "description": "Varth's voice is genuinely afraid — the first time the crew has heard real fear in him since the Vanishing Place. He reports the Assiduous has dropped out of hyperspace and Inquisitor Draco is aboard. The competitor PCs at the felt cannot hear the comm because of the pin. The spectator/security PCs hear it first and must walk the news to the table during the next posted break — five real minutes of in-character improvisation in a casino full of people who are watching everything.",
-              "tactics": "NO DICE for the comm itself. ROLL once if a PC tries to relay during play (skulduggery vs Resist 3 to pass a coded note across the felt without a floor manager noticing — failure = floor manager warning, Mandelbrot Rapport -1). Force-sensitive PCs may roll a free Sense (sense_spark) at advantage (sense_spark, no Resist) to confirm what they already know — Draco himself is aboard. End beat after the relay lands or fails."
-            },
-            {
-              "id": "enc-a3-p2-s2-beat3-switch-day-two-reminder",
-              "name": "Beat 3 — Switch's Day Two Reminder",
-              "type": "social",
-              "trigger": "During the same break window, if the Dirty Money offer was accepted in principle (or pitched and deferred) in adv3-p1-s4",
-              "description": "Switch comms whichever crewmember answered the Day 1 pitch. He keeps it short: he wants confirmation that the offer is still live. He notes that Moro is holding the table well and could be in the final eight by end of Day 2. He is not pressuring; he is asking for an answer in principle so he knows whether to keep Moro at the felt. The actual commit is Day 3 (after the Maya/Varth argument in adv3-p2-s3).",
-              "tactics": "NO DICE — pitch reminder. If the crew commits in principle, Moro plays to script from here. If the crew defers, Switch waits until Day 3 commit window. If the crew refuses, Switch acknowledges and Moro plays his own game; the Imperial card transfer happens normally at the Final Table."
-            },
-            {
-              "id": "enc-a3-p2-s2-beat4-day-two-cards",
-              "name": "Beat 4 — Day 2 Card Play",
-              "type": "social",
-              "trigger": "Second session of Day 2",
-              "description": "Day 2 is the field-narrowing day. The remaining twenty-five players drop to twenty-four (and then to the Day 3 bracket). Table assignments rotate; at least one competitor PC ends up at the same table as Arandis or Fioro, putting the crew face-to-face with their targets in live play. Arandis loses two hands in a row that he should have won, deliberately, to set up the loss-pattern Varga's cashier needs to recognize. Fioro raises a hand and Arandis reads it without looking at her — they are working together openly, if you know how to look.",
-              "tactics": "RUN: harder Charm or Deception checks (Resist 3). The crew's tactical objective is to advance to the Day 3 bracket without exposing their cover. PCs who confirmed Arandis-Fioro coordination get -1 Resist on Sense (sense_spark) checks at adv3-p2-s4 (Final Table). End beat with the announced Day 3 bracket; hand off to adv3-p2-s3."
-            },
-            {
-              "id": "enc-a3-p2-s2-beat5-day-two-close",
-              "name": "Beat 5 — Day Two Closes",
-              "type": "social",
-              "trigger": "Mandelbrot's tournament administrator calls Day 2 at midnight standard",
-              "description": "The administrator gavels Day 2 closed. The cashier posts the Day 3 bracket. Surviving PCs advance to the morning Maya/Varth argument scene (adv3-p2-s3). The crew has a downtime block before Day 3 opens — Maya is on the Banshee with the Trandoshan datapad open in front of her, and Varth is already drafting the email she has not yet sent.",
-              "tactics": "NO DICE — forcing function. The Day 3 morning argument is loaded. End scene; hand off to adv3-p2-s3 (Pressure Cooker)."
-            }
-          ],
+          "encounters": [],
           "environmentMechanics": [
             {
               "name": "Comm-Jamming Pin (Active on Competitors)",
@@ -2691,6 +2677,58 @@
               },
               "power": 3,
               "tier": 1
+            }
+          ],
+          "beats": [
+            {
+              "id": "adv3-p2-s2-b1",
+              "number": 1,
+              "title": "Day 2 Opens",
+              "description": "Half the field is gone from yesterday. The surviving competitors look it. Coffee. Black. Comm-jamming pins on. Tables reset. First session of the day runs an hour before the Banshee comm cuts in.",
+              "tactics": "NO DICE — atmosphere. The competitor PCs play one quiet hour of cards before Beat 2.",
+              "trigger": "Casino doors open Day 2 morning",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s2-b2",
+              "number": 2,
+              "title": "Message from the Banshee (Assiduous Arrival)",
+              "description": "Varth's voice is genuinely afraid — the first time the crew has heard real fear in him since the Vanishing Place. He reports the Assiduous has dropped out of hyperspace and Inquisitor Draco is aboard. The competitor PCs at the felt cannot hear the comm because of the pin. The spectator/security PCs hear it first and must walk the news to the table during the next posted break — five real minutes of in-character improvisation in a casino full of people who are watching everything.",
+              "tactics": "NO DICE for the comm itself. ROLL once if a PC tries to relay during play (skulduggery vs Resist 3 to pass a coded note across the felt without a floor manager noticing — failure = floor manager warning, Mandelbrot Rapport -1). Force-sensitive PCs may roll a free Sense (sense_spark) at advantage (sense_spark, no Resist) to confirm what they already know — Draco himself is aboard. End beat after the relay lands or fails.",
+              "trigger": "Varth's voice cuts in over the crew's open channel one hour into the session",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s2-b3",
+              "number": 3,
+              "title": "Switch's Day Two Reminder",
+              "description": "Switch comms whichever crewmember answered the Day 1 pitch. He keeps it short: he wants confirmation that the offer is still live. He notes that Moro is holding the table well and could be in the final eight by end of Day 2. He is not pressuring; he is asking for an answer in principle so he knows whether to keep Moro at the felt. The actual commit is Day 3 (after the Maya/Varth argument in adv3-p2-s3).",
+              "tactics": "NO DICE — pitch reminder. If the crew commits in principle, Moro plays to script from here. If the crew defers, Switch waits until Day 3 commit window. If the crew refuses, Switch acknowledges and Moro plays his own game; the Imperial card transfer happens normally at the Final Table.",
+              "trigger": "During the same break window, if the Dirty Money offer was accepted in principle (or pitched and deferred) in adv3-p1-s4",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s2-b4",
+              "number": 4,
+              "title": "Day 2 Card Play",
+              "description": "Day 2 is the field-narrowing day. The remaining twenty-five players drop to twenty-four (and then to the Day 3 bracket). Table assignments rotate; at least one competitor PC ends up at the same table as Arandis or Fioro, putting the crew face-to-face with their targets in live play. Arandis loses two hands in a row that he should have won, deliberately, to set up the loss-pattern Varga's cashier needs to recognize. Fioro raises a hand and Arandis reads it without looking at her — they are working together openly, if you know how to look.",
+              "tactics": "RUN: harder Charm or Deception checks (Resist 3). The crew's tactical objective is to advance to the Day 3 bracket without exposing their cover. PCs who confirmed Arandis-Fioro coordination get -1 Resist on Sense (sense_spark) checks at adv3-p2-s4 (Final Table). End beat with the announced Day 3 bracket; hand off to adv3-p2-s3.",
+              "trigger": "Second session of Day 2",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s2-b5",
+              "number": 5,
+              "title": "Day Two Closes",
+              "description": "The administrator gavels Day 2 closed. The cashier posts the Day 3 bracket. Surviving PCs advance to the morning Maya/Varth argument scene (adv3-p2-s3). The crew has a downtime block before Day 3 opens — Maya is on the Banshee with the Trandoshan datapad open in front of her, and Varth is already drafting the email she has not yet sent.",
+              "tactics": "NO DICE — forcing function. The Day 3 morning argument is loaded. End scene; hand off to adv3-p2-s3 (Pressure Cooker).",
+              "trigger": "Mandelbrot's tournament administrator calls Day 2 at midnight standard",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         },
@@ -4012,48 +4050,7 @@
             "piloting",
             "tech"
           ],
-          "encounters": [
-            {
-              "id": "enc-a3-p2-s5-beat1-the-wreck",
-              "name": "Beat 1 — The Casino in Ruins",
-              "type": "social",
-              "trigger": "Immediately after the s4 heist resolution",
-              "description": "The Royal Casino floor is a wreck. Smoke from a discharged blaster hangs in the upper rafters. Two croupier droids are face-down. A Twi'lek dealer is trying to comfort a sobbing Bothan player. Sirens — Wing Guard responding — are audible from the upper concourse and closing fast. Lady Fioro is on the floor against the cashier counter, wounded in the thigh, blood pooling, terrified. She is talking. She will not stop talking. The crew has perhaps four minutes before Wing Guard arrives in force.",
-              "tactics": "NO DICE — orientation. Establish urgency through ambient detail (the sirens, the Bothan crying, the smoke). Players orient themselves and choose a direction — Fioro is the obvious draw but PCs may also want to grab the wafer from the cashier counter if it was not yet taken in s4. End beat when a PC kneels beside Fioro to listen."
-            },
-            {
-              "id": "enc-a3-p2-s5-beat2-fioro-talks",
-              "name": "Beat 2 — Fioro Spills",
-              "type": "social",
-              "trigger": "PC engages with Fioro",
-              "description": "Fioro, frightened and bleeding, gives up everything in a rush: \"He's at the lower docks — Docking Bay 4414. He has the Indemnity holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight! I was supposed to be on that ship. He promised me passage. He is not going to keep that promise. Get him. Get him for me.\" She thrusts her data-bracelet at the nearest PC — it contains the bay's service-entry codes she was supposed to use to board.",
-              "tactics": "NO DICE — Fioro talks willingly, terrified by the shooting and abandoned by Varga. Insight check (free) on Fioro: she is telling the truth and she is also planning to vanish off-world the moment Wing Guard distracts the crew. Players may choose to detain her (Wing Guard will find her, she will be charged, she will testify against Varga) or to let her run (she vanishes from the campaign — possibly returning later as a Hapan noble plot in a sequel). The data-bracelet is the deliverable either way."
-            },
-            {
-              "id": "enc-a3-p2-s5-beat3-varth-grim",
-              "name": "Beat 3 — Varth's Grim Update",
-              "type": "social",
-              "trigger": "On the comm, in parallel with Fioro",
-              "description": "Varth's voice cuts through the cashier-counter chaos: \"The Indemnity just activated its engines. Ten minutes to launch window. And — damn it. The Assiduous has moved. Geosynchronous over Cloud City. Not over the docks. Over the city. Draco is positioning to sterilize if Varga gets clear. We have ten minutes to put hands on Varga or this whole platform is glass.\" A beat. \"Maya is spinning the Banshee up. We have an exit. We do not have a city after this. Move.\"",
-              "tactics": "NO DICE — stakes escalation. Varth's update lands the actual cost of failure: Cloud City's population — millions — is leverage now. The ten-minute clock from this beat carries through s2-s3 (next adventure scenes). Players who heard the Storyteller's \"the cost of the gift\" or Krygg's Nuvo story should feel the moral weight of \"we leave or millions burn\" landing on the same nerve."
-            },
-            {
-              "id": "enc-a3-p2-s5-beat4-the-flight",
-              "name": "Beat 4 — Out the Service Corridor",
-              "type": "tactical",
-              "trigger": "Wing Guard reaches the casino floor",
-              "description": "The crew runs. The casino service corridor — accessible via the Ugnaught keycard if it was earned in adv3-p1-s2 — empties into the lower platform tram station. From there it is six minutes to the lower industrial docks and Bay 4414. Without the keycard, the crew has to fight or talk past two Wing Guard checkpoints, costing two minutes of their ten-minute window. With the Ugnaught safe-house promise from Beat 4 of the s2 conversation, they may stash any wounded crew at the level 312 cantina and pick them up after — Krygg is there cooking the meal he promised.",
-              "tactics": "RUN: Stealth / Athletics / fast-talk depending on route. With keycard: clean run, six minutes to docks. Without keycard: 2 checkpoints (Resist 2 each) and a +2 minute penalty per failed check. With safe-house: wounded PCs evacuate to level 312 and continue the next adventure with Krygg's (bad) hot meal already in their stomachs. End scene at the lower docks tram exit."
-            },
-            {
-              "id": "enc-a3-p2-s5-beat5-handoff",
-              "name": "Beat 5 — Hand-off to Part 3",
-              "type": "social",
-              "trigger": "Crew arrives at lower industrial docks tram exit",
-              "description": "The crew steps off the tram into the lower industrial docks — sodium-orange light, freight haulers, and Docking Bay 4414 visible four hundred meters across the platform, blast doors half-open, Varga's cargo train already moving toward the Indemnity's loading ramp. The Banshee is in low orbit per Maya's plan, ready to extract on signal. The Assiduous is a black wedge in the upper sky. The clock — eight minutes remaining of the ten Varth named — is on every visible chronometer in the dock yard.",
-              "tactics": "NO DICE — handoff beat. Establishes the geography for adv3-p3-s1 (The Gauntlet) and the eight-minute remaining clock. Players may take one short prep action here (a final comm to Varth, a quick gear check, a moment with Maya on intercom). End the scene the moment a PC commits to the dock approach. Adventure 3 Part 3 begins."
-            }
-          ],
+          "encounters": [],
           "environmentMechanics": [
             {
               "name": "City in Lockdown",
@@ -4139,6 +4136,58 @@
               },
               "power": 3,
               "tier": 1
+            }
+          ],
+          "beats": [
+            {
+              "id": "adv3-p2-s6-b1",
+              "number": 1,
+              "title": "The Casino in Ruins",
+              "description": "The Royal Casino floor is a wreck. Smoke from a discharged blaster hangs in the upper rafters. Two croupier droids are face-down. A Twi'lek dealer is trying to comfort a sobbing Bothan player. Sirens — Wing Guard responding — are audible from the upper concourse and closing fast. Lady Fioro is on the floor against the cashier counter, wounded in the thigh, blood pooling, terrified. She is talking. She will not stop talking. The crew has perhaps four minutes before Wing Guard arrives in force.",
+              "tactics": "NO DICE — orientation. Establish urgency through ambient detail (the sirens, the Bothan crying, the smoke). Players orient themselves and choose a direction — Fioro is the obvious draw but PCs may also want to grab the wafer from the cashier counter if it was not yet taken in s4. End beat when a PC kneels beside Fioro to listen.",
+              "trigger": "Immediately after the s4 heist resolution",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s6-b2",
+              "number": 2,
+              "title": "Fioro Spills",
+              "description": "Fioro, frightened and bleeding, gives up everything in a rush: \"He's at the lower docks — Docking Bay 4414. He has the Indemnity holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight! I was supposed to be on that ship. He promised me passage. He is not going to keep that promise. Get him. Get him for me.\" She thrusts her data-bracelet at the nearest PC — it contains the bay's service-entry codes she was supposed to use to board.",
+              "tactics": "NO DICE — Fioro talks willingly, terrified by the shooting and abandoned by Varga. Insight check (free) on Fioro: she is telling the truth and she is also planning to vanish off-world the moment Wing Guard distracts the crew. Players may choose to detain her (Wing Guard will find her, she will be charged, she will testify against Varga) or to let her run (she vanishes from the campaign — possibly returning later as a Hapan noble plot in a sequel). The data-bracelet is the deliverable either way.",
+              "trigger": "PC engages with Fioro",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s6-b3",
+              "number": 3,
+              "title": "Varth's Grim Update",
+              "description": "Varth's voice cuts through the cashier-counter chaos: \"The Indemnity just activated its engines. Ten minutes to launch window. And — damn it. The Assiduous has moved. Geosynchronous over Cloud City. Not over the docks. Over the city. Draco is positioning to sterilize if Varga gets clear. We have ten minutes to put hands on Varga or this whole platform is glass.\" A beat. \"Maya is spinning the Banshee up. We have an exit. We do not have a city after this. Move.\"",
+              "tactics": "NO DICE — stakes escalation. Varth's update lands the actual cost of failure: Cloud City's population — millions — is leverage now. The ten-minute clock from this beat carries through s2-s3 (next adventure scenes). Players who heard the Storyteller's \"the cost of the gift\" or Krygg's Nuvo story should feel the moral weight of \"we leave or millions burn\" landing on the same nerve.",
+              "trigger": "On the comm, in parallel with Fioro",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s6-b4",
+              "number": 4,
+              "title": "Out the Service Corridor",
+              "description": "The crew runs. The casino service corridor — accessible via the Ugnaught keycard if it was earned in adv3-p1-s2 — empties into the lower platform tram station. From there it is six minutes to the lower industrial docks and Bay 4414. Without the keycard, the crew has to fight or talk past two Wing Guard checkpoints, costing two minutes of their ten-minute window. With the Ugnaught safe-house promise from Beat 4 of the s2 conversation, they may stash any wounded crew at the level 312 cantina and pick them up after — Krygg is there cooking the meal he promised.",
+              "tactics": "RUN: Stealth / Athletics / fast-talk depending on route. With keycard: clean run, six minutes to docks. Without keycard: 2 checkpoints (Resist 2 each) and a +2 minute penalty per failed check. With safe-house: wounded PCs evacuate to level 312 and continue the next adventure with Krygg's (bad) hot meal already in their stomachs. End scene at the lower docks tram exit.",
+              "trigger": "Wing Guard reaches the casino floor",
+              "beatType": "narrative",
+              "optional": false
+            },
+            {
+              "id": "adv3-p2-s6-b5",
+              "number": 5,
+              "title": "Hand-off to Part 3",
+              "description": "The crew steps off the tram into the lower industrial docks — sodium-orange light, freight haulers, and Docking Bay 4414 visible four hundred meters across the platform, blast doors half-open, Varga's cargo train already moving toward the Indemnity's loading ramp. The Banshee is in low orbit per Maya's plan, ready to extract on signal. The Assiduous is a black wedge in the upper sky. The clock — eight minutes remaining of the ten Varth named — is on every visible chronometer in the dock yard.",
+              "tactics": "NO DICE — handoff beat. Establishes the geography for adv3-p3-s1 (The Gauntlet) and the eight-minute remaining clock. Players may take one short prep action here (a final comm to Varth, a quick gear check, a moment with Maya on intercom). End the scene the moment a PC commits to the dock approach. Adventure 3 Part 3 begins.",
+              "trigger": "Crew arrives at lower industrial docks tram exit",
+              "beatType": "narrative",
+              "optional": false
             }
           ]
         }
